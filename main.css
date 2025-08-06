@@ -25,21 +25,25 @@ a {
 /* HEADER */
 header {
   background-color: white;
-  position: auto;
+  position: fixed;
   top: 0;
   width: 100%;
   z-index: 999;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  padding: 10px 0; /* làm header gọn hơn */
 }
 
 .header-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0 20px; /* căn lề hai bên */
 }
+
 .logo img {
-  max-height: 150px;
+  max-height: 80px; /* giảm chiều cao logo để đỡ cao header */
 }
+
 .navbar ul {
   list-style: none;
   display: flex;
@@ -65,7 +69,9 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-top: 100px; /* chừa khoảng trống bằng chiều cao header */
 }
+
 .hero-content {
   color: white;
   text-align: center;
