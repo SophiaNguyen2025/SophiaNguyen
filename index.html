@@ -20,6 +20,12 @@
         <img src="img/hero.jpg" alt="Ảnh nhẹ nhàng" />
       </div>
     </section>
+    
+<div class="slideshow-box">
+  <img src="img1.jpg" class="slide-img active" />
+  <img src="img2.jpg" class="slide-img" />
+  <img src="img3.jpg" class="slide-img" />
+</div>
 
     <!-- DỊCH VỤ -->
     <h2 class="section-title">Dịch vụ nổi bật</h2>
@@ -67,5 +73,23 @@
       <a href="contact.html" class="cta-btn">📩 Gửi tin nhắn cho Sophia</a>
     </section>
   </div>
+
+   <!--Java-->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+  const boxes = document.querySelectorAll(".slideshow-box");
+
+  boxes.forEach((box) => {
+    const images = box.querySelectorAll(".slide-img");
+    let index = 0;
+
+    setInterval(() => {
+      images[index].classList.remove("active");
+      index = (index + 1) % images.length;
+      images[index].classList.add("active");
+    }, 3000); // đổi mỗi 3 giây
+  });
+});
+</script>
 </body>
 </html>
