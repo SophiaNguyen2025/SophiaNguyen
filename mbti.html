@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trắc nghiệm MBTI - Sophia Nguyễn</title>
+ 
+</head>
+<body>
+  <img src="logo-sophia.png" alt="Logo Sophia" class="logo">
+  <h1>Trắc nghiệm MBTI - Hiểu bản thân cùng Sophia</h1>
+
+  <form id="infoForm" action="https://formspree.io/f/mkgzvjwy" method="POST">
+    <label>Họ và tên:<br><input type="text" name="Họ và tên" required></label>
+    <label>Email:<br><input type="email" name="Email" required></label>
+    <label>Số điện thoại:<br><input type="tel" name="Số điện thoại" pattern="^\d{10}$" required placeholder="Nhập đúng 10 số"></label>
+    <button type="submit">Bắt đầu trắc nghiệm</button>
+  </form>
+
+  <div id="testForm" style="display:none">
+    <form id="quizForm">
+      <!-- 40 câu hỏi sẽ được tự động thêm ở đây bằng JavaScript -->
+      <div id="questionContainer"></div>
+      <button type="submit" id="submitBtn">Xem kết quả</button>
+    </form>
+  </div>
+
+  <div id="result"></div>
+
+  <script>
+    const questions = [
+      // Mỗi câu hỏi có cặp lựa chọn đại diện cho một nhóm MBTI cụ thể (E/I, S/N, T/F, J/P)
+      { text: "Bạn thích dành thời gian với nhiều người hơn là ở một mình.", a: "E", b: "I" },
+      { text: "Bạn thường chú ý đến chi tiết thực tế hơn là ý tưởng trừu tượng.", a: "S", b: "N" },
+      { text: "Bạn ra quyết định dựa trên lý trí hơn là cảm xúc.", a: "T", b: "F" },
+      { text: "Bạn thích kế hoạch rõ ràng hơn là linh hoạt.", a: "J", b: "P" },
+      // Thêm 36 câu nữa đã được trộn và cân bằng nhóm, em sẽ thêm tiếp ở bước sau
+    ];
+
+    const form = document.getElementById("infoForm");
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { Accept: "application/json" }
+      }).then(response => {
+        if (response.ok) {
+          document.getElementById("infoForm").style.display = "none";
+          document.getElementById("testForm").style.display = "block";
+          renderQuestions();
+        } else {
+          alert("Đã có lỗi xảy ra khi gửi thông tin.");
+        }
+      });
+    });
+
+    function renderQuestions() {
+      const container = document.getElementById("questionContainer");
+      questions.forEach((q, i) => {
+        const div = document.createElement("div");
+        div.classList.add("question");
+        div.innerHTML = `
+          <p><strong>Câu ${i + 1}:</strong> ${q.text}</p>
+          <label><input type="radio" name="q${i}" value="${q.a}" required> Đồng ý</label>
+          <label><input type="radio" name="q${i}" value="${q.b}"> Không đồng ý</label>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    document.getElementById("quizForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const scores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+
+      for (let [key, value] of formData.entries()) {
+        scores[value]++;
+      }
+
+      const type = `${scores["E"] >= scores["I"] ? "E" : "I"}` +
+                   `${scores["S"] >= scores["N"] ? "S" : "N"}` +
+                   `${scores["T"] >= scores["F"] ? "T" : "F"}` +
+                   `${scores["J"] >= scores["P"] ? "J" : "P"}`;
+
+      document.getElementById("result").innerHTML = `<h2>Kết quả của bạn là: ${type}</h2><p>Đây là kiểu tính cách MBTI dựa trên trắc nghiệm. Hãy đọc thêm để hiểu rõ hơn về nhóm tính cách này nhé!</p>`;
+    });
+  </script>
+  <!------Css------->
+ <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f7fa;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    img.logo {
+      max-width: 120px;
+      margin-bottom: 10px;
+    }
+    h1 {
+      color: #4e4e4e;
+    }
+    .question {
+      margin: 10px 0;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #fff;
+    }
+    .question label {
+      display: block;
+      margin: 5px 0;
+    }
+    #submitBtn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #e3f2fd;
+      border: 1px solid #90caf9;
+      border-radius: 8px;
+    }
+  </style>
+  
+</body>
+</html>
