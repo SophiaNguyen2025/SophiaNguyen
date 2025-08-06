@@ -25,24 +25,32 @@ a {
 /* HEADER */
 header {
   background-color: white;
-  position: fixed;
+  position: fixed; /* Giữ cố định trên cùng */
   top: 0;
   width: 100%;
   z-index: 999;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  padding: 10px 0; /* làm header gọn hơn */
+  height: 100px; /* ✅ Giới hạn chiều cao header */
+  display: flex;
+  align-items: center;
+  padding: 0px
 }
 
 .header-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px; /* căn lề hai bên */
+  padding: 0 20px;
 }
 
 .logo img {
-  max-height: 80px; /* giảm chiều cao logo để đỡ cao header */
+  height: 80px; /* ✅ Thu nhỏ thật sự logo */
+  max-height: 100%;
 }
+
 
 .navbar ul {
   list-style: none;
