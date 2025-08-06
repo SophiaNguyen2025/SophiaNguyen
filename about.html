@@ -5,9 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Giới thiệu về Sophia Nguyễn</title>
   <link rel="stylesheet" href="main.css" />
-  </head>
+
+  <!-- Thêm thư viện AOS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+</head>
 <body>
-     <header class="header">
+  <header class="header">
     <div class="container header-container">
       <a href="index.html" class="logo">
         <img src="images/hinhremovenen.png" alt="Sophia Logo" />
@@ -24,7 +27,7 @@
     </div>
   </header>
     
-  <section class="hero">
+  <section class="hero" data-aos="fade-up">
     <div class="hero-overlay">
       <div class="hero-content">
         <h1>Sophia Nguyễn – Đồng hành & Sẻ chia</h1>
@@ -33,9 +36,9 @@
       </div>
     </div>
   </section>
-     <!-- PHẦN VIDEO & GIỚI THIỆU -->
+
   <main class="container">
-       <div class="flex-row">
+    <div class="flex-row" data-aos="fade-up">
       <div class="text-col">
         <h2>Sophia Nguyễn – Người đồng hành thân tình của bạn</h2>
         <p>
@@ -50,20 +53,19 @@
           Mình không nhận mình là chuyên gia. Mình là người bạn đồng hành – chân thành, bình dị, và luôn sẵn lòng có mặt khi bạn cần.
         </p>
       </div>
-      <div class="video-section">
+      <div class="video-section" data-aos="fade-left">
         <video controls playsinline>
-          <source src="image/lv_0_20250806021932.mp4" type="video/mp4" />
+          <source src="images/lv_0_20250806021932.mp4" type="video/mp4"/>
           Trình duyệt của bạn không hỗ trợ video.
         </video>
       </div>
     </div>
 
-    <!-- PHẦN SỨ MỆNH -->
-    <div class="section flex-row">
-      <div class="image-col">
-        <img src="images/IMG_20250805_000100.jpg" alt="Sứ mệnh" />
+    <div class="section flex-row" data-aos="fade-up">
+      <div class="image-col" data-aos="fade-right">
+        <img src="images/IMG_20250805_000100.jpg" alt="Sứ mệnh"/>
       </div>
-      <div class="text-col">
+      <div class="text-col" data-aos="fade-left">
         <h2>Sứ mệnh</h2>
         <p>
           Mình tin rằng: được sống là chính mình và kết nối sâu sắc với người khác là một nhu cầu căn bản của con người.
@@ -72,26 +74,24 @@
       </div>
     </div>
 
-    <!-- PHẦN TRIẾT LÝ -->
-    <div class="section flex-row">
-      <div class="text-col">
+    <div class="section flex-row" data-aos="fade-up">
+      <div class="text-col" data-aos="fade-right">
         <h2>Triết lý làm nghề</h2>
         <p>
           Sự phát triển bền vững bắt đầu từ sự tử tế với chính mình. Trong từng cuộc gặp gỡ, mình chọn hiện diện trọn vẹn,
           lắng nghe không phán xét, và tôn trọng sự khác biệt – vì mỗi người là một thế giới.
         </p>
       </div>
-      <div class="image-col">
-        <img src="iamges/IMG_1477.JPG" alt="Triết lý" />
+      <div class="image-col" data-aos="fade-left">
+        <img src="images/IMG_1477.JPG" alt="Triết lý"/>
       </div>
     </div>
 
-    <!-- PHẦN TẦM NHÌN -->
-    <div class="section flex-row">
-      <div class="image-col">
-        <img src="images/2222.jpg" alt="Tầm nhìn" />
+    <div class="section flex-row" data-aos="fade-up">
+      <div class="image-col" data-aos="fade-right">
+        <img src="images/2222.jpg" alt="Tầm nhìn"/>
       </div>
-      <div class="text-col">
+      <div class="text-col" data-aos="fade-left">
         <h2>Tầm nhìn</h2>
         <p>
           Mình hướng đến việc xây dựng một cộng đồng kết nối bằng sự chân thành, nơi mỗi người đều có thể tìm thấy sự đồng cảm,
@@ -101,14 +101,12 @@
     </div>
   </main>
   
-  <!-- CTA -->
-  <section class="cta-section">
+  <section class="cta-section" data-aos="zoom-in">
     <a href="https://zalo.me/0977092182" class="cta-btn">📅 Đặt lịch tư vấn</a>
     <a href="contact.html" class="cta-btn">📩 Gửi tin nhắn cho Sophia</a>
   </section>
 
-  <!-- FOOTER -->
-  <footer class="footer">
+  <footer class="footer" data-aos="fade-up">
     <div class="footer-container">
       <div class="footer-logo">
         <img src="images/hinhremovenen.png" alt="Logo Sophia">
@@ -142,5 +140,14 @@
       <p>&copy; 2025 Sophia Nguyễn. All rights reserved.</p>
     </div>
   </footer>
+
+  <!-- Script AOS -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 1000,
+      once: true
+    });
+  </script>
 </body>
 </html>
