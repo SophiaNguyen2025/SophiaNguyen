@@ -316,5 +316,47 @@ a {
       padding-left: 1rem;
       margin: 1.5rem 0;
     }
+<style>
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
 
+    .flex-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .video-section video {
+      width: 100%;
+      border-radius: 12px;
+    }
+
+    .text-col {
+      flex: 1 1 50%;
+    }
+
+    .image-col img {
+      width: 100%;
+      border-radius: 12px;
+    }
+
+    h2 {
+      font-size: 28px;
+      color: #7f4ca5;
+      margin-bottom: 16px;
+    }
+
+    .section {
+      margin-top: 80px;
+    }
+
+    @media (max-width: 768px) {
+      .flex-row {
+        flex-direction: column;
+      }
+    }
 
