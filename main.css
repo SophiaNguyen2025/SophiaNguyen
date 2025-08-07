@@ -521,3 +521,48 @@ body {
 .section-title {
   color: #0a4a5a;
 }
+/* ==== MÀU CHỦ ĐẠO ==== */
+:root {
+  --primary-color: #0a4a5a;
+  --primary-hover: #083b48;
+}
+
+body {
+  color: #333;
+}
+
+h1, h2, h3, h4, h5, h6,
+.section-title {
+  color: var(--primary-color);
+}
+
+/* Nút chính */
+.cta-btn {
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.cta-btn:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Menu link active + hover */
+.navbar a.active,
+.navbar a:hover {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+}
+
+/* Footer (nếu có màu nền) */
+footer {
+  background-color: #f8f8f8;
+  color: var(--primary-color);
+  padding: 30px 0;
+  text-align: center;
+}
