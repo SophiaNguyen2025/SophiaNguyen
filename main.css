@@ -702,13 +702,6 @@ footer {
     text-align: center;
   }
 }
-.box img {
-  width: 100%;
-  height: 180px; /* hoặc 200px nếu chị muốn cao hơn */
-  object-fit: cover;
-  border-radius: 8px;
-}
-
 @media (max-width: 768px) {
   .navbar {
     flex-direction: column;
@@ -853,12 +846,19 @@ footer {
   background-image: url('images/banner.jpg');
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
-
   width: 100%;
-  height: 400px; /* hoặc 50vh tùy chị muốn banner cao hay thấp */
+  height: 400px; /* Chị muốn cao bao nhiêu, set tại đây */
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
+  text-align: center;
+}
+.banner-img {
+  width: 100%;
+  height: 40vh;         /* Chiều cao banner 40% màn hình, hoặc thay bằng 400px nếu muốn */
+  max-height: 500px;    /* Không vượt quá 500px */
+  object-fit: cover;    /* Giữ ảnh không méo, cắt đều nếu ảnh to */
+  display: block;
+  border-radius: 0;     /* Optional: bo góc nếu muốn, hoặc để yên */
 }
