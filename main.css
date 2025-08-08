@@ -71,6 +71,9 @@ body {
   color: #663399;
   border-bottom: 2px solid #663399;
 }
+.navbar {
+  transition: all 0.3s ease;
+}
 
 /* ===== DROPDOWN MENU ===== */
 .navbar ul ul {
@@ -110,7 +113,7 @@ body {
 
 /* =================== HERO =================== */
 .hero {
-  background: url('images/donghanh.jpg') center/cover no-repeat;
+  background: #446b50
   position: relative;
   height: 400px;
   display: flex;
@@ -146,7 +149,7 @@ body {
 
 .btn-primary {
   display: inline-block;
-  background-color: #ff5e5e;
+  background-color: #f7c0aa;
   color: white;
   padding: 12px 24px;
   border-radius: 6px;
@@ -372,7 +375,7 @@ body {
   border-radius: 8px;
 }
 .footer {
-  background-color: #222;
+  background-color: #F17B77;
   color: white;
   padding: 40px 0;
 }
@@ -516,7 +519,7 @@ h1, h2, h3, h4, h5, h6,
 }
 
 /* Nút chính */
-.cta-btn {
+.cta-datlich {
   background-color: var(--primary-color);
   color: #fff;
   border: none;
@@ -527,7 +530,7 @@ h1, h2, h3, h4, h5, h6,
   transition: 0.3s;
 }
 
-.cta-btn:hover {
+.cta-datlich:hover {
   background-color: var(--primary-hover);
 }
 
@@ -667,4 +670,64 @@ footer {
   height: 180px; /* hoặc 200px nếu chị muốn cao hơn */
   object-fit: cover;
   border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    background: #fff;
+    padding: 10px;
+  }
+
+  .hero-content h1 {
+    font-size: 22px;
+  }
+
+  .hero-content p {
+    font-size: 16px;
+  }
+
+  .btn-primary, .cta-btn {
+    font-size: 14px;
+    padding: 10px 16px;
+  }
+
+  .grid {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .box {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .flex-row {
+    flex-direction: column;
+    gap: 24px;
+    padding: 20px;
+  }
+
+  .text-col, .image-col, .video-section {
+    max-width: 100%;
+  }
+
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-logo, .footer-links, .footer-contact {
+    flex: 1 1 100%;
+  }
+
+  .footer-links ul li a {
+    font-size: 14px;
+  }
+
+  .social-icons img {
+    margin: 0 8px;
+  }
 }
