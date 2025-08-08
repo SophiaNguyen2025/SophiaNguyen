@@ -11,71 +11,63 @@ body {
   background-color: #fdfaf5;
   color:	#333333;
 }
+/* === HEADER CƠ BẢN === */
 .header {
-  background-color: #0a4a5a;
-  color: #fff;
+  background-color: #0a4a5a; /* Màu nền header */
+  padding: 10px 0;
 }
-
-/* =================== CONTAINER =================== */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 16px;
-}
-
-/* =================== HEADER =================== */
 
 .header-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.logo img {
+  height: 60px;
 }
 
 .navbar ul {
   display: flex;
   list-style: none;
   gap: 20px;
-  padding: 0;
   margin: 0;
-}
-
-.navbar ul li a {
-  text-decoration: none;
-  color: #333;
-  font-weight: 500;
-}
-
-.logo img {
-  height: 150px;
-}
-
-/* =================== NAVBAR =================== */
-.navbar {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  list-style: none;
-  flex-wrap: wrap;
-}
-
-.navbar li {
-  position: relative;
+  padding: 0;
 }
 
 .navbar a {
   text-decoration: none;
-  color: #333;
+  color: #ffffff;
   font-weight: 500;
-  padding: 8px 12px;
 }
 
-.navbar a:hover {
-  color: #663399;
-  border-bottom: 2px solid #663399;
+/* === BANNER === */
+.banner img {
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+  object-fit: cover;
+  display: block;
 }
-.navbar {
-  transition: all 0.3s ease;
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .header-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar ul {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .banner img {
+    max-height: 300px;
+  }
 }
 
 /* ===== DROPDOWN MENU ===== */
