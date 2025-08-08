@@ -6,10 +6,14 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: Be VietNam Pro, sans-serif;
   line-height: 1.6;
-  background-color: #fff;
-  color: #333;
+  background-color: #fdfaf5;
+  color:	#333333;
+}
+.header {
+  background-color: #0a4a5a;
+  color: #fff;
 }
 
 /* =================== CONTAINER =================== */
@@ -95,11 +99,6 @@ body {
   padding: 10px;
   white-space: nowrap;
 }
-@media (max-width: 768px) {
-  .menu-toggle {
-    display: flex;
-  }
-
   .navbar {
     display: none;
     flex-direction: column;
@@ -115,63 +114,7 @@ body {
     width: 100%;
     text-align: left;
   }
-}
 
-
-/* =================== HERO =================== */
-.hero {
-  background: #446b50
-  position: relative;
-  height: 400px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-}
-
-.hero-overlay {
-  background-color: rgba(0, 0, 0, 0.5);
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-.hero-content {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-
-.hero-content {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-}
-
-.hero-content h1 {
-  font-size: 36px;
-  margin-bottom: 10px;
-}
-
-.hero-content p {
-  font-size: 18px;
-  margin-bottom: 20px;
-}
-
-.btn-primary {
-  display: inline-block;
-  background-color: #f7c0aa;
-  color: white;
-  padding: 12px 24px;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: bold;
-}
 
 /* =================== FLEX 2-COLUMN =================== */
 .flex-row {
@@ -386,7 +329,7 @@ body {
   border-radius: 8px;
 }
 .footer {
-  background-color: #F17B77;
+  background-color: #0a4a5a;
   color: white;
   padding: 40px 0;
 }
@@ -755,11 +698,13 @@ footer {
   margin-top: 40px;
 }
   
-.slogan-img {
-  max-width: 100%;
-  height: auto;
-  object-fit: contain;
+.banner-img {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  display: block;
 }
+
 .hero-content {
   display: flex;
   flex-direction: column;
@@ -783,57 +728,15 @@ footer {
 .btn-primary:hover {
   background-color: var(--primary-hover);
 }
-.hero-banner {
-  background: url('images/donghanh.jpg') center center / cover no-repeat;
-  position: relative;
-  min-height: 350px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  text-align: center;
-}
-
-.hero-banner .hero-overlay {
-  background-color: rgba(0, 0, 0, 0.5);
-  position: absolute;
+.banner-img {
   width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-}
-
-.hero-banner .hero-content {
-  position: relative;
-  z-index: 1;
-  padding: 20px;
-  width: 100%;
-}
-
-.hero-banner img.slogan-img {
-  max-width: 90%;
   height: auto;
+  max-height: 400px;
+  object-fit: cover;
   display: block;
-  margin: 0 auto 20px;
 }
 @media (max-width: 768px) {
-  .hero-banner {
-    min-height: 250px;
-    background-position: center center;
+  .banner-img {
+    max-height: 250px;
   }
-
-  .hero-banner img.slogan-img {
-    max-width: 95%;
-  }
-
-  .hero-banner .btn-primary {
-    font-size: 14px;
-    padding: 10px 20px;
-  }
-}
-.hero {
-  background-color: #f0f0f0;
-  padding: 60px 20px;
-  text-align: center;
-  color: var(--primary-color);
 }
