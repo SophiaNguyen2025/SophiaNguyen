@@ -13,45 +13,52 @@ body {
 }
 /* === HEADER CƠ BẢN === */
 .header {
-  background-color: #0a4a5a; /* Màu nền header */
-  padding: 10px 0;
+  background-color: #0a4a5a;
+  padding: 20px 0;
 }
 
 .header-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap; /* cho responsive */
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
 }
 
 .logo img {
-  height: 60px;
+  height: 150px; /* tăng từ 40 -> 60 hoặc tùy */
 }
 
 .navbar ul {
   display: flex;
   list-style: none;
   gap: 20px;
-  margin: 0;
   padding: 0;
+  margin: 0;
 }
 
 .navbar a {
+  color: white;
   text-decoration: none;
-  color: #ffffff;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 /* === BANNER === */
-.banner img {
+.banner {
+  width: 100%;
+  overflow: hidden;
+}
+
+.banner-img {
   width: 100%;
   height: auto;
-  max-height: 500px;
-  object-fit: cover;
   display: block;
+  max-height: 450px; /* chị có thể điều chỉnh 300~500px tùy mong muốn */
+  object-fit: contain; /* hoặc 'cover' nếu muốn full chiều rộng, nhưng nên canh crop hình hợp lý */
 }
+
 
 /* === RESPONSIVE === */
 @media (max-width: 768px) {
