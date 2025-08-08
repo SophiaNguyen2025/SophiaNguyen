@@ -15,6 +15,7 @@
       <a href="index.html" class="logo">
         <img src="images/hinhremovenen.png" alt="Sophia Logo" />
       </a>
+  <div class="menu-toggle" id="menu-toggle">
       <nav class="navbar">
          <ul>
           <li><a href="index.html">Trang chủ</a></li>
@@ -116,8 +117,8 @@
 
   <!-- CTA -->
   <section class="cta-section" data-aos="zoom-in-up" data-aos-duration="1000">
-    <a href="https://zalo.me/0977092182" class="cta-btn">📅 Đặt lịch tư vấn</a>
-    <a href="contact.html" class="cta-btn">📩 Gửi tin nhắn cho Sophia</a>
+    <a href="https://zalo.me/0977092182" class="cta-datlich">📅 Đặt lịch tư vấn</a>
+    <a href="contact.html" class="cta-datlich">📩 Gửi tin nhắn cho Sophia</a>
   </section>
 
   <!-- FOOTER -->
@@ -180,5 +181,16 @@
     easing: 'ease-out-cubic',
   });
 </script>
- </body>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const toggle = document.getElementById("menu-toggle");
+    const navbar = document.getElementById("navbar");
+
+    toggle.addEventListener("click", function () {
+      navbar.classList.toggle("active");
+    });
+  });
+</script>
+
+</body>
 </html>
