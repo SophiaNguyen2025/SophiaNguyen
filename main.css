@@ -1,5 +1,4 @@
-/* =================== RESET =================== */
-* {
+ {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -10,83 +9,72 @@ body {
   background-color: #fdfaf5;
   color:	#333333;
 }
-/* === HEADER CƠ BẢN === */
-.header {
-  background-color: #0a4a5a; /* Màu nền header */
-  padding: 0;
+
+/* =================== CONTAINER =================== */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
 }
+
+/* =================== HEADER =================== */
 
 .header-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
-}
-
-.logo img {
-  height: 50px; /* Tuỳ chỉnh chiều cao logo */
+  padding: 20px;
 }
 
 .navbar ul {
   display: flex;
+  list-style: none;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+}
+
+.navbar ul li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+.logo img {
+  height: 150px;
+}
+
+/* =================== NAVBAR =================== */
+.navbar {
+  display: flex;
+  align-items: center;
   gap: 20px;
   list-style: none;
-  margin: 0;
-  padding: 0;
+  flex-wrap: wrap;
+}
+
+.navbar li {
+  position: relative;
 }
 
 .navbar a {
-  color: white;
   text-decoration: none;
-  font-weight: 600;
+  color: #333;
+  font-weight: 500;
+  padding: 8px 12px;
 }
 
-.banner {
-  width: 100%;
+.navbar a:hover {
+  color: #663399;
+  border-bottom: 2px solid #663399;
 }
-
-.banner-img {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
+.navbar {
+  transition: all 0.3s ease;
 }
-
-
-/* === BANNER === */
-.banner {
-  width: 100%;
-  overflow: hidden;
-}
-
-.banner-img {
-  width: 100%;
-  height: auto;
-  display: block;
-  max-height: 450px; 
-  object-fit: cover; 
-}
-
-
-/* === RESPONSIVE === */
-@media (max-width: 768px) {
-  .header-container {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .navbar ul {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .banner img {
-    max-height: 300px;
-  }
 
 /* ===== DROPDOWN MENU ===== */
 .navbar ul ul {
-  display: block !important ;
+  display: none;
   position: absolute;
   top: 100%;
   left: 0;
@@ -105,8 +93,13 @@ body {
   padding: 10px;
   white-space: nowrap;
 }
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: flex;
+  }
+
   .navbar {
-    display: block !important;
+    display: none;
     flex-direction: column;
     width: 100%;
     background: #fff;
@@ -120,7 +113,63 @@ body {
     width: 100%;
     text-align: left;
   }
+}
 
+
+/* =================== HERO =================== */
+.hero {
+  background: #446b50
+  position: relative;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.hero-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.hero-content h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.hero-content p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.btn-primary {
+  display: inline-block;
+  background-color: #f7c0aa;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+}
 
 /* =================== FLEX 2-COLUMN =================== */
 .flex-row {
@@ -190,7 +239,7 @@ body {
   .navbar {
     flex-direction: column;
     width: 100%;
-    display: block !important;
+    display: none;
     background: #fff;
   }
 
@@ -335,7 +384,7 @@ body {
   border-radius: 8px;
 }
 .footer {
-  background-color: #0a4a5a;
+  background-color: #F17B77;
   color: white;
   padding: 40px 0;
 }
@@ -355,7 +404,7 @@ body {
 }
 
 .footer-logo img {
-  width: 150px;
+  width: 120px;
   margin-bottom: 10px;
 }
 
@@ -491,7 +540,6 @@ h6 {
   font-family: 'Be Vietnam Pro', sans-serif;
   color: #fdfaf5;
 }
-
 /* Nút chính */
 .cta-datlich {
   background-color: var(--primary-color) !important;
@@ -718,13 +766,11 @@ footer {
   margin-top: 40px;
 }
   
-.banner-img {
-  width: 100%;
-  max-height: 400px;
-  object-fit: cover;
-  display: block;
+.slogan-img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
 }
-
 .hero-content {
   display: flex;
   flex-direction: column;
@@ -748,15 +794,57 @@ footer {
 .btn-primary:hover {
   background-color: var(--primary-hover);
 }
-.banner-img {
+.hero-banner {
+  background: url('images/donghanh.jpg') center center / cover no-repeat;
+  position: relative;
+  min-height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+}
+
+.hero-banner .hero-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
   width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.hero-banner .hero-content {
+  position: relative;
+  z-index: 1;
+  padding: 20px;
+  width: 100%;
+}
+
+.hero-banner img.slogan-img {
+  max-width: 90%;
   height: auto;
-  max-height: 400px;
-  object-fit: cover;
   display: block;
+  margin: 0 auto 20px;
 }
 @media (max-width: 768px) {
-  .banner-img {
-    max-height: 250px;
+  .hero-banner {
+    min-height: 250px;
+    background-position: center center;
   }
+
+  .hero-banner img.slogan-img {
+    max-width: 95%;
+  }
+
+  .hero-banner .btn-primary {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+}
+.hero {
+  background-color: #f0f0f0;
+  padding: 60px 20px;
+  text-align: center;
+  color: var(--primary-color);
 }
