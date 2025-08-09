@@ -146,10 +146,8 @@
           renderQuestions();
         }
       }, 1000);
-
       return true; // vẫn cho phép submit vào hiddenFrame
     }
-
     function renderQuestions() {
       const container = document.getElementById("questionContainer");
       container.innerHTML = ""; // xóa câu cũ nếu có
@@ -164,18 +162,15 @@
         container.appendChild(div);
       });
     }
-
     document.getElementById("quizForm").addEventListener("submit", function (e) {
       e.preventDefault();
       const formData = new FormData(e.target);
       const scores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
-
       for (let [key, value] of formData.entries()) {
         scores[value]++;
       }
-
       const type = `${scores["E"] >= scores["I"] ? "E" : "I"}${scores["S"] >= scores["N"] ? "S" : "N"}${scores["T"] >= scores["F"] ? "T" : "F"}${scores["J"] >= scores["P"] ? "J" : "P"}`;
-      window.location.href = `mbti/${type}.html`;
+    
        });
   </script>
 </body>
