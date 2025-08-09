@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Self-Acceptance Index Test 🌸</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fff7f0;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #d53f8c;
+    }
+    .question {
+      margin-bottom: 20px;
+      padding: 15px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .options label {
+      display: block;
+      margin: 5px 0;
+    }
+    #submitBtn {
+      display: block;
+      margin: 30px auto;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #d53f8c;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 30px;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 18px;
+    }
+    .low { background-color: #f8d7da; color: #721c24; }
+    .medium { background-color: #fff3cd; color: #856404; }
+    .high { background-color: #d4edda; color: #155724; }
+  </style>
+</head>
+<body>
+
+<h1>🌸 Bài Test Tự Chấp Nhận – Self-Acceptance Index</h1>
+
+<form id="quizForm">
+  <div id="questions"></div>
+  <button type="button" id="submitBtn">Xem kết quả</button>
+</form>
+
+<div id="result"></div>
+
+<script>
+  const questions = [
+    {
+      text: "Khi bạn nhận ra mình có điểm yếu, bạn sẽ:",
+      options: [
+        { text: "Cảm thấy xấu hổ và cố giấu đi", score: 1 },
+        { text: "Tự trách và cố gắng thay đổi", score: 2 },
+        { text: "Chấp nhận và học cách cải thiện", score: 3 },
+        { text: "Yêu thương bản thân bất chấp điểm yếu", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn có cảm xúc tiêu cực, bạn thường:",
+      options: [
+        { text: "Cố gắng kìm nén và không thể hiện ra", score: 1 },
+        { text: "Tự trách vì không kiểm soát được", score: 2 },
+        { text: "Chấp nhận cảm xúc và tìm cách xử lý", score: 3 },
+        { text: "Cho phép mình cảm nhận đầy đủ và không phán xét", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn thấy mình khác biệt với người khác, bạn sẽ:",
+      options: [
+        { text: "Cố gắng thay đổi để giống họ", score: 1 },
+        { text: "Cảm thấy không phù hợp", score: 2 },
+        { text: "Chấp nhận sự khác biệt", score: 3 },
+        { text: "Tự hào về sự độc đáo của mình", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn nhớ lại những sai lầm trong quá khứ, bạn sẽ:",
+      options: [
+        { text: "Cảm thấy tội lỗi và xấu hổ", score: 1 },
+        { text: "Tự trách và ước gì mình làm khác đi", score: 2 },
+        { text: "Học từ sai lầm và rút kinh nghiệm", score: 3 },
+        { text: "Tha thứ cho bản thân và trân trọng hành trình", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn không đạt được kỳ vọng, bạn sẽ:",
+      options: [
+        { text: "Cảm thấy mình thất bại", score: 1 },
+        { text: "Tự trách vì chưa đủ cố gắng", score: 2 },
+        { text: "Xem lại mục tiêu và điều chỉnh", score: 3 },
+        { text: "Chấp nhận kết quả và động viên bản thân", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn bị người khác đánh giá, bạn sẽ:",
+      options: [
+        { text: "Cảm thấy tổn thương và nghi ngờ bản thân", score: 1 },
+        { text: "Cố gắng thay đổi để được chấp nhận", score: 2 },
+        { text: "Lắng nghe và chọn lọc phản hồi", score: 3 },
+        { text: "Giữ vững giá trị bản thân và không bị ảnh hưởng", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn nhìn vào bản thân trong gương, bạn sẽ:",
+      options: [
+        { text: "Chỉ thấy khuyết điểm", score: 1 },
+        { text: "Muốn thay đổi ngoại hình", score: 2 },
+        { text: "Chấp nhận cả điểm tốt và chưa tốt", score: 3 },
+        { text: "Mỉm cười và cảm thấy biết ơn chính mình", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn cảm thấy không giống ai trong môi trường xung quanh, bạn sẽ:",
+      options: [
+        { text: "Cố gắng hòa nhập bằng cách thay đổi bản thân", score: 1 },
+        { text: "Cảm thấy lạc lõng và cô đơn", score: 2 },
+        { text: "Chấp nhận sự khác biệt của mình", score: 3 },
+        { text: "Tìm cách thể hiện bản sắc riêng một cách tự tin", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn có cảm xúc tiêu cực kéo dài, bạn sẽ:",
+      options: [
+        { text: "Cảm thấy mình yếu đuối và đáng trách", score: 1 },
+        { text: "Cố gắng che giấu để không ai biết", score: 2 },
+        { text: "Tìm hiểu nguyên nhân và xử lý dần", score: 3 },
+        { text: "Chấp nhận cảm xúc như một phần tự nhiên của cuộc sống", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn bị người khác hiểu sai, bạn sẽ:",
+      options: [
+        { text: "Cảm thấy tổn thương và im lặng", score: 1 },
+        { text: "Cố gắng giải thích để được chấp nhận", score: 2 },
+        { text: "Làm rõ nếu cần, nhưng không ép buộc", score: 3 },
+        { text: "Chấp nhận rằng không phải ai cũng hiểu mình", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn thấy mình không hoàn hảo, bạn sẽ:",
+      options: [
+        { text: "Cảm thấy thất vọng và muốn thay đổi", score: 1 },
+        { text: "Tự trách vì không đủ tốt", score: 2 },
+        { text: "Chấp nhận rằng ai cũng có điểm chưa hoàn hảo", score: 3 },
+        { text: "Yêu thương bản thân bất chấp sự không hoàn hảo", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn nhớ lại những điều khiến bạn xấu hổ, bạn sẽ:",
+      options: [
+        { text: "Trốn tránh và không muốn nghĩ đến", score: 1 },
+        { text: "Tự trách vì đã hành xử như vậy", score: 2 },
+        { text: "Nhìn lại để học hỏi", score: 3 },
+        { text: "Chấp nhận đó là một phần của quá trình trưởng thành", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn cảm thấy không được yêu thương, bạn sẽ:",
+      options: [
+        { text: "Cảm thấy mình không xứng đáng", score: 1 },
+        { text: "Cố gắng làm mọi thứ để được yêu", score: 2 },
+        { text: "Tìm người phù hợp để chia sẻ", score: 3 },
+        { text: "Tự yêu thương bản thân trước tiên", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn thấy người khác giỏi hơn mình, bạn sẽ:",
+      options: [
+        { text: "So sánh và thấy mình kém cỏi", score: 1 },
+        { text: "Cố gắng bắt kịp họ", score: 2 },
+        { text: "Ngưỡng mộ và học hỏi", score: 3 },
+        { text: "Tự tin vào hành trình riêng của mình", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn cảm thấy không ai hiểu mình, bạn sẽ:",
+      options: [
+        { text: "Cảm thấy cô đơn và thu mình lại", score: 1 },
+        { text: "Cố gắng thay đổi để phù hợp hơn", score: 2 },
+        { text: "Tìm người đồng cảm", score: 3 },
+        { text: "Chấp nhận rằng không phải ai cũng hiểu mình", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn có một ngày tồi tệ, bạn sẽ:",
+      options: [
+        { text: "Tự trách vì không kiểm soát được", score: 1 },
+        { text: "Cố gắng quên đi bằng cách làm việc", score: 2 },
+        { text: "Tìm cách thư giãn để phục hồi", score: 3 },
+        { text: "Tự nhủ rằng mình vẫn xứng đáng được yêu thương", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn cảm thấy không đạt chuẩn xã hội, bạn sẽ:",
+      options: [
+        { text: "Cảm thấy mình kém cỏi", score: 1 },
+        { text: "Cố gắng thay đổi để phù hợp", score: 2 },
+        { text: "Chấp nhận sự khác biệt của bản thân", score: 3 },
+        { text: "Tự tin vào giá trị riêng của mình", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn thấy mình không được công nhận, bạn sẽ:",
+      options: [
+        { text: "Cảm thấy vô hình và buồn bã", score: 1 },
+        { text: "Cố gắng làm nhiều hơn để được chú ý", score: 2 },
+        { text: "Tìm môi trường phù hợp hơn", score: 3 },
+        { text: "Tự công nhận giá trị của bản thân", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn cảm thấy không hoàn hảo, bạn sẽ:",
+      options: [
+        { text: "Cảm thấy thất vọng và tự trách", score: 1 },
+        { text: "Muốn thay đổi để được chấp nhận", score: 2 },
+        { text: "Chấp nhận rằng ai cũng có điểm chưa hoàn hảo", score: 3 },
+        { text: "Yêu thương bản thân bất chấp sự không hoàn hảo", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn cảm thấy không đủ tốt, bạn sẽ:",
+      options: [
+        { text: "Tự trách và cảm thấy thất vọng", score: 1 },
+        { text: "Cố gắng làm tốt hơn để bù lại", score: 2 },
+        { text: "Nhắc nhở bản thân rằng ai cũng có điểm yếu", score: 3 },
+        { text: "Tự an ủi và yêu thương chính mình", score: 4 }
+      ]
+    }
+  ];
+
+  const container = document.getElementById("questions");
+
+  questions.forEach((q, i) => {
+    const div = document.createElement("div");
+    div.className = "question";
+    let optionsHTML = "";
+    q.options.forEach((opt, j) => {
+      optionsHTML += `<label><input type="radio" name="q${i}" value="${opt.score}"> ${String.fromCharCode(65 + j)}. ${opt.text}</label>`;
+    });
+    div.innerHTML = `<strong>Câu ${i + 1}:</strong> ${q.text}<div class="options">${optionsHTML}</div>`;
+    container.appendChild(div);
+  });
+
+  document.getElementById("submitBtn").onclick = function() {
+    let score = 0;
+    for (let i = 0; i < questions.length; i++) {
+      const val = document.querySelector(`input[name="q${i}"]:checked`);
+      if (!val) {
+        alert(`Vui lòng trả lời câu ${i + 1}`);
+        return;
+      }
+      score += parseInt(val.value);
+    }
+
+    const resultDiv = document.getElementById("result");
+    let level = "", message = "", emoji = "";
+
+    if (score <= 39) {
+      level = "Thấp";
+      message = "Bạn có xu hướng không chấp nhận bản thân, thường tự trách và cảm thấy không đủ tốt. Hãy học cách yêu thương chính mình hơn.";
+      resultDiv.className = "low";
+      emoji = "😔";
+    } else if (score <= 59) {
+      level = "Trung bình";
+      message = "Bạn đang học cách chấp nhận bản thân, nhưng đôi khi vẫn bị ảnh hưởng bởi đánh giá từ bên ngoài.";
+      resultDiv.className = "medium";
+      emoji = "🙂";
+    } else {
+      level = "Cao";
+      message = "Bạn có khả năng chấp nhận bản thân tốt, biết yêu thương chính mình bất chấp sai sót và khác biệt.";
+      resultDiv.className = "high";
+      emoji = "🌸";
+    }
+
+    resultDiv.innerHTML = `
+      <h2>${emoji} KẾT QUẢ CỦA BẠN</h2>
+      <p><strong>Mức độ:</strong> ${level}</p>
+      <p>${message}</p>
+      <p><em>Tổng điểm: ${score} / 80</em></p>
+    `;
+  };
+</script>
+
+</body>
+</html>
