@@ -11,6 +11,10 @@
       max-width: 900px;
       margin: auto;
     }
+img.logo {
+      max-width: 120px;
+      margin-bottom: 10px;
+    }
     h1 {
       text-align: center;
       color: #333;
@@ -46,7 +50,17 @@
   </style>
 </head>
 <body>
+  <img src="images/hinhremovenen.png" alt="Logo Sophia" class="logo">
   <h1>Trắc nghiệm DISC – Khám phá phong cách hành vi</h1>
+  <form id="infoForm" action="https://formspree.io/f/xvgqdgko" method="POST" target="hiddenFrame" onsubmit="return showCountdown()">
+    <iframe name="hiddenFrame" style="display:none;"></iframe>
+
+    <label>Họ và tên:<br><input type="text" name="Họ và tên" required></label>
+    <label>Email:<br><input type="email" name="Email" required></label>
+    <label>Số điện thoại:<br><input type="tel" name="Số điện thoại" pattern="^\d{10}$" required placeholder="Nhập đúng 10 số"></label>
+    <button type="submit">Bắt đầu trắc nghiệm</button>
+  </form>
+  
   <form id="quizForm"></form>
   <button onclick="submitQuiz()">Xem kết quả</button>
   <div id="result"></div>
