@@ -233,69 +233,74 @@
           { text: "Bị làm việc thiếu tổ chức, không rõ ràng", type: "C" }
         ]
       }
-const form = document.getElementById("quizForm");
+  ];
 
-    questions.forEach((q, i) => {
-      const div = document.createElement("div");
-      div.className = "question";
-      div.innerHTML = `<strong>Câu ${i + 1}:</strong> ${q.text}`;
-      const answersDiv = document.createElement("div");
-      answersDiv.className = "answers";
+    window.onload = function() {
+      const form = document.getElementById("quizForm");
 
-      q.options.forEach((opt, j) => {
-        const id = `q${i}_${j}`;
-        answersDiv.innerHTML += `
-          <label>
-            <input type="radio" name="q${i}" value="${opt.type}" id="${id}">
-            ${opt.text}
-          </label>
-        `;
+      questions.forEach((q, i) => {
+        const div = document.createElement("div");
+        div.className = "question";
+        div.innerHTML = `<strong>Câu ${i + 1}:</strong> ${q.text}`;
+        const answersDiv = document.createElement("div");
+        answersDiv.className = "answers";
+
+        q.options.forEach((opt, j) => {
+          const id = `q${i}_${j}`;
+          answersDiv.innerHTML += `
+            <label>
+              <input type="radio" name="q${i}" value="${opt.type}" id="${id}">
+              ${opt.text}
+            </label>
+          `;
+        });
+
+        div.appendChild(answersDiv);
+        form.appendChild(div);
       });
+    };
 
-      div.appendChild(answersDiv);
-      form.appendChild(div);
-    });
     function submitQuiz() {
-  const form = document.getElementById("quizForm");
-  const inputs = form.querySelectorAll("input[type=radio]:checked");
+      const form = document.getElementById("quizForm");
+      const inputs = form.querySelectorAll("input[type=radio]:checked");
 
-  const totalQuestions = 20; // hoặc tự động tính như em gợi ý ở trên
-  if (inputs.length < totalQuestions) {
-    alert("Bạn cần trả lời tất cả 20 câu hỏi!");
-    return;
-  }
+      const totalQuestions = questions.length;
+      if (inputs.length < totalQuestions) {
+        alert("Bạn cần trả lời tất cả 20 câu hỏi!");
+        return;
+      }
 
-  const scores = { D: 0, I: 0, S: 0, C: 0 };
-  inputs.forEach(input => scores[input.value]++);
+      const scores = { D: 0, I: 0, S: 0, C: 0 };
+      inputs.forEach(input => scores[input.value]++);
 
-  const maxType = Object.keys(scores).reduce((a, b) =>
-    scores[a] > scores[b] ? a : b
-  );
+      const maxType = Object.keys(scores).reduce((a, b) =>
+        scores[a] > scores[b] ? a : b
+      );
 
-  const descriptions = {
-    D: `<strong>🔴 Dominance (Thống trị)</strong><br>
-        Bạn là người quyết đoán, định hướng kết quả, thích thử thách và kiểm soát. 
-        Bạn phù hợp với vai trò lãnh đạo, quản lý dự án, kinh doanh, hoặc các công việc đòi hỏi sự chủ động và cạnh tranh.`,
-    I: `<strong>🟠 Influence (Ảnh hưởng)</strong><br>
-        Bạn là người hòa đồng, truyền cảm hứng, giỏi giao tiếp và kết nối. 
-        Bạn phù hợp với các nghề như marketing, truyền thông, giáo dục, nhân sự hoặc các công việc cần sự tương tác xã hội cao.`,
-    S: `<strong>🟢 Steadiness (Ổn định)</strong><br>
-        Bạn là người kiên nhẫn, ổn định, hỗ trợ người khác và tránh xung đột. 
-        Bạn phù hợp với các nghề như chăm sóc khách hàng, hỗ trợ kỹ thuật, hành chính, hoặc các công việc cần sự kiên trì và đáng tin cậy.`,
-    C: `<strong>🔵 Compliance (Tuân thủ)</strong><br>
-        Bạn là người chính xác, phân tích tốt, tuân thủ quy trình và tiêu chuẩn. 
-        Bạn phù hợp với các nghề như kế toán, kiểm toán, nghiên cứu, lập trình, hoặc các công việc yêu cầu sự tỉ mỉ và logic.`
-  };
+      const descriptions = {
+        D: `<strong>🔴 Dominance (Thống trị)</strong><br>
+            Bạn là người quyết đoán, định hướng kết quả, thích thử thách và kiểm soát. 
+            Bạn phù hợp với vai trò lãnh đạo, quản lý dự án, kinh doanh, hoặc các công việc đòi hỏi sự chủ động và cạnh tranh.`,
+        I: `<strong>🟠 Influence (Ảnh hưởng)</strong><br>
+            Bạn là người hòa đồng, truyền cảm hứng, giỏi giao tiếp và kết nối. 
+            Bạn phù hợp với các nghề như marketing, truyền thông, giáo dục, nhân sự hoặc các công việc cần sự tương tác xã hội cao.`,
+        S: `<strong>🟢 Steadiness (Ổn định)</strong><br>
+            Bạn là người kiên nhẫn, ổn định, hỗ trợ người khác và tránh xung đột. 
+            Bạn phù hợp với các nghề như chăm sóc khách hàng, hỗ trợ kỹ thuật, hành chính, hoặc các công việc cần sự kiên trì và đáng tin cậy.`,
+        C: `<strong>🔵 Compliance (Tuân thủ)</strong><br>
+            Bạn là người chính xác, phân tích tốt, tuân thủ quy trình và tiêu chuẩn. 
+            Bạn phù hợp với các nghề như kế toán, kiểm toán, nghiên cứu, lập trình, hoặc các công việc yêu cầu sự tỉ mỉ và logic.`
+      };
 
-  const resultDiv = document.getElementById("result");
-  resultDiv.innerHTML = `
-    <h2>Kết quả của bạn: Nhóm ${maxType}</h2>
-    ${descriptions[maxType]}
-    <br><br>
-    <strong>Điểm chi tiết:</strong><br>
-    D: ${scores.D} | I: ${scores.I} | S: ${scores.S} | C: ${scores.C}
-  `;
-}
+      const resultDiv = document.getElementById("result");
+      resultDiv.innerHTML = `
+        <h2>Kết quả của bạn: Nhóm ${maxType}</h2>
+        ${descriptions[maxType]}
+        <br><br>
+        <strong>Điểm chi tiết:</strong><br>
+        D: ${scores.D} | I: ${scores.I} | S: ${scores.S} | C: ${scores.C}
+      `;
+    }
   </script>
-  </body>
+</body>
 </html>
