@@ -12,6 +12,10 @@
       max-width: 800px;
       margin: auto;
     }
+      img.logo {
+      max-width: 120px;
+      margin-bottom: 10px;
+    }
     h1 {
       text-align: center;
       color: #00796b;
@@ -58,11 +62,16 @@
   </style>
 </head>
 <body>
+  <img src="images/hinhremovenen.png" alt="Logo Sophia" class="logo">
   <h1>🧠 Bài Test Khả Năng Phục Hồi (Resilience Scale)</h1>
+<p>Hãy chọn phản ứng gần nhất với bạn trong từng tình huống. Không có đúng hay sai – chỉ có mức độ bạn đang đồng hành với chính mình.</p>
+ <form id="infoForm" action="https://formspree.io/f/xvgqdgko" method="POST" target="hiddenFrame" onsubmit="return showCountdown()">
+    <iframe name="hiddenFrame" style="display:none;"></iframe>
 
-  <form id="resilienceForm">
-    <div id="questions"></div>
-    <button type="submit">Xem kết quả</button>
+    <label>Họ và tên:<br><input type="text" name="Họ và tên" required></label>
+    <label>Email:<br><input type="email" name="Email" required></label>
+    <label>Số điện thoại:<br><input type="tel" name="Số điện thoại" pattern="^\d{10}$" required placeholder="Nhập đúng 10 số"></label>
+    <button type="submit">Bắt đầu trắc nghiệm</button>
   </form>
 
   <div id="result"></div>
@@ -95,12 +104,8 @@
         <select id="q${i}" required>
           <option value="">-- Chọn mức độ --</option>
           <option value="1">1 - Hoàn toàn không đồng ý</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
           <option value="4">4 - Trung lập</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7 - Hoàn toàn đồng ý</option>
+         <option value="7">7 - Hoàn toàn đồng ý</option>
         </select>
       `;
       container.appendChild(div);
