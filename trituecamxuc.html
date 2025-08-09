@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>EQ Test - Phần 1</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f0f4ff, #e0f7fa);
+      color: #333;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+      color: #0077b6;
+    }
+    .question {
+      margin-bottom: 20px;
+      padding: 15px;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .question h3 {
+      margin-bottom: 10px;
+    }
+    .answers label {
+      display: block;
+      margin-bottom: 5px;
+      cursor: pointer;
+    }
+    button {
+      background-color: #0077b6;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    button:hover {
+      background-color: #005f8e;
+    }
+    #result {
+      margin-top: 30px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #d62828;
+    }
+  </style>
+</head>
+<body>
+  <h1>🧠 Bài Test EQ – Trí tuệ Cảm xúc </h1>
+  <form id="eqForm">
+    <div class="question">
+      <h3>1. Tôi thường nhận ra cảm xúc của mình ngay khi chúng xuất hiện.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q1" value="5"> Rất đúng</label>
+        <label><input type="radio" name="q1" value="4"> Đúng</label>
+        <label><input type="radio" name="q1" value="3"> Trung lập</label>
+        <label><input type="radio" name="q1" value="2"> Sai</label>
+        <label><input type="radio" name="q1" value="1"> Rất sai</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>2. Tôi có thể kiểm soát cảm xúc tiêu cực khi cần thiết.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q2" value="5"> Rất đúng</label>
+        <label><input type="radio" name="q2" value="4"> Đúng</label>
+        <label><input type="radio" name="q2" value="3"> Trung lập</label>
+        <label><input type="radio" name="q2" value="2"> Sai</label>
+        <label><input type="radio" name="q2" value="1"> Rất sai</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>3. Tôi hiểu được cảm xúc của người khác qua nét mặt và giọng nói.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q3" value="5"> Rất đúng</label>
+        <label><input type="radio" name="q3" value="4"> Đúng</label>
+        <label><input type="radio" name="q3" value="3"> Trung lập</label>
+        <label><input type="radio" name="q3" value="2"> Sai</label>
+        <label><input type="radio" name="q3" value="1"> Rất sai</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>4. Tôi dễ dàng thể hiện cảm xúc một cách phù hợp với hoàn cảnh.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q4" value="5"> Rất đúng</label>
+        <label><input type="radio" name="q4" value="4"> Đúng</label>
+        <label><input type="radio" name="q4" value="3"> Trung lập</label>
+        <label><input type="radio" name="q4" value="2"> Sai</label>
+        <label><input type="radio" name="q4" value="1"> Rất sai</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>5. Tôi thường suy nghĩ kỹ trước khi phản ứng với cảm xúc mạnh.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q5" value="5"> Rất đúng</label>
+        <label><input type="radio" name="q5" value="4"> Đúng</label>
+        <label><input type="radio" name="q5" value="3"> Trung lập</label>
+        <label><input type="radio" name="q5" value="2"> Sai</label>
+        <label><input type="radio" name="q5" value="1"> Rất sai</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>6. Tôi cảm thấy thoải mái khi chia sẻ cảm xúc với người khác.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q6" value="5"> Rất đúng</label>
+        <label><input type="radio" name="q6" value="4"> Đúng</label>
+        <label><input type="radio" name="q6" value="3"> Trung lập</label>
+        <label><input type="radio" name="q6" value="2"> Sai</label>
+        <label><input type="radio" name="q6" value="1"> Rất sai</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>7. Tôi có khả năng truyền cảm hứng và động viên người khác.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q7" value="5"> Rất đúng</label>
+        <label><input type="radio" name="q7" value="4"> Đúng</label>
+        <label><input type="radio" name="q7" value="3"> Trung lập</label>
+        <label><input type="radio" name="q7" value="2"> Sai</label>
+        <label><input type="radio" name="q7" value="1"> Rất sai</label>
+      </div>
+    </div>
+    <div class="question">
+      <h3>8. Tôi biết cách điều chỉnh hành vi của mình để phù hợp với môi trường xã hội.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q8" value="5"> Rất đúng</label>
+        <label><input type="radio" name="q8" value="4"> Đúng</label>
+        <label><input type="radio" name="q8" value="3"> Trung lập</label>
+        <label><input type="radio" name="q8" value="2"> Sai</label>
+        <label><input type="radio" name="q8" value="1"> Rất sai</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>9. Tôi thường suy nghĩ về cảm xúc của người khác trước khi hành động.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q9" value="5"> Rất đúng</label>
+        <label><input type="radio" name="q9" value="4"> Đúng</label>
+        <label><input type="radio" name="q9" value="3"> Trung lập</label>
+        <label><input type="radio" name="q9" value="2"> Sai</label>
+        <label><input type="radio" name="q9" value="1"> Rất sai</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>10. Tôi có khả năng giữ bình tĩnh trong tình huống căng thẳng.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q10" value="5"> Rất đúng</label>
+        <label><input type="radio" name="q10" value="4"> Đúng</label>
+        <label><input type="radio" name="q10" value="3"> Trung lập</label>
+        <label><input type="radio" name="q10" value="2"> Sai</label>
+        <label><input type="radio" name="q10" value="1"> Rất sai</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>11. Tôi dễ dàng nhận ra khi người khác đang cảm thấy không thoải mái.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q11" value="5"> Rất đúng</label>
+        <label><input type="radio" name="q11" value="4"> Đúng</label>
+        <label><input type="radio" name="q11" value="3"> Trung lập</label>
+        <label><input type="radio" name="q11" value="2"> Sai</label>
+        <label><input type="radio" name="q11" value="1"> Rất sai</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>12. Tôi thường phản hồi một cách tích cực khi bị chỉ trích.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q12" value="5"> Rất đúng</label>
+        <label><input type="radio" name="q12" value="4"> Đúng</label>
+        <label><input type="radio" name="q12" value="3"> Trung lập</label>
+        <label><input type="radio" name="q12" value="2"> Sai</label>
+        <label><input type="radio" name="q12" value="1"> Rất sai</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>13. Tôi có khả năng tạo dựng mối quan hệ tích cực với người khác.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q13" value="5"> Rất đúng</label>
+        <label><input type="radio" name="q13" value="4"> Đúng</label>
+        <label><input type="radio" name="q13" value="3"> Trung lập</label>
+        <label><input type="radio" name="q13" value="2"> Sai</label>
+        <label><input type="radio" name="q13" value="1"> Rất sai</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>14. Tôi thường cảm thấy đồng cảm với hoàn cảnh của người khác.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q14" value="5"> Rất đúng</label>
+        <label><input type="radio" name="q14" value="4"> Đúng</label>
+        <label><input type="radio" name="q14" value="3"> Trung lập</label>
+        <label><input type="radio" name="q14" value="2"> Sai</label>
+        <label><input type="radio" name="q14" value="1"> Rất sai</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>15. Tôi có khả năng giải quyết xung đột một cách hiệu quả.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q15" value="5"> Rất đúng</label>
+        <label><input type="radio" name="q15" value="4"> Đúng</label>
+        <label><input type="radio" name="q15" value="3"> Trung lập</label>
+        <label><input type="radio" name="q15" value="2"> Sai</label>
+        <label><input type="radio" name="q15" value="1"> Rất sai</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>16. Tôi thường nhận ra khi mình đang bị cảm xúc chi phối quyết định.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q16" value="5"> Rất đúng</label>
+        <label><input type="radio" name="q16" value="4"> Đúng</label>
+        <label><input type="radio" name="q16" value="3"> Trung lập</label>
+        <label><input type="radio" name="q16" value="2"> Sai</label>
+        <label><input type="radio" name="q16" value="1"> Rất sai</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>17. Tôi có khả năng truyền đạt cảm xúc một cách rõ ràng và hiệu quả.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q17" value="5"> Rất đúng</label>
+        <label><input type="radio" name="q17" value="4"> Đúng</label>
+        <label><input type="radio" name="q17" value="3"> Trung lập</label>
+        <label><input type="radio" name="q17" value="2"> Sai</label>
+        <label><input type="radio" name="q17" value="1"> Rất sai</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>18. Tôi thường giúp người khác hiểu rõ cảm xúc của họ.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q18" value="5"> Rất đúng</label>
+        <label><input type="radio" name="q18" value="4"> Đúng</label>
+        <label><input type="radio" name="q18" value="3"> Trung lập</label>
+        <label><input type="radio" name="q18" value="2"> Sai</label>
+        <label><input type="radio" name="q18" value="1"> Rất sai</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>19. Tôi có khả năng giữ động lực trong công việc ngay cả khi gặp khó khăn.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q19" value="5"> Rất đúng</label>
+        <label><input type="radio" name="q19" value="4"> Đúng</label>
+        <label><input type="radio" name="q19" value="3"> Trung lập</label>
+        <label><input type="radio" name="q19" value="2"> Sai</label>
+        <label><input type="radio" name="q19" value="1"> Rất sai</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>20. Tôi thường phản ứng linh hoạt với những thay đổi trong cuộc sống.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q20" value="5"> Rất đúng</label>
+        <label><input type="radio" name="q20" value="4"> Đúng</label>
+        <label><input type="radio" name="q20" value="3"> Trung lập</label>
+        <label><input type="radio" name="q20" value="2"> Sai</label>
+        <label><input type="radio" name="q20" value="1"> Rất sai</label>
+      </div>
+    </div>
+
+    <button type="button" onclick="calculateEQ()">Xem kết quả</button>
+    <div id="result"></div>
+  </form>
+  <script>
+    function calculateEQ() {
+      const form = document.getElementById('eqForm');
+      const totalQuestions = 20;
+      let score = 0;
+
+      for (let i = 1; i <= totalQuestions; i++) {
+        const answer = form['q' + i].value;
+        if (!answer) {
+          alert('Vui lòng hoàn thành tất cả câu hỏi trước khi xem kết quả!');
+          return;
+        }
+        score += parseInt(answer);
+      }
+
+      let resultText = '';
+      if (score >= 80) {
+        resultText = '🌟 EQ của bạn rất cao – Bạn có khả năng cảm nhận, kiểm soát và thể hiện cảm xúc tuyệt vời!';
+      } else if (score >= 60) {
+        resultText = '🙂 EQ trung bình – Bạn có nhận thức cảm xúc tốt, nhưng vẫn có thể cải thiện thêm.';
+      } else {
+        resultText = '😟 EQ thấp – Bạn có thể gặp khó khăn trong việc xử lý cảm xúc. Hãy luyện tập thêm nhé!';
+      }
+
+      document.getElementById('result').innerText = `Tổng điểm EQ: ${score}/100\n${resultText}`;
+    }
+  </script>
+
+ 
+</body>
+</html>
