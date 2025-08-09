@@ -950,3 +950,57 @@ footer {
   flex: 1 1 45% !important;
   max-width: 48% !important;
 }
+/* --- Menu Toggle cho mobile an toàn --- */
+.menu-toggle {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Giữ màu menu khi click hoặc focus */
+.navbar a,
+.navbar a:visited {
+  color: #000; /* Màu chữ menu mặc định */
+  text-decoration: none;
+}
+
+.navbar a:hover,
+.navbar a:focus,
+.navbar a:active {
+  color: #000; /* Màu chữ khi hover/click */
+  background-color: rgba(0, 0, 0, 0.05); /* Nền nhạt khi click, có thể bỏ nếu không muốn */
+}
+
+/* Chỉ áp dụng cho mobile */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+    color: #000; /* Màu icon menu */
+    margin-left: auto;
+    padding: 10px;
+  }
+
+  .navbar {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px; /* Đẩy xuống dưới header */
+    right: 0;
+    background: #fff;
+    width: 200px;
+    padding: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    z-index: 1000;
+  }
+
+  .navbar ul {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* Khi click vào toggle thì hiện menu */
+  .navbar.show-menu {
+    display: flex;
+  }
+}
