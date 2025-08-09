@@ -861,3 +861,86 @@ footer {
   text-align: center;
   color: var(--primary-color);
 }
+/* ==== LOGO ==== */
+.logo img {
+  height: 150px; /* Tuỳ chỉnh chiều cao logo */
+}
+
+/* ==== NAVBAR ==== */
+.navbar {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  list-style: none;
+  flex-wrap: wrap;
+  transition: all 0.3s ease;
+}
+
+.navbar ul {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar li {
+  position: relative;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: #ffffff; /* Màu chữ menu */
+  font-weight: 500;
+  padding: 8px 12px;
+}
+
+.navbar a:hover {
+  color: #663399; /* Màu chữ hover */
+  border-bottom: 2px solid #663399;
+}
+
+/* ==== DROPDOWN MENU ==== */
+.navbar ul ul {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  list-style: none;
+  min-width: 180px;
+  z-index: 1000;
+}
+
+.navbar li:hover > ul {
+  display: block;
+}
+
+.navbar ul ul li a {
+  padding: 10px;
+  white-space: nowrap;
+}
+
+/* ==== MOBILE RESPONSIVE ==== */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: flex;
+  }
+
+  .navbar {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background: #fff;
+  }
+
+  .navbar.active {
+    display: flex;
+  }
+
+  .navbar li {
+    width: 100%;
+    text-align: left;
+  }
+}
