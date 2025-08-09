@@ -278,7 +278,7 @@ body {
   }
 
   .flex-row {
-    flex-direction: column;
+    flex-direction: row;
     gap: 24px;
   }
 
@@ -943,4 +943,16 @@ footer {
     width: 100%;
     text-align: left;
   }
+}
+.flex-row {
+  display: flex !important;
+  flex-wrap: wrap;
+  flex-direction: row !important;
+}
+
+.text-col,
+.image-col,
+.video-section {
+  flex: 1 1 45% !important;
+  max-width: 48% !important;
 }
