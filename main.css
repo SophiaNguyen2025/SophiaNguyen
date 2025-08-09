@@ -955,20 +955,21 @@ footer {
   font-size: 28px;
   cursor: pointer;
   user-select: none;
+  color: #fff; /* Luôn trắng để nổi trên header tối */
 }
 
 /* Giữ màu menu khi click hoặc focus */
 .navbar a,
 .navbar a:visited {
-  color: #000; /* Màu chữ menu mặc định */
+  color: #000;
   text-decoration: none;
 }
 
 .navbar a:hover,
 .navbar a:focus,
 .navbar a:active {
-  color: #000; /* Màu chữ khi hover/click */
-  background-color: rgba(0, 0, 0, 0.05); /* Nền nhạt khi click, có thể bỏ nếu không muốn */
+  color: #000;
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 /* Chỉ áp dụng cho mobile */
@@ -978,14 +979,16 @@ footer {
     margin-left: auto;
     padding: 10px;
   }
+
   .navbar {
     display: none;
     flex-direction: column;
     position: absolute;
-    top: 60px; /* Đẩy xuống dưới header */
+    top: 60px;
     right: 0;
     width: 200px;
     padding: 10px;
+    background: #222; /* nền tối khi xổ */
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     z-index: 1000;
   }
@@ -999,7 +1002,23 @@ footer {
   .navbar.show-menu {
     display: flex;
   }
+
+  /* Link trong menu mobile */
+  .navbar a {
+    color: #fff;  /* chữ trắng */
+    background: none;
+    text-decoration: none;
+  }
+
+  .navbar a:hover,
+  .navbar a:focus,
+  .navbar a:active,
+  .navbar a:visited {
+    color: #fff;
+    background: none;
+  }
 }
+
 @media (max-width: 768px) {
   .flex-row {
     flex-direction: column !important;
@@ -1015,21 +1034,6 @@ footer {
   .text-col {
     margin-bottom: 20px;
   }
-}
-
-.navbar a {
-  color: #fff;           /* Luôn trắng */
-  background: none;      /* Không có thanh nền */
-  text-decoration: none; /* Không gạch chân */
-}
-
-.navbar a:hover,
-.navbar a:focus,
-.navbar a:active,
-.navbar a:visited {
-  color: #fff;           /* Vẫn trắng khi hover/click/xem rồi */
-  background: none;      /* Không xuất hiện thanh trắng */
-}
 .intro {
   background-color: #63a693;
   padding: 40px 20px;
