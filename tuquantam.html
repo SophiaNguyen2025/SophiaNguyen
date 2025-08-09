@@ -2,298 +2,222 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Self-Care Quotient Test 🌿</title>
+  <title>Trắc nghiệm Tự Quan Tâm – Nhóm 1</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f0fdf4;
-      margin: 0;
+      background: #f0f8ff;
       padding: 20px;
       color: #333;
     }
     h1 {
       text-align: center;
-      color: #2f855a;
+      color: #0077cc;
     }
-    .question {
+    fieldset {
       margin-bottom: 20px;
+      border: 1px solid #ccc;
       padding: 15px;
-      background-color: #ffffff;
       border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      background: #ffffff;
     }
-    .options label {
+    legend {
+      font-weight: bold;
+      color: #444;
+    }
+    label {
       display: block;
       margin: 5px 0;
     }
-    #submitBtn {
-      display: block;
-      margin: 30px auto;
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #38a169;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
+    input[type="radio"] {
+      margin-right: 8px;
     }
-    #result {
-      margin-top: 30px;
-      padding: 20px;
-      border-radius: 10px;
-      text-align: center;
-      font-size: 18px;
-    }
-    .low { background-color: #f8d7da; color: #721c24; }
-    .medium { background-color: #fff3cd; color: #856404; }
-    .high { background-color: #d4edda; color: #155724; }
   </style>
 </head>
 <body>
+  <h1>Bài Test Tự Quan Tâm – Self-Care Quotient</h1>
 
-<h1>🌿 Bài Test Tự Quan Tâm – Self-Care Quotient</h1>
+  <form id="quizForm">
+    <fieldset>
+      <legend>1. Bạn vừa bị người khác nói lời khó nghe. Bạn:</legend>
+      <label><input type="radio" name="q1" value="2"> A. Tự trách mình vì khiến họ không vui</label>
+      <label><input type="radio" name="q1" value="4"> B. Giận họ nhưng không thể nói ra</label>
+      <label><input type="radio" name="q1" value="1"> C. Nhận ra ai cũng có ngày không ổn và buông bỏ cảm xúc</label>
+      <label><input type="radio" name="q1" value="3"> D. Thấy mình thật yếu đuối</label>
+    </fieldset>
 
-<form id="quizForm">
-  <div id="questions"></div>
-  <button type="button" id="submitBtn">Xem kết quả</button>
-</form>
-<div id="result"></div>
-<script>
-  const questions = [
-    {
-      text: "Khi bạn cảm thấy kiệt sức sau một tuần làm việc, bạn sẽ:",
-      options: [
-        { text: "Tiếp tục cố gắng vì không muốn bị đánh giá", score: 1 },
-        { text: "Làm việc nhẹ hơn nhưng vẫn không nghỉ hẳn", score: 2 },
-        { text: "Cho phép bản thân nghỉ ngơi một chút", score: 3 },
-        { text: "Chủ động lên kế hoạch nghỉ dưỡng để hồi phục", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn mắc lỗi trong công việc, bạn thường:",
-      options: [
-        { text: "Tự trách mình và cảm thấy vô dụng", score: 1 },
-        { text: "Cố gắng làm tốt hơn để bù lại", score: 2 },
-        { text: "Chấp nhận lỗi và học từ đó", score: 3 },
-        { text: "Tha thứ cho bản thân và điều chỉnh nhẹ nhàng", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn buồn, bạn thường:",
-      options: [
-        { text: "Giấu cảm xúc và giả vờ ổn", score: 1 },
-        { text: "Tìm cách phân tâm bằng công việc", score: 2 },
-        { text: "Tâm sự với người thân hoặc bạn bè", score: 3 },
-        { text: "Cho phép mình khóc và nghỉ ngơi", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn thấy mình không hoàn hảo, bạn sẽ:",
-      options: [
-        { text: "Cảm thấy xấu hổ và thất vọng", score: 1 },
-        { text: "Cố gắng che giấu khuyết điểm", score: 2 },
-        { text: "Chấp nhận rằng ai cũng có điểm yếu", score: 3 },
-        { text: "Yêu thương bản thân bất chấp khuyết điểm", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn bị người khác chỉ trích, bạn thường:",
-      options: [
-        { text: "Im lặng và tự trách mình", score: 1 },
-        { text: "Cố gắng làm vừa lòng họ", score: 2 },
-        { text: "Giữ bình tĩnh và suy nghĩ lại", score: 3 },
-        { text: "Bảo vệ quan điểm của mình một cách rõ ràng", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn cảm thấy áp lực, bạn sẽ:",
-      options: [
-        { text: "Tiếp tục chịu đựng mà không nói ra", score: 1 },
-        { text: "Tìm cách làm nhanh để thoát khỏi áp lực", score: 2 },
-        { text: "Chia sẻ với người thân để được hỗ trợ", score: 3 },
-        { text: "Tạm dừng và chăm sóc bản thân trước", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn có thời gian rảnh, bạn thường:",
-      options: [
-        { text: "Làm thêm việc để không thấy vô dụng", score: 1 },
-        { text: "Xem mạng xã hội để giết thời gian", score: 2 },
-        { text: "Làm điều mình thích để thư giãn", score: 3 },
-        { text: "Chủ động lên kế hoạch chăm sóc bản thân", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn cảm thấy mệt mỏi về tinh thần, bạn sẽ:",
-      options: [
-        { text: "Giấu đi và cố gắng tỏ ra ổn", score: 1 },
-        { text: "Làm việc để quên đi cảm xúc", score: 2 },
-        { text: "Tìm cách thư giãn như nghe nhạc, đi dạo", score: 3 },
-        { text: "Chủ động nghỉ ngơi và chăm sóc cảm xúc", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn bị từ chối hoặc thất bại, bạn thường:",
-      options: [
-        { text: "Cảm thấy mình không đủ tốt", score: 1 },
-        { text: "Tự ép bản thân phải cố gắng hơn", score: 2 },
-        { text: "Chấp nhận và học từ trải nghiệm", score: 3 },
-        { text: "An ủi bản thân và tiếp tục với lòng tin", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn thấy người khác thành công hơn mình, bạn sẽ:",
-      options: [
-        { text: "So sánh và thấy mình kém cỏi", score: 1 },
-        { text: "Cố gắng bắt kịp họ", score: 2 },
-        { text: "Cảm thấy ngưỡng mộ và học hỏi", score: 3 },
-        { text: "Tự tin vào hành trình riêng của mình", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn cảm thấy không ổn, bạn thường:",
-      options: [
-        { text: "Giấu đi và không nói với ai", score: 1 },
-        { text: "Tự trách vì không mạnh mẽ", score: 2 },
-        { text: "Tìm người lắng nghe", score: 3 },
-        { text: "Chấp nhận cảm xúc và chăm sóc bản thân", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn có một ngày tồi tệ, bạn sẽ:",
-      options: [
-        { text: "Tự trách vì không kiểm soát được", score: 1 },
-        { text: "Cố gắng quên đi bằng cách làm việc", score: 2 },
-        { text: "Tìm cách thư giãn để phục hồi", score: 3 },
-        { text: "Tự nhủ rằng mình xứng đáng được nghỉ ngơi", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn cảm thấy không được ai hiểu, bạn sẽ:",
-      options: [
-        { text: "Cảm thấy cô đơn và tự trách", score: 1 },
-        { text: "Cố gắng thay đổi bản thân để phù hợp", score: 2 },
-        { text: "Tìm người đồng cảm", score: 3 },
-        { text: "Chấp nhận rằng không phải ai cũng hiểu mình", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn thấy mình không đạt kỳ vọng, bạn sẽ:",
-      options: [
-        { text: "Cảm thấy thất vọng và tự trách", score: 1 },
-        { text: "Tự ép bản thân phải cố gắng hơn", score: 2 },
-        { text: "Xem lại mục tiêu và điều chỉnh", score: 3 },
-        { text: "Tự nhủ rằng mình vẫn đang cố gắng hết sức", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn cảm thấy bản thân không đủ tốt, bạn sẽ:",
-      options: [
-        { text: "Tự trách và cảm thấy thất vọng", score: 1 },
-        { text: "Cố gắng làm tốt hơn để bù lại", score: 2 },
-        { text: "Nhắc nhở bản thân rằng ai cũng có điểm yếu", score: 3 },
-        { text: "Tự an ủi và yêu thương chính mình", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn bị quá tải cảm xúc, bạn sẽ:",
-      options: [
-        { text: "Giấu đi và tiếp tục chịu đựng", score: 1 },
-        { text: "Tìm cách phân tâm bằng hoạt động khác", score: 2 },
-        { text: "Chia sẻ với người thân", score: 3 },
-        { text: "Tạm dừng và chăm sóc cảm xúc", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn cảm thấy không ai lắng nghe mình, bạn sẽ:",
-      options: [
-        { text: "Cảm thấy vô hình và buồn bã", score: 1 },
-        { text: "Tự trách vì không đủ thú vị", score: 2 },
-        { text: "Tìm người phù hợp để chia sẻ", score: 3 },
-        { text: "Tự lắng nghe chính mình và viết nhật ký", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn có một ngày nghỉ, bạn sẽ:",
-      options: [
-        { text: "Làm thêm việc để không thấy vô dụng", score: 1 },
-        { text: "Xem mạng xã hội cả ngày", score: 2 },
-        { text: "Làm điều mình thích để thư giãn", score: 3 },
-        { text: "Chăm sóc bản thân một cách có ý thức", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn cảm thấy yếu đuối, bạn sẽ:",
-      options: [
-        { text: "Tự trách vì không mạnh mẽ", score: 1 },
-        { text: "Giấu đi và cố gắng tỏ ra ổn", score: 2 },
-        { text: "Chấp nhận cảm xúc và tìm cách hồi phục", score: 3 },
-        { text: "Tử tế với bản thân và nghỉ ngơi", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn cảm thấy không kiểm soát được mọi thứ, bạn sẽ:",
-      options: [
-        { text: "Hoảng loạn và tự trách", score: 1 },
-        { text: "Cố gắng kiểm soát lại mọi thứ", score: 2 },
-        { text: "Chấp nhận rằng không thể kiểm soát tất cả", score: 3 },
-        { text: "Tập trung vào những gì mình có thể làm", score: 4 }
-      ]
-    }
-  ];
+    <fieldset>
+      <legend>2. Khi cảm thấy quá tải, bạn:</legend>
+      <label><input type="radio" name="q2" value="3"> A. Cố gắng chịu đựng và làm tiếp</label>
+      <label><input type="radio" name="q2" value="1"> B. Than phiền với người thân rồi vẫn tiếp tục gồng</label>
+      <label><input type="radio" name="q2" value="4"> C. Chủ động nghỉ ngơi và chăm sóc bản thân</label>
+      <label><input type="radio" name="q2" value="2"> D. Trốn tránh và không làm gì</label>
+    </fieldset>
 
-  const container = document.getElementById("questions");
+    <fieldset>
+      <legend>3. Gặp thất bại trong mục tiêu cá nhân, bạn:</legend>
+      <label><input type="radio" name="q3" value="1"> A. Tự trách và nghĩ mình bất tài</label>
+      <label><input type="radio" name="q3" value="3"> B. Tìm lỗi để tránh lặp lại nhưng vẫn thấy buồn nhiều</label>
+      <label><input type="radio" name="q3" value="4"> C. Hiểu rằng thất bại là cơ hội học hỏi</label>
+      <label><input type="radio" name="q3" value="2"> D. Bỏ luôn những mục tiêu sau đó</label>
+    </fieldset>
 
-  questions.forEach((q, i) => {
-    const div = document.createElement("div");
-    div.className = "question";
-    let optionsHTML = "";
-    q.options.forEach((opt, j) => {
-      optionsHTML += `<label><input type="radio" name="q${i}" value="${opt.score}"> ${String.fromCharCode(65 + j)}. ${opt.text}</label>`;
-    });
-    div.innerHTML = `<strong>Câu ${i + 1}:</strong> ${q.text}<div class="options">${optionsHTML}</div>`;
-    container.appendChild(div);
-  });
+    <fieldset>
+      <legend>4. Khi bạn thấy cơ thể mệt mỏi, bạn:</legend>
+      <label><input type="radio" name="q4" value="2"> A. Bỏ qua và ép mình tiếp tục hoạt động</label>
+      <label><input type="radio" name="q4" value="1"> B. Uống cà phê hoặc chất kích thích để tỉnh táo</label>
+      <label><input type="radio" name="q4" value="4"> C. Nghe cơ thể và điều chỉnh nhịp độ sinh hoạt</label>
+      <label><input type="radio" name="q4" value="3"> D. Giận bản thân vì không đủ khỏe</label>
+    </fieldset>
 
-  document.getElementById("submitBtn").onclick = function() {
-    let score = 0;
-    for (let i = 0; i < questions.length; i++) {
-      const val = document.querySelector(`input[name="q${i}"]:checked`);
-      if (!val) {
-        alert(`Vui lòng trả lời câu ${i + 1}`);
-        return;
+    <fieldset>
+      <legend>5. Người khác có điều kiện tốt hơn bạn. Bạn:</legend>
+      <label><input type="radio" name="q5" value="3"> A. So sánh và thấy mình thua kém</label>
+      <label><input type="radio" name="q5" value="1"> B. Cố tỏ ra vui vẻ nhưng ghen tị bên trong</label>
+      <label><input type="radio" name="q5" value="4"> C. Ghi nhận khác biệt và tìm điểm mạnh bản thân</label>
+      <label><input type="radio" name="q5" value="2"> D. Tránh tiếp xúc vì thấy xấu hổ</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>6. Bạn lỡ hứa với ai đó nhưng không thể thực hiện. Bạn:</legend>
+      <label><input type="radio" name="q6" value="4"> A. Tự trách liên tục</label>
+      <label><input type="radio" name="q6" value="2"> B. Né tránh đối mặt vì ngại</label>
+      <label><input type="radio" name="q6" value="1"> C. Nhận trách nhiệm và xin lỗi chân thành</label>
+      <label><input type="radio" name="q6" value="3"> D. Bỏ qua luôn và hy vọng họ quên</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>7. Bạn đang rất buồn nhưng có việc phải làm. Bạn:</legend>
+      <label><input type="radio" name="q7" value="3"> A. Giả vờ vui để làm cho xong</label>
+      <label><input type="radio" name="q7" value="2"> B. Gồng mình làm nhưng mệt mỏi</label>
+      <label><input type="radio" name="q7" value="4"> C. Cho phép mình nghỉ ngơi, lắng nghe cảm xúc</label>
+      <label><input type="radio" name="q7" value="1"> D. Mất năng lượng hoàn toàn và bỏ việc</label>
+    </fieldset>
+    <fieldset>
+      <legend>8. Bạn bị từ chối trong mối quan hệ. Phản ứng của bạn:</legend>
+      <label><input type="radio" name="q8" value="2"> A. Nghĩ mình không xứng đáng được yêu</label>
+      <label><input type="radio" name="q8" value="4"> B. Cố hiểu lý do để sửa bản thân</label>
+      <label><input type="radio" name="q8" value="1"> C. Tôn trọng cảm xúc, cho phép bản thân đau và chữa lành</label>
+      <label><input type="radio" name="q8" value="3"> D. Từ bỏ việc mở lòng với ai khác</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>9. Bạn được nghỉ ngơi sau thời gian căng thẳng. Bạn cảm thấy:</legend>
+      <label><input type="radio" name="q9" value="3"> A. Lo lắng và áy náy vì chưa làm việc</label>
+      <label><input type="radio" name="q9" value="1"> B. Không quen và thấy trống rỗng</label>
+      <label><input type="radio" name="q9" value="4"> C. Biết ơn thời gian này để hồi phục</label>
+      <label><input type="radio" name="q9" value="2"> D. Nghĩ rằng mình không xứng đáng có thời gian nghỉ</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>10. Khi mắc lỗi trong nhóm làm việc, bạn:</legend>
+      <label><input type="radio" name="q10" value="2"> A. Tự trách và rút lui khỏi nhóm</label>
+      <label><input type="radio" name="q10" value="3"> B. Im lặng và giấu lỗi</label>
+      <label><input type="radio" name="q10" value="4"> C. Nhận lỗi và đề xuất cách xử lý</label>
+      <label><input type="radio" name="q10" value="1"> D. Tránh tham gia các hoạt động nhóm sau đó</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>11. Ai đó nói bạn “quá nhạy cảm”. Bạn:</legend>
+      <label><input type="radio" name="q11" value="1"> A. Đồng ý và cố kìm nén cảm xúc</label>
+      <label><input type="radio" name="q11" value="4"> B. Giận họ nhưng không nói ra</label>
+      <label><input type="radio" name="q11" value="2"> C. Hiểu cảm xúc là phần con người và không xấu</label>
+      <label><input type="radio" name="q11" value="3"> D. Tự thấy mình phiền phức</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>12. Bạn muốn làm điều mình thích nhưng người thân không ủng hộ. Bạn:</legend>
+      <label><input type="radio" name="q12" value="3"> A. Bỏ qua sở thích vì sợ gây phiền</label>
+      <label><input type="radio" name="q12" value="1"> B. Cố làm nhưng giấu đi</label>
+      <label><input type="radio" name="q12" value="4"> C. Chia sẻ mong muốn và thỏa thuận nhu cầu</label>
+      <label><input type="radio" name="q12" value="2"> D. Mất động lực vì thiếu hỗ trợ</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>13. Khi ai đó không đáp lại lòng tốt của bạn, bạn:</legend>
+      <label><input type="radio" name="q13" value="2"> A. Nghĩ mình đã làm sai điều gì đó</label>
+      <label><input type="radio" name="q13" value="1"> B. Buồn và tránh họ</label>
+      <label><input type="radio" name="q13" value="4"> C. Hiểu mỗi người có cách phản ứng khác nhau</label>
+      <label><input type="radio" name="q13" value="3"> D. Ngừng làm điều tốt với người khác</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>14. Bạn bị bệnh nhẹ. Phản ứng của bạn là:</legend>
+      <label><input type="radio" name="q14" value="4"> A. Cố gắng làm như bình thường</label>
+      <label><input type="radio" name="q14" value="2"> B. Than phiền nhưng vẫn cố gồng</label>
+      <label><input type="radio" name="q14" value="1"> C. Nghỉ ngơi, chăm sóc, hỏi ý kiến bác sĩ nếu cần</label>
+      <label><input type="radio" name="q14" value="3"> D. Giận bản thân vì “yếu đuối”</label>
+    </fieldset>
+    <fieldset>
+      <legend>15. Khi bạn cảm thấy mệt mỏi, bạn thường:</legend>
+      <label><input type="radio" name="q15" value="1"> A. Cố gắng làm tiếp vì sợ bị đánh giá</label>
+      <label><input type="radio" name="q15" value="4"> B. Nhận diện cảm xúc và nghỉ ngơi</label>
+      <label><input type="radio" name="q15" value="2"> C. Than phiền nhưng vẫn gồng</label>
+      <label><input type="radio" name="q15" value="3"> D. Tự trách vì không đủ giỏi</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>16. Khi bạn làm điều gì đó tốt cho bản thân, bạn:</legend>
+      <label><input type="radio" name="q16" value="3"> A. Thấy tội lỗi vì “ích kỷ”</label>
+      <label><input type="radio" name="q16" value="1"> B. Giấu đi vì sợ bị đánh giá</label>
+      <label><input type="radio" name="q16" value="4"> C. Cảm thấy xứng đáng và vui vẻ</label>
+      <label><input type="radio" name="q16" value="2"> D. Nghi ngờ liệu mình có nên làm vậy</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>17. Khi bạn thất bại, bạn thường:</legend>
+      <label><input type="radio" name="q17" value="2"> A. Tự trách và rút lui</label>
+      <label><input type="radio" name="q17" value="4"> B. Học từ sai lầm và thử lại</label>
+      <label><input type="radio" name="q17" value="3"> C. Nghĩ mình không bao giờ thành công</label>
+      <label><input type="radio" name="q17" value="1"> D. Giấu đi và không chia sẻ với ai</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>18. Khi bạn cần giúp đỡ, bạn:</legend>
+      <label><input type="radio" name="q18" value="1"> A. Ngại ngùng và không dám nói ra</label>
+      <label><input type="radio" name="q18" value="4"> B. Chủ động tìm người phù hợp để chia sẻ</label>
+      <label><input type="radio" name="q18" value="2"> C. Cố gắng tự làm hết</label>
+      <label><input type="radio" name="q18" value="3"> D. Thấy mình yếu đuối khi cần ai đó</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>19. Khi bạn có cảm xúc tiêu cực, bạn:</legend>
+      <label><input type="radio" name="q19" value="3"> A. Giấu đi và giả vờ ổn</label>
+      <label><input type="radio" name="q19" value="4"> B. Viết nhật ký, thiền hoặc chia sẻ với người tin cậy</label>
+      <label><input type="radio" name="q19" value="2"> C. Tự trách vì “yếu đuối”</label>
+      <label><input type="radio" name="q19" value="1"> D. Tránh đối diện và lướt mạng cho quên</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>20. Khi bạn làm sai điều gì đó, bạn:</legend>
+      <label><input type="radio" name="q20" value="2"> A. Tự trách và nghĩ mình không đủ tốt</label>
+      <label><input type="radio" name="q20" value="4"> B. Nhận lỗi, học hỏi và tha thứ cho bản thân</label>
+      <label><input type="radio" name="q20" value="1"> C. Giấu đi và tránh nhắc lại</label>
+      <label><input type="radio" name="q20" value="3"> D. Nghĩ mình không nên làm gì nữa</label>
+    </fieldset>
+
+    <button onclick="calculateScore()">Xem kết quả</button>
+
+    <div id="result" style="margin-top:20px; font-weight:bold;"></div>
+
+    <script>
+      function calculateScore() {
+        let total = 0;
+        for (let i = 1; i <= 20; i++) {
+          const selected = document.querySelector(`input[name="q${i}"]:checked`);
+          if (selected) total += parseInt(selected.value);
+        }
+
+        let resultText = "";
+        if (total >= 70) {
+          resultText = "💖 Bạn có mức độ Tự Quan Tâm cao! Bạn biết lắng nghe, chăm sóc và yêu thương chính mình một cách lành mạnh.";
+        } else if (total >= 50) {
+          resultText = "🌿 Bạn đang trên hành trình học cách Tự Quan Tâm. Hãy tiếp tục nuôi dưỡng lòng trắc ẩn với chính mình.";
+        } else {
+          resultText = "🧩 Bạn có thể đang thiếu sự Tự Quan Tâm. Đã đến lúc bạn cần lắng nghe và chăm sóc bản thân nhiều hơn.";
+        }
+
+        document.getElementById("result").innerText = resultText;
       }
-      score += parseInt(val.value);
-    }
-
-    const resultDiv = document.getElementById("result");
-    let level = "", message = "", emoji = "";
-
-    if (score <= 39) {
-      level = "Thấp";
-      message = "Bạn có xu hướng bỏ qua nhu cầu cảm xúc của bản thân. Cần học cách tử tế với chính mình hơn.";
-      resultDiv.className = "low";
-      emoji = "😔";
-    } else if (score <= 59) {
-      level = "Trung bình";
-      message = "Bạn đang học cách chăm sóc bản thân, nhưng đôi khi vẫn quá khắt khe với chính mình.";
-      resultDiv.className = "medium";
-      emoji = "🙂";
-    } else {
-      level = "Cao";
-      message = "Bạn có khả năng tự quan tâm tốt, biết lắng nghe và chữa lành chính mình.";
-      resultDiv.className = "high";
-      emoji = "🌿";
-    }
-
-    resultDiv.innerHTML = `
-      <h2>${emoji} KẾT QUẢ CỦA BẠN</h2>
-      <p><strong>Mức độ:</strong> ${level}</p>
-      <p>${message}</p>
-      <p><em>Tổng điểm: ${score} / 80</em></p>
-    `;
-  };
-</script>
-
-</body>
-</html>
+    </script>
