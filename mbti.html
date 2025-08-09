@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Trắc nghiệm MBTI - Sophia Nguyễn</title>
   <style>
     body {
@@ -175,13 +175,8 @@
       }
 
       const type = `${scores["E"] >= scores["I"] ? "E" : "I"}${scores["S"] >= scores["N"] ? "S" : "N"}${scores["T"] >= scores["F"] ? "T" : "F"}${scores["J"] >= scores["P"] ? "J" : "P"}`;
-
-      document.getElementById("result").innerHTML = `
-        <h2>Kết quả của bạn là: ${type}</h2>
-        <p>Đây là kiểu tính cách MBTI dựa trên trắc nghiệm. Hãy đọc thêm để hiểu rõ hơn về nhóm tính cách này nhé!</p>
-      `;
-      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-    });
-  </script>
+      window.location.href = `mbti/${type}.html`;
+     
+      </script>
 </body>
 </html>
