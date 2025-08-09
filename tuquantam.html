@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Self-Care Quotient Test 🌿</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0fdf4;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #2f855a;
+    }
+    .question {
+      margin-bottom: 20px;
+      padding: 15px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .options label {
+      display: block;
+      margin: 5px 0;
+    }
+    #submitBtn {
+      display: block;
+      margin: 30px auto;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #38a169;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 30px;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 18px;
+    }
+    .low { background-color: #f8d7da; color: #721c24; }
+    .medium { background-color: #fff3cd; color: #856404; }
+    .high { background-color: #d4edda; color: #155724; }
+  </style>
+</head>
+<body>
+
+<h1>🌿 Bài Test Tự Quan Tâm – Self-Care Quotient</h1>
+
+<form id="quizForm">
+  <div id="questions"></div>
+  <button type="button" id="submitBtn">Xem kết quả</button>
+</form>
+<div id="result"></div>
+<script>
+  const questions = [
+    {
+      text: "Khi bạn cảm thấy kiệt sức sau một tuần làm việc, bạn sẽ:",
+      options: [
+        { text: "Tiếp tục cố gắng vì không muốn bị đánh giá", score: 1 },
+        { text: "Làm việc nhẹ hơn nhưng vẫn không nghỉ hẳn", score: 2 },
+        { text: "Cho phép bản thân nghỉ ngơi một chút", score: 3 },
+        { text: "Chủ động lên kế hoạch nghỉ dưỡng để hồi phục", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn mắc lỗi trong công việc, bạn thường:",
+      options: [
+        { text: "Tự trách mình và cảm thấy vô dụng", score: 1 },
+        { text: "Cố gắng làm tốt hơn để bù lại", score: 2 },
+        { text: "Chấp nhận lỗi và học từ đó", score: 3 },
+        { text: "Tha thứ cho bản thân và điều chỉnh nhẹ nhàng", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn buồn, bạn thường:",
+      options: [
+        { text: "Giấu cảm xúc và giả vờ ổn", score: 1 },
+        { text: "Tìm cách phân tâm bằng công việc", score: 2 },
+        { text: "Tâm sự với người thân hoặc bạn bè", score: 3 },
+        { text: "Cho phép mình khóc và nghỉ ngơi", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn thấy mình không hoàn hảo, bạn sẽ:",
+      options: [
+        { text: "Cảm thấy xấu hổ và thất vọng", score: 1 },
+        { text: "Cố gắng che giấu khuyết điểm", score: 2 },
+        { text: "Chấp nhận rằng ai cũng có điểm yếu", score: 3 },
+        { text: "Yêu thương bản thân bất chấp khuyết điểm", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn bị người khác chỉ trích, bạn thường:",
+      options: [
+        { text: "Im lặng và tự trách mình", score: 1 },
+        { text: "Cố gắng làm vừa lòng họ", score: 2 },
+        { text: "Giữ bình tĩnh và suy nghĩ lại", score: 3 },
+        { text: "Bảo vệ quan điểm của mình một cách rõ ràng", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn cảm thấy áp lực, bạn sẽ:",
+      options: [
+        { text: "Tiếp tục chịu đựng mà không nói ra", score: 1 },
+        { text: "Tìm cách làm nhanh để thoát khỏi áp lực", score: 2 },
+        { text: "Chia sẻ với người thân để được hỗ trợ", score: 3 },
+        { text: "Tạm dừng và chăm sóc bản thân trước", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn có thời gian rảnh, bạn thường:",
+      options: [
+        { text: "Làm thêm việc để không thấy vô dụng", score: 1 },
+        { text: "Xem mạng xã hội để giết thời gian", score: 2 },
+        { text: "Làm điều mình thích để thư giãn", score: 3 },
+        { text: "Chủ động lên kế hoạch chăm sóc bản thân", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn cảm thấy mệt mỏi về tinh thần, bạn sẽ:",
+      options: [
+        { text: "Giấu đi và cố gắng tỏ ra ổn", score: 1 },
+        { text: "Làm việc để quên đi cảm xúc", score: 2 },
+        { text: "Tìm cách thư giãn như nghe nhạc, đi dạo", score: 3 },
+        { text: "Chủ động nghỉ ngơi và chăm sóc cảm xúc", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn bị từ chối hoặc thất bại, bạn thường:",
+      options: [
+        { text: "Cảm thấy mình không đủ tốt", score: 1 },
+        { text: "Tự ép bản thân phải cố gắng hơn", score: 2 },
+        { text: "Chấp nhận và học từ trải nghiệm", score: 3 },
+        { text: "An ủi bản thân và tiếp tục với lòng tin", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn thấy người khác thành công hơn mình, bạn sẽ:",
+      options: [
+        { text: "So sánh và thấy mình kém cỏi", score: 1 },
+        { text: "Cố gắng bắt kịp họ", score: 2 },
+        { text: "Cảm thấy ngưỡng mộ và học hỏi", score: 3 },
+        { text: "Tự tin vào hành trình riêng của mình", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn cảm thấy không ổn, bạn thường:",
+      options: [
+        { text: "Giấu đi và không nói với ai", score: 1 },
+        { text: "Tự trách vì không mạnh mẽ", score: 2 },
+        { text: "Tìm người lắng nghe", score: 3 },
+        { text: "Chấp nhận cảm xúc và chăm sóc bản thân", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn có một ngày tồi tệ, bạn sẽ:",
+      options: [
+        { text: "Tự trách vì không kiểm soát được", score: 1 },
+        { text: "Cố gắng quên đi bằng cách làm việc", score: 2 },
+        { text: "Tìm cách thư giãn để phục hồi", score: 3 },
+        { text: "Tự nhủ rằng mình xứng đáng được nghỉ ngơi", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn cảm thấy không được ai hiểu, bạn sẽ:",
+      options: [
+        { text: "Cảm thấy cô đơn và tự trách", score: 1 },
+        { text: "Cố gắng thay đổi bản thân để phù hợp", score: 2 },
+        { text: "Tìm người đồng cảm", score: 3 },
+        { text: "Chấp nhận rằng không phải ai cũng hiểu mình", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn thấy mình không đạt kỳ vọng, bạn sẽ:",
+      options: [
+        { text: "Cảm thấy thất vọng và tự trách", score: 1 },
+        { text: "Tự ép bản thân phải cố gắng hơn", score: 2 },
+        { text: "Xem lại mục tiêu và điều chỉnh", score: 3 },
+        { text: "Tự nhủ rằng mình vẫn đang cố gắng hết sức", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn cảm thấy bản thân không đủ tốt, bạn sẽ:",
+      options: [
+        { text: "Tự trách và cảm thấy thất vọng", score: 1 },
+        { text: "Cố gắng làm tốt hơn để bù lại", score: 2 },
+        { text: "Nhắc nhở bản thân rằng ai cũng có điểm yếu", score: 3 },
+        { text: "Tự an ủi và yêu thương chính mình", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn bị quá tải cảm xúc, bạn sẽ:",
+      options: [
+        { text: "Giấu đi và tiếp tục chịu đựng", score: 1 },
+        { text: "Tìm cách phân tâm bằng hoạt động khác", score: 2 },
+        { text: "Chia sẻ với người thân", score: 3 },
+        { text: "Tạm dừng và chăm sóc cảm xúc", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn cảm thấy không ai lắng nghe mình, bạn sẽ:",
+      options: [
+        { text: "Cảm thấy vô hình và buồn bã", score: 1 },
+        { text: "Tự trách vì không đủ thú vị", score: 2 },
+        { text: "Tìm người phù hợp để chia sẻ", score: 3 },
+        { text: "Tự lắng nghe chính mình và viết nhật ký", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn có một ngày nghỉ, bạn sẽ:",
+      options: [
+        { text: "Làm thêm việc để không thấy vô dụng", score: 1 },
+        { text: "Xem mạng xã hội cả ngày", score: 2 },
+        { text: "Làm điều mình thích để thư giãn", score: 3 },
+        { text: "Chăm sóc bản thân một cách có ý thức", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn cảm thấy yếu đuối, bạn sẽ:",
+      options: [
+        { text: "Tự trách vì không mạnh mẽ", score: 1 },
+        { text: "Giấu đi và cố gắng tỏ ra ổn", score: 2 },
+        { text: "Chấp nhận cảm xúc và tìm cách hồi phục", score: 3 },
+        { text: "Tử tế với bản thân và nghỉ ngơi", score: 4 }
+      ]
+    },
+    {
+      text: "Khi bạn cảm thấy không kiểm soát được mọi thứ, bạn sẽ:",
+      options: [
+        { text: "Hoảng loạn và tự trách", score: 1 },
+        { text: "Cố gắng kiểm soát lại mọi thứ", score: 2 },
+        { text: "Chấp nhận rằng không thể kiểm soát tất cả", score: 3 },
+        { text: "Tập trung vào những gì mình có thể làm", score: 4 }
+      ]
+    }
+  ];
+
+  const container = document.getElementById("questions");
+
+  questions.forEach((q, i) => {
+    const div = document.createElement("div");
+    div.className = "question";
+    let optionsHTML = "";
+    q.options.forEach((opt, j) => {
+      optionsHTML += `<label><input type="radio" name="q${i}" value="${opt.score}"> ${String.fromCharCode(65 + j)}. ${opt.text}</label>`;
+    });
+    div.innerHTML = `<strong>Câu ${i + 1}:</strong> ${q.text}<div class="options">${optionsHTML}</div>`;
+    container.appendChild(div);
+  });
+
+  document.getElementById("submitBtn").onclick = function() {
+    let score = 0;
+    for (let i = 0; i < questions.length; i++) {
+      const val = document.querySelector(`input[name="q${i}"]:checked`);
+      if (!val) {
+        alert(`Vui lòng trả lời câu ${i + 1}`);
+        return;
+      }
+      score += parseInt(val.value);
+    }
+
+    const resultDiv = document.getElementById("result");
+    let level = "", message = "", emoji = "";
+
+    if (score <= 39) {
+      level = "Thấp";
+      message = "Bạn có xu hướng bỏ qua nhu cầu cảm xúc của bản thân. Cần học cách tử tế với chính mình hơn.";
+      resultDiv.className = "low";
+      emoji = "😔";
+    } else if (score <= 59) {
+      level = "Trung bình";
+      message = "Bạn đang học cách chăm sóc bản thân, nhưng đôi khi vẫn quá khắt khe với chính mình.";
+      resultDiv.className = "medium";
+      emoji = "🙂";
+    } else {
+      level = "Cao";
+      message = "Bạn có khả năng tự quan tâm tốt, biết lắng nghe và chữa lành chính mình.";
+      resultDiv.className = "high";
+      emoji = "🌿";
+    }
+
+    resultDiv.innerHTML = `
+      <h2>${emoji} KẾT QUẢ CỦA BẠN</h2>
+      <p><strong>Mức độ:</strong> ${level}</p>
+      <p>${message}</p>
+      <p><em>Tổng điểm: ${score} / 80</em></p>
+    `;
+  };
+</script>
+
+</body>
+</html>
