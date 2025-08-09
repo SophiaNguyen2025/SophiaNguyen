@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Trắc nghiệm DISC – 20 câu hỏi</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .question {
+      background: #fff;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .answers label {
+      display: block;
+      margin: 8px 0;
+      cursor: pointer;
+    }
+    button {
+      padding: 10px 20px;
+      background: #0078D4;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+    #result {
+      margin-top: 30px;
+      padding: 20px;
+      background: #e0f7fa;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Trắc nghiệm DISC – Khám phá phong cách hành vi</h1>
+  <form id="quizForm"></form>
+  <button onclick="submitQuiz()">Xem kết quả</button>
+  <div id="result"></div>
+
+  <script>
+    const questions = [
+      {
+        text: "Khi bắt đầu một dự án mới, bạn thường:",
+        options: [
+          { text: "Chủ động lãnh đạo và ra quyết định", type: "D" },
+          { text: "Truyền cảm hứng và kết nối mọi người", type: "I" },
+          { text: "Lắng nghe và hỗ trợ nhóm", type: "S" },
+          { text: "Tìm hiểu kỹ quy trình và tiêu chuẩn", type: "C" }
+        ]
+      },
+      {
+        text: "Trong cuộc họp, bạn thường:",
+        options: [
+          { text: "Thẳng thắn nêu ý kiến, dù có thể gây tranh luận", type: "D" },
+          { text: "Tạo không khí vui vẻ, dễ chịu", type: "I" },
+          { text: "Giữ bình tĩnh, lắng nghe trước khi nói", type: "S" },
+          { text: "Ghi chú chi tiết và phân tích kỹ lưỡng", type: "C" }
+        ]
+      },
+      {
+        text: "Khi gặp áp lực, bạn có xu hướng:",
+        options: [
+          { text: "Tăng tốc, quyết đoán hơn", type: "D" },
+          { text: "Tìm người chia sẻ, động viên", type: "I" },
+          { text: "Giữ nhịp độ ổn định, tránh xáo trộn", type: "S" },
+          { text: "Trở nên cẩn trọng, kiểm tra mọi thứ kỹ hơn", type: "C" }
+        ]
+      },
+      {
+        text: "Bạn cảm thấy hài lòng nhất khi:",
+        options: [
+          { text: "Đạt được mục tiêu lớn", type: "D" },
+          { text: "Được mọi người yêu quý và công nhận", type: "I" },
+          { text: "Có môi trường làm việc ổn định", type: "S" },
+          { text: "Làm việc chính xác, không sai sót", type: "C" }
+        ]
+      },
+      {
+        text: "Khi làm việc nhóm, bạn thường:",
+        options: [
+          { text: "Đưa ra định hướng và thúc đẩy tiến độ", type: "D" },
+          { text: "Kết nối mọi người, tạo sự gắn kết", type: "I" },
+          { text: "Hỗ trợ từng thành viên, giữ hòa khí", type: "S" },
+          { text: "Đảm bảo mọi người tuân thủ quy trình", type: "C" }
+        ]
+      },
+      {
+        text: "Bạn thấy khó chịu nhất khi:",
+        options: [
+          { text: "Bị kiểm soát hoặc thiếu quyền quyết định", type: "D" },
+          { text: "Bị cô lập hoặc không được lắng nghe", type: "I" },
+          { text: "Bị ép thay đổi quá nhanh", type: "S" },
+          { text: "Bị làm việc thiếu tổ chức, không rõ ràng", type: "C" }
+        ]
+      },
+      {
+        text: "Trong giao tiếp, bạn thường:",
+        options: [
+          { text: "Nói thẳng, không vòng vo", type: "D" },
+          { text: "Thân thiện, dễ bắt chuyện", type: "I" },
+          { text: "Nhẹ nhàng, kiên nhẫn", type: "S" },
+          { text: "Chính xác, có logic", type: "C" }
+        ]
+      },
+      {
+        text: "Bạn đánh giá thành công dựa trên:",
+        options: [
+          { text: "Kết quả và thành tích", type: "D" },
+          { text: "Mối quan hệ và ảnh hưởng", type: "I" },
+          { text: "Sự ổn định và hài hòa", type: "S" },
+          { text: "Độ chính xác và chất lượng", type: "C" }
+        ]
+      },
+      {
+        text: "Khi có mâu thuẫn trong nhóm, bạn thường:",
+        options: [
+          { text: "Đối mặt trực tiếp và giải quyết nhanh chóng", type: "D" },
+          { text: "Tìm cách hòa giải và làm dịu tình hình", type: "I" },
+          { text: "Chờ đợi để mọi thứ tự ổn định", type: "S" },
+          { text: "Phân tích nguyên nhân và đề xuất giải pháp", type: "C" }
+        ]
+      },
+      {
+        text: "Bạn thích làm việc trong môi trường:",
+        options: [
+          { text: "Năng động, có nhiều thử thách", type: "D" },
+          { text: "Hòa đồng, thân thiện", type: "I" },
+          { text: "Ổn định, ít thay đổi", type: "S" },
+          { text: "Có quy trình rõ ràng, minh bạch", type: "C" }
+        ]
+      },
+        {
+        text: "Khi nhận một nhiệm vụ mới, bạn thường:",
+        options: [
+          { text: "Tìm cách hoàn thành nhanh nhất có thể", type: "D" },
+          { text: "Hỏi ý kiến đồng nghiệp để làm tốt hơn", type: "I" },
+          { text: "Lên kế hoạch chi tiết và thực hiện từ từ", type: "S" },
+          { text: "Nghiên cứu kỹ lưỡng trước khi bắt đầu", type: "C" }
+        ]
+      },
+      {
+        text: "Bạn cảm thấy tự tin nhất khi:",
+        options: [
+          { text: "Được trao quyền quyết định", type: "D" },
+          { text: "Được làm việc với nhiều người", type: "I" },
+          { text: "Được làm việc trong môi trường quen thuộc", type: "S" },
+          { text: "Được làm việc với dữ liệu và thông tin chính xác", type: "C" }
+        ]
+      },
+      {
+        text: "Khi làm việc với người khác, bạn thường:",
+        options: [
+          { text: "Đưa ra ý kiến mạnh mẽ và dẫn dắt nhóm", type: "D" },
+          { text: "Tạo động lực và khuyến khích mọi người", type: "I" },
+          { text: "Hỗ trợ và đảm bảo mọi người cảm thấy thoải mái", type: "S" },
+          { text: "Đảm bảo mọi người làm đúng theo kế hoạch", type: "C" }
+        ]
+      },
+      {
+        text: "Bạn cảm thấy áp lực nhất khi:",
+        options: [
+          { text: "Không đạt được kết quả như mong muốn", type: "D" },
+          { text: "Không được mọi người ủng hộ", type: "I" },
+          { text: "Phải thay đổi cách làm việc liên tục", type: "S" },
+          { text: "Phải làm việc trong môi trường thiếu tổ chức", type: "C" }
+        ]
+      },
+      {
+        text: "Khi cần đưa ra quyết định, bạn thường:",
+        options: [
+          { text: "Quyết đoán và nhanh chóng", type: "D" },
+          { text: "Tham khảo ý kiến người khác trước", type: "I" },
+          { text: "Cân nhắc kỹ lưỡng để tránh rủi ro", type: "S" },
+          { text: "Dựa vào dữ liệu và phân tích logic", type: "C" }
+        ]
+      },
+      {
+        text: "Bạn cảm thấy thoải mái nhất khi:",
+        options: [
+          { text: "Được thử thách và cạnh tranh", type: "D" },
+          { text: "Được làm việc trong môi trường vui vẻ", type: "I" },
+          { text: "Được làm việc với nhịp độ ổn định", type: "S" },
+          { text: "Được làm việc với quy trình rõ ràng", type: "C" }
+        ]
+      },
+      {
+        text: "Khi gặp vấn đề, bạn thường:",
+        options: [
+          { text: "Tìm cách giải quyết ngay lập tức", type: "D" },
+          { text: "Tìm người hỗ trợ hoặc chia sẻ", type: "I" },
+          { text: "Chờ đợi để mọi thứ tự ổn định", type: "S" },
+          { text: "Phân tích kỹ lưỡng trước khi hành động", type: "C" }
+        ]
+      },
+      {
+        text: "Bạn cảm thấy tự hào nhất khi:",
+        options: [
+          { text: "Đạt được thành tích vượt trội", type: "D" },
+          { text: "Được mọi người yêu quý và công nhận", type: "I" },
+          { text: "Được làm việc trong môi trường ổn định", type: "S" },
+          { text: "Được hoàn thành công việc một cách chính xác", type: "C" }
+        ]
+      },
+      {
+        text: "Khi làm việc với nhóm, bạn thường:",
+        options: [
+          { text: "Đưa ra định hướng và thúc đẩy tiến độ", type: "D" },
+          { text: "Kết nối mọi người, tạo sự gắn kết", type: "I" },
+          { text: "Hỗ trợ từng thành viên, giữ hòa khí", type: "S" },
+          { text: "Đảm bảo mọi người tuân thủ quy trình", type: "C" }
+        ]
+      },
+      {
+        text: "Bạn cảm thấy khó chịu nhất khi:",
+        options: [
+          { text: "Bị kiểm soát hoặc thiếu quyền quyết định", type: "D" },
+          { text: "Bị cô lập hoặc không được lắng nghe", type: "I" },
+          { text: "Bị ép thay đổi quá nhanh", type: "S" },
+          { text: "Bị làm việc thiếu tổ chức, không rõ ràng", type: "C" }
+        ]
+      }
+
+
+    function shuffle(array) {
+      return array.sort(() => Math.random() - 0.5);
+    }
+
+    function renderQuiz() {
+      const form = document.getElementById("quizForm");
+      questions.forEach((q, index) => {
+        const shuffled = shuffle([...q.options]);
+        const div = document.createElement("div");
+        div.className = "question";
+        div.innerHTML = `<strong>Câu ${index + 1}:</strong> ${q.text}<div class="answers">`;
+        shuffled.forEach((opt, i) => {
+          div.innerHTML += `
+            <label>
+              <input type="radio" name="q${index}" value="${opt.type}" required>
+              ${opt.text}
+            </label>`;
+        });
+        div.innerHTML += `</div>`;
+        form.appendChild(div);
+      });
+    }
+
+    renderQuiz();
+  </script>
+    function submitQuiz() {
+      const form = document.getElementById("quizForm");
+      const inputs = form.querySelectorAll("input[type=radio]:checked");
+      if (inputs.length < questions.length) {
+        alert("Bạn cần trả lời tất cả 20 câu hỏi!");
+        return;
+      }
+
+      const scores = { D: 0, I: 0, S: 0, C: 0 };
+      inputs.forEach(input => scores[input.value]++);
+
+      const maxType = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+
+      const descriptions = {
+        D: `<strong>🔴 Dominance (Thống trị)</strong><br>
+            Bạn là người quyết đoán, định hướng kết quả, thích thử thách và kiểm soát. 
+            Bạn phù hợp với vai trò lãnh đạo, quản lý dự án, kinh doanh, hoặc các công việc đòi hỏi sự chủ động và cạnh tranh.`,
+        I: `<strong>🟠 Influence (Ảnh hưởng)</strong><br>
+            Bạn là người hòa đồng, truyền cảm hứng, giỏi giao tiếp và kết nối. 
+            Bạn phù hợp với các nghề như marketing, truyền thông, giáo dục, nhân sự hoặc các công việc cần sự tương tác xã hội cao.`,
+        S: `<strong>🟢 Steadiness (Ổn định)</strong><br>
+            Bạn là người kiên nhẫn, ổn định, hỗ trợ người khác và tránh xung đột. 
+            Bạn phù hợp với các nghề như chăm sóc khách hàng, hỗ trợ kỹ thuật, hành chính, hoặc các công việc cần sự kiên trì và đáng tin cậy.`,
+        C: `<strong>🔵 Compliance (Tuân thủ)</strong><br>
+            Bạn là người chính xác, phân tích tốt, tuân thủ quy trình và tiêu chuẩn. 
+            Bạn phù hợp với các nghề như kế toán, kiểm toán, nghiên cứu, lập trình, hoặc các công việc yêu cầu sự tỉ mỉ và logic.`
+      };
+
+      const resultDiv = document.getElementById("result");
+      resultDiv.innerHTML = `
+        <h2>Kết quả của bạn: Nhóm ${maxType}</h2>
+        ${descriptions[maxType]}
+        <br><br>
+        <strong>Điểm chi tiết:</strong><br>
+        D: ${scores.D} | I: ${scores.I} | S: ${scores.S} | C: ${scores.C}
+      `;
+    }
+  </script>
+</body>
+</html>
