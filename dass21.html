@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>DASS-21 Test – Phần 1</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #fceabb, #f8b500);
+      color: #333;
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+      color: #d62828;
+    }
+    .question {
+      margin-bottom: 20px;
+      padding: 15px;
+      background: #fff8e1;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .question h3 {
+      margin-bottom: 10px;
+    }
+    .answers label {
+      display: block;
+      margin-bottom: 5px;
+      cursor: pointer;
+    }
+    button {
+      background-color: #d62828;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    button:hover {
+      background-color: #a61c1c;
+    }
+    #result {
+      margin-top: 30px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #003049;
+      background: #ffe8cc;
+      padding: 15px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🧠 Bài Test DASS-21 – Phần 1</h1>
+  <form id="dassForm">
+    <!-- Câu hỏi mẫu: Depression -->
+    <div class="question">
+      <h3>1. Tôi cảm thấy buồn bã và chán nản.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q1" value="0"> Không hề</label>
+        <label><input type="radio" name="q1" value="1"> Có chút ít</label>
+        <label><input type="radio" name="q1" value="2"> Khá nhiều</label>
+        <label><input type="radio" name="q1" value="3"> Rất nhiều</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>2. Tôi cảm thấy lo lắng mà không có lý do rõ ràng.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q2" value="0"> Không hề</label>
+        <label><input type="radio" name="q2" value="1"> Có chút ít</label>
+        <label><input type="radio" name="q2" value="2"> Khá nhiều</label>
+        <label><input type="radio" name="q2" value="3"> Rất nhiều</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>3. Tôi cảm thấy căng thẳng và khó thư giãn.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q3" value="0"> Không hề</label>
+        <label><input type="radio" name="q3" value="1"> Có chút ít</label>
+        <label><input type="radio" name="q3" value="2"> Khá nhiều</label>
+        <label><input type="radio" name="q3" value="3"> Rất nhiều</label>
+      </div>
+    </div>
+    <div class="question">
+      <h3>4. Tôi cảm thấy không có hứng thú với những điều từng khiến tôi vui vẻ.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q4" value="0"> Không hề</label>
+        <label><input type="radio" name="q4" value="1"> Có chút ít</label>
+        <label><input type="radio" name="q4" value="2"> Khá nhiều</label>
+        <label><input type="radio" name="q4" value="3"> Rất nhiều</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>5. Tôi cảm thấy khó thở mà không rõ nguyên nhân.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q5" value="0"> Không hề</label>
+        <label><input type="radio" name="q5" value="1"> Có chút ít</label>
+        <label><input type="radio" name="q5" value="2"> Khá nhiều</label>
+        <label><input type="radio" name="q5" value="3"> Rất nhiều</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>6. Tôi cảm thấy dễ cáu gắt và mất kiên nhẫn.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q6" value="0"> Không hề</label>
+        <label><input type="radio" name="q6" value="1"> Có chút ít</label>
+        <label><input type="radio" name="q6" value="2"> Khá nhiều</label>
+        <label><input type="radio" name="q6" value="3"> Rất nhiều</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>7. Tôi cảm thấy cuộc sống không còn ý nghĩa.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q7" value="0"> Không hề</label>
+        <label><input type="radio" name="q7" value="1"> Có chút ít</label>
+        <label><input type="radio" name="q7" value="2"> Khá nhiều</label>
+        <label><input type="radio" name="q7" value="3"> Rất nhiều</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>8. Tôi cảm thấy bồn chồn, không thể ngồi yên.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q8" value="0"> Không hề</label>
+        <label><input type="radio" name="q8" value="1"> Có chút ít</label>
+        <label><input type="radio" name="q8" value="2"> Khá nhiều</label>
+        <label><input type="radio" name="q8" value="3"> Rất nhiều</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>9. Tôi cảm thấy căng cơ hoặc đau đầu do áp lực.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q9" value="0"> Không hề</label>
+        <label><input type="radio" name="q9" value="1"> Có chút ít</label>
+        <label><input type="radio" name="q9" value="2"> Khá nhiều</label>
+        <label><input type="radio" name="q9" value="3"> Rất nhiều</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>10. Tôi cảm thấy mình vô dụng hoặc thất bại.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q10" value="0"> Không hề</label>
+        <label><input type="radio" name="q10" value="1"> Có chút ít</label>
+        <label><input type="radio" name="q10" value="2"> Khá nhiều</label>
+        <label><input type="radio" name="q10" value="3"> Rất nhiều</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>11. Tôi cảm thấy tim đập nhanh hoặc hồi hộp.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q11" value="0"> Không hề</label>
+        <label><input type="radio" name="q11" value="1"> Có chút ít</label>
+        <label><input type="radio" name="q11" value="2"> Khá nhiều</label>
+        <label><input type="radio" name="q11" value="3"> Rất nhiều</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>12. Tôi cảm thấy khó tập trung vào công việc hoặc học tập.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q12" value="0"> Không hề</label>
+        <label><input type="radio" name="q12" value="1"> Có chút ít</label>
+        <label><input type="radio" name="q12" value="2"> Khá nhiều</label>
+        <label><input type="radio" name="q12" value="3"> Rất nhiều</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>13. Tôi cảm thấy tuyệt vọng về tương lai.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q13" value="0"> Không hề</label>
+        <label><input type="radio" name="q13" value="1"> Có chút ít</label>
+        <label><input type="radio" name="q13" value="2"> Khá nhiều</label>
+        <label><input type="radio" name="q13" value="3"> Rất nhiều</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>14. Tôi cảm thấy run rẩy hoặc khó kiểm soát cơ thể.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q14" value="0"> Không hề</label>
+        <label><input type="radio" name="q14" value="1"> Có chút ít</label>
+        <label><input type="radio" name="q14" value="2"> Khá nhiều</label>
+        <label><input type="radio" name="q14" value="3"> Rất nhiều</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>15. Tôi cảm thấy dễ bị kích động bởi những điều nhỏ nhặt.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q15" value="0"> Không hề</label>
+        <label><input type="radio" name="q15" value="1"> Có chút ít</label>
+        <label><input type="radio" name="q15" value="2"> Khá nhiều</label>
+        <label><input type="radio" name="q15" value="3"> Rất nhiều</label>
+      </div>
+    </div>
+    <div class="question">
+      <h3>16. Tôi cảm thấy khó ngủ hoặc ngủ không ngon giấc.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q16" value="0"> Không hề</label>
+        <label><input type="radio" name="q16" value="1"> Có chút ít</label>
+        <label><input type="radio" name="q16" value="2"> Khá nhiều</label>
+        <label><input type="radio" name="q16" value="3"> Rất nhiều</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>17. Tôi cảm thấy mình không còn giá trị với người khác.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q17" value="0"> Không hề</label>
+        <label><input type="radio" name="q17" value="1"> Có chút ít</label>
+        <label><input type="radio" name="q17" value="2"> Khá nhiều</label>
+        <label><input type="radio" name="q17" value="3"> Rất nhiều</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>18. Tôi cảm thấy dễ hoảng loạn hoặc sợ hãi.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q18" value="0"> Không hề</label>
+        <label><input type="radio" name="q18" value="1"> Có chút ít</label>
+        <label><input type="radio" name="q18" value="2"> Khá nhiều</label>
+        <label><input type="radio" name="q18" value="3"> Rất nhiều</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>19. Tôi cảm thấy dễ bị kích thích hoặc mất kiểm soát cảm xúc.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q19" value="0"> Không hề</label>
+        <label><input type="radio" name="q19" value="1"> Có chút ít</label>
+        <label><input type="radio" name="q19" value="2"> Khá nhiều</label>
+        <label><input type="radio" name="q19" value="3"> Rất nhiều</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>20. Tôi cảm thấy khó kiểm soát suy nghĩ tiêu cực.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q20" value="0"> Không hề</label>
+        <label><input type="radio" name="q20" value="1"> Có chút ít</label>
+        <label><input type="radio" name="q20" value="2"> Khá nhiều</label>
+        <label><input type="radio" name="q20" value="3"> Rất nhiều</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>21. Tôi cảm thấy cơ thể căng cứng hoặc đau nhức do stress.</h3>
+      <div class="answers">
+        <label><input type="radio" name="q21" value="0"> Không hề</label>
+        <label><input type="radio" name="q21" value="1"> Có chút ít</label>
+        <label><input type="radio" name="q21" value="2"> Khá nhiều</label>
+        <label><input type="radio" name="q21" value="3"> Rất nhiều</label>
+      </div>
+    </div>
+
+
+    <button type="button" onclick="calculateDASS()">Xem kết quả</button>
+    <div id="result"></div>
+  </form>
+
+        <script>
+    function calculateDASS() {
+      const form = document.getElementById('dassForm');
+      const totalQuestions = 21;
+      let depression = 0;
+      let anxiety = 0;
+      let stress = 0;
+
+      for (let i = 1; i <= totalQuestions; i++) {
+        const answer = form['q' + i]?.value;
+        if (answer === undefined || answer === '') {
+          alert('Vui lòng hoàn thành tất cả câu hỏi trước khi xem kết quả!');
+          return;
+        }
+        const val = parseInt(answer);
+        if ([1, 4, 7, 10, 13, 17, 20].includes(i)) depression += val;
+        else if ([2, 5, 8, 11, 14, 18, 19].includes(i)) anxiety += val;
+        else if ([3, 6, 9, 12, 15, 16, 21].includes(i)) stress += val;
+      }
+
+      document.getElementById('result').innerText =
+        `🔹 Trầm cảm: ${depression * 2}/42\n` +
+        `🔹 Lo âu: ${anxiety * 2}/42\n` +
+        `🔹 Căng thẳng: ${stress * 2}/42\n\n` +
+        `👉 Điểm càng cao thể hiện mức độ càng nghiêm trọng.`;
+
+    }
+  </script>
+</body>
+</html>
