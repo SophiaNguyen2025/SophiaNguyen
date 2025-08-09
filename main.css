@@ -1031,3 +1031,68 @@ footer {
   color: #fff;           /* Vẫn trắng khi hover/click/xem rồi */
   background: none;      /* Không xuất hiện thanh trắng */
 }
+.intro {
+  background-color: #63a693;
+  padding: 40px 20px;
+  max-width: 900px;
+  margin: 30px auto;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.intro p {
+  color: #0a4a5a;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+special-service-box {
+  position: relative;
+  padding: 40px 32px;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 900px;
+  background: #FF9999 !important; /* Tím pastel nổi bật */
+  color: #2e004f;
+  border: 2px solid #7e57c2;
+  text-align: center;
+  font-weight: 600;
+  box-shadow: 0 0 20px rgba(126, 87, 194, 0.5);
+  z-index: 1;
+
+  animation: glowBox 2.5s ease-in-out infinite;
+}
+
+@keyframes glowBox {
+  0% {
+    box-shadow: 0 0 12px rgba(126, 87, 194, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 26px rgba(126, 87, 194, 0.85);
+  }
+  100% {
+    box-shadow: 0 0 12px rgba(126, 87, 194, 0.4);
+  }
+}
+.explore-button {
+  margin-top: 20px;
+  padding: 14px 28px;
+  background-color: #3366CC;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(106, 27, 154, 0.4);
+   text-decoration: none; /* ← thêm dòng này */
+}
+
+.explore-button:hover {
+  background-color: #FF3333;
+  box-shadow: 0 0 18px rgba(106, 27, 154, 0.8);
+  transform: scale(1.05);
+}
+
