@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Resilience Scale Test</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f0f4ff, #e0f7fa);
+      color: #333;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+      color: #00796b;
+    }
+    .question {
+      margin-bottom: 20px;
+      padding: 15px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+    select {
+      width: 100%;
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #00796b;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    button:hover {
+      background-color: #004d40;
+    }
+    #result {
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #e0f2f1;
+      border-radius: 8px;
+      font-size: 18px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>🧠 Bài Test Khả Năng Phục Hồi (Resilience Scale)</h1>
+
+  <form id="resilienceForm">
+    <div id="questions"></div>
+    <button type="submit">Xem kết quả</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script>
+    const questions = [
+      "Tôi thường có thể giữ bình tĩnh khi gặp khó khăn.",
+      "Tôi tin rằng mình có thể vượt qua bất kỳ thử thách nào.",
+      "Tôi cảm thấy mình có khả năng kiểm soát cuộc sống của mình.",
+      "Tôi có thể tìm ra cách giải quyết khi mọi thứ trở nên khó khăn.",
+      "Tôi thường học được điều gì đó từ những thất bại.",
+      "Tôi có thể giữ được sự lạc quan ngay cả khi mọi thứ không như ý.",
+      "Tôi cảm thấy mình có giá trị ngay cả khi người khác không công nhận.",
+      "Tôi có thể tự vực dậy sau khi bị tổn thương.",
+      "Tôi tin rằng những khó khăn sẽ giúp tôi trưởng thành hơn.",
+      "Tôi có thể giữ được sự kiên định khi đối mặt với áp lực.",
+      "Tôi thường tìm được sự hỗ trợ khi cần.",
+      "Tôi có thể thích nghi với những thay đổi bất ngờ.",
+      "Tôi cảm thấy mạnh mẽ hơn sau mỗi lần vượt qua thử thách.",
+      "Tôi không dễ bị gục ngã bởi những lời chỉ trích.",
+      "Tôi có thể nhìn thấy ánh sáng trong những thời điểm tăm tối."
+    ];
+
+    const container = document.getElementById("questions");
+    questions.forEach((q, i) => {
+      const div = document.createElement("div");
+      div.className = "question";
+      div.innerHTML = `
+        <label for="q${i}">${i + 1}. ${q}</label>
+        <select id="q${i}" required>
+          <option value="">-- Chọn mức độ --</option>
+          <option value="1">1 - Hoàn toàn không đồng ý</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4 - Trung lập</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7 - Hoàn toàn đồng ý</option>
+        </select>
+      `;
+      container.appendChild(div);
+    });
+
+    document.getElementById("resilienceForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      let total = 0;
+      for (let i = 0; i < questions.length; i++) {
+        const val = document.getElementById(`q${i}`).value;
+        if (!val) {
+          alert("Bạn phải hoàn thành tất cả câu hỏi nha!");
+          return;
+        }
+        total += parseInt(val);
+      }
+
+      let resultText = "";
+      if (total >= 90) {
+        resultText = "🌟 Khả năng phục hồi RẤT CAO – Bạn là người cực kỳ mạnh mẽ và kiên cường!";
+      } else if (total >= 75) {
+        resultText = "💪 Khả năng phục hồi TỐT – Bạn có thể đối mặt với khó khăn một cách hiệu quả.";
+      } else if (total >= 60) {
+        resultText = "🙂 Khả năng phục hồi TRUNG BÌNH – Bạn có thể cải thiện thêm bằng cách rèn luyện.";
+      } else {
+        resultText = "🌧 Khả năng phục hồi THẤP – Bạn nên tìm cách nâng cao sức mạnh nội tâm và sự hỗ trợ.";
+      }
+
+      document.getElementById("result").innerHTML = `
+        <strong>Tổng điểm: ${total}/105</strong><br><br>
+        ${resultText}
+      `;
+      document.getElementById("result").style.display = "block";
+    });
+  </script>
+</body>
+</html>
