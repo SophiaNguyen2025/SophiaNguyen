@@ -28,13 +28,56 @@
   <div id="result"></div>
 
   <script>
-    const questions = [
-      // Mỗi câu hỏi có cặp lựa chọn đại diện cho một nhóm MBTI cụ thể (E/I, S/N, T/F, J/P)
-      { text: "Bạn thích dành thời gian với nhiều người hơn là ở một mình.", a: "E", b: "I" },
-      { text: "Bạn thường chú ý đến chi tiết thực tế hơn là ý tưởng trừu tượng.", a: "S", b: "N" },
-      { text: "Bạn ra quyết định dựa trên lý trí hơn là cảm xúc.", a: "T", b: "F" },
-      { text: "Bạn thích kế hoạch rõ ràng hơn là linh hoạt.", a: "J", b: "P" },
-      // Thêm 36 câu nữa đã được trộn và cân bằng nhóm, em sẽ thêm tiếp ở bước sau
+   const questions = [
+  // E vs I
+  { text: "Bạn cảm thấy tràn đầy năng lượng khi ở giữa đám đông.", a: "E", b: "I" },
+  { text: "Bạn thích giao tiếp với nhiều người hơn là làm việc một mình.", a: "E", b: "I" },
+  { text: "Bạn dễ dàng bắt chuyện với người lạ.", a: "E", b: "I" },
+  { text: "Bạn thường chủ động trong các hoạt động xã hội.", a: "E", b: "I" },
+  { text: "Bạn cảm thấy thoải mái khi chia sẻ suy nghĩ với người khác.", a: "E", b: "I" },
+  { text: "Bạn thích môi trường làm việc năng động và đông người.", a: "E", b: "I" },
+  { text: "Bạn thường nói nhiều hơn là nghe.", a: "E", b: "I" },
+  { text: "Bạn cảm thấy mệt mỏi khi ở một mình quá lâu.", a: "E", b: "I" },
+  { text: "Bạn thích tham gia các hoạt động nhóm.", a: "E", b: "I" },
+  { text: "Bạn thường tìm kiếm sự tương tác xã hội.", a: "E", b: "I" },
+
+  // S vs N
+  { text: "Bạn tin vào những gì bạn có thể thấy và chạm vào.", a: "S", b: "N" },
+  { text: "Bạn thích làm việc với dữ liệu thực tế hơn là ý tưởng.", a: "S", b: "N" },
+  { text: "Bạn chú trọng vào chi tiết hơn là tổng thể.", a: "S", b: "N" },
+  { text: "Bạn thường dựa vào kinh nghiệm để giải quyết vấn đề.", a: "S", b: "N" },
+  { text: "Bạn thích các hướng dẫn rõ ràng và cụ thể.", a: "S", b: "N" },
+  { text: "Bạn cảm thấy thoải mái với những gì quen thuộc.", a: "S", b: "N" },
+  { text: "Bạn thường thực tế hơn là tưởng tượng.", a: "S", b: "N" },
+  { text: "Bạn thích làm việc theo quy trình đã định.", a: "S", b: "N" },
+  { text: "Bạn thường chú ý đến hiện tại hơn là tương lai.", a: "S", b: "N" },
+  { text: "Bạn tin rằng sự thật nằm trong chi tiết.", a: "S", b: "N" },
+
+  // T vs F
+  { text: "Bạn đưa ra quyết định dựa trên logic hơn là cảm xúc.", a: "T", b: "F" },
+  { text: "Bạn coi trọng sự công bằng hơn là lòng trắc ẩn.", a: "T", b: "F" },
+  { text: "Bạn thường phân tích vấn đề một cách khách quan.", a: "T", b: "F" },
+  { text: "Bạn cảm thấy thoải mái khi tranh luận để bảo vệ quan điểm.", a: "T", b: "F" },
+  { text: "Bạn tin rằng sự thật quan trọng hơn cảm xúc.", a: "T", b: "F" },
+  { text: "Bạn thường không để cảm xúc ảnh hưởng đến quyết định.", a: "T", b: "F" },
+  { text: "Bạn thích giải pháp hợp lý hơn là giải pháp dễ chịu.", a: "T", b: "F" },
+  { text: "Bạn thường đánh giá người khác qua hành động hơn là cảm xúc.", a: "T", b: "F" },
+  { text: "Bạn cảm thấy khó hiểu khi người khác quá nhạy cảm.", a: "T", b: "F" },
+  { text: "Bạn tin rằng lý trí là công cụ tốt nhất để giải quyết vấn đề.", a: "T", b: "F" },
+
+  // J vs P
+  { text: "Bạn thích lập kế hoạch trước khi bắt đầu công việc.", a: "J", b: "P" },
+  { text: "Bạn cảm thấy thoải mái khi mọi thứ được tổ chức rõ ràng.", a: "J", b: "P" },
+  { text: "Bạn thường hoàn thành công việc đúng hạn.", a: "J", b: "P" },
+  { text: "Bạn không thích sự thay đổi bất ngờ.", a: "J", b: "P" },
+  { text: "Bạn thích có danh sách công việc cần làm.", a: "J", b: "P" },
+  { text: "Bạn cảm thấy khó chịu khi kế hoạch bị thay đổi.", a: "J", b: "P" },
+  { text: "Bạn thường quyết định nhanh chóng và dứt khoát.", a: "J", b: "P" },
+  { text: "Bạn thích sự ổn định hơn là sự linh hoạt.", a: "J", b: "P" },
+  { text: "Bạn thường lên kế hoạch cho cả tuần.", a: "J", b: "P" },
+  { text: "Bạn cảm thấy hài lòng khi hoàn thành mọi việc theo kế hoạch.", a: "J", b: "P" }
+];
+
     ];
 
     const form = document.getElementById("infoForm");
