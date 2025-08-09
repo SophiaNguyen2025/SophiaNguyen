@@ -4,143 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Trắc nghiệm MBTI - Sophia Nguyễn</title>
-
-
-</head>
-<body>
-  <img src="logo-sophia.png" alt="Logo Sophia" class="logo">
-  <h1>Trắc nghiệm MBTI - Hiểu bản thân cùng Sophia</h1>
-
-  <form id="infoForm" action="https://formspree.io/f/mkgzvjwy" method="POST" target="hiddenFrame">
-    <iframe name="hiddenFrame" style="display:none;"></iframe>
-<form id="infoForm" action="https://formspree.io/f/xvgqdgko" method="POST" target="hiddenFrame" onsubmit="showTestForm()">
-
-    <label>Họ và tên:<br><input type="text" name="Họ và tên" required></label>
-    <label>Email:<br><input type="email" name="Email" required></label>
-    <label>Số điện thoại:<br><input type="tel" name="Số điện thoại" pattern="^\d{10}$" required placeholder="Nhập đúng 10 số"></label>
-    <button type="submit">Bắt đầu trắc nghiệm</button>
-  </form>
-
-  <div id="testForm" style="display:none">
-    <form id="quizForm">
-      <!-- 40 câu hỏi sẽ được tự động thêm ở đây bằng JavaScript -->
-      <div id="questionContainer"></div>
-      <button type="submit" id="submitBtn">Xem kết quả</button>
-    </form>
-  </div>
-
-  <div id="result"></div>
-
-  <script>
-   const questions = [
-  // E vs I
-  { text: "Bạn cảm thấy tràn đầy năng lượng khi ở giữa đám đông.", a: "E", b: "I" },
-  { text: "Bạn thích giao tiếp với nhiều người hơn là làm việc một mình.", a: "E", b: "I" },
-  { text: "Bạn dễ dàng bắt chuyện với người lạ.", a: "E", b: "I" },
-  { text: "Bạn thường chủ động trong các hoạt động xã hội.", a: "E", b: "I" },
-  { text: "Bạn cảm thấy thoải mái khi chia sẻ suy nghĩ với người khác.", a: "E", b: "I" },
-  { text: "Bạn thích môi trường làm việc năng động và đông người.", a: "E", b: "I" },
-  { text: "Bạn thường nói nhiều hơn là nghe.", a: "E", b: "I" },
-  { text: "Bạn cảm thấy mệt mỏi khi ở một mình quá lâu.", a: "E", b: "I" },
-  { text: "Bạn thích tham gia các hoạt động nhóm.", a: "E", b: "I" },
-  { text: "Bạn thường tìm kiếm sự tương tác xã hội.", a: "E", b: "I" },
-
-  // S vs N
-  { text: "Bạn tin vào những gì bạn có thể thấy và chạm vào.", a: "S", b: "N" },
-  { text: "Bạn thích làm việc với dữ liệu thực tế hơn là ý tưởng.", a: "S", b: "N" },
-  { text: "Bạn chú trọng vào chi tiết hơn là tổng thể.", a: "S", b: "N" },
-  { text: "Bạn thường dựa vào kinh nghiệm để giải quyết vấn đề.", a: "S", b: "N" },
-  { text: "Bạn thích các hướng dẫn rõ ràng và cụ thể.", a: "S", b: "N" },
-  { text: "Bạn cảm thấy thoải mái với những gì quen thuộc.", a: "S", b: "N" },
-  { text: "Bạn thường thực tế hơn là tưởng tượng.", a: "S", b: "N" },
-  { text: "Bạn thích làm việc theo quy trình đã định.", a: "S", b: "N" },
-  { text: "Bạn thường chú ý đến hiện tại hơn là tương lai.", a: "S", b: "N" },
-  { text: "Bạn tin rằng sự thật nằm trong chi tiết.", a: "S", b: "N" },
-
-  // T vs F
-  { text: "Bạn đưa ra quyết định dựa trên logic hơn là cảm xúc.", a: "T", b: "F" },
-  { text: "Bạn coi trọng sự công bằng hơn là lòng trắc ẩn.", a: "T", b: "F" },
-  { text: "Bạn thường phân tích vấn đề một cách khách quan.", a: "T", b: "F" },
-  { text: "Bạn cảm thấy thoải mái khi tranh luận để bảo vệ quan điểm.", a: "T", b: "F" },
-  { text: "Bạn tin rằng sự thật quan trọng hơn cảm xúc.", a: "T", b: "F" },
-  { text: "Bạn thường không để cảm xúc ảnh hưởng đến quyết định.", a: "T", b: "F" },
-  { text: "Bạn thích giải pháp hợp lý hơn là giải pháp dễ chịu.", a: "T", b: "F" },
-  { text: "Bạn thường đánh giá người khác qua hành động hơn là cảm xúc.", a: "T", b: "F" },
-  { text: "Bạn cảm thấy khó hiểu khi người khác quá nhạy cảm.", a: "T", b: "F" },
-  { text: "Bạn tin rằng lý trí là công cụ tốt nhất để giải quyết vấn đề.", a: "T", b: "F" },
-
-  // J vs P
-  { text: "Bạn thích lập kế hoạch trước khi bắt đầu công việc.", a: "J", b: "P" },
-  { text: "Bạn cảm thấy thoải mái khi mọi thứ được tổ chức rõ ràng.", a: "J", b: "P" },
-  { text: "Bạn thường hoàn thành công việc đúng hạn.", a: "J", b: "P" },
-  { text: "Bạn không thích sự thay đổi bất ngờ.", a: "J", b: "P" },
-  { text: "Bạn thích có danh sách công việc cần làm.", a: "J", b: "P" },
-  { text: "Bạn cảm thấy khó chịu khi kế hoạch bị thay đổi.", a: "J", b: "P" },
-  { text: "Bạn thường quyết định nhanh chóng và dứt khoát.", a: "J", b: "P" },
-  { text: "Bạn thích sự ổn định hơn là sự linh hoạt.", a: "J", b: "P" },
-  { text: "Bạn thường lên kế hoạch cho cả tuần.", a: "J", b: "P" },
-  { text: "Bạn cảm thấy hài lòng khi hoàn thành mọi việc theo kế hoạch.", a: "J", b: "P" }
-];
-
-    ];
-
-    const form = document.getElementById("infoForm");
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      fetch(form.action, {
-        method: "POST",
-        body: new FormData(form),
-        headers: { Accept: "application/json" }
-      }).then(response => {
-        if (response.ok) {
-          document.getElementById("infoForm").style.display = "none";
-          document.getElementById("testForm").style.display = "block";
-          renderQuestions();
-        } else {
-          alert("Đã có lỗi xảy ra khi gửi thông tin.");
-        }
-      });
-    });
-
-    function renderQuestions() {
-      const container = document.getElementById("questionContainer");
-      questions.forEach((q, i) => {
-        const div = document.createElement("div");
-        div.classList.add("question");
-        div.innerHTML = `
-          <p><strong>Câu ${i + 1}:</strong> ${q.text}</p>
-          <label><input type="radio" name="q${i}" value="${q.a}" required> Đồng ý</label>
-          <label><input type="radio" name="q${i}" value="${q.b}"> Không đồng ý</label>
-        `;
-        container.appendChild(div);
-      });
-    }
-
-    document.getElementById("quizForm").addEventListener("submit", function (e) {
-      e.preventDefault();
-      const formData = new FormData(e.target);
-      const scores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
-
-      for (let [key, value] of formData.entries()) {
-        scores[value]++;
-      }
-
-      const type = `${scores["E"] >= scores["I"] ? "E" : "I"}` +
-                   `${scores["S"] >= scores["N"] ? "S" : "N"}` +
-                   `${scores["T"] >= scores["F"] ? "T" : "F"}` +
-                   `${scores["J"] >= scores["P"] ? "J" : "P"}`;
-
-      document.getElementById("result").innerHTML = `<h2>Kết quả của bạn là: ${type}</h2><p>Đây là kiểu tính cách MBTI dựa trên trắc nghiệm. Hãy đọc thêm để hiểu rõ hơn về nhóm tính cách này nhé!</p>`;
-    });
-  </script>
-  <!------Css------->
- <style>
+  <style>
     body {
       font-family: Arial, sans-serif;
       background-color: #f5f7fa;
       padding: 20px;
       max-width: 800px;
       margin: auto;
+      transition: opacity 0.5s ease;
     }
     img.logo {
       max-width: 120px;
@@ -177,13 +48,140 @@
       border: 1px solid #90caf9;
       border-radius: 8px;
     }
+    #countdown {
+      font-size: 24px;
+      font-weight: bold;
+      color: #ff5722;
+      text-align: center;
+      margin-top: 20px;
+    }
   </style>
+</head>
+<body>
+  <img src="logo-sophia.png" alt="Logo Sophia" class="logo">
+  <h1>Trắc nghiệm MBTI - Hiểu bản thân cùng Sophia</h1>
+
+  <form id="infoForm" action="https://formspree.io/f/xvgqdgko" method="POST" target="hiddenFrame" onsubmit="return showCountdown()">
+    <iframe name="hiddenFrame" style="display:none;"></iframe>
+
+    <label>Họ và tên:<br><input type="text" name="Họ và tên" required></label>
+    <label>Email:<br><input type="email" name="Email" required></label>
+    <label>Số điện thoại:<br><input type="tel" name="Số điện thoại" pattern="^\d{10}$" required placeholder="Nhập đúng 10 số"></label>
+    <button type="submit">Bắt đầu trắc nghiệm</button>
+  </form>
+
+  <div id="countdown" style="display:none">Đang chuẩn bị câu hỏi...</div>
+
+  <div id="testForm" style="display:none">
+    <form id="quizForm">
+      <div id="questionContainer"></div>
+      <button type="submit" id="submitBtn">Xem kết quả</button>
+    </form>
+  </div>
+
+  <div id="result"></div>
+
   <script>
-  function showTestForm() {
-  document.getElementById("infoForm").style.display = "none";
-  document.getElementById("testForm").style.display = "block";
-  renderQuestions();
-}
+    const questions = [
+      { text: "Bạn cảm thấy tràn đầy năng lượng khi ở giữa đám đông.", a: "E", b: "I" },
+      { text: "Bạn thích giao tiếp với nhiều người hơn là làm việc một mình.", a: "E", b: "I" },
+      { text: "Bạn dễ dàng bắt chuyện với người lạ.", a: "E", b: "I" },
+      { text: "Bạn thường chủ động trong các hoạt động xã hội.", a: "E", b: "I" },
+      { text: "Bạn cảm thấy thoải mái khi chia sẻ suy nghĩ với người khác.", a: "E", b: "I" },
+      { text: "Bạn thích môi trường làm việc năng động và đông người.", a: "E", b: "I" },
+      { text: "Bạn thường nói nhiều hơn là nghe.", a: "E", b: "I" },
+      { text: "Bạn cảm thấy mệt mỏi khi ở một mình quá lâu.", a: "E", b: "I" },
+      { text: "Bạn thích tham gia các hoạt động nhóm.", a: "E", b: "I" },
+      { text: "Bạn thường tìm kiếm sự tương tác xã hội.", a: "E", b: "I" },
+
+      { text: "Bạn tin vào những gì bạn có thể thấy và chạm vào.", a: "S", b: "N" },
+      { text: "Bạn thích làm việc với dữ liệu thực tế hơn là ý tưởng.", a: "S", b: "N" },
+      { text: "Bạn chú trọng vào chi tiết hơn là tổng thể.", a: "S", b: "N" },
+      { text: "Bạn thường dựa vào kinh nghiệm để giải quyết vấn đề.", a: "S", b: "N" },
+      { text: "Bạn thích các hướng dẫn rõ ràng và cụ thể.", a: "S", b: "N" },
+      { text: "Bạn cảm thấy thoải mái với những gì quen thuộc.", a: "S", b: "N" },
+      { text: "Bạn thường thực tế hơn là tưởng tượng.", a: "S", b: "N" },
+      { text: "Bạn thích làm việc theo quy trình đã định.", a: "S", b: "N" },
+      { text: "Bạn thường chú ý đến hiện tại hơn là tương lai.", a: "S", b: "N" },
+      { text: "Bạn tin rằng sự thật nằm trong chi tiết.", a: "S", b: "N" },
+
+      { text: "Bạn đưa ra quyết định dựa trên logic hơn là cảm xúc.", a: "T", b: "F" },
+      { text: "Bạn coi trọng sự công bằng hơn là lòng trắc ẩn.", a: "T", b: "F" },
+      { text: "Bạn thường phân tích vấn đề một cách khách quan.", a: "T", b: "F" },
+      { text: "Bạn cảm thấy thoải mái khi tranh luận để bảo vệ quan điểm.", a: "T", b: "F" },
+      { text: "Bạn tin rằng sự thật quan trọng hơn cảm xúc.", a: "T", b: "F" },
+      { text: "Bạn thường không để cảm xúc ảnh hưởng đến quyết định.", a: "T", b: "F" },
+      { text: "Bạn thích giải pháp hợp lý hơn là giải pháp dễ chịu.", a: "T", b: "F" },
+      { text: "Bạn thường đánh giá người khác qua hành động hơn là cảm xúc.", a: "T", b: "F" },
+      { text: "Bạn cảm thấy khó hiểu khi người khác quá nhạy cảm.", a: "T", b: "F" },
+      { text: "Bạn tin rằng lý trí là công cụ tốt nhất để giải quyết vấn đề.", a: "T", b: "F" },
+
+      { text: "Bạn thích lập kế hoạch trước khi bắt đầu công việc.", a: "J", b: "P" },
+      { text: "Bạn cảm thấy thoải mái khi mọi thứ được tổ chức rõ ràng.", a: "J", b: "P" },
+      { text: "Bạn thường hoàn thành công việc đúng hạn.", a: "J", b: "P" },
+      { text: "Bạn không thích sự thay đổi bất ngờ.", a: "J", b: "P" },
+      { text: "Bạn thích có danh sách công việc cần làm.", a: "J", b: "P" },
+      { text: "Bạn cảm thấy khó chịu khi kế hoạch bị thay đổi.", a: "J", b: "P" },
+      { text: "Bạn thường quyết định nhanh chóng và dứt khoát.", a: "J", b: "P" },
+      { text: "Bạn thích sự ổn định hơn là sự linh hoạt.", a: "J", b: "P" },
+      { text: "Bạn thường lên kế hoạch cho cả tuần.", a: "J", b: "P" },
+      { text: "Bạn cảm thấy hài lòng khi hoàn thành mọi việc theo kế hoạch.", a: "J", b: "P" }
+    ];
+
+    function showCountdown() {
+      document.getElementById("infoForm").style.display = "none";
+      document.getElementById("countdown").style.display = "block";
+
+      let seconds = 3;
+      document.getElementById("countdown").innerText = `Bắt đầu sau ${seconds} giây...`;
+
+      const timer = setInterval(() => {
+        seconds--;
+        if (seconds > 0) {
+         document.getElementById("countdown").innerText = `Bắt đầu sau ${seconds} giây...`;
+        } else {
+          clearInterval(timer);
+          document.getElementById("countdown").style.display = "none";
+          document.getElementById("testForm").style.display = "block";
+          renderQuestions();
+        }
+      }, 1000);
+
+      return true; // vẫn cho phép submit vào hiddenFrame
+    }
+
+    function renderQuestions() {
+      const container = document.getElementById("questionContainer");
+      container.innerHTML = ""; // xóa câu cũ nếu có
+      questions.forEach((q, i) => {
+        const div = document.createElement("div");
+        div.classList.add("question");
+        div.innerHTML = `
+          <p><strong>Câu ${i + 1}:</strong> ${q.text}</p>
+          <label><input type="radio" name="q${i}" value="${q.a}" required> Đồng ý</label>
+          <label><input type="radio" name="q${i}" value="${q.b}"> Không đồng ý</label>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    document.getElementById("quizForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const scores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+
+      for (let [key, value] of formData.entries()) {
+        scores[value]++;
+      }
+
+      const type = `${scores["E"] >= scores["I"] ? "E" : "I"}${scores["S"] >= scores["N"] ? "S" : "N"}${scores["T"] >= scores["F"] ? "T" : "F"}${scores["J"] >= scores["P"] ? "J" : "P"}`;
+
+      document.getElementById("result").innerHTML = `
+        <h2>Kết quả của bạn là: ${type}</h2>
+        <p>Đây là kiểu tính cách MBTI dựa trên trắc nghiệm. Hãy đọc thêm để hiểu rõ hơn về nhóm tính cách này nhé!</p>
+      `;
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    });
   </script>
 </body>
 </html>
