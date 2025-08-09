@@ -4,13 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Trắc nghiệm MBTI - Sophia Nguyễn</title>
- 
+
+
 </head>
 <body>
   <img src="logo-sophia.png" alt="Logo Sophia" class="logo">
   <h1>Trắc nghiệm MBTI - Hiểu bản thân cùng Sophia</h1>
 
-  <form id="infoForm" action="https://formspree.io/f/mkgzvjwy" method="POST">
+  <form id="infoForm" action="https://formspree.io/f/mkgzvjwy" method="POST" target="hiddenFrame">
+    <iframe name="hiddenFrame" style="display:none;"></iframe>
+<form id="infoForm" action="https://formspree.io/f/xvgqdgko" method="POST" target="hiddenFrame" onsubmit="showTestForm()">
+
     <label>Họ và tên:<br><input type="text" name="Họ và tên" required></label>
     <label>Email:<br><input type="email" name="Email" required></label>
     <label>Số điện thoại:<br><input type="tel" name="Số điện thoại" pattern="^\d{10}$" required placeholder="Nhập đúng 10 số"></label>
@@ -174,6 +178,12 @@
       border-radius: 8px;
     }
   </style>
-  
+  <script>
+  function showTestForm() {
+  document.getElementById("infoForm").style.display = "none";
+  document.getElementById("testForm").style.display = "block";
+  renderQuestions();
+}
+  </script>
 </body>
 </html>
