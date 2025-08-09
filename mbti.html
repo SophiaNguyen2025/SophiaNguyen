@@ -138,7 +138,7 @@
       const timer = setInterval(() => {
         seconds--;
         if (seconds > 0) {
-         document.getElementById("countdown").innerText = `Bắt đầu sau ${seconds} giây...`;
+          document.getElementById("countdown").innerText = `Bắt đầu sau ${seconds} giây...`;
         } else {
           clearInterval(timer);
           document.getElementById("countdown").style.display = "none";
@@ -146,8 +146,10 @@
           renderQuestions();
         }
       }, 1000);
+
       return true; // vẫn cho phép submit vào hiddenFrame
     }
+
     function renderQuestions() {
       const container = document.getElementById("questionContainer");
       container.innerHTML = ""; // xóa câu cũ nếu có
@@ -162,16 +164,26 @@
         container.appendChild(div);
       });
     }
+
     document.getElementById("quizForm").addEventListener("submit", function (e) {
       e.preventDefault();
       const formData = new FormData(e.target);
       const scores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+
       for (let [key, value] of formData.entries()) {
         scores[value]++;
       }
+
       const type = `${scores["E"] >= scores["I"] ? "E" : "I"}${scores["S"] >= scores["N"] ? "S" : "N"}${scores["T"] >= scores["F"] ? "T" : "F"}${scores["J"] >= scores["P"] ? "J" : "P"}`;
-    
-       });
+
+      document.getElementById("result").innerHTML = `
+        <h2>Kết quả của bạn là: ${type}</h2>
+        <p>Đây là kiểu tính cách MBTI dựa trên trắc nghiệm. Hãy đọc thêm để hiểu rõ hơn về nhóm tính cách này nhé!</p>
+      `;
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+      
+    });
   </script>
 </body>
 </html>
+
