@@ -2,300 +2,241 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Self-Acceptance Index Test 🌸</title>
+  <title>Trắc nghiệm Tự Chấp Nhận</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #fff7f0;
-      margin: 0;
-      padding: 20px;
+      background-color: #fefefe;
       color: #333;
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
     }
-    h1 {
-      text-align: center;
-      color: #d53f8c;
+    h2 {
+      color: #b35c9c;
     }
-    .question {
+    fieldset {
       margin-bottom: 20px;
+      border: 1px solid #ddd;
       padding: 15px;
-      background-color: #ffffff;
       border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      background-color: #fafafa;
     }
-    .options label {
-      display: block;
-      margin: 5px 0;
+    legend {
+      font-weight: bold;
+      color: #444;
     }
-    #submitBtn {
+    label {
       display: block;
-      margin: 30px auto;
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #d53f8c;
+      margin: 8px 0;
+    }
+    button {
+      background-color: #b35c9c;
       color: white;
       border: none;
-      border-radius: 5px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 6px;
       cursor: pointer;
+    }
+    button:hover {
+      background-color: #993f7d;
     }
     #result {
       margin-top: 30px;
-      padding: 20px;
-      border-radius: 10px;
-      text-align: center;
       font-size: 18px;
+      font-weight: bold;
+      color: #444;
     }
-    .low { background-color: #f8d7da; color: #721c24; }
-    .medium { background-color: #fff3cd; color: #856404; }
-    .high { background-color: #d4edda; color: #155724; }
   </style>
 </head>
 <body>
+  <h2>🌸 Bài Test Tự Chấp Nhận – Self-Acceptance Index</h2>
+  <p>Hãy chọn phản ứng gần nhất với bạn trong từng tình huống. Không có đúng hay sai – chỉ có mức độ bạn đang đồng hành với chính mình.</p>
 
-<h1>🌸 Bài Test Tự Chấp Nhận – Self-Acceptance Index</h1>
+  <form id="quizForm">
+    <fieldset>
+      <legend>1. Bạn từng có sai lầm làm người khác tổn thương. Giờ nhớ lại, bạn:</legend>
+      <label><input type="radio" name="q1" value="3"> A. Thành thật với bản thân và học cách chuộc lỗi, buông bỏ</label>
+      <label><input type="radio" name="q1" value="2"> B. Né tránh nghĩ về điều đó</label>
+      <label><input type="radio" name="q1" value="0"> C. Tự thấy mình là người xấu</label>
+      <label><input type="radio" name="q1" value="1"> D. Tự trách không nguôi</label>
+    </fieldset>
 
-<form id="quizForm">
-  <div id="questions"></div>
-  <button type="button" id="submitBtn">Xem kết quả</button>
-</form>
+    <fieldset>
+      <legend>2. Một người thành công hơn bạn. Bạn:</legend>
+      <label><input type="radio" name="q2" value="3"> A. Biết mỗi người có hành trình riêng</label>
+      <label><input type="radio" name="q2" value="0"> B. Nghĩ mình sẽ không bao giờ như họ</label>
+      <label><input type="radio" name="q2" value="2"> C. Đố kỵ và khó chịu</label>
+      <label><input type="radio" name="q2" value="1"> D. Tự trách vì lười biếng</label>
+    </fieldset>
 
-<div id="result"></div>
+    <fieldset>
+      <legend>3. Bạn bị từ chối sau khi bày tỏ cảm xúc thật. Bạn:</legend>
+      <label><input type="radio" name="q3" value="2"> A. Cố gắng thay đổi để được chấp nhận</label>
+      <label><input type="radio" name="q3" value="3"> B. Tôn trọng phản hồi và vẫn yêu chính mình</label>
+      <label><input type="radio" name="q3" value="1"> C. Tránh bộc lộ cảm xúc lần sau</label>
+      <label><input type="radio" name="q3" value="0"> D. Nghĩ mình đáng bị từ chối</label>
+    </fieldset>
 
-<script>
-  const questions = [
-    {
-      text: "Khi bạn nhận ra mình có điểm yếu, bạn sẽ:",
-      options: [
-        { text: "Cảm thấy xấu hổ và cố giấu đi", score: 1 },
-        { text: "Tự trách và cố gắng thay đổi", score: 2 },
-        { text: "Chấp nhận và học cách cải thiện", score: 3 },
-        { text: "Yêu thương bản thân bất chấp điểm yếu", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn có cảm xúc tiêu cực, bạn thường:",
-      options: [
-        { text: "Cố gắng kìm nén và không thể hiện ra", score: 1 },
-        { text: "Tự trách vì không kiểm soát được", score: 2 },
-        { text: "Chấp nhận cảm xúc và tìm cách xử lý", score: 3 },
-        { text: "Cho phép mình cảm nhận đầy đủ và không phán xét", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn thấy mình khác biệt với người khác, bạn sẽ:",
-      options: [
-        { text: "Cố gắng thay đổi để giống họ", score: 1 },
-        { text: "Cảm thấy không phù hợp", score: 2 },
-        { text: "Chấp nhận sự khác biệt", score: 3 },
-        { text: "Tự hào về sự độc đáo của mình", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn nhớ lại những sai lầm trong quá khứ, bạn sẽ:",
-      options: [
-        { text: "Cảm thấy tội lỗi và xấu hổ", score: 1 },
-        { text: "Tự trách và ước gì mình làm khác đi", score: 2 },
-        { text: "Học từ sai lầm và rút kinh nghiệm", score: 3 },
-        { text: "Tha thứ cho bản thân và trân trọng hành trình", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn không đạt được kỳ vọng, bạn sẽ:",
-      options: [
-        { text: "Cảm thấy mình thất bại", score: 1 },
-        { text: "Tự trách vì chưa đủ cố gắng", score: 2 },
-        { text: "Xem lại mục tiêu và điều chỉnh", score: 3 },
-        { text: "Chấp nhận kết quả và động viên bản thân", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn bị người khác đánh giá, bạn sẽ:",
-      options: [
-        { text: "Cảm thấy tổn thương và nghi ngờ bản thân", score: 1 },
-        { text: "Cố gắng thay đổi để được chấp nhận", score: 2 },
-        { text: "Lắng nghe và chọn lọc phản hồi", score: 3 },
-        { text: "Giữ vững giá trị bản thân và không bị ảnh hưởng", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn nhìn vào bản thân trong gương, bạn sẽ:",
-      options: [
-        { text: "Chỉ thấy khuyết điểm", score: 1 },
-        { text: "Muốn thay đổi ngoại hình", score: 2 },
-        { text: "Chấp nhận cả điểm tốt và chưa tốt", score: 3 },
-        { text: "Mỉm cười và cảm thấy biết ơn chính mình", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn cảm thấy không giống ai trong môi trường xung quanh, bạn sẽ:",
-      options: [
-        { text: "Cố gắng hòa nhập bằng cách thay đổi bản thân", score: 1 },
-        { text: "Cảm thấy lạc lõng và cô đơn", score: 2 },
-        { text: "Chấp nhận sự khác biệt của mình", score: 3 },
-        { text: "Tìm cách thể hiện bản sắc riêng một cách tự tin", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn có cảm xúc tiêu cực kéo dài, bạn sẽ:",
-      options: [
-        { text: "Cảm thấy mình yếu đuối và đáng trách", score: 1 },
-        { text: "Cố gắng che giấu để không ai biết", score: 2 },
-        { text: "Tìm hiểu nguyên nhân và xử lý dần", score: 3 },
-        { text: "Chấp nhận cảm xúc như một phần tự nhiên của cuộc sống", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn bị người khác hiểu sai, bạn sẽ:",
-      options: [
-        { text: "Cảm thấy tổn thương và im lặng", score: 1 },
-        { text: "Cố gắng giải thích để được chấp nhận", score: 2 },
-        { text: "Làm rõ nếu cần, nhưng không ép buộc", score: 3 },
-        { text: "Chấp nhận rằng không phải ai cũng hiểu mình", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn thấy mình không hoàn hảo, bạn sẽ:",
-      options: [
-        { text: "Cảm thấy thất vọng và muốn thay đổi", score: 1 },
-        { text: "Tự trách vì không đủ tốt", score: 2 },
-        { text: "Chấp nhận rằng ai cũng có điểm chưa hoàn hảo", score: 3 },
-        { text: "Yêu thương bản thân bất chấp sự không hoàn hảo", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn nhớ lại những điều khiến bạn xấu hổ, bạn sẽ:",
-      options: [
-        { text: "Trốn tránh và không muốn nghĩ đến", score: 1 },
-        { text: "Tự trách vì đã hành xử như vậy", score: 2 },
-        { text: "Nhìn lại để học hỏi", score: 3 },
-        { text: "Chấp nhận đó là một phần của quá trình trưởng thành", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn cảm thấy không được yêu thương, bạn sẽ:",
-      options: [
-        { text: "Cảm thấy mình không xứng đáng", score: 1 },
-        { text: "Cố gắng làm mọi thứ để được yêu", score: 2 },
-        { text: "Tìm người phù hợp để chia sẻ", score: 3 },
-        { text: "Tự yêu thương bản thân trước tiên", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn thấy người khác giỏi hơn mình, bạn sẽ:",
-      options: [
-        { text: "So sánh và thấy mình kém cỏi", score: 1 },
-        { text: "Cố gắng bắt kịp họ", score: 2 },
-        { text: "Ngưỡng mộ và học hỏi", score: 3 },
-        { text: "Tự tin vào hành trình riêng của mình", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn cảm thấy không ai hiểu mình, bạn sẽ:",
-      options: [
-        { text: "Cảm thấy cô đơn và thu mình lại", score: 1 },
-        { text: "Cố gắng thay đổi để phù hợp hơn", score: 2 },
-        { text: "Tìm người đồng cảm", score: 3 },
-        { text: "Chấp nhận rằng không phải ai cũng hiểu mình", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn có một ngày tồi tệ, bạn sẽ:",
-      options: [
-        { text: "Tự trách vì không kiểm soát được", score: 1 },
-        { text: "Cố gắng quên đi bằng cách làm việc", score: 2 },
-        { text: "Tìm cách thư giãn để phục hồi", score: 3 },
-        { text: "Tự nhủ rằng mình vẫn xứng đáng được yêu thương", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn cảm thấy không đạt chuẩn xã hội, bạn sẽ:",
-      options: [
-        { text: "Cảm thấy mình kém cỏi", score: 1 },
-        { text: "Cố gắng thay đổi để phù hợp", score: 2 },
-        { text: "Chấp nhận sự khác biệt của bản thân", score: 3 },
-        { text: "Tự tin vào giá trị riêng của mình", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn thấy mình không được công nhận, bạn sẽ:",
-      options: [
-        { text: "Cảm thấy vô hình và buồn bã", score: 1 },
-        { text: "Cố gắng làm nhiều hơn để được chú ý", score: 2 },
-        { text: "Tìm môi trường phù hợp hơn", score: 3 },
-        { text: "Tự công nhận giá trị của bản thân", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn cảm thấy không hoàn hảo, bạn sẽ:",
-      options: [
-        { text: "Cảm thấy thất vọng và tự trách", score: 1 },
-        { text: "Muốn thay đổi để được chấp nhận", score: 2 },
-        { text: "Chấp nhận rằng ai cũng có điểm chưa hoàn hảo", score: 3 },
-        { text: "Yêu thương bản thân bất chấp sự không hoàn hảo", score: 4 }
-      ]
-    },
-    {
-      text: "Khi bạn cảm thấy không đủ tốt, bạn sẽ:",
-      options: [
-        { text: "Tự trách và cảm thấy thất vọng", score: 1 },
-        { text: "Cố gắng làm tốt hơn để bù lại", score: 2 },
-        { text: "Nhắc nhở bản thân rằng ai cũng có điểm yếu", score: 3 },
-        { text: "Tự an ủi và yêu thương chính mình", score: 4 }
-      ]
-    }
-  ];
+    <fieldset>
+      <legend>4. Bạn cảm thấy bản thân không giỏi như người khác. Bạn:</legend>
+      <label><input type="radio" name="q4" value="3"> A. Nhìn vào thế mạnh riêng của mình và tiếp tục phát triển</label>
+      <label><input type="radio" name="q4" value="2"> B. Tìm cách bắt chước người ta</label>
+      <label><input type="radio" name="q4" value="0"> C. Tự ti và thu mình lại</label>
+      <label><input type="radio" name="q4" value="1"> D. Tự so sánh và ghen tị</label>
+    </fieldset>
 
-  const container = document.getElementById("questions");
+    <fieldset>
+      <legend>5. Bạn soi gương và thấy điều mình không thích. Bạn:</legend>
+      <label><input type="radio" name="q5" value="3"> A. Thừa nhận cảm xúc và tập trung vào mặt tích cực</label>
+      <label><input type="radio" name="q5" value="1"> B. Cố phớt lờ nhưng thấy không thoải mái</label>
+      <label><input type="radio" name="q5" value="0"> C. Chỉ trích bản thân</label>
+      <label><input type="radio" name="q5" value="2"> D. Buồn bã và né tránh nhìn vào gương</label>
+    </fieldset>
 
-  questions.forEach((q, i) => {
-    const div = document.createElement("div");
-    div.className = "question";
-    let optionsHTML = "";
-    q.options.forEach((opt, j) => {
-      optionsHTML += `<label><input type="radio" name="q${i}" value="${opt.score}"> ${String.fromCharCode(65 + j)}. ${opt.text}</label>`;
-    });
-    div.innerHTML = `<strong>Câu ${i + 1}:</strong> ${q.text}<div class="options">${optionsHTML}</div>`;
-    container.appendChild(div);
-  });
+    <fieldset>
+      <legend>6. Bạn nhận ra mình làm sai điều gì đó. Bạn:</legend>
+      <label><input type="radio" name="q6" value="3"> A. Nhận lỗi và học cách tha thứ cho mình</label>
+      <label><input type="radio" name="q6" value="2"> B. Tự phạt bằng cách không cho phép mình nghỉ ngơi</label>
+      <label><input type="radio" name="q6" value="1"> C. Xấu hổ và không dám nói ra</label>
+      <label><input type="radio" name="q6" value="0"> D. Giận bản thân suốt cả ngày</label>
+    </fieldset>
 
-  document.getElementById("submitBtn").onclick = function() {
-    let score = 0;
-    for (let i = 0; i < questions.length; i++) {
-      const val = document.querySelector(`input[name="q${i}"]:checked`);
-      if (!val) {
-        alert(`Vui lòng trả lời câu ${i + 1}`);
-        return;
+    <fieldset>
+      <legend>7. Một phần tính cách bạn bị người khác chê. Bạn:</legend>
+      <label><input type="radio" name="q7" value="2"> A. Im lặng và buồn</label>
+      <label><input type="radio" name="q7" value="3"> B. Ghi nhận góp ý và cân nhắc điều chỉnh nếu cần</label>
+      <label><input type="radio" name="q7" value="0"> C. Giận dữ và né tránh suy nghĩ</label>
+      <label><input type="radio" name="q7" value="1"> D. Thấy họ đúng và muốn thay đổi hoàn toàn</label>
+    </fieldset>
+    <fieldset>
+      <legend>8. Bạn không đạt kỳ vọng của người khác. Bạn:</legend>
+      <label><input type="radio" name="q8" value="3"> A. Ghi nhận sự khác biệt giữa người và bản thân, giữ giá trị riêng</label>
+      <label><input type="radio" name="q8" value="2"> B. Cố gắng làm lại để được công nhận</label>
+      <label><input type="radio" name="q8" value="1"> C. Tránh tiếp xúc vì sợ bị đánh giá</label>
+      <label><input type="radio" name="q8" value="0"> D. Tự xem mình là thất bại</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>9. Bạn có một nỗi đau quá khứ chưa chữa lành. Bạn:</legend>
+      <label><input type="radio" name="q9" value="3"> A. Nhìn nhận như một phần cuộc sống và học cách đối diện</label>
+      <label><input type="radio" name="q9" value="1"> B. Ép bản thân “quên đi”</label>
+      <label><input type="radio" name="q9" value="0"> C. Cảm thấy bất lực, không muốn nhớ lại</label>
+      <label><input type="radio" name="q9" value="2"> D. Trốn tránh nói đến nó</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>10. Bạn cảm thấy mình không giống ai cả. Bạn:</legend>
+      <label><input type="radio" name="q10" value="3"> A. Chấp nhận sự độc đáo như một phần bản sắc</label>
+      <label><input type="radio" name="q10" value="1"> B. Tự ti và rút lui khỏi xã hội</label>
+      <label><input type="radio" name="q10" value="2"> C. Cố gắng thay đổi để hòa nhập</label>
+      <label><input type="radio" name="q10" value="0"> D. Nghĩ rằng mình không thuộc về đâu cả</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>11. Bạn có một phần quá khứ khiến bạn xấu hổ. Bạn đối diện ra sao?</legend>
+      <label><input type="radio" name="q11" value="3"> A. Nhìn nhận quá khứ như một phần hành trình sống</label>
+      <label><input type="radio" name="q11" value="2"> B. Tự trách vì “sao mình lại như vậy”</label>
+      <label><input type="radio" name="q11" value="0"> C. Nghĩ rằng mình không xứng đáng có hạnh phúc</label>
+      <label><input type="radio" name="q11" value="1"> D. Giấu đi và không bao giờ nhắc đến</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>12. Bạn có cảm xúc tiêu cực bất ngờ xuất hiện. Bạn làm gì?</legend>
+      <label><input type="radio" name="q12" value="3"> A. Quan sát cảm xúc và cho phép nó tồn tại</label>
+      <label><input type="radio" name="q12" value="1"> B. Tự trách vì “sao mình lại yếu đuối thế”</label>
+      <label><input type="radio" name="q12" value="2"> C. Né tránh bằng cách lướt mạng hoặc làm việc</label>
+      <label><input type="radio" name="q12" value="0"> D. Giấu đi và giả vờ ổn</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>13. Bạn bị người thân không ủng hộ lựa chọn cá nhân. Bạn:</legend>
+      <label><input type="radio" name="q13" value="3"> A. Chấp nhận sự khác biệt và giữ vững giá trị bản thân</label>
+      <label><input type="radio" name="q13" value="2"> B. Giấu đi và làm trong âm thầm</label>
+      <label><input type="radio" name="q13" value="0"> C. Từ bỏ mong muốn để làm vừa lòng họ</label>
+      <label><input type="radio" name="q13" value="1"> D. Cảm thấy mình sai khi không giống họ</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>14. Bạn có cảm xúc tiêu cực khi nhìn lại bản thân. Bạn làm gì?</legend>
+      <label><input type="radio" name="q14" value="3"> A. Quan sát cảm xúc và học cách đồng hành với chính mình</label>
+      <label><input type="radio" name="q14" value="2"> B. Né tránh nội tâm bằng cách làm việc liên tục</label>
+      <label><input type="radio" name="q14" value="1"> C. So sánh với người khác để thấy mình “tệ hơn”</label>
+      <label><input type="radio" name="q14" value="0"> D. Tự công kích và phủ nhận giá trị bản thân</label>
+    </fieldset>
+    <fieldset>
+      <legend>15. Bạn bị người khác hiểu sai. Bạn:</legend>
+      <label><input type="radio" name="q15" value="3"> A. Hiểu rằng người khác có góc nhìn riêng</label>
+      <label><input type="radio" name="q15" value="2"> B. Giận họ nhưng không nói ra</label>
+      <label><input type="radio" name="q15" value="0"> C. Tránh giao tiếp để không bị tổn thương</label>
+      <label><input type="radio" name="q15" value="1"> D. Tự trách vì không diễn đạt tốt</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>16. Bạn có một điểm yếu mà bạn không thích. Bạn:</legend>
+      <label><input type="radio" name="q16" value="3"> A. Ghi nhận điểm yếu như một phần con người mình</label>
+      <label><input type="radio" name="q16" value="2"> B. Tự giận bản thân vì không hoàn hảo</label>
+      <label><input type="radio" name="q16" value="1"> C. Phủ nhận và cố che giấu</label>
+      <label><input type="radio" name="q16" value="0"> D. So sánh với người khác và thấy mình kém cỏi</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>17. Bạn có cảm xúc tiêu cực kéo dài. Bạn:</legend>
+      <label><input type="radio" name="q17" value="3"> A. Quan sát cảm xúc mà không phán xét</label>
+      <label><input type="radio" name="q17" value="2"> B. Tự trách vì “yếu đuối”</label>
+      <label><input type="radio" name="q17" value="1"> C. Tránh đối diện bằng cách lao vào công việc</label>
+      <label><input type="radio" name="q17" value="0"> D. Giấu đi và giả vờ ổn</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>18. Bạn không đạt được kỳ vọng của bản thân. Bạn:</legend>
+      <label><input type="radio" name="q18" value="3"> A. Thừa nhận nỗi buồn và học cách tha thứ cho bản thân</label>
+      <label><input type="radio" name="q18" value="2"> B. Né tránh suy nghĩ về điều đó</label>
+      <label><input type="radio" name="q18" value="1"> C. Cố gắng làm quá mức để bù đắp</label>
+      <label><input type="radio" name="q18" value="0"> D. Tự trách và cảm thấy thất bại</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>19. Bạn cảm thấy không đủ tốt so với người khác. Bạn:</legend>
+      <label><input type="radio" name="q19" value="3"> A. Nhận ra mỗi người có hành trình riêng</label>
+      <label><input type="radio" name="q19" value="2"> B. Cố gắng làm quá mức để chứng minh bản thân</label>
+      <label><input type="radio" name="q19" value="1"> C. Tránh tiếp xúc để không bị tổn thương</label>
+      <label><input type="radio" name="q19" value="0"> D. So sánh và thấy mình kém cỏi</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>20. Bạn có một quyết định sai lầm trong quá khứ. Bạn:</legend>
+      <label><input type="radio" name="q20" value="3"> A. Nhìn nhận như một bài học trưởng thành</label>
+      <label><input type="radio" name="q20" value="2"> B. Giấu đi và không bao giờ nhắc lại</label>
+      <label><input type="radio" name="q20" value="1"> C. Nghĩ rằng mình không nên ra quyết định nữa</label>
+      <label><input type="radio" name="q20" value="0"> D. Tự trách và không thể tha thứ</label>
+    </fieldset>
+
+    <button type="button" onclick="calculateScore()">Xem kết quả</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script>
+    function calculateScore() {
+      let total = 0;
+      for (let i = 1; i <= 20; i++) {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        if (selected) total += parseInt(selected.value);
       }
-      score += parseInt(val.value);
+
+      let resultText = "";
+      if (total >= 50) {
+        resultText = "💖 Bạn có mức độ Tự Chấp Nhận cao! Bạn biết cách đồng hành với chính mình, chấp nhận cảm xúc và khuyết điểm một cách lành mạnh.";
+      } else if (total >= 30) {
+        resultText = "🌿 Bạn đang trên hành trình học cách Tự Chấp Nhận. Hãy tiếp tục thực hành lòng trắc ẩn với chính mình mỗi ngày.";
+      } else {
+        resultText = "🧩 Bạn có thể đang thiếu sự Tự Chấp Nhận. Hãy thử quan sát cảm xúc mà không phán xét, và học cách tha thứ cho chính mình.";
+      }
+
+      document.getElementById("result").innerText = resultText;
     }
-
-    const resultDiv = document.getElementById("result");
-    let level = "", message = "", emoji = "";
-
-    if (score <= 39) {
-      level = "Thấp";
-      message = "Bạn có xu hướng không chấp nhận bản thân, thường tự trách và cảm thấy không đủ tốt. Hãy học cách yêu thương chính mình hơn.";
-      resultDiv.className = "low";
-      emoji = "😔";
-    } else if (score <= 59) {
-      level = "Trung bình";
-      message = "Bạn đang học cách chấp nhận bản thân, nhưng đôi khi vẫn bị ảnh hưởng bởi đánh giá từ bên ngoài.";
-      resultDiv.className = "medium";
-      emoji = "🙂";
-    } else {
-      level = "Cao";
-      message = "Bạn có khả năng chấp nhận bản thân tốt, biết yêu thương chính mình bất chấp sai sót và khác biệt.";
-      resultDiv.className = "high";
-      emoji = "🌸";
-    }
-
-    resultDiv.innerHTML = `
-      <h2>${emoji} KẾT QUẢ CỦA BẠN</h2>
-      <p><strong>Mức độ:</strong> ${level}</p>
-      <p>${message}</p>
-      <p><em>Tổng điểm: ${score} / 80</em></p>
-    `;
-  };
-</script>
-
+  </script>
 </body>
 </html>
