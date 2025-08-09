@@ -2,206 +2,258 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Ranh Giới Cá Nhân – Phần 1/3</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Ranh Giới Bản Thân</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #f9f9f9; padding: 20px; }
-    h1 { color: #2c3e50; }
-    .question { margin-bottom: 25px; }
-    .question h3 { margin-bottom: 10px; color: #34495e; }
-    label { display: block; margin-bottom: 5px; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fdfdfd;
+      padding: 20px;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #5a5a99;
+      margin-bottom: 30px;
+    }
+    .question {
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .question h3 {
+      margin-top: 0;
+      color: #444;
+    }
+    label {
+      display: block;
+      margin: 8px 0;
+      cursor: pointer;
+    }
+    button {
+      background-color: #5a5a99;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    button:hover {
+      background-color: #4a4a88;
+    }
+    #result {
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #e6f0ff;
+      border-left: 5px solid #5a5a99;
+      border-radius: 6px;
+      display: none;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
   </style>
 </head>
 <body>
-  <h1>🧠 Bài Test Ranh Giới Cá Nhân –Boundary Strength Scale (BSS)</h1>
+  <h1>🧠 Bài Test Ranh Giới Bản Thân (20 câu)</h1>
+  <form id="quizForm">
+    <!-- Câu 1–7 -->
+    <div class="question">
+      <h3>Câu 1: Khi ai đó nhờ tôi giúp đỡ, tôi thường:</h3>
+      <label><input type="radio" name="q1" value="0"> A. Luôn đồng ý, dù đang bận</label>
+      <label><input type="radio" name="q1" value="1"> B. Cảm thấy khó xử nhưng vẫn cố gắng giúp</label>
+      <label><input type="radio" name="q1" value="2"> C. Xem xét khả năng rồi mới quyết định</label>
+      <label><input type="radio" name="q1" value="3"> D. Từ chối nếu điều đó vượt quá khả năng</label>
+    </div>
 
-  <div class="question">
-    <h3>Câu 1: Khi người yêu yêu cầu bạn chia sẻ mật khẩu mạng xã hội?</h3>
-    <label><input type="radio" name="q1" value="0"> Bạn đưa ngay mà không suy nghĩ</label>
-    <label><input type="radio" name="q1" value="1"> Bạn thấy không thoải mái nhưng vẫn đưa</label>
-    <label><input type="radio" name="q1" value="2"> Bạn từ chối nhưng cảm thấy có lỗi</label>
-    <label><input type="radio" name="q1" value="3"> Bạn từ chối và giải thích lý do rõ ràng</label>
-  </div>
+    <div class="question">
+      <h3>Câu 2: Khi người khác không hài lòng với tôi, tôi thường:</h3>
+      <label><input type="radio" name="q2" value="0"> A. Cố gắng thay đổi bản thân để làm họ vui</label>
+      <label><input type="radio" name="q2" value="1"> B. Lo lắng và tự trách mình</label>
+      <label><input type="radio" name="q2" value="2"> C. Tìm hiểu lý do và cân nhắc phản hồi</label>
+      <label><input type="radio" name="q2" value="3"> D. Giữ vững lập trường nếu mình không sai</label>
+    </div>
 
-  <div class="question">
-    <h3>Câu 2: Khi đồng nghiệp thường xuyên nhờ bạn làm giúp việc ngoài trách nhiệm?</h3>
-    <label><input type="radio" name="q2" value="0"> Bạn luôn nhận lời để tránh mâu thuẫn</label>
-    <label><input type="radio" name="q2" value="1"> Bạn miễn cưỡng làm nhưng thấy bực</label>
-    <label><input type="radio" name="q2" value="2"> Bạn từ chối nhưng không dám nói rõ lý do</label>
-    <label><input type="radio" name="q2" value="3"> Bạn từ chối và đề nghị họ tự xử lý</label>
-  </div>
+    <div class="question">
+      <h3>Câu 3: Khi có mâu thuẫn, tôi thường:</h3>
+      <label><input type="radio" name="q3" value="0"> A. Nhường nhịn để tránh xung đột</label>
+      <label><input type="radio" name="q3" value="1"> B. Im lặng và chịu đựng</label>
+      <label><input type="radio" name="q3" value="2"> C. Trình bày ý kiến một cách nhẹ nhàng</label>
+      <label><input type="radio" name="q3" value="3"> D. Thẳng thắn trao đổi để giải quyết</label>
+    </div>
 
-  <div class="question">
-    <h3>Câu 3: Khi mẹ bạn thường xuyên gọi điện kiểm tra bạn mỗi tối?</h3>
-    <label><input type="radio" name="q3" value="0"> Bạn luôn nghe máy dù đang bận</label>
-    <label><input type="radio" name="q3" value="1"> Bạn thấy phiền nhưng không dám nói</label>
-    <label><input type="radio" name="q3" value="2"> Bạn nhắn tin xin mẹ gọi ít lại nhưng không kiên quyết</label>
-    <label><input type="radio" name="q3" value="3"> Bạn trao đổi thẳng thắn và đề nghị giờ gọi hợp lý</label>
-  </div>
+    <div class="question">
+      <h3>Câu 4: Khi cảm thấy không thoải mái trong mối quan hệ, tôi:</h3>
+      <label><input type="radio" name="q4" value="0"> A. Giữ im lặng để không làm mất lòng</label>
+      <label><input type="radio" name="q4" value="1"> B. Tự điều chỉnh cảm xúc để thích nghi</label>
+      <label><input type="radio" name="q4" value="2"> C. Chia sẻ nhẹ nhàng với đối phương</label>
+      <label><input type="radio" name="q4" value="3"> D. Nói rõ cảm xúc và nhu cầu của mình</label>
+    </div>
 
-  <div class="question">
-    <h3>Câu 4: Khi bạn thân thường xuyên kể chuyện tiêu cực khiến bạn mệt mỏi?</h3>
-    <label><input type="radio" name="q4" value="0"> Bạn lắng nghe hết dù rất mệt</label>
-    <label><input type="radio" name="q4" value="1"> Bạn cố gắng né tránh nhưng không nói rõ</label>
-    <label><input type="radio" name="q4" value="2"> Bạn nói bạn cần nghỉ ngơi nhưng vẫn nghe tiếp</label>
-    <label><input type="radio" name="q4" value="3"> Bạn nói rõ cảm xúc và đề nghị giới hạn thời gian chia sẻ</label>
-  </div>
+    <div class="question">
+      <h3>Câu 5: Khi ai đó vượt quá giới hạn của tôi, tôi:</h3>
+      <label><input type="radio" name="q5" value="0"> A. Cố gắng chịu đựng</label>
+      <label><input type="radio" name="q5" value="1"> B. Tránh mặt người đó</label>
+      <label><input type="radio" name="q5" value="2"> C. Nhắc nhở nhẹ nhàng</label>
+      <label><input type="radio" name="q5" value="3"> D. Thiết lập ranh giới rõ ràng</label>
+    </div>
 
-  <div class="question">
-    <h3>Câu 5: Khi sếp yêu cầu bạn làm thêm giờ mà không trả thêm lương?</h3>
-    <label><input type="radio" name="q5" value="0"> Bạn đồng ý ngay vì sợ mất việc</label>
-    <label><input type="radio" name="q5" value="1"> Bạn miễn cưỡng làm nhưng thấy bất công</label>
-    <label><input type="radio" name="q5" value="2"> Bạn từ chối nhưng không nói rõ lý do</label>
-    <label><input type="radio" name="q5" value="3"> Bạn từ chối và đề nghị trao đổi lại quyền lợi</label>
-  </div>
+    <div class="question">
+      <h3>Câu 6: Khi tôi cần sự giúp đỡ, tôi thường:</h3>
+      <label><input type="radio" name="q6" value="0"> A. Ngại ngùng và không dám nói ra</label>
+      <label><input type="radio" name="q6" value="1"> B. Chờ người khác nhận ra</label>
+      <label><input type="radio" name="q6" value="2"> C. Gợi ý nhẹ nhàng</label>
+      <label><input type="radio" name="q6" value="3"> D. Chủ động yêu cầu khi cần thiết</label>
+    </div>
 
-  <div class="question">
-    <h3>Câu 6: Khi người yêu muốn bạn thay đổi cách ăn mặc theo ý họ?</h3>
-    <label><input type="radio" name="q6" value="0"> Bạn thay đổi ngay để làm họ vui</label>
-    <label><input type="radio" name="q6" value="1"> Bạn thấy khó chịu nhưng vẫn thay đổi</label>
-    <label><input type="radio" name="q6" value="2"> Bạn nói bạn không thích nhưng vẫn nhượng bộ</label>
-    <label><input type="radio" name="q6" value="3"> Bạn từ chối và giải thích bạn muốn giữ phong cách riêng</label>
-  </div>
+    <div class="question">
+      <h3>Câu 7: Khi ai đó làm tôi tổn thương, tôi:</h3>
+      <label><input type="radio" name="q7" value="0"> A. Tha thứ ngay để giữ hòa khí</label>
+      <label><input type="radio" name="q7" value="1"> B. Im lặng và tránh đối mặt</label>
+      <label><input type="radio" name="q7" value="2"> C. Nói chuyện để hiểu rõ vấn đề</label>
+      <label><input type="radio" name="q7" value="3"> D. Thể hiện rõ cảm xúc và yêu cầu tôn trọng</label>
+    </div>
+    <!-- Câu 8–14 -->
+    <div class="question">
+      <h3>Câu 8: Khi tôi không đồng ý với ai đó, tôi:</h3>
+      <label><input type="radio" name="q8" value="0"> A. Giả vờ đồng ý để tránh rắc rối</label>
+      <label><input type="radio" name="q8" value="1"> B. Né tránh chủ đề đó</label>
+      <label><input type="radio" name="q8" value="2"> C. Trình bày ý kiến một cách lịch sự</label>
+      <label><input type="radio" name="q8" value="3"> D. Thể hiện quan điểm rõ ràng và tôn trọng</label>
+    </div>
 
-  <div class="question">
-    <h3>Câu 7: Khi bạn bè thường xuyên mượn tiền nhưng không trả?</h3>
-    <label><input type="radio" name="q7" value="0"> Bạn vẫn cho mượn vì sợ mất tình bạn</label>
-    <label><input type="radio" name="q7" value="1"> Bạn thấy khó chịu nhưng không nói</label>
-    <label><input type="radio" name="q7" value="2"> Bạn từ chối nhưng không nói rõ lý do</label>
-    <label><input type="radio" name="q7" value="3"> Bạn từ chối và nói rõ lý do tài chính cá nhân</label>
-  </div>
-<div class="question">
-  <h3>Câu 8: Khi bạn đang nghỉ ngơi mà người thân gọi nhờ giúp việc gấp?</h3>
-  <label><input type="radio" name="q8" value="0"> Bạn bỏ dở việc cá nhân để giúp ngay</label>
-  <label><input type="radio" name="q8" value="1"> Bạn giúp nhưng cảm thấy bị ép</label>
-  <label><input type="radio" name="q8" value="2"> Bạn từ chối nhưng cảm thấy có lỗi</label>
-  <label><input type="radio" name="q8" value="3"> Bạn từ chối và đề nghị hỗ trợ vào thời điểm khác</label>
-</div>
+    <div class="question">
+      <h3>Câu 9: Khi người khác kỳ vọng quá mức vào tôi, tôi:</h3>
+      <label><input type="radio" name="q9" value="0"> A. Cố gắng đáp ứng dù mệt mỏi</label>
+      <label><input type="radio" name="q9" value="1"> B. Không nói gì và chịu áp lực</label>
+      <label><input type="radio" name="q9" value="2"> C. Gợi ý giảm bớt kỳ vọng</label>
+      <label><input type="radio" name="q9" value="3"> D. Nói rõ giới hạn và khả năng của mình</label>
+    </div>
 
-<div class="question">
-  <h3>Câu 9: Khi bạn bè rủ bạn đi chơi nhưng bạn đang cần nghỉ ngơi?</h3>
-  <label><input type="radio" name="q9" value="0"> Bạn đi chơi để không bị chê là “chảnh”</label>
-  <label><input type="radio" name="q9" value="1"> Bạn miễn cưỡng đi nhưng không vui</label>
-  <label><input type="radio" name="q9" value="2"> Bạn từ chối nhưng cảm thấy áy náy</label>
-  <label><input type="radio" name="q9" value="3"> Bạn từ chối và nói rõ lý do cần nghỉ ngơi</label>
-</div>
+    <div class="question">
+      <h3>Câu 10: Khi tôi cần thời gian cho bản thân, tôi:</h3>
+      <label><input type="radio" name="q10" value="0"> A. Vẫn ưu tiên người khác trước</label>
+      <label><input type="radio" name="q10" value="1"> B. Cảm thấy tội lỗi nếu từ chối</label>
+      <label><input type="radio" name="q10" value="2"> C. Cố gắng cân bằng nhưng vẫn bị ảnh hưởng</label>
+      <label><input type="radio" name="q10" value="3"> D. Chủ động sắp xếp thời gian riêng</label>
+    </div>
 
-<div class="question">
-  <h3>Câu 10: Khi người yêu muốn bạn dành toàn bộ thời gian rảnh cho họ?</h3>
-  <label><input type="radio" name="q10" value="0"> Bạn đồng ý vì sợ họ buồn</label>
-  <label><input type="radio" name="q10" value="1"> Bạn cảm thấy bị kiểm soát nhưng không nói</label>
-  <label><input type="radio" name="q10" value="2"> Bạn nói bạn cần thời gian riêng nhưng vẫn nhượng bộ</label>
-  <label><input type="radio" name="q10" value="3"> Bạn trao đổi rõ ràng về việc cân bằng thời gian cá nhân</label>
-</div>
+    <div class="question">
+      <h3>Câu 11: Khi tôi bị chỉ trích, tôi:</h3>
+      <label><input type="radio" name="q11" value="0"> A. Tự trách bản thân và buồn bã</label>
+      <label><input type="radio" name="q11" value="1"> B. Cố gắng thay đổi để làm vừa lòng</label>
+      <label><input type="radio" name="q11" value="2"> C. Xem xét lời chỉ trích và phản hồi nhẹ nhàng</label>
+      <label><input type="radio" name="q11" value="3"> D. Phân tích và phản hồi nếu cần thiết</label>
+    </div>
 
-<div class="question">
-  <h3>Câu 11: Khi bạn không muốn tham gia một hoạt động nhóm nhưng bị ép?</h3>
-  <label><input type="radio" name="q11" value="0"> Bạn tham gia để không bị đánh giá</label>
-  <label><input type="radio" name="q11" value="1"> Bạn miễn cưỡng tham gia nhưng không thoải mái</label>
-  <label><input type="radio" name="q11" value="2"> Bạn từ chối nhưng không nói rõ lý do</label>
-  <label><input type="radio" name="q11" value="3"> Bạn từ chối và nói rõ bạn cần không gian riêng</label>
-</div>
+    <div class="question">
+      <h3>Câu 12: Khi tôi không muốn tham gia một hoạt động, tôi:</h3>
+      <label><input type="radio" name="q12" value="0"> A. Vẫn tham gia để không bị đánh giá</label>
+      <label><input type="radio" name="q12" value="1"> B. Tìm lý do để từ chối khéo</label>
+      <label><input type="radio" name="q12" value="2"> C. Nói lý do thật nhưng còn ngại</label>
+      <label><input type="radio" name="q12" value="3"> D. Từ chối thẳng thắn và lịch sự</label>
+    </div>
 
-<div class="question">
-  <h3>Câu 12: Khi bạn đang làm việc mà người khác xen vào góp ý không mời?</h3>
-  <label><input type="radio" name="q12" value="0"> Bạn nghe theo để tránh tranh cãi</label>
-  <label><input type="radio" name="q12" value="1"> Bạn thấy khó chịu nhưng không phản hồi</label>
-  <label><input type="radio" name="q12" value="2"> Bạn nói bạn đang bận nhưng không dứt khoát</label>
-  <label><input type="radio" name="q12" value="3"> Bạn nói rõ bạn cần không gian làm việc riêng</label>
-</div>
+    <div class="question">
+      <h3>Câu 13: Khi tôi cảm thấy bị kiểm soát, tôi:</h3>
+      <label><input type="radio" name="q13" value="0"> A. Chấp nhận để giữ hòa khí</label>
+      <label><input type="radio" name="q13" value="1"> B. Cố gắng thích nghi</label>
+      <label><input type="radio" name="q13" value="2"> C. Góp ý nhẹ nhàng</label>
+      <label><input type="radio" name="q13" value="3"> D. Thiết lập lại ranh giới rõ ràng</label>
+    </div>
 
-<div class="question">
-  <h3>Câu 13: Khi người thân muốn bạn chia sẻ chuyện cá nhân mà bạn chưa sẵn sàng?</h3>
-  <label><input type="radio" name="q13" value="0"> Bạn kể hết để không làm họ buồn</label>
-  <label><input type="radio" name="q13" value="1"> Bạn kể một phần nhưng thấy không thoải mái</label>
-  <label><input type="radio" name="q13" value="2"> Bạn từ chối nhưng cảm thấy có lỗi</label>
-  <label><input type="radio" name="q13" value="3"> Bạn nói rõ bạn chưa sẵn sàng chia sẻ</label>
-</div>
+    <div class="question">
+      <h3>Câu 14: Khi tôi thấy người khác buồn, tôi:</h3>
+      <label><input type="radio" name="q14" value="0"> A. Cảm thấy trách nhiệm phải làm họ vui</label>
+      <label><input type="radio" name="q14" value="1"> B. Lo lắng và cố gắng giúp bằng mọi cách</label>
+      <label><input type="radio" name="q14" value="2"> C. Lắng nghe và chia sẻ cảm xúc</label>
+      <label><input type="radio" name="q14" value="3"> D. Đồng cảm nhưng không gánh trách nhiệm</label>
+    </div>
+    <!-- Câu 15–20 -->
+    <div class="question">
+      <h3>Câu 15: Khi tôi không đồng tình với người thân, tôi:</h3>
+      <label><input type="radio" name="q15" value="0"> A. Giữ im lặng để tránh mâu thuẫn</label>
+      <label><input type="radio" name="q15" value="1"> B. Cố gắng đồng ý cho qua chuyện</label>
+      <label><input type="radio" name="q15" value="2"> C. Trình bày ý kiến nhẹ nhàng</label>
+      <label><input type="radio" name="q15" value="3"> D. Thẳng thắn chia sẻ quan điểm</label>
+    </div>
 
-<div class="question">
-  <h3>Câu 14: Khi bạn bị người khác trêu đùa quá mức khiến bạn khó chịu?</h3>
-  <label><input type="radio" name="q14" value="0"> Bạn cười gượng để không làm mất vui</label>
-  <label><input type="radio" name="q14" value="1"> Bạn né tránh nhưng không nói rõ</label>
-  <label><input type="radio" name="q14" value="2"> Bạn nói bạn không thích nhưng không kiên quyết</label>
-  <label><input type="radio" name="q14" value="3"> Bạn nói rõ bạn không thoải mái và đề nghị dừng lại</label>
-</div>
-<div class="question">
-  <h3>Câu 15: Khi bạn không muốn chia sẻ vị trí hiện tại với người yêu?</h3>
-  <label><input type="radio" name="q15" value="0"> Bạn chia sẻ ngay để tránh nghi ngờ</label>
-  <label><input type="radio" name="q15" value="1"> Bạn miễn cưỡng chia sẻ nhưng thấy khó chịu</label>
-  <label><input type="radio" name="q15" value="2"> Bạn từ chối nhưng cảm thấy có lỗi</label>
-  <label><input type="radio" name="q15" value="3"> Bạn từ chối và giải thích lý do rõ ràng</label>
-</div>
+    <div class="question">
+      <h3>Câu 16: Khi tôi bị áp đặt, tôi:</h3>
+      <label><input type="radio" name="q16" value="0"> A. Chấp nhận để không gây căng thẳng</label>
+      <label><input type="radio" name="q16" value="1"> B. Cố gắng thích nghi</label>
+      <label><input type="radio" name="q16" value="2"> C. Góp ý nhẹ nhàng</label>
+      <label><input type="radio" name="q16" value="3"> D. Từ chối và bảo vệ quyền lựa chọn</label>
+    </div>
 
-<div class="question">
-  <h3>Câu 16: Khi bạn đang ăn tối mà người khác gọi điện công việc?</h3>
-  <label><input type="radio" name="q16" value="0"> Bạn nghe máy ngay để không bị đánh giá</label>
-  <label><input type="radio" name="q16" value="1"> Bạn nghe máy nhưng cảm thấy bị làm phiền</label>
-  <label><input type="radio" name="q16" value="2"> Bạn từ chối nghe nhưng cảm thấy có lỗi</label>
-  <label><input type="radio" name="q16" value="3"> Bạn từ chối và đề nghị gọi lại sau</label>
-</div>
+    <div class="question">
+      <h3>Câu 17: Khi tôi cần nghỉ ngơi, tôi:</h3>
+      <label><input type="radio" name="q17" value="0"> A. Vẫn cố gắng làm việc để không bị đánh giá</label>
+      <label><input type="radio" name="q17" value="1"> B. Cảm thấy tội lỗi khi nghỉ</label>
+      <label><input type="radio" name="q17" value="2"> C. Cân nhắc rồi nghỉ nếu thật sự cần</label>
+      <label><input type="radio" name="q17" value="3"> D. Chủ động nghỉ ngơi để phục hồi</label>
+    </div>
 
-<div class="question">
-  <h3>Câu 17: Khi bạn không muốn chia sẻ chuyện tình cảm với bạn thân?</h3>
-  <label><input type="radio" name="q17" value="0"> Bạn kể hết để giữ tình bạn</label>
-  <label><input type="radio" name="q17" value="1"> Bạn kể một phần nhưng không thoải mái</label>
-  <label><input type="radio" name="q17" value="2"> Bạn từ chối nhưng thấy có lỗi</label>
-  <label><input type="radio" name="q17" value="3"> Bạn nói rõ bạn chưa sẵn sàng chia sẻ</label>
-</div>
+    <div class="question">
+      <h3>Câu 18: Khi tôi bị tổn thương, tôi:</h3>
+      <label><input type="radio" name="q18" value="0"> A. Giấu cảm xúc và cố gắng quên đi</label>
+      <label><input type="radio" name="q18" value="1"> B. Tránh mặt người gây tổn thương</label>
+      <label><input type="radio" name="q18" value="2"> C. Chia sẻ cảm xúc một cách nhẹ nhàng</label>
+      <label><input type="radio" name="q18" value="3"> D. Thể hiện rõ ràng và yêu cầu tôn trọng</label>
+    </div>
 
-<div class="question">
-  <h3>Câu 18: Khi bạn bị người khác hỏi về thu nhập cá nhân?</h3>
-  <label><input type="radio" name="q18" value="0"> Bạn trả lời hết để không bị nghi ngờ</label>
-  <label><input type="radio" name="q18" value="1"> Bạn trả lời nhưng thấy không thoải mái</label>
-  <label><input type="radio" name="q18" value="2"> Bạn từ chối nhưng không nói rõ lý do</label>
-  <label><input type="radio" name="q18" value="3"> Bạn từ chối và nói rõ đó là thông tin riêng tư</label>
-</div>
+    <div class="question">
+      <h3>Câu 19: Khi tôi thấy người khác không tôn trọng mình, tôi:</h3>
+      <label><input type="radio" name="q19" value="0"> A. Cố gắng chịu đựng</label>
+      <label><input type="radio" name="q19" value="1"> B. Tránh tiếp xúc</label>
+      <label><input type="radio" name="q19" value="2"> C. Nhắc nhở nhẹ nhàng</label>
+      <label><input type="radio" name="q19" value="3"> D. Thiết lập ranh giới rõ ràng</label>
+    </div>
 
-<div class="question">
-  <h3>Câu 19: Khi bạn đang nghỉ cuối tuần mà công ty yêu cầu xử lý việc gấp?</h3>
-  <label><input type="radio" name="q19" value="0"> Bạn làm ngay để không bị đánh giá</label>
-  <label><input type="radio" name="q19" value="1"> Bạn làm nhưng thấy bất công</label>
-  <label><input type="radio" name="q19" value="2"> Bạn từ chối nhưng cảm thấy có lỗi</label>
-  <label><input type="radio" name="q19" value="3"> Bạn từ chối và đề nghị xử lý vào ngày làm việc</label>
-</div>
+    <div class="question">
+      <h3>Câu 20: Khi tôi cần đưa ra quyết định quan trọng, tôi:</h3>
+      <label><input type="radio" name="q20" value="0"> A. Hỏi ý kiến người khác và làm theo</label>
+      <label><input type="radio" name="q20" value="1"> B. Do dự và chờ người khác quyết định giúp</label>
+      <label><input type="radio" name="q20" value="2"> C. Tham khảo ý kiến nhưng vẫn tự quyết</label>
+      <label><input type="radio" name="q20" value="3"> D. Tự tin đưa ra quyết định dựa trên nhu cầu của mình</label>
+    </div>
 
-<div class="question">
-  <h3>Câu 20: Khi bạn không muốn tham gia một cuộc trò chuyện nhóm trên mạng xã hội?</h3>
-  <label><input type="radio" name="q20" value="0"> Bạn vẫn tham gia để không bị bỏ rơi</label>
-  <label><input type="radio" name="q20" value="1"> Bạn im lặng nhưng không rời nhóm</label>
-  <label><input type="radio" name="q20" value="2"> Bạn rời nhóm nhưng không nói lý do</label>
-  <label><input type="radio" name="q20" value="3"> Bạn rời nhóm và nói rõ lý do cần không gian riêng</label>
-</div>
+    <button type="button" onclick="submitQuiz()">Xem kết quả</button>
+  </form>
 
-<hr>
+  <div id="result"></div>
 
-<h2>🎯 Tính điểm & Hiển thị kết quả</h2>
-<button onclick="calculateScore()">Tính điểm</button>
-<p id="result"></p>
-
-<script>
-  function calculateScore() {
-    let total = 0;
-    for (let i = 1; i <= 20; i++) {
-      const options = document.getElementsByName("q" + i);
-      for (const opt of options) {
-        if (opt.checked) {
-          total += parseInt(opt.value);
+  <script>
+    function submitQuiz() {
+      let score = 0;
+      for (let i = 1; i <= 20; i++) {
+        const answer = document.querySelector(`input[name="q${i}"]:checked`);
+        if (!answer) {
+          alert("Chị cần trả lời đầy đủ 20 câu trước khi xem kết quả nha!");
+          return;
         }
+        score += parseInt(answer.value);
       }
+
+      let message = "";
+      if (score >= 50) {
+        message = "🟢 Ranh giới cá nhân của chị rất rõ ràng. Chị biết cách bảo vệ nhu cầu, cảm xúc và quyền lợi của mình một cách lành mạnh.";
+      } else if (score >= 30) {
+        message = "🟡 Chị có một số ranh giới cá nhân, nhưng vẫn dễ bị ảnh hưởng hoặc lung lay trong các mối quan hệ.";
+      } else {
+        message = "🔴 Chị đang thiếu ranh giới cá nhân rõ ràng. Có thể dễ bị tổn thương, bị kiểm soát hoặc không biết cách bảo vệ bản thân.";
+      }
+
+      document.getElementById("result").style.display = "block";
+      document.getElementById("result").innerHTML = `<h2>Kết quả: ${score}/60 điểm</h2><p>${message}</p>`;
     }
-
-    let message = "";
-    if (total <= 20) {
-      message = "🔴 Bạn đang gặp khó khăn trong việc thiết lập ranh giới cá nhân. Có thể bạn thường xuyên hy sinh nhu cầu của mình để làm hài lòng người khác.";
-    } else if (total <= 40) {
-      message = "🟡 Bạn có nhận thức về ranh giới cá nhân nhưng chưa kiên định. Hãy luyện tập giao tiếp rõ ràng và tự tin hơn.";
-    } else {
-      message = "🟢 Bạn có khả năng thiết lập ranh giới cá nhân lành mạnh. Điều này giúp bạn duy trì sự cân bằng và tôn trọng trong các mối quan hệ.";
-    }
-
-    document.getElementById("result").innerText = `Tổng điểm: ${total}/60\n${message}`;
-  }
-</script>
-
+  </script>
 </body>
 </html>
