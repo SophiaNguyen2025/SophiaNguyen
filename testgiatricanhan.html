@@ -1,353 +1,317 @@
-<!-- File: personal-values-test.html -->
 <!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Test Giá Trị Cá Nhân – Personal Values Explorer</title>
+  <title>Trắc nghiệm nhóm giá trị</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
-      padding: 20px;
-    }
-    .container {
-      max-width: 800px;
-      margin: auto;
-      background: white;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #fdfbfb, #ebedee);
       padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      color: #333;
     }
     h1 {
       text-align: center;
-      color: #333;
+      color: #4a90e2;
     }
     .question {
-      margin-top: 20px;
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
-    .question h3 {
+    .question h2 {
       margin-bottom: 10px;
     }
-    label {
+    .option {
       display: block;
-      margin-bottom: 8px;
-      cursor: pointer;
+      margin: 8px 0;
     }
-    button {
-      margin-top: 30px;
-      padding: 10px 20px;
-      background-color: #4CAF50;
+    #submitBtn {
+      display: block;
+      margin: 30px auto;
+      padding: 12px 24px;
+      background-color: #4a90e2;
       color: white;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
       font-size: 16px;
       cursor: pointer;
-    }
-    button:hover {
-      background-color: #45a049;
     }
     #result {
       margin-top: 30px;
       padding: 20px;
-      background-color: #e7f3e7;
-      border-left: 5px solid #4CAF50;
-      border-radius: 5px;
+      background: #e0f7fa;
+      border-radius: 8px;
+      font-weight: bold;
+      display: none;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>🧠 Test Giá Trị Cá Nhân – Personal Values Explorer</h1>
-    <form id="testForm">
-        </form>
-    <button onclick="calculate()">Xem kết quả</button>
-    <div id="result" style="display:none;"></div>
-  </div>
+  <h1>Test Giá Trị Cá Nhân – Personal Values Explorer</h1>
+  <form id="quizForm">
 
+    <!-- Câu hỏi 1 -->
+    <div class="question">
+      <h2>1. Khi có thời gian rảnh, bạn thường thích làm gì nhất?</h2>
+      <label class="option"><input type="radio" name="q1" value="ket_noi"> Đi chơi với bạn bè</label>
+      <label class="option"><input type="radio" name="q1" value="phat_trien"> Đọc sách hoặc học thêm</label>
+      <label class="option"><input type="radio" name="q1" value="tam_linh"> Thiền hoặc suy ngẫm</label>
+      <label class="option"><input type="radio" name="q1" value="thanh_tuu"> Làm việc để đạt mục tiêu cá nhân</label>
+    </div>
+
+    <!-- Câu hỏi 2 -->
+    <div class="question">
+      <h2>2. Điều gì khiến bạn cảm thấy hạnh phúc nhất?</h2>
+      <label class="option"><input type="radio" name="q2" value="ket_noi"> Ở bên người thân yêu</label>
+      <label class="option"><input type="radio" name="q2" value="phat_trien"> Học được điều mới</label>
+      <label class="option"><input type="radio" name="q2" value="tam_linh"> Cảm thấy bình an nội tâm</label>
+      <label class="option"><input type="radio" name="q2" value="thanh_tuu"> Hoàn thành một mục tiêu lớn</label>
+    </div>
+
+    <!-- Câu hỏi 3 -->
+    <div class="question">
+      <h2>3. Bạn thường được người khác khen vì điều gì?</h2>
+      <label class="option"><input type="radio" name="q3" value="ket_noi"> Biết quan tâm, chia sẻ</label>
+      <label class="option"><input type="radio" name="q3" value="phat_trien"> Thông minh, hiểu biết</label>
+      <label class="option"><input type="radio" name="q3" value="tam_linh"> Điềm tĩnh, sâu sắc</label>
+      <label class="option"><input type="radio" name="q3" value="thanh_tuu"> Nỗ lực, kiên trì</label>
+    </div>
+
+    <!-- Câu hỏi 4 -->
+    <div class="question">
+      <h2>4. Nếu được chọn một món quà, bạn sẽ thích gì nhất?</h2>
+      <label class="option"><input type="radio" name="q4" value="ket_noi"> Một chuyến đi cùng người thân</label>
+      <label class="option"><input type="radio" name="q4" value="phat_trien"> Một khóa học yêu thích</label>
+      <label class="option"><input type="radio" name="q4" value="tam_linh"> Một cuốn sách truyền cảm hứng</label>
+      <label class="option"><input type="radio" name="q4" value="thanh_tuu"> Một công cụ giúp làm việc hiệu quả</label>
+    </div>
+    <!-- Câu hỏi 5 -->
+    <div class="question">
+      <h2>5. Khi gặp khó khăn, bạn thường làm gì?</h2>
+      <label class="option"><input type="radio" name="q5" value="ket_noi"> Tâm sự với người thân</label>
+      <label class="option"><input type="radio" name="q5" value="phat_trien"> Tìm hiểu cách giải quyết</label>
+      <label class="option"><input type="radio" name="q5" value="tam_linh"> Cầu nguyện hoặc thiền</label>
+      <label class="option"><input type="radio" name="q5" value="thanh_tuu"> Tự mình vượt qua bằng hành động</label>
+    </div>
+
+    <!-- Câu hỏi 6 -->
+    <div class="question">
+      <h2>6. Bạn cảm thấy tự hào nhất khi nào?</h2>
+      <label class="option"><input type="radio" name="q6" value="ket_noi"> Khi giúp đỡ người khác</label>
+      <label class="option"><input type="radio" name="q6" value="phat_trien"> Khi học được điều mới</label>
+      <label class="option"><input type="radio" name="q6" value="tam_linh"> Khi giữ được sự bình tĩnh</label>
+      <label class="option"><input type="radio" name="q6" value="thanh_tuu"> Khi đạt được mục tiêu cá nhân</label>
+    </div>
+
+    <!-- Câu hỏi 7 -->
+    <div class="question">
+      <h2>7. Trong một nhóm, bạn thường đóng vai trò gì?</h2>
+      <label class="option"><input type="radio" name="q7" value="ket_noi"> Người kết nối, tạo không khí</label>
+      <label class="option"><input type="radio" name="q7" value="phat_trien"> Người đưa ra ý tưởng mới</label>
+      <label class="option"><input type="radio" name="q7" value="tam_linh"> Người giữ sự cân bằng, lắng nghe</label>
+      <label class="option"><input type="radio" name="q7" value="thanh_tuu"> Người thúc đẩy tiến độ, kết quả</label>
+    </div>
+
+    <!-- Câu hỏi 8 -->
+    <div class="question">
+      <h2>8. Bạn mong muốn điều gì nhất trong cuộc sống?</h2>
+      <label class="option"><input type="radio" name="q8" value="ket_noi"> Có những mối quan hệ ý nghĩa</label>
+      <label class="option"><input type="radio" name="q8" value="phat_trien"> Không ngừng học hỏi và phát triển</label>
+      <label class="option"><input type="radio" name="q8" value="tam_linh"> Sống bình an, có chiều sâu</label>
+      <label class="option"><input type="radio" name="q8" value="thanh_tuu"> Đạt được thành công rõ ràng</label>
+    </div>
+ <!-- Câu hỏi 9 -->
+    <div class="question">
+      <h2>9. Bạn cảm thấy được truyền cảm hứng khi nào?</h2>
+      <label class="option"><input type="radio" name="q9" value="ket_noi"> Khi nghe câu chuyện về tình bạn, tình yêu</label>
+      <label class="option"><input type="radio" name="q9" value="phat_trien"> Khi thấy ai đó vượt qua giới hạn bản thân</label>
+      <label class="option"><input type="radio" name="q9" value="tam_linh"> Khi thấy sự tỉnh thức, giác ngộ</label>
+      <label class="option"><input type="radio" name="q9" value="thanh_tuu"> Khi thấy ai đó đạt được thành tựu lớn</label>
+    </div>
+        <!-- Câu hỏi 10 -->
+    <div class="question">
+      <h2>10. Nếu được chọn một hoạt động cuối tuần, bạn sẽ chọn gì?</h2>
+      <label class="option"><input type="radio" name="q10" value="ket_noi"> Tụ họp bạn bè, gia đình</label>
+      <label class="option"><input type="radio" name="q10" value="phat_trien"> Tham gia workshop hoặc lớp học</label>
+      <label class="option"><input type="radio" name="q10" value="tam_linh"> Đi chùa, thiền, hoặc đọc sách tâm linh</label>
+      <label class="option"><input type="radio" name="q10" value="thanh_tuu"> Làm việc cho dự án cá nhân</label>
+    </div>
+
+    <!-- Câu hỏi 11 -->
+    <div class="question">
+      <h2>11. Bạn thường đặt ưu tiên cho điều gì?</h2>
+      <label class="option"><input type="radio" name="q11" value="ket_noi"> Mối quan hệ và kết nối</label>
+      <label class="option"><input type="radio" name="q11" value="phat_trien"> Học hỏi và phát triển bản thân</label>
+      <label class="option"><input type="radio" name="q11" value="tam_linh"> Sự bình an và ý nghĩa cuộc sống</label>
+      <label class="option"><input type="radio" name="q11" value="thanh_tuu"> Thành công và kết quả rõ ràng</label>
+    </div>
+
+    <!-- Câu hỏi 12 -->
+    <div class="question">
+      <h2>12. Bạn thấy điều gì là quan trọng nhất trong cuộc sống?</h2>
+      <label class="option"><input type="radio" name="q12" value="ket_noi"> Tình yêu thương và sự gắn kết</label>
+      <label class="option"><input type="radio" name="q12" value="phat_trien"> Tri thức và sự tiến bộ</label>
+      <label class="option"><input type="radio" name="q12" value="tam_linh"> Tâm hồn thanh thản</label>
+      <label class="option"><input type="radio" name="q12" value="thanh_tuu"> Sự nghiệp và thành tựu</label>
+    </div>
+
+    <!-- Câu hỏi 13 -->
+    <div class="question">
+      <h2>13. Bạn cảm thấy được là chính mình khi nào?</h2>
+      <label class="option"><input type="radio" name="q13" value="ket_noi"> Khi ở bên người thân thiết</label>
+      <label class="option"><input type="radio" name="q13" value="phat_trien"> Khi học hỏi và khám phá</label>
+      <label class="option"><input type="radio" name="q13" value="tam_linh"> Khi ở một mình và suy ngẫm</label>
+      <label class="option"><input type="radio" name="q13" value="thanh_tuu"> Khi đang làm việc hướng đến mục tiêu</label>
+    </div>
+
+    <!-- Câu hỏi 14 -->
+    <div class="question">
+      <h2>14. Bạn thường cảm thấy hài lòng khi nào?</h2>
+      <label class="option"><input type="radio" name="q14" value="ket_noi"> Khi có người lắng nghe và thấu hiểu</label>
+      <label class="option"><input type="radio" name="q14" value="phat_trien"> Khi tiến bộ hơn hôm qua</label>
+      <label class="option"><input type="radio" name="q14" value="tam_linh"> Khi cảm thấy tâm hồn nhẹ nhàng</label>
+      <label class="option"><input type="radio" name="q14" value="thanh_tuu"> Khi hoàn thành một công việc lớn</label>
+    </div>
+
+    <!-- Câu hỏi 15 -->
+    <div class="question">
+      <h2>15. Bạn thường dành thời gian cho điều gì?</h2>
+      <label class="option"><input type="radio" name="q15" value="ket_noi"> Gặp gỡ, trò chuyện với người thân</label>
+      <label class="option"><input type="radio" name="q15" value="phat_trien"> Học tập, phát triển kỹ năng</label>
+      <label class="option"><input type="radio" name="q15" value="tam_linh"> Tĩnh lặng, suy ngẫm</label>
+      <label class="option"><input type="radio" name="q15" value="thanh_tuu"> Làm việc để đạt kết quả</label>
+    </div>
+
+    <!-- Câu hỏi 16 -->
+    <div class="question">
+      <h2>16. Bạn cảm thấy được tiếp thêm năng lượng khi nào?</h2>
+      <label class="option"><input type="radio" name="q16" value="ket_noi"> Khi trò chuyện với người mình yêu quý</label>
+      <label class="option"><input type="radio" name="q16" value="phat_trien"> Khi học được điều mới mẻ</label>
+      <label class="option"><input type="radio" name="q16" value="tam_linh"> Khi có thời gian ở một mình</label>
+      <label class="option"><input type="radio" name="q16" value="thanh_tuu"> Khi đạt được một cột mốc quan trọng</label>
+    </div>
+
+    <!-- Câu hỏi 17 -->
+    <div class="question">
+      <h2>17. Bạn thường cảm thấy mất năng lượng khi nào?</h2>
+      <label class="option"><input type="radio" name="q17" value="ket_noi"> Khi bị cô lập hoặc không ai lắng nghe</label>
+      <label class="option"><input type="radio" name="q17" value="phat_trien"> Khi không được học hỏi gì mới</label>
+      <label class="option"><input type="radio" name="q17" value="tam_linh"> Khi tâm trí bị xáo trộn, lo âu</label>
+      <label class="option"><input type="radio" name="q17" value="thanh_tuu"> Khi không đạt được kết quả mong muốn</label>
+    </div>
+
+    <!-- Câu hỏi 18 -->
+    <div class="question">
+      <h2>18. Bạn thường cảm thấy ý nghĩa khi nào?</h2>
+      <label class="option"><input type="radio" name="q18" value="ket_noi"> Khi giúp người khác cảm thấy được yêu thương</label>
+      <label class="option"><input type="radio" name="q18" value="phat_trien"> Khi chia sẻ kiến thức, kinh nghiệm</label>
+      <label class="option"><input type="radio" name="q18" value="tam_linh"> Khi cảm nhận được sự kết nối với vũ trụ</label>
+      <label class="option"><input type="radio" name="q18" value="thanh_tuu"> Khi tạo ra điều gì đó có giá trị rõ ràng</label>
+    </div>
+    <!-- Câu hỏi 19 -->
+    <div class="question">
+      <h2>19. Bạn cảm thấy gắn bó nhất với điều gì?</h2>
+      <label class="option"><input type="radio" name="q19" value="ket_noi"> Những người thân yêu</label>
+      <label class="option"><input type="radio" name="q19" value="phat_trien"> Những cơ hội học hỏi</label>
+      <label class="option"><input type="radio" name="q19" value="tam_linh"> Những giá trị tinh thần</label>
+      <label class="option"><input type="radio" name="q19" value="thanh_tuu"> Những mục tiêu cá nhân</label>
+    </div>
+
+    <!-- Câu hỏi 20 -->
+    <div class="question">
+      <h2>20. Bạn thường cảm thấy mất phương hướng khi nào?</h2>
+      <label class="option"><input type="radio" name="q20" value="ket_noi"> Khi không có ai bên cạnh</label>
+      <label class="option"><input type="radio" name="q20" value="phat_trien"> Khi không biết mình đang học gì</label>
+      <label class="option"><input type="radio" name="q20" value="tam_linh"> Khi không hiểu ý nghĩa cuộc sống</label>
+      <label class="option"><input type="radio" name="q20" value="thanh_tuu"> Khi không đạt được kết quả mong muốn</label>
+    </div>
+
+    <!-- Câu hỏi 21 -->
+    <div class="question">
+      <h2>21. Bạn thường cảm thấy được là chính mình khi nào?</h2>
+      <label class="option"><input type="radio" name="q21" value="ket_noi"> Khi được chia sẻ thật lòng</label>
+      <label class="option"><input type="radio" name="q21" value="phat_trien"> Khi được học và sáng tạo</label>
+      <label class="option"><input type="radio" name="q21" value="tam_linh"> Khi được yên tĩnh và suy ngẫm</label>
+      <label class="option"><input type="radio" name="q21" value="thanh_tuu"> Khi đang hành động hướng đến mục tiêu</label>
+    </div>
+
+    <!-- Câu hỏi 22 -->
+    <div class="question">
+      <h2>22. Bạn thường cảm thấy kết nối nhất khi nào?</h2>
+      <label class="option"><input type="radio" name="q22" value="ket_noi"> Khi trò chuyện sâu sắc với ai đó</label>
+      <label class="option"><input type="radio" name="q22" value="phat_trien"> Khi cùng nhau học hỏi</label>
+      <label class="option"><input type="radio" name="q22" value="tam_linh"> Khi cùng nhau thiền hoặc cầu nguyện</label>
+      <label class="option"><input type="radio" name="q22" value="thanh_tuu"> Khi cùng nhau hoàn thành một dự án</label>
+    </div>
+
+    <!-- Câu hỏi 23 -->
+    <div class="question">
+      <h2>23. Bạn thường cảm thấy được công nhận khi nào?</h2>
+      <label class="option"><input type="radio" name="q23" value="ket_noi"> Khi người khác lắng nghe và chia sẻ</label>
+      <label class="option"><input type="radio" name="q23" value="phat_trien"> Khi người khác đánh giá cao kiến thức của bạn</label>
+      <label class="option"><input type="radio" name="q23" value="tam_linh"> Khi người khác tôn trọng chiều sâu nội tâm của bạn</label>
+      <label class="option"><input type="radio" name="q23" value="thanh_tuu"> Khi người khác ghi nhận thành tích của bạn</label>
+    </div>
+
+    <!-- Câu hỏi 24 -->
+    <div class="question">
+      <h2>24. Bạn thường cảm thấy mất kết nối khi nào?</h2>
+      <label class="option"><input type="radio" name="q24" value="ket_noi"> Khi không ai hiểu mình</label>
+      <label class="option"><input type="radio" name="q24" value="phat_trien"> Khi không được học hỏi gì mới</label>
+      <label class="option"><input type="radio" name="q24" value="tam_linh"> Khi không có thời gian cho bản thân</label>
+      <label class="option"><input type="radio" name="q24" value="thanh_tuu"> Khi không đạt được kết quả rõ ràng</label>
+    </div>
+
+    <!-- Câu hỏi 25 -->
+    <div class="question">
+      <h2>25. Bạn thường cảm thấy trọn vẹn khi nào?</h2>
+      <label class="option"><input type="radio" name="q25" value="ket_noi"> Khi được yêu thương và yêu thương</label>
+      <label class="option"><input type="radio" name="q25" value="phat_trien"> Khi phát triển bản thân mỗi ngày</label>
+      <label class="option"><input type="radio" name="q25" value="tam_linh"> Khi cảm thấy tâm hồn bình an</label>
+      <label class="option"><input type="radio" name="q25" value="thanh_tuu"> Khi đạt được điều mình mong muốn</label>
+    </div>
+
+    <!-- Câu hỏi 26 -->
+    <div class="question">
+      <h2>26. Bạn mong muốn người khác nhớ đến mình vì điều gì?</h2>
+      <label class="option"><input type="radio" name="q26" value="ket_noi"> Là người sống tình cảm, gắn bó</label>
+      <label class="option"><input type="radio" name="q26" value="phat_trien"> Là người ham học hỏi, truyền cảm hứng</label>
+      <label class="option"><input type="radio" name="q26" value="tam_linh"> Là người sâu sắc, sống có chiều sâu</label>
+      <label class="option"><input type="radio" name="q26" value="thanh_tuu"> Là người kiên trì, đạt được thành tựu</label>
+    </div>
+
+    <!-- Nút tính kết quả -->
+    <button id="submitBtn" type="button" onclick="calculateResult()">Tính kết quả</button>
+  </form>
+
+  <!-- Hiển thị kết quả -->
+  <div id="result"></div>
+
+  <!-- Script xử lý -->
   <script>
-    const questions = [
-      {
-        text: "Khi có thời gian rảnh, bạn thường thích làm gì nhất?",
-        options: {
-          A: "Đi chơi với bạn bè" , group: "ket_noi",
-          B: "Đọc sách hoặc học thêm" , group: "phat_trien",
-          C: "Thiền hoặc suy ngẫm" , group: "tam_linh",
-          D: "Làm việc để đạt mục tiêu cá nhân" , group: "thanh_tuu"
-        }
-      },
-      {
-        text: "Bạn cảm thấy hài lòng nhất khi...",
-        options: {
-          A: "Giúp đỡ người khác" , group: "phuc_vu",
-          B: "Hoàn thành một dự án quan trọng" , group: "thanh_tuu",
-          C: "Được tự do quyết định mọi thứ" , group: "tu_do",
-          D: "Có một môi trường sống ổn định" , group: "an_toan"
-        }
-      },
-      {
-  text: "Khi có mâu thuẫn với người thân, bạn thường phản ứng thế nào?",
-  options: {
-    A: "Tìm cách giải hòa, giữ kết nối" , group: "ket_noi",
-    B: "Tránh né để giữ sự ổn định" , group: "an_toan",
-    C: "Thẳng thắn nói rõ quan điểm" , group: "trung_thuc",
-    D: "Tự rút ra bài học cho bản thân" , group: "phat_trien"
-  }
-},
-{
-  text: "Bạn cảm thấy tự hào nhất khi...",
-  options: {
-    A: "Được người khác tin tưởng" , group: "trung_thuc",
-    B: "Đạt được mục tiêu khó khăn" , group: "thanh_tuu",
-    C: "Có thời gian tự do làm điều mình thích" , group: "tu_do",
-    D: "Giúp ai đó vượt qua khó khăn" , group: "phuc_vu"
-  }
-},
-{
-  text: "Trong công việc, bạn ưu tiên điều gì?",
-  options: {
-    A: "Hiệu quả và kết quả rõ ràng" , group: "thanh_tuu",
-    B: "Môi trường làm việc ổn định" , group: "an_toan",
-    C: "Cơ hội học hỏi và phát triển" , group: "phat_trien",
-    D: "Tính nhân văn và sự tử tế" , group: "phuc_vu"
-  }
-},
-{
-  text: "Bạn cảm thấy mất năng lượng khi...",
-  options: {
-    A: "Bị kiểm soát hoặc giới hạn" , group: "tu_do",
-    B: "Không có ai để chia sẻ" , group: "ket_noi",
-    C: "Không thấy ý nghĩa trong việc đang làm" , group: "tam_linh",
-    D: "Môi trường thiếu sự minh bạch" , group: "trung_thuc"
-  }
-},
-{
-  text: "Bạn thường đưa ra quyết định dựa trên...",
-  options: {
-    A: "Giá trị cá nhân và nguyên tắc sống" , group: "trung_thuc",
-    B: "Lợi ích cho cộng đồng hoặc người khác" , group: "phuc_vu",
-    C: "Khả năng phát triển bản thân" , group: "phat_trien",
-    D: "Sự tự do và linh hoạt" , group: "tu_do"
-  }
-},
-{
-  text: "Khi gặp thử thách, bạn thường...",
-  options: {
-    A: "Tìm cách vượt qua để đạt mục tiêu" , group: "thanh_tuu",
-    B: "Tìm người đồng hành hoặc hỗ trợ" , group: "ket_noi",
-    C: "Tạm dừng để suy ngẫm và điều chỉnh" , group: "tam_linh",
-    D: "Giữ sự ổn định và an toàn trước tiên" , group: "an_toan"
-  }
-},
-{
-  text: "Bạn cảm thấy được là chính mình khi...",
-  options: {
-    A: "Không bị ai áp đặt hay kiểm soát" , group: "tu_do",
-    B: "Được sống đúng với giá trị và niềm tin" , group: "trung_thuc",
-    C: "Được kết nối và chia sẻ với người khác" , group: "ket_noi",
-    D: "Được học hỏi và khám phá điều mới" , group: "phat_trien"
-  }
-},
-{
-  text: "Bạn thường cảm thấy ý nghĩa sống đến từ...",
-  options: {
-    A: "Sự đóng góp cho người khác" , group: "phuc_vu",
-    B: "Sự phát triển và trưởng thành cá nhân" , group: "phat_trien",
-    C: "Sự kết nối với điều lớn hơn bản thân" , group: "tam_linh",
-    D: "Sự tự do trong lựa chọn cuộc sống" , group: "tu_do"
-  }
-},
-{
-  text: "Bạn đánh giá cao người khác khi họ...",
-  options: {
-    A: "Sống thật và minh bạch" , group: "trung_thuc",
-    B: "Có lòng tốt và hay giúp đỡ" , group: "phuc_vu",
-    C: "Có tư duy sáng tạo và ham học hỏi" , group: "phat_trien",
-    D: "Biết giữ sự ổn định và kiểm soát" , group: "an_toan"
-  }
-},
-{
-  text: "Bạn cảm thấy hạnh phúc nhất khi...",
-  options: {
-    A: "Được tự do làm điều mình yêu thích" , group: "tu_do",
-    B: "Có người thân bên cạnh" , group: "ket_noi",
-    C: "Được sống đúng với giá trị của mình" , group: "trung_thuc",
-    D: "Được đóng góp cho cộng đồng" , group: "phuc_vu"
-  }
-},
-{
-  text: "Bạn thường chọn môi trường sống như thế nào?",
-  options: {
-    A: "Yên bình, ổn định" , group: "an_toan",
-    B: "Tự do, linh hoạt" , group: "tu_do",
-    C: "Có cộng đồng gắn bó" , group: "ket_noi",
-    D: "Có cơ hội phát triển bản thân" , group: "phat_trien"
-  }
-},
-{
-  text: "Bạn cảm thấy điều gì là nền tảng của một cuộc sống tốt?",
-  options: {
-    A: "Sự trung thực và chính trực" , group: "trung_thuc",
-    B: "Sự kết nối và yêu thương" , group: "ket_noi",
-    C: "Sự phát triển và học hỏi không ngừng" , group: "phat_trien",
-    D: "Sự đóng góp và tạo giá trị cho người khác" , group: "phuc_vu"
-  }
-},
-{
-  text: "Khi làm việc nhóm, bạn thường đóng vai trò nào?",
-  options: {
-    A: "Người kết nối và tạo không khí hòa hợp" , group: "ket_noi",
-    B: "Người đảm bảo tiến độ và kết quả" , group: "thanh_tuu",
-    C: "Người đưa ra ý tưởng mới" , group: "phat_trien",
-    D: "Người giữ sự ổn định và kiểm soát" , group: "an_toan"
-  }
-},
-{
-  text: "Bạn thường cảm thấy mất phương hướng khi...",
-  options: {
-    A: "Không có mục tiêu rõ ràng" , group: "thanh_tuu",
-    B: "Không có ai đồng hành" , group: "ket_noi",
-    C: "Không được sống đúng với giá trị cá nhân" , group: "trung_thuc",
-    D: "Không thấy ý nghĩa trong việc đang làm" , group: "tam_linh"
-  }
-},
-{
-  text: "Bạn thường chọn cách giải trí nào?",
-  options: {
-    A: "Đi chơi với bạn bè hoặc gia đình" , group: "ket_noi",
-    B: "Tự do khám phá nơi mới" , group: "tu_do",
-    C: "Xem tài liệu, học hỏi thêm" , group: "phat_trien",
-    D: "Thiền, đọc sách tâm linh" , group: "tam_linh"
-  }
-},
-{
-  text: "Bạn cảm thấy điều gì khiến bạn thấy mình có giá trị?",
-  options: {
-    A: "Được người khác tin tưởng và tôn trọng" , group: "trung_thuc",
-    B: "Được tự do thể hiện bản thân" , group: "tu_do",
-    C: "Được đóng góp cho cộng đồng" , group: "phuc_vu",
-    D: "Được phát triển và tiến bộ" , group: "phat_trien"
-  }
-},
-{
-  text: "Bạn thường phản ứng thế nào khi bị chỉ trích?",
-  options: {
-    A: "Lắng nghe để cải thiện bản thân" , group: "phat_trien",
-    B: "Giữ bình tĩnh để bảo vệ sự ổn định" , group: "an_toan",
-    C: "Phản hồi thẳng thắn nếu thấy không công bằng" , group: "trung_thuc",
-    D: "Tìm người thân để chia sẻ cảm xúc" , group: "ket_noi"
-  }
-},
-{
-  text: "Bạn cảm thấy điều gì là quan trọng nhất trong mối quan hệ?",
-  options: {
-    A: "Sự trung thực và tin tưởng" , group: "trung_thuc",
-    B: "Sự kết nối và đồng cảm" , group: "ket_noi",
-    C: "Sự tự do và không kiểm soát nhau" , group: "tu_do",
-    D: "Sự hỗ trợ và giúp đỡ lẫn nhau" , group: "phuc_vu"
-  }
-},
-{
-  text: "Bạn thường cảm thấy động lực khi...",
-  options: {
-    A: "Có mục tiêu rõ ràng để đạt được" , group: "thanh_tuu",
-    B: "Được học hỏi điều mới" , group: "phat_trien",
-    C: "Được sống đúng với giá trị cá nhân" , group: "trung_thuc",
-    D: "Được tạo ảnh hưởng tích cực cho người khác" , group: "phuc_vu"
-  }
-},
-{
-  text: "Bạn thường chọn cách phản ứng khi gặp bất công?",
-  options: {
-    A: "Lên tiếng bảo vệ sự thật" , group: "trung_thuc",
-    B: "Tìm cách giúp người bị ảnh hưởng" , group: "phuc_vu",
-    C: "Giữ bình tĩnh và tránh xung đột" , group: "an_toan",
-    D: "Tìm hiểu sâu hơn để hiểu bản chất vấn đề" , group: "tam_linh"
-  }
-},
-{
-  text: "Bạn cảm thấy điều gì khiến bạn thấy an toàn?",
-  options: {
-    A: "Môi trường sống ổn định và có thể kiểm soát" , group: "an_toan",
-    B: "Có người thân bên cạnh" , group: "ket_noi",
-    C: "Được sống đúng với bản thân" , group: "tu_do",
-    D: "Có niềm tin vào điều lớn hơn" , group: "tam_linh"
-  }
-},
-{
-  text: "Bạn thường cảm thấy ý nghĩa khi...",
-  options: {
-    A: "Được đóng góp cho người khác" , group: "phuc_vu",
-    B: "Được phát triển và trưởng thành" , group: "phat_trien",
-    C: "Được sống tự do và không bị ràng buộc" , group: "tu_do",
-    D: "Được kết nối với điều thiêng liêng" , group: "tam_linh"
-  }
-},
-{
-  text: "Bạn thường cảm thấy mất kết nối khi...",
-  options: {
-    A: "Không có ai để chia sẻ cảm xúc" , group: "ket_noi",
-    B: "Không được sống thật với chính mình" , group: "trung_thuc",
-    C: "Không thấy ý nghĩa trong cuộc sống" , group: "tam_linh",
-    D: "Không có mục tiêu rõ ràng" , group: "thanh_tuu"
-  }
-},
-{
-  text: "Bạn cảm thấy điều gì là nền tảng để sống hạnh phúc?",
-  options: {
-    A: "Sự kết nối và yêu thương" , group: "ket_noi",
-    B: "Sự tự do và lựa chọn cá nhân" , group: "tu_do",
-    C: "Sự phát triển và học hỏi" , group: "phat_trien",
-    D: "Sự đóng góp và tạo giá trị cho người khác" , group: "phuc_vu"
-  }
-}
+    function calculateResult() {
+      const form = document.getElementById('quizForm');
+      const resultDiv = document.getElementById('result');
+      const values = { ket_noi: 0, phat_trien: 0, tam_linh: 0, thanh_tuu: 0 };
 
-    ];
+      for (let i = 1; i <= 26; i++) {
+        const answer = form['q' + i].value;
+        if (answer) values[answer]++;
+      }
 
-    const groups = {
-      tu_do: "🕊️ Tự do cá nhân – Bạn đề cao sự độc lập, tự chủ và khả năng lựa chọn cuộc sống theo cách riêng.",
-      ket_noi: "🤝 Kết nối xã hội – Bạn trân trọng các mối quan hệ, sự gắn bó và tình cảm chân thành.",
-      phat_trien: "📚 Phát triển bản thân – Bạn luôn tìm cách học hỏi, khám phá và mở rộng giới hạn.",
-      trung_thuc: "🧭 Trung thực & chính trực – Bạn sống thật, minh bạch và coi trọng sự đáng tin.",
-      thanh_tuu: "🏆 Thành tựu & hiệu quả – Bạn hướng đến kết quả, thành công và sự công nhận.",
-      tam_linh: "🧘 Tâm linh & ý nghĩa – Bạn tìm kiếm chiều sâu nội tâm, sự kết nối với điều lớn hơn.",
-      an_toan: "🛡️ An toàn & ổn định – Bạn cần sự kiểm soát, bảo vệ và môi trường sống vững chắc.",
-      phuc_vu: "🌱 Phục vụ & đóng góp – Bạn có trái tim tử tế, luôn muốn tạo giá trị cho người khác."
-    };
+      const maxGroup = Object.keys(values).reduce((a, b) => values[a] > values[b] ? a : b);
+      const labels = {
+        ket_noi: "🔗 Kết nối: Bạn đề cao tình cảm, sự gắn bó và các mối quan hệ.",
+        phat_trien: "📚 Phát triển: Bạn yêu thích học hỏi, khám phá và tiến bộ.",
+        tam_linh: "🧘 Tâm linh: Bạn hướng nội, tìm kiếm sự bình an và chiều sâu.",
+        thanh_tuu: "🏆 Thành tựu: Bạn tập trung vào mục tiêu, kết quả và thành công."
+      };
 
-    // Tạo câu hỏi
-    const form = document.getElementById("testForm");
-    questions.forEach((q, i) => {
-      const div = document.createElement("div");
-      div.className = "question";
-      div.innerHTML = `<h3>Câu ${i + 1}: ${q.text}</h3>`;
-      Object.entries(q.options).forEach(([key, value]) => {
-        div.innerHTML += `
-          <label>
-            <input type="radio" name="q${i}" value="${value.group}"> ${key}. ${value}
-          </label>
-        `;
-      });
-      form.appendChild(div);
-    });
-
-    function calculate() {
-      const scores = {};
-      Object.keys(groups).forEach(g => scores[g] = 0);
-
-      questions.forEach((_, i) => {
-        const selected = document.querySelector(`input[name="q${i}"]:checked`);
-        if (selected) scores[selected.value]++;
-      });
-
-      const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
-      const top3 = sorted.slice(0, 3);
-
-      const resultBox = document.getElementById("result");
-      resultBox.style.display = "block";
-      resultBox.innerHTML = `<h3>Kết quả phân tích giá trị cá nhân:</h3><ul>
-        ${top3.map(([key]) => `<li>${groups[key]}</li>`).join("")}
-      </ul>
-      <p><em>Dựa trên mô hình giá trị cá nhân của Richard Barrett – chuyên gia phát triển con người và tổ chức. Tham khảo: Barrett Values Centre.</em></p>`;
+      resultDiv.style.display = 'block';
+      resultDiv.innerHTML = `<h2>Kết quả của bạn:</h2><p>${labels[maxGroup]}</p>`;
     }
   </script>
 </body>
