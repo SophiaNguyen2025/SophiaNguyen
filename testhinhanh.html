@@ -105,36 +105,49 @@
     <div id="result" style="display:none;"></div>
   </div>
 
-  <script>
-    function analyze() {
-      const answers = [
-        document.getElementById("q1").value.toLowerCase(),
-        document.getElementById("q2").value.toLowerCase(),
-        document.getElementById("q3").value.toLowerCase(),
-        document.getElementById("q4").value.toLowerCase()
-      ];
+ <script>
+  function analyze() {
+    const answers = [
+      document.getElementById("q1").value.toLowerCase(),
+      document.getElementById("q2").value.toLowerCase(),
+      document.getElementById("q3").value.toLowerCase(),
+      document.getElementById("q4").value.toLowerCase()
+    ].join(" ");
 
-      let traits = [];
+    const groups = {
+      huong_noi: ["bình yên", "thư giãn", "yên tĩnh", "thoải mái"],
+      huong_ngoai: ["khám phá", "tò mò", "đi tiếp", "bí ẩn"],
+      nhay_cam: ["cô đơn", "lo lắng", "sợ", "lạnh lẽo"],
+      sang_tao: ["mơ mộng", "tưởng tượng", "sáng tạo"]
+    };
 
-      if (answers.some(a => a.includes("bình yên") || a.includes("thư giãn") || a.includes("thoải mái") || a.includes("yên tĩnh"))) {
-        traits.push("🌿 Bạn có xu hướng hướng nội, yêu sự ổn định và không gian riêng.");
-      }
-      if (answers.some(a => a.includes("khám phá") || a.includes("tò mò") || a.includes("đi tiếp") || a.includes("bí ẩn"))) {
-        traits.push("🚶 Bạn có tính cách năng động, thích khám phá và trải nghiệm.");
-      }
-      if (answers.some(a => a.includes("cô đơn") || a.includes("lo lắng") || a.includes("sợ") || a.includes("lạnh lẽo"))) {
-        traits.push("🌧️ Bạn có thể đang trải qua trạng thái tâm lý nhạy cảm hoặc cần sự kết nối.");
-      }
-      if (answers.some(a => a.includes("mơ mộng") || a.includes("tưởng tượng") || a.includes("sáng tạo"))) {
-        traits.push("🎨 Bạn có trí tưởng tượng phong phú và xu hướng sáng tạo.");
-      }
+    const traitsMap = {
+      huong_noi: "🌿 Bạn có xu hướng hướng nội, yêu sự ổn định và không gian riêng.",
+      huong_ngoai: "🚶 Bạn có tính cách năng động, thích khám phá và trải nghiệm.",
+      nhay_cam: "🌧️ Bạn có thể đang trải qua trạng thái tâm lý nhạy cảm hoặc cần sự kết nối.",
+      sang_tao: "🎨 Bạn có trí tưởng tượng phong phú và xu hướng sáng tạo."
+    };
 
-      const resultBox = document.getElementById("result");
-      resultBox.style.display = "block";
-      resultBox.innerHTML = traits.length > 0
-        ? `<h3>Kết quả phân tích:</h3><ul>${traits.map(t => `<li>${t}</li>`).join("")}</ul>`
-        : "Không phát hiện xu hướng rõ ràng. Có thể bạn là người rất độc đáo! ✨";
+    let scores = {};
+    for (let group in groups) {
+      scores[group] = groups[group].filter(keyword => answers.includes(keyword)).length;
     }
-  </script>
+
+    // Sắp xếp theo điểm cao nhất
+    const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+    const topTraits = sorted.filter(([_, score]) => score > 0).slice(0, 2);
+
+    const resultBox = document.getElementById("result");
+    resultBox.style.display = "block";
+
+    if (topTraits.length > 0) {
+      resultBox.innerHTML = `<h3>Kết quả phân tích:</h3><ul>${topTraits.map(([key]) => `<li>${traitsMap[key]}</li>`).join("")}</ul>
+      <p><em>🧠 Phân tích chỉ mang tính tham khảo, dựa trên nguyên lý của các bài test gợi mở trong tâm lý học. Mục đích là giúp bạn khám phá cảm xúc, xu hướng suy nghĩ và góc nhìn cá nhân. Không có đúng sai – chỉ có sự chân thật với chính mình.</em></p>`;
+    } else {
+      resultBox.innerHTML = `<p>Không phát hiện xu hướng rõ ràng. Có thể bạn là người rất độc đáo! ✨</p>`;
+    }
+  }
+</script>
+
 </body>
 </html>
