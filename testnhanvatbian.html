@@ -86,9 +86,10 @@
       </ul>
     </div>
 
-<p><em>Bài test này thuộc nhóm “projective test” – bài kiểm tra gợi mở cảm xúc và tiềm thức. 
-Không có đáp án đúng hay sai.
-Mỗi câu trả lời phản ánh cách bạn cảm nhận thế giới xung quanh, từ đó hé lộ những đặc điểm tâm lý bên trong bạn.</em></p>
+    <p><em>Bài test này thuộc nhóm “projective test” – bài kiểm tra gợi mở cảm xúc và tiềm thức. 
+    Không có đáp án đúng hay sai.
+    Mỗi câu trả lời phản ánh cách bạn cảm nhận thế giới xung quanh, từ đó hé lộ những đặc điểm tâm lý bên trong bạn.</em></p>
+
     <img src="images/12345.jpg" alt="Nhân vật bí ẩn">
 
     <form id="testForm">
@@ -108,50 +109,53 @@ Mỗi câu trả lời phản ánh cách bạn cảm nhận thế giới xung qu
   </div>
 
   <script>
-    <script>
-  function analyze() {
-    const answers = [
-      document.getElementById("q1").value.toLowerCase(),
-      document.getElementById("q2").value.toLowerCase(),
-      document.getElementById("q3").value.toLowerCase()
-    ].join(" ");
+    function analyze() {
+      const answers = [
+        document.getElementById("q1").value.toLowerCase(),
+        document.getElementById("q2").value.toLowerCase(),
+        document.getElementById("q3").value.toLowerCase()
+      ].join(" ");
 
-    const groups = {
-      cam_xuc_sau: ["buồn", "lo lắng", "cô đơn", "trầm", "lạnh lùng"],
-      diem_tinh: ["bình tĩnh", "điềm đạm", "kiên nhẫn"],
-      quan_sat: ["quan sát", "đứng yên", "suy nghĩ", "lặng lẽ"],
-      sang_tao: ["bí ẩn", "tưởng tượng", "mơ mộng", "sáng tạo"],
-      hanh_trinh: ["rời đi", "tìm kiếm", "hành trình", "lang thang"]
-    };
+      const groups = {
+        cam_xuc_sau: ["buồn", "lo lắng", "cô đơn", "trầm", "lạnh lùng"],
+        diem_tinh: ["bình tĩnh", "điềm đạm", "kiên nhẫn"],
+        quan_sat: ["quan sát", "đứng yên", "suy nghĩ", "lặng lẽ"],
+        sang_tao: ["bí ẩn", "tưởng tượng", "mơ mộng", "sáng tạo"],
+        hanh_trinh: ["rời đi", "tìm kiếm", "hành trình", "lang thang"]
+      };
 
-    const traitsMap = {
-      cam_xuc_sau: "🌧️ Bạn có khả năng đồng cảm cao và thường cảm nhận sâu sắc trạng thái nội tâm của người khác.",
-      diem_tinh: "🪷 Bạn là người điềm tĩnh, có khả năng giữ vững cảm xúc và suy nghĩ rõ ràng trong mọi tình huống.",
-      quan_sat: "🔍 Bạn là người tinh tế, có xu hướng phân tích và quan sát trước khi hành động.",
-      sang_tao: "🎭 Bạn có trí tưởng tượng phong phú và thường nhìn thế giới qua lăng kính sáng tạo.",
-      hanh_trinh: "🚶 Bạn có tinh thần khám phá, luôn hướng về phía trước và tìm kiếm ý nghĩa trong cuộc sống."
-    };
+      const traitsMap = {
+        cam_xuc_sau: "🌧️ Bạn có khả năng đồng cảm cao và thường cảm nhận sâu sắc trạng thái nội tâm của người khác.",
+        diem_tinh: "🪷 Bạn là người điềm tĩnh, có khả năng giữ vững cảm xúc và suy nghĩ rõ ràng trong mọi tình huống.",
+        quan_sat: "🔍 Bạn là người tinh tế, có xu hướng phân tích và quan sát trước khi hành động.",
+        sang_tao: "🎭 Bạn có trí tưởng tượng phong phú và thường nhìn thế giới qua lăng kính sáng tạo.",
+        hanh_trinh: "🚶 Bạn có tinh thần khám phá, luôn hướng về phía trước và tìm kiếm ý nghĩa trong cuộc sống."
+      };
 
-    let scores = {};
-    for (let group in groups) {
-      scores[group] = groups[group].filter(keyword => answers.includes(keyword)).length;
+      let scores = {};
+      for (let group in groups) {
+        scores[group] = 0;
+        groups[group].forEach(keyword => {
+          const regex = new RegExp(`\\b${keyword}\\b`, 'i');
+          if (regex.test(answers)) {
+            scores[group]++;
+          }
+        });
+      }
+
+      const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+      const topTraits = sorted.filter(([_, score]) => score > 0).slice(0, 3);
+
+      const resultBox = document.getElementById("result");
+      resultBox.style.display = "block";
+
+      if (topTraits.length > 0) {
+        resultBox.innerHTML = `<h3>Kết quả phân tích:</h3><ul>${topTraits.map(([key]) => `<li>${traitsMap[key]}</li>`).join("")}</ul>
+        <p><em>🧠 Phân tích trên chỉ mang tính tham khảo, dựa trên nguyên lý của các bài test gợi mở trong tâm lý học. Mục đích là giúp bạn khám phá cảm xúc, xu hướng suy nghĩ và góc nhìn cá nhân. Không có đúng sai – chỉ có sự chân thật với chính mình.</em></p>`;
+      } else {
+        resultBox.innerHTML = `<p>Không phát hiện xu hướng rõ ràng. Có thể bạn là người rất độc đáo! ✨</p>`;
+      }
     }
-
-    const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
-    const topTraits = sorted.filter(([_, score]) => score > 0).slice(0, 3);
-
-    const resultBox = document.getElementById("result");
-    resultBox.style.display = "block";
-
-    if (topTraits.length > 0) {
-      resultBox.innerHTML = `<h3>Kết quả phân tích:</h3><ul>${topTraits.map(([key]) => `<li>${traitsMap[key]}</li>`).join("")}</ul>
-      <p><em>🧠 Phân tích trên chỉ mang tính tham khảo, dựa trên nguyên lý của các bài test gợi mở trong tâm lý học. Mục đích là giúp bạn khám phá cảm xúc, xu hướng suy nghĩ và góc nhìn cá nhân. Không có đúng sai – chỉ có sự chân thật với chính mình.</em></p>`;
-    } else {
-      resultBox.innerHTML = `<p>Không phát hiện xu hướng rõ ràng. Có thể bạn là người rất độc đáo! ✨</p>`;
-    }
-  }
-</script>
-
   </script>
 </body>
 </html>
