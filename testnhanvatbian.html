@@ -108,38 +108,50 @@ Mỗi câu trả lời phản ánh cách bạn cảm nhận thế giới xung qu
   </div>
 
   <script>
-    function analyze() {
-      const answers = [
-        document.getElementById("q1").value.toLowerCase(),
-        document.getElementById("q2").value.toLowerCase(),
-        document.getElementById("q3").value.toLowerCase()
-      ];
+    <script>
+  function analyze() {
+    const answers = [
+      document.getElementById("q1").value.toLowerCase(),
+      document.getElementById("q2").value.toLowerCase(),
+      document.getElementById("q3").value.toLowerCase()
+    ].join(" ");
 
-      let traits = [];
+    const groups = {
+      cam_xuc_sau: ["buồn", "lo lắng", "cô đơn", "trầm", "lạnh lùng"],
+      diem_tinh: ["bình tĩnh", "điềm đạm", "kiên nhẫn"],
+      quan_sat: ["quan sát", "đứng yên", "suy nghĩ", "lặng lẽ"],
+      sang_tao: ["bí ẩn", "tưởng tượng", "mơ mộng", "sáng tạo"],
+      hanh_trinh: ["rời đi", "tìm kiếm", "hành trình", "lang thang"]
+    };
 
-      if (answers.some(a => a.includes("buồn") || a.includes("lo lắng") || a.includes("cô đơn") || a.includes("trầm"))) {
-        traits.push("🌧️ Bạn có khả năng đồng cảm cao và thường cảm nhận sâu sắc trạng thái nội tâm của người khác.""<p><em>Phân tích trên chỉ mang tính tham khảo, dựa trên nguyên lý của các bài test gợi mở trong tâm lý học.
-Mục đích là giúp bạn khám phá cảm xúc, xu hướng suy nghĩ và góc nhìn cá nhân. Không có đúng sai – chỉ có sự chân thật với chính mình.</em></p>");
-      }
-      if (answers.some(a => a.includes("quan sát") || a.includes("đứng yên") || a.includes("suy nghĩ"))) {
-        traits.push("🔍 Bạn là người tinh tế, có xu hướng phân tích và quan sát trước khi hành động.""<p><em>Phân tích trên chỉ mang tính tham khảo, dựa trên nguyên lý của các bài test gợi mở trong tâm lý học.
-Mục đích là giúp bạn khám phá cảm xúc, xu hướng suy nghĩ và góc nhìn cá nhân. Không có đúng sai – chỉ có sự chân thật với chính mình.</em></p>" );
-      }
-      if (answers.some(a => a.includes("bí ẩn") || a.includes("tưởng tượng") || a.includes("mơ mộng"))) {
-        traits.push("🎭 Bạn có trí tưởng tượng phong phú và thường nhìn thế giới qua lăng kính sáng tạo.""<p><em>Phân tích trên chỉ mang tính tham khảo, dựa trên nguyên lý của các bài test gợi mở trong tâm lý học.
-Mục đích là giúp bạn khám phá cảm xúc, xu hướng suy nghĩ và góc nhìn cá nhân. Không có đúng sai – chỉ có sự chân thật với chính mình.</em></p>");
-      }
-      if (answers.some(a => a.includes("rời đi") || a.includes("tìm kiếm") || a.includes("hành trình"))) {
-        traits.push("🚶 Bạn có tinh thần khám phá, luôn hướng về phía trước và tìm kiếm ý nghĩa trong cuộc sống.""<p><em>Phân tích trên chỉ mang tính tham khảo, dựa trên nguyên lý của các bài test gợi mở trong tâm lý học.
-Mục đích là giúp bạn khám phá cảm xúc, xu hướng suy nghĩ và góc nhìn cá nhân. Không có đúng sai – chỉ có sự chân thật với chính mình.</em></p>");
-      }
+    const traitsMap = {
+      cam_xuc_sau: "🌧️ Bạn có khả năng đồng cảm cao và thường cảm nhận sâu sắc trạng thái nội tâm của người khác.",
+      diem_tinh: "🪷 Bạn là người điềm tĩnh, có khả năng giữ vững cảm xúc và suy nghĩ rõ ràng trong mọi tình huống.",
+      quan_sat: "🔍 Bạn là người tinh tế, có xu hướng phân tích và quan sát trước khi hành động.",
+      sang_tao: "🎭 Bạn có trí tưởng tượng phong phú và thường nhìn thế giới qua lăng kính sáng tạo.",
+      hanh_trinh: "🚶 Bạn có tinh thần khám phá, luôn hướng về phía trước và tìm kiếm ý nghĩa trong cuộc sống."
+    };
 
-      const resultBox = document.getElementById("result");
-      resultBox.style.display = "block";
-      resultBox.innerHTML = traits.length > 0
-        ? `<h3>Kết quả phân tích:</h3><ul>${traits.map(t => `<li>${t}</li>`).join("")}</ul>`
-        : "Không phát hiện xu hướng rõ ràng. Có thể bạn là người rất độc đáo! ✨";
+    let scores = {};
+    for (let group in groups) {
+      scores[group] = groups[group].filter(keyword => answers.includes(keyword)).length;
     }
+
+    const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+    const topTraits = sorted.filter(([_, score]) => score > 0).slice(0, 3);
+
+    const resultBox = document.getElementById("result");
+    resultBox.style.display = "block";
+
+    if (topTraits.length > 0) {
+      resultBox.innerHTML = `<h3>Kết quả phân tích:</h3><ul>${topTraits.map(([key]) => `<li>${traitsMap[key]}</li>`).join("")}</ul>
+      <p><em>🧠 Phân tích trên chỉ mang tính tham khảo, dựa trên nguyên lý của các bài test gợi mở trong tâm lý học. Mục đích là giúp bạn khám phá cảm xúc, xu hướng suy nghĩ và góc nhìn cá nhân. Không có đúng sai – chỉ có sự chân thật với chính mình.</em></p>`;
+    } else {
+      resultBox.innerHTML = `<p>Không phát hiện xu hướng rõ ràng. Có thể bạn là người rất độc đáo! ✨</p>`;
+    }
+  }
+</script>
+
   </script>
 </body>
 </html>
