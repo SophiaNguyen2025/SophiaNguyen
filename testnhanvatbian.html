@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Bài Test Tâm Lý: Nhân Vật Bí Ẩn</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    img {
+      display: block;
+      margin: 20px auto;
+      max-width: 100%;
+      border-radius: 8px;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 20px;
+    }
+    textarea {
+      width: 100%;
+      height: 100px;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      resize: vertical;
+    }
+    button {
+      display: block;
+      margin: 30px auto 0;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #result {
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #e7f3e7;
+      border-left: 5px solid #4CAF50;
+      border-radius: 5px;
+    }
+    .instructions {
+      background-color: #fff8dc;
+      padding: 15px;
+      border-left: 5px solid #ffa500;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Bài Test Tâm Lý: Nhân Vật Bí Ẩn</h1>
+
+    <div class="instructions">
+      <h3>Hướng dẫn:</h3>
+      <p>Hãy tưởng tượng bạn đang nhìn thấy một nhân vật bí ẩn từ xa. Mô tả cảm nhận của bạn về người này: họ đang cảm thấy gì, đang làm gì, và bạn nghĩ họ là ai.</p>
+      <ul>
+        <li>Bạn có thể mô tả cảm xúc, hành động, trạng thái nội tâm hoặc trí tưởng tượng của mình.</li>
+        <li>Ví dụ: “Người này có vẻ buồn, đang đứng yên, ánh mắt xa xăm như đang suy nghĩ.”</li>
+        <li>Không cần đúng – chỉ cần chân thật theo cảm nhận của bạn.</li>
+      </ul>
+    </div>
+
+<p><em>Bài test này thuộc nhóm “projective test” – bài kiểm tra gợi mở cảm xúc và tiềm thức. 
+Không có đáp án đúng hay sai.
+Mỗi câu trả lời phản ánh cách bạn cảm nhận thế giới xung quanh, từ đó hé lộ những đặc điểm tâm lý bên trong bạn.</em></p>
+    <img src="images/12345.jpg" alt="Nhân vật bí ẩn">
+
+    <form id="testForm">
+      <label for="q1">1. Bạn nghĩ người này đang cảm thấy gì?</label>
+      <textarea id="q1" name="q1" placeholder="Ví dụ: Buồn, lo lắng, bình tĩnh, lạnh lùng..."></textarea>
+
+      <label for="q2">2. Họ đang làm gì hoặc chuẩn bị làm gì?</label>
+      <textarea id="q2" name="q2" placeholder="Ví dụ: Đứng yên, quan sát, chuẩn bị rời đi..."></textarea>
+
+      <label for="q3">3. Bạn nghĩ người này là ai hoặc có câu chuyện gì?</label>
+      <textarea id="q3" name="q3" placeholder="Ví dụ: Một người từng trải, một kẻ lang thang, một người đang tìm kiếm điều gì đó..."></textarea>
+
+      <button type="button" onclick="analyze()">Phân tích kết quả</button>
+    </form>
+
+    <div id="result" style="display:none;"></div>
+  </div>
+
+  <script>
+    function analyze() {
+      const answers = [
+        document.getElementById("q1").value.toLowerCase(),
+        document.getElementById("q2").value.toLowerCase(),
+        document.getElementById("q3").value.toLowerCase()
+      ];
+
+      let traits = [];
+
+      if (answers.some(a => a.includes("buồn") || a.includes("lo lắng") || a.includes("cô đơn") || a.includes("trầm"))) {
+        traits.push("🌧️ Bạn có khả năng đồng cảm cao và thường cảm nhận sâu sắc trạng thái nội tâm của người khác.""<p><em>Phân tích trên chỉ mang tính tham khảo, dựa trên nguyên lý của các bài test gợi mở trong tâm lý học.
+Mục đích là giúp bạn khám phá cảm xúc, xu hướng suy nghĩ và góc nhìn cá nhân. Không có đúng sai – chỉ có sự chân thật với chính mình.</em></p>");
+      }
+      if (answers.some(a => a.includes("quan sát") || a.includes("đứng yên") || a.includes("suy nghĩ"))) {
+        traits.push("🔍 Bạn là người tinh tế, có xu hướng phân tích và quan sát trước khi hành động.""<p><em>Phân tích trên chỉ mang tính tham khảo, dựa trên nguyên lý của các bài test gợi mở trong tâm lý học.
+Mục đích là giúp bạn khám phá cảm xúc, xu hướng suy nghĩ và góc nhìn cá nhân. Không có đúng sai – chỉ có sự chân thật với chính mình.</em></p>" );
+      }
+      if (answers.some(a => a.includes("bí ẩn") || a.includes("tưởng tượng") || a.includes("mơ mộng"))) {
+        traits.push("🎭 Bạn có trí tưởng tượng phong phú và thường nhìn thế giới qua lăng kính sáng tạo.""<p><em>Phân tích trên chỉ mang tính tham khảo, dựa trên nguyên lý của các bài test gợi mở trong tâm lý học.
+Mục đích là giúp bạn khám phá cảm xúc, xu hướng suy nghĩ và góc nhìn cá nhân. Không có đúng sai – chỉ có sự chân thật với chính mình.</em></p>");
+      }
+      if (answers.some(a => a.includes("rời đi") || a.includes("tìm kiếm") || a.includes("hành trình"))) {
+        traits.push("🚶 Bạn có tinh thần khám phá, luôn hướng về phía trước và tìm kiếm ý nghĩa trong cuộc sống.""<p><em>Phân tích trên chỉ mang tính tham khảo, dựa trên nguyên lý của các bài test gợi mở trong tâm lý học.
+Mục đích là giúp bạn khám phá cảm xúc, xu hướng suy nghĩ và góc nhìn cá nhân. Không có đúng sai – chỉ có sự chân thật với chính mình.</em></p>");
+      }
+
+      const resultBox = document.getElementById("result");
+      resultBox.style.display = "block";
+      resultBox.innerHTML = traits.length > 0
+        ? `<h3>Kết quả phân tích:</h3><ul>${traits.map(t => `<li>${t}</li>`).join("")}</ul>`
+        : "Không phát hiện xu hướng rõ ràng. Có thể bạn là người rất độc đáo! ✨";
+    }
+  </script>
+</body>
+</html>
