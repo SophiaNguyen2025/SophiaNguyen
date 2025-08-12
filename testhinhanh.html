@@ -62,31 +62,42 @@
       border-left: 5px solid #4CAF50;
       border-radius: 5px;
     }
+    .instructions {
+      background-color: #fff8dc;
+      padding: 15px;
+      border-left: 5px solid #ffa500;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Bài Test Tâm Lý: Cảnh Vật & Cảm Xúc</h1>
-    <p>Hãy quan sát kỹ hình ảnh dưới đây và trả lời các câu hỏi theo cảm nhận của bạn.</p>
-    
+
+    <div class="instructions">
+      <h3>📝 Hướng dẫn:</h3>
+      <p>Hãy tưởng tượng bạn đang đứng trong khung cảnh dưới đây. Mô tả cảm xúc, màu sắc, âm thanh, chuyển động hoặc không khí mà bạn cảm nhận được.</p>
+      <ul>
+        <li>📌 Ví dụ: “Cảnh vật có màu xám, trời âm u, gió thổi mạnh, cảm giác lạnh lẽo.”</li>
+        <li>📌 Không cần đúng – chỉ cần chân thật theo cảm nhận của bạn.</li>
+      </ul>
+    </div>
+
     <img src="images/233515.png" alt="Cảnh vật thiên nhiên yên tĩnh">
-    
+
     <form id="testForm">
-      <label for="q1">1. Bạn cảm thấy thế nào khi nhìn vào cảnh này? <br>
-              bình yên / thư giãn / thoải mái </label>
-      <textarea id="q1" name="q1"></textarea>
+      <label for="q1">1. Bạn cảm thấy thế nào khi nhìn vào cảnh này?</label>
+      <textarea id="q1" name="q1" placeholder="Ví dụ: Thư giãn, bình yên, hơi buồn, lạnh lẽo..."></textarea>
 
-      <label for="q2">2. Nếu bạn đang đứng trong khung cảnh này, bạn sẽ làm gì? <br>
-              khám phá / tò mò / đi tiếp </label>
-      <textarea id="q2" name="q2"></textarea>
+      <label for="q2">2. Nếu bạn đang đứng trong khung cảnh này, bạn sẽ làm gì?</label>
+      <textarea id="q2" name="q2" placeholder="Ví dụ: Đi dạo, ngồi thiền, suy nghĩ, chụp ảnh..."></textarea>
 
-      <label for="q3">3. Bạn nghĩ con đường trong hình dẫn đến đâu? <br>
-              cô đơn / lo lắng / sợ </label>
-      <textarea id="q3" name="q3"></textarea>
+      <label for="q3">3. Bạn nghĩ con đường trong hình dẫn đến đâu?</label>
+      <textarea id="q3" name="q3" placeholder="Ví dụ: Một nơi bí ẩn, một ngôi nhà nhỏ, một khu rừng sâu..."></textarea>
 
-      <label for="q4">4. Bạn có muốn ở lại nơi này lâu không? Vì sao? <br>
-        bí ẩn / tưởng tượng /mơ mộng </label>
-      <textarea id="q4" name="q4"></textarea>
+      <label for="q4">4. Bạn có muốn ở lại nơi này lâu không? Vì sao?</label>
+      <textarea id="q4" name="q4" placeholder="Ví dụ: Có, vì cảm thấy bình yên / Không, vì hơi cô đơn..."></textarea>
 
       <button type="button" onclick="analyze()">Phân tích kết quả</button>
     </form>
@@ -105,16 +116,16 @@
 
       let traits = [];
 
-      if (answers.some(a => a.includes("bình yên") || a.includes("thư giãn") || a.includes("thoải mái"))) {
+      if (answers.some(a => a.includes("bình yên") || a.includes("thư giãn") || a.includes("thoải mái") || a.includes("yên tĩnh"))) {
         traits.push("🌿 Bạn có xu hướng hướng nội, yêu sự ổn định và không gian riêng.");
       }
-      if (answers.some(a => a.includes("khám phá") || a.includes("tò mò") || a.includes("đi tiếp"))) {
+      if (answers.some(a => a.includes("khám phá") || a.includes("tò mò") || a.includes("đi tiếp") || a.includes("bí ẩn"))) {
         traits.push("🚶 Bạn có tính cách năng động, thích khám phá và trải nghiệm.");
       }
-      if (answers.some(a => a.includes("cô đơn") || a.includes("lo lắng") || a.includes("sợ"))) {
+      if (answers.some(a => a.includes("cô đơn") || a.includes("lo lắng") || a.includes("sợ") || a.includes("lạnh lẽo"))) {
         traits.push("🌧️ Bạn có thể đang trải qua trạng thái tâm lý nhạy cảm hoặc cần sự kết nối.");
       }
-      if (answers.some(a => a.includes("bí ẩn") || a.includes("tưởng tượng") || a.includes("mơ mộng"))) {
+      if (answers.some(a => a.includes("mơ mộng") || a.includes("tưởng tượng") || a.includes("sáng tạo"))) {
         traits.push("🎨 Bạn có trí tưởng tượng phong phú và xu hướng sáng tạo.");
       }
 
