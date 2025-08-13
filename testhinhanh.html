@@ -22,10 +22,6 @@
     .logo {
       text-align: center;
       margin-bottom: 20px;
-      width: 20px;
-    }
-    .img {
-      width: 50px;
     }
     h1 {
       text-align: center;
@@ -82,28 +78,27 @@
       color: #4a148c;
       font-weight: bold;
     }
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 20px auto;
-  border-radius: 12px;
-}
-.result ul {
-  list-style: none;
-  padding-left: 0;
-}
-.result li {
-  background: #fff3e0;
-  padding: 10px 15px;
-  border-radius: 8px;
-  margin-bottom: 10px;
-  font-size: 16px;
-}
-.result h3 {
-  color: #6a1b9a;
-}
-
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 50px auto;
+      border-radius: 12px;
+    }
+    .result ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .result li {
+      background: #fff3e0;
+      padding: 10px 15px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+    .result h3 {
+      color: #6a1b9a;
+    }
   </style>
 </head>
 <body>
@@ -111,8 +106,8 @@ img {
     <div class="logo">
       <img src="images/hinhremovenen.png" alt="Logo Sophia">
     </div>
-    <h1>Trắc nghiệm hình ảnh </h1>
-    
+    <h1>Trắc nghiệm hình ảnh</h1>
+
     <!-- Form thông tin cá nhân -->
     <div id="infoSection">
       <h2>Thông tin người làm test</h2>
@@ -128,98 +123,128 @@ img {
         <button type="submit">Gửi thông tin → nhấn Go Back → & tiếp tục</button>
       </form>
     </div>
-    <h1>Bài Test Tâm Lý: Cảnh Vật & Cảm Xúc</h1>
 
-    <div class="instructions">
-      <h3>Hướng dẫn:</h3>
-      <p>Hãy tưởng tượng bạn đang đứng trong khung cảnh dưới đây. Mô tả cảm xúc, màu sắc, âm thanh, chuyển động hoặc không khí mà bạn cảm nhận được.</p>
-      <ul>
-        <li>Ví dụ: “Cảnh vật có màu xám, trời âm u, gió thổi mạnh, cảm giác lạnh lẽo.”</li>
-        <li>Không cần đúng – chỉ cần chân thật theo cảm nhận của bạn.</li>
-      </ul>
-    </div>
-<p><em>Bài test này thuộc nhóm “projective test” – bài kiểm tra gợi mở cảm xúc và tiềm thức. <br>
-  Không có đáp án đúng hay sai. Mỗi câu trả lời phản ánh cách bạn cảm nhận thế giới xung quanh, từ đó hé lộ những đặc điểm tâm lý bên trong bạn.</em></p>
-<div class="img">
-    <img src="images/233515.png" alt="Cảnh vật thiên nhiên yên tĩnh">
-</div>
-    <form id="testForm">
-      <label for="q1">1. Bạn cảm thấy thế nào khi nhìn vào cảnh này?</label>
-      <textarea id="q1" name="q1" placeholder="Ví dụ: Thư giãn, bình yên, hơi buồn, lạnh lẽo..."></textarea>
+    <!-- Bài test ẩn ban đầu -->
+    <div id="testSection" style="display: none;">
+      <h1>Bài Test Tâm Lý: Cảnh Vật & Cảm Xúc</h1>
 
-      <label for="q2">2. Nếu bạn đang đứng trong khung cảnh này, bạn sẽ làm gì?</label>
-      <textarea id="q2" name="q2" placeholder="Ví dụ: Đi dạo, ngồi thiền, suy nghĩ, chụp ảnh..."></textarea>
+      <div class="instructions">
+        <h3>Hướng dẫn:</h3>
+        <p>Hãy tưởng tượng bạn đang đứng trong khung cảnh dưới đây. Mô tả cảm xúc, màu sắc, âm thanh, chuyển động hoặc không khí mà bạn cảm nhận được.</p>
+        <ul>
+          <li>Ví dụ: “Cảnh vật có màu xám, trời âm u, gió thổi mạnh, cảm giác lạnh lẽo.”</li>
+          <li>Không cần đúng – chỉ cần chân thật theo cảm nhận của bạn.</li>
+        </ul>
+      </div>
+      <p><em>Bài test này thuộc nhóm “projective test” – bài kiểm tra gợi mở cảm xúc và tiềm thức. <br>
+        Không có đáp án đúng hay sai. Mỗi câu trả lời phản ánh cách bạn cảm nhận thế giới xung quanh, từ đó hé lộ những đặc điểm tâm lý bên trong bạn.</em></p>
 
-      <label for="q3">3. Bạn nghĩ con đường trong hình dẫn đến đâu?</label>
-      <textarea id="q3" name="q3" placeholder="Ví dụ: Một nơi bí ẩn, một ngôi nhà nhỏ, một khu rừng sâu..."></textarea>
+      <div class="img">
+        <img src="images/233515.png" alt="Cảnh vật thiên nhiên yên tĩnh">
+      </div>
 
-      <label for="q4">4. Bạn có muốn ở lại nơi này lâu không? Vì sao?</label>
-      <textarea id="q4" name="q4" placeholder="Ví dụ: Có, vì cảm thấy bình yên / Không, vì hơi cô đơn..."></textarea>
+      <form id="testForm">
+        <label for="q1">1. Bạn cảm thấy thế nào khi nhìn vào cảnh này?</label>
+        <textarea id="q1" name="q1" placeholder="Ví dụ: Thư giãn, bình yên, hơi buồn, lạnh lẽo..."></textarea>
 
-     
-      <button onclick="calculateResult()">Tính kết quả</button>
+        <label for="q2">2. Nếu bạn đang đứng trong khung cảnh này, bạn sẽ làm gì?</label>
+        <textarea id="q2" name="q2" placeholder="Ví dụ: Đi dạo, ngồi thiền, suy nghĩ, chụp ảnh..."></textarea>
 
-      <div id="result" class="result"></div>
+        <label for="q3">3. Bạn nghĩ con đường trong hình dẫn đến đâu?</label>
+        <textarea id="q3" name="q3" placeholder="Ví dụ: Một nơi bí ẩn, một ngôi nhà nhỏ, một khu rừng sâu..."></textarea>
+
+        <label for="q4">4. Bạn có muốn ở lại nơi này lâu không? Vì sao?</label>
+        <textarea id="q4" name="q4" placeholder="Ví dụ: Có, vì cảm thấy bình yên / Không, vì hơi cô đơn..."></textarea>
+
+        <button type="button" onclick="analyze()">Tính kết quả</button>
+
+        <div id="result" class="result"></div>
+      </form>
     </div>
   </div>
 
-<script>
-function analyze() {
-  const answers = [
-    document.getElementById("q1").value.toLowerCase(),
-    document.getElementById("q2").value.toLowerCase(),
-    document.getElementById("q3").value.toLowerCase(),
-    document.getElementById("q4").value.toLowerCase()
-  ].join(" ");
+  <script>
+    document.getElementById("userForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+      const form = event.target;
+      const data = new FormData(form);
 
-  const groups = {
-    huong_noi: ["bình yên", "thư giãn", "yên tĩnh", "thoải mái"],
-    huong_ngoai: ["khám phá", "tò mò", "đi tiếp", "bí ẩn"],
-    nhay_cam: ["cô đơn", "lo lắng", "sợ", "lạnh lẽo"],
-    sang_tao: ["mơ mộng", "tưởng tượng", "sáng tạo"]
-  };
-
-  const traitsMap = {
-    huong_noi: {
-      icon: "🌿",
-      text: "Bạn có xu hướng hướng nội, yêu sự ổn định và không gian riêng."
-    },
-    huong_ngoai: {
-      icon: "🚶",
-      text: "Bạn có tính cách năng động, thích khám phá và trải nghiệm."
-    },
-    nhay_cam: {
-      icon: "🌧️",
-      text: "Bạn có thể đang trải qua trạng thái tâm lý nhạy cảm hoặc cần sự kết nối."
-    },
-    sang_tao: {
-      icon: "🎨",
-      text: "Bạn có trí tưởng tượng phong phú và xu hướng sáng tạo."
-    }
-  };
-
-  let scores = {};
-  for (let group in groups) {
-    scores[group] = groups[group].filter(keyword => answers.includes(keyword)).length;
-  }
-
-  const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
-  const topTraits = sorted.filter(([_, score]) => score > 0).slice(0, 2);
-
-  const resultBox = document.getElementById("result");
-  resultBox.style.display = "block";
-
-  if (topTraits.length > 0) {
-    let html = `<h3 style="margin-bottom: 10px;">🧠 Kết quả phân tích tính cách:</h3><ul>`;
-    topTraits.forEach(([key]) => {
-      html += `<li style="margin-bottom: 10px;">${traitsMap[key].icon} ${traitsMap[key].text}</li>`;
+      fetch(form.action, {
+        method: "POST",
+        body: data,
+        headers: {
+          'Accept': 'application/json'
+        }
+      }).then(response => {
+        if (response.ok) {
+          document.getElementById("infoSection").style.display = "none";
+          document.getElementById("testSection").style.display = "block";
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
+        }
+      }).catch(error => {
+        alert("⚠️ Có lỗi xảy ra khi gửi thông tin.");
+      });
     });
-    html += `</ul><p style="margin-top: 20px;"><em>🔍 Phân tích chỉ mang tính tham khảo, dựa trên nguyên lý của các bài test gợi mở trong tâm lý học. Mục đích là giúp bạn khám phá cảm xúc, xu hướng suy nghĩ và góc nhìn cá nhân. Không có đúng sai – chỉ có sự chân thật với chính mình.</em></p>`;
-    resultBox.innerHTML = html;
-  } else {
-    resultBox.innerHTML = `<p>✨ Không phát hiện xu hướng rõ ràng. Có thể bạn là người rất độc đáo và khó đoán!</p>`;
-  }
-}
-</script>
+
+    function analyze() {
+      const answers = [
+        document.getElementById("q1").value.toLowerCase(),
+        document.getElementById("q2").value.toLowerCase(),
+        document.getElementById("q3").value.toLowerCase(),
+        document.getElementById("q4").value.toLowerCase()
+      ].join(" ");
+
+      const groups = {
+        huong_noi: ["bình yên", "thư giãn", "yên tĩnh", "thoải mái"],
+        huong_ngoai: ["khám phá", "tò mò", "đi tiếp", "bí ẩn"],
+        nhay_cam: ["cô đơn", "lo lắng", "sợ", "lạnh lẽo"],
+        sang_tao: ["mơ mộng", "tưởng tượng", "sáng tạo"]
+      };
+
+      const traitsMap = {
+        huong_noi: {
+          icon: "🌿",
+          text: "Bạn có xu hướng hướng nội, yêu sự ổn định và không gian riêng."
+        },
+        huong_ngoai: {
+          icon: "🚶",
+          text: "Bạn có tính cách năng động, thích khám phá và trải nghiệm."
+        },
+        nhay_cam: {
+          icon: "🌧️",          
+          text: "Bạn có thể đang trải qua trạng thái tâm lý nhạy cảm hoặc cần sự kết nối."
+        },
+        sang_tao: {
+          icon: "🎨",
+          text: "Bạn có trí tưởng tượng phong phú và xu hướng sáng tạo."
+        }
+      };
+
+      let scores = {};
+      for (let group in groups) {
+        scores[group] = groups[group].filter(keyword => answers.includes(keyword)).length;
+      }
+
+      const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+      const topTraits = sorted.filter(([_, score]) => score > 0).slice(0, 2);
+
+      const resultBox = document.getElementById("result");
+      resultBox.style.display = "block";
+
+      if (topTraits.length > 0) {
+        let html = `<h3 style="margin-bottom: 10px;">🧠 Kết quả phân tích tính cách:</h3><ul>`;
+        topTraits.forEach(([key]) => {
+          html += `<li style="margin-bottom: 10px;">${traitsMap[key].icon} ${traitsMap[key].text}</li>`;
+        });
+        html += `</ul><p style="margin-top: 20px;"><em>🔍 Phân tích chỉ mang tính tham khảo, dựa trên nguyên lý của các bài test gợi mở trong tâm lý học. Mục đích là giúp bạn khám phá cảm xúc, xu hướng suy nghĩ và góc nhìn cá nhân. Không có đúng sai – chỉ có sự chân thật với chính mình.</em></p>`;
+        resultBox.innerHTML = html;
+      } else {
+        resultBox.innerHTML = `<p>✨ Không phát hiện xu hướng rõ ràng. Có thể bạn là người rất độc đáo và khó đoán!</p>`;
+      }
+    }
+  </script>
 </body>
 </html>
+
