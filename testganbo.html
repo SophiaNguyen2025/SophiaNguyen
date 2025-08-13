@@ -280,7 +280,7 @@
       <label><input type="radio" name="q10" value="B"> C. Buồn nhưng chấp nhận và rút ra bài học</label>
       <label><input type="radio" name="q10" value="A"> D. Không nói rõ lý do và âm thầm rời đi</label>
     </div>
-
+  </div>
        <button id="submitBtn" type="button" onclick="calculateResult()">Tính kết quả</button>
   </form>
           
@@ -289,11 +289,12 @@
       <h2>Kết quả trắc nghiệm:</h2>
       <p id="output"></p>
     </div>
-<script>
+
+ <script>
   let formSubmitted = false;
 
-  // Bắt sự kiện gửi form
-  document.getElementById("quiz-form").addEventListener("submit", function (e) {
+  // Bắt sự kiện gửi form cá nhân
+  document.getElementById("userForm").addEventListener("submit", function (e) {
     e.preventDefault();
 
     const form = e.target;
@@ -307,6 +308,8 @@
       if (response.ok) {
         formSubmitted = true;
         alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể xem kết quả.");
+        document.getElementById("userForm").style.display = "none";
+        document.getElementById("submitBtn").style.display = "block";
       } else {
         alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
       }
@@ -317,7 +320,7 @@
   });
 
   // Hàm tính kết quả
-  function submitQuiz() {
+  function calculateResult() {
     if (!formSubmitted) {
       alert("⚠️ Bạn cần gửi thông tin trước khi xem kết quả.");
       return;
@@ -346,5 +349,5 @@
     window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
   }
 </script>
-  </div>
-<html>
+</body>
+</html>
