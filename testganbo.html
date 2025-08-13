@@ -99,16 +99,19 @@
     </div>
 
     <h1>Trắc nghiệm Phong cách Gắn bó</h1>
-    <form id="quiz-form" action="https://formspree.io/f/mkgzvjwy" method="POST">
-      <label for="name">Họ và tên:</label>
-      <input type="text" id="name" name="Họ và tên" required>
-
-      <label for="Số điện thoại">Số điện thoại:</label>
-      <input type="number" id="phone" name="Số điện thoại" required>
-
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="Email" required>
-
+    <!-- Form cá nhân -->
+  <form id="userForm" action="https://formspree.io/f/mkgzvjwy" method="POST" onsubmit="return validateUserForm()">
+    <h2>Thông tin người làm test</h2>
+    <label>Họ tên:</label>
+    <input type="text" name="name" id="name" required>
+    <label>Email:</label>
+    <input type="email" name="email" id="email" required>
+    <label>Tuổi:</label>
+    <input type="number" name="age" id="age" required>
+    <label>Số điện thoại:</label>
+    <input type="text" name="phone" id="phone" required>
+    <button type="submit">Gửi thông tin---> nhấn Go Back ---> & tiếp tục</button>
+ 
             <!-- Câu 1 -->
       <div class="question">
         <h3>1. Khi tôi cần  sự giúp đỡ, tôi thường:</h3>
@@ -278,9 +281,10 @@
       <label><input type="radio" name="q10" value="B"> C. Buồn nhưng chấp nhận và rút ra bài học</label>
       <label><input type="radio" name="q10" value="A"> D. Không nói rõ lý do và âm thầm rời đi</label>
     </div>
-            <button type="submit">Gửi kết quả </button>
-      <button type="button" onclick="submitQuiz()">Xem kết quả</button>
-    </form>
+
+       <button id="submitBtn" type="button" onclick="calculateResult()">Tính kết quả</button>
+  </form>
+          
 
     <div class="result" id="result">
       <h2>Kết quả trắc nghiệm:</h2>
