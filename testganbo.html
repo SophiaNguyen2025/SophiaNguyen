@@ -325,14 +325,22 @@
       return;
     }
 
-    let score = { A: 0, B: 0, C: 0, D: 0 };
-    for (let i = 1; i <= 10; i++) {
-      let answer = document.querySelector(`input[name="Q${i}"]:checked`);
-      if (answer) score[answer.value]++;
-    }
+   let score = { A: 0, B: 0, C: 0, D: 0 };
+let answeredCount = 0;
 
-    let max = Math.max(score.A, score.B, score.C, score.D);
-    let result = '';
+for (let i = 1; i <= 10; i++) {
+  let answer = document.querySelector(`input[name="Q${i}"]:checked`);
+  if (answer) {
+    score[answer.value]++;
+    answeredCount++;
+  }
+}
+
+if (answeredCount < 10) {
+  alert(`⚠️ Bạn cần hoàn thành tất cả ${20} câu hỏi trước khi xem kết quả.`);
+  return;
+}
+
 
     if (score.A === max)
       result = "💚 <strong>Phong cách Gắn bó An toàn:</strong> Bạn có khả năng yêu thương lành mạnh, biết tin tưởng và duy trì ranh giới tích cực.";
