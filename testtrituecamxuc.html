@@ -2,70 +2,117 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>EQ Test - Phần 1</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trắc nghiệm Ranh Giới Bản Thân </title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #f0f4ff, #e0f7fa);
+      background: linear-gradient(to right, #FFCCFF, #FFCCFF);
       color: #333;
+      margin: 0;
       padding: 20px;
+    }
+    .container {
       max-width: 800px;
       margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     }
-     img.logo {
-      max-width: 120px;
-      margin-bottom: 10px;
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .logo img {
+      width: 120px;
     }
     h1 {
       text-align: center;
-      color: #0077b6;
+      color: #2c3e50;
+    }
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: bold;
     }
     .question {
-      margin-bottom: 20px;
+      margin: 20px 0;
       padding: 15px;
-      background: #ffffff;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      border-left: 5px solid #3366CC;
+      background: #CC3366;
+      border-radius: 10px;
     }
-    .question h3 {
-      margin-bottom: 10px;
+    .question:nth-child(even) {
+      background: #FFFF66;
     }
-    .answers label {
+    .question:nth-child(odd) {
+      background:#9900FF;
+    }
+    .question p {
+      margin: 0 0 10px;
+      font-weight: bold;
+    }
+    .question label {
       display: block;
-      margin-bottom: 5px;
-      cursor: pointer;
+      font-weight: normal;
+      margin-bottom: 8px;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
     }
     button {
-      background-color: #0077b6;
+      margin-top: 30px;
+      padding: 12px 24px;
+      background: #4CAF50;
       color: white;
       border: none;
-      padding: 10px 20px;
+      border-radius: 8px;
       font-size: 16px;
-      border-radius: 5px;
       cursor: pointer;
-      margin-top: 20px;
+      width: 100%;
     }
     button:hover {
-      background-color: #005f8e;
+      background: #45a049;
     }
-    #result {
+    .result {
+      display: none;
+      background: #ede7f6;
       margin-top: 30px;
-      font-size: 18px;
+      padding: 20px;
+      border-radius: 12px;
+      color: #4a148c;
       font-weight: bold;
-      color: #d62828;
     }
-  </style>
+
+</style>
 </head>
 <body>
-     <img src="images/hinhremovenen.png" alt="Logo Sophia" class="logo">
- 
-  <h1>🧠 Bài Test EQ – Trí tuệ Cảm xúc </h1>
-<form id="infoForm" action="https://formspree.io/f/xvgqdgko" method="POST" target="hiddenFrame" onsubmit="return showCountdown()">
-    <iframe name="hiddenFrame" style="display:none;"></iframe>
-    <label>Họ và tên:<br><input type="text" name="Họ và tên" required></label>
-    <label>Email:<br><input type="email" name="Email" required></label>
-    <label>Số điện thoại:<br><input type="tel" name="Số điện thoại" pattern="^\d{10}$" required placeholder="Nhập đúng 10 số"></label>
-    <button type="submit">Bắt đầu trắc nghiệm</button>
+  <div class="container">
+    <div class="logo">
+      <img src="images/hinhremovenen.png" alt="Logo Sophia">
+    </div>
+    <h1>Trắc nghiệm Ranh Giới Bản Thân</h1>
+    <!-- Form cá nhân -->
+  <form id="userForm" action="https://formspree.io/f/mkgzvjwy" method="POST">
+    <h2>Thông tin người làm test</h2>
+    <label>Họ tên:</label>
+    <input type="text" name="name" id="name" required>
+    <label>Email:</label>
+    <input type="email" name="email" id="email" required>
+    <label>Tuổi:</label>
+    <input type="number" name="age" id="age" required>
+    <label>Số điện thoại:</label>
+    <input type="text" name="phone" id="phone" required>
+    <button type="submit">Gửi thông tin---> nhấn Go Back ---> & tiếp tục</button>
+  </form>
+        <button id="submitBtn" type="button" onclick="calculateResult()">Tính kết quả</button>
     
   <form id="eqForm">
     <div class="question">
@@ -287,23 +334,70 @@
       </div>
     </div>
 
-    <button type="button" onclick="calculateEQ()">Xem kết quả</button>
-    <div id="result"></div>
-  </form>
-  <script>
-    function calculateEQ() {
-      const form = document.getElementById('eqForm');
-      const totalQuestions = 20;
-      let score = 0;
 
-      for (let i = 1; i <= totalQuestions; i++) {
-        const answer = form['q' + i].value;
-        if (!answer) {
-          alert('Vui lòng hoàn thành tất cả câu hỏi trước khi xem kết quả!');
-          return;
-        }
-        score += parseInt(answer);
+  <div class="result" id="result">
+      <h2>Kết quả trắc nghiệm:</h2>
+      <p id="output"></p>
+    </div>
+
+  <script>
+  let formSubmitted = false;
+
+  // Bắt sự kiện gửi form cá nhân
+  document.getElementById("userForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const form = e.target;
+
+    fetch(form.action, {
+      method: "POST",
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    })
+    .then(response => {
+      if (response.ok) {
+        formSubmitted = true;
+        alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể xem kết quả.");
+        document.getElementById("userForm").style.display = "none";
+        document.getElementById("submitBtn").style.display = "block";
+      } else {
+        alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
       }
+    })
+    .catch(error => {
+      alert("⚠️ Lỗi kết nối. Vui lòng thử lại sau.");
+    });
+  });
+
+  // Hàm tính kết quả
+  function calculateResult() {
+    if (!formSubmitted) {
+      alert("⚠️ Bạn cần gửi thông tin trước khi xem kết quả.");
+      return;
+    }
+
+    let score = { A: 0, B: 0, C: 0, D: 0 };
+    let answeredCount = 0;
+
+    for (let i = 1; i <= 20; i++) {
+      let answer = document.querySelector(`input[name="q${i}"]:checked`);
+      if (answer) {
+        score[answer.value]++;
+        answeredCount++;
+      }
+    }
+
+    if (answeredCount < 20) {
+      alert(`⚠️ Bạn cần hoàn thành tất cả 20 câu hỏi trước khi xem kết quả.`);
+      return;
+    }
+
+    // Tính tổng điểm (giả sử mỗi nhóm có điểm số riêng, ví dụ A=3, B=2, C=1, D=0)
+    let totalScore =
+      score.A * 3 +
+      score.B * 2 +
+      score.C * 1 +
+      score.D * 0;
 
       let resultText = '';
       if (score >= 80) {
@@ -317,7 +411,5 @@
       document.getElementById('result').innerText = `Tổng điểm EQ: ${score}/100\n${resultText}`;
     }
   </script>
-
- 
-</body>
-</html>
+  </body>
+  </html>
