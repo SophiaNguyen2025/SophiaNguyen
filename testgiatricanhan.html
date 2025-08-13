@@ -356,83 +356,84 @@
   </div>
 
   <!-- Script xử lý -->
-  <script>
-    let formSubmitted = false;
+ <script>
+  let formSubmitted = false;
 
-    document.getElementById("userForm").addEventListener("submit", function (e) {
-      e.preventDefault();
+  document.getElementById("userForm").addEventListener("submit", function (e) {
+    e.preventDefault();
 
-      const form = e.target;
+    const form = e.target;
 
-      fetch(form.action, {
-        method: "POST",
-        body: new FormData(form),
-        headers: { 'Accept': 'application/json' }
-      })
-      .then(response => {
-        if (response.ok) {
-          formSubmitted = true;
-          alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể xem kết quả.");
-          document.getElementById("userForm").style.display = "none";
-          document.getElementById("submitBtn").style.display = "block";
-        } else {
-          alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
-        }
-      })
-      .catch(error => {
-        alert("⚠️ Lỗi kết nối. Vui lòng thử lại sau.");
-      });
+    fetch(form.action, {
+      method: "POST",
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    })
+    .then(response => {
+      if (response.ok) {
+        formSubmitted = true;
+        alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể làm bài test và xem kết quả.");
+        document.getElementById("userForm").style.display = "none";
+        document.getElementById("submitBtn").style.display = "block";
+      } else {
+        alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
+      }
+    })
+    .catch(error => {
+      alert("⚠️ Lỗi kết nối. Vui lòng thử lại sau.");
     });
+  });
 
-    function calculateResult() {
-      if (!formSubmitted) {
-        alert("⚠️ Bạn cần gửi thông tin trước khi xem kết quả.");
-        return;
-      }
-
-      let score = { ket_noi: 0, phat_trien: 0, tam_linh: 0, thanh_tuu: 0 };
-      let answeredCount = 0;
-
-      for (let i = 1; i <= 26; i++) {
-        let answer = document.querySelector(`input[name="Q${i}"]:checked`);
-        if (answer) {
-          score[answer.value]++;
-          answeredCount++;
-        }
-      }
-
-      if (answeredCount < 26) {
-        alert(`⚠️ Bạn cần hoàn thành tất cả 26 câu hỏi trước khi xem kết quả.`);
-        return;
-      }
-
-      const maxGroup = Object.keys(score).reduce((a, b) => score[a] > score[b] ? a : b);
-
-      const labels = {
-        ket_noi: " <strong>Kết nối:</strong> Bạn đề cao tình cảm, sự gắn bó và các mối quan hệ.",
-        phat_trien: "<strong>Phát triển:</strong> Bạn yêu thích học hỏi, khám phá và tiến bộ.",
-        tam_linh: " <strong>Tâm linh:</strong> Bạn hướng nội, tìm kiếm sự bình an và chiều sâu.",
-        thanh_tuu: " <strong>Thành tựu:</strong> Bạn tập trung vào mục tiêu, kết quả và thành công."
-      };
-
-      const careers = {
-        ket_noi: " <strong>Nghề nghiệp phù hợp:</strong> Tâm lý học, giáo viên, công tác xã hội, chăm sóc khách hàng, nhân sự.",
-        phat_trien: " <strong>Nghề nghiệp phù hợp:</strong> Nhà nghiên cứu, chuyên gia đào tạo, sáng tạo nội dung, lập trình viên.",
-        tam_linh: " <strong>Nghề nghiệp phù hợp:</strong> Nhà trị liệu tâm lý, nghệ sĩ, hướng dẫn thiền, người làm công việc chữa lành.",
-        thanh_tuu: " <strong>Nghề nghiệp phù hợp:</strong> Quản lý dự án, doanh nhân, chuyên viên tài chính, kỹ sư, lãnh đạo."
-      };
-
-      const result = `
-        ${labels[maxGroup]}<br><br>
-        ${careers[maxGroup]}<br><br>
-        Phân tích dựa trên mô hình giá trị cá nhân của Richard Barrett – chuyên gia phát triển con người và tổ chức.
-      `;
-
-      document.getElementById("output").innerHTML = result;
-      document.getElementById("result").style.display = 'block';
-      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  function calculateResult() {
+    if (!formSubmitted) {
+      alert("⚠️ Bạn cần gửi thông tin trước khi xem kết quả.");
+      return;
     }
-  </script>
+
+    let score = { ket_noi: 0, phat_trien: 0, tam_linh: 0, thanh_tuu: 0 };
+    let answeredCount = 0;
+
+    for (let i = 1; i <= 26; i++) {
+      let options = document.getElementsByName(`Q${i}`);
+      let selected = Array.from(options).find(opt => opt.checked);
+      if (selected) {
+        score[selected.value]++;
+        answeredCount++;
+      }
+    }
+
+    if (answeredCount < 26) {
+      alert(`⚠️ Bạn cần hoàn thành tất cả 26 câu hỏi trước khi xem kết quả.`);
+      return;
+    }
+
+    const maxGroup = Object.keys(score).reduce((a, b) => score[a] > score[b] ? a : b);
+
+    const labels = {
+      ket_noi: "<strong>Kết nối:</strong> Bạn đề cao tình cảm, sự gắn bó và các mối quan hệ.",
+      phat_trien: "<strong>Phát triển:</strong> Bạn yêu thích học hỏi, khám phá và tiến bộ.",
+      tam_linh: "<strong>Tâm linh:</strong> Bạn hướng nội, tìm kiếm sự bình an và chiều sâu.",
+      thanh_tuu: "<strong>Thành tựu:</strong> Bạn tập trung vào mục tiêu, kết quả và thành công."
+    };
+
+    const careers = {
+      ket_noi: "<strong>Nghề nghiệp phù hợp:</strong> Tâm lý học, giáo viên, công tác xã hội, chăm sóc khách hàng, nhân sự.",
+      phat_trien: "<strong>Nghề nghiệp phù hợp:</strong> Nhà nghiên cứu, chuyên gia đào tạo, sáng tạo nội dung, lập trình viên.",
+      tam_linh: "<strong>Nghề nghiệp phù hợp:</strong> Nhà trị liệu tâm lý, nghệ sĩ, hướng dẫn thiền, người làm công việc chữa lành.",
+      thanh_tuu: "<strong>Nghề nghiệp phù hợp:</strong> Quản lý dự án, doanh nhân, chuyên viên tài chính, kỹ sư, lãnh đạo."
+    };
+
+    const result = `
+      ${labels[maxGroup]}<br><br>
+      ${careers[maxGroup]}<br><br>
+      Phân tích dựa trên mô hình giá trị cá nhân của Richard Barrett – chuyên gia phát triển con người và tổ chức.
+    `;
+
+    document.getElementById("output").innerHTML = result;
+    document.getElementById("result").style.display = 'block';
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  }
+</script>
 </body>
 </html>
   
