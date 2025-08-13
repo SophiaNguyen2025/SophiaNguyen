@@ -2,11 +2,13 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Bài Test Tâm Lý: Nhân Vật Bí Ẩn</title>
+  <title>Trắc nghiệm hình ảnh nhân vật bí ẩn</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #C0C0C0, #C0C0C0);
+      color: #333;
+      margin: 0;
       padding: 20px;
     }
     .container {
@@ -14,102 +16,162 @@
       margin: auto;
       background: white;
       padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .logo img {
+      width: 120px;
     }
     h1 {
       text-align: center;
-      color: #333;
-    }
-    img {
-      display: block;
-      margin: 20px auto;
-      max-width: 100%;
-      border-radius: 8px;
+      color: #2c3e50;
     }
     label {
-      font-weight: bold;
       display: block;
       margin-top: 20px;
+      font-weight: bold;
     }
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
     textarea {
       width: 100%;
-      height: 100px;
       padding: 10px;
-      margin-top: 5px;
-      border-radius: 5px;
+      margin-top: 8px;
+      border-radius: 6px;
       border: 1px solid #ccc;
-      resize: vertical;
     }
     button {
-      display: block;
-      margin: 30px auto 0;
-      padding: 10px 20px;
-      background-color: #4CAF50;
+      margin-top: 30px;
+      padding: 12px 24px;
+      background: #3366FF;
       color: white;
       border: none;
-      border-radius: 5px;
+      border-radius: 8px;
       font-size: 16px;
       cursor: pointer;
+      width: 100%;
     }
     button:hover {
-      background-color: #45a049;
+      background: #45a049;
     }
-    #result {
+    .question {
+      margin: 20px 0;
+      padding: 15px;
+      border-left: 5px solid #FFFF66;
+      background: #f1f8e9;
+      border-radius: 10px;
+    }
+    .question:nth-child(even) {
+      background: #FFCC99;
+    }
+    .question:nth-child(odd) {
+      background: #CC99FF;
+    }
+    .result {
+      display: none;
+      background: #ede7f6;
       margin-top: 30px;
       padding: 20px;
-      background-color: #e7f3e7;
-      border-left: 5px solid #4CAF50;
-      border-radius: 5px;
-    }
-    .instructions {
-      background-color: #fff8dc;
-      padding: 15px;
-      border-left: 5px solid #ffa500;
-      border-radius: 5px;
-      margin-bottom: 20px;
+      border-radius: 12px;
+      color: #4a148c;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <img src="images/hinhremovenen.png" alt="Logo Sophia">
   <div class="container">
-    <h1>Bài Test Tâm Lý: Nhân Vật Bí Ẩn</h1>
+    <div class="logo">
+      <img src="images/hinhremovenen.png" alt="Logo Sophia">
+    </div>
+    <h1>Trắc nghiệm hình ảnh nhân vật bí ẩn</h1>
 
-    <div class="instructions">
-      <h3>Hướng dẫn:</h3>
-      <p>Hãy tưởng tượng bạn đang nhìn thấy một nhân vật bí ẩn từ xa. Mô tả cảm nhận của bạn về người này: họ đang cảm thấy gì, đang làm gì, và bạn nghĩ họ là ai.</p>
-      <ul>
-        <li>Bạn có thể mô tả cảm xúc, hành động, trạng thái nội tâm hoặc trí tưởng tượng của mình.</li>
-        <li>Ví dụ: “Người này có vẻ buồn, đang đứng yên, ánh mắt xa xăm như đang suy nghĩ.”</li>
-        <li>Không cần đúng – chỉ cần chân thật theo cảm nhận của bạn.</li>
-      </ul>
+    <!-- Form thông tin cá nhân -->
+    <div id="infoSection">
+      <h2>Thông tin người làm test</h2>
+      <form id="userForm" action="https://formspree.io/f/mkgzvjwy" method="POST" onsubmit="return handleSubmit(event)">
+        <label>Họ tên:</label>
+        <input type="text" name="name" id="name" required>
+        <label>Email:</label>
+        <input type="email" name="email" id="email" required>
+        <label>Tuổi:</label>
+        <input type="number" name="age" id="age" required>
+        <label>Số điện thoại:</label>
+        <input type="text" name="phone" id="phone" required>
+        <button type="submit">Gửi thông tin → nhấn Go Back → & tiếp tục</button>
+      </form>
     </div>
 
-    <p><em>Bài test này thuộc nhóm “projective test” – bài kiểm tra gợi mở cảm xúc và tiềm thức. 
-    Không có đáp án đúng hay sai.
-    Mỗi câu trả lời phản ánh cách bạn cảm nhận thế giới xung quanh, từ đó hé lộ những đặc điểm tâm lý bên trong bạn.</em></p>
+    <!-- Bài test hình ảnh -->
+    <div id="testSection" style="display: none;">
+      <div class="instructions">
+        <h3>Hướng dẫn:</h3>
+        <p>Hãy tưởng tượng bạn đang nhìn thấy một nhân vật bí ẩn từ xa. Mô tả cảm nhận của bạn về người này: họ đang cảm thấy gì, đang làm gì, và bạn nghĩ họ là ai.</p>
+        <ul>
+          <li>Bạn có thể mô tả cảm xúc, hành động, trạng thái nội tâm hoặc trí tưởng tượng của mình.</li>
+          <li>Ví dụ: “Người này có vẻ buồn, đang đứng yên, ánh mắt xa xăm như đang suy nghĩ.”</li>
+          <li>Không cần đúng – chỉ cần chân thật theo cảm nhận của bạn.</li>
+        </ul>
+      </div>
 
-    <img src="images/12345.jpg" alt="Nhân vật bí ẩn">
+      <p><em>Bài test này thuộc nhóm “projective test” – bài kiểm tra gợi mở cảm xúc và tiềm thức. 
+      Không có đáp án đúng hay sai.
+      Mỗi câu trả lời phản ánh cách bạn cảm nhận thế giới xung quanh, từ đó hé lộ những đặc điểm tâm lý bên trong bạn.</em></p>
 
-    <form id="testForm">
-      <label for="q1">1. Bạn nghĩ người này đang cảm thấy gì?</label>
-      <textarea id="q1" name="q1" placeholder="Ví dụ: Buồn, lo lắng, bình tĩnh, lạnh lùng..."></textarea>
+      <img src="images/12345.jpg" alt="Nhân vật bí ẩn">
 
-      <label for="q2">2. Họ đang làm gì hoặc chuẩn bị làm gì?</label>
-      <textarea id="q2" name="q2" placeholder="Ví dụ: Đứng yên, quan sát, chuẩn bị rời đi..."></textarea>
+      <div class="question">
+        <label for="q1">1. Bạn nghĩ người này đang cảm thấy gì?</label>
+        <textarea id="q1" name="q1" placeholder="Ví dụ: Buồn, lo lắng, bình tĩnh, lạnh lùng..."></textarea>
+      </div>
 
-      <label for="q3">3. Bạn nghĩ người này là ai hoặc có câu chuyện gì?</label>
-      <textarea id="q3" name="q3" placeholder="Ví dụ: Một người từng trải, một kẻ lang thang, một người đang tìm kiếm điều gì đó..."></textarea>
+      <div class="question">
+        <label for="q2">2. Họ đang làm gì hoặc chuẩn bị làm gì?</label>
+        <textarea id="q2" name="q2" placeholder="Ví dụ: Đứng yên, quan sát, chuẩn bị rời đi..."></textarea>
+      </div>
 
-      <button type="button" onclick="analyze()">Phân tích kết quả</button>
-    </form>
+      <div class="question">
+        <label for="q3">3. Bạn nghĩ người này là ai hoặc có câu chuyện gì?</label>
+        <textarea id="q3" name="q3" placeholder="Ví dụ: Một người từng trải, một kẻ lang thang, một người đang tìm kiếm điều gì đó..."></textarea>
+      </div>
 
-    <div id="result" style="display:none;"></div>
+      <button onclick="calculateResult()">Tính kết quả</button>
+
+      <div id="result" class="result"></div>
+    </div>
   </div>
 
   <script>
-    function analyze() {
+    function handleSubmit(event) {
+      event.preventDefault();
+      const form = document.getElementById("userForm");
+      const data = new FormData(form);
+
+      fetch(form.action, {
+        method: "POST",
+        body: data,
+        headers: {
+          'Accept': 'application/json'
+        }
+      }).then(response => {
+        if (response.ok) {
+          document.getElementById("infoSection").style.display = "none";
+          document.getElementById("testSection").style.display = "block";
+        } else {
+          alert("Gửi thông tin thất bại. Vui lòng thử lại.");
+        }
+      }).catch(error => {
+        alert("Có lỗi xảy ra khi gửi thông tin.");
+      });
+
+      return false;
+    }
+
+    function calculateResult() {
       const answers = [
         document.getElementById("q1").value.toLowerCase(),
         document.getElementById("q2").value.toLowerCase(),
@@ -146,16 +208,4 @@
       const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
       const topTraits = sorted.filter(([_, score]) => score > 0).slice(0, 3);
 
-      const resultBox = document.getElementById("result");
-      resultBox.style.display = "block";
-
-      if (topTraits.length > 0) {
-        resultBox.innerHTML = `<h3>Kết quả phân tích:</h3><ul>${topTraits.map(([key]) => `<li>${traitsMap[key]}</li>`).join("")}</ul>
-        <p><em>🧠 Phân tích trên chỉ mang tính tham khảo, dựa trên nguyên lý của các bài test gợi mở trong tâm lý học. Mục đích là giúp bạn khám phá cảm xúc, xu hướng suy nghĩ và góc nhìn cá nhân. Không có đúng sai – chỉ có sự chân thật với chính mình.</em></p>`;
-      } else {
-        resultBox.innerHTML = `<p>Không phát hiện xu hướng rõ ràng. Có thể bạn là người rất độc đáo! ✨</p>`;
-      }
-    }
-  </script>
-</body>
-</html>
+      const resultBox
