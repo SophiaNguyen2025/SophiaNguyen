@@ -6,7 +6,7 @@
   <style>
       body {
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #f0f8ff, #fce4ec);
+      background: linear-gradient(to right, #800000, #008080);
       color: #333;
       margin: 0;
       padding: 20px;
@@ -109,6 +109,7 @@
     <label>Số điện thoại:</label>
     <input type="text" name="phone" id="phone" required>
     <button type="submit">Gửi thông tin---> nhấn Go Back ---> & tiếp tục</button>
+ <button id="submitBtn" type="button" onclick="calculateResult()">Tính kết quả</button>
   </form>
 
   <!-- Câu hỏi trắc nghiệm -->
@@ -342,12 +343,11 @@
       <label class="option"><input type="radio" name="q26" value="thanh_tuu"> Là người kiên trì, đạt được thành tựu</label>
     </div>
     
-    <!-- Nút tính kết quả (ẩn ban đầu) -->
-    <button id="submitBtn" type="button" onclick="calculateResult()">Tính kết quả</button>
-  </form>
-
-  <!-- Hiển thị kết quả -->
-  <div id="result"></div>
+  
+ <div class="result" id="result">
+      <h2>Kết quả trắc nghiệm:</h2>
+      <p id="output"></p>
+    </div>
 
   <!-- Script xử lý -->
   <script>
