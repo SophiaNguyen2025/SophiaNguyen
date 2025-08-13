@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Trắc nghiệm mức độ trầm cảm của bạn</title>
+  <title>Trắc nghiệm mức độ Trầm Cảm của bạn</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -48,14 +48,16 @@
     .question:nth-child(odd) {
       background: #FF33CC;
     }
-    .question p {
-      margin: 0 0 10px;
-      font-weight: bold;
-    }
     .question label {
       display: block;
       font-weight: normal;
       margin-bottom: 8px;
+    }
+    select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
     }
     input[type="text"],
     input[type="email"],
@@ -102,13 +104,13 @@
     <form id="userForm" action="https://formspree.io/f/mkgzvjwy" method="POST">
       <h2>Thông tin người làm test</h2>
       <label>Họ tên:</label>
-      <input type="text" name="name" id="name" required>
+      <input type="text" name="name" required>
       <label>Email:</label>
-      <input type="email" name="email" id="email" required>
+      <input type="email" name="email" required>
       <label>Tuổi:</label>
-      <input type="number" name="age" id="age" required>
+      <input type="number" name="age" required>
       <label>Số điện thoại:</label>
-      <input type="text" name="phone" id="phone" required>
+      <input type="text" name="phone" required>
       <button type="submit">Gửi thông tin → nhấn Go Back → & tiếp tục</button>
     </form>
 
@@ -330,121 +332,46 @@
   </div>
 
   <script>
-    // Xử lý gửi form cá nhân
-    document.getElementById("userForm").addEventListener("submit", function (e) {
-      e.preventDefault();
-      const form = e.target;
+  document.getElementById("dassForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  let depression = 0, anxiety = 0, stress = 0;
 
-      fetch(form.action, {
-        method: "POST",
-        body: new FormData(form),
-        headers: { 'Accept': 'application/json' }
-      })
-      .then(response => {
-        if (response.ok) {
-          alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể xem kết quả.");
-          form.style.display = "none";
-          document.getElementById("submitBtn").style.display = "block";
-        } else {
-          alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
-        }
-      })
-      .catch(error => {
-        alert("⚠️ Lỗi kết nối. Vui lòng thử lại sau.");
-      });
+  for (let i = 1; i <= 21; i++) {
+    const radios = document.getElementsByName(`q${i}`);
+    let selected = null;
+    radios.forEach(r => {
+      if (r.checked) selected = parseInt(r.value);
     });
-
-    // Hàm phân tích điểm
-    function interpretScore(score, type) {
-      const scaled = score * 2;
-      let level = '';
-      let advice = '';
-
-      if (type === 'depression') {
-        if (scaled < 10) level = 'Bình thường';
-        else if (scaled < 14) level = 'Nhẹ';
-        else if (scaled < 21) level = 'Vừa';
-        else if (scaled < 28) level = 'Nặng';
-        else level = 'Rất nặng';
-
-        advice = 'Trầm cảm có thể ảnh hưởng đến cảm xúc, giấc ngủ và khả năng tập trung. Nếu bạn cảm thấy mất hứng thú với cuộc sống, hãy cân nhắc gặp chuyên gia tâm lý.';
-      }
-
-      if (type === 'anxiety') {
-        if (scaled < 8) level = 'Bình thường';
-        else if (scaled < 10) level = 'Nhẹ';
-        else if (scaled < 15) level = 'Vừa';
-        else if (scaled < 20) level = 'Nặng';
-        else level = 'Rất nặng';
-
-        advice = 'Lo âu có thể gây cảm giác bồn chồn, hồi hộp, khó thở. Nếu tình trạng kéo dài, hãy tìm hiểu về các phương pháp thư giãn hoặc trị liệu hành vi nhận thức.';
-      }
-
-      if (type === 'stress') {
-        if (scaled < 15) level = 'Bình thường';
-        else if (scaled < 19) level = 'Nhẹ';
-        else if (scaled < 26) level = 'Vừa';
-        else if (scaled < 34) level = 'Nặng';
-        else level = 'Rất nặng';
-
-        advice = 'Căng thẳng kéo dài có thể ảnh hưởng đến sức khỏe thể chất và tinh thần. Hãy ưu tiên nghỉ ngơi, vận động nhẹ và duy trì kết nối xã hội.';
-      }
-
-      return {
-        scaled,
-        level,
-        advice
-      };
+    if (selected === null) {
+      alert("⚠️ Vui lòng hoàn thành tất cả câu hỏi trước khi xem kết quả!");
+      return;
     }
 
-    // Hàm tính điểm DASS
-    function calculateDASS() {
-      const form = document.getElementById('dassForm');
-      const totalQuestions = 21;
-      let depression = 0;
-      let anxiety = 0;
-      let stress = 0;
+    if ([1, 4, 7, 10, 13, 17, 20].includes(i)) depression += selected;
+    else if ([2, 5, 8, 11, 14, 18, 19].includes(i)) anxiety += selected;
+    else if ([3, 6, 9, 12, 15, 16, 21].includes(i)) stress += selected;
+  }
 
-      for (let i = 1; i <= totalQuestions; i++) {
-        const answer = form['q' + i]?.value;
-        if (answer === undefined || answer === '') {
-          alert('Vui lòng hoàn thành tất cả câu hỏi trước khi xem kết quả!');
-          return;
-        }
-        const val = parseInt(answer);
-        if ([1, 4, 7, 10, 13, 17, 20].includes(i)) depression += val;
-        else if ([2, 5, 8, 11, 14, 18, 19].includes(i)) anxiety += val;
-        else if ([3, 6, 9, 12, 15, 16, 21].includes(i)) stress += val;
-      }
+  const d = interpretScore(depression, 'depression');
+  const a = interpretScore(anxiety, 'anxiety');
+  const s = interpretScore(stress, 'stress');
 
-      const d = interpretScore(depression, 'depression');
-      const a = interpretScore(anxiety, 'anxiety');
-      const s = interpretScore(stress, 'stress');
+  const output = `
+    <strong>🔹 Trầm cảm:</strong> ${d.scaled}/42 – <em>${d.level}</em><br>
+    <small>${d.advice}</small><br><br>
 
-      const output = `
-        <strong>🔹 Trầm cảm:</strong> ${d.scaled}/42 – <em>${d.level}</em><br>
-        <small>${d.advice}</small><br><br>
+    <strong>🔹 Lo âu:</strong> ${a.scaled}/42 – <em>${a.level}</em><br>
+    <small>${a.advice}</small><br><br>
 
-        <strong>🔹 Lo âu:</strong> ${a.scaled}/42 – <em>${a.level}</em><br>
-        <small>${a.advice}</small><br><br>
+    <strong>🔹 Căng thẳng:</strong> ${s.scaled}/42 – <em>${s.level}</em><br>
+    <small>${s.advice}</small><br><br>
 
-        <strong>🔹 Căng thẳng:</strong> ${s.scaled}/42 – <em>${s.level}</em><br>
-        <small>${s.advice}</small><br><br>      const output = `
-        <strong>🔹 Trầm cảm:</strong> ${d.scaled}/42 – <em>${d.level}</em><br>
-        <small>${d.advice}</small><br><br>
+    👉 <strong>Lưu ý:</strong> Bài test này chỉ mang tính tham khảo. Nếu bạn có dấu hiệu kéo dài, hãy tìm đến chuyên gia tâm lý để được hỗ trợ chuyên sâu.
+  `;
 
-        <strong>🔹 Lo âu:</strong> ${a.scaled}/42 – <em>${a.level}</em><br>
-        <small>${a.advice}</small><br><br>
-
-        <strong>🔹 Căng thẳng:</strong> ${s.scaled}/42 – <em>${s.level}</em><br>
-        <small>${s.advice}</small><br><br>
-
-        👉 <strong>Lưu ý:</strong> Bài test này chỉ mang tính tham khảo. Nếu bạn có dấu hiệu kéo dài, hãy tìm đến chuyên gia tâm lý để được hỗ trợ chuyên sâu.
-      `;
-
-      document.getElementById("output").innerHTML = output;
-      document.getElementById("result").style.display = "block";
-    }
+  document.getElementById("output").innerHTML = output;
+  document.getElementById("result").style.display = "block";
+});
   </script>
 </body>
 </html>
