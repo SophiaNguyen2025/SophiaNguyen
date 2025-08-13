@@ -275,6 +275,7 @@
       <label><input type="radio" name="q20" value="3"> D. Nghĩ mình không nên làm gì nữa</label>
     </fieldset>
 
+  
     <div class="result" id="result">
       <h2>Kết quả trắc nghiệm:</h2>
       <p id="output"></p>
@@ -338,17 +339,18 @@
         score.C * 1 +
         score.D * 0;
 
-        let resultText = "";
-        if (total >= 70) {
-          resultText = "💖 Bạn có mức độ Tự Quan Tâm cao! Bạn biết lắng nghe, chăm sóc và yêu thương chính mình một cách lành mạnh.";
-        } else if (total >= 50) {
-          resultText = "🌿 Bạn đang trên hành trình học cách Tự Quan Tâm. Hãy tiếp tục nuôi dưỡng lòng trắc ẩn với chính mình.";
-        } else {
-          resultText = "🧩 Bạn có thể đang thiếu sự Tự Quan Tâm. Đã đến lúc bạn cần lắng nghe và chăm sóc bản thân nhiều hơn.";
-        }
-
-        document.getElementById("result").innerText = resultText;
+      let resultText = "";
+      if (totalScore >= 70) {
+        resultText = "💖 Bạn có mức độ Tự Quan Tâm cao! Bạn biết lắng nghe, chăm sóc và yêu thương chính mình một cách lành mạnh.";
+      } else if (totalScore >= 50) {
+        resultText = "🌿 Bạn đang trên hành trình học cách Tự Quan Tâm. Hãy tiếp tục nuôi dưỡng lòng trắc ẩn với chính mình.";
+      } else {
+        resultText = "🧩 Bạn có thể đang thiếu sự Tự Quan Tâm. Đã đến lúc bạn cần lắng nghe và chăm sóc bản thân nhiều hơn.";
       }
-    </script>
-  </body>
-  </html>
+
+      document.getElementById("output").innerText = resultText;
+      document.getElementById("result").style.display = "block";
+    }
+  </script>
+</body>
+</html>
