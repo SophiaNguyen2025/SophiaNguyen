@@ -322,13 +322,81 @@
       </div>
     </div>
 
-<div class="result" id="result">
+ <div class="result" id="result">
       <h2>Kết quả trắc nghiệm:</h2>
       <p id="output"></p>
     </div>
   </div>
 
-        <script>
+  <script>
+    // Xử lý gửi form cá nhân
+    document.getElementById("userForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const form = e.target;
+
+      fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      })
+      .then(response => {
+        if (response.ok) {
+          alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể xem kết quả.");
+          form.style.display = "none";
+          document.getElementById("submitBtn").style.display = "block";
+        } else {
+          alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
+        }
+      })
+      .catch(error => {
+        alert("⚠️ Lỗi kết nối. Vui lòng thử lại sau.");
+      });
+    });
+
+    // Hàm phân tích điểm
+    function interpretScore(score, type) {
+      const scaled = score * 2;
+      let level = '';
+      let advice = '';
+
+      if (type === 'depression') {
+        if (scaled < 10) level = 'Bình thường';
+        else if (scaled < 14) level = 'Nhẹ';
+        else if (scaled < 21) level = 'Vừa';
+        else if (scaled < 28) level = 'Nặng';
+        else level = 'Rất nặng';
+
+        advice = 'Trầm cảm có thể ảnh hưởng đến cảm xúc, giấc ngủ và khả năng tập trung. Nếu bạn cảm thấy mất hứng thú với cuộc sống, hãy cân nhắc gặp chuyên gia tâm lý.';
+      }
+
+      if (type === 'anxiety') {
+        if (scaled < 8) level = 'Bình thường';
+        else if (scaled < 10) level = 'Nhẹ';
+        else if (scaled < 15) level = 'Vừa';
+        else if (scaled < 20) level = 'Nặng';
+        else level = 'Rất nặng';
+
+        advice = 'Lo âu có thể gây cảm giác bồn chồn, hồi hộp, khó thở. Nếu tình trạng kéo dài, hãy tìm hiểu về các phương pháp thư giãn hoặc trị liệu hành vi nhận thức.';
+      }
+
+      if (type === 'stress') {
+        if (scaled < 15) level = 'Bình thường';
+        else if (scaled < 19) level = 'Nhẹ';
+        else if (scaled < 26) level = 'Vừa';
+        else if (scaled < 34) level = 'Nặng';
+        else level = 'Rất nặng';
+
+        advice = 'Căng thẳng kéo dài có thể ảnh hưởng đến sức khỏe thể chất và tinh thần. Hãy ưu tiên nghỉ ngơi, vận động nhẹ và duy trì kết nối xã hội.';
+      }
+
+      return {
+        scaled,
+        level,
+        advice
+      };
+    }
+
+    // Hàm tính điểm DASS
     function calculateDASS() {
       const form = document.getElementById('dassForm');
       const totalQuestions = 21;
@@ -348,12 +416,33 @@
         else if ([3, 6, 9, 12, 15, 16, 21].includes(i)) stress += val;
       }
 
-      document.getElementById('result').innerText =
-        `🔹 Trầm cảm: ${depression * 2}/42\n` +
-        `🔹 Lo âu: ${anxiety * 2}/42\n` +
-        `🔹 Căng thẳng: ${stress * 2}/42\n\n` +
-        `👉 Điểm càng cao thể hiện mức độ càng nghiêm trọng.`;
+      const d = interpretScore(depression, 'depression');
+      const a = interpretScore(anxiety, 'anxiety');
+      const s = interpretScore(stress, 'stress');
 
+      const output = `
+        <strong>🔹 Trầm cảm:</strong> ${d.scaled}/42 – <em>${d.level}</em><br>
+        <small>${d.advice}</small><br><br>
+
+        <strong>🔹 Lo âu:</strong> ${a.scaled}/42 – <em>${a.level}</em><br>
+        <small>${a.advice}</small><br><br>
+
+        <strong>🔹 Căng thẳng:</strong> ${s.scaled}/42 – <em>${s.level}</em><br>
+        <small>${s.advice}</small><br><br>      const output = `
+        <strong>🔹 Trầm cảm:</strong> ${d.scaled}/42 – <em>${d.level}</em><br>
+        <small>${d.advice}</small><br><br>
+
+        <strong>🔹 Lo âu:</strong> ${a.scaled}/42 – <em>${a.level}</em><br>
+        <small>${a.advice}</small><br><br>
+
+        <strong>🔹 Căng thẳng:</strong> ${s.scaled}/42 – <em>${s.level}</em><br>
+        <small>${s.advice}</small><br><br>
+
+        👉 <strong>Lưu ý:</strong> Bài test này chỉ mang tính tham khảo. Nếu bạn có dấu hiệu kéo dài, hãy tìm đến chuyên gia tâm lý để được hỗ trợ chuyên sâu.
+      `;
+
+      document.getElementById("output").innerHTML = output;
+      document.getElementById("result").style.display = "block";
     }
   </script>
 </body>
