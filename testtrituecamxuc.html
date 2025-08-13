@@ -344,77 +344,73 @@
   </div>
 
   <!-- Script xử lý -->
-  <script>
-    let formSubmitted = false;
+<script>
+let formSubmitted = false;
 
-    document.getElementById("userForm").addEventListener("submit", function (e) {
-      e.preventDefault();
+// Bắt sự kiện gửi form cá nhân
+document.getElementById("userForm").addEventListener("submit", function (e) {
+  e.preventDefault();
 
-      const form = e.target;
+  const form = e.target;
 
-      fetch(form.action, {
-        method: "POST",
-        body: new FormData(form),
-        headers: { 'Accept': 'application/json' }
-      })
-      .then(response => {
-        if (response.ok) {
-          formSubmitted = true;
-          alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể xem kết quả.");
-          document.getElementById("userForm").style.display = "none";
-          document.getElementById("submitBtn").style.display = "block";
-        } else {
-          alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
-        }
-      })
-      .catch(error => {
-        alert("⚠️ Lỗi kết nối. Vui lòng thử lại sau.");
-      });
-    });
-
-    function calculateResult() {
-      if (!formSubmitted) {
-        alert("⚠️ Bạn cần gửi thông tin trước khi xem kết quả.");
-        return;
-      }
-
-      let score = { A: 0, B: 0, C: 0, D: 0 };
-      let answeredCount = 0;
-
-      for (let i = 1; i <= 20; i++) {
-        let answer = document.querySelector(`input[name="q${i}"]:checked`);
-        if (answer) {
-          score[answer.value]++;
-          answeredCount++;
-        }
-      }
-
-      if (answeredCount < 20) {
-        alert(`⚠️ Bạn cần hoàn thành tất cả 20 câu hỏi trước khi xem kết quả.`);
-        return;
-      }
-
-      let totalScore =
-        score.A * 3 +
-        score.B * 2 +
-        score.C * 1 +
-        score.D * 0;
-
-      let resultText = '';
-      if (totalScore >= 80) {
-        resultText = '🌟 EQ của bạn rất cao – Bạn có khả năng cảm nhận, kiểm soát và thể hiện cảm xúc tuyệt vời!';
-      } else if (totalScore >= 60) {
-        resultText = '🙂 EQ trung bình – Bạn có nhận thức cảm xúc tốt, nhưng vẫn có thể cải thiện thêm.';
-      } else {
-        resultText = '😟 EQ thấp – Bạn có thể gặp khó khăn trong việc xử lý cảm xúc. Hãy luyện tập thêm nhé!';
-      }
-
-      document.getElementById('output').innerHTML = `
-        <strong>Tổng điểm EQ:</strong> ${totalScore}/100<br>
-        ${resultText}
-      `;
-      document.getElementById('result').style.display = 'block';
+  fetch(form.action, {
+    method: "POST",
+    body: new FormData(form),
+    headers: { 'Accept': 'application/json' }
+  })
+  .then(response => {
+    if (response.ok) {
+      formSubmitted = true;
+      alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể xem kết quả.");
+      document.getElementById("userForm").style.display = "none";
+      document.getElementById("submitBtn").style.display = "block";
+    } else {
+      alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
     }
-  </script>
+  })
+  .catch(error => {
+    alert("⚠️ Lỗi kết nối. Vui lòng thử lại sau.");
+  });
+});
+
+// Hàm tính kết quả EQ
+function calculateResult() {
+  if (!formSubmitted) {
+    alert("⚠️ Bạn cần gửi thông tin trước khi xem kết quả.");
+    return;
+  }
+
+  let totalScore = 0;
+  let answeredCount = 0;
+
+  for (let i = 1; i <= 20; i++) {
+    let answer = document.querySelector(`input[name="q${i}"]:checked`);
+    if (answer) {
+      totalScore += parseInt(answer.value); // cộng điểm từ value 1–5
+      answeredCount++;
+    }
+  }
+
+  if (answeredCount < 20) {
+    alert(`⚠️ Bạn cần hoàn thành tất cả 20 câu hỏi trước khi xem kết quả.`);
+    return;
+  }
+
+  let resultText = '';
+  if (totalScore >= 80) {
+    resultText = '🌟 EQ của bạn rất cao – Bạn có khả năng cảm nhận, kiểm soát và thể hiện cảm xúc tuyệt vời!';
+  } else if (totalScore >= 60) {
+    resultText = '🙂 EQ trung bình – Bạn có nhận thức cảm xúc tốt, nhưng vẫn có thể cải thiện thêm.';
+  } else {
+    resultText = '😟 EQ thấp – Bạn có thể gặp khó khăn trong việc xử lý cảm xúc. Hãy luyện tập thêm nhé!';
+  }
+
+  document.getElementById('output').innerHTML = `
+    <strong>Tổng điểm EQ:</strong> ${totalScore}/100<br>
+    ${resultText}
+  `;
+  document.getElementById('result').style.display = 'block';
+}
+</script>
 </body>
 </html>
