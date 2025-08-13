@@ -43,10 +43,10 @@
       border-radius: 10px;
     }
     .question:nth-child(even) {
-      background:#9999FF;
+      background:#CCCCFF;
     }
     .question:nth-child(odd) {
-      background: #FF33CC;
+      background: #00CCFF;
     }
     .question label {
       display: block;
@@ -109,8 +109,6 @@
       <button type="submit">Gửi thông tin → nhấn Go Back → & tiếp tục</button>
     </form>
 
-    <!-- Nút tính kết quả -->
-    <button id="submitBtn" type="button" onclick="calculateDASS()" style="display:none;">Tính kết quả</button>
     
  <form id="dassForm" class="hidden">
     <div class="question">
@@ -304,8 +302,9 @@
       </div>
     </div>
 </form>
-      <!-- Kết quả -->
-    
+   <!-- Nút tính kết quả -->
+    <button id="submitBtn" type="button" onclick="calculateDASS()" style="display:none;">Tính kết quả</button>
+    <!-- Kết quả -->
     <div class="result hidden" id="result">
       <h3>Kết quả của bạn:</h3>
       <p id="output"></p>
