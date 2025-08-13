@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Trắc nghiệm nhóm giá trị</title>
+  <title>Trắc nghiệm nhóm giá trị cá nhân</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -29,7 +29,7 @@
       margin: 8px 0;
     }
     #submitBtn {
-      display: block;
+      display: none;
       margin: 30px auto;
       padding: 12px 24px;
       background-color: #4a90e2;
@@ -47,24 +47,55 @@
       font-weight: bold;
       display: none;
     }
+    #userForm {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    #userForm input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+      margin-bottom: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    #userForm button {
+      padding: 10px 20px;
+      background-color: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
-     <img src="images/hinhremovenen.png" alt="Sophia Logo" />
-  <h1>Test Giá Trị Cá Nhân – Personal Values Explorer</h1>
-          <!-- Form cá nhân gửi về Formspree -->
-<form id="userForm" action="https://formspree.io/f/mkgzvjwy" method="POST" onsubmit="return validateUserForm()">
-  <h2>Thông tin người làm test</h2>
-  <label>Họ tên: <input type="text" name="name" id="name" required></label><br><br>
-  <label>Email: <input type="email" name="email" id="email" required></label><br><br>
-  <label>Tuổi: <input type="number" name="age" id="age" required></label><br><br>
-  <label>Số điện thoại: <input type="text" name="phone" id="phone" required></label><br><br>
-  <button type="submit">Gửi thông tin & xem kết quả</button>
-</form>
+  <h1>Trắc nghiệm nhóm giá trị cá nhân</h1>
 
+  <!-- Form cá nhân -->
+  <form id="userForm" action="https://formspree.io/f/mkgzvjwy" method="POST" onsubmit="return validateUserForm()">
+    <h2>Thông tin người làm test</h2>
+    <label>Họ tên:</label>
+    <input type="text" name="name" id="name" required>
+    <label>Email:</label>
+    <input type="email" name="email" id="email" required>
+    <label>Tuổi:</label>
+    <input type="number" name="age" id="age" required>
+    <label>Số điện thoại:</label>
+    <input type="text" name="phone" id="phone" required>
+    <button type="submit">Gửi thông tin & tiếp tục</button>
+  </form>
 
-    <!-- Câu hỏi 1 -->
-    <div class="question">
+  <!-- Câu hỏi trắc nghiệm -->
+  <form id="quizForm">
+     <div class="question">
       <h2>1. Khi có thời gian rảnh, bạn thường thích làm gì nhất?</h2>
       <label class="option"><input type="radio" name="q1" value="ket_noi"> Đi chơi với bạn bè</label>
       <label class="option"><input type="radio" name="q1" value="phat_trien"> Đọc sách hoặc học thêm</label>
@@ -292,36 +323,8 @@
       <label class="option"><input type="radio" name="q26" value="tam_linh"> Là người sâu sắc, sống có chiều sâu</label>
       <label class="option"><input type="radio" name="q26" value="thanh_tuu"> Là người kiên trì, đạt được thành tựu</label>
     </div>
-
-         <script>
-  function validateUserForm() {
-    const name = document.getElementById("name").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const age = document.getElementById("age").value.trim();
-    const phone = document.getElementById("phone").value.trim();
-    const phoneRegex = /^[0-9]{10}$/;
-
-    if (!name || !email || !age || !phone) {
-      alert("Vui lòng điền đầy đủ thông tin cá nhân.");
-      return false;
-    }
-
-    if (!phoneRegex.test(phone)) {
-      alert("Số điện thoại phải gồm đúng 10 chữ số.");
-      return false;
-    }
-
-    // Sau khi submit thành công, gọi hàm tính kết quả
-    setTimeout(() => {
-      document.getElementById("userForm").style.display = "none";
-      calculateResult();
-    }, 1000); // Delay nhẹ để Formspree xử lý
-
-    return true; // Cho phép submit
-  }
-</script>
-
-    <!-- Nút tính kết quả -->
+    
+    <!-- Nút tính kết quả (ẩn ban đầu) -->
     <button id="submitBtn" type="button" onclick="calculateResult()">Tính kết quả</button>
   </form>
 
@@ -329,58 +332,83 @@
   <div id="result"></div>
 
   <!-- Script xử lý -->
-<script>
-  function calculateResult() {
-    const resultDiv = document.getElementById('result');
-    const values = {
-      ket_noi: 0,
-      phat_trien: 0,
-      tam_linh: 0,
-      thanh_tuu: 0
-    };
+  <script>
+    function validateUserForm() {
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const age = document.getElementById("age").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const phoneRegex = /^[0-9]{10}$/;
 
-    let totalAnswered = 0;
-
-    for (let i = 1; i <= 26; i++) {
-      const selected = document.querySelector(`input[name="q${i}"]:checked`);
-      if (selected) {
-        values[selected.value]++;
-        totalAnswered++;
+      if (!name || !email || !age || !phone) {
+        alert("Vui lòng điền đầy đủ thông tin cá nhân.");
+        return false;
       }
+
+      if (!phoneRegex.test(phone)) {
+        alert("Số điện thoại phải gồm đúng 10 chữ số.");
+        return false;
+      }
+
+      setTimeout(() => {
+        document.getElementById("userForm").style.display = "none";
+        document.getElementById("submitBtn").style.display = "block";
+      }, 1000);
+
+      return true;
     }
 
-    if (totalAnswered < 26) {
+    function calculateResult() {
+      const resultDiv = document.getElementById('result');
+      const values = {
+        ket_noi: 0,
+        phat_trien: 0,
+        tam_linh: 0,
+        thanh_tuu: 0
+      };
+
+      let totalAnswered = 0;
+
+      for (let i = 1; i <= 26; i++) {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        if (selected) {
+          values[selected.value]++;
+          totalAnswered++;
+        }
+      }
+
+      if (totalAnswered < 26) {
+        resultDiv.style.display = 'block';
+        resultDiv.innerHTML = `<p style="color: red;"><strong>Vui lòng hoàn thành tất cả 26 câu hỏi trước khi xem kết quả.</strong></p>`;
+        return;
+      }
+
+      const maxGroup = Object.keys(values).reduce((a, b) => values[a] > values[b] ? a : b);
+
+      const labels = {
+        ket_noi: "🔗 <strong>Kết nối:</strong> Bạn đề cao tình cảm, sự gắn bó và các mối quan hệ.",
+        phat_trien: "📚 <strong>Phát triển:</strong> Bạn yêu thích học hỏi, khám phá và tiến bộ.",
+        tam_linh: "🧘 <strong>Tâm linh:</strong> Bạn hướng nội, tìm kiếm sự bình an và chiều sâu.",
+        thanh_tuu: "🏆 <strong>Thành tựu:</strong> Bạn tập trung vào mục tiêu, kết quả và thành công."
+      };
+
+      const careers = {
+        ket_noi: "👥 <strong>Nghề nghiệp phù hợp:</strong> Tâm lý học, giáo viên, công tác xã hội, chăm sóc khách hàng, nhân sự.",
+        phat_trien: "🧠 <strong>Nghề nghiệp phù hợp:</strong> Nhà nghiên cứu, chuyên gia đào tạo, sáng tạo nội dung, lập trình viên.",
+        tam_linh: "🌿 <strong>Nghề nghiệp phù hợp:</strong> Nhà trị liệu tâm lý, nghệ sĩ, hướng dẫn thiền, người làm công việc chữa lành.",
+        thanh_tuu: "🚀 <strong>Nghề nghiệp phù hợp:</strong> Quản lý dự án, doanh nhân, chuyên viên tài chính, kỹ sư, lãnh đạo."
+      };
+
       resultDiv.style.display = 'block';
-      resultDiv.innerHTML = `<p style="color: red;"><strong>Vui lòng hoàn thành tất cả 26 câu hỏi trước khi xem kết quả.</strong></p>`;
-      return;
+      resultDiv.innerHTML = `
+        <h2>Kết quả của bạn:</h2>
+        <p>${labels[maxGroup]}</p>
+        <p>${careers[maxGroup]}</p>
+        <p style="margin-top: 20px; font-style: italic; color: #555;">
+          Phân tích dựa trên mô hình giá trị cá nhân của Richard Barrett – chuyên gia phát triển con người và tổ chức.
+        </p>
+      `;
     }
-
-    const maxGroup = Object.keys(values).reduce((a, b) => values[a] > values[b] ? a : b);
-
-    const labels = {
-      ket_noi: "🔗 <strong>Kết nối:</strong> Bạn đề cao tình cảm, sự gắn bó và các mối quan hệ.",
-      phat_trien: "📚 <strong>Phát triển:</strong> Bạn yêu thích học hỏi, khám phá và tiến bộ.",
-      tam_linh: "🧘 <strong>Tâm linh:</strong> Bạn hướng nội, tìm kiếm sự bình an và chiều sâu.",
-      thanh_tuu: "🏆 <strong>Thành tựu:</strong> Bạn tập trung vào mục tiêu, kết quả và thành công."
-    };
-
-    const careers = {
-      ket_noi: "👥 <strong>Nghề nghiệp phù hợp:</strong> Tâm lý học, giáo viên, công tác xã hội, chăm sóc khách hàng, nhân sự.",
-      phat_trien: "🧠 <strong>Nghề nghiệp phù hợp:</strong> Nhà nghiên cứu, chuyên gia đào tạo, sáng tạo nội dung, lập trình viên.",
-      tam_linh: "🌿 <strong>Nghề nghiệp phù hợp:</strong> Nhà trị liệu tâm lý, nghệ sĩ, hướng dẫn thiền, người làm công việc chữa lành.",
-      thanh_tuu: "🚀 <strong>Nghề nghiệp phù hợp:</strong> Quản lý dự án, doanh nhân, chuyên viên tài chính, kỹ sư, lãnh đạo."
-    };
-
-    resultDiv.style.display = 'block';
-    resultDiv.innerHTML = `
-      <h2>Kết quả của bạn:</h2>
-      <p>${labels[maxGroup]}</p>
-      <p>${careers[maxGroup]}</p>
-      <p style="margin-top: 20px; font-style: italic; color: #555;">
-        Phân tích dựa trên mô hình giá trị cá nhân của Richard Barrett – chuyên gia phát triển con người và tổ chức.
-      </p>
-    `;
-  }
-</script>
+  </script>
 </body>
 </html>
