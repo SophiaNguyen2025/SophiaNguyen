@@ -394,7 +394,7 @@
     let answeredCount = 0;
 
     for (let i = 1; i <= 26; i++) {
-      let options = document.getElementsByName(`Q${i}`);
+   let options = document.getElementsByName(`q${i}`);
       let selected = Array.from(options).find(opt => opt.checked);
       if (selected) {
         score[selected.value]++;
