@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trắc nghiệm Khả Năng Phục Hồi của bạn</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #FFCCFF, #FFCCFF);
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .logo img {
+      width: 120px;
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    .question {
+      margin: 20px 0;
+      padding: 15px;
+      border-left: 5px solid #3366CC;
+      border-radius: 10px;
+    }
+    .question:nth-child(even) {
+      background:#CC3399;
+    }
+    .question:nth-child(odd) {
+      background: #33CCCC;
+    }
+    .question label {
+      display: block;
+      font-weight: normal;
+      margin-bottom: 8px;
+    }
+    select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 30px;
+      padding: 12px 24px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    .result {
+      display: none;
+      background:#6600FF;
+      margin-top: 30px;
+      padding: 20px;
+      border-radius: 12px;
+      color: #fff;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="images/hinhremovenen.png" alt="Logo Sophia">
+    </div>
+    <h1>Trắc nghiệm Khả Năng Phục Hồi</h1>
+
+    <!-- Form cá nhân -->
+    <form id="userForm" action="https://formspree.io/f/mkgzvjwy" method="POST">
+      <h2>Thông tin người làm test</h2>
+      <label>Họ tên:</label>
+      <input type="text" name="name" required>
+      <label>Email:</label>
+      <input type="email" name="email" required>
+      <label>Tuổi:</label>
+      <input type="number" name="age" required>
+      <label>Số điện thoại:</label>
+      <input type="text" name="phone" required>
+      <button type="submit">Gửi thông tin → nhấn Go Back → & tiếp tục</button>
+    </form>
+
+    <!-- Form trắc nghiệm -->
+    <form id="resilienceForm" style="display:none;">
+      <div id="questions"></div>
+      <button type="submit">Tính kết quả</button>
+    </form>
+
+    <!-- Kết quả -->
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    // Xử lý gửi form cá nhân
+    document.getElementById("userForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const form = e.target;
+
+      fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      })
+      .then(response => {
+        if (response.ok) {
+          alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể làm bài test.");
+          form.style.display = "none";
+          document.getElementById("resilienceForm").style.display = "block";
+        } else {
+          alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
+        }
+      })
+      .catch(error => {
+        alert("⚠️ Lỗi kết nối. Vui lòng thử lại sau.");
+      });
+    });
+
+    // Câu hỏi trắc nghiệm
+    const questions = [
+      "Tôi thường có thể giữ bình tĩnh khi gặp khó khăn.",
+      "Tôi tin rằng mình có thể vượt qua bất kỳ thử thách nào.",
+      "Tôi cảm thấy mình có khả năng kiểm soát cuộc sống của mình.",
+      "Tôi có thể tìm ra cách giải quyết khi mọi thứ trở nên khó khăn.",
+      "Tôi thường học được điều gì đó từ những thất bại.",
+      "Tôi có thể giữ được sự lạc quan ngay cả khi mọi thứ không như ý.",
+      "Tôi cảm thấy mình có giá trị ngay cả khi người khác không công nhận.",
+      "Tôi có thể tự vực dậy sau khi bị tổn thương.",
+      "Tôi tin rằng những khó khăn sẽ giúp tôi trưởng thành hơn.",
+      "Tôi có thể giữ được sự kiên định khi đối mặt với áp lực.",
+      "Tôi thường tìm được sự hỗ trợ khi cần.",
+      "Tôi có thể thích nghi với những thay đổi bất ngờ.",
+      "Tôi cảm thấy mạnh mẽ hơn sau mỗi lần vượt qua thử thách.",
+      "Tôi không dễ bị gục ngã bởi những lời chỉ trích.",
+      "Tôi có thể nhìn thấy ánh sáng trong những thời điểm tăm tối."
+    ];
+
+    const container = document.getElementById("questions");
+    questions.forEach((q, i) => {
+      const div = document.createElement("div");
+      div.className = "question";
+      div.innerHTML = `
+        <label for="q${i}">${i + 1}. ${q}</label>
+        <select id="q${i}" required>
+          <option value="">-- Chọn mức độ --</option>
+          <option value="1">1 - Hoàn toàn không đồng ý</option>
+          <option value="4">4 - Trung lập</option>
+          <option value="7">7 - Hoàn toàn đồng ý</option>
+        </select>
+      `;
+      container.appendChild(div);
+    });
+
+    // Xử lý tính điểm và hiển thị kết quả
+    document.getElementById("resilienceForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      let total = 0;
+      for (let i = 0; i < questions.length; i++) {
+        const val = document.getElementById(`q${i}`).value;
+        if (!val) {
+          alert("Bạn phải hoàn thành tất cả câu hỏi nha!");
+          return;
+        }
+        total += parseInt(val);
+      }
+
+      let resultText = "";
+      if (total >= 90) {
+        resultText = "🌟 <strong>Khả năng phục hồi RẤT CAO</strong> – Bạn là người cực kỳ mạnh mẽ và kiên cường. Bạn có khả năng vượt qua nghịch cảnh một cách xuất sắc và thường truyền cảm hứng cho người khác.";
+      } else if (total >= 75) {
+        resultText = "💪 <strong>Khả năng phục hồi TỐT</strong> – Bạn có thể đối mặt với khó khăn một cách hiệu quả. Hãy tiếp tục duy trì sự lạc quan và kết nối xã hội để phát triển hơn nữa.";
+      } else if (total >= 60) {
+        resultText = "🙂 <strong>Khả năng phục hồi TRUNG BÌNH</strong> – Bạn có nền tảng tốt nhưng vẫn có thể cải thiện thêm bằng cách rèn luyện kỹ năng thích nghi, quản lý cảm xúc và xây dựng mạng lưới hỗ trợ.";
+      } else {
+        resultText = "🌧 <strong>Khả năng phục hồi THẤP</strong> – Bạn có thể đang gặp khó khăn trong việc vượt qua áp lực. Hãy tìm kiếm sự hỗ trợ từ người thân, chuyên gia tâm lý, và bắt đầu từ những bước nhỏ để xây dựng lại sức mạnh nội tâm.";
+      }
+
+      document.getElementById("result").innerHTML = `
+        <strong>Tổng điểm: ${total}/105</strong><br><br>
+        ${resultText}<br><br>
+        <em>Lưu ý: Bài test này chỉ mang tính tham khảo. Nếu bạn cảm thấy cần hỗ trợ, hãy liên hệ với chuyên gia tâm lý để được tư vấn chuyên sâu.</em>
+      `;
+      document.getElementById("result").style.display = "block";
+    });
+  </script>
+</body>
+</html>
