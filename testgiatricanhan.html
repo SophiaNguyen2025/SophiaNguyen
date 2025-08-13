@@ -2,9 +2,9 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Trắc nghiệm nhóm giá trị cá nhân - Personal Values Assessment </title>
+  <title>Trắc nghiệm nhóm giá trị cá nhân - Personal Values Assessment</title>
   <style>
-      body {
+    body {
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(to right, #C0C0C0, #C0C0C0);
       color: #333;
@@ -89,28 +89,32 @@
       color: #4a148c;
       font-weight: bold;
     }
+    #submitBtn {
+      display: none;
+    }
   </style>
 </head>
 <body>
-   <div class="container">
+  <div class="container">
     <div class="logo">
-    <img src="images/hinhremovenen.png" alt="Logo Sophia">
+      <img src="images/hinhremovenen.png" alt="Logo Sophia">
     </div>
-  <h1>Trắc nghiệm nhóm giá trị cá nhân - Personal Values Assessment</h1>
-  <!-- Form cá nhân -->
-  <form id="userForm" action="https://formspree.io/f/mkgzvjwy" method="POST" onsubmit="return validateUserForm()">
-    <h2>Thông tin người làm test</h2>
-    <label>Họ tên:</label>
-    <input type="text" name="name" id="name" required>
-    <label>Email:</label>
-    <input type="email" name="email" id="email" required>
-    <label>Tuổi:</label>
-    <input type="number" name="age" id="age" required>
-    <label>Số điện thoại:</label>
-    <input type="text" name="phone" id="phone" required>
-    <button type="submit">Gửi thông tin---> nhấn Go Back ---> & tiếp tục</button>
- <button id="submitBtn" type="button" onclick="calculateResult()">Tính kết quả</button>
-  </form>
+    <h1>Trắc nghiệm nhóm giá trị cá nhân - Personal Values Assessment</h1>
+
+    <!-- Form cá nhân -->
+    <form id="userForm" action="https://formspree.io/f/mkgzvjwy" method="POST" onsubmit="return validateUserForm()">
+      <h2>Thông tin người làm test</h2>
+      <label>Họ tên:</label>
+      <input type="text" name="name" id="name" required>
+      <label>Email:</label>
+      <input type="email" name="email" id="email" required>
+      <label>Tuổi:</label>
+      <input type="number" name="age" id="age" required>
+      <label>Số điện thoại:</label>
+      <input type="text" name="phone" id="phone" required>
+      <button type="submit">Gửi thông tin---> nhấn Go Back ---> & tiếp tục</button>
+      <button id="submitBtn" type="button" onclick="calculateResult()">Tính kết quả</button>
+    </form>
 
   <!-- Câu hỏi trắc nghiệm -->
   <form id="quizForm">
@@ -344,89 +348,91 @@
     </div>
     
   
- <div class="result" id="result">
+ 
+    <div class="result" id="result">
       <h2>Kết quả trắc nghiệm:</h2>
       <p id="output"></p>
     </div>
+  </div>
 
   <!-- Script xử lý -->
   <script>
-    function validateUserForm() {
-      const name = document.getElementById("name").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const age = document.getElementById("age").value.trim();
-      const phone = document.getElementById("phone").value.trim();
-      const phoneRegex = /^[0-9]{10}$/;
+    let formSubmitted = false;
 
-      if (!name || !email || !age || !phone) {
-        alert("Vui lòng điền đầy đủ thông tin cá nhân.");
-        return false;
-      }
+    document.getElementById("userForm").addEventListener("submit", function (e) {
+      e.preventDefault();
 
-      if (!phoneRegex.test(phone)) {
-        alert("Số điện thoại phải gồm đúng 10 chữ số.");
-        return false;
-      }
+      const form = e.target;
 
-      setTimeout(() => {
-        document.getElementById("userForm").style.display = "none";
-        document.getElementById("submitBtn").style.display = "block";
-      }, 1000);
-
-      return true;
-    }
+      fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      })
+      .then(response => {
+        if (response.ok) {
+          formSubmitted = true;
+          alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể xem kết quả.");
+          document.getElementById("userForm").style.display = "none";
+          document.getElementById("submitBtn").style.display = "block";
+        } else {
+          alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
+        }
+      })
+      .catch(error => {
+        alert("⚠️ Lỗi kết nối. Vui lòng thử lại sau.");
+      });
+    });
 
     function calculateResult() {
-      const resultDiv = document.getElementById('result');
-      const values = {
-        ket_noi: 0,
-        phat_trien: 0,
-        tam_linh: 0,
-        thanh_tuu: 0
-      };
-
-      let totalAnswered = 0;
-
-      for (let i = 1; i <= 26; i++) {
-        const selected = document.querySelector(`input[name="q${i}"]:checked`);
-        if (selected) {
-          values[selected.value]++;
-          totalAnswered++;
-        }
-      }
-
-      if (totalAnswered < 26) {
-        resultDiv.style.display = 'block';
-        resultDiv.innerHTML = `<p style="color: red;"><strong>Vui lòng hoàn thành tất cả 26 câu hỏi trước khi xem kết quả.</strong></p>`;
+      if (!formSubmitted) {
+        alert("⚠️ Bạn cần gửi thông tin trước khi xem kết quả.");
         return;
       }
 
-      const maxGroup = Object.keys(values).reduce((a, b) => values[a] > values[b] ? a : b);
+      let score = { ket_noi: 0, phat_trien: 0, tam_linh: 0, thanh_tuu: 0 };
+      let answeredCount = 0;
+
+      for (let i = 1; i <= 26; i++) {
+        let answer = document.querySelector(`input[name="Q${i}"]:checked`);
+        if (answer) {
+          score[answer.value]++;
+          answeredCount++;
+        }
+      }
+
+      if (answeredCount < 26) {
+        alert(`⚠️ Bạn cần hoàn thành tất cả 26 câu hỏi trước khi xem kết quả.`);
+        return;
+      }
+
+      const maxGroup = Object.keys(score).reduce((a, b) => score[a] > score[b] ? a : b);
 
       const labels = {
-        ket_noi: "🔗 <strong>Kết nối:</strong> Bạn đề cao tình cảm, sự gắn bó và các mối quan hệ.",
-        phat_trien: "📚 <strong>Phát triển:</strong> Bạn yêu thích học hỏi, khám phá và tiến bộ.",
-        tam_linh: "🧘 <strong>Tâm linh:</strong> Bạn hướng nội, tìm kiếm sự bình an và chiều sâu.",
-        thanh_tuu: "🏆 <strong>Thành tựu:</strong> Bạn tập trung vào mục tiêu, kết quả và thành công."
+        ket_noi: " <strong>Kết nối:</strong> Bạn đề cao tình cảm, sự gắn bó và các mối quan hệ.",
+        phat_trien: "<strong>Phát triển:</strong> Bạn yêu thích học hỏi, khám phá và tiến bộ.",
+        tam_linh: " <strong>Tâm linh:</strong> Bạn hướng nội, tìm kiếm sự bình an và chiều sâu.",
+        thanh_tuu: " <strong>Thành tựu:</strong> Bạn tập trung vào mục tiêu, kết quả và thành công."
       };
 
       const careers = {
-        ket_noi: "👥 <strong>Nghề nghiệp phù hợp:</strong> Tâm lý học, giáo viên, công tác xã hội, chăm sóc khách hàng, nhân sự.",
-        phat_trien: "🧠 <strong>Nghề nghiệp phù hợp:</strong> Nhà nghiên cứu, chuyên gia đào tạo, sáng tạo nội dung, lập trình viên.",
-        tam_linh: "🌿 <strong>Nghề nghiệp phù hợp:</strong> Nhà trị liệu tâm lý, nghệ sĩ, hướng dẫn thiền, người làm công việc chữa lành.",
-        thanh_tuu: "🚀 <strong>Nghề nghiệp phù hợp:</strong> Quản lý dự án, doanh nhân, chuyên viên tài chính, kỹ sư, lãnh đạo."
+        ket_noi: " <strong>Nghề nghiệp phù hợp:</strong> Tâm lý học, giáo viên, công tác xã hội, chăm sóc khách hàng, nhân sự.",
+        phat_trien: " <strong>Nghề nghiệp phù hợp:</strong> Nhà nghiên cứu, chuyên gia đào tạo, sáng tạo nội dung, lập trình viên.",
+        tam_linh: " <strong>Nghề nghiệp phù hợp:</strong> Nhà trị liệu tâm lý, nghệ sĩ, hướng dẫn thiền, người làm công việc chữa lành.",
+        thanh_tuu: " <strong>Nghề nghiệp phù hợp:</strong> Quản lý dự án, doanh nhân, chuyên viên tài chính, kỹ sư, lãnh đạo."
       };
 
-      resultDiv.style.display = 'block';
-      resultDiv.innerHTML = `
-        <h2>Kết quả của bạn:</h2>
-        <p>${labels[maxGroup]}</p>
-        <p>${careers[maxGroup]}</p>
-        <p style="margin-top: 20px; font-style: italic; color: #555;">
-          Phân tích dựa trên mô hình giá trị cá nhân của Richard Barrett – chuyên gia phát triển con người và tổ chức.
-        </p>
+      const result = `
+        ${labels[maxGroup]}<br><br>
+        ${careers[maxGroup]}<br><br>
+        Phân tích dựa trên mô hình giá trị cá nhân của Richard Barrett – chuyên gia phát triển con người và tổ chức.
       `;
+
+      document.getElementById("output").innerHTML = result;
+      document.getElementById("result").style.display = 'block';
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
     }
   </script>
 </body>
 </html>
+  
