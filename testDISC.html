@@ -2,68 +2,122 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Trắc nghiệm DISC – 20 câu hỏi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trắc nghiệm DISC </title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #FFCCFF, #FFCCFF);
+      color: #333;
+      margin: 0;
       padding: 20px;
-      max-width: 900px;
-      margin: auto;
     }
-      img.logo {
-      max-width: 120px;
-      margin-bottom: 10px;
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .logo img {
+      width: 120px;
     }
     h1 {
       text-align: center;
-      color: #333;
+      color: #2c3e50;
+    }
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: bold;
     }
     .question {
-      background: #fff;
+      margin: 20px 0;
       padding: 15px;
-      margin-bottom: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      border-left: 5px solid #3366CC;
+      border-radius: 10px;
     }
-    .answers label {
+    .question:nth-child(even) {
+      background:#009900;
+    }
+    .question:nth-child(odd) {
+      background: #CCCC99;
+    }
+    .question p {
+      margin: 0 0 10px;
+      font-weight: bold;
+    }
+    .question label {
       display: block;
-      margin: 8px 0;
-      cursor: pointer;
+      font-weight: normal;
+      margin-bottom: 8px;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
     }
     button {
-      padding: 10px 20px;
-      background: #0078D4;
+      margin-top: 30px;
+      padding: 12px 24px;
+      background: #4CAF50;
       color: white;
       border: none;
-      border-radius: 5px;
-      cursor: pointer;
+      border-radius: 8px;
       font-size: 16px;
-      margin-top: 20px;
+      cursor: pointer;
+      width: 100%;
     }
-    #result {
+    button:hover {
+      background: #45a049;
+    }
+    .result {
+      display: none;
+      background: #ede7f6;
       margin-top: 30px;
       padding: 20px;
-      background: #e0f7fa;
-      border-radius: 8px;
+      border-radius: 12px;
+      color: #4a148c;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <img src="images/hinhremovenen.png" alt="Logo Sophia" class="logo">
-  <h1>Trắc nghiệm DISC – Khám phá phong cách hành vi</h1>
-  <form id="infoForm" action="https://formspree.io/f/xvgqdgko" method="POST" target="hiddenFrame" onsubmit="return showCountdown()">
-    <iframe name="hiddenFrame" style="display:none;"></iframe>
-    <label>Họ và tên:<br><input type="text" name="Họ và tên" required></label>
-    <label>Email:<br><input type="email" name="Email" required></label>
-    <label>Số điện thoại:<br><input type="tel" name="Số điện thoại" pattern="^\d{10}$" required placeholder="Nhập đúng 10 số"></label>
-    <button type="submit">Bắt đầu trắc nghiệm</button>
-  </form>
+  <div class="container">
+    <div class="logo">
+      <img src="images/hinhremovenen.png" alt="Logo Sophia">
+    </div>
+    <h1>Trắc nghiệm DISC </h1>
+
+    <!-- Form cá nhân -->
+    <form id="userForm" action="https://formspree.io/f/mkgzvjwy" method="POST">
+      <h2>Thông tin người làm test</h2>
+      <label>Họ tên:</label>
+      <input type="text" name="name" id="name" required>
+      <label>Email:</label>
+      <input type="email" name="email" id="email" required>
+      <label>Tuổi:</label>
+      <input type="number" name="age" id="age" required>
+      <label>Số điện thoại:</label>
+      <input type="text" name="phone" id="phone" required>
+      <button type="submit">Gửi thông tin → nhấn Go Back → & tiếp tục</button>
+    </form>
+
+    <!-- Nút tính kết quả -->
+    <button id="submitBtn" type="button" onclick="calculateResult()">Tính kết quả</button>
   
-  <form id="quizForm"></form>
-  <button onclick="submitQuiz()">Xem kết quả</button>
-  <div id="result"></div>
-  <script>
+    <div id="result"></div>
+ 
+    <script>
     const questions = [
       {
         text: "Khi bắt đầu một dự án mới, bạn thường:",
