@@ -110,7 +110,7 @@
       <input type="text" name="phone" id="phone" required>
       <button type="submit">Gửi thông tin → nhấn Go Back → & tiếp tục</button>
     </form>
-
+<form id="quizForm" style="display:none;"></form>
     <!-- Nút tính kết quả -->
     <button id="submitBtn" type="button" onclick="calculateResult()">Tính kết quả</button>
   
@@ -299,6 +299,18 @@
         ]
       }
   ];
+document.getElementById("userForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  // Ẩn form thông tin
+  document.getElementById("userForm").style.display = "none";
+
+  // Hiện form câu hỏi
+  document.getElementById("quizForm").style.display = "block";
+
+  // Hiện nút tính kết quả
+  document.getElementById("submitBtn").style.display = "block";
+});
 
     window.onload = function() {
       const form = document.getElementById("quizForm");
