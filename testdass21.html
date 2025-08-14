@@ -316,12 +316,19 @@
 
     <!-- Script xử lý -->
     <script>
-      document.getElementById("infoForm").addEventListener("submit", function(e) {
-        e.preventDefault();
-        document.getElementById("infoForm").classList.add("hidden");
-        document.getElementById("dassForm").classList.remove("hidden");
-        document.getElementById("submitBtn").classList.remove("hidden");
-      });
+      
+document.getElementById("infoForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  // Ẩn form thông tin
+  document.getElementById("infoForm").style.display = "none";
+
+  // Hiện form câu hỏi
+  document.getElementById("dassForm").style.display = "block";
+
+  // Hiện nút tính kết quả
+  document.getElementById("submitBtn").style.display = "block";
+});
 
       document.getElementById("submitBtn").addEventListener("click", function() {
         let score = 0;
