@@ -108,7 +108,7 @@
       <button type="submit">Gửi thông tin → nhấn Go Back → & tiếp tục</button>
     </form>
     
- <form id="dassForm" class="hidden">
+<div id="dassForm" style="display:none;">
     <div class="question">
       <h3>1. Tôi cảm thấy buồn bã và chán nản.</h3>
       <div class="answers">
@@ -299,64 +299,74 @@
         <label><input type="radio" name="q21" value="3"> Rất nhiều</label>
       </div>
     </div>
-</form>
-   <!-- Nút tính kết quả -->
-    <button id="submitBtn" type="button" onclick="calculateDASS()" style="display:none;">Tính kết quả</button>
-    <!-- Kết quả -->
-      <div id="result"></div>
-        <h3>Kết quả của bạn:</h3>
-      <p id="output"></p>
-      <div id="analysis">
-        <h4>Phân tích chi tiết:</h4>
-        <p><strong>Điểm số:</strong> <span id="scoreDisplay"></span></p>
-        <p><em>Mức độ cảm xúc hiện tại của bạn được đánh giá theo thang điểm DASS-21.</em></p>
-        <small>Lưu ý: Đây chỉ là công cụ sàng lọc ban đầu, không thay thế cho chẩn đoán chuyên môn. Nếu bạn có điểm số cao, nên tham khảo chuyên gia tâm lý để được hỗ trợ kịp thời.</small>
-      </div>
-    </div>
+ <button id="submitBtn" style="display:none;">Tính kết quả</button>
+</div>
+    <div id="result" style="display:none;">
+  <h3>Kết quả của bạn:</h3>
+  <p id="output"></p>
+  <div id="analysis">
+    <h4>Phân tích chi tiết:</h4>
+    <p><strong>Điểm số:</strong> <span id="scoreDisplay"></span></p>
+    <p><em>Mức độ cảm xúc hiện tại của bạn được đánh giá theo thang điểm DASS-21.</em></p>
+    <small>Lưu ý: Đây chỉ là công cụ sàng lọc ban đầu, không thay thế cho chẩn đoán chuyên môn.</small>
+  </div>
+</div>
 
-    <!-- Script xử lý -->
-    <script>
-      
-document.getElementById("submitBtn").addEventListener("click", function() {
-  let score = 0;
-  let answeredCount = 0;
+<!-- JavaScript -->
+<script>
+  // ✅ Xử lý khi gửi thông tin ban đầu
+  document.getElementById("userForm").addEventListener("submit", function(e) {
+    e.preventDefault();
 
-  for (let i = 1; i <= 21; i++) {
-    const radios = document.getElementsByName("q" + i);
-    let answered = false;
+    // Ẩn form thông tin
+    document.getElementById("infoForm").style.display = "none";
 
-    for (const radio of radios) {
-      if (radio.checked) {
-        score += parseInt(radio.value);
-        answered = true;
+    // Hiện form câu hỏi và nút tính kết quả
+    document.getElementById("dassForm").style.display = "block";
+    document.getElementById("submitBtn").style.display = "inline-block";
+  });
+
+  // ✅ Xử lý khi bấm nút tính kết quả
+  document.getElementById("submitBtn").addEventListener("click", function() {
+    let score = 0;
+    let answeredCount = 0;
+
+    for (let i = 1; i <= 21; i++) {
+      const radios = document.getElementsByName("q" + i);
+      let answered = false;
+
+      for (const radio of radios) {
+        if (radio.checked) {
+          score += parseInt(radio.value);
+          answered = true;
+        }
+      }
+
+      if (answered) {
+        answeredCount++;
       }
     }
 
-    if (answered) {
-      answeredCount++;
+    if (answeredCount < 21) {
+      alert("⚠️ Bạn chưa trả lời đầy đủ 21 câu hỏi. Vui lòng hoàn thành bài test trước khi xem kết quả.");
+      return;
     }
-  }
 
-  if (answeredCount < 21) {
-    alert("⚠️ Bạn chưa trả lời đầy đủ 21 câu hỏi. Vui lòng hoàn thành bài test trước khi xem kết quả.");
-    return;
-  }
+    let resultText = "";
+    if (score <= 14) {
+      resultText = "Bạn đang ổn định về mặt cảm xúc. Không có dấu hiệu trầm cảm rõ rệt.";
+    } else if (score <= 28) {
+      resultText = "Bạn có dấu hiệu trầm cảm nhẹ. Nên theo dõi thêm và chăm sóc sức khỏe tinh thần.";
+    } else if (score <= 42) {
+      resultText = "Bạn có dấu hiệu trầm cảm trung bình. Nên cân nhắc gặp chuyên gia tâm lý.";
+    } else {
+      resultText = "Bạn có dấu hiệu trầm cảm nặng. Cần được hỗ trợ chuyên môn càng sớm càng tốt.";
+    }
 
-  let resultText = "";
-  if (score <= 14) {
-    resultText = "Bạn đang ổn định về mặt cảm xúc. Không có dấu hiệu trầm cảm rõ rệt.";
-  } else if (score <= 28) {
-    resultText = "Bạn có dấu hiệu trầm cảm nhẹ. Nên theo dõi thêm và chăm sóc sức khỏe tinh thần.";
-  } else if (score <= 42) {
-    resultText = "Bạn có dấu hiệu trầm cảm trung bình. Nên cân nhắc gặp chuyên gia tâm lý.";
-  } else {
-    resultText = "Bạn có dấu hiệu trầm cảm nặng. Cần được hỗ trợ chuyên môn càng sớm càng tốt.";
-  }
-
-  document.getElementById("output").innerText = resultText;
-  document.getElementById("scoreDisplay").innerText = score + " điểm";
-  document.getElementById("result").style.display = "block";
-});
+    document.getElementById("output").innerText = resultText;
+    document.getElementById("scoreDisplay").innerText = score + " điểm";
+    document.getElementById("result").style.display = "block";
+  });
 </script>
 </body>
 </html>
