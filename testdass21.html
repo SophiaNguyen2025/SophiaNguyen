@@ -317,20 +317,7 @@
     <!-- Script xử lý -->
     <script>
       
-document.getElementById("infoForm").addEventListener("submit", function(e) {
-  e.preventDefault();
-
-  // Ẩn form thông tin
-  document.getElementById("infoForm").style.display = "none";
-
-  // Hiện form câu hỏi
-  document.getElementById("dassForm").style.display = "block";
-
-  // Hiện nút tính kết quả
-  document.getElementById("submitBtn").style.display = "block";
-});
-
-     document.getElementById("submitBtn").addEventListener("click", function() {
+document.getElementById("submitBtn").addEventListener("click", function() {
   let score = 0;
   let answeredCount = 0;
 
@@ -350,34 +337,26 @@ document.getElementById("infoForm").addEventListener("submit", function(e) {
     }
   }
 
-  // ✅ Kiểm tra nếu chưa trả lời đủ 21 câu
   if (answeredCount < 21) {
     alert("⚠️ Bạn chưa trả lời đầy đủ 21 câu hỏi. Vui lòng hoàn thành bài test trước khi xem kết quả.");
     return;
   }
 
-  // ✅ Giữ nguyên phần hiển thị kết quả
+  let resultText = "";
+  if (score <= 14) {
+    resultText = "Bạn đang ổn định về mặt cảm xúc. Không có dấu hiệu trầm cảm rõ rệt.";
+  } else if (score <= 28) {
+    resultText = "Bạn có dấu hiệu trầm cảm nhẹ. Nên theo dõi thêm và chăm sóc sức khỏe tinh thần.";
+  } else if (score <= 42) {
+    resultText = "Bạn có dấu hiệu trầm cảm trung bình. Nên cân nhắc gặp chuyên gia tâm lý.";
+  } else {
+    resultText = "Bạn có dấu hiệu trầm cảm nặng. Cần được hỗ trợ chuyên môn càng sớm càng tốt.";
+  }
+
+  document.getElementById("output").innerText = resultText;
   document.getElementById("scoreDisplay").innerText = score + " điểm";
   document.getElementById("result").style.display = "block";
 });
-
-
-        let resultText = "";
-        if (score <= 14) {
-          resultText = "Bạn đang ổn định về mặt cảm xúc. Không có dấu hiệu trầm cảm rõ rệt.";
-        } else if (score <= 28) {
-          resultText = "Bạn có dấu hiệu trầm cảm nhẹ. Nên theo dõi thêm và chăm sóc sức khỏe tinh thần.";
-        } else if (score <= 42) {
-          resultText = "Bạn có dấu hiệu trầm cảm trung bình. Nên cân nhắc gặp chuyên gia tâm lý.";
-        } else {
-          resultText = "Bạn có dấu hiệu trầm cảm nặng. Cần được hỗ trợ chuyên môn càng sớm càng tốt.";
-        }
-
-        document.getElementById("output").innerText = resultText;
-        document.getElementById("scoreDisplay").innerText = score + " điểm";
-        document.getElementById("result").classList.remove("hidden");
-      });
-    </script>
-  </div>
+</script>
 </body>
 </html>
