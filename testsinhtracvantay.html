@@ -472,48 +472,49 @@
     </script>
     
  <script>
-  function tinhKetQua() {
-    const form = document.getElementById("quizForm");
-    const answers = form.querySelectorAll("input[type='radio']:checked");
+function tinhKetQua() {
+  const form = document.getElementById("quizForm");
+  const answers = form.querySelectorAll("input[type='radio']:checked");
 
-    let score = { Whorl: 0, Loop: 0, Arch: 0 };
-    let totalAnswered = answers.length;
+  let score = { Whorl: 0, Loop: 0, Arch: 0 };
+  let totalAnswered = answers.length;
 
-    answers.forEach(ans => {
-      if (score.hasOwnProperty(ans.value)) {
-        score[ans.value]++;
-      }
-    });
-
-    if (totalAnswered < 30) {
-      document.getElementById("resultSection").innerHTML = `<p style="color:red">❗ Bạn mới trả lời ${totalAnswered}/30 câu. Vui lòng hoàn thành đầy đủ để có kết quả chính xác.</p>`;
-      document.getElementById("chartResult").style.display = "none";
-      return;
+  answers.forEach(ans => {
+    if (score.hasOwnProperty(ans.value)) {
+      score[ans.value]++;
     }
+  });
 
-    const maxScore = Math.max(score.Whorl, score.Loop, score.Arch);
-    const dominantTypes = Object.keys(score).filter(key => score[key] === maxScore);
+  if (totalAnswered < 30) {
+    document.getElementById("resultSection").innerHTML = `<p style="color:red">❗ Bạn mới trả lời ${totalAnswered}/30 câu. Vui lòng hoàn thành đầy đủ để có kết quả chính xác.</p>`;
+    document.getElementById("chartResult").style.display = "none";
+    return;
+  }
 
-    let resultHTML = `<h3>🎯 Chủng vân tay tiềm năng của bạn là: <strong>${dominantTypes.join(" & ")}</strong> (Điểm: ${maxScore}/30)</h3><br>`;
+  const maxScore = Math.max(score.Whorl, score.Loop, score.Arch);
+  const dominantTypes = Object.keys(score).filter(key => score[key] === maxScore);
 
-    dominantTypes.forEach(type => {
-      if (type === "Whorl") {
-        resultHTML += `<strong>Whorl:</strong> Bạn có xu hướng quyết đoán, độc lập, định hướng mục tiêu rõ ràng. Thường là người lãnh đạo, thích kiểm soát và có khả năng ra quyết định nhanh chóng.<br><br>`;
-      }
-      if (type === "Loop") {
-        resultHTML += `<strong>Loop:</strong> Bạn là người cảm xúc, dễ thích nghi, linh hoạt và thiên về giao tiếp. Thường tạo sự kết nối tốt với người khác và có khả năng thấu hiểu cảm xúc.<br><br>`;
-      }
-      if (type === "Arch") {
-        resultHTML += `<strong>Arch:</strong> Bạn sống nội tâm, kiên trì, cẩn thận và thích sự ổn định. Thường là người làm việc âm thầm, có độ tin cậy cao và suy nghĩ kỹ trước khi hành động.<br><br>`;
-      }
-    });
+  let resultHTML = `<h3>🎯 Chủng vân tay tiềm năng của bạn là: <strong>${dominantTypes.join(" & ")}</strong> (Điểm: ${maxScore}/30)</h3><br>`;
 
-    // Hiện kết quả
-    const resultContainer = document.getElementById("resultSection");
-    resultContainer.innerHTML = resultHTML;
-    resultContainer.style.display = "block";
+  dominantTypes.forEach(type => {
+    if (type === "Whorl") {
+      resultHTML += `<strong>Whorl:</strong> Bạn có xu hướng quyết đoán, độc lập, định hướng mục tiêu rõ ràng. Thường là người lãnh đạo, thích kiểm soát và có khả năng ra quyết định nhanh chóng.<br><br>`;
+    }
+    if (type === "Loop") {
+      resultHTML += `<strong>Loop:</strong> Bạn là người cảm xúc, dễ thích nghi, linh hoạt và thiên về giao tiếp. Thường tạo sự kết nối tốt với người khác và có khả năng thấu hiểu cảm xúc.<br><br>`;
+    }
+    if (type === "Arch") {
+      resultHTML += `<strong>Arch:</strong> Bạn sống nội tâm, kiên trì, cẩn thận và thích sự ổn định. Thường là người làm việc âm thầm, có độ tin cậy cao và suy nghĩ kỹ trước khi hành động.<br><br>`;
+    }
+  });
 
-    // Vẽ biểu đồ
+  // Hiện kết quả
+  const resultContainer = document.getElementById("resultSection");
+  resultContainer.innerHTML = resultHTML;
+  resultContainer.style.display = "block";
+
+  // Vẽ biểu đồ sau khi kết quả đã hiển thị
+  setTimeout(() => {
     const ctx = document.getElementById('chartResult').getContext('2d');
     const chartData = {
       labels: ['Whorl', 'Loop', 'Arch'],
@@ -530,42 +531,44 @@
     }
 
     window.myChart = new Chart(ctx, {
-  type: 'doughnut', // 
-  data: chartData,
-  options: {
-    responsive: true,
-    animation: {
-      animateScale: true,
-      animateRotate: true
-    },
-    plugins: {
-      legend: {
-        position: 'bottom',
-        labels: {
-          font: { size: 14 },
-          color: '#333'
-        }
-      },
-      title: {
-        display: true,
-        text: '🌟 Tỷ lệ chủng vân tay của bạn',
-        font: { size: 18 },
-        color: '#2c3e50'
-      },
-      tooltip: {
-        callbacks: {
-          label: function(context) {
-            const label = context.label || '';
-            const value = context.raw || 0;
-            return `${label}: ${value} điểm`;
+      type: 'doughnut',
+      data: chartData,
+      options: {
+        responsive: true,
+        animation: {
+          animateScale: true,
+          animateRotate: true
+        },
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: {
+              font: { size: 14 },
+              color: '#333'
+            }
+          },
+          title: {
+            display: true,
+            text: '🌟 Tỷ lệ chủng vân tay của bạn',
+            font: { size: 18 },
+            color: '#2c3e50'
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const label = context.label || '';
+                const value = context.raw || 0;
+                return `${label}: ${value} điểm`;
+              }
+            }
           }
         }
       }
-    }
-  }
-});
-
-  <script>
+    });
+  }, 300);
+}
+ </script>
+   <script>
   document.getElementById("userForm").addEventListener("submit", function(e) {
     e.preventDefault(); // Ngăn reload trang
 
