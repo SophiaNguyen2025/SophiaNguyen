@@ -290,10 +290,15 @@
 
 <script>
   let formSubmitted = false;
-
-  document.getElementById("userForm").addEventListener("submit", function (e) {
+document.getElementById("userForm").addEventListener("submit", function (e) {
     e.preventDefault();
-    formSubmitted = true; // ✅ Gán biến này để cho phép tính kết quả
+    formSubmitted = true;
+
+    // ✅ Ẩn form thông tin
+    document.getElementById("userForm").style.display = "none";
+
+    // ✅ Hiện phần câu hỏi trắc nghiệm
+    document.getElementById("quizSection").style.display = "block";
 });
 
     const form = e.target;
