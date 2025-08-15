@@ -469,7 +469,8 @@
         return true;
       }
 
-    <script>
+    </script>
+ <script>
   function tinhKetQua() {
     const form = document.getElementById("quizForm");
     const answers = form.querySelectorAll("input[type='radio']:checked");
@@ -483,38 +484,35 @@
       }
     });
 
+    if (totalAnswered < 30) {
+      document.getElementById("resultSection").innerHTML = `<p style="color:red">❗ Bạn mới trả lời ${totalAnswered}/30 câu. Vui lòng hoàn thành đầy đủ để có kết quả chính xác.</p>`;
+      document.getElementById("chartResult").style.display = "none";
+      return;
+    }
+
     const maxScore = Math.max(score.Whorl, score.Loop, score.Arch);
     const dominantTypes = Object.keys(score).filter(key => score[key] === maxScore);
 
-    let resultText = "";
+    let resultHTML = `<h3>🎯 Chủng vân tay tiềm năng của bạn là: <strong>${dominantTypes.join(" & ")}</strong> (Điểm: ${maxScore}/30)</h3><br>`;
 
-    if (totalAnswered < 30) {
-      resultText = `❗ Bạn mới trả lời ${totalAnswered}/30 câu. Vui lòng hoàn thành đầy đủ để có kết quả chính xác.`;
-      document.getElementById("chartResult").style.display = "none";
-    } else {
-      // Hiển thị chủng vân tay tiềm năng
-      resultText += `🎯 Chủng vân tay tiềm năng của bạn là: <strong>${dominantTypes.join(" & ")}</strong> (Điểm: ${maxScore}/30)<br><br>`;
+    dominantTypes.forEach(type => {
+      if (type === "Whorl") {
+        resultHTML += `<strong>Whorl:</strong> Bạn có xu hướng quyết đoán, độc lập, định hướng mục tiêu rõ ràng. Thường là người lãnh đạo, thích kiểm soát và có khả năng ra quyết định nhanh chóng.<br><br>`;
+      }
+      if (type === "Loop") {
+        resultHTML += `<strong>Loop:</strong> Bạn là người cảm xúc, dễ thích nghi, linh hoạt và thiên về giao tiếp. Thường tạo sự kết nối tốt với người khác và có khả năng thấu hiểu cảm xúc.<br><br>`;
+      }
+      if (type === "Arch") {
+        resultHTML += `<strong>Arch:</strong> Bạn sống nội tâm, kiên trì, cẩn thận và thích sự ổn định. Thường là người làm việc âm thầm, có độ tin cậy cao và suy nghĩ kỹ trước khi hành động.<br><br>`;
+      }
+    });
 
-      // Giải thích từng chủng
-      dominantTypes.forEach(type => {
-        if (type === "Whorl") {
-          resultText += `<strong>Whorl:</strong> Bạn có xu hướng quyết đoán, độc lập, định hướng mục tiêu rõ ràng. Thường là người lãnh đạo, thích kiểm soát và có khả năng ra quyết định nhanh chóng.<br><br>`;
-        }
-        if (type === "Loop") {
-          resultText += `<strong>Loop:</strong> Bạn là người cảm xúc, dễ thích nghi, linh hoạt và thiên về giao tiếp. Thường tạo sự kết nối tốt với người khác và có khả năng thấu hiểu cảm xúc.<br><br>`;
-        }
-        if (type === "Arch") {
-          resultText += `<strong>Arch:</strong> Bạn sống nội tâm, kiên trì, cẩn thận và thích sự ổn định. Thường là người làm việc âm thầm, có độ tin cậy cao và suy nghĩ kỹ trước khi hành động.<br><br>`;
-        }
-      });
-    }
+    // Hiện kết quả
+    const resultContainer = document.getElementById("resultSection");
+    resultContainer.innerHTML = resultHTML;
+    resultContainer.style.display = "block";
 
-    // Hiển thị kết quả
-    const resultDiv = document.getElementById("result");
-    resultDiv.innerHTML = resultText;
-    resultDiv.style.display = "block";
-
-    // Vẽ biểu đồ Pie Chart
+    // Vẽ biểu đồ
     const ctx = document.getElementById('chartResult').getContext('2d');
     const chartData = {
       labels: ['Whorl', 'Loop', 'Arch'],
@@ -553,6 +551,7 @@
     });
   }
 </script>
+
 
     <script>
   document.getElementById("userForm").addEventListener("submit", function(e) {
