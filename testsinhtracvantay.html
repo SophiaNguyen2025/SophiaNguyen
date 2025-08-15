@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <title>Trắc nghiệm sinh trắc vân tay </title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #C0C0C0, #C0C0C0);
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .logo img {
+      width: 120px;
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    .question {
+      margin: 20px 0;
+      padding: 15px;
+      border-left: 5px solid #4CAF50;
+      background: #f1f8e9;
+      border-radius: 10px;
+    }
+    .question:nth-child(even) {
+      background: #00FFFF;
+    }
+    .question:nth-child(odd) {
+      background: #CCFFCC;
+    }
+    .question p {
+      margin: 0 0 10px;
+      font-weight: bold;
+    }
+    .question label {
+      display: block;
+      font-weight: normal;
+      margin-bottom: 8px;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 30px;
+      padding: 12px 24px;
+      background: #FF0000;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    .result {
+      display: none;
+      background: #ede7f6;
+      margin-top: 30px;
+      padding: 20px;
+      border-radius: 12px;
+      color: #4a148c;
+      font-weight: bold;
+    }
+    #submitBtn {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="images/hinhremovenen.png" alt="Logo Sophia">
+    </div>
+    <h1>Trắc nghiệm sinh trắc vân tay</h1>
+    <!-- Form cá nhân -->
+    <form id="userForm" action="https://formspree.io/f/mkgzvjwy" method="POST" onsubmit="return validateUserForm()">
+      <h2>Thông tin người làm test</h2>
+      <label>Họ tên:</label>
+      <input type="text" name="name" id="name" required>
+      <label>Email:</label>
+      <input type="email" name="email" id="email" required>
+      <label>Tuổi:</label>
+      <input type="number" name="age" id="age" required>
+      <label>Số điện thoại:</label>
+      <input type="text" name="phone" id="phone" required>
+      <button type="submit">Gửi thông tin---> nhấn Go Back ---> & tiếp tục</button>
+      </form>
+    <button id="submitBtn" type="button" onclick="calculateResult()">Tính kết quả</button>
+
+<div class="question">
+      <p><strong>Câu 1:</strong> Khi gặp một vấn đề khó, bạn thường:</p>
+      <div class="answers">
+        <label><input type="radio" name="q1" value="Whorl"> Tìm cách giải quyết ngay lập tức</label>
+        <label><input type="radio" name="q1" value="Arch"> Suy nghĩ kỹ rồi mới hành động</label>
+        <label><input type="radio" name="q1" value="Loop"> Tâm sự với người thân để tìm lời khuyên</label>
+        <label><input type="radio" name="q1" value="Neutral"> Đánh giá tình hình trước khi quyết định</label>
+      </div>
+    </div>
+
+    <!-- Câu 2 -->
+    <div class="question">
+      <p><strong>Câu 2:</strong> Trong một nhóm, bạn thường là người:</p>
+      <div class="answers">
+        <label><input type="radio" name="q2" value="Loop"> Kết nối mọi người, tạo không khí vui vẻ</label>
+        <label><input type="radio" name="q2" value="Whorl"> Lãnh đạo hoặc đưa ra quyết định</label>
+        <label><input type="radio" name="q2" value="Arch"> Quan sát, lắng nghe và hỗ trợ âm thầm</label>
+        <label><input type="radio" name="q2" value="Neutral"> Đưa ra ý tưởng sáng tạo</label>
+      </div>
+    </div>
+
+    <!-- Câu 3 -->
+    <div class="question">
+      <p><strong>Câu 3:</strong> Khi bắt đầu một dự án mới, bạn thường:</p>
+      <div class="answers">
+        <label><input type="radio" name="q3" value="Arch"> Cẩn trọng, tìm hiểu kỹ trước khi bắt đầu</label>
+        <label><input type="radio" name="q3" value="Loop"> Hứng thú và bắt tay vào làm ngay</label>
+        <label><input type="radio" name="q3" value="Whorl"> Lập kế hoạch rõ ràng và đặt mục tiêu cụ thể</label>
+        <label><input type="radio" name="q3" value="Neutral"> Chờ đợi sự hướng dẫn từ người khác</label>
+      </div>
+    </div>
+
+    <!-- Câu 4 -->
+    <div class="question">
+      <p><strong>Câu 4:</strong> Bạn cảm thấy thoải mái nhất khi:</p>
+      <div class="answers">
+        <label><input type="radio" name="q4" value="Loop"> Được trò chuyện và chia sẻ cảm xúc</label>
+        <label><input type="radio" name="q4" value="Arch"> Được làm việc một mình trong không gian yên tĩnh</label>
+        <label><input type="radio" name="q4" value="Whorl"> Được kiểm soát tình huống</label>
+        <label><input type="radio" name="q4" value="Neutral"> Được tự do sáng tạo mà không bị giới hạn</label>
+      </div>
+    </div>
+
+    <!-- Câu 5 -->
+    <div class="question">
+      <p><strong>Câu 5:</strong> Khi có mâu thuẫn xảy ra, bạn thường:</p>
+      <div class="answers">
+        <label><input type="radio" name="q5" value="Arch"> Tránh đối đầu, giữ im lặng</label>
+        <label><input type="radio" name="q5" value="Whorl"> Đối mặt và giải quyết trực tiếp</label>
+        <label><input type="radio" name="q5" value="Loop"> Tìm cách hòa giải và giữ hòa khí</label>
+        <label><input type="radio" name="q5" value="Neutral"> Phân tích lý do trước khi phản ứng</label>
+      </div>
+    </div>
+    <!-- Câu 6 -->
+    <div class="question">
+      <p><strong>Câu 6:</strong> Khi học điều gì mới, bạn thường:</p>
+      <div class="answers">
+        <label><input type="radio" name="q6" value="Arch"> Tìm hiểu kỹ lý thuyết trước</label>
+        <label><input type="radio" name="q6" value="Loop"> Học qua trải nghiệm thực tế</label>
+        <label><input type="radio" name="q6" value="Whorl"> Tự học và khám phá theo cách riêng</label>
+        <label><input type="radio" name="q6" value="Neutral"> Hỏi người khác để hiểu nhanh hơn</label>
+      </div>
+    </div>
+
+    <!-- Câu 7 -->
+    <div class="question">
+      <p><strong>Câu 7:</strong> Bạn cảm thấy tự tin nhất khi:</p>
+      <div class="answers">
+        <label><input type="radio" name="q7" value="Whorl"> Là người dẫn dắt hoặc ra quyết định</label>
+        <label><input type="radio" name="q7" value="Loop"> Được làm việc nhóm và chia sẻ</label>
+        <label><input type="radio" name="q7" value="Arch"> Làm việc độc lập và không bị áp lực</label>
+        <label><input type="radio" name="q7" value="Neutral"> Có sự hỗ trợ từ người khác</label>
+      </div>
+    </div>
+
+    <!-- Câu 8 -->
+    <div class="question">
+      <p><strong>Câu 8:</strong> Khi gặp thất bại, bạn thường:</p>
+      <div class="answers">
+        <label><input type="radio" name="q8" value="Arch"> Rút kinh nghiệm và điều chỉnh</label>
+        <label><input type="radio" name="q8" value="Whorl"> Quyết tâm làm lại và vượt qua</label>
+        <label><input type="radio" name="q8" value="Loop"> Tìm người chia sẻ để giải tỏa</label>
+        <label><input type="radio" name="q8" value="Neutral"> Tránh nghĩ đến và chuyển sang việc khác</label>
+      </div>
+    </div>
+
+    <!-- Câu 9 -->
+    <div class="question">
+      <p><strong>Câu 9:</strong> Trong môi trường làm việc, bạn thích:</p>
+      <div class="answers">
+        <label><input type="radio" name="q9" value="Loop"> Không khí thân thiện, cởi mở</label>
+        <label><input type="radio" name="q9" value="Whorl"> Có mục tiêu rõ ràng và cạnh tranh</label>
+        <label><input type="radio" name="q9" value="Arch"> Yên tĩnh, ổn định và có quy trình</label>
+        <label><input type="radio" name="q9" value="Neutral"> Được tự do sáng tạo và linh hoạt</label>
+      </div>
+    </div>
+
+    <!-- Câu 10 -->
+    <div class="question">
+      <p><strong>Câu 10:</strong> Khi làm việc nhóm, bạn thường:</p>
+      <div class="answers">
+        <label><input type="radio" name="q10" value="Whorl"> Đảm nhận vai trò lãnh đạo</label>
+        <label><input type="radio" name="q10" value="Loop"> Gắn kết mọi người và tạo động lực</label>
+        <label><input type="radio" name="q10" value="Arch"> Hỗ trợ phía sau và làm phần việc của mình</label>
+        <label><input type="radio" name="q10" value="Neutral"> Đưa ra ý tưởng và giải pháp sáng tạo</label>
+      </div>
+    </div>
+
+    <!-- Câu 11 -->
+    <div class="question">
+      <p><strong>Câu 11:</strong> Bạn thường đưa ra quyết định dựa trên:</p>
+      <div class="answers">
+        <label><input type="radio" name="q11" value="Arch"> Phân tích và dữ liệu</label>
+        <label><input type="radio" name="q11" value="Loop"> Cảm xúc và trực giác</label>
+        <label><input type="radio" name="q11" value="Whorl"> Mục tiêu và kết quả mong muốn</label>
+        <label><input type="radio" name="q11" value="Neutral"> Ý kiến từ người khác</label>
+      </div>
+    </div>
+
+    <!-- Câu 12 -->
+    <div class="question">
+      <p><strong>Câu 12:</strong> Khi bị áp lực, bạn thường:</p>
+      <div class="answers">
+        <label><input type="radio" name="q12" value="Loop"> Tìm người chia sẻ để giải tỏa</label>
+        <label><input type="radio" name="q12" value="Arch"> Tự điều chỉnh và giữ bình tĩnh</label>
+        <label><input type="radio" name="q12" value="Whorl"> Tăng tốc để vượt qua áp lực</label>
+        <label><input type="radio" name="q12" value="Neutral"> Tránh né và trì hoãn</label>
+      </div>
+    </div>
+
+    <!-- Câu 13 -->
+    <div class="question">
+      <p><strong>Câu 13:</strong> Bạn cảm thấy hạnh phúc nhất khi:</p>
+      <div class="answers">
+        <label><input type="radio" name="q13" value="Loop"> Được kết nối và chia sẻ với người khác</label>
+        <label><input type="radio" name="q13" value="Arch"> Có không gian riêng để làm điều mình thích</label>
+        <label><input type="radio" name="q13" value="Whorl"> Đạt được mục tiêu đã đề ra</label>
+        <label><input type="radio" name="q13" value="Neutral"> Được công nhận và khen ngợi</label>
+      </div>
+    </div>
+
+    <!-- Câu 14 -->
+    <div class="question">
+      <p><strong>Câu 14:</strong> Khi học nhóm, bạn thường:</p>
+      <div class="answers">
+        <label><input type="radio" name="q14" value="Loop"> Thảo luận và chia sẻ ý kiến</label>
+        <label><input type="radio" name="q14" value="Arch"> Lặng lẽ ghi chú và học theo cách riêng</label>
+        <label><input type="radio" name="q14" value="Whorl"> Đưa ra định hướng và phân công nhiệm vụ</label>
+        <label><input type="radio" name="q14" value="Neutral"> Quan sát và học từ người khác</label>
+      </div>
+    </div>
+
+    <!-- Câu 15 -->
+    <div class="question">
+      <p><strong>Câu 15:</strong> Khi có thời gian rảnh, bạn thích:</p>
+      <div class="answers">
+        <label><input type="radio" name="q15" value="Arch"> Đọc sách hoặc làm việc cá nhân</label>
+        <label><input type="radio" name="q15" value="Loop"> Gặp gỡ bạn bè và trò chuyện</label>
+        <label><input type="radio" name="q15" value="Whorl"> Lên kế hoạch cho dự án mới</label>
+        <label><input type="radio" name="q15" value="Neutral"> Xem phim, nghe nhạc hoặc thư giãn</label>
+      </div>
+    </div>
+
+    <!-- Câu 16 -->
+    <div class="question">
+      <p><strong>Câu 16:</strong> Khi làm việc, bạn ưu tiên:</p>
+      <div class="answers">
+        <label><input type="radio" name="q16" value="Whorl"> Hiệu quả và kết quả cuối cùng</label>
+        <label><input type="radio" name="q16" value="Loop"> Sự hài hòa và tinh thần nhóm</label>
+        <label><input type="radio" name="q16" value="Arch"> Quy trình và sự ổn định</label>
+        <label><input type="radio" name="q16" value="Neutral"> Sự sáng tạo và linh hoạt</label>
+      </div>
+    </div>
+
+    <!-- Câu 17 -->
+    <div class="question">
+      <p><strong>Câu 17:</strong> Khi giao tiếp, bạn thường:</p>
+      <div class="answers">
+        <label><input type="radio" name="q17" value="Loop"> Thân thiện, dễ gần và cởi mở</label>
+        <label><input type="radio" name="q17" value="Arch"> Lắng nghe nhiều hơn nói</label>
+    <!-- Câu 18 -->
+    <div class="question">
+      <p><strong>Câu 18:</strong> Khi bắt đầu một ngày mới, bạn thường:</p>
+      <div class="answers">
+        <label><input type="radio" name="q18" value="Whorl"> Lên kế hoạch rõ ràng cho cả ngày</label>
+        <label><input type="radio" name="q18" value="Loop"> Tùy hứng và linh hoạt theo cảm xúc</label>
+        <label><input type="radio" name="q18" value="Arch"> Làm theo thói quen đã có</label>
+        <label><input type="radio" name="q18" value="Neutral"> Chờ xem có gì mới rồi quyết định</label>
+      </div>
+    </div>
+
+    <!-- Câu 19 -->
+    <div class="question">
+      <p><strong>Câu 19:</strong> Khi làm việc dưới áp lực thời gian, bạn:</p>
+      <div class="answers">
+        <label><input type="radio" name="q19" value="Arch"> Tập trung cao độ và làm từng bước</label>
+        <label><input type="radio" name="q19" value="Whorl"> Tăng tốc để hoàn thành nhanh</label>
+        <label><input type="radio" name="q19" value="Loop"> Nhờ hỗ trợ từ người khác</label>
+        <label><input type="radio" name="q19" value="Neutral"> Cảm thấy căng thẳng và dễ mất tập trung</label>
+      </div>
+    </div>
+
+    <!-- Câu 20 -->
+    <div class="question">
+      <p><strong>Câu 20:</strong> Khi tham gia hoạt động ngoại khóa, bạn thích:</p>
+      <div class="answers">
+        <label><input type="radio" name="q20" value="Loop"> Giao lưu và kết bạn mới</label>
+        <label><input type="radio" name="q20" value="Whorl"> Tranh tài và thể hiện năng lực</label>
+        <label><input type="radio" name="q20" value="Arch"> Quan sát và hỗ trợ phía sau</label>
+        <label><input type="radio" name="q20" value="Neutral"> Thử những điều mới lạ</label>
+      </div>
+    </div>
+
+    <!-- Câu 21 -->
+    <div class="question">
+      <p><strong>Câu 21:</strong> Khi có nhiều lựa chọn, bạn thường:</p>
+      <div class="answers">
+        <label><input type="radio" name="q21" value="Arch"> Phân tích kỹ từng phương án</label>
+        <label><input type="radio" name="q21" value="Loop"> Chọn theo cảm xúc hoặc lời khuyên</label>
+        <label><input type="radio" name="q21" value="Whorl"> Quyết định nhanh theo mục tiêu</label>
+        <label><input type="radio" name="q21" value="Neutral"> Trì hoãn để suy nghĩ thêm</label>
+      </div>
+    </div>
+
+    <!-- Câu 22 -->
+    <div class="question">
+      <p><strong>Câu 22:</strong> Khi làm việc lâu dài, bạn cần:</p>
+      <div class="answers">
+        <label><input type="radio" name="q22" value="Loop"> Sự động viên và kết nối</label>
+        <label><input type="radio" name="q22" value="Arch"> Môi trường ổn định và rõ ràng</label>
+        <label><input type="radio" name="q22" value="Whorl"> Mục tiêu rõ ràng và thử thách</label>
+        <label><input type="radio" name="q22" value="Neutral"> Sự thay đổi để tránh nhàm chán</label>
+      </div>
+    </div>
+
+    <!-- Câu 23 -->
+    <div class="question">
+      <p><strong>Câu 23:</strong> Khi làm việc nhóm, bạn thấy khó khăn nhất khi:</p>
+      <div class="answers">
+        <label><input type="radio" name="q23" value="Whorl"> Không được quyền kiểm soát</label>
+        <label><input type="radio" name="q23" value="Loop"> Mọi người không hòa thuận</label>
+        <label><input type="radio" name="q23" value="Arch"> Không có quy trình rõ ràng</label>
+        <label><input type="radio" name="q23" value="Neutral"> Không có sự sáng tạo</label>
+      </div>
+    </div>
+
+    <!-- Câu 24 -->
+    <div class="question">
+      <p><strong>Câu 24:</strong> Khi học kỹ năng mới, bạn thích:</p>
+      <div class="answers">
+        <label><input type="radio" name="q24" value="Loop"> Học cùng người khác để trao đổi</label>
+        <label><input type="radio" name="q24" value="Whorl"> Tự học và thử nghiệm</label>
+        <label><input type="radio" name="q24" value="Arch"> Học theo giáo trình rõ ràng</label>
+        <label><input type="radio" name="q24" value="Neutral"> Học qua video hoặc trải nghiệm thực tế</label>
+      </div>
+    </div>
+
+    <!-- Câu 25 -->
+    <div class="question">
+      <p><strong>Câu 25:</strong> Khi có ý tưởng mới, bạn thường:</p>
+      <div class="answers">
+        <label><input type="radio" name="q25" value="Whorl"> Lập kế hoạch để thực hiện ngay</label>
+        <label><input type="radio" name="q25" value="Arch"> Ghi chú lại và cân nhắc sau</label>
+        <label><input type="radio" name="q25" value="Loop"> Chia sẻ với người thân để lấy ý kiến</label>
+        <label><input type="radio" name="q25" value="Neutral"> Để đó và chờ cảm hứng quay lại</label>
+      </div>
+    </div>
+
+    <!-- Câu 26 -->
+    <div class="question">
+      <p><strong>Câu 26:</strong> Khi làm việc lâu dài, bạn cần:</p>
+      <div class="answers">
+        <label><input type="radio" name="q26" value="Arch"> Sự ổn định và quy trình rõ ràng</label>
+        <label><input type="radio" name="q26" value="Loop"> Sự kết nối và động viên từ người khác</label>
+        <label><input type="radio" name="q26" value="Whorl"> Mục tiêu rõ ràng và thử thách</label>
+        <label><input type="radio" name="q26" value="Neutral"> Sự đổi mới để tránh nhàm chán</label>
+      </div>
+    </div>
+
+    <!-- Câu 27 -->
+    <div class="question">
+      <p><strong>Câu 27:</strong> Khi giao tiếp, bạn thường:</p>
+      <div class="answers">
+        <label><input type="radio" name="q27" value="Loop"> Thân thiện và dễ gần</label>
+        <label><input type="radio" name="q27" value="Whorl"> Truyền cảm hứng và dẫn dắt</label>
+        <label><input type="radio" name="q27" value="Arch"> Lắng nghe và phản hồi có chọn lọc</label>
+        <label><input type="radio" name="q27" value="Neutral"> Tùy vào hoàn cảnh và đối tượng</label>
+      </div>
+    </div>
+
+    <!-- Câu 28 -->
+    <div class="question">
+      <p><strong>Câu 28:</strong> Khi làm việc độc lập, bạn:</p>
+      <div class="answers">
+        <label><input type="radio" name="q28" value="Arch"> Tập trung và làm việc có hệ thống</label>
+        <label><input type="radio" name="q28" value="Whorl"> Tự chủ và quyết đoán</label>
+        <label><input type="radio" name="q28" value="Loop"> Thiếu động lực nếu không có người hỗ trợ</label>
+        <label><input type="radio" name="q28" value="Neutral"> Thích tự do nhưng dễ phân tâm</label>
+      </div>
+    </div>
+
+    <!-- Câu 29 (tiếp) -->
+    <div class="question">
+      <p><strong>Câu 29:</strong> Khi có mục tiêu, bạn thường:</p>
+      <div class="answers">
+        <label><input type="radio" name="q29" value="Whorl"> Lên kế hoạch và hành động ngay</label>
+        <label><input type="radio" name="q29" value="Arch"> Phân tích kỹ trước khi bắt đầu</label>
+        <label><input type="radio" name="q29" value="Loop"> Chia sẻ với người khác để cùng thực hiện</label>
+        <label><input type="radio" name="q29" value="Neutral"> Để đó và chờ cảm hứng quay lại</label>
+      </div>
+    </div>
+
+    <!-- Câu 30 -->
+    <div class="question">
+      <p><strong>Câu 30:</strong> Khi làm việc nhóm, bạn thấy thoải mái nhất khi:</p>
+      <div class="answers">
+        <label><input type="radio" name="q30" value="Loop"> Mọi người thân thiện và hợp tác</label>
+        <label><input type="radio" name="q30" value="Whorl"> Vai trò rõ ràng và có người dẫn dắt</label>
+        <label><input type="radio" name="q30" value="Arch"> Có quy trình và phân công cụ thể</label>
+        <label><input type="radio" name="q30" value="Neutral"> Được tự do đóng góp theo cách riêng</label>
+      </div>
+    </div>
+
+
+
+    <button type="button" onclick="tinhKetQua()">Nộp bài</button>
+  </form>
+
+  <div id="result"></div>
+<canvas id="chartResult" width="400" height="400" style="margin-top: 30px;"></canvas>
+
+<script>
+  function tinhKetQua() {
+    const form = document.getElementById("quizForm");
+    const answers = form.querySelectorAll("input[type='radio']:checked");
+
+    let score = { Whorl: 0, Loop: 0, Arch: 0 };
+    let totalAnswered = answers.length;
+
+    answers.forEach(ans => {
+      if (score.hasOwnProperty(ans.value)) {
+        score[ans.value]++;
+      }
+    });
+
+    const maxScore = Math.max(score.Whorl, score.Loop, score.Arch);
+    const dominantTypes = Object.keys(score).filter(key => score[key] === maxScore);
+
+    let resultText = "";
+
+    if (totalAnswered < 30) {
+      resultText = `❗ Bạn mới trả lời ${totalAnswered}/30 câu. Vui lòng hoàn thành đầy đủ để có kết quả chính xác.`;
+      document.getElementById("chartResult").style.display = "none";
+    } else if (dominantTypes.length === 1) {
+      resultText = `🎯 Chủng vân tay tiềm năng của bạn là: <strong>${dominantTypes[0]}</strong> (Điểm: ${maxScore}/30)`;
+    } else {
+      resultText = `🔍 Bạn có xu hướng hỗn hợp giữa các chủng: <strong>${dominantTypes.join(" & ")}</strong> (Điểm: ${maxScore}/30 mỗi loại)`;
+    }
+
+    document.getElementById("result").innerHTML = resultText;
+
+    // Vẽ biểu đồ Pie Chart
+    const ctx = document.getElementById('chartResult').getContext('2d');
+    const chartData = {
+      labels: ['Whorl', 'Loop', 'Arch'],
+      datasets: [{
+        data: [score.Whorl, score.Loop, score.Arch],
+        backgroundColor: ['#FF6384', '#4CAF50', '#36A2EB'],
+        borderColor: '#fff',
+        borderWidth: 2
+      }]
+    };
+
+    // Xóa biểu đồ cũ nếu có
+    if (window.myChart) {
+      window.myChart.destroy();
+    }
+
+    window.myChart = new Chart(ctx, {
+      type: 'pie',
+      data: chartData,
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: {
+              font: { size: 14 },
+              color: '#333'
+            }
+          },
+          title: {
+            display: true,
+            text: 'Tỷ lệ chủng vân tay theo bài trắc nghiệm',
+            font: { size: 16 }
+          }
+        }
+      }
+    });
+  }
+</script>
+</body>
+</html>
