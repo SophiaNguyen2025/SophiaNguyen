@@ -288,18 +288,11 @@
       <p id="output"></p>
     </div>
 
-<script>
+ <script>
   let formSubmitted = false;
-document.getElementById("userForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-    formSubmitted = true;
 
-    // ✅ Ẩn form thông tin
-    document.getElementById("userForm").style.display = "none";
-
-    // ✅ Hiện phần câu hỏi trắc nghiệm
-    document.getElementById("quizSection").style.display = "block";
-});
+  document.getElementById("userForm").addEventListener("submit", function (e) {
+    e.preventDefault(); // Chặn reload để xử lý gửi bằng fetch
 
     const form = e.target;
 
@@ -310,14 +303,21 @@ document.getElementById("userForm").addEventListener("submit", function (e) {
     })
     .then(response => {
       if (response.ok) {
-  formSubmitted = true;
-  alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể làm bài test và xem kết quả.");
-  document.getElementById("userForm").style.display = "none";
-  document.getElementById("submitBtn").style.display = "block";
-  document.getElementById("quizSection").style.display = "block";
-}
+        formSubmitted = true;
 
-   else {
+        // ✅ Ẩn form thông tin
+        document.getElementById("userForm").style.display = "none";
+
+        // ✅ Hiện phần câu hỏi trắc nghiệm
+        const quizSection = document.getElementById("quizSection");
+        if (quizSection) quizSection.style.display = "block";
+
+        // ✅ Hiện nút tính kết quả nếu đang bị ẩn
+        const submitBtn = document.getElementById("submitBtn");
+        if (submitBtn) submitBtn.style.display = "block";
+
+        alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể làm bài test và xem kết quả.");
+      } else {
         alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
       }
     })
