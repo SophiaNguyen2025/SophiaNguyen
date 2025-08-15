@@ -469,76 +469,91 @@
         return true;
       }
 
-      function tinhKetQua() {
-        const form = document.getElementById("quizForm");
-        const answers = form.querySelectorAll("input[type='radio']:checked");
+    <script>
+  function tinhKetQua() {
+    const form = document.getElementById("quizForm");
+    const answers = form.querySelectorAll("input[type='radio']:checked");
 
-        let score = { Whorl: 0, Loop: 0, Arch: 0 };
-        let totalAnswered = answers.length;
+    let score = { Whorl: 0, Loop: 0, Arch: 0 };
+    let totalAnswered = answers.length;
 
-        answers.forEach(ans => {
-          if (score.hasOwnProperty(ans.value)) {
-            score[ans.value]++;
-          }
-        });
-
-        const maxScore = Math.max(score.Whorl, score.Loop, score.Arch);
-        const dominantTypes = Object.keys(score).filter(key => score[key] === maxScore);
-
-        let resultText = "";
-
-        if (totalAnswered < 30) {
-          resultText = `❗ Bạn mới trả lời ${totalAnswered}/30 câu. Vui lòng hoàn thành đầy đủ để có kết quả chính xác.`;
-          document.getElementById("chartResult").style.display = "none";
-        } else if (dominantTypes.length === 1) {
-          resultText = `🎯 Chủng vân tay tiềm năng của bạn là: <strong>${dominantTypes[0]}</strong> (Điểm: ${maxScore}/30)`;
-        } else {
-          resultText = `🔍 Bạn có xu hướng hỗn hợp giữa các chủng: <strong>${dominantTypes.join(" & ")}</strong> (Điểm: ${maxScore}/30 mỗi loại)`;
-        }
-
-        const resultDiv = document.getElementById("result");
-        resultDiv.innerHTML = resultText;
-        resultDiv.style.display = "block";
-
-        // Vẽ biểu đồ Pie Chart
-        const ctx = document.getElementById('chartResult').getContext('2d');
-        const chartData = {
-          labels: ['Whorl', 'Loop', 'Arch'],
-          datasets: [{
-            data: [score.Whorl, score.Loop, score.Arch],
-            backgroundColor: ['#FF6384', '#4CAF50', '#36A2EB'],
-            borderColor: '#fff',
-            borderWidth: 2
-          }]
-        };
-
-        if (window.myChart) {
-          window.myChart.destroy();
-        }
-
-        window.myChart = new Chart(ctx, {
-          type: 'pie',
-          data: chartData,
-          options: {
-            responsive: true,
-            plugins: {
-              legend: {
-                position: 'bottom',
-                labels: {
-                  font: { size: 14 },
-                  color: '#333'
-                }
-              },
-              title: {
-                display: true,
-                text: 'Tỷ lệ chủng vân tay theo bài trắc nghiệm',
-                font: { size: 16 }
-              }
-            }
-          }
-        });
+    answers.forEach(ans => {
+      if (score.hasOwnProperty(ans.value)) {
+        score[ans.value]++;
       }
-    </script>
+    });
+
+    const maxScore = Math.max(score.Whorl, score.Loop, score.Arch);
+    const dominantTypes = Object.keys(score).filter(key => score[key] === maxScore);
+
+    let resultText = "";
+
+    if (totalAnswered < 30) {
+      resultText = `❗ Bạn mới trả lời ${totalAnswered}/30 câu. Vui lòng hoàn thành đầy đủ để có kết quả chính xác.`;
+      document.getElementById("chartResult").style.display = "none";
+    } else {
+      // Hiển thị chủng vân tay tiềm năng
+      resultText += `🎯 Chủng vân tay tiềm năng của bạn là: <strong>${dominantTypes.join(" & ")}</strong> (Điểm: ${maxScore}/30)<br><br>`;
+
+      // Giải thích từng chủng
+      dominantTypes.forEach(type => {
+        if (type === "Whorl") {
+          resultText += `<strong>Whorl:</strong> Bạn có xu hướng quyết đoán, độc lập, định hướng mục tiêu rõ ràng. Thường là người lãnh đạo, thích kiểm soát và có khả năng ra quyết định nhanh chóng.<br><br>`;
+        }
+        if (type === "Loop") {
+          resultText += `<strong>Loop:</strong> Bạn là người cảm xúc, dễ thích nghi, linh hoạt và thiên về giao tiếp. Thường tạo sự kết nối tốt với người khác và có khả năng thấu hiểu cảm xúc.<br><br>`;
+        }
+        if (type === "Arch") {
+          resultText += `<strong>Arch:</strong> Bạn sống nội tâm, kiên trì, cẩn thận và thích sự ổn định. Thường là người làm việc âm thầm, có độ tin cậy cao và suy nghĩ kỹ trước khi hành động.<br><br>`;
+        }
+      });
+    }
+
+    // Hiển thị kết quả
+    const resultDiv = document.getElementById("result");
+    resultDiv.innerHTML = resultText;
+    resultDiv.style.display = "block";
+
+    // Vẽ biểu đồ Pie Chart
+    const ctx = document.getElementById('chartResult').getContext('2d');
+    const chartData = {
+      labels: ['Whorl', 'Loop', 'Arch'],
+      datasets: [{
+        data: [score.Whorl, score.Loop, score.Arch],
+        backgroundColor: ['#FF6384', '#4CAF50', '#36A2EB'],
+        borderColor: '#fff',
+        borderWidth: 2
+      }]
+    };
+
+    if (window.myChart) {
+      window.myChart.destroy();
+    }
+
+    window.myChart = new Chart(ctx, {
+      type: 'pie',
+      data: chartData,
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: {
+              font: { size: 14 },
+              color: '#333'
+            }
+          },
+          title: {
+            display: true,
+            text: 'Tỷ lệ chủng vân tay theo bài trắc nghiệm',
+            font: { size: 16 }
+          }
+        }
+      }
+    });
+  }
+</script>
+
     <script>
   document.getElementById("userForm").addEventListener("submit", function(e) {
     e.preventDefault(); // Ngăn reload trang
