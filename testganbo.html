@@ -303,11 +303,14 @@
     })
     .then(response => {
       if (response.ok) {
-        formSubmitted = true;
-        alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể xem kết quả.");
-        document.getElementById("userForm").style.display = "none";
-        document.getElementById("submitBtn").style.display = "block";
-      } else {
+  formSubmitted = true;
+  alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể làm bài test và xem kết quả.");
+  document.getElementById("userForm").style.display = "none";
+  document.getElementById("submitBtn").style.display = "block";
+  document.getElementById("quizSection").style.display = "block";
+}
+
+   else {
         alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
       }
     })
