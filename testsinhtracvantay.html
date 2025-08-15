@@ -102,7 +102,7 @@
     </div>
     <h1>Trắc nghiệm sinh trắc vân tay</h1>
     <!-- Form cá nhân -->
-    <form id="userForm" action="https://formspree.io/f/mkgzvjwy" method="POST" onsubmit="return validateUserForm()">
+    <form id="userForm">
       <h2>Thông tin người làm test</h2>
       <label>Họ tên:</label>
       <input type="text" name="name" id="name" required>
@@ -540,6 +540,47 @@
         });
       }
     </script>
+    <script>
+  document.getElementById("userForm").addEventListener("submit", function(e) {
+    e.preventDefault(); // Ngăn reload trang
+
+    const formData = {
+      name: document.getElementById("name").value.trim(),
+      email: document.getElementById("email").value.trim(),
+      age: document.getElementById("age").value.trim(),
+      phone: document.getElementById("phone").value.trim()
+    };
+
+    // Kiểm tra dữ liệu
+    if (!formData.name || !formData.email || !formData.age || !formData.phone) {
+      alert("Vui lòng điền đầy đủ thông tin.");
+      return;
+    }
+
+    // Gửi dữ liệu đến Formspree
+    fetch("https://formspree.io/f/mkgzvjwy", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formData)
+    })
+    .then(response => {
+      if (response.ok) {
+        // Ẩn form thông tin, hiện phần câu hỏi
+        document.getElementById("userForm").style.display = "none";
+        document.getElementById("quizSection").style.display = "block";
+      } else {
+        alert("Gửi thông tin thất bại. Vui lòng thử lại.");
+      }
+    })
+    .catch(error => {
+      console.error("Lỗi gửi form:", error);
+      alert("Có lỗi xảy ra khi gửi thông tin.");
+    });
+  });
+</script>
+
   </div>
 </body>
 </html>
