@@ -445,10 +445,9 @@
  </form>
       <button type="button" onclick="tinhKetQua()">Tính kết quả</button>
     </div>
-
+<div id="resultSection" style="display:none;"></div>
   <div id="result" class="result"></div>
     <canvas id="chartResult" width="400" height="400" style="margin-top: 30px;"></canvas>
-<script>
     <script>
       function validateUserForm() {
         const name = document.getElementById("name").value.trim();
@@ -580,10 +579,56 @@
     });
   });
 </script>
+<!-- Các phần HTML và script khác ở trên -->
 
-  </div>
-</body>
-</html>
+<!-- ✅ Thêm đoạn xử lý tính kết quả ở cuối -->
+<script>
+  document.getElementById("submitQuiz").addEventListener("click", function () {
+    const totalQuestions = 30;
+    let answeredCount = 0;
+    let answers = [];
 
+    for (let i = 1; i <= totalQuestions; i++) {
+      const selected = document.querySelector(`input[name="q${i}"]:checked`);
+      if (selected) {
+        answeredCount++;
+        answers.push(selected.value);
+      } else {
+        answers.push(null);
+      }
+    }
+
+    if (answeredCount < totalQuestions) {
+      alert(`Bạn chưa làm đủ ${totalQuestions} câu. Vui lòng kiểm tra lại.`);
+      return;
+    }
+
+    let correctAnswers = [
+      "A", "C", "B", "D", "A", "B", "C", "D", "A", "B",
+      "C", "D", "A", "B", "C", "D", "A", "B", "C", "D",
+      "A", "B", "C", "D", "A", "B", "C", "D", "A", "B"
+    ];
+
+    let score = 0;
+    let resultHTML = "<h3>Đáp án & Kết quả:</h3><ul>";
+
+    for (let i = 0; i < totalQuestions; i++) {
+      const userAnswer = answers[i];
+      const correct = correctAnswers[i];
+      const isCorrect = userAnswer === correct;
+
+      if (isCorrect) score++;
+
+      resultHTML += `<li>Câu ${i + 1}: Bạn chọn <strong>${userAnswer}</strong> – ${isCorrect ? "<span style='color:green'>Đúng</span>" : `<span style='color:red'>Sai</span>. Đáp án đúng: <strong>${correct}</strong>`}</li>`;
+    }
+
+    resultHTML += `</ul><p><strong>Tổng điểm: ${score}/${totalQuestions}</strong></p>`;
+
+    const resultContainer = document.getElementById("resultSection");
+    resultContainer.innerHTML = resultHTML;
+    resultContainer.style.display = "block";
+  });
+</script>
+ </div>
 </body>
 </html>
