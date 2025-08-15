@@ -114,8 +114,8 @@
       <input type="text" name="phone" id="phone" required>
       <button type="submit">Gửi thông tin---> nhấn Go Back ---> & tiếp tục</button>
       </form>
-    <button id="submitBtn" type="button" onclick="calculateResult()">Tính kết quả</button>
-
+       <div id="quizSection" style="display: none;">
+      <form id="quizForm">
 <div class="question">
       <p><strong>Câu 1:</strong> Khi gặp một vấn đề khó, bạn thường:</p>
       <div class="answers">
@@ -442,84 +442,107 @@
         <label><input type="radio" name="q30" value="Neutral"> Được tự do đóng góp theo cách riêng</label>
       </div>
     </div>
+ </form>
+      <button type="button" onclick="tinhKetQua()">Tính kết quả</button>
+    </div>
 
-
-
-    <button type="button" onclick="tinhKetQua()">Nộp bài</button>
-  </form>
-
-  <div id="result"></div>
-<canvas id="chartResult" width="400" height="400" style="margin-top: 30px;"></canvas>
-
+  <div id="result" class="result"></div>
+    <canvas id="chartResult" width="400" height="400" style="margin-top: 30px;"></canvas>
 <script>
-  function tinhKetQua() {
-    const form = document.getElementById("quizForm");
-    const answers = form.querySelectorAll("input[type='radio']:checked");
+    <script>
+      function validateUserForm() {
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const age = document.getElementById("age").value.trim();
+        const phone = document.getElementById("phone").value.trim();
 
-    let score = { Whorl: 0, Loop: 0, Arch: 0 };
-    let totalAnswered = answers.length;
-
-    answers.forEach(ans => {
-      if (score.hasOwnProperty(ans.value)) {
-        score[ans.value]++;
-      }
-    });
-
-    const maxScore = Math.max(score.Whorl, score.Loop, score.Arch);
-    const dominantTypes = Object.keys(score).filter(key => score[key] === maxScore);
-
-    let resultText = "";
-
-    if (totalAnswered < 30) {
-      resultText = `❗ Bạn mới trả lời ${totalAnswered}/30 câu. Vui lòng hoàn thành đầy đủ để có kết quả chính xác.`;
-      document.getElementById("chartResult").style.display = "none";
-    } else if (dominantTypes.length === 1) {
-      resultText = `🎯 Chủng vân tay tiềm năng của bạn là: <strong>${dominantTypes[0]}</strong> (Điểm: ${maxScore}/30)`;
-    } else {
-      resultText = `🔍 Bạn có xu hướng hỗn hợp giữa các chủng: <strong>${dominantTypes.join(" & ")}</strong> (Điểm: ${maxScore}/30 mỗi loại)`;
-    }
-
-    document.getElementById("result").innerHTML = resultText;
-
-    // Vẽ biểu đồ Pie Chart
-    const ctx = document.getElementById('chartResult').getContext('2d');
-    const chartData = {
-      labels: ['Whorl', 'Loop', 'Arch'],
-      datasets: [{
-        data: [score.Whorl, score.Loop, score.Arch],
-        backgroundColor: ['#FF6384', '#4CAF50', '#36A2EB'],
-        borderColor: '#fff',
-        borderWidth: 2
-      }]
-    };
-
-    // Xóa biểu đồ cũ nếu có
-    if (window.myChart) {
-      window.myChart.destroy();
-    }
-
-    window.myChart = new Chart(ctx, {
-      type: 'pie',
-      data: chartData,
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: 'bottom',
-            labels: {
-              font: { size: 14 },
-              color: '#333'
-            }
-          },
-          title: {
-            display: true,
-            text: 'Tỷ lệ chủng vân tay theo bài trắc nghiệm',
-            font: { size: 16 }
-          }
+        if (!name || !email || !age || !phone) {
+          alert("Vui lòng điền đầy đủ thông tin.");
+          return false;
         }
+
+        // Hiện phần câu hỏi sau khi gửi form
+        setTimeout(() => {
+          document.getElementById("userForm").style.display = "none";
+          document.getElementById("quizSection").style.display = "block";
+        }, 500);
+
+        return true;
       }
-    });
-  }
-</script>
+
+      function tinhKetQua() {
+        const form = document.getElementById("quizForm");
+        const answers = form.querySelectorAll("input[type='radio']:checked");
+
+        let score = { Whorl: 0, Loop: 0, Arch: 0 };
+        let totalAnswered = answers.length;
+
+        answers.forEach(ans => {
+          if (score.hasOwnProperty(ans.value)) {
+            score[ans.value]++;
+          }
+        });
+
+        const maxScore = Math.max(score.Whorl, score.Loop, score.Arch);
+        const dominantTypes = Object.keys(score).filter(key => score[key] === maxScore);
+
+        let resultText = "";
+
+        if (totalAnswered < 30) {
+          resultText = `❗ Bạn mới trả lời ${totalAnswered}/30 câu. Vui lòng hoàn thành đầy đủ để có kết quả chính xác.`;
+          document.getElementById("chartResult").style.display = "none";
+        } else if (dominantTypes.length === 1) {
+          resultText = `🎯 Chủng vân tay tiềm năng của bạn là: <strong>${dominantTypes[0]}</strong> (Điểm: ${maxScore}/30)`;
+        } else {
+          resultText = `🔍 Bạn có xu hướng hỗn hợp giữa các chủng: <strong>${dominantTypes.join(" & ")}</strong> (Điểm: ${maxScore}/30 mỗi loại)`;
+        }
+
+        const resultDiv = document.getElementById("result");
+        resultDiv.innerHTML = resultText;
+        resultDiv.style.display = "block";
+
+        // Vẽ biểu đồ Pie Chart
+        const ctx = document.getElementById('chartResult').getContext('2d');
+        const chartData = {
+          labels: ['Whorl', 'Loop', 'Arch'],
+          datasets: [{
+            data: [score.Whorl, score.Loop, score.Arch],
+            backgroundColor: ['#FF6384', '#4CAF50', '#36A2EB'],
+            borderColor: '#fff',
+            borderWidth: 2
+          }]
+        };
+
+        if (window.myChart) {
+          window.myChart.destroy();
+        }
+
+        window.myChart = new Chart(ctx, {
+          type: 'pie',
+          data: chartData,
+          options: {
+            responsive: true,
+            plugins: {
+              legend: {
+                position: 'bottom',
+                labels: {
+                  font: { size: 14 },
+                  color: '#333'
+                }
+              },
+              title: {
+                display: true,
+                text: 'Tỷ lệ chủng vân tay theo bài trắc nghiệm',
+                font: { size: 16 }
+              }
+            }
+          }
+        });
+      }
+    </script>
+  </div>
+</body>
+</html>
+
 </body>
 </html>
