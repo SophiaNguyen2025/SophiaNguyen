@@ -90,7 +90,20 @@
       color: #4a148c;
       font-weight: bold;
     }
-  </style>
+.share-buttons {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.share-buttons button {
+  margin: 5px;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+ </style>
 </head>
 <body>
   <div class="container">
@@ -355,5 +368,43 @@ if (answeredCount < 10) {
     window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
   }
 </script>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    let target;
+
+    // Ưu tiên gắn vào #result nếu có
+    if (document.getElementById("result")) {
+      target = document.getElementById("result");
+    }
+    // Nếu không có, thử gắn vào #output
+    else if (document.getElementById("output")) {
+      target = document.getElementById("output");
+    }
+    // Nếu không có nữa, thử gắn vào #analysis
+    else if (document.getElementById("analysis")) {
+      target = document.getElementById("analysis");
+    }
+
+    // Nếu tìm được vị trí phù hợp thì gắn nút chia sẻ
+    if (target) {
+      const shareDiv = document.createElement("div");
+      shareDiv.className = "share-buttons";
+      shareDiv.innerHTML = `
+        <h4>📢 Chia sẻ bài test này:</h4>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank">
+          <button style="background:#3b5998; color:white;">Facebook</button>
+        </a>
+        <a href="https://zalo.me/share?url=${encodeURIComponent(window.location.href)}" target="_blank">
+          <button style="background:#0068ff; color:white;">Zalo</button>
+        </a>
+        <a href="https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}" target="_blank">
+          <button style="background:#1da1f2; color:white;">Twitter</button>
+        </a>
+      `;
+      target.appendChild(shareDiv);
+    }
+  });
+</script>
+
 </body>
 </html>
