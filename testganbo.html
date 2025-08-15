@@ -302,9 +302,9 @@
     </div>
 
  <script>
+ <script>
   let formSubmitted = false;
 
-  // Bắt sự kiện gửi form cá nhân
   document.getElementById("userForm").addEventListener("submit", function (e) {
     e.preventDefault();
 
@@ -330,38 +330,42 @@
     });
   });
 
-  // Hàm tính kết quả
   function calculateResult() {
     if (!formSubmitted) {
       alert("⚠️ Bạn cần gửi thông tin trước khi xem kết quả.");
       return;
     }
 
-   let score = { A: 0, B: 0, C: 0, D: 0 };
-let answeredCount = 0;
+    let score = { A: 0, B: 0, C: 0, D: 0 };
+    let answeredCount = 0;
 
-for (let i = 1; i <= 20; i++) {
-  let answer = document.querySelector(`input[name="q${i}"]:checked`);
-  if (answer) {
-    score[answer.value]++;
-    answeredCount++;
-  }
-}
+    for (let i = 1; i <= 20; i++) {
+      let answer = document.querySelector(`input[name="Q${i}"]:checked`);
+      if (answer) {
+        score[answer.value]++;
+        answeredCount++;
+      }
+    }
 
-if (answeredCount < 20) {
-  alert(`⚠️ Bạn cần hoàn thành tất cả ${20} câu hỏi trước khi xem kết quả.`);
-  return;
-}
+    if (answeredCount < 20) {
+      alert(`⚠️ Bạn cần hoàn thành tất cả 20 câu hỏi trước khi xem kết quả.`);
+      return;
+    }
 
-let max = Math.max(score.A, score.B, score.C, score.D);
-  let result = "";
-    if (score.A === max)
+    let max = Math.max(score.A, score.B, score.C, score.D);
+    let result = "";
+
+    // Nếu có nhiều loại cùng điểm cao nhất, chọn loại đầu tiên
+    let topStyles = Object.entries(score).filter(([key, val]) => val === max);
+    let top = topStyles[0][0];
+
+    if (top === "A")
       result = "💚 <strong>Phong cách Gắn bó An toàn:</strong> Bạn có khả năng yêu thương lành mạnh, biết tin tưởng và duy trì ranh giới tích cực.";
-    else if (score.B === max)
+    else if (top === "B")
       result = "💛 <strong>Phong cách Gắn bó Lo âu:</strong> Bạn thường lo lắng bị bỏ rơi, khao khát được yêu thương và cần cảm giác an toàn thường xuyên.";
-    else if (score.C === max)
+    else if (top === "C")
       result = "💙 <strong>Phong cách Gắn bó Tránh né:</strong> Bạn có xu hướng giữ khoảng cách, sợ bị kiểm soát và khó mở lòng trong các mối quan hệ.";
-    else if (score.D === max)
+    else if (top === "D")
       result = "❤️ <strong>Phong cách Gắn bó Bất an – Lẫn lộn:</strong> Bạn nhạy cảm, dễ tổn thương và thường có phản ứng cảm xúc mạnh, mâu thuẫn giữa cần và sợ yêu.";
 
     document.getElementById("output").innerHTML = result;
@@ -369,6 +373,7 @@ let max = Math.max(score.A, score.B, score.C, score.D);
     window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
   }
 </script>
+
 <script>
   window.addEventListener("DOMContentLoaded", () => {
     let target;
