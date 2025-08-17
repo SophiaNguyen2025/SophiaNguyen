@@ -376,8 +376,26 @@ document.getElementById("userForm").addEventListener("submit", function(e) {
         <br><br>
         <strong>Điểm chi tiết:</strong><br>
         D: ${scores.D} | I: ${scores.I} | S: ${scores.S} | C: ${scores.C}
+ // ✅ Gắn nút chia sẻ
+      const shareDiv = document.createElement("div");
+      shareDiv.className = "share-buttons";
+      shareDiv.innerHTML = `
+        <h4>📢 Chia sẻ bài test này:</h4>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank">
+          <button style="background:#3b5998; color:white;">Facebook</button>
+        </a>
+        <a href="https://zalo.me/share?url=${encodeURIComponent(window.location.href)}" target="_blank">       
+          <button style="background:#0068ff; color:white;">Zalo</button>
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Kết quả trắc nghiệm của tôi là: ${encodeURIComponent(result)}&url=${encodeURIComponent(window.location.href)}" target="_blank">
+          <button style="background:#1da1f2; color:white;">Twitter</button>
+        </a>
+        <a href="https://www.tiktok.com/upload?lang=vi" target="_blank">
+    <button style="background:#000000; color:white;">TikTok</button>
+  </a>
       `;
-    }
+      resultDiv.appendChild(shareDiv);
+        }
   </script>
 </body>
 </html>
