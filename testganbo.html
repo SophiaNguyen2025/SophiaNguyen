@@ -281,114 +281,86 @@
   </div>
 </form>
     
-    <button id="submitBtn" type="button" onclick="calculateResult()">Tính kết quả</button>
-  </div>
-       <div class="result" id="result">
+     <button id="submitBtn" type="button" onclick="calculateResult()">Tính kết quả</button>
+    </div>
+
+    <!-- 🔹 Kết quả -->
+    <div class="result" id="result">
       <h2>Kết quả trắc nghiệm:</h2>
       <p id="output"></p>
     </div>
+  </div>
 
- <script>
-  let formSubmitted = false;
+  <!-- 🔹 Script xử lý -->
+  <script>
+    let formSubmitted = false;
 
-  document.getElementById("userForm").addEventListener("submit", function (e) {
-    e.preventDefault(); // Chặn reload để xử lý gửi bằng fetch
+    document.getElementById("userForm").addEventListener("submit", function (e) {
+      e.preventDefault();
 
-    const form = e.target;
+      const form = e.target;
 
-    fetch(form.action, {
-      method: "POST",
-      body: new FormData(form),
-      headers: { 'Accept': 'application/json' }
-    })
-    .then(response => {
-      if (response.ok) {
-        formSubmitted = true;
-
-        // ✅ Ẩn form thông tin
-        document.getElementById("userForm").style.display = "none";
-
-        // ✅ Hiện phần câu hỏi trắc nghiệm
-        const quizSection = document.getElementById("quizSection");
-        if (quizSection) quizSection.style.display = "block";
-
-        // ✅ Hiện nút tính kết quả nếu đang bị ẩn
-        const submitBtn = document.getElementById("submitBtn");
-        if (submitBtn) submitBtn.style.display = "block";
-
-        alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể làm bài test và xem kết quả.");
-      } else {
-        alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
-      }
-    })
-    .catch(error => {
-      alert("⚠️ Lỗi kết nối. Vui lòng thử lại sau.");
+      fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      })
+      .then(response => {
+        if (response.ok) {
+          formSubmitted = true;
+          alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể làm bài test và xem kết quả.");
+          document.getElementById("userForm").style.display = "none";
+          document.getElementById("quizSection").style.display = "block";
+        } else {
+          alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
+        }
+      })
+      .catch(error => {
+        alert("⚠️ Lỗi kết nối. Vui lòng thử lại sau.");
+      });
     });
-  });
 
-  function calculateResult() {
-    if (!formSubmitted) {
-      alert("⚠️ Bạn cần gửi thông tin trước khi xem kết quả.");
-      return;
-    }
-
-    let score = { A: 0, B: 0, C: 0, D: 0 };
-    let answeredCount = 0;
-
-    for (let i = 1; i <= 20; i++) {
-      let answer = document.querySelector(`input[name="q${i}"]:checked`);
-      if (answer) {
-        score[answer.value]++;
-        answeredCount++;
+    function calculateResult() {
+      if (!formSubmitted) {
+        alert("⚠️ Bạn cần gửi thông tin trước khi xem kết quả.");
+        return;
       }
-    }
 
-    if (answeredCount < 20) {
-      alert(`⚠️ Bạn cần hoàn thành tất cả 20 câu hỏi trước khi xem kết quả.`);
-      return;
-    }
+      let score = { A: 0, B: 0, C: 0, D: 0 };
+      let answeredCount = 0;
 
-    let max = Math.max(score.A, score.B, score.C, score.D);
-    let result = "";
+      for (let i = 1; i <= 20; i++) {
+        let answer = document.querySelector(`input[name="q${i}"]:checked`);
+        if (answer) {
+          score[answer.value]++;
+          answeredCount++;
+        }
+      }
 
-    // Nếu có nhiều loại cùng điểm cao nhất, chọn loại đầu tiên
-    let topStyles = Object.entries(score).filter(([key, val]) => val === max);
-    let top = topStyles[0][0];
+      if (answeredCount < 20) {
+        alert("⚠️ Bạn cần hoàn thành tất cả 20 câu hỏi trước khi xem kết quả.");
+        return;
+      }
 
-    if (top === "A")
-      result = "💚 <strong>Phong cách Gắn bó An toàn:</strong> Bạn có khả năng yêu thương lành mạnh, biết tin tưởng và duy trì ranh giới tích cực.";
-    else if (top === "B")
-      result = "💛 <strong>Phong cách Gắn bó Lo âu:</strong> Bạn thường lo lắng bị bỏ rơi, khao khát được yêu thương và cần cảm giác an toàn thường xuyên.";
-    else if (top === "C")
-      result = "💙 <strong>Phong cách Gắn bó Tránh né:</strong> Bạn có xu hướng giữ khoảng cách, sợ bị kiểm soát và khó mở lòng trong các mối quan hệ.";
-    else if (top === "D")
-      result = "❤️ <strong>Phong cách Gắn bó Bất an – Lẫn lộn:</strong> Bạn nhạy cảm, dễ tổn thương và thường có phản ứng cảm xúc mạnh, mâu thuẫn giữa cần và sợ yêu.";
+      let max = Math.max(score.A, score.B, score.C, score.D);
+      let result = "";
 
-    document.getElementById("output").innerHTML = result;
-    document.getElementById("result").style.display = 'block';
-    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-  }
-</script>
+      let topStyles = Object.entries(score).filter(([key, val]) => val === max);
+      let top = topStyles[0][0];
 
-<script>
-  window.addEventListener("DOMContentLoaded", () => {
-    let target;
+      if (top === "A")
+        result = "💚 <strong>Phong cách Gắn bó An toàn:</strong> Bạn có khả năng yêu thương lành mạnh, biết tin tưởng và duy trì ranh giới tích cực.";
+      else if (top === "B")
+        result = "💛 <strong>Phong cách Gắn bó Lo âu:</strong> Bạn thường lo lắng bị bỏ rơi, khao khát được yêu thương và cần cảm giác an toàn thường xuyên.";
+      else if (top === "C")
+        result = "💙 <strong>Phong cách Gắn bó Tránh né:</strong> Bạn có xu hướng giữ khoảng cách, sợ bị kiểm soát và khó mở lòng trong các mối quan hệ.";
+      else if (top === "D")
+        result = "❤️ <strong>Phong cách Gắn bó Bất an – Lẫn lộn:</strong> Bạn nhạy cảm, dễ tổn thương và thường có phản ứng cảm xúc mạnh, mâu thuẫn giữa cần và sợ yêu.";
 
-    // Ưu tiên gắn vào #result nếu có
-    if (document.getElementById("result")) {
-      target = document.getElementById("result");
-    }
-    // Nếu không có, thử gắn vào #output
-    else if (document.getElementById("output")) {
-      target = document.getElementById("output");
-    }
-    // Nếu không có nữa, thử gắn vào #analysis
-    else if (document.getElementById("analysis")) {
-      target = document.getElementById("analysis");
-    }
+      document.getElementById("output").innerHTML = result;
+      document.getElementById("result").style.display = 'block';
 
-    // Nếu tìm được vị trí phù hợp thì gắn nút chia sẻ
-    if (target) {
+      // ✅ Gắn nút chia sẻ
       const shareDiv = document.createElement("div");
       shareDiv.className = "share-buttons";
       shareDiv.innerHTML = `
@@ -396,17 +368,18 @@
         <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank">
           <button style="background:#3b5998; color:white;">Facebook</button>
         </a>
-        <a href="https://zalo.me/share?url=${encodeURIComponent(window.location.href)}" target="_blank">
+        <a href="https://zalo.me/share?url=${encodeURIComponent(window.location.href)}" target="_blank">       
           <button style="background:#0068ff; color:white;">Zalo</button>
         </a>
-        <a href="https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}" target="_blank">
+        <a href="https://twitter.com/intent/tweet?text=Kết quả trắc nghiệm của tôi là: ${encodeURIComponent(result)}&url=${encodeURIComponent(window.location.href)}" target="_blank">
           <button style="background:#1da1f2; color:white;">Twitter</button>
         </a>
+        <a href="https://www.tiktok.com/upload?lang=vi" target="_blank">
+    <button style="background:#000000; color:white;">TikTok</button>
+  </a>
       `;
-      target.appendChild(shareDiv);
+      document.getElementById("result").appendChild(shareDiv);
     }
-  });
-</script>
-
+  </script>
 </body>
 </html>
