@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Vòng Quay May Mắn</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #fceabb, #f8b500);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      max-width: 600px;
+      width: 90%;
+      text-align: center;
+    }
+
+    h1 {
+      color: #e67e22;
+      margin-bottom: 20px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 100px;
+      font-size: 16px;
+      padding: 10px;
+      border: 2px solid #f39c12;
+      border-radius: 10px;
+      resize: none;
+      margin-bottom: 20px;
+    }
+
+    button {
+      background-color: #e67e22;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      font-size: 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #d35400;
+    }
+
+    #result {
+      margin-top: 30px;
+      font-size: 24px;
+      color: #2c3e50;
+      font-weight: bold;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .note {
+      font-size: 14px;
+      color: #7f8c8d;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎡 Vòng Quay Chọn Người</h1>
+    <p>Nhập danh sách tên, cách nhau bằng dấu phẩy:</p>
+    <textarea id="nameList" placeholder="Ví dụ: Lan, Hùng, Mai, Tuấn"></textarea>
+    <button onclick="spinWheel()">Quay!</button>
+    <div id="result"></div>
+    <div class="note">Không cần đăng nhập hay làm nhiệm vụ gì cả 😉</div>
+  </div>
+
+  <script>
+    function spinWheel() {
+      const input = document.getElementById("nameList").value;
+      const names = input.split(",").map(name => name.trim()).filter(name => name !== "");
+
+      if (names.length === 0) {
+        alert("Chị hãy nhập ít nhất một tên nhé!");
+        return;
+      }
+
+      const randomIndex = Math.floor(Math.random() * names.length);
+      const chosenName = names[randomIndex];
+
+      const resultDiv = document.getElementById("result");
+      resultDiv.innerHTML = `🎉 Người được chọn là: <span style="color:#e74c3c">${chosenName}</span>`;
+      resultDiv.style.animation = "fadeIn 1s ease";
+    }
+  </script>
+</body>
+</html>
