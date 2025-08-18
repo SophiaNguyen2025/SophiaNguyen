@@ -176,7 +176,7 @@
 
   
 function renderQuestions() {
-  const container = document.getElementById("quizSection");
+  const container = document.getElementById("questionContainer"); // ✅ FIXED
   container.innerHTML = "";
 
   const form = document.createElement("form");
@@ -209,7 +209,6 @@ function renderQuestions() {
 
   container.appendChild(form);
 
-  // Gắn sự kiện submit sau khi form được tạo
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -255,28 +254,6 @@ function renderQuestions() {
     window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
   });
 }
-
-document.getElementById("infoForm").addEventListener("submit", function (e) {
-  e.preventDefault();
-  const form = e.target;
-  fetch(form.action, {
-    method: "POST",
-    body: new FormData(form),
-    headers: { 'Accept': 'application/json' }
-  })
-  .then(response => {
-    if (response.ok) {
-      document.getElementById("infoForm").style.display = "none";
-      document.getElementById("testForm").style.display = "block";
-      renderQuestions();
-    } else {
-      alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
-    }
-  })
-  .catch(error => {
-    alert("⚠️ Lỗi kết nối. Vui lòng thử lại sau.");
-  });
-});
-</script>
+  </script>
 </body>
 </html>
