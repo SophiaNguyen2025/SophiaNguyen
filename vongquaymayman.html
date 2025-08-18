@@ -137,7 +137,8 @@
   document.body.addEventListener("click", () => {
     spinSound.muted = false;
     clapSound.muted = false;
-  }, { once: true });
+ startSpin();
+});
 
   function drawWheel() {
     const radius = canvas.width / 2;
