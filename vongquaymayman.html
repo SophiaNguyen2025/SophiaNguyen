@@ -106,7 +106,9 @@
   </div>
 
   <textarea id="nameList" placeholder="Nhập tên cách nhau bằng dấu phẩy..."></textarea><br>
-  <button class="btn" onclick="startSpin()">🎉 Quay!</button>
+
+  <button class="btn" id="spinButton">🎉 Quay!</button>
+
   <button class="btn" onclick="clearHistory()">🗑️ Xóa lịch sử</button>
 
   <div id="result"></div>
@@ -133,10 +135,10 @@
   const clapSound = document.getElementById("clapSound");
 
   // Mở khóa âm thanh khi người dùng click lần đầu
-  document.body.addEventListener("click", () => {
+document.getElementById("spinButton").addEventListener("click", () => {
     spinSound.muted = false;
     clapSound.muted = false;
-  }, { once: true });
+  },
 
   function drawWheel() {
     const radius = canvas.width / 2;
@@ -182,6 +184,13 @@
     spinSound.currentTime = 0;
     spinSound.volume = 0.8;
     spinSound.play().catch(e => console.log("Âm thanh quay bị chặn:", e));
+spinSound.addEventListener("canplaythrough", () => {
+  console.log("Âm thanh quay đã sẵn sàng");
+});
+
+clapSound.addEventListener("canplaythrough", () => {
+  console.log("Âm thanh vỗ tay đã sẵn sàng");
+});
 
     let speed = 0.3;
     let deceleration = 0.002;
