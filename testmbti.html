@@ -179,8 +179,6 @@
       { text: "Bạn cảm thấy hài lòng khi hoàn thành mọi việc theo kế hoạch.", a: "J", b: "P" }
     ];
 
-   ];
-
     function renderQuestions() {
       const container = document.getElementById("questionContainer");
       container.innerHTML = "";
@@ -197,12 +195,9 @@
         container.appendChild(div);
       });
     }
-
-        document.getElementById("infoForm").addEventListener("submit", function (e) {
+      document.getElementById("infoForm").addEventListener("submit", function (e) {
       e.preventDefault();
-
       const form = e.target;
-
       fetch(form.action, {
         method: "POST",
         body: new FormData(form),
@@ -230,7 +225,6 @@
       for (let [key, value] of formData.entries()) {
         scores[value]++;
       }
-
       const type = `${scores["E"] >= scores["I"] ? "E" : "I"}${scores["S"] >= scores["N"] ? "S" : "N"}${scores["T"] >= scores["F"] ? "T" : "F"}${scores["J"] >= scores["P"] ? "J" : "P"}`;
       const resultText = `MBTI của tôi là ${type}`;
 
