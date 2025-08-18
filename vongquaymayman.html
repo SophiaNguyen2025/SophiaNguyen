@@ -121,115 +121,130 @@
   <div id="result"></div>
   <div id="history"><strong>Lịch sử quay:</strong><ul id="historyList"></ul></div>
 
-  <!-- Âm thanh -->
-  <audio id="spinSound" preload="auto">
-    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7b6e3f3b9f.mp3?filename=game-spin-coin-193276.mp3" type="audio/mpeg">
-  </audio>
+ <audio id="spinSound" muted preload="auto">
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7b6e3f3b9f.mp3?filename=game-spin-coin-193276.mp3" type="audio/mpeg">
+</audio>
 
-  <audio id="clapSound" preload="auto">
-    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_3c9c4f6b9e.mp3?filename=applause-193276.mp3" type="audio/mpeg">
-  </audio>
+<audio id="clapSound" muted preload="auto">
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_3c9c4f6b9e.mp3?filename=applause-193276.mp3" type="audio/mpeg">
+</audio>
 
-  <script>
-    const canvas = document.getElementById("wheelCanvas");
-    const ctx = canvas.getContext("2d");
-    let names = ["Lan", "Hùng", "Mai", "Tuấn"];
-    let angle = 0;
-    let spinning = false;
-    let spinInterval;
-    let history = [];
 
-    function drawWheel() {
-      const radius = canvas.width / 2;
-      const centerX = canvas.width / 2;
-      const centerY = canvas.height / 2;
-      const sliceAngle = 2 * Math.PI / names.length;
+<script>
+  const canvas = document.getElementById("wheelCanvas");
+  const ctx = canvas.getContext("2d");
+  let names = ["Lan", "Hùng", "Mai", "Tuấn"];
+  let angle = 0;
+  let spinning = false;
+  let spinInterval;
+  let history = [];
 
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const spinSound = document.getElementById("spinSound");
+  const clapSound = document.getElementById("clapSound");
 
-      for (let i = 0; i < names.length; i++) {
-        const startAngle = angle + i * sliceAngle;
-        const endAngle = startAngle + sliceAngle;
+  // Mở khóa âm thanh khi người dùng click lần đầu
+  document.body.addEventListener("click", () => {
+    spinSound.muted = false;
+    clapSound.muted = false;
+  }, { once: true });
 
-        ctx.beginPath();
-        ctx.moveTo(centerX, centerY);
-        ctx.arc(centerX, centerY, radius, startAngle, endAngle);
-        ctx.fillStyle = i % 2 === 0 ? "#0a4a5a" : "#66b2c2";
-        ctx.fill();
-        ctx.strokeStyle = "#ffffff";
-        ctx.lineWidth = 2;
-        ctx.stroke();
+  function drawWheel() {
+    const radius = canvas.width / 2;
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    const sliceAngle = 2 * Math.PI / names.length;
 
-        ctx.save();
-        ctx.translate(centerX, centerY);
-        ctx.rotate(startAngle + sliceAngle / 2);
-        ctx.textAlign = "right";
-        ctx.fillStyle = "#fff";
-        ctx.font = "16px sans-serif";
-        ctx.fillText(names[i], radius - 10, 5);
-        ctx.restore();
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (let i = 0; i < names.length; i++) {
+      const startAngle = angle + i * sliceAngle;
+      const endAngle = startAngle + sliceAngle;
+
+      ctx.beginPath();
+      ctx.moveTo(centerX, centerY);
+      ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+      ctx.fillStyle = i % 2 === 0 ? "#0a4a5a" : "#66b2c2";
+      ctx.fill();
+      ctx.strokeStyle = "#ffffff";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      ctx.save();
+      ctx.translate(centerX, centerY);
+      ctx.rotate(startAngle + sliceAngle / 2);
+      ctx.textAlign = "right";
+      ctx.fillStyle = "#fff";
+      ctx.font = "16px sans-serif";
+      ctx.fillText(names[i], radius - 10, 5);
+      ctx.restore();
+    }
+  }
+
+  function startSpin() {
+    const input = document.getElementById("nameList").value;
+    const inputNames = input.split(",").map(n => n.trim()).filter(n => n !== "");
+    if (inputNames.length > 1) names = inputNames;
+
+    document.getElementById("result").innerHTML = "";
+
+    // Reset và phát âm thanh quay
+    spinSound.pause();
+    spinSound.currentTime = 0;
+    spinSound.volume = 0.8;
+    spinSound.play().catch(e => console.log("Âm thanh quay bị chặn:", e));
+
+    let speed = 0.3;
+    let deceleration = 0.002;
+    spinning = true;
+
+    spinInterval = setInterval(() => {
+      angle += speed;
+      drawWheel();
+      speed -= deceleration;
+      if (speed <= 0) {
+        clearInterval(spinInterval);
+        spinning = false;
+        showResult();
       }
-    }
+    }, 20);
+  }
 
-    function startSpin() {
-      const input = document.getElementById("nameList").value;
-      const inputNames = input.split(",").map(n => n.trim()).filter(n => n !== "");
-      if (inputNames.length > 1) names = inputNames;
+  function showResult() {
+    const sliceAngle = 2 * Math.PI / names.length;
+    const adjustedAngle = (angle + Math.PI) % (2 * Math.PI);
+    const index = Math.floor(adjustedAngle / sliceAngle);
+    const chosenName = names[index];
 
-      document.getElementById("result").innerHTML = "";
-      document.getElementById("spinSound").play();
+    const resultDiv = document.getElementById("result");
+    resultDiv.innerHTML = `🎉 Người được chọn là: ${chosenName}`;
+    resultDiv.style.animation = "zoomIn 1s ease, pulseBlue 3s infinite";
 
-      let speed = 0.3;
-      let deceleration = 0.002;
-      spinning = true;
+    // Reset và phát âm thanh vỗ tay
+    clapSound.pause();
+    clapSound.currentTime = 0;
+    clapSound.volume = 1;
+    clapSound.play().catch(e => console.log("Âm thanh vỗ tay bị chặn:", e));
 
-      spinInterval = setInterval(() => {
-        angle += speed;
-        drawWheel();
-        speed -= deceleration;
-        if (speed <= 0) {
-          clearInterval(spinInterval);
-          spinning = false;
-          showResult();
-        }
-      }, 20);
-    }
+    history.push(chosenName);
+    updateHistory();
+  }
 
-    function showResult() {
-      const sliceAngle = 2 * Math.PI / names.length;
-      const adjustedAngle = (angle + Math.PI) % (2 * Math.PI);
-      const index = Math.floor(adjustedAngle / sliceAngle);
-      const chosenName = names[index];
+  function updateHistory() {
+    const historyList = document.getElementById("historyList");
+    historyList.innerHTML = "";
+    history.forEach((name, i) => {
+      const li = document.createElement("li");
+      li.textContent = `${i + 1}. ${name}`;
+      historyList.appendChild(li);
+    });
+  }
 
-      const resultDiv = document.getElementById("result");
-      resultDiv.innerHTML = `🎉 Người được chọn là: ${chosenName}`;
-      resultDiv.style.animation = "zoomIn 1s ease, pulseBlue 3s infinite";
+  function clearHistory() {
+    history = [];
+    updateHistory();
+  }
 
-      const clapSound = document.getElementById("clapSound");
-      clapSound.currentTime = 0;
-      clapSound.volume = 1;
-      clapSound.play();
-
-      history.push(chosenName);
-      updateHistory();
-    }
-
-    function updateHistory() {
-      const historyList = document.getElementById("historyList");
-      historyList.innerHTML = "";
-      history.forEach((name, i) => {
-        const li = document.createElement("li");
-        li.textContent = `${i + 1}. ${name}`;
-        historyList.appendChild(li);
-      });
-    }
-
-    function clearHistory() {
-      history = [];
-      updateHistory();
-    }
-
-    drawWheel();
-  </script>
+  drawWheel();
+</script>
 </body>
 </html>
