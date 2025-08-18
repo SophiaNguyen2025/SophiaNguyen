@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Vòng Quay May Mắn</title>
   <style>
-    
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
@@ -15,48 +14,19 @@
       justify-content: center;
       min-height: 100vh;
     }
+
     h1 {
-      color: #ff3366;
+      color: #ffffff;
       margin-top: 20px;
+      text-shadow: 2px 2px #0a4a5a;
     }
 
     #wheelCanvas {
       margin-top: 20px;
       position: relative;
-    }
-
-    textarea {
-      width: 80%;
-      max-width: 500px;
-      height: 80px;
-      font-size: 16px;
-      padding: 10px;
-      border-radius: 10px;
-      border: 2px solid #ff3366;
-      margin-top: 20px;
-    }
-
-    .btn {
-      margin: 10px 5px;
-      padding: 12px 25px;
-      font-size: 18px;
-      background-color: #ff3366;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    .btn:hover {
-      background-color: #e62e5c;
-    }
-
-   #history {
-      margin-top: 20px;
-      font-size: 18px;
-      color: #333;
-      max-width: 500px;
-      text-align: left;
+      border: 6px solid #0a4a5a;
+      border-radius: 50%;
+      box-shadow: 0 0 20px rgba(10, 74, 90, 0.5);
     }
 
     #arrow {
@@ -67,36 +37,76 @@
       width: 40px;
       animation: bounce 1s infinite;
     }
-#result {
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-10px); }
+    }
+
+    textarea {
+      width: 80%;
+      max-width: 500px;
+      height: 80px;
+      font-size: 16px;
+      padding: 10px;
+      border-radius: 10px;
+      border: 2px solid #0a4a5a;
+      margin-top: 20px;
+    }
+
+    .btn {
+      margin: 10px 5px;
+      padding: 12px 25px;
+      font-size: 18px;
+      background-color: #0a4a5a;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #066076;
+    }
+
+    #result {
       font-size: 26px;
       font-weight: bold;
-      color: #004080; /* Xanh đậm */
-      background-color: #ffffff; /* Nền trắng */
+      color: #0a4a5a;
+      background-color: #ffffff;
       padding: 12px 20px;
       border-radius: 8px;
       text-align: center;
       margin-top: 20px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      animation: zoomIn 1s ease;
+      animation: zoomIn 1s ease, pulseBlue 3s infinite;
     }
- @keyframes zoomIn {
-      0% {
-        transform: scale(0.5);
-        opacity: 0;
-      }
-      100% {
-        transform: scale(1);
-        opacity: 1;
-      }
-   @keyframes pulseBlue {
-  0% { background-color: #ffffff; }
-  50% { background-color: #e6f0ff; }
-  100% { background-color: #ffffff; }
-}
-#result {
-  animation: zoomIn 1s ease, pulseBlue 3s infinite;
-}
-</style>
+
+    @keyframes zoomIn {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes pulseBlue {
+      0% { background-color: #ffffff; }
+      50% { background-color: #e6f0ff; }
+      100% { background-color: #ffffff; }
+    }
+
+    #history {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
+      max-width: 500px;
+      text-align: left;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+  </style>
 </head>
 <body>
   <h1>🎡 Vòng Quay May Mắn</h1>
@@ -104,20 +114,22 @@
     <canvas id="wheelCanvas" width="400" height="400"></canvas>
     <img id="arrow" src="https://cdn-icons-png.flaticon.com/512/32/32195.png" alt="Arrow">
   </div>
+
   <textarea id="nameList" placeholder="Nhập tên cách nhau bằng dấu phẩy..."></textarea><br>
-  <button class="btn" onclick="startSpin()">Quay!</button>
-  <button class="btn" onclick="clearHistory()">Xóa lịch sử</button>
+  <button class="btn" onclick="startSpin()">🎉 Quay!</button>
+  <button class="btn" onclick="clearHistory()">🗑️ Xóa lịch sử</button>
+
   <div id="result"></div>
   <div id="history"><strong>Lịch sử quay:</strong><ul id="historyList"></ul></div>
 
- <!-- Thêm audio ở đây -->
-<audio id="spinSound" preload="auto">
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7b6e3f3b9f.mp3?filename=game-spin-coin-193276.mp3" type="audio/mpeg">
-</audio>
+  <!-- Âm thanh -->
+  <audio id="spinSound" preload="auto">
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7b6e3f3b9f.mp3?filename=game-spin-coin-193276.mp3" type="audio/mpeg">
+  </audio>
 
-<audio id="clapSound" preload="auto">
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_3c9c4f6b9e.mp3?filename=applause-193276.mp3" type="audio/mpeg">
-</audio>
+  <audio id="clapSound" preload="auto">
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_3c9c4f6b9e.mp3?filename=applause-193276.mp3" type="audio/mpeg">
+  </audio>
 
   <script>
     const canvas = document.getElementById("wheelCanvas");
@@ -143,8 +155,10 @@
         ctx.beginPath();
         ctx.moveTo(centerX, centerY);
         ctx.arc(centerX, centerY, radius, startAngle, endAngle);
-        ctx.fillStyle = i % 2 === 0 ? "#ff99bb" : "#ff3366";
+        ctx.fillStyle = i % 2 === 0 ? "#0a4a5a" : "#66b2c2";
         ctx.fill();
+        ctx.strokeStyle = "#ffffff";
+        ctx.lineWidth = 2;
         ctx.stroke();
 
         ctx.save();
@@ -182,25 +196,24 @@
       }, 20);
     }
 
-   function showResult() {
-  const sliceAngle = 2 * Math.PI / names.length;
-  const adjustedAngle = (angle + Math.PI) % (2 * Math.PI); // mũi tên ở 6 giờ
-  const index = Math.floor(adjustedAngle / sliceAngle);
-  const chosenName = names[index];
+    function showResult() {
+      const sliceAngle = 2 * Math.PI / names.length;
+      const adjustedAngle = (angle + Math.PI) % (2 * Math.PI);
+      const index = Math.floor(adjustedAngle / sliceAngle);
+      const chosenName = names[index];
 
-  const resultDiv = document.getElementById("result");
-  resultDiv.innerHTML = `🎉 Người được chọn là: ${chosenName}`;
-  resultDiv.style.animation = "zoomIn 1s ease";
+      const resultDiv = document.getElementById("result");
+      resultDiv.innerHTML = `🎉 Người được chọn là: ${chosenName}`;
+      resultDiv.style.animation = "zoomIn 1s ease, pulseBlue 3s infinite";
 
-  // Phát tiếng vỗ tay
-  const clapSound = document.getElementById("clapSound");
-  clapSound.currentTime = 0;
-  clapSound.volume = 1;
-  clapSound.play();
+      const clapSound = document.getElementById("clapSound");
+      clapSound.currentTime = 0;
+      clapSound.volume = 1;
+      clapSound.play();
 
-  history.push(chosenName);
-  updateHistory();
-}
+      history.push(chosenName);
+      updateHistory();
+    }
 
     function updateHistory() {
       const historyList = document.getElementById("historyList");
