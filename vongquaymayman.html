@@ -79,8 +79,24 @@
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
       animation: zoomIn 1s ease;
     }
-
-   </style>
+ @keyframes zoomIn {
+      0% {
+        transform: scale(0.5);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+   @keyframes pulseBlue {
+  0% { background-color: #ffffff; }
+  50% { background-color: #e6f0ff; }
+  100% { background-color: #ffffff; }
+}
+#result {
+  animation: zoomIn 1s ease, pulseBlue 3s infinite;
+}
+</style>
 </head>
 <body>
   <h1>🎡 Vòng Quay May Mắn</h1>
@@ -94,9 +110,7 @@
   <div id="result"></div>
   <div id="history"><strong>Lịch sử quay:</strong><ul id="historyList"></ul></div>
 
-  <button onclick="startSpin()">Quay!</button>
-
-<!-- Thêm audio ở đây -->
+ <!-- Thêm audio ở đây -->
 <audio id="spinSound" preload="auto">
   <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7b6e3f3b9f.mp3?filename=game-spin-coin-193276.mp3" type="audio/mpeg">
 </audio>
@@ -104,7 +118,6 @@
 <audio id="clapSound" preload="auto">
   <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_3c9c4f6b9e.mp3?filename=applause-193276.mp3" type="audio/mpeg">
 </audio>
-
 
   <script>
     const canvas = document.getElementById("wheelCanvas");
