@@ -7,7 +7,7 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #fceabb, #f8b500);
+      background: linear-gradient(135deg, #ffe6ec, #ff3366);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -16,12 +16,13 @@
     }
 
     h1 {
-      color: #e67e22;
+      color: #ff3366;
       margin-top: 20px;
     }
 
     #wheelCanvas {
       margin-top: 20px;
+      position: relative;
     }
 
     textarea {
@@ -31,23 +32,23 @@
       font-size: 16px;
       padding: 10px;
       border-radius: 10px;
-      border: 2px solid #f39c12;
+      border: 2px solid #ff3366;
       margin-top: 20px;
     }
 
-    button {
-      margin-top: 15px;
+    .btn {
+      margin: 10px 5px;
       padding: 12px 25px;
       font-size: 18px;
-      background-color: #e67e22;
+      background-color: #ff3366;
       color: white;
       border: none;
       border-radius: 8px;
       cursor: pointer;
     }
 
-    button:hover {
-      background-color: #d35400;
+    .btn:hover {
+      background-color: #e62e5c;
     }
 
     #result {
@@ -58,21 +59,50 @@
       animation: zoomIn 1s ease;
     }
 
+    #history {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
+      max-width: 500px;
+      text-align: left;
+    }
+
+    #arrow {
+      position: absolute;
+      bottom: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      animation: bounce 1s infinite;
+    }
+
     @keyframes zoomIn {
       from { transform: scale(0); opacity: 0; }
       to { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-10px); }
     }
   </style>
 </head>
 <body>
   <h1>🎡 Vòng Quay May Mắn</h1>
-  <canvas id="wheelCanvas" width="400" height="400"></canvas>
+  <div style="position: relative;">
+    <canvas id="wheelCanvas" width="400" height="400"></canvas>
+    <img id="arrow" src="https://cdn-icons-png.flaticon.com/512/32/32195.png" alt="Arrow">
+  </div>
   <textarea id="nameList" placeholder="Nhập tên cách nhau bằng dấu phẩy..."></textarea><br>
-  <button onclick="startSpin()">Quay!</button>
+  <button class="btn" onclick="startSpin()">Quay!</button>
+  <button class="btn" onclick="clearHistory()">Xóa lịch sử</button>
   <div id="result"></div>
+  <div id="history"><strong>Lịch sử quay:</strong><ul id="historyList"></ul></div>
 
   <!-- Nhạc nền -->
   <audio id="spinSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7b6e3f3b9f.mp3?filename=game-spin-coin-193276.mp3"></audio>
+  <!-- Vỗ tay -->
+  <audio id="clapSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_3c9c4f6b9e.mp3?filename=applause-193276.mp3"></audio>
 
   <script>
     const canvas = document.getElementById("wheelCanvas");
@@ -81,6 +111,7 @@
     let angle = 0;
     let spinning = false;
     let spinInterval;
+    let history = [];
 
     function drawWheel() {
       const radius = canvas.width / 2;
@@ -97,7 +128,7 @@
         ctx.beginPath();
         ctx.moveTo(centerX, centerY);
         ctx.arc(centerX, centerY, radius, startAngle, endAngle);
-        ctx.fillStyle = i % 2 === 0 ? "#f39c12" : "#e67e22";
+        ctx.fillStyle = i % 2 === 0 ? "#ff99bb" : "#ff3366";
         ctx.fill();
         ctx.stroke();
 
@@ -110,15 +141,6 @@
         ctx.fillText(names[i], radius - 10, 5);
         ctx.restore();
       }
-
-      // Vẽ mũi tên
-      ctx.fillStyle = "#c0392b";
-      ctx.beginPath();
-      ctx.moveTo(centerX, centerY - radius);
-      ctx.lineTo(centerX - 10, centerY - radius + 20);
-      ctx.lineTo(centerX + 10, centerY - radius + 20);
-      ctx.closePath();
-      ctx.fill();
     }
 
     function startSpin() {
@@ -147,11 +169,32 @@
 
     function showResult() {
       const sliceAngle = 2 * Math.PI / names.length;
-      const index = Math.floor(((2 * Math.PI - angle % (2 * Math.PI)) % (2 * Math.PI)) / sliceAngle);
+      const adjustedAngle = (angle + Math.PI) % (2 * Math.PI); // mũi tên ở 6 giờ
+      const index = Math.floor(adjustedAngle / sliceAngle);
       const chosenName = names[index];
       const resultDiv = document.getElementById("result");
       resultDiv.innerHTML = `🎉 Người được chọn là: ${chosenName}`;
       resultDiv.style.animation = "zoomIn 1s ease";
+
+      document.getElementById("clapSound").play();
+
+      history.push(chosenName);
+      updateHistory();
+    }
+
+    function updateHistory() {
+      const historyList = document.getElementById("historyList");
+      historyList.innerHTML = "";
+      history.forEach((name, i) => {
+        const li = document.createElement("li");
+        li.textContent = `${i + 1}. ${name}`;
+        historyList.appendChild(li);
+      });
+    }
+
+    function clearHistory() {
+      history = [];
+      updateHistory();
     }
 
     drawWheel();
