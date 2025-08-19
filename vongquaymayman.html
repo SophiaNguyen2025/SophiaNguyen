@@ -134,11 +134,11 @@
   const clapSound = document.getElementById("clapSound");
 
   // Mở khóa âm thanh khi người dùng click lần đầu
-  document.body.addEventListener("click", () => {
-    spinSound.muted = false;
-    clapSound.muted = false;
- startSpin();
-});
+ document.body.addEventListener("click", () => {
+  spinSound.muted = false;
+  clapSound.muted = false;
+}, { once: true }); // chỉ chạy 1 lần duy nhất
+
 
   function drawWheel() {
     const radius = canvas.width / 2;
