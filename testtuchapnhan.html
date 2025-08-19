@@ -282,72 +282,71 @@
 
   <script>
     <script>
-    let formSubmitted = false;
+    <script>
+  let formSubmitted = false;
 
-    document.getElementById("userForm").addEventListener("submit", function (e) {
-      e.preventDefault();
+  document.getElementById("userForm").addEventListener("submit", function (e) {
+    e.preventDefault();
 
-      const form = e.target;
+    const form = e.target;
 
-      fetch(form.action, {
-        method: "POST",
-        body: new FormData(form),
-        headers: { 'Accept': 'application/json' }
-      })
-      .then(response => {
-        if (response.ok) {
-          formSubmitted = true;
-          alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể làm bài test và xem kết quả.");
-          document.getElementById("userForm").style.display = "none";
-          document.getElementById("quizSection").style.display = "block";
-        } else {
-          alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
-        }
-      })
-      .catch(error => {
-        alert("⚠️ Lỗi kết nối. Vui lòng thử lại sau.");
-      });
-    });
+    fetch(form.action, {
+      method: "POST",
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    })
+    .then(response => {
+      if (response.ok) {
+        formSubmitted = true;
+        alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể làm bài test và xem kết quả.");
 
-    function calculateResult() {
-      if (!formSubmitted) {
-        alert("⚠️ Bạn cần gửi thông tin trước khi xem kết quả.");
-        return;
-      }
-
-      let score = {A: 0, B: 0, C: 0, D: 0 };
-      let answeredCount = 0;
-
-      for (let i = 1; i <= 20; i++) {
-        let options = document.getElementsByName(`q${i}`);
-        let selected = Array.from(options).find(opt => opt.checked);
-        if (selected) {
-          score[selected.value]++;
-          answeredCount++;
-        }
-      }
-
-      if (answeredCount < 20) {
-        alert(`⚠️ Bạn cần hoàn thành tất cả 20 câu hỏi trước khi xem kết quả.`);
-        return;
-      }
-    function calculateScore() {
-      let total = 0;
-      for (let i = 1; i <= 20; i++) {
-        const selected = document.querySelector(`input[name="q${i}"]:checked`);
-        if (selected) total += parseInt(selected.value);
-      }
-      let resultText = "";
-      if (total >= 50) {
-        resultText = "💖 Bạn có mức độ Tự Chấp Nhận cao! Bạn biết cách đồng hành với chính mình, chấp nhận cảm xúc và khuyết điểm một cách lành mạnh.";
-      } else if (total >= 30) {
-        resultText = "🌿 Bạn đang trên hành trình học cách Tự Chấp Nhận. Hãy tiếp tục thực hành lòng trắc ẩn với chính mình mỗi ngày.";
+        // Hiện phần câu hỏi và nút tính kết quả
+        document.getElementById("userForm").style.display = "none";
+        document.getElementById("quizSection").style.display = "block";
+        document.getElementById("submitBtn").style.display = "block";
       } else {
-        resultText = "🧩 Bạn có thể đang thiếu sự Tự Chấp Nhận. Hãy thử quan sát cảm xúc mà không phán xét, và học cách tha thứ cho chính mình.";
+        alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
       }
+    })
+    .catch(error => {
+      alert("⚠️ Lỗi kết nối. Vui lòng thử lại sau.");
+    });
+  });
 
-      document.getElementById("result").innerText = resultText;
+  function calculateResult() {
+    if (!formSubmitted) {
+      alert("⚠️ Bạn cần gửi thông tin trước khi xem kết quả.");
+      return;
     }
-  </script>
+
+    let total = 0;
+    let answeredCount = 0;
+
+    for (let i = 1; i <= 20; i++) {
+      const selected = document.querySelector(`input[name="q${i}"]:checked`);
+      if (selected) {
+        total += parseInt(selected.value);
+        answeredCount++;
+      }
+    }
+
+    if (answeredCount < 20) {
+      alert(`⚠️ Bạn cần hoàn thành tất cả 20 câu hỏi trước khi xem kết quả.`);
+      return;
+    }
+
+    let resultText = "";
+    if (total >= 50) {
+      resultText = "💖 Bạn có mức độ Tự Chấp Nhận cao! Bạn biết cách đồng hành với chính mình, chấp nhận cảm xúc và khuyết điểm một cách lành mạnh.";
+    } else if (total >= 30) {
+      resultText = "🌿 Bạn đang trên hành trình học cách Tự Chấp Nhận. Hãy tiếp tục thực hành lòng trắc ẩn với chính mình mỗi ngày.";
+    } else {
+      resultText = "🧩 Bạn có thể đang thiếu sự Tự Chấp Nhận. Hãy thử quan sát cảm xúc mà không phán xét, và học cách tha thứ cho chính mình.";
+    }
+
+    document.getElementById("output").innerText = resultText;
+    document.getElementById("result").style.display = "block";
+  }
+</script>
 </body>
 </html>
