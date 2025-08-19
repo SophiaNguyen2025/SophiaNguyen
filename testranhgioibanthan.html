@@ -112,8 +112,9 @@
     <input type="text" name="phone" id="phone" required>
     <button type="submit">Gửi thông tin---> nhấn Go Back ---> & tiếp tục</button>
   </form>
-        <button id="submitBtn" type="button" onclick="calculateResult()">Tính kết quả</button>
-
+      
+ <div id="quizSection" style="display: none;">
+  <form id="quizForm">
     <!-- Câu 1–7 -->
     <div class="question">
       <h3>Câu 1: Khi ai đó nhờ tôi giúp đỡ, tôi thường:</h3>
@@ -274,17 +275,18 @@
       <label><input type="radio" name="q20" value="2"> C. Tham khảo ý kiến nhưng vẫn tự quyết</label>
       <label><input type="radio" name="q20" value="3"> D. Tự tin đưa ra quyết định dựa trên nhu cầu của mình</label>
     </div>
-
-  
+  </form>
+ </div>
+  <button id="submitBtn" type="button" onclick="calculateResult()">Tính kết quả</button>
+ </div>
       <div class="result" id="result">
       <h2>Kết quả trắc nghiệm:</h2>
       <p id="output"></p>
     </div>
 
 <script>
-  let formSubmitted = false;
+ let formSubmitted = false;
 
-  // Bắt sự kiện gửi form cá nhân
   document.getElementById("userForm").addEventListener("submit", function (e) {
     e.preventDefault();
 
@@ -298,8 +300,11 @@
     .then(response => {
       if (response.ok) {
         formSubmitted = true;
-        alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể xem kết quả.");
+        alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể làm bài test và xem kết quả.");
+
+        // Hiện phần câu hỏi và nút tính kết quả
         document.getElementById("userForm").style.display = "none";
+        document.getElementById("quizSection").style.display = "block";
         document.getElementById("submitBtn").style.display = "block";
       } else {
         alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
@@ -310,20 +315,19 @@
     });
   });
 
-  // Hàm tính kết quả
   function calculateResult() {
     if (!formSubmitted) {
       alert("⚠️ Bạn cần gửi thông tin trước khi xem kết quả.");
       return;
     }
 
-    let score = { A: 0, B: 0, C: 0, D: 0 };
+    let total = 0;
     let answeredCount = 0;
 
     for (let i = 1; i <= 20; i++) {
-      let answer = document.querySelector(`input[name="q${i}"]:checked`);
-      if (answer) {
-        score[answer.value]++;
+      const selected = document.querySelector(`input[name="q${i}"]:checked`);
+      if (selected) {
+        total += parseInt(selected.value);
         answeredCount++;
       }
     }
