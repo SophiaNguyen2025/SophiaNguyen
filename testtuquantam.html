@@ -108,11 +108,12 @@
       <input type="number" name="age" id="age" required>
       <label>Số điện thoại:</label>
       <input type="text" name="phone" id="phone" required>
-      <button type="submit">Gửi thông tin → nhấn Go Back → & tiếp tục</button>
+      <<button type="button" onclick="handleFormSubmit()">Gửi thông tin & tiếp tục </button>
     </form>
 
     <!-- Nút tính kết quả -->
-    <button id="submitBtn" type="button" onclick="calculateResult()">Tính kết quả</button>
+   <button id="submitBtn" type="button" style="display: none;" onclick="calculateResult()">Tính kết quả</button>
+
  
 <div id="questionSection" style="display: none;">
   <form id="quizForm">
@@ -284,7 +285,6 @@
   <!-- Script xử lý -->
   <script>
     let formSubmitted = false;
-
     document.getElementById("userForm").addEventListener("submit", function (e) {
       e.preventDefault();
 
@@ -299,9 +299,10 @@
         if (response.ok) {
           formSubmitted = true;
           alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể xem kết quả.");
-          document.getElementById("userForm").style.display = "none";
-document.getElementById("questionSection").style.display = "block";
-document.getElementById("submitBtn").style.display = "block";
+       function handleFormSubmit() {
+        document.getElementById("userForm").style.display = "none";
+        document.getElementById("questionSection").style.display = "block";
+        document.getElementById("submitBtn").style.display = "block";
 
         } else {
           alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
