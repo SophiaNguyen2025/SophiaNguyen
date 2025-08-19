@@ -108,7 +108,7 @@
       <input type="number" name="age" id="age" required>
       <label>Số điện thoại:</label>
       <input type="text" name="phone" id="phone" required>
-      <<button type="button" onclick="handleFormSubmit()">Gửi thông tin & tiếp tục </button>
+      <button type="button" onclick="handleFormSubmit()">Gửi thông tin & tiếp tục </button>
     </form>
 
     <!-- Nút tính kết quả -->
@@ -284,76 +284,72 @@
 
   <!-- Script xử lý -->
   <script>
-    let formSubmitted = false;
-    document.getElementById("userForm").addEventListener("submit", function (e) {
-      e.preventDefault();
+    <script>
+  let formSubmitted = false;
 
-      const form = e.target;
+  document.getElementById("userForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const form = e.target;
 
-      fetch(form.action, {
-        method: "POST",
-        body: new FormData(form),
-        headers: { 'Accept': 'application/json' }
-      })
-      .then(response => {
-        if (response.ok) {
-          formSubmitted = true;
-          alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể xem kết quả.");
-       function handleFormSubmit() {
+    fetch(form.action, {
+      method: "POST",
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    })
+    .then(response => {
+      if (response.ok) {
+        formSubmitted = true;
+        alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể xem kết quả.");
+
+        // Hiện phần câu hỏi và nút tính kết quả
         document.getElementById("userForm").style.display = "none";
         document.getElementById("questionSection").style.display = "block";
         document.getElementById("submitBtn").style.display = "block";
-
-        } else {
-          alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
-        }
-      })
-      .catch(error => {
-        alert("⚠️ Lỗi kết nối. Vui lòng thử lại sau.");
-      });
-    });
-
-    function calculateResult() {
-      if (!formSubmitted) {
-        alert("⚠️ Bạn cần gửi thông tin trước khi xem kết quả.");
-       document.getElementById("result").style.display = "block";
-        return;
-      }
-
-      let score = { A: 0, B: 0, C: 0, D: 0 };
-      let answeredCount = 0;
-
-      for (let i = 1; i <= 20; i++) {
-        let answer = document.querySelector(`input[name="q${i}"]:checked`);
-        if (answer) {
-          score[answer.value]++;
-          answeredCount++;
-        }
-      }
-
-      if (answeredCount < 20) {
-        alert(`⚠️ Bạn cần hoàn thành tất cả 20 câu hỏi trước khi xem kết quả.`);
-        return;
-      }
-
-      let totalScore =
-        score.A * 3 +
-        score.B * 2 +
-        score.C * 1 +
-        score.D * 0;
-
-      let resultText = "";
-      if (totalScore >= 70) {
-        resultText = "💖 Bạn có mức độ Tự Quan Tâm cao! Bạn biết lắng nghe, chăm sóc và yêu thương chính mình một cách lành mạnh.";
-      } else if (totalScore >= 50) {
-        resultText = "🌿 Bạn đang trên hành trình học cách Tự Quan Tâm. Hãy tiếp tục nuôi dưỡng lòng trắc ẩn với chính mình.";
       } else {
-        resultText = "🧩 Bạn có thể đang thiếu sự Tự Quan Tâm. Đã đến lúc bạn cần lắng nghe và chăm sóc bản thân nhiều hơn.";
+        alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
       }
+    })
+    .catch(error => {
+      alert("⚠️ Lỗi kết nối. Vui lòng thử lại sau.");
+    });
+  });
 
-      document.getElementById("output").innerText = resultText;
-      document.getElementById("result").style.display = "block";
+  function calculateResult() {
+    if (!formSubmitted) {
+      alert("⚠️ Bạn cần gửi thông tin trước khi xem kết quả.");
+      return;
     }
-  </script>
+
+    let score = { A: 0, B: 0, C: 0, D: 0 };
+    let answeredCount = 0;
+
+    for (let i = 1; i <= 20; i++) {
+      let answer = document.querySelector(`input[name="q${i}"]:checked`);
+      if (answer) {
+        score[answer.value]++;
+        answeredCount++;
+      }
+    }
+
+    if (answeredCount < 20) {
+      alert(`⚠️ Bạn cần hoàn thành tất cả 20 câu hỏi trước khi xem kết quả.`);
+      return;
+    }
+
+    let totalScore = score.A * 3 + score.B * 2 + score.C * 1 + score.D * 0;
+
+    let resultText = "";
+    if (totalScore >= 70) {
+      resultText = "💖 Bạn có mức độ Tự Quan Tâm cao! Bạn biết lắng nghe, chăm sóc và yêu thương chính mình một cách lành mạnh.";
+    } else if (totalScore >= 50) {
+      resultText = "🌿 Bạn đang trên hành trình học cách Tự Quan Tâm. Hãy tiếp tục nuôi dưỡng lòng trắc ẩn với chính mình.";
+    } else {
+      resultText = "🧩 Bạn có thể đang thiếu sự Tự Quan Tâm. Đã đến lúc bạn cần lắng nghe và chăm sóc bản thân nhiều hơn.";
+    }
+
+    document.getElementById("output").innerText = resultText;
+    document.getElementById("result").style.display = "block";
+  }
+</script>
 </body>
 </html>
