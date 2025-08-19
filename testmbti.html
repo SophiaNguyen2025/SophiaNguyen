@@ -126,9 +126,7 @@
   <div id="questionContainer"></div> <!-- ✅ FIXED -->
 </div>
 
-        <button type="submit" id="submitBtn">Xem kết quả</button>
-      </form>
-    </div>
+     <div>
     <div id="result" class="result"></div>
   </div>
    
@@ -256,6 +254,36 @@ function renderQuestions() {
     window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
   });
 }
+  </script>
+    <script>
+    document.getElementById("infoForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const form = e.target;
+  const data = new FormData(form);
+
+  fetch(form.action, {
+    method: "POST",
+    body: data,
+    headers: {
+      Accept: "application/json"
+    }
+  })
+    .then(response => {
+      if (response.ok) {
+        form.style.display = "none"; // Ẩn form thông tin
+        document.getElementById("testForm").style.display = "block"; // Hiện phần câu hỏi
+        renderQuestions(); // Gọi hàm hiển thị câu hỏi
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        alert("Gửi thông tin thất bại. Vui lòng thử lại.");
+      }
+    })
+    .catch(error => {
+      console.error("Lỗi gửi form:", error);
+      alert("Có lỗi xảy ra khi gửi thông tin.");
+    });
+});
   </script>
 </body>
 </html>
