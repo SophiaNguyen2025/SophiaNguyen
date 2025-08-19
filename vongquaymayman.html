@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -61,7 +60,6 @@
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
       transition: background-color 0.3s ease;
     }
-
     .btn:hover {
       background-color: #066076;
     }
@@ -81,7 +79,6 @@
       0% { transform: scale(0.5); opacity: 0; }
       100% { transform: scale(1); opacity: 1; }
     }
-
     @keyframes pulseBlue {
       0% { background-color: #ffffff; }
       50% { background-color: #e6f0ff; }
@@ -114,13 +111,13 @@
   <div id="result"></div>
   <div id="history"><strong>Lịch sử quay:</strong><ul id="historyList"></ul></div>
 
-<audio id="spinSound" muted preload="auto">
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7b6e3f3b9f.mp3?filename=game-spin-coin-193276.mp3" type="audio/mpeg">
-</audio>
+  <audio id="spinSound" muted preload="auto">
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7b6e3f3b9f.mp3?filename=game-spin-coin-193276.mp3" type="audio/mpeg">
+  </audio>
 
-<audio id="clapSound" muted preload="auto">
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_3c9c4f6b9e.mp3?filename=applause-193276.mp3" type="audio/mpeg">
-</audio>
+  <audio id="clapSound" muted preload="auto">
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_3c9c4f6b9e.mp3?filename=applause-193276.mp3" type="audio/mpeg">
+  </audio>
 
 <script>
   const canvas = document.getElementById("wheelCanvas");
@@ -134,12 +131,18 @@
   const spinSound = document.getElementById("spinSound");
   const clapSound = document.getElementById("clapSound");
 
-  // Mở khóa âm thanh khi người dùng click lần đầu
- document.body.addEventListener("click", () => {
-  spinSound.muted = false;
-  clapSound.muted = false;
-}, { once: true }); // chỉ chạy 1 lần duy nhất
+  document.body.addEventListener("click", () => {
+    spinSound.muted = false;
+    clapSound.muted = false;
+  }, { once: true });
 
+  document.getElementById("startSpin").addEventListener("click", () => {
+    if (names.length === 0) {
+      document.getElementById("result").innerHTML = "🎊 Đã quay hết tất cả người!";
+      return;
+    }
+    startSpin();
+  });
 
   function drawWheel() {
     const radius = canvas.width / 2;
@@ -176,11 +179,13 @@
   function startSpin() {
     const input = document.getElementById("nameList").value;
     const inputNames = input.split(",").map(n => n.trim()).filter(n => n !== "");
-    if (inputNames.length > 1) names = inputNames;
+    if (inputNames.length > 1) {
+      names = inputNames;
+      drawWheel();
+    }
 
     document.getElementById("result").innerHTML = "";
 
-    // Reset và phát âm thanh quay
     spinSound.pause();
     spinSound.currentTime = 0;
     spinSound.volume = 0.8;
@@ -212,14 +217,17 @@
     resultDiv.innerHTML = `🎉 Người được chọn là: ${chosenName}`;
     resultDiv.style.animation = "zoomIn 1s ease, pulseBlue 3s infinite";
 
-    // Reset và phát âm thanh vỗ tay
     clapSound.pause();
     clapSound.currentTime = 0;
     clapSound.volume = 1;
     clapSound.play().catch(e => console.log("Âm thanh vỗ tay bị chặn:", e));
 
-    history.push(chosenName);
+        history.push(chosenName);
     updateHistory();
+
+    // Loại người đã trúng khỏi danh sách
+    names.splice(index, 1);
+    drawWheel();
   }
 
   function updateHistory() {
@@ -235,6 +243,15 @@
   function clearHistory() {
     history = [];
     updateHistory();
+    document.getElementById("result").innerHTML = "";
+    const input = document.getElementById("nameList").value;
+    const inputNames = input.split(",").map(n => n.trim()).filter(n => n !== "");
+    if (inputNames.length > 1) {
+      names = inputNames;
+    } else {
+      names = ["Lan", "Hùng", "Mai", "Tuấn"];
+    }
+    drawWheel();
   }
 
   drawWheel();
