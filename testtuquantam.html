@@ -98,7 +98,7 @@
     </div>
     <h1>Trắc nghiệm Tự Quan Tâm </h1>
     <!-- Form cá nhân -->
-    <form id="userForm" action="https://formspree.io/f/mgvzqrje" method="POST">
+   <form id="userForm" action="https://formspree.io/f/mgvzqrje" method="POST">
       <h2>Thông tin người làm test</h2>
       <label>Họ tên:</label>
       <input type="text" name="name" id="name" required>
@@ -108,12 +108,9 @@
       <input type="number" name="age" id="age" required>
       <label>Số điện thoại:</label>
       <input type="text" name="phone" id="phone" required>
-      <button type="button" onclick="handleFormSubmit()">Gửi thông tin & tiếp tục </button>
-    </form>
-
-    <!-- Nút tính kết quả -->
-   <button id="submitBtn" type="button" style="display: none;" onclick="calculateResult()">Tính kết quả</button>
-
+      <button type="submit">Gửi thông tin  & tiếp tục</button>
+      </form>
+ 
  
 <div id="questionSection" style="display: none;">
   <form id="quizForm">
@@ -274,68 +271,66 @@
       <label><input type="radio" name="q20" value="1"> C. Giấu đi và tránh nhắc lại</label>
       <label><input type="radio" name="q20" value="3"> D. Nghĩ mình không nên làm gì nữa</label>
     </fieldset>
-
+ </form>
+      <button id="submitBtn" type="button" onclick="calculateResult()">Tính kết quả</button>
+  </div>
   
     <div class="result" id="result">
       <h2>Kết quả trắc nghiệm:</h2>
       <p id="output"></p>
     </div>
-  </div>
-
+  
   <!-- Script xử lý -->
-  <script>
-    <script>
-  let formSubmitted = false;
+<script>
+    let formSubmitted = false;
 
-  document.getElementById("userForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-    const form = e.target;
+    document.getElementById("userForm").addEventListener("submit", function (e) {
+      e.preventDefault();
 
-    fetch(form.action, {
-      method: "POST",
-      body: new FormData(form),
-      headers: { 'Accept': 'application/json' }
-    })
-    .then(response => {
-      if (response.ok) {
-        formSubmitted = true;
-        alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể xem kết quả.");
+      const form = e.target;
 
-        // Hiện phần câu hỏi và nút tính kết quả
-        document.getElementById("userForm").style.display = "none";
-        document.getElementById("questionSection").style.display = "block";
-        document.getElementById("submitBtn").style.display = "block";
-      } else {
-        alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
-      }
-    })
-    .catch(error => {
-      alert("⚠️ Lỗi kết nối. Vui lòng thử lại sau.");
+      fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      })
+      .then(response => {
+        if (response.ok) {
+          formSubmitted = true;
+          alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể làm bài test và xem kết quả.");
+          document.getElementById("userForm").style.display = "none";
+          document.getElementById("quizSection").style.display = "block";
+        } else {
+          alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
+        }
+      })
+      .catch(error => {
+        alert("⚠️ Lỗi kết nối. Vui lòng thử lại sau.");
+      });
     });
-  });
 
-  function calculateResult() {
-    if (!formSubmitted) {
-      alert("⚠️ Bạn cần gửi thông tin trước khi xem kết quả.");
-      return;
-    }
-
-    let score = { A: 0, B: 0, C: 0, D: 0 };
-    let answeredCount = 0;
-
-    for (let i = 1; i <= 20; i++) {
-      let answer = document.querySelector(`input[name="q${i}"]:checked`);
-      if (answer) {
-        score[answer.value]++;
-        answeredCount++;
+    function calculateResult() {
+      if (!formSubmitted) {
+        alert("⚠️ Bạn cần gửi thông tin trước khi xem kết quả.");
+        return;
       }
-    }
 
-    if (answeredCount < 20) {
-      alert(`⚠️ Bạn cần hoàn thành tất cả 20 câu hỏi trước khi xem kết quả.`);
-      return;
-    }
+      let score = {A: 0, B: 0, C: 0, D: 0 };
+      let answeredCount = 0;
 
+      for (let i = 1; i <= 20; i++) {
+        let options = document.getElementsByName(`q${i}`);
+        let selected = Array.from(options).find(opt => opt.checked);
+        if (selected) {
+          score[selected.value]++;
+          answeredCount++;
+        }
+      }
+
+      if (answeredCount < 20) {
+        alert(`⚠️ Bạn cần hoàn thành tất cả 20 câu hỏi trước khi xem kết quả.`);
+        return;
+      }
     let totalScore = score.A * 3 + score.B * 2 + score.C * 1 + score.D * 0;
 
     let resultText = "";
