@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -134,10 +135,11 @@
   const clapSound = document.getElementById("clapSound");
 
   // Mở khóa âm thanh khi người dùng click lần đầu
-  document.body.addEventListener("click", () => {
-    spinSound.muted = false;
-    clapSound.muted = false;
-  }, { once: true });
+ document.body.addEventListener("click", () => {
+  spinSound.muted = false;
+  clapSound.muted = false;
+}, { once: true }); // chỉ chạy 1 lần duy nhất
+
 
   function drawWheel() {
     const radius = canvas.width / 2;
@@ -169,6 +171,7 @@
       ctx.fillText(names[i], radius - 10, 5);
       ctx.restore();
     }
+  }
 
   function startSpin() {
     const input = document.getElementById("nameList").value;
@@ -177,6 +180,7 @@
 
     document.getElementById("result").innerHTML = "";
 
+    // Reset và phát âm thanh quay
     spinSound.pause();
     spinSound.currentTime = 0;
     spinSound.volume = 0.8;
@@ -208,6 +212,7 @@
     resultDiv.innerHTML = `🎉 Người được chọn là: ${chosenName}`;
     resultDiv.style.animation = "zoomIn 1s ease, pulseBlue 3s infinite";
 
+    // Reset và phát âm thanh vỗ tay
     clapSound.pause();
     clapSound.currentTime = 0;
     clapSound.volume = 1;
@@ -215,20 +220,7 @@
 
     history.push(chosenName);
     updateHistory();
-
-        // ❌ Xóa người trúng khỏi danh sách
-    names.splice(index, 1);
-
-    // ✅ Reset góc quay để vẽ lại đúng
-    angle = 0;
-
-    // Vẽ lại nếu còn người
-    if (names.length > 0) {
-      drawWheel();
-    } else {
-      resultDiv.innerHTML += "<br>🎊 Đã quay hết tất cả người!";
-    }
-
+  }
 
   function updateHistory() {
     const historyList = document.getElementById("historyList");
@@ -247,8 +239,5 @@
 
   drawWheel();
 </script>
-</body>
-</html>
-
 </body>
 </html>
