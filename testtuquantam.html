@@ -114,7 +114,7 @@
     <!-- Nút tính kết quả -->
     <button id="submitBtn" type="button" onclick="calculateResult()">Tính kết quả</button>
  
-
+<div id="questionSection" style="display: none;">
   <form id="quizForm">
     <fieldset>
       <legend>1. Bạn vừa bị người khác nói lời khó nghe. Bạn:</legend>
@@ -300,7 +300,9 @@
           formSubmitted = true;
           alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể xem kết quả.");
           document.getElementById("userForm").style.display = "none";
-          document.getElementById("submitBtn").style.display = "block";
+document.getElementById("questionSection").style.display = "block";
+document.getElementById("submitBtn").style.display = "block";
+
         } else {
           alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
         }
