@@ -93,6 +93,20 @@
     #submitBtn {
       display: none;
     }
+    .share-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.share-buttons button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
   </style>
 </head>
 <body>
@@ -512,6 +526,240 @@ function tinhKetQua() {
   const resultContainer = document.getElementById("resultSection");
   resultContainer.innerHTML = resultHTML;
   resultContainer.style.display = "block";
+<div id="resultSection" style="display:none;"></div>
+  <div id="result" class="result"></div>
+    <canvas id="chartResult" width="400" height="400" style="margin-top: 30px;"></canvas>
+    <script>
+      function validateUserForm() {
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const age = document.getElementById("age").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+
+        if (!name || !email || !age || !phone) {
+          alert("Vui lòng điền đầy đủ thông tin.");
+          return false;
+        }
+
+        // Hiện phần câu hỏi sau khi gửi form
+        setTimeout(() => {
+          document.getElementById("userForm").style.display = "none";
+          document.getElementById("quizSection").style.display = "block";
+        }, 500);
+
+        return true;
+      }
+
+    </script>
+    
+ <script>
+function tinhKetQua() {
+  const form = document.getElementById("quizForm");
+  const answers = form.querySelectorAll("input[type='radio']:checked");
+
+  let score = { Whorl: 0, Loop: 0, Arch: 0 };
+  let totalAnswered = answers.length;
+
+  answers.forEach(ans => {
+    if (score.hasOwnProperty(ans.value)) {
+      score[ans.value]++;
+    }
+  });
+
+  if (totalAnswered < 30) {
+    document.getElementById("resultSection").innerHTML = `<p style="color:red">❗ Bạn mới trả lời ${totalAnswered}/30 câu. Vui lòng hoàn thành đầy đủ để có kết quả chính xác.</p>`;
+    document.getElementById("chartResult").style.display = "none";
+    return;
+  }
+
+  const maxScore = Math.max(score.Whorl, score.Loop, score.Arch);
+  const dominantTypes = Object.keys(score).filter(key => score[key] === maxScore);
+
+  let resultHTML = `<h3>🎯 Chủng vân tay tiềm năng của bạn là: <strong>${dominantTypes.join(" & ")}</strong> (Điểm: ${maxScore}/30)</h3><br>`;
+
+  dominantTypes.forEach(type => {
+    if (type === "Whorl") {
+      resultHTML += `<strong>Whorl:</strong> Bạn có xu hướng quyết đoán, độc lập, định hướng mục tiêu rõ ràng. Thường là người lãnh đạo, thích kiểm soát và có khả năng ra quyết định nhanh chóng.<br><br>`;
+    }
+    if (type === "Loop") {
+      resultHTML += `<strong>Loop:</strong> Bạn là người cảm xúc, dễ thích nghi, linh hoạt và thiên về giao tiếp. Thường tạo sự kết nối tốt với người khác và có khả năng thấu hiểu cảm xúc.<br><br>`;
+    }
+    if (type === "Arch") {
+      resultHTML += `<strong>Arch:</strong> Bạn sống nội tâm, kiên trì, cẩn thận và thích sự ổn định. Thường là người làm việc âm thầm, có độ tin cậy cao và suy nghĩ kỹ trước khi hành động.<br><br>`;
+    }
+  });
+
+  // Hiện kết quả
+  const resultContainer = document.getElementById("resultSection");
+  resultContainer.innerHTML = resultHTML;
+  resultContainer.style.display = "block";
+
+  // Vẽ biểu đồ sau khi kết quả đã hiển thị
+  setTimeout(() => {
+    const ctx = document.getElementById('chartResult').getContext('2d');
+    const chartData = {
+      labels: ['Whorl', 'Loop', 'Arch'],
+      datasets: [{
+        data: [score.Whorl, score.Loop, score.Arch],
+        backgroundColor: ['#FF6384', '#4CAF50', '#36A2EB'],
+        borderColor: '#fff',
+        borderWidth: 2
+      }]
+    };
+
+    if (window.myChart) {
+      window.myChart.destroy();
+    }
+
+    window.myChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: chartData,
+      options: {
+        responsive: true,
+        animation: {
+          animateScale: true,
+          animateRotate: true
+        },
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: {
+              font: { size: 14 },
+              color: '#333'
+            }
+          },
+          title: {
+            display: true,
+            text: '🌟 Tỷ lệ chủng vân tay của bạn',
+            font: { size: 18 },
+            color: '#2c3e50'
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const label = context.label || '';
+                const value = context.raw || 0;
+                return `${label}: ${value} điểm`;
+              }
+            }
+          }
+        }
+      }
+    });
+  }, 300);
+}
+ </script>
+   <script>
+  document.getElementById("userForm").addEventListener("submit", function(e) {
+    e.preventDefault(); // Ngăn reload trang
+
+    const formData = {
+      name: document.getElementById("name").value.trim(),
+      email: document.getElementById("email").value.trim(),
+      age: document.getElementById("age").value.trim(),
+      phone: document.getElementById("phone").value.trim()
+    };
+
+    // Kiểm tra dữ liệu
+    if (!formData.name || !formData.email || !formData.age || !formData.phone) {
+      alert("Vui lòng điền đầy đủ thông tin.");
+      return;
+    }
+    // Gửi dữ liệu đến Formspree
+    fetch("https://formspree.io/f/xvgqydnk", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formData)
+    })
+    .then(response => {
+      if (response.ok) {
+        // Ẩn form thông tin, hiện phần câu hỏi
+        document.getElementById("userForm").style.display = "none";
+        document.getElementById("quizSection").style.display = "block";
+      } else {
+        alert("Gửi thông tin thất bại. Vui lòng thử lại.");
+      }
+    })
+    .catch(error => {
+      console.error("Lỗi gửi form:", error);
+      alert("Có lỗi xảy ra khi gửi thông tin.");
+    });
+  });
+</script>
+<!-- Các phần HTML và script khác ở trên -->
+
+<!-- ✅ Thêm đoạn xử lý tính kết quả ở cuối -->
+<script>
+  document.getElementById("submitQuiz").addEventListener("click", function () {
+    const totalQuestions = 30;
+    let answeredCount = 0;
+    let answers = [];
+
+    for (let i = 1; i <= totalQuestions; i++) {
+      const selected = document.querySelector(`input[name="q${i}"]:checked`);
+      if (selected) {
+        answeredCount++;
+        answers.push(selected.value);
+      } else {
+        answers.push(null);
+      }
+    }
+
+    if (answeredCount < totalQuestions) {
+      alert(`Bạn chưa làm đủ ${totalQuestions} câu. Vui lòng kiểm tra lại.`);
+      return;
+    }
+
+    let correctAnswers = [
+      "A", "C", "B", "D", "A", "B", "C", "D", "A", "B",
+      "C", "D", "A", "B", "C", "D", "A", "B", "C", "D",
+      "A", "B", "C", "D", "A", "B", "C", "D", "A", "B"
+    ];
+
+    let score = 0;
+    let resultHTML = "<h3>Đáp án & Kết quả:</h3><ul>";
+
+    for (let i = 0; i < totalQuestions; i++) {
+      const userAnswer = answers[i];
+      const correct = correctAnswers[i];
+      const isCorrect = userAnswer === correct;
+
+      if (isCorrect) score++;
+
+      resultHTML += `<li>Câu ${i + 1}: Bạn chọn <strong>${userAnswer}</strong> – ${isCorrect ? "<span style='color:green'>Đúng</span>" : `<span style='color:red'>Sai</span>. Đáp án đúng: <strong>${correct}</strong>`}</li>`;
+    }
+
+    resultHTML += `</ul><p><strong>Tổng điểm: ${score}/${totalQuestions}</strong></p>`;
+
+    const resultContainer = document.getElementById("resultSection");
+resultContainer.innerHTML = resultHTML;
+resultContainer.style.display = "block";
+
+// Tạo nội dung chia sẻ đơn giản
+const resultText = "Tôi vừa hoàn thành bài test chủng vân tay! Xem kết quả của tôi tại đây:";
+      const shareDiv = document.createElement("div");
+    shareDiv.className = "share-buttons";
+    shareDiv.innerHTML = `
+      <h4>📢 Chia sẻ bài test này:</h4>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank">
+        <button style="background:#3b5998; color:white;">Facebook</button>
+      </a>
+      <a href="https://zalo.me/share?url=${encodeURIComponent(window.location.href)}" target="_blank">       
+        <button style="background:#0068ff; color:white;">Zalo</button>
+      </a>
+      <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(resultText)}&url=${encodeURIComponent(window.location.href)}" target="_blank">
+        <button style="background:#1da1f2; color:white;">Twitter</button>
+      </a>
+      <a href="https://www.tiktok.com/upload?lang=vi" target="_blank">
+        <button style="background:#000000; color:white;">TikTok</button>
+      </a>
+    `;
+    resultContainer.appendChild(shareDiv);
+    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+  });
+
 
   // Vẽ biểu đồ sau khi kết quả đã hiển thị
   setTimeout(() => {
@@ -656,6 +904,7 @@ function tinhKetQua() {
     resultContainer.innerHTML = resultHTML;
     resultContainer.style.display = "block";
   });
+  
 </script>
  </div>
 </body>
