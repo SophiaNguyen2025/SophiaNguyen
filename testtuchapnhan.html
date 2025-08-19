@@ -2,73 +2,117 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Trắc nghiệm Tự Chấp Nhận</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trắc nghiệm Tự Quan Tâm bản thân</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #fefefe;
+      background: linear-gradient(to right, #FFCCFF, #FFCCFF);
       color: #333;
-      max-width: 800px;
-      margin: auto;
+      margin: 0;
       padding: 20px;
     }
-      img.logo {
-      max-width: 120px;
-      margin-bottom: 10px;
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     }
-  h1 {
+    .logo {
       text-align: center;
-      color: #5a5a99;
-      margin-bottom: 30px;
-    }
-     fieldset {
       margin-bottom: 20px;
-      border: 1px solid #ddd;
-      padding: 15px;
-      border-radius: 8px;
-      background-color: #fafafa;
     }
-    legend {
-      font-weight: bold;
-      color: #444;
+    .logo img {
+      width: 120px;
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
     }
     label {
       display: block;
-      margin: 8px 0;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    .question {
+      margin: 20px 0;
+      padding: 15px;
+      border-left: 5px solid #3366CC;
+      border-radius: 10px;
+    }
+    .question:nth-child(even) {
+      background:#009900;
+    }
+    .question:nth-child(odd) {
+      background: #CCCC99;
+    }
+    .question p {
+      margin: 0 0 10px;
+      font-weight: bold;
+    }
+    .question label {
+      display: block;
+      font-weight: normal;
+      margin-bottom: 8px;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
     }
     button {
-      background-color: #b35c9c;
+      margin-top: 30px;
+      padding: 12px 24px;
+      background: #4CAF50;
       color: white;
       border: none;
-      padding: 10px 20px;
+      border-radius: 8px;
       font-size: 16px;
-      border-radius: 6px;
       cursor: pointer;
+      width: 100%;
     }
     button:hover {
-      background-color: #993f7d;
+      background: #45a049;
     }
-    #result {
+    .result {
+      display: none;
+      background: #ede7f6;
       margin-top: 30px;
-      font-size: 18px;
+      padding: 20px;
+      border-radius: 12px;
+      color: #4a148c;
       font-weight: bold;
-      color: #444;
     }
   </style>
 </head>
 <body>
-     <img src="images/hinhremovenen.png" alt="Logo Sophia" class="logo">
+  <div class="container">
+    <div class="logo">
+      <img src="images/hinhremovenen.png" alt="Logo Sophia">
+    </div>
+    <h1>Trắc nghiệm Tự Quan Tâm </h1>
+    <!-- Form cá nhân -->
+   <form id="userForm" action="https://formspree.io/f/mgvzqrje" method="POST">
+      <h2>Thông tin người làm test</h2>
+      <label>Họ tên:</label>
+      <input type="text" name="name" id="name" required>
+      <label>Email:</label>
+      <input type="email" name="email" id="email" required>
+      <label>Tuổi:</label>
+      <input type="number" name="age" id="age" required>
+      <label>Số điện thoại:</label>
+      <input type="text" name="phone" id="phone" required>
+      <button type="submit">Gửi thông tin  & tiếp tục</button>
+      </form>
+ 
   
-  <h1>🌸 Bài Test Tự Chấp Nhận – Self-Acceptance Index</h1>
-  <p>Hãy chọn phản ứng gần nhất với bạn trong từng tình huống. Không có đúng hay sai – chỉ có mức độ bạn đang đồng hành với chính mình.</p>
- <form id="infoForm" action="https://formspree.io/f/mgvzqrje" method="POST" target="hiddenFrame" onsubmit="return showCountdown()">
-    <iframe name="hiddenFrame" style="display:none;"></iframe>
-    <label>Họ và tên:<br><input type="text" name="Họ và tên" required></label>
-    <label>Email:<br><input type="email" name="Email" required></label>
-    <label>Số điện thoại:<br><input type="tel" name="Số điện thoại" pattern="^\d{10}$" required placeholder="Nhập đúng 10 số"></label>
-    <button type="submit">Bắt đầu trắc nghiệm</button>
-  </form>
-  
+ <div id="quizSection" style="display: none;">
   <form id="quizForm">
     <fieldset>
       <legend>1. Bạn từng có sai lầm làm người khác tổn thương. Giờ nhớ lại, bạn:</legend>
@@ -227,12 +271,66 @@
       <label><input type="radio" name="q20" value="1"> C. Nghĩ rằng mình không nên ra quyết định nữa</label>
       <label><input type="radio" name="q20" value="0"> D. Tự trách và không thể tha thứ</label>
     </fieldset>
+ </form>
+      <button id="submitBtn" type="button" onclick="calculateResult()">Tính kết quả</button>
+  </div>
+  
+    <div class="result" id="result">
+      <h2>Kết quả trắc nghiệm:</h2>
+      <p id="output"></p>
+    </div>
 
-    <button type="button" onclick="calculateScore()">Xem kết quả</button>
-  </form>
-
-  <div id="result"></div>
   <script>
+    <script>
+    let formSubmitted = false;
+
+    document.getElementById("userForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const form = e.target;
+
+      fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      })
+      .then(response => {
+        if (response.ok) {
+          formSubmitted = true;
+          alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể làm bài test và xem kết quả.");
+          document.getElementById("userForm").style.display = "none";
+          document.getElementById("quizSection").style.display = "block";
+        } else {
+          alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
+        }
+      })
+      .catch(error => {
+        alert("⚠️ Lỗi kết nối. Vui lòng thử lại sau.");
+      });
+    });
+
+    function calculateResult() {
+      if (!formSubmitted) {
+        alert("⚠️ Bạn cần gửi thông tin trước khi xem kết quả.");
+        return;
+      }
+
+      let score = {A: 0, B: 0, C: 0, D: 0 };
+      let answeredCount = 0;
+
+      for (let i = 1; i <= 20; i++) {
+        let options = document.getElementsByName(`q${i}`);
+        let selected = Array.from(options).find(opt => opt.checked);
+        if (selected) {
+          score[selected.value]++;
+          answeredCount++;
+        }
+      }
+
+      if (answeredCount < 20) {
+        alert(`⚠️ Bạn cần hoàn thành tất cả 20 câu hỏi trước khi xem kết quả.`);
+        return;
+      }
     function calculateScore() {
       let total = 0;
       for (let i = 1; i <= 20; i++) {
