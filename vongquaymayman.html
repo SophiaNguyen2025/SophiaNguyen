@@ -122,9 +122,6 @@
 </audio>
 
 <script>
- <!-- ... phần đầu giữ nguyên như chị đã gửi ... -->
-
-<script>
   const canvas = document.getElementById("wheelCanvas");
   const ctx = canvas.getContext("2d");
   let names = ["Lan", "Hùng", "Mai", "Tuấn"];
@@ -172,7 +169,6 @@
       ctx.fillText(names[i], radius - 10, 5);
       ctx.restore();
     }
-  }
 
   function startSpin() {
     const input = document.getElementById("nameList").value;
@@ -220,8 +216,11 @@
     history.push(chosenName);
     updateHistory();
 
-    // ✅ Xóa người trúng khỏi danh sách
+        // ❌ Xóa người trúng khỏi danh sách
     names.splice(index, 1);
+
+    // ✅ Reset góc quay để vẽ lại đúng
+    angle = 0;
 
     // Vẽ lại nếu còn người
     if (names.length > 0) {
@@ -229,7 +228,7 @@
     } else {
       resultDiv.innerHTML += "<br>🎊 Đã quay hết tất cả người!";
     }
-  }
+
 
   function updateHistory() {
     const historyList = document.getElementById("historyList");
