@@ -154,7 +154,6 @@
   ];
 
   const quizForm = document.getElementById("quizForm");
-
   questions.forEach((q, index) => {
     const div = document.createElement("div");
     div.className = "question";
@@ -202,46 +201,55 @@
     "Bạn có tư duy sáng tạo: linh hoạt, giàu tưởng tượng, thích khám phá cái mới. Bạn thường nghĩ khác biệt và tạo ra những giải pháp độc đáo."
   ];
 
-  document.getElementById("submitBtn").onclick = function() {
-    fetch(this.action, {
-    const formData = new FormData(form);
-    let counts = [0, 0, 0, 0];
+  document.getElementById("submitBtn").onclick = function () {
+  const form = document.getElementById("quizForm");
+  const formData = new FormData(form);
+  let counts = [0, 0, 0, 0];
 
-    for (let i = 0; i < questions.length; i++) {
-      const val = formData.get(`q${i}`);
-      if (val !== null) counts[parseInt(val)]++;
+  let answeredCount = 0;
+
+  for (let i = 0; i < questions.length; i++) {
+    const val = formData.get(`q${i}`);
+    if (val !== null) {
+      counts[parseInt(val)]++;
+      answeredCount++;
     }
+  }
 
-    const total = counts.reduce((a, b) => a + b, 0);
-    const percentages = counts.map(c => Math.round((c / total) * 100));
-    const max = Math.max(...counts);
-    const dominantIndex = counts.indexOf(max);
+  if (answeredCount < questions.length) {
+    alert("⚠️ Bạn cần hoàn thành tất cả câu hỏi trước khi xem kết quả.");
+    return;
+  }
 
-    // Hiển thị kết quả
-    document.getElementById("result").innerHTML =
-      `<b>Kết quả:</b><br>` +
-      styles.map((s, i) => `${s}: ${percentages[i]}%`).join("<br>");
+  const total = counts.reduce((a, b) => a + b, 0);
+  const percentages = counts.map(c => Math.round((c / total) * 100));
+  const max = Math.max(...counts);
+  const dominantIndex = counts.indexOf(max);
 
-    // Vẽ biểu đồ tròn
-    const ctx = document.getElementById("chart").getContext("2d");
-    const colors = ["#0077cc", "#e91e63", "#ff9800", "#4caf50"];
-    let start = 0;
+  document.getElementById("result").style.display = "block";
+  document.getElementById("result").innerHTML =
+    `<b>Kết quả:</b><br>` +
+    styles.map((s, i) => `${s}: ${percentages[i]}%`).join("<br>");
 
-    ctx.clearRect(0, 0, 400, 400);
-    percentages.forEach((p, i) => {
-      const slice = (p / 100) * 2 * Math.PI;
-      ctx.beginPath();
-      ctx.moveTo(200, 200);
-      ctx.arc(200, 200, 150, start, start + slice);
-      ctx.fillStyle = colors[i];
-      ctx.fill();
-      start += slice;
-    });
+  const ctx = document.getElementById("chart").getContext("2d");
+  const colors = ["#0077cc", "#e91e63", "#ff9800", "#4caf50"];
+  let start = 0;
 
-    // Hiển thị mô tả
-    document.getElementById("description").innerHTML =
-      `<b>Phân tích:</b><br>${descriptions[dominantIndex]}`;
-  };
+  ctx.clearRect(0, 0, 400, 400);
+  percentages.forEach((p, i) => {
+    const slice = (p / 100) * 2 * Math.PI;
+    ctx.beginPath();
+    ctx.moveTo(200, 200);
+    ctx.arc(200, 200, 150, start, start + slice);
+    ctx.fillStyle = colors[i];
+    ctx.fill();
+    start += slice;
+  });
+
+  document.getElementById("description").innerHTML =
+    `<b>Phân tích:</b><br>${descriptions[dominantIndex]}`;
+};
+
 </script>
 </body>
 </html>
