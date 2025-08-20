@@ -110,7 +110,7 @@
     <input type="number" name="age" id="age" required>
     <label>Số điện thoại:</label>
     <input type="text" name="phone" id="phone" required>
-    <button type="submit">Gửi thông tin---> nhấn Go Back ---> & tiếp tục</button>
+    <button type="submit">Gửi thông tin & tiếp tục</button>
   </form>
       
  <div id="quizSection" style="display: none;">
@@ -353,8 +353,8 @@
       message = "🔴 Bạn đang thiếu ranh giới cá nhân rõ ràng. Có thể dễ bị tổn thương, bị kiểm soát hoặc không biết cách bảo vệ bản thân.";
     }
 
-    document.getElementById("result").style.display = "block";
-    document.getElementById("output").innerHTML = `<h2>Kết quả: ${totalScore}/60 điểm</h2><p>${message}</p>`;
+    document.getElementById("output").innerHTML = `<strong>${totalScore}/60 điểm</strong><br>${message}`;
+document.getElementById("result").style.display = "block";
   }
 </script>
 
