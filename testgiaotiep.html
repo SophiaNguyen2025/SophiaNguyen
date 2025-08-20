@@ -159,56 +159,11 @@ const descriptions = [
   "Bạn là người hòa giải: nhẹ nhàng, dễ gần, giỏi lắng nghe và duy trì sự hài hòa. Bạn tạo cảm giác an toàn trong giao tiếp."
 ];
 
-// Render câu hỏi
-const quizForm = document.getElementById("quizForm");
-questions.forEach((q, index) => {
-  const div = document.createElement("div");
-  div.className = "question";
-  div.innerHTML = `<h3>Câu ${index + 1}: ${q}</h3>`;
-  options.forEach((opt, i) => {
-    div.innerHTML += `
-      <label>
-        <input type="radio" name="q${index}" value="${i}" required> ${opt}
-      </label>
-    `;
-  });
-  quizForm.appendChild(div);
-});
-// Xử lý form cá nhân
-document.getElementById("userForm").addEventListener("submit", function(e) {
-  e.preventDefault(); // Ngăn reload trang
-
-  // Gửi dữ liệu qua Formspree
-  fetch("https://formspree.io/f/mgvzqrje", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      name: document.getElementById("name").value,
-      email: document.getElementById("email").value,
-      age: document.getElementById("age").value,
-      phone: document.getElementById("phone").value
-    })
-  })
-  .then(response => {
-    if (response.ok) {
-      // Ẩn form cá nhân, hiện phần câu hỏi
-      document.getElementById("userForm").style.display = "none";
-      document.getElementById("quizForm").style.display = "block";
-      document.getElementById("submitBtn").style.display = "block";
-    } else {
-      alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
-    }
-  })
-  .catch(error => {
-    console.error("Lỗi gửi form:", error);
-    alert("❌ Có lỗi xảy ra khi gửi thông tin.");
-  });
-});
-
-// Tính kết quả
-function calculateResult() {
-  const formData = new FormData(document.getElementById("quizForm"));
+  document.getElementById("submitBtn").onclick = function () {
+  const form = document.getElementById("quizForm");
+  const formData = new FormData(form);
   let counts = [0, 0, 0, 0];
+
   let answeredCount = 0;
 
   for (let i = 0; i < questions.length; i++) {
@@ -235,7 +190,7 @@ function calculateResult() {
     styles.map((s, i) => `${s}: ${percentages[i]}%`).join("<br>");
 
   const ctx = document.getElementById("chart").getContext("2d");
-  const colors = ["#ff9800", "#2196f3", "#f44336", "#4caf50"];
+  const colors = ["#0077cc", "#e91e63", "#ff9800", "#4caf50"];
   let start = 0;
 
   ctx.clearRect(0, 0, 400, 400);
@@ -249,10 +204,10 @@ function calculateResult() {
     start += slice;
   });
 
-  document.getElementById("description").style.display = "block";
   document.getElementById("description").innerHTML =
     `<b>Phân tích:</b><br>${descriptions[dominantIndex]}`;
-}
+};
+
 </script>
 </body>
 </html>
