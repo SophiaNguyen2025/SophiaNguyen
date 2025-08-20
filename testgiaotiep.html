@@ -174,6 +174,36 @@ questions.forEach((q, index) => {
   });
   quizForm.appendChild(div);
 });
+// Xử lý form cá nhân
+document.getElementById("userForm").addEventListener("submit", function(e) {
+  e.preventDefault(); // Ngăn reload trang
+
+  // Gửi dữ liệu qua Formspree
+  fetch("https://formspree.io/f/mgvzqrje", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      name: document.getElementById("name").value,
+      email: document.getElementById("email").value,
+      age: document.getElementById("age").value,
+      phone: document.getElementById("phone").value
+    })
+  })
+  .then(response => {
+    if (response.ok) {
+      // Ẩn form cá nhân, hiện phần câu hỏi
+      document.getElementById("userForm").style.display = "none";
+      document.getElementById("quizForm").style.display = "block";
+      document.getElementById("submitBtn").style.display = "block";
+    } else {
+      alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
+    }
+  })
+  .catch(error => {
+    console.error("Lỗi gửi form:", error);
+    alert("❌ Có lỗi xảy ra khi gửi thông tin.");
+  });
+});
 
 // Tính kết quả
 function calculateResult() {
