@@ -133,15 +133,15 @@ const questions = [
   "Bạn cảm thấy tự tin nhất khi:",
   "Bạn thích nhận phản hồi theo cách nào?",
   "Bạn thường xử lý thông tin như thế nào?",
-  "Bạn cảm thấy bị thu hút bởi:",
-  "Bạn thường được người khác miêu tả là:",
-  "Bạn thích làm việc với người như thế nào?",
+  "Bạn thường chú ý đến điều gì đầu tiên khi giao tiếp với người khác?",
+  "Người khác thường phản hồi thế nào về cách bạn giao tiếp?",
+  "Bạn cảm thấy dễ hợp tác nhất với người có phong cách nào?",
   "Bạn thường tiếp cận vấn đề theo cách:",
   "Bạn cảm thấy khó chịu nhất khi:",
   "Bạn thường thể hiện cảm xúc như thế nào?",
   "Bạn thích môi trường giao tiếp như thế nào?",
   "Bạn thường lắng nghe người khác bằng cách:",
-  "Bạn cảm thấy hài lòng nhất khi:"
+  "Bạn thấy cuộc trò chuyện hiệu quả khi điều gì xảy ra?"
 ];
 
 const options = [
@@ -207,19 +207,19 @@ document.getElementById("userForm").addEventListener("submit", function(e) {
 
 // Tính kết quả
 function calculateResult() {
-  const formData = new FormData(quizForm);
+  const formData = new FormData(document.getElementById("quizForm"));
   let counts = [0, 0, 0, 0];
-  let answered = 0;
+  let answeredCount = 0;
 
   for (let i = 0; i < questions.length; i++) {
     const val = formData.get(`q${i}`);
     if (val !== null) {
       counts[parseInt(val)]++;
-      answered++;
+      answeredCount++;
     }
   }
 
-  if (answered < questions.length) {
+  if (answeredCount < questions.length) {
     alert("⚠️ Bạn cần hoàn thành tất cả câu hỏi trước khi xem kết quả.");
     return;
   }
@@ -229,13 +229,11 @@ function calculateResult() {
   const max = Math.max(...counts);
   const dominantIndex = counts.indexOf(max);
 
-  // Hiển thị kết quả
   document.getElementById("result").style.display = "block";
   document.getElementById("result").innerHTML =
     `<b>Kết quả:</b><br>` +
     styles.map((s, i) => `${s}: ${percentages[i]}%`).join("<br>");
 
-  // Vẽ biểu đồ tròn
   const ctx = document.getElementById("chart").getContext("2d");
   const colors = ["#ff9800", "#2196f3", "#f44336", "#4caf50"];
   let start = 0;
@@ -251,10 +249,11 @@ function calculateResult() {
     start += slice;
   });
 
-  // Hiển thị mô tả
   document.getElementById("description").style.display = "block";
   document.getElementById("description").innerHTML =
     `<b>Phân tích:</b><br>${descriptions[dominantIndex]}`;
+}
+
 }
 </script>
 </body>
