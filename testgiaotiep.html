@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trắc nghiệm Giao Tiếp </title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #ffffff, #ffffff);
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .logo img {
+      width: 120px;
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    .question {
+      margin: 20px 0;
+      padding: 15px;
+      border-left: 5px solid #3366CC;
+      border-radius: 10px;
+    }
+    .question:nth-child(even) {
+      background:#4CAF50;
+    }
+    .question:nth-child(odd) {
+      background:#4a148c;
+    }
+    .question p {
+      margin: 0 0 10px;
+      font-weight: bold;
+    }
+    .question label {
+      display: block;
+      font-weight: normal;
+      margin-bottom: 8px;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 30px;
+      padding: 12px 24px;
+      background: #cc9900;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    .result {
+      display: none;
+      background: #ede7f6;
+      margin-top: 30px;
+      padding: 20px;
+      border-radius: 12px;
+      color: #4a148c;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="images/hinhremovenen.png" alt="Logo Sophia">
+    </div>
+    <h1>Trắc nghiệm Giao Tiếp</h1>
+    <!-- Form cá nhân -->
+   <form id="userForm" action="https://formspree.io/f/mgvzqrje" method="POST">
+      <h2>Thông tin người làm test</h2>
+      <label>Họ tên:</label>
+      <input type="text" name="name" id="name" required>
+      <label>Email:</label>
+      <input type="email" name="email" id="email" required>
+      <label>Tuổi:</label>
+      <input type="number" name="age" id="age" required>
+      <label>Số điện thoại:</label>
+      <input type="text" name="phone" id="phone" required>
+      <button type="submit">Gửi thông tin  & tiếp tục</button>
+      </form>
+ <!-- Phần câu hỏi trắc nghiệm -->
+<form id="quizForm" style="display: none;">
+  <h2>Phần câu hỏi trắc nghiệm</h2>
+</form>
+
+<button id="submitBtn" type="button" style="display: none;">Tính kết quả</button>
+
+<div id="result" class="result"></div>
+<canvas id="chart" width="400" height="400" style="margin-top:20px;"></canvas>
+<div id="description" style="margin-top:20px; font-size:16px;"></div>
+<script>
+const questions = [
+  "Khi bắt đầu cuộc trò chuyện, bạn thường:",
+  "Bạn cảm thấy thoải mái nhất khi:",
+  "Khi người khác không đồng ý với bạn, bạn thường:",
+  "Bạn thích truyền đạt ý tưởng bằng cách:",
+  "Khi làm việc nhóm, bạn thường:",
+  "Bạn phản ứng thế nào khi có mâu thuẫn?",
+  "Bạn thấy điều gì quan trọng nhất trong giao tiếp?",
+  "Bạn thường đưa ra quyết định như thế nào?",
+  "Bạn cảm thấy tự tin nhất khi:",
+  "Bạn thích nhận phản hồi theo cách nào?",
+  "Bạn thường xử lý thông tin như thế nào?",
+  "Bạn cảm thấy bị thu hút bởi:",
+  "Bạn thường được người khác miêu tả là:",
+  "Bạn thích làm việc với người như thế nào?",
+  "Bạn thường tiếp cận vấn đề theo cách:",
+  "Bạn cảm thấy khó chịu nhất khi:",
+  "Bạn thường thể hiện cảm xúc như thế nào?",
+  "Bạn thích môi trường giao tiếp như thế nào?",
+  "Bạn thường lắng nghe người khác bằng cách:",
+  "Bạn cảm thấy hài lòng nhất khi:"
+];
+
+const options = [
+  "Thể hiện cảm xúc và kết nối với người khác",     // Expressive
+  "Phân tích kỹ lưỡng và suy nghĩ logic",           // Analytical
+  "Ra quyết định nhanh và định hướng kết quả",      // Driver
+  "Lắng nghe và duy trì sự hài hòa",                // Amiable
+];
+
+const styles = ["Expressive 🎤", "Analytical 📊", "Driver 🎯", "Amiable 🤝"];
+const descriptions = [
+  "Bạn là người truyền cảm hứng: hướng ngoại, giàu cảm xúc, thích chia sẻ và kết nối. Bạn giỏi tạo năng lượng tích cực trong giao tiếp.",
+  "Bạn là người phân tích: lý trí, chi tiết, thích suy nghĩ kỹ trước khi phản hồi. Bạn giỏi xử lý thông tin và đưa ra giải pháp logic.",
+  "Bạn là người điều phối: quyết đoán, trực tiếp, định hướng kết quả. Bạn giỏi lãnh đạo và thúc đẩy hành động.",
+  "Bạn là người hòa giải: nhẹ nhàng, dễ gần, giỏi lắng nghe và duy trì sự hài hòa. Bạn tạo cảm giác an toàn trong giao tiếp."
+];
+
+// Render câu hỏi
+const quizForm = document.getElementById("quizForm");
+questions.forEach((q, index) => {
+  const div = document.createElement("div");
+  div.className = "question";
+  div.innerHTML = `<h3>Câu ${index + 1}: ${q}</h3>`;
+  options.forEach((opt, i) => {
+    div.innerHTML += `
+      <label>
+        <input type="radio" name="q${index}" value="${i}" required> ${opt}
+      </label>
+    `;
+  });
+  quizForm.appendChild(div);
+});
+
+// Tính kết quả
+function calculateResult() {
+  const formData = new FormData(quizForm);
+  let counts = [0, 0, 0, 0];
+  let answered = 0;
+
+  for (let i = 0; i < questions.length; i++) {
+    const val = formData.get(`q${i}`);
+    if (val !== null) {
+      counts[parseInt(val)]++;
+      answered++;
+    }
+  }
+
+  if (answered < questions.length) {
+    alert("⚠️ Bạn cần hoàn thành tất cả câu hỏi trước khi xem kết quả.");
+    return;
+  }
+
+  const total = counts.reduce((a, b) => a + b, 0);
+  const percentages = counts.map(c => Math.round((c / total) * 100));
+  const max = Math.max(...counts);
+  const dominantIndex = counts.indexOf(max);
+
+  // Hiển thị kết quả
+  document.getElementById("result").style.display = "block";
+  document.getElementById("result").innerHTML =
+    `<b>Kết quả:</b><br>` +
+    styles.map((s, i) => `${s}: ${percentages[i]}%`).join("<br>");
+
+  // Vẽ biểu đồ tròn
+  const ctx = document.getElementById("chart").getContext("2d");
+  const colors = ["#ff9800", "#2196f3", "#f44336", "#4caf50"];
+  let start = 0;
+
+  ctx.clearRect(0, 0, 400, 400);
+  percentages.forEach((p, i) => {
+    const slice = (p / 100) * 2 * Math.PI;
+    ctx.beginPath();
+    ctx.moveTo(200, 200);
+    ctx.arc(200, 200, 150, start, start + slice);
+    ctx.fillStyle = colors[i];
+    ctx.fill();
+    start += slice;
+  });
+
+  // Hiển thị mô tả
+  document.getElementById("description").style.display = "block";
+  document.getElementById("description").innerHTML =
+    `<b>Phân tích:</b><br>${descriptions[dominantIndex]}`;
+}
+</script>
+</body>
+</html>
