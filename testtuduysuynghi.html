@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trắc nghiệm Tư Duy Suy Nghĩ </title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #ffffff, #ffffff);
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .logo img {
+      width: 120px;
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    .question {
+      margin: 20px 0;
+      padding: 15px;
+      border-left: 5px solid #3366CC;
+      border-radius: 10px;
+    }
+    .question:nth-child(even) {
+      background:#CC9900;
+    }
+    .question:nth-child(odd) {
+      background: #00CC99;
+    }
+    .question p {
+      margin: 0 0 10px;
+      font-weight: bold;
+    }
+    .question label {
+      display: block;
+      font-weight: normal;
+      margin-bottom: 8px;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 30px;
+      padding: 12px 24px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    .result {
+      display: none;
+      background: #ede7f6;
+      margin-top: 30px;
+      padding: 20px;
+      border-radius: 12px;
+      color: #4a148c;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="images/hinhremovenen.png" alt="Logo Sophia">
+    </div>
+    <h1>Trắc nghiệm Tư Duy Suy Nghĩ </h1>
+    <!-- Form cá nhân -->
+   <form id="userForm" action="https://formspree.io/f/mgvzqrje" method="POST">
+      <h2>Thông tin người làm test</h2>
+      <label>Họ tên:</label>
+      <input type="text" name="name" id="name" required>
+      <label>Email:</label>
+      <input type="email" name="email" id="email" required>
+      <label>Tuổi:</label>
+      <input type="number" name="age" id="age" required>
+      <label>Số điện thoại:</label>
+      <input type="text" name="phone" id="phone" required>
+      <button type="submit">Gửi thông tin  & tiếp tục</button>
+      </form>
+ 
+
+<script>
+  const questions = [
+    "Bạn thường giải quyết vấn đề bằng cách nào?",
+    "Khi làm việc nhóm, bạn thường đóng vai trò gì?",
+    "Bạn cảm thấy thoải mái nhất khi làm việc trong môi trường nào?",
+    "Khi đối mặt với vấn đề phức tạp, bạn thường làm gì đầu tiên?",
+    "Bạn thường cảm thấy hài lòng nhất khi hoàn thành công việc như thế nào?",
+    "Khi học điều mới, bạn thích cách nào nhất?",
+    "Bạn phản ứng thế nào khi có tình huống bất ngờ?",
+    "Bạn thường đưa ra quyết định dựa trên điều gì?",
+    "Bạn thích cách trình bày thông tin như thế nào?",
+    "Bạn thấy mình giỏi nhất ở khía cạnh nào?",
+    "Bạn thường được người khác miêu tả là người như thế nào?",
+    "Bạn cảm thấy tự tin nhất khi làm gì?",
+    "Bạn thường xử lý mâu thuẫn như thế nào?",
+    "Bạn thích làm việc với kiểu người nào?",
+    "Bạn cảm thấy bị thu hút bởi điều gì?",
+    "Bạn thường đánh giá thành công dựa trên?",
+    "Bạn thấy điều gì quan trọng nhất trong công việc?",
+    "Bạn thường tiếp cận mục tiêu như thế nào?",
+    "Bạn cảm thấy hứng thú khi?",
+    "Bạn thường học hỏi từ?"
+  ];
+
+  const options = [
+    "Phân tích logic và hệ thống",      // Tư duy hệ thống
+    "Dựa vào cảm xúc và trực giác",     // Tư duy cảm xúc
+    "Hành động nhanh để thử nghiệm",   // Tư duy hành động
+    "Tạo ra cách tiếp cận mới"         // Tư duy sáng tạo
+  ];
+
+  const form = document.getElementById("quizForm");
+
+  <button id="submitBtn" type="button" onclick="calculateResult()">Tính kết quả</button>
+  </div>
+
+<div id="result"></div>
+<canvas id="chart" width="400" height="400" style="margin-top:20px;"></canvas>
+<div id="description" style="margin-top:20px; font-size:16px;"></div>
+
+<script>
+  const styles = ["Hệ thống 🧠", "Cảm xúc 💖", "Hành động ⚡", "Sáng tạo 🎨"];
+  const descriptions = [
+    "Bạn có tư duy hệ thống: logic, chiến lược, thích phân tích và lập kế hoạch. Bạn giỏi tổ chức, thích quy trình rõ ràng và ra quyết định dựa trên dữ liệu.",
+    "Bạn có tư duy cảm xúc: trực giác mạnh, đồng cảm, dễ kết nối với người khác. Bạn thường cảm nhận sâu sắc và đưa ra quyết định dựa trên cảm xúc.",
+    "Bạn có tư duy hành động: nhanh nhạy, thực tế, thích thử nghiệm và giải quyết vấn đề ngay. Bạn không ngại rủi ro và thường là người tiên phong.",
+    "Bạn có tư duy sáng tạo: linh hoạt, giàu tưởng tượng, thích khám phá cái mới. Bạn thường nghĩ khác biệt và tạo ra những giải pháp độc đáo."
+  ];
+
+  document.getElementById("submitBtn").onclick = function() {
+    const formData = new FormData(form);
+    let counts = [0, 0, 0, 0];
+
+    for (let i = 0; i < questions.length; i++) {
+      const val = formData.get(`q${i}`);
+      if (val !== null) counts[parseInt(val)]++;
+    }
+
+    const total = counts.reduce((a, b) => a + b, 0);
+    const percentages = counts.map(c => Math.round((c / total) * 100));
+    const max = Math.max(...counts);
+    const dominantIndex = counts.indexOf(max);
+
+    // Hiển thị kết quả
+    document.getElementById("result").innerHTML =
+      `<b>Kết quả:</b><br>` +
+      styles.map((s, i) => `${s}: ${percentages[i]}%`).join("<br>");
+
+    // Vẽ biểu đồ tròn
+    const ctx = document.getElementById("chart").getContext("2d");
+    const colors = ["#0077cc", "#e91e63", "#ff9800", "#4caf50"];
+    let start = 0;
+
+    ctx.clearRect(0, 0, 400, 400);
+    percentages.forEach((p, i) => {
+      const slice = (p / 100) * 2 * Math.PI;
+      ctx.beginPath();
+      ctx.moveTo(200, 200);
+      ctx.arc(200, 200, 150, start, start + slice);
+      ctx.fillStyle = colors[i];
+      ctx.fill();
+      start += slice;
+    });
+
+    // Hiển thị mô tả
+    document.getElementById("description").innerHTML =
+      `<b>Phân tích:</b><br>${descriptions[dominantIndex]}`;
+  };
+</script>
+</body>
+</html>
