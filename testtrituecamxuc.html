@@ -111,11 +111,8 @@
       <button type="submit">Gửi thông tin → nhấn Go Back → & tiếp tục</button>
     </form>
 
-    <!-- Nút tính kết quả -->
-    <button id="submitBtn" type="button" onclick="calculateResult()">Tính kết quả</button>
-
-    
-  <form id="eqForm">
+     <div id="quizSection" style="display: none;">
+   <form id="eqForm">
     <div class="question">
       <h3>1. Tôi thường nhận ra cảm xúc của mình ngay khi chúng xuất hiện.</h3>
       <div class="answers">
@@ -334,13 +331,15 @@
         <label><input type="radio" name="q20" value="1"> Rất sai</label>
       </div>
     </div>
+   </form>
 
-
+       <button id="submitBtn" type="button" onclick="calculateResult()">Tính kết quả</button>
+     </div>
+    
  <div class="result" id="result">
       <h2>Kết quả trắc nghiệm:</h2>
       <p id="output"></p>
     </div>
-  </div>
 
   <!-- Script xử lý -->
 <script>
