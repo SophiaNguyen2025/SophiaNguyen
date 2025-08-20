@@ -150,7 +150,46 @@ const options = [
   "Ra quyết định nhanh và định hướng kết quả",      // Driver
   "Lắng nghe và duy trì sự hài hòa",                // Amiable
 ];
+ const quizForm = document.getElementById("quizForm");
+  questions.forEach((q, index) => {
+    const div = document.createElement("div");
+    div.className = "question";
+    div.innerHTML = `<p>Câu ${index + 1}: ${q}</p>`;
+    options.forEach((opt, i) => {
+      div.innerHTML += `
+        <label>
+          <input type="radio" name="q${index}" value="${i}" required> ${opt}
+        </label>
+      `;
+    });
+    quizForm.appendChild(div);
+  });
 
+  // Sau khi gửi form thông tin, hiện phần câu hỏi
+  document.getElementById("userForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    fetch(this.action, {
+      method: "POST",
+      body: new FormData(this),
+      headers: { 'Accept': 'application/json' }
+    })
+    .then(response => {
+      if (response.ok) {
+        alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể làm bài test.");
+        document.getElementById("userForm").style.display = "none";
+        quizForm.style.display = "block";
+        document.getElementById("submitBtn").style.display = "block";
+      } else {
+        alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
+      }
+    })
+    .catch(error => {
+      alert("⚠️ Lỗi kết nối. Vui lòng thử lại sau.");
+    });
+  });
+</script>
+
+  <script>
 const styles = ["Expressive 🎤", "Analytical 📊", "Driver 🎯", "Amiable 🤝"];
 const descriptions = [
   "Bạn là người truyền cảm hứng: hướng ngoại, giàu cảm xúc, thích chia sẻ và kết nối. Bạn giỏi tạo năng lượng tích cực trong giao tiếp.",
