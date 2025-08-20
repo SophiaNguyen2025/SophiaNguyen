@@ -315,48 +315,39 @@
   });
 
   function calculateResult() {
-    if (!formSubmitted) {
-      alert("⚠️ Bạn cần gửi thông tin trước khi xem kết quả.");
-      return;
-    }
-
-    let score = { A: 0, B: 0, C: 0, D: 0 };
-    let answeredCount = 0;
-
-    for (let i = 1; i <= 20; i++) {
-      const selected = document.querySelector(`input[name="q${i}"]:checked`);
-      if (selected) {
-        const value = selected.value;
-        if (score.hasOwnProperty(value)) {
-          score[value]++;
-          answeredCount++;
-        }
-      }
-    }
-
-    if (answeredCount < 20) {
-      alert("⚠️ Bạn cần hoàn thành tất cả 20 câu hỏi trước khi xem kết quả.");
-      return;
-    }
-
-    let totalScore =
-      score.A * 3 +
-      score.B * 2 +
-      score.C * 1 +
-      score.D * 0;
-
-    let message = "";
-    if (totalScore >= 50) {
-      message = "🟢 Ranh giới cá nhân của Bạn rất rõ ràng. Bạn biết cách bảo vệ nhu cầu, cảm xúc và quyền lợi của mình một cách lành mạnh.";
-    } else if (totalScore >= 30) {
-      message = "🟡 Bạn có một số ranh giới cá nhân, nhưng vẫn dễ bị ảnh hưởng hoặc lung lay trong các mối quan hệ.";
-    } else {
-      message = "🔴 Bạn đang thiếu ranh giới cá nhân rõ ràng. Có thể dễ bị tổn thương, bị kiểm soát hoặc không biết cách bảo vệ bản thân.";
-    }
-
-    document.getElementById("output").innerHTML = `<strong>${totalScore}/60 điểm</strong><br>${message}`;
-    document.getElementById("result").style.display = "block";
+  if (!formSubmitted) {
+    alert("⚠️ Bạn cần gửi thông tin trước khi xem kết quả.");
+    return;
   }
+
+  let totalScore = 0;
+  let answeredCount = 0;
+
+  for (let i = 1; i <= 20; i++) {
+    const selected = document.querySelector(`input[name="q${i}"]:checked`);
+    if (selected) {
+      totalScore += parseInt(selected.value);
+      answeredCount++;
+    }
+  }
+
+  if (answeredCount < 20) {
+    alert("⚠️ Bạn cần hoàn thành tất cả 20 câu hỏi trước khi xem kết quả.");
+    return;
+  }
+
+  let message = "";
+  if (totalScore >= 50) {
+    message = "🟢 Ranh giới cá nhân của Bạn rất rõ ràng. Bạn biết cách bảo vệ nhu cầu, cảm xúc và quyền lợi của mình một cách lành mạnh.";
+  } else if (totalScore >= 30) {
+    message = "🟡 Bạn có một số ranh giới cá nhân, nhưng vẫn dễ bị ảnh hưởng hoặc lung lay trong các mối quan hệ.";
+  } else {
+    message = "🔴 Bạn đang thiếu ranh giới cá nhân rõ ràng. Có thể dễ bị tổn thương, bị kiểm soát hoặc không biết cách bảo vệ bản thân.";
+  }
+
+  document.getElementById("output").innerHTML = `<strong>${totalScore}/60 điểm</strong><br>${message}`;
+  document.getElementById("result").style.display = "block";
+}
 </script>
 </body>
 </html>
