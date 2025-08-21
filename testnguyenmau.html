@@ -119,8 +119,10 @@
 <div id="result" class="result"></div>
 <canvas id="chart" width="400" height="400" style="margin-top:20px;"></canvas>
 <div id="description" style="margin-top:20px; font-size:16px;"></div>
-<script>
-const questions = [
+
+    <script>
+
+  const questions = [
   {
     text: "Khi bắt đầu một dự án mới, bạn thường:",
     options: ["Tìm cách làm khác biệt, sáng tạo nhất có thể", "Lên kế hoạch rõ ràng, phân công vai trò cụ thể", "Tìm hiểu kỹ lưỡng trước khi hành động"],
@@ -191,25 +193,38 @@ const questions = [
       body: new FormData(this),
       headers: { 'Accept': 'application/json' }
     })
-    .then(response => {
-      if (response.ok) {
-        alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể làm bài test.");
-        document.getElementById("userForm").style.display = "none";
-        quizForm.style.display = "block";
-        document.getElementById("submitBtn").style.display = "block";
-      } else {
-        alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
-      }
-    })
-    .catch(error => {
-      alert("⚠️ Lỗi kết nối. Vui lòng thử lại sau.");
+   .then(response => {
+  if (response.ok) {
+    alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể làm bài test.");
+    document.getElementById("userForm").style.display = "none";
+    document.getElementById("quizForm").style.display = "block";
+    document.getElementById("submitBtn").style.display = "block";
+
+    // 👉 Render câu hỏi sau khi form hiện ra
+    const quizForm = document.getElementById("quizForm");
+    questions.forEach((q, index) => {
+      const div = document.createElement("div");
+      div.className = "question";
+      div.innerHTML = `<h3>Câu ${index + 1}: ${q.text}</h3>`;
+      q.options.forEach((opt, i) => {
+        div.innerHTML += `
+          <label>
+            <input type="radio" name="q${index}" value="${q.scores[i]}" required> ${opt}
+          </label>
+        `;
+      });
+      quizForm.appendChild(div);
     });
-  });
+  } else {
+    alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
+  }
+})
+
 </script>
 <script>
 const archetypes = [
-  "Explorer 🧭", "Outlaw 🔥", "Innocent 🌼", "Caregiver 🤝", "Lover ❤️", "Jester 🎭",
-  "Ruler 👑", "Hero 🛡️", "Creator 🎨", "Sage 📚", "Magician ✨", "Everyman 👥"
+  "Người khám phá 🧭", "Kẻ nổi loạn 🔥", "Người ngây thơ 🌼", "Người chăm sóc 🤝", "Người yêu ❤️", "Kẻ khôi hài 🎭",
+  "Người cai trị 👑", "Người anh hùng 🛡️", "Người sáng tạo 🎨", "Nhà hiền triết 📚", "Nhà ảo thuật✨", "Người bình thường 👥"
 ];
 
 const descriptions = [
@@ -227,22 +242,6 @@ const descriptions = [
   "Bạn là Người Thường: sống giản dị, muốn thuộc về, kết nối cộng đồng."
 ];
 
-// Render câu hỏi
-const quizForm = document.getElementById("quizForm");
-questions.forEach((q, index) => {
-  const div = document.createElement("div");
-  div.className = "question";
-  div.innerHTML = `<h3>Câu ${index + 1}: ${q.text}</h3>`;
-  q.options.forEach((opt, i) => {
-    div.innerHTML += `
-      <label>
-        <input type="radio" name="q${index}" value="${q.scores[i]}" required> ${opt}
-      </label>
-    `;
-  });
-  quizForm.appendChild(div);
-});
-
 // Tính kết quả
 function calculateResult() {
   const formData = new FormData(quizForm);
@@ -251,6 +250,52 @@ function calculateResult() {
 
   for (let i = 0; i < questions.length; i++) {
     const val = formData
+document.getElementById("submitBtn").addEventListener("click", function () {
+  const formData = new FormData(document.getElementById("quizForm"));
+  let scores = Array(archetypes.length).fill(0);
+
+  for (let i = 0; i < questions.length; i++) {
+    const val = formData.get(`q${i}`);
+    if (val) {
+      const score = parseInt(val);
+      scores[score - 1] += 1; // vì score là từ 1–12
+    }
+  }
+
+  // Tìm nguyên mẫu có điểm cao nhất
+  const maxScore = Math.max(...scores);
+  const topIndex = scores.indexOf(maxScore);
+  const resultText = `🔮 Nguyên mẫu chi phối bạn là: <strong>${archetypes[topIndex]}</strong>`;
+  const descriptionText = descriptions[topIndex];
+
+  // Hiển thị kết quả
+  document.getElementById("result").innerHTML = resultText;
+  document.getElementById("result").style.display = "block";
+  document.getElementById("description").innerHTML = descriptionText;
+  document.getElementById("description").style.display = "block";
+
+  // Vẽ biểu đồ (nếu muốn)
+  const ctx = document.getElementById("chart").getContext("2d");
+  new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: archetypes,
+      datasets: [{
+        label: "Điểm từng nguyên mẫu",
+        data: scores,
+        backgroundColor: "#cc9900"
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: { beginAtZero: true }
+      }
+    }
+  });
+});
+
+    
 </script>
 </body>
 </html>
