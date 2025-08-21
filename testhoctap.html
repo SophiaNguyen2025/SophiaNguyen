@@ -39,11 +39,11 @@
     .question {
       margin: 20px 0;
       padding: 15px;
-      border-left: 5px solid  #00CC99;
+      border-left: 5px solid #2c3e50;
       border-radius: 10px;
     }
     .question:nth-child(even) {
-      background:#2c3e50;
+      background: #00ff99;
     }
     .question:nth-child(odd) {
       background:#3366CC;
@@ -188,7 +188,7 @@ const quizForm = document.getElementById("quizForm");
     });
   });
 </script>
-  <script>
+<script>
 const styles = ["Thính giác 🎧", "Thị giác 👁️", "Vận động 🖐️"];
 const descriptions = [
   "Bạn có phong cách học thính giác: bạn tiếp thu tốt qua lời nói, giảng bài, thảo luận và âm thanh. Học nhóm, nghe podcast hoặc giảng trực tiếp sẽ giúp bạn ghi nhớ lâu hơn.",
@@ -196,37 +196,20 @@ const descriptions = [
   "Bạn có phong cách học vận động: bạn học tốt nhất khi được thực hành, thao tác, trải nghiệm thực tế. Học qua dự án, mô phỏng, hoặc hoạt động sẽ giúp bạn hiểu sâu hơn."
 ];
 
-// Render câu hỏi
-const quizForm = document.getElementById("quizForm");
-questions.forEach((q, index) => {
-  const div = document.createElement("div");
-  div.className = "question";
-  div.innerHTML = `<h3>Câu ${index + 1}: ${q}</h3>`;
-  options.forEach((opt, i) => {
-    div.innerHTML += `
-      <label>
-        <input type="radio" name="q${index}" value="${i}" required> ${opt}
-      </label>
-    `;
-  });
-  quizForm.appendChild(div);
-});
-
-// Tính kết quả
 function calculateResult() {
-  const formData = new FormData(quizForm);
-  let counts = [0, 0, 0]; // Thính giác, Thị giác, Vận động
-  let answered = 0;
+  const formData = new FormData(document.getElementById("quizForm"));
+  let counts = [0, 0, 0];
+  let answeredCount = 0;
 
   for (let i = 0; i < questions.length; i++) {
     const val = formData.get(`q${i}`);
     if (val !== null) {
       counts[parseInt(val)]++;
-      answered++;
+      answeredCount++;
     }
   }
 
-  if (answered < questions.length) {
+  if (answeredCount < questions.length) {
     alert("⚠️ Bạn cần hoàn thành tất cả câu hỏi trước khi xem kết quả.");
     return;
   }
