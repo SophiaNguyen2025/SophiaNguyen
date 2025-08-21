@@ -199,29 +199,45 @@ const quizForm = document.getElementById("quizForm");
     quizForm.appendChild(div);
   });
 
-  // Sau khi gửi form thông tin, hiện phần câu hỏi
-  document.getElementById("userForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-    fetch(this.action, {
-      method: "POST",
-      body: new FormData(this),
-      headers: { 'Accept': 'application/json' }
-    })
-    .then(response => {
-      if (response.ok) {
-        alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể làm bài test.");
-        document.getElementById("userForm").style.display = "none";
-        quizForm.style.display = "block";
-        document.getElementById("submitBtn").style.display = "block";
-      } else {
-        alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
-      }
-    })
-    .catch(error => {
-      alert("⚠️ Lỗi kết nối. Vui lòng thử lại sau.");
-    });
+  // Render câu hỏi sau khi gửi thông tin
+document.getElementById("userForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+  fetch(this.action, {
+    method: "POST",
+    body: new FormData(this),
+    headers: { 'Accept': 'application/json' }
+  })
+  .then(response => {
+    if (response.ok) {
+      alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể làm bài test.");
+      document.getElementById("userForm").style.display = "none";
+      quizForm.style.display = "block";
+      document.getElementById("submitBtn").style.display = "block";
+
+      // ✅ Render câu hỏi đúng cách
+      questions.forEach((q, index) => {
+        const div = document.createElement("div");
+        div.className = "question";
+        div.innerHTML = `<p>Câu ${index + 1}: ${q.text}</p>`;
+        q.options.forEach((opt, i) => {
+          div.innerHTML += `
+            <label>
+              <input type="radio" name="q${index}" value="${q.scores[i]}" required> ${opt}
+            </label>
+          `;
+        });
+        quizForm.appendChild(div);
+      });
+
+    } else {
+      alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
+    }
+  })
+  .catch(error => {
+    alert("⚠️ Lỗi kết nối. Vui lòng thử lại sau.");
   });
-</script>
+});
+
 <script>
 const archetypes = [
   "Người khám phá 🧭", "Kẻ nổi loạn 🔥", "Người ngây thơ 🌼", "Người chăm sóc 🤝", "Người yêu ❤️", "Kẻ khôi hài 🎭",
