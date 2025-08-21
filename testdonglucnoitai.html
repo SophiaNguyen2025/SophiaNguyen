@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trắc nghiệm Động lực nội tạip </title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #000000, #000000);
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .logo img {
+      width: 120px;
+    }
+    h1 {
+      text-align: center;
+      color: #CC9900;
+    }
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    .question {
+      margin: 20px 0;
+      padding: 15px;
+      border-left: 5px solid #2c3e50;
+      border-radius: 10px;
+    }
+    .question:nth-child(even) {
+      background: #ff9966;
+    }
+    .question:nth-child(odd) {
+      background:#ccff33;
+    }
+    .question p {
+      margin: 0 0 10px;
+      font-weight: bold;
+    }
+    .question label {
+      display: block;
+      font-weight: normal;
+      margin-bottom: 8px;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 30px;
+      padding: 12px 24px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    .result {
+      display: none;
+      background: #ede7f6;
+      margin-top: 30px;
+      padding: 20px;
+      border-radius: 12px;
+      color: #4a148c;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="images/hinhremovenen.png" alt="Logo Sophia">
+    </div>
+    <h1>Trắc nghiệm Động Lực Nội Tại  </h1>
+    <!-- Form cá nhân -->
+   <form id="userForm" action="https://formspree.io/f/mgvzqrje" method="POST">
+      <h2>Thông tin người làm test</h2>
+      <label>Họ tên:</label>
+      <input type="text" name="name" id="name" required>
+      <label>Email:</label>
+      <input type="email" name="email" id="email" required>
+      <label>Tuổi:</label>
+      <input type="number" name="age" id="age" required>
+      <label>Số điện thoại:</label>
+      <input type="text" name="phone" id="phone" required>
+      <button type="submit">Gửi thông tin  & tiếp tục</button>
+      </form>
+
+<form id="quizForm" style="display: none;">
+  </form>
+
+<button id="submitBtn" type="button" style="display: none;">Tính kết quả</button>
+
+<div id="result" class="result"></div>
+<canvas id="chart" width="400" height="400" style="margin-top:20px;"></canvas>
+<div id="description" style="margin-top:20px; font-size:16px;"></div>
+
+<script>
+const questions = [
+  "Bạn cảm thấy hứng thú nhất khi làm việc gì?",
+  "Khi học một kỹ năng mới, điều gì thúc đẩy bạn nhất?",
+  "Bạn cảm thấy thế nào khi hoàn thành một công việc mà không ai biết đến?",
+  "Khi bạn gặp khó khăn trong công việc, điều gì giúp bạn tiếp tục?",
+  "Bạn thường cảm thấy thế nào khi làm việc mà không có phần thưởng cụ thể?",
+  "Khi bạn làm việc nhóm, điều gì khiến bạn cảm thấy hài lòng nhất?",
+  "Bạn cảm thấy thế nào khi làm một công việc mà bạn thực sự yêu thích?",
+  "Khi bạn đạt được một mục tiêu, điều gì khiến bạn cảm thấy hài lòng nhất?",
+  "Bạn thường chọn làm những công việc nào?",
+  "Khi bạn học một môn học mới, điều gì khiến bạn cảm thấy hứng thú nhất?",
+  "Khi bạn làm việc mà không có ai giám sát, bạn thường:",
+  "Khi bạn thất bại trong một nhiệm vụ, bạn thường:",
+  "Bạn cảm thấy thế nào khi làm một công việc mà bạn tự chọn?",
+  "Khi bạn làm việc vì đam mê, bạn thường:",
+  "Khi bạn làm việc mà không có phần thưởng cụ thể, bạn thường:",
+  "Bạn cảm thấy có động lực nhất khi:",
+  "Bạn thường đánh giá thành công dựa trên:",
+  "Bạn cảm thấy hài lòng nhất khi:",
+  "Bạn thường phản ứng thế nào khi bị đánh giá thấp?",
+  "Bạn cảm thấy áp lực nhất khi:",
+  "Bạn thường làm việc tốt nhất khi:"
+];
+
+const options = [
+  "Vì ý nghĩa, niềm vui và sự phát triển bản thân",   // Nội tại
+  "Vì phần thưởng, sự công nhận hoặc kỳ vọng",        // Ngoại tại
+  "Vì muốn tránh bị phê bình, thất bại hoặc áp lực"   // Tránh né
+];
+const quizForm = document.getElementById("quizForm");
+  questions.forEach((q, index) => {
+    const div = document.createElement("div");
+    div.className = "question";
+    div.innerHTML = `<p>Câu ${index + 1}: ${q}</p>`;
+    options.forEach((opt, i) => {
+      div.innerHTML += `
+        <label>
+          <input type="radio" name="q${index}" value="${i}" required> ${opt}
+        </label>
+      `;
+    });
+    quizForm.appendChild(div);
+  });
+
+  // Sau khi gửi form thông tin, hiện phần câu hỏi
+  document.getElementById("userForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    fetch(this.action, {
+      method: "POST",
+      body: new FormData(this),
+      headers: { 'Accept': 'application/json' }
+    })
+    .then(response => {
+      if (response.ok) {
+        alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể làm bài test.");
+        document.getElementById("userForm").style.display = "none";
+        quizForm.style.display = "block";
+        document.getElementById("submitBtn").style.display = "block";
+      } else {
+        alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
+      }
+    })
+    .catch(error => {
+      alert("⚠️ Lỗi kết nối. Vui lòng thử lại sau.");
+    });
+  });
+</script>
+    <script>
+const styles = ["Nội tại 🌱", "Ngoại tại 🎁", "Tránh né 🚪"];
+const descriptions = [
+  "Bạn có động lực nội tại mạnh mẽ: bạn làm việc vì niềm vui, sự tò mò, và cảm giác ý nghĩa. Bạn thường chủ động, sáng tạo và kiên trì ngay cả khi không có phần thưởng bên ngoài.",
+  "Bạn có động lực ngoại tại rõ rệt: bạn làm việc tốt khi có mục tiêu cụ thể, phần thưởng, hoặc sự công nhận. Bạn dễ bị ảnh hưởng bởi môi trường và kỳ vọng từ người khác.",
+  "Bạn có xu hướng tránh né: bạn làm việc để tránh bị phê bình, thất bại hoặc áp lực. Động lực của bạn thường đến từ nỗi sợ hơn là sự hứng thú, và bạn cần môi trường an toàn để phát triển."
+];
+
+// Render câu hỏi
+const quizForm = document.getElementById("quizForm");
+questions.forEach((q, index) => {
+  const div = document.createElement("div");
+  div.className = "question";
+  div.innerHTML = `<h3>Câu ${index + 1}: ${q}</h3>`;
+  options.forEach((opt, i) => {
+    div.innerHTML += `
+      <label>
+        <input type="radio" name="q${index}" value="${i}" required> ${opt}
+      </label>
+    `;
+  });
+  quizForm.appendChild(div);
+});
+
+// Tính kết quả
+function calculateResult() {
+  const formData = new FormData(quizForm);
+  let counts = [0, 0, 0];
+  let answered = 0;
+
+  for (let i = 0; i < questions.length; i++) {
+    const val = formData.get(`q${i}`);
+    if (val !== null) {
+      counts[parseInt(val)]++;
+      answered++;
+    }
+  }
+
+  if (answered < questions.length) {
+    alert("⚠️ Bạn cần hoàn thành tất cả câu hỏi trước khi xem kết quả.");
+    return;
+  }
+
+  const total = counts.reduce((a, b) => a + b, 0);
+  const percentages = counts.map(c => Math.round((c / total) * 100));
+  const max = Math.max(...counts);
+  const dominantIndex = counts.indexOf(max);
+
+  document.getElementById("result").style.display = "block";
+  document.getElementById("result").innerHTML =
+    `<b>Kết quả:</b><br>` +
+    styles.map((s, i) => `${s}: ${percentages[i]}%`).join("<br>");
+
+  const ctx = document.getElementById("chart").getContext("2d");
+  const colors = ["#4caf50", "#ff9800", "#f44336"];
+  let start = 0;
+
+  ctx.clearRect(0, 0, 400, 400);
+  percentages.forEach((p, i) => {
+    const slice = (p / 100) * 2 * Math.PI;
+    ctx.beginPath();
+    ctx.moveTo(200, 200);
+    ctx.arc(200, 200, 150, start, start + slice);
+    ctx.fillStyle = colors[i];
+    ctx.fill();
+    start += slice;
+  });
+
+  document.getElementById("description").style.display = "block";
+  document.getElementById("description").innerHTML =
+    `<b>Phân tích:</b><br>${descriptions[dominantIndex]}`;
+}
+
+// Gắn sự kiện cho nút
+document.getElementById("submitBtn").addEventListener("click", calculateResult);
+</script>
+</body>
+</html>
