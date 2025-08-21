@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trắc nghiệm Phong cách Học Tập </title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #000000, #000000);
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .logo img {
+      width: 120px;
+    }
+    h1 {
+      text-align: center;
+      color: #CC9900;
+    }
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    .question {
+      margin: 20px 0;
+      padding: 15px;
+      border-left: 5px solid #2c3e50;
+      border-radius: 10px;
+    }
+    .question:nth-child(even) {
+      background: #ccff33;
+    }
+    .question:nth-child(odd) {
+      background:#33cc00;
+    }
+    .question p {
+      margin: 0 0 10px;
+      font-weight: bold;
+    }
+    .question label {
+      display: block;
+      font-weight: normal;
+      margin-bottom: 8px;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 30px;
+      padding: 12px 24px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    .result {
+      display: none;
+      background: #ede7f6;
+      margin-top: 30px;
+      padding: 20px;
+      border-radius: 12px;
+      color: #4a148c;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="images/hinhremovenen.png" alt="Logo Sophia">
+    </div>
+    <h1>Trắc nghiệm Phong Cách Học Tập </h1>
+    <!-- Form cá nhân -->
+   <form id="userForm" action="https://formspree.io/f/mgvzqrje" method="POST">
+      <h2>Thông tin người làm test</h2>
+      <label>Họ tên:</label>
+      <input type="text" name="name" id="name" required>
+      <label>Email:</label>
+      <input type="email" name="email" id="email" required>
+      <label>Tuổi:</label>
+      <input type="number" name="age" id="age" required>
+      <label>Số điện thoại:</label>
+      <input type="text" name="phone" id="phone" required>
+      <button type="submit">Gửi thông tin  & tiếp tục</button>
+      </form>
+
+<form id="quizForm" style="display: none;">
+  </form>
+
+<button id="submitBtn" type="button" style="display: none;">Tính kết quả</button>
+
+<div id="result" class="result"></div>
+<canvas id="chart" width="400" height="400" style="margin-top:20px;"></canvas>
+<div id="description" style="margin-top:20px; font-size:16px;"></div>
+<script>
+const questions = [
+  {
+    text: "Khi bắt đầu một dự án mới, bạn thường:",
+    options: ["Tìm cách làm khác biệt, sáng tạo nhất có thể", "Lên kế hoạch rõ ràng, phân công vai trò cụ thể", "Tìm hiểu kỹ lưỡng trước khi hành động"],
+    scores: [8, 6, 10] // Creator, Ruler, Sage
+  },
+  {
+    text: "Trong nhóm bạn bè, bạn thường là người:",
+    options: ["Luôn tạo tiếng cười, phá vỡ không khí căng thẳng", "Lắng nghe và chăm sóc người khác", "Truyền cảm hứng bằng hành động mạnh mẽ"],
+    scores: [5, 4, 7] // Jester, Caregiver, Hero
+  },
+  {
+    text: "Khi gặp điều bất công, bạn thường:",
+    options: ["Muốn phá vỡ quy tắc và thay đổi hệ thống", "Tìm cách bảo vệ người yếu thế", "Phân tích nguyên nhân và tìm giải pháp"],
+    scores: [2, 4, 10] // Outlaw, Caregiver, Sage
+  },
+  {
+    text: "Bạn cảm thấy hạnh phúc nhất khi:",
+    options: ["Khám phá điều mới mẻ và tự do trải nghiệm", "Kết nối sâu sắc với người mình yêu thương", "Giúp người khác vượt qua khó khăn"],
+    scores: [1, 3, 4] // Explorer, Lover, Caregiver
+  },
+  {
+    text: "Khi làm việc nhóm, bạn thường:",
+    options: ["Đưa ra chiến lược và dẫn dắt mọi người", "Tạo không khí vui vẻ và gắn kết", "Lặng lẽ đóng góp và hỗ trợ người khác"],
+    scores: [6, 5, 4] // Ruler, Jester, Caregiver
+  },
+  {
+    text: "Bạn thường bị thu hút bởi:",
+    options: ["Những điều kỳ bí và có chiều sâu", "Những thử thách để chứng minh bản thân", "Những trải nghiệm mới và chưa từng thử"],
+    scores: [11, 7, 1] // Magician, Hero, Explorer
+  },
+  {
+    text: "Khi có thời gian rảnh, bạn thích:",
+    options: ["Tìm hiểu kiến thức mới và đọc sách", "Sáng tạo nội dung hoặc làm thủ công", "Giao lưu và tạo tiếng cười với bạn bè"],
+    scores: [10, 8, 5] // Sage, Creator, Jester
+  },
+  {
+    text: "Bạn cảm thấy an toàn nhất khi:",
+    options: ["Mọi người xung quanh thân thiện và gần gũi", "Có người dẫn dắt rõ ràng và có quy tắc", "Bạn được tự do làm điều mình thích"],
+    scores: [12, 6, 1] // Everyman, Ruler, Explorer
+  },
+  {
+    text: "Bạn thường đưa ra quyết định dựa trên:",
+    options: ["Trực giác và cảm xúc cá nhân", "Phân tích logic và dữ liệu", "Giá trị đạo đức và lòng trắc ẩn"],
+    scores: [11, 10, 4] // Magician, Sage, Caregiver
+  },
+  {
+    text: "Bạn thấy bản thân giống với:",
+    options: ["Người luôn tìm kiếm sự thật", "Người luôn muốn tạo ra điều mới", "Người luôn muốn giúp đỡ người khác"],
+    scores: [10, 8, 4] // Sage, Creator, Caregiver
+  },
+  {
+    text: "Bạn thường cảm thấy hài lòng khi:",
+    options: ["Được công nhận là người có năng lực", "Được sống đúng với giá trị của mình", "Được chia sẻ niềm vui với người khác"],
+    scores: [7, 3, 5] // Hero, Innocent, Jester
+  },
+  {
+    text: "Nếu phải chọn một vai trò trong xã hội, bạn sẽ là:",
+    options: ["Người truyền cảm hứng và thay đổi", "Người bảo vệ và chăm sóc cộng đồng", "Người khám phá và mở rộng giới hạn"],
+    scores: [11, 4, 1] // Magician, Caregiver, Explorer
+  }
+];
+
+  // Sau khi gửi form thông tin, hiện phần câu hỏi
+  document.getElementById("userForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    fetch(this.action, {
+      method: "POST",
+      body: new FormData(this),
+      headers: { 'Accept': 'application/json' }
+    })
+    .then(response => {
+      if (response.ok) {
+        alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể làm bài test.");
+        document.getElementById("userForm").style.display = "none";
+        quizForm.style.display = "block";
+        document.getElementById("submitBtn").style.display = "block";
+      } else {
+        alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
+      }
+    })
+    .catch(error => {
+      alert("⚠️ Lỗi kết nối. Vui lòng thử lại sau.");
+    });
+  });
+</script>
+<script>
+const archetypes = [
+  "Explorer 🧭", "Outlaw 🔥", "Innocent 🌼", "Caregiver 🤝", "Lover ❤️", "Jester 🎭",
+  "Ruler 👑", "Hero 🛡️", "Creator 🎨", "Sage 📚", "Magician ✨", "Everyman 👥"
+];
+
+const descriptions = [
+  "Bạn là Nhà Thám Hiểm: yêu tự do, thích trải nghiệm, luôn tìm kiếm điều mới mẻ.",
+  "Bạn là Kẻ Nổi Loạn: muốn phá vỡ giới hạn, tạo ra sự thay đổi mạnh mẽ.",
+  "Bạn là Kẻ Ngây Thơ: lạc quan, tin vào điều tốt đẹp, mong muốn sự an toàn.",
+  "Bạn là Người Chữa Lành: sống vì người khác, giàu lòng trắc ẩn và hỗ trợ.",
+  "Bạn là Người Tình: sống bằng cảm xúc, tìm kiếm sự hòa hợp và kết nối.",
+  "Bạn là Người Hề: vui vẻ, truyền cảm hứng qua tiếng cười, sống trong hiện tại.",
+  "Bạn là Nhà Lãnh Đạo: thích kiểm soát, tổ chức, tạo ra trật tự và định hướng.",
+  "Bạn là Người Anh Hùng: quyết tâm vượt qua thử thách, chứng minh năng lực.",
+  "Bạn là Người Sáng Tạo: yêu cái đẹp, thích sáng tạo, để lại dấu ấn cá nhân.",
+  "Bạn là Nhà Hiền Triết: tìm kiếm tri thức, phân tích logic, hiểu sâu vấn đề.",
+  "Bạn là Nhà Phù Thủy: kết nối điều kỳ diệu, biến đổi thực tại bằng trí tuệ.",
+  "Bạn là Người Thường: sống giản dị, muốn thuộc về, kết nối cộng đồng."
+];
+
+// Render câu hỏi
+const quizForm = document.getElementById("quizForm");
+questions.forEach((q, index) => {
+  const div = document.createElement("div");
+  div.className = "question";
+  div.innerHTML = `<h3>Câu ${index + 1}: ${q.text}</h3>`;
+  q.options.forEach((opt, i) => {
+    div.innerHTML += `
+      <label>
+        <input type="radio" name="q${index}" value="${q.scores[i]}" required> ${opt}
+      </label>
+    `;
+  });
+  quizForm.appendChild(div);
+});
+
+// Tính kết quả
+function calculateResult() {
+  const formData = new FormData(quizForm);
+  let scores = Array(archetypes.length).fill(0);
+  let answered = 0;
+
+  for (let i = 0; i < questions.length; i++) {
+    const val = formData
+</script>
+</body>
+</html>
