@@ -196,21 +196,6 @@ const descriptions = [
   "Bạn có xu hướng tránh né: bạn làm việc để tránh bị phê bình, thất bại hoặc áp lực. Động lực của bạn thường đến từ nỗi sợ hơn là sự hứng thú, và bạn cần môi trường an toàn để phát triển."
 ];
 
-// Render câu hỏi
-const quizForm = document.getElementById("quizForm");
-questions.forEach((q, index) => {
-  const div = document.createElement("div");
-  div.className = "question";
-  div.innerHTML = `<h3>Câu ${index + 1}: ${q}</h3>`;
-  options.forEach((opt, i) => {
-    div.innerHTML += `
-      <label>
-        <input type="radio" name="q${index}" value="${i}" required> ${opt}
-      </label>
-    `;
-  });
-  quizForm.appendChild(div);
-});
 
 // Tính kết quả
 function calculateResult() {
