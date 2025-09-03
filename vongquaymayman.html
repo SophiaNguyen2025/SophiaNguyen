@@ -131,21 +131,29 @@
   const spinSound = document.getElementById("spinSound");
   const clapSound = document.getElementById("clapSound");
 
- document.body.addEventListener("click", () => {
-  spinSound.muted = false;
-  clapSound.muted = false;
+  // Fix âm thanh autoplay
+  document.body.addEventListener("click", () => {
+    spinSound.muted = false;
+    clapSound.muted = false;
 
-  // "khởi động" audio để browser cho phép phát về sau
-  spinSound.play().then(() => {
-    spinSound.pause();
-    spinSound.currentTime = 0;
-  }).catch(()=>{});
+    spinSound.play().then(() => {
+      spinSound.pause();
+      spinSound.currentTime = 0;
+    }).catch(()=>{});
 
-  clapSound.play().then(() => {
-    clapSound.pause();
-    clapSound.currentTime = 0;
-  }).catch(()=>{});
-}, { once: true });
+    clapSound.play().then(() => {
+      clapSound.pause();
+      clapSound.currentTime = 0;
+    }).catch(()=>{});
+  }, { once: true });
+
+  document.getElementById("startSpin").addEventListener("click", () => {
+    if (names.length === 0) {
+      document.getElementById("result").innerHTML = "🎊 Đã quay hết tất cả người!";
+      return;
+    }
+    startSpin();
+  });
 
   function drawWheel() {
     const radius = canvas.width / 2;
@@ -225,7 +233,7 @@
     clapSound.volume = 1;
     clapSound.play().catch(e => console.log("Âm thanh vỗ tay bị chặn:", e));
 
-        history.push(chosenName);
+    history.push(chosenName);
     updateHistory();
 
     // Loại người đã trúng khỏi danh sách
