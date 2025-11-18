@@ -183,16 +183,10 @@
       ctx.restore();
     }
   }
+// KHÔNG cập nhật lại danh sách ở đây nữa!
+// Danh sách chỉ cập nhật một lần khi user nhập xong.
 
-  function startSpin() {
-    const input = document.getElementById("nameList").value;
-    const inputNames = input.split(",").map(n => n.trim()).filter(n => n !== "");
-    if (inputNames.length > 1) {
-      names = inputNames;
-      drawWheel();
-    }
-
-    document.getElementById("result").innerHTML = "";
+      document.getElementById("result").innerHTML = "";
 
     spinSound.pause();
     spinSound.currentTime = 0;
