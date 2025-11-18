@@ -219,8 +219,9 @@
   }
 
   function showResult() {
-    const sliceAngle = 2 * Math.PI / names.length;
-    const adjustedAngle = (angle + Math.PI) % (2 * Math.PI);
+    const adjustedAngle = (angle + Math.PI / 2) % (2 * Math.PI);
+const index = names.length - 1 - Math.floor(adjustedAngle / sliceAngle);
+
     const index = Math.floor(adjustedAngle / sliceAngle);
     const chosenName = names[index];
 
