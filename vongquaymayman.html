@@ -111,17 +111,19 @@
   <div id="result"></div>
   <div id="history"><strong>Lịch sử quay:</strong><ul id="historyList"></ul></div>
 
-  <audio id="spinSound" muted preload="auto">
+  <!-- KHÔNG để muted nữa -->
+  <audio id="spinSound" preload="auto">
     <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7b6e3f3b9f.mp3?filename=game-spin-coin-193276.mp3" type="audio/mpeg">
   </audio>
 
-  <audio id="clapSound" muted preload="auto">
+  <audio id="clapSound" preload="auto">
     <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_3c9c4f6b9e.mp3?filename=applause-193276.mp3" type="audio/mpeg">
   </audio>
 
 <script>
   const canvas = document.getElementById("wheelCanvas");
   const ctx = canvas.getContext("2d");
+
   let names = ["Lan", "Hùng", "Mai", "Tuấn"];
   let angle = 0;
   let spinning = false;
@@ -131,20 +133,15 @@
   const spinSound = document.getElementById("spinSound");
   const clapSound = document.getElementById("clapSound");
 
-  // Fix âm thanh autoplay
+  /* KHỞI ĐỘNG ÂM THANH — CHUẨN */
   document.body.addEventListener("click", () => {
-    spinSound.muted = false;
-    clapSound.muted = false;
+    spinSound.play().catch(()=>{});
+    spinSound.pause();
+    spinSound.currentTime = 0;
 
-    spinSound.play().then(() => {
-      spinSound.pause();
-      spinSound.currentTime = 0;
-    }).catch(()=>{});
-
-    clapSound.play().then(() => {
-      clapSound.pause();
-      clapSound.currentTime = 0;
-    }).catch(()=>{});
+    clapSound.play().catch(()=>{});
+    clapSound.pause();
+    clapSound.currentTime = 0;
   }, { once: true });
 
   document.getElementById("startSpin").addEventListener("click", () => {
@@ -157,8 +154,8 @@
 
   function drawWheel() {
     const radius = canvas.width / 2;
-    const centerX = canvas.width / 2;
-    const centerY = canvas.height / 2;
+    const centerX = radius;
+    const centerY = radius;
     const sliceAngle = 2 * Math.PI / names.length;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -200,44 +197,46 @@
     spinSound.pause();
     spinSound.currentTime = 0;
     spinSound.volume = 0.8;
-    spinSound.play().catch(e => console.log("Âm thanh quay bị chặn:", e));
+    spinSound.play().catch(()=>{});
 
-    let speed = 0.3;
+    let speed = 0.35;
     let deceleration = 0.002;
-    spinning = true;
 
     spinInterval = setInterval(() => {
       angle += speed;
       drawWheel();
       speed -= deceleration;
+
       if (speed <= 0) {
         clearInterval(spinInterval);
-        spinning = false;
         showResult();
       }
     }, 20);
   }
 
+  /* FIX CHUẨN – KHÔNG LỆCH – KHÔNG LẶP */
   function showResult() {
-    const adjustedAngle = (angle + Math.PI / 2) % (2 * Math.PI);
-const index = names.length - 1 - Math.floor(adjustedAngle / sliceAngle);
+    const sliceAngle = 2 * Math.PI / names.length;
 
-    const index = Math.floor(adjustedAngle / sliceAngle);
+    // Mũi tên nằm DƯỚI → + 90°
+    let adjustedAngle = (angle + Math.PI / 2) % (2 * Math.PI);
+
+    let index = Math.floor(adjustedAngle / sliceAngle);
+    index = names.length - 1 - index;
+
     const chosenName = names[index];
 
-    const resultDiv = document.getElementById("result");
-    resultDiv.innerHTML = `🎉 Người được chọn là: ${chosenName}`;
-    resultDiv.style.animation = "zoomIn 1s ease, pulseBlue 3s infinite";
+    document.getElementById("result").innerHTML =
+      `🎉 Người được chọn là: ${chosenName}`;
 
     clapSound.pause();
     clapSound.currentTime = 0;
     clapSound.volume = 1;
-    clapSound.play().catch(e => console.log("Âm thanh vỗ tay bị chặn:", e));
+    clapSound.play().catch(()=>{});
 
     history.push(chosenName);
     updateHistory();
 
-    // Loại người đã trúng khỏi danh sách
     names.splice(index, 1);
     drawWheel();
   }
@@ -256,13 +255,13 @@ const index = names.length - 1 - Math.floor(adjustedAngle / sliceAngle);
     history = [];
     updateHistory();
     document.getElementById("result").innerHTML = "";
-    const input = document.getElementById("nameList").value;
-    const inputNames = input.split(",").map(n => n.trim()).filter(n => n !== "");
-    if (inputNames.length > 1) {
-      names = inputNames;
-    } else {
-      names = ["Lan", "Hùng", "Mai", "Tuấn"];
-    }
+
+    const inputNames = document.getElementById("nameList").value
+      .split(",")
+      .map(n => n.trim())
+      .filter(n => n !== "");
+
+    names = inputNames.length > 1 ? inputNames : ["Lan", "Hùng", "Mai", "Tuấn"];
     drawWheel();
   }
 
