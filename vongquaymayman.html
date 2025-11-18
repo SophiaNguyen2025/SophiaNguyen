@@ -14,108 +14,43 @@
       justify-content: center;
       min-height: 100vh;
     }
-    h1 {
-      color: #ffffff;
-      margin-top: 20px;
-      text-shadow: 2px 2px #0a4a5a;
-    }
-    #wheelCanvas {
-      margin-top: 20px;
-      position: relative;
-      border: 6px solid #0a4a5a;
-      border-radius: 50%;
-      box-shadow: 0 0 20px rgba(10, 74, 90, 0.5);
-    }
-    #arrow {
-      position: absolute;
-      bottom: -40px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 40px;
-      animation: bounce 1s infinite;
-    }
-    @keyframes bounce {
-      0%, 100% { transform: translateX(-50%) translateY(0); }
-      50% { transform: translateX(-50%) translateY(-10px); }
-    }
-    textarea {
-      width: 80%;
-      max-width: 500px;
-      height: 80px;
-      font-size: 16px;
-      padding: 10px;
-      border-radius: 10px;
-      border: 2px solid #0a4a5a;
-      margin-top: 20px;
-    }
-    .btn {
-      margin: 10px 5px;
-      padding: 12px 25px;
-      font-size: 18px;
-      background-color: #0a4a5a;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      transition: background-color 0.3s ease;
-    }
-    .btn:hover {
-      background-color: #066076;
-    }
-    #result {
-      font-size: 26px;
-      font-weight: bold;
-      color: #0a4a5a;
-      background-color: #ffffff;
-      padding: 12px 20px;
-      border-radius: 8px;
-      text-align: center;
-      margin-top: 20px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      animation: zoomIn 1s ease, pulseBlue 3s infinite;
-    }
-    @keyframes zoomIn {
-      0% { transform: scale(0.5); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-    @keyframes pulseBlue {
-      0% { background-color: #ffffff; }
-      50% { background-color: #e6f0ff; }
-      100% { background-color: #ffffff; }
-    }
-    #history {
-      margin-top: 20px;
-      font-size: 18px;
-      color: #333;
-      max-width: 500px;
-      text-align: left;
-    }
-    ul {
-      padding-left: 20px;
-    }
+    h1 { color: #ffffff; margin-top: 20px; text-shadow: 2px 2px #0a4a5a; }
+    #wheelCanvas { margin-top: 20px; position: relative; border: 6px solid #0a4a5a; border-radius: 50%; box-shadow: 0 0 20px rgba(10,74,90,0.5); background: #fff; }
+    #arrow { position: absolute; bottom: -40px; left: 50%; transform: translateX(-50%); width: 40px; animation: bounce 1s infinite; }
+    @keyframes bounce { 0%,100%{ transform: translateX(-50%) translateY(0);} 50%{ transform: translateX(-50%) translateY(-10px);} }
+    textarea { width: 80%; max-width: 500px; height: 80px; font-size: 16px; padding: 10px; border-radius: 10px; border: 2px solid #0a4a5a; margin-top: 20px; }
+    .btn { margin: 10px 5px; padding: 12px 25px; font-size: 18px; background-color: #0a4a5a; color: white; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.2); transition: background-color .3s; }
+    .btn:hover { background-color: #066076; }
+    #result { font-size: 26px; font-weight: bold; color: #0a4a5a; background-color: #ffffff; padding: 12px 20px; border-radius: 8px; text-align: center; margin-top: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); animation: zoomIn 1s ease, pulseBlue 3s infinite; min-width: 300px;}
+    @keyframes zoomIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+    @keyframes pulseBlue { 0%{ background-color: #fff } 50%{ background-color: #e6f0ff } 100%{ background-color: #fff } }
+    #history { margin-top: 20px; font-size: 18px; color: #333; max-width: 500px; text-align: left; }
+    ul { padding-left: 20px; max-height: 160px; overflow: auto; }
+    .controls { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:10px; }
   </style>
 </head>
 <body>
   <h1>🎡 Vòng Quay May Mắn</h1>
+
   <div style="position: relative;">
     <canvas id="wheelCanvas" width="400" height="400"></canvas>
     <img id="arrow" src="https://cdn-icons-png.flaticon.com/512/32/32195.png" alt="Arrow">
   </div>
 
-  <textarea id="nameList" placeholder="Nhập tên cách nhau bằng dấu phẩy..."></textarea><br>
-
-  <button class="btn" id="startSpin">🎉 Quay!</button>
-  <button class="btn" onclick="clearHistory()">🗑️ Xóa lịch sử</button>
+  <textarea id="nameList" placeholder="Nhập tên cách nhau bằng dấu phẩy. Ví dụ: Lan, Hùng, Mai, Tuấn"></textarea>
+  <div class="controls">
+    <button class="btn" id="updateNamesBtn">🔄 Cập nhật danh sách</button>
+    <button class="btn" id="startSpin">🎉 Quay!</button>
+    <button class="btn" id="resetBtn">♻️ Reset về mặc định</button>
+    <button class="btn" id="clearHistoryBtn">🗑️ Xóa lịch sử</button>
+  </div>
 
   <div id="result"></div>
   <div id="history"><strong>Lịch sử quay:</strong><ul id="historyList"></ul></div>
 
-  <!-- KHÔNG để muted nữa -->
   <audio id="spinSound" preload="auto">
     <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7b6e3f3b9f.mp3?filename=game-spin-coin-193276.mp3" type="audio/mpeg">
   </audio>
-
   <audio id="clapSound" preload="auto">
     <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_3c9c4f6b9e.mp3?filename=applause-193276.mp3" type="audio/mpeg">
   </audio>
@@ -124,57 +59,95 @@
   const canvas = document.getElementById("wheelCanvas");
   const ctx = canvas.getContext("2d");
 
+  // Default names
   let names = ["Lan", "Hùng", "Mai", "Tuấn"];
-  let angle = 0;
+  let angle = 0; // radians
   let spinning = false;
-  let spinInterval;
   let history = [];
 
   const spinSound = document.getElementById("spinSound");
   const clapSound = document.getElementById("clapSound");
+  const nameListInput = document.getElementById("nameList");
+  const resultDiv = document.getElementById("result");
 
-  /* KHỞI ĐỘNG ÂM THANH — CHUẨN */
+  // Prime audio on first user interaction (safe for Chrome)
   document.body.addEventListener("click", () => {
-    spinSound.play().catch(()=>{});
-    spinSound.pause();
-    spinSound.currentTime = 0;
-
-    clapSound.play().catch(()=>{});
-    clapSound.pause();
-    clapSound.currentTime = 0;
+    spinSound.play().catch(()=>{}); spinSound.pause(); spinSound.currentTime = 0;
+    clapSound.play().catch(()=>{}); clapSound.pause(); clapSound.currentTime = 0;
   }, { once: true });
 
-  document.getElementById("startSpin").addEventListener("click", () => {
-    if (names.length === 0) {
-      document.getElementById("result").innerHTML = "🎊 Đã quay hết tất cả người!";
-      return;
+  document.getElementById("updateNamesBtn").addEventListener("click", updateNames);
+  document.getElementById("startSpin").addEventListener("click", startSpin);
+  document.getElementById("resetBtn").addEventListener("click", resetDefault);
+  document.getElementById("clearHistoryBtn").addEventListener("click", clearHistory);
+
+  function updateNames() {
+    const inputNames = nameListInput.value
+      .split(",")
+      .map(n => n.trim())
+      .filter(n => n !== "");
+    if (inputNames.length > 0) {
+      names = inputNames;
+      history = [];
+      updateHistory();
+      drawWheel();
+      resultDiv.innerText = "";
+    } else {
+      alert("Vui lòng nhập ít nhất 1 tên (phân tách bằng dấu phẩy).");
     }
-    startSpin();
-  });
+  }
+
+  function resetDefault() {
+    names = ["Lan", "Hùng", "Mai", "Tuấn"];
+    history = [];
+    nameListInput.value = "";
+    updateHistory();
+    drawWheel();
+    resultDiv.innerText = "";
+  }
+
+  function clearHistory() {
+    history = [];
+    updateHistory();
+    resultDiv.innerText = "";
+  }
 
   function drawWheel() {
-    const radius = canvas.width / 2;
-    const centerX = radius;
-    const centerY = radius;
-    const sliceAngle = 2 * Math.PI / names.length;
+    const w = canvas.width;
+    const h = canvas.height;
+    const cx = w / 2;
+    const cy = h / 2;
+    const radius = Math.min(cx, cy) - 5;
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, w, h);
+
+    if (!names || names.length === 0) {
+      // draw empty wheel
+      ctx.fillStyle = "#f5f5f5";
+      ctx.beginPath(); ctx.arc(cx, cy, radius, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = "#666";
+      ctx.font = "18px sans-serif";
+      ctx.textAlign = "center"; ctx.fillText("Không có tên", cx, cy);
+      return;
+    }
+
+    const sliceAngle = (2 * Math.PI) / names.length;
 
     for (let i = 0; i < names.length; i++) {
       const startAngle = angle + i * sliceAngle;
       const endAngle = startAngle + sliceAngle;
-
       ctx.beginPath();
-      ctx.moveTo(centerX, centerY);
-      ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+      ctx.moveTo(cx, cy);
+      ctx.arc(cx, cy, radius, startAngle, endAngle);
       ctx.fillStyle = i % 2 === 0 ? "#0a4a5a" : "#66b2c2";
       ctx.fill();
       ctx.strokeStyle = "#ffffff";
       ctx.lineWidth = 2;
       ctx.stroke();
 
+      // draw text
       ctx.save();
-      ctx.translate(centerX, centerY);
+      ctx.translate(cx, cy);
       ctx.rotate(startAngle + sliceAngle / 2);
       ctx.textAlign = "right";
       ctx.fillStyle = "#fff";
@@ -183,56 +156,89 @@
       ctx.restore();
     }
   }
-// KHÔNG cập nhật lại danh sách ở đây nữa!
-// Danh sách chỉ cập nhật một lần khi user nhập xong.
 
-      document.getElementById("result").innerHTML = "";
+  // Start spinning (no reassign of names here)
+  function startSpin() {
+    if (spinning) return; // prevent double start
+    if (!names || names.length === 0) {
+      resultDiv.innerText = "🎊 Không còn tên để quay!";
+      return;
+    }
 
-    spinSound.pause();
-    spinSound.currentTime = 0;
-    spinSound.volume = 0.8;
+    spinning = true;
+    resultDiv.innerText = "";
+
+    // play spin sound
+    spinSound.pause(); spinSound.currentTime = 0; spinSound.volume = 0.9;
     spinSound.play().catch(()=>{});
 
-    let speed = 0.35;
-    let deceleration = 0.002;
+    // randomized initial speed so each spin is different
+    let speed = 0.25 + Math.random() * 0.35; // radians per frame approx
+    const deceleration = 0.0008 + Math.random() * 0.0014;
 
-    spinInterval = setInterval(() => {
+    function animate() {
       angle += speed;
       drawWheel();
-      speed -= deceleration;
 
-      if (speed <= 0) {
-        clearInterval(spinInterval);
-        showResult();
+      // decelerate
+      speed -= deceleration;
+      if (speed > 0.002) {
+        requestAnimationFrame(animate);
+      } else {
+        // final small adjustments to avoid landing mid-slice due to rounding
+        // snap to nearest slice center (optional)
+        finalizeSpin();
       }
-    }, 20);
+    }
+
+    requestAnimationFrame(animate);
   }
 
-  /* FIX CHUẨN – KHÔNG LỆCH – KHÔNG LẶP */
-  function showResult() {
-    const sliceAngle = 2 * Math.PI / names.length;
+  function finalizeSpin() {
+    // Ensure angle normalized
+    const twoPi = 2 * Math.PI;
+    angle = angle % twoPi;
+    if (angle < 0) angle += twoPi;
 
-    // Mũi tên nằm DƯỚI → + 90°
+    if (!names || names.length === 0) {
+      spinning = false;
+      return;
+    }
+
+    const sliceAngle = (2 * Math.PI) / names.length;
+    // pointer is at bottom (angle = +PI/2)
     let adjustedAngle = (angle + Math.PI / 2) % (2 * Math.PI);
 
+    // compute index and invert to match drawing direction
     let index = Math.floor(adjustedAngle / sliceAngle);
     index = names.length - 1 - index;
+    if (index < 0) index = 0;
+    if (index >= names.length) index = names.length - 1;
 
     const chosenName = names[index];
 
-    document.getElementById("result").innerHTML =
-      `🎉 Người được chọn là: ${chosenName}`;
+    // show result
+    resultDiv.innerText = `🎉 Người được chọn là: ${chosenName}`;
 
-    clapSound.pause();
-    clapSound.currentTime = 0;
-    clapSound.volume = 1;
+    // clap sound
+    clapSound.pause(); clapSound.currentTime = 0; clapSound.volume = 1;
     clapSound.play().catch(()=>{});
 
+    // save to history and remove from names array (so won't be picked again)
     history.push(chosenName);
     updateHistory();
 
     names.splice(index, 1);
+    // small visual: rotate a bit so chosen slice centers under pointer (optional)
+    // recompute angle so chosen slice is exactly under pointer
+    const newSliceAngle = (2 * Math.PI) / (names.length + 1); // using previous count
+    // set angle such that the chosen slice's center aligns with pointer (bottom)
+    // compute center angle of the removed slice relative to old angle:
+    // current adjustedAngle is angle from wheel to pointer; we can set angle so that chosen slice center equals pointer
+    // Simpler: leave angle as-is to avoid confusion. Just redraw.
     drawWheel();
+
+    spinning = false;
   }
 
   function updateHistory() {
@@ -245,20 +251,7 @@
     });
   }
 
-  function clearHistory() {
-    history = [];
-    updateHistory();
-    document.getElementById("result").innerHTML = "";
-
-    const inputNames = document.getElementById("nameList").value
-      .split(",")
-      .map(n => n.trim())
-      .filter(n => n !== "");
-
-    names = inputNames.length > 1 ? inputNames : ["Lan", "Hùng", "Mai", "Tuấn"];
-    drawWheel();
-  }
-
+  // initial draw
   drawWheel();
 </script>
 </body>
