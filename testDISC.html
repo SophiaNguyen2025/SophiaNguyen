@@ -98,7 +98,7 @@
     </div>
     <h1>Trắc nghiệm DISC </h1>
     <!-- Form cá nhân -->
-    <form id="userForm" action="https://formspree.io/f/xvgqydnk" method="POST">
+    <form id="userForm">
       <h2>Thông tin người làm test</h2>
       <label>Họ tên:</label>
       <input type="text" name="name" id="name" required>
@@ -112,7 +112,9 @@
     </form>
 <form id="quizForm" style="display:none;"></form>
     <!-- Nút tính kết quả -->
-   <button id="submitBtn" type="button" onclick="submitQuiz()">Tính kết quả</button>
+   <button id="submitBtn" type="button" onclick="submitQuiz()" style="display:none;">
+  Tính kết quả
+</button>
 
   
     <div id="result"></div>
