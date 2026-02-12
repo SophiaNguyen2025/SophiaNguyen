@@ -1122,35 +1122,52 @@ footer {
   background-color: #eee; /* nếu muốn có màu nền */
 }
 .tet-section {
-  background: linear-gradient(135deg, #fff1f3, #fffaf5);
-  padding: 100px 20px;
-  position: relative;
-  overflow: hidden;
-}
-
-.tet-section::before {
-  content: "";
-  position: absolute;
-  top: -50px;
-  right: -50px;
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, rgba(255,182,193,0.4), transparent 70%);
-  border-radius: 50%;
+  padding: 80px 20px;
+  background: #fdfaf5;
 }
 
 .tet-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
   max-width: 1200px;
   margin: auto;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
 }
 
-.tet-left h2,
+.tet-left,
+.tet-right {
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
+}
+
+.tet-left:hover,
+.tet-right:hover {
+  transform: translateY(-5px);
+}
+
+/* BÊN CHỮA LÀNH */
+.tet-left {
+  background: linear-gradient(135deg, #fff1f3, #ffe4e6);
+  border-left: 6px solid #e63946;
+}
+
+.tet-left h2 {
+  color: #e63946;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+/* BÊN PHÁT TRIỂN */
+.tet-right {
+  background: linear-gradient(135deg, #e6f4f1, #f0fdfa);
+  border-left: 6px solid #2a9d8f;
+}
+
 .tet-right h2 {
-  font-size: 32px;
+  color: #2a9d8f;
+  font-size: 30px;
   margin-bottom: 20px;
 }
 
@@ -1161,19 +1178,9 @@ footer {
   color: #444;
 }
 
-.tet-left {
-  border-left: 5px solid #e63946;
-  padding-left: 20px;
-}
-
-.tet-right {
-  border-left: 5px solid #2a9d8f;
-  padding-left: 20px;
-}
-
 .tet-footer {
   text-align: center;
-  margin-top: 80px;
+  margin-top: 60px;
   font-size: 20px;
   font-style: italic;
   color: #555;
@@ -1184,20 +1191,5 @@ footer {
   .tet-container {
     grid-template-columns: 1fr;
   }
-}
-.tet-section h2 {
-  color: initial;
-}
-
-.tet-left h2 {
-  color: #e63946 !important;
-}
-
-.tet-right h2 {
-  color: #2a9d8f !important;
-}
-
-.tet-section {
-  background: linear-gradient(135deg, #fff1f3, #fffaf5) !important;
 }
 
