@@ -681,7 +681,7 @@
                 </ul>
                 <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--light-gray); display: flex; justify-content: space-between; align-items: center;">
                     <span style="font-size: 1.3rem; font-weight: bold; color: var(--primary);">${course.price}</span>
-                    <button class="btn-enroll" onclick="alert('Cảm ơn bạn! Chúng tôi sẽ liên hệ để hoàn tất đăng ký khóa học ${course.name}')">Đăng ký ngay</button>
+                   <button class="btn-enroll" onclick="event.stopPropagation(); alert('📚 Chúc mừng bạn đã bắt đầu khóa học!')">▶ Bắt đầu học</button>
                 </div>
             `;
             modal.classList.add('active');
@@ -721,7 +721,7 @@
                         </ul>
                         <div class="course-footer">
                             <span class="course-price">${course.price}</span>
-                            <button class="btn-enroll" onclick="event.stopPropagation(); alert('Cảm ơn bạn! Chúng tôi sẽ liên hệ để hoàn tất đăng ký khóa học ${course.name}')">Đăng ký</button>
+                           <button class="btn-enroll" onclick="alert('📚 Chúc mừng bạn đã bắt đầu khóa học!')">▶ Bắt đầu học</button>
                         </div>
                     </div>
                 </div>
