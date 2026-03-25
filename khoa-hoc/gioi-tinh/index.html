@@ -410,7 +410,23 @@
         .btn-enroll:hover {
             transform: scale(1.02);
         }
+.btn-start {
+    background: var(--gradient);
+    border: none;
+    color: white;
+    padding: 12px 28px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(232, 62, 140, 0.3);
+}
 
+.btn-start:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(232, 62, 140, 0.4);
+}
         /* Modal */
         .modal {
             display: none;
@@ -908,7 +924,15 @@ function showLearningPage(courseId, chapterIndex = 0) {
         document.getElementById('videoPlayer').src = "";
         alert("Chương này chưa có video. Chị đang cập nhật nhé!");
     }
-    
+    // Hiển thị nút tải PDF nếu có
+const pdfUrl = chapter.pdfUrl;
+const pdfLink = document.getElementById('pdfDownloadLink');
+if (pdfUrl && pdfUrl !== "") {
+    pdfLink.href = pdfUrl;
+    pdfLink.style.display = "inline-flex";
+} else {
+    pdfLink.style.display = "none";
+}
     // Hiển thị danh sách chương
     const chapterListDiv = document.getElementById('chapterList');
     chapterListDiv.innerHTML = course.chapters.map((ch, idx) => `
@@ -988,7 +1012,12 @@ function startCourse(courseId) {
                 <div id="videoContainer" style="margin-bottom: 30px;">
                     <iframe id="videoPlayer" width="100%" height="450" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 20px;"></iframe>
                 </div>
-                
+                <!-- Nút tải PDF -->
+<div id="pdfDownloadContainer" style="margin: 20px 0; text-align: right;">
+    <a id="pdfDownloadLink" href="#" target="_blank" style="display: none; background: var(--primary); color: white; padding: 10px 20px; border-radius: 40px; text-decoration: none; font-weight: 500;">
+        <i class="fas fa-download"></i> Tải tài liệu PDF
+    </a>
+</div>
                 <!-- Danh sách chương -->
                 <h3 style="margin-bottom: 16px;">📚 Các chương trong khóa</h3>
                 <div id="chapterList" style="display: flex; flex-direction: column; gap: 12px;">
