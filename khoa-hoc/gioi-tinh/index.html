@@ -410,7 +410,23 @@
         .btn-enroll:hover {
             transform: scale(1.02);
         }
+.btn-start {
+    background: var(--gradient);
+    border: none;
+    color: white;
+    padding: 12px 28px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(232, 62, 140, 0.3);
+}
 
+.btn-start:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(232, 62, 140, 0.4);
+}
         /* Modal */
         .modal {
             display: none;
@@ -882,6 +898,7 @@ function showLearningPage(courseId, chapterIndex = 0) {
     }
     
     const chapter = course.chapters[chapterIndex];
+    const pdfUrl = chapter.pdfUrl;   // 👈 THÊM DÒNG NÀY
     if (!chapter) {
         alert("Chương này chưa có video. Vui lòng chọn chương khác.");
         return;
