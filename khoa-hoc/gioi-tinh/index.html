@@ -36,7 +36,6 @@
             min-height: 100vh;
         }
 
-        /* Loading Overlay */
         .loading-overlay {
             position: fixed;
             top: 0;
@@ -70,7 +69,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Unlock Screen */
         .unlock-screen {
             position: fixed;
             top: 0;
@@ -169,12 +167,10 @@
             display: none;
         }
 
-        /* Main Content */
         .main-content {
             display: none;
         }
 
-        /* Navbar */
         .navbar {
             background: var(--white);
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
@@ -233,14 +229,12 @@
             color: var(--primary);
         }
 
-        /* Container */
         .container {
             max-width: 1280px;
             margin: 0 auto;
             padding: 0 24px;
         }
 
-        /* Hero Section */
         .hero {
             background: var(--gradient);
             padding: 60px 0 50px;
@@ -261,7 +255,6 @@
             margin: 0 auto;
         }
 
-        /* Age Groups Navigation */
         .age-groups {
             display: flex;
             justify-content: center;
@@ -298,11 +291,8 @@
         .age-btn:hover:not(.active) {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-
-            
         }
 
-        /* Courses Grid */
         .courses-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
@@ -395,25 +385,28 @@
             font-size: 1.2rem;
             color: var(--primary);
         }
-.btn-start {
-    background: var(--gradient) !important;
-    border: none !important;
-    color: white !important;
-    padding: 12px 28px !important;
-    border-radius: 50px !important;
-    cursor: pointer !important;
-    font-weight: 700 !important;
-    font-size: 1rem !important;
-    transition: all 0.3s ease !important;
-    box-shadow: 0 4px 12px rgba(232, 62, 140, 0.3) !important;
-}
 
-.btn-start:hover {
-    transform: translateY(-2px) !important;
-    box-shadow: 0 8px 20px rgba(232, 62, 140, 0.4) !important;
-}
-       
-        /* Modal */
+        .btn-start {
+            background: var(--gradient) !important;
+            border: none !important;
+            color: white !important;
+            padding: 12px 28px !important;
+            border-radius: 50px !important;
+            cursor: pointer !important;
+            font-weight: 700 !important;
+            font-size: 1rem !important;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 4px 12px rgba(232, 62, 140, 0.3) !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+        }
+
+        .btn-start:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 20px rgba(232, 62, 140, 0.4) !important;
+        }
+
         .modal {
             display: none;
             position: fixed;
@@ -491,7 +484,6 @@
             min-width: 35px;
         }
 
-        /* Footer */
         .footer {
             background: var(--dark);
             color: white;
@@ -521,7 +513,6 @@
     </style>
 </head>
 <body>
-    <!-- Loading Overlay -->
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-spinner">
             <i class="fas fa-heart fa-spin"></i>
@@ -529,7 +520,6 @@
         </div>
     </div>
 
-    <!-- Unlock Screen -->
     <div class="unlock-screen" id="unlockScreen">
         <div class="unlock-box">
             <i class="fas fa-lock"></i>
@@ -545,7 +535,6 @@
         </div>
     </div>
 
-    <!-- Main Content -->
     <div class="main-content" id="mainContent">
         <nav class="navbar">
             <div class="nav-container">
@@ -588,7 +577,6 @@
         </footer>
     </div>
 
-    <!-- Modal -->
     <div class="modal" id="courseModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -600,10 +588,8 @@
     </div>
 
     <script>
-        // Google Sheet ID của chị
         const GOOGLE_SHEET_ID = "1C_ELx6iCP-xH5Hn2cFW2TQjEG9u8zSwHpj32ohMcxFs";
         
-        // Dữ liệu khóa học
         const ALL_COURSES = [
             { id: 1, name: "Cơ thể tôi là của tôi", group: "preschool", age: "3-5 tuổi", icon: "🛡️", price: "199.000đ",
               shortDesc: "Bài học đầu tiên về bảo vệ cơ thể cho trẻ mầm non - Dễ hiểu, dễ thương, đúng khoa học.",
@@ -634,7 +620,6 @@
         let currentUser = null;
         let currentAllowedCourseIds = [];
 
-        // Lấy dữ liệu từ Google Sheets
         async function fetchValidKeys() {
             try {
                 const url = `https://docs.google.com/spreadsheets/d/${GOOGLE_SHEET_ID}/gviz/tq?tqx=out:json`;
@@ -642,29 +627,20 @@
                 const text = await response.text();
                 const jsonText = text.substring(47, text.length - 2);
                 const data = JSON.parse(jsonText);
-                
                 const rows = data.table.rows;
                 const validKeys = {};
-                
-                // Dòng 0 là tiêu đề, bắt đầu từ dòng 1
                 for (let i = 1; i < rows.length; i++) {
                     const row = rows[i];
                     if (!row.c || row.c.length < 4) continue;
-                    
                     const maKhoa = row.c[0]?.v || "";
                     const tenHocVien = row.c[1]?.v || "";
                     const cacKhoa = row.c[2]?.v || "";
                     const trangThai = row.c[3]?.v || "";
-                    
                     if (maKhoa && tenHocVien && trangThai === "active") {
                         const courseIds = cacKhoa.split(",").map(id => parseInt(id.trim())).filter(id => !isNaN(id));
-                        validKeys[maKhoa.toUpperCase()] = {
-                            name: tenHocVien,
-                            courseIds: courseIds
-                        };
+                        validKeys[maKhoa.toUpperCase()] = { name: tenHocVien, courseIds: courseIds };
                     }
                 }
-                
                 return validKeys;
             } catch (error) {
                 console.error("Lỗi đọc Google Sheet:", error);
@@ -672,7 +648,6 @@
             }
         }
 
-        // Hiển thị chi tiết khóa học
         function showCourseDetail(course) {
             const modal = document.getElementById('courseModal');
             document.getElementById('modalTitle').innerHTML = `${course.icon} ${course.name}`;
@@ -685,7 +660,7 @@
                 </ul>
                 <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--light-gray); display: flex; justify-content: space-between; align-items: center;">
                     <span style="font-size: 1.3rem; font-weight: bold; color: var(--primary);">${course.price}</span>
-                  <button class="btn-start" onclick="event.stopPropagation(); startCourse(${course.id})">▶ Bắt đầu học</button>
+                    <button class="btn-start" onclick="event.stopPropagation(); startCourse(${course.id})">▶ Bắt đầu học</button>
                 </div>
             `;
             modal.classList.add('active');
@@ -695,21 +670,15 @@
             document.getElementById('courseModal').classList.remove('active');
         }
 
-        // Render khóa học
         function renderCourses(group, allowedIds) {
             const grid = document.getElementById('coursesGrid');
             if (!grid) return;
-            
             let filtered = ALL_COURSES.filter(c => allowedIds.includes(c.id));
-            if (group !== 'all') {
-                filtered = filtered.filter(c => c.group === group);
-            }
-            
+            if (group !== 'all') filtered = filtered.filter(c => c.group === group);
             if (filtered.length === 0) {
                 grid.innerHTML = '<div class="loading-text">Không có khóa học nào trong danh mục này.</div>';
                 return;
             }
-            
             grid.innerHTML = filtered.map(course => `
                 <div class="course-card" onclick='showCourseDetail(${JSON.stringify(course).replace(/'/g, "\\'")})'>
                     <div class="course-header">
@@ -725,48 +694,35 @@
                         </ul>
                         <div class="course-footer">
                             <span class="course-price">${course.price}</span>
-                           <button class="btn-start" onclick="startCourse(${course.id})">▶ Bắt đầu học</button>
+                            <button class="btn-start" onclick="startCourse(${course.id})">▶ Bắt đầu học</button>
                         </div>
                     </div>
                 </div>
             `).join('');
         }
 
-        // Mở khóa
         async function unlockCourse(key) {
             const loadingOverlay = document.getElementById('loadingOverlay');
             loadingOverlay.style.display = 'flex';
-            
             const validKeys = await fetchValidKeys();
             loadingOverlay.style.display = 'none';
-            
-            if (!validKeys) {
-                alert("Không thể kết nối đến dữ liệu. Vui lòng thử lại sau.");
-                return;
-            }
-            
+            if (!validKeys) { alert("Không thể kết nối đến dữ liệu. Vui lòng thử lại sau."); return; }
             const normalizedKey = key.trim().toUpperCase();
             const license = validKeys[normalizedKey];
-            
             if (license) {
                 currentUser = license.name;
                 currentAllowedCourseIds = license.courseIds;
-                
                 localStorage.setItem('sophia_license', normalizedKey);
                 localStorage.setItem('sophia_user', currentUser);
                 localStorage.setItem('sophia_courses', JSON.stringify(currentAllowedCourseIds));
-                
                 document.getElementById('unlockScreen').style.display = 'none';
                 document.getElementById('mainContent').style.display = 'block';
                 document.getElementById('userNameDisplay').innerHTML = `<i class="fas fa-user-circle"></i> ${currentUser}`;
-                
                 renderCourses('all', currentAllowedCourseIds);
             } else {
                 const errorMsg = document.getElementById('errorMsg');
                 errorMsg.style.display = 'block';
-                setTimeout(() => {
-                    errorMsg.style.display = 'none';
-                }, 2000);
+                setTimeout(() => { errorMsg.style.display = 'none'; }, 2000);
             }
         }
 
@@ -784,15 +740,12 @@
             if (savedKey) {
                 const loadingOverlay = document.getElementById('loadingOverlay');
                 loadingOverlay.style.display = 'flex';
-                
                 const validKeys = await fetchValidKeys();
                 loadingOverlay.style.display = 'none';
-                
                 if (validKeys && validKeys[savedKey]) {
                     const license = validKeys[savedKey];
                     currentUser = license.name;
                     currentAllowedCourseIds = license.courseIds;
-                    
                     document.getElementById('unlockScreen').style.display = 'none';
                     document.getElementById('mainContent').style.display = 'block';
                     document.getElementById('userNameDisplay').innerHTML = `<i class="fas fa-user-circle"></i> ${currentUser}`;
@@ -806,172 +759,111 @@
             document.getElementById('loadingOverlay').style.display = 'none';
         }
 
-        // Khởi tạo
         document.addEventListener('DOMContentLoaded', () => {
             checkExistingLicense();
-            
-            document.getElementById('unlockBtn').addEventListener('click', () => {
-                const key = document.getElementById('licenseKey').value;
-                unlockCourse(key);
-            });
-            
-            document.getElementById('licenseKey').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    unlockCourse(e.target.value);
-                }
-            });
-            
+            document.getElementById('unlockBtn').addEventListener('click', () => { unlockCourse(document.getElementById('licenseKey').value); });
+            document.getElementById('licenseKey').addEventListener('keypress', (e) => { if (e.key === 'Enter') unlockCourse(e.target.value); });
             document.getElementById('logoutBtn').addEventListener('click', logout);
-            
             const filterBtns = document.querySelectorAll('.age-btn');
             filterBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
                     if (!currentAllowedCourseIds.length) return;
                     filterBtns.forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
-                    const group = btn.getAttribute('data-group');
-                    renderCourses(group, currentAllowedCourseIds);
+                    renderCourses(btn.getAttribute('data-group'), currentAllowedCourseIds);
                 });
             });
-            
-            document.getElementById('courseModal').addEventListener('click', (e) => {
-                if (e.target === document.getElementById('courseModal')) closeModal();
-            });
+            document.getElementById('courseModal').addEventListener('click', (e) => { if (e.target === document.getElementById('courseModal')) closeModal(); });
         });
     </script>
     <script>
-    // ==================== QUẢN LÝ TRANG HỌC ====================
-// Cấu hình video cho từng khóa, từng chương
-// CHỊ SỬA LINK VIDEO VÀO ĐÂY
-const courseVideos = {
-    1: {  // Khóa 1: "Cơ thể tôi là của tôi"
-        courseName: "Cơ thể tôi là của tôi",
-        chapters: [
-            { number: 1, name: "Tên gọi đúng của các bộ phận cơ thể", 
-             videoUrl: "https://www.youtube.com/embed/8op6VjINSIc", 
-            pdfUrl: "https://drive.google.com/uc?export=download&id=1lH-xmZ2yk8zE5OsBw0xA4e0BoL08P6MR", 
+        const courseVideos = {
+            1: {
+                courseName: "Cơ thể tôi là của tôi",
+                chapters: [
+                    { number: 1, name: "Tên gọi đúng của các bộ phận cơ thể", videoUrl: "https://www.youtube.com/embed/8op6VjINSIc", pdfUrl: "https://drive.google.com/uc?export=download&id=1lH-xmZ2yk8zE5OsBw0xA4e0BoL08P6MR" },
+                    { number: 2, name: "Vùng đồ bơi - Ai được chạm vào và khi nào?", videoUrl: "" },
+                    { number: 3, name: "Quy tắc bàn tay 5 ngón", videoUrl: "" },
+                    { number: 4, name: "Kỹ năng Nói không - Bỏ chạy - Kể lại", videoUrl: "" },
+                    { number: 5, name: "Bí mật tốt và bí mật xấu", videoUrl: "" }
+                ]
             },
-            { number: 2, name: "Vùng đồ bơi - Ai được chạm vào và khi nào?", videoUrl: "" },
-            { number: 3, name: "Quy tắc bàn tay 5 ngón", videoUrl: "" },
-            { number: 4, name: "Kỹ năng Nói không - Bỏ chạy - Kể lại", videoUrl: "" },
-            { number: 5, name: "Bí mật tốt và bí mật xấu", videoUrl: "" }
-        ]
-    },
-    2: {  // Khóa 2: "Đi tìm sự thật về 'Cái rốn'"
-        courseName: "Đi tìm sự thật về 'Cái rốn'",
-        chapters: [
-            { number: 1, name: "Ngôi nhà đầu tiên của con - Bụng mẹ", videoUrl: "" },
-            { number: 2, name: "Con đã lớn lên như thế nào?", videoUrl: "" },
-            { number: 3, name: "Ngày con chào đời", videoUrl: "" },
-            { number: 4, name: "Tại sao con giống bố/giống mẹ?", videoUrl: "" }
-        ]
-    },
-    // Chị có thể thêm các khóa 3,4,5,6 sau
-};
+            2: {
+                courseName: "Đi tìm sự thật về 'Cái rốn'",
+                chapters: [
+                    { number: 1, name: "Ngôi nhà đầu tiên của con - Bụng mẹ", videoUrl: "" },
+                    { number: 2, name: "Con đã lớn lên như thế nào?", videoUrl: "" },
+                    { number: 3, name: "Ngày con chào đời", videoUrl: "" },
+                    { number: 4, name: "Tại sao con giống bố/giống mẹ?", videoUrl: "" }
+                ]
+            }
+        };
 
-let currentCourseId = null;
-let currentChapterIndex = 0;
+        let currentCourseId = null;
+        let currentChapterIndex = 0;
 
-// Hiển thị trang học
-function showLearningPage(courseId, chapterIndex = 0) {
-    currentCourseId = courseId;
-    currentChapterIndex = chapterIndex;
-    
-    const course = courseVideos[courseId];
-    if (!course) {
-        alert("Khóa học chưa có nội dung. Vui lòng quay lại sau.");
-        return;
-    }
-    
-    const chapter = course.chapters[chapterIndex];
-        if (!chapter) {
-        alert("Chương này chưa có video. Vui lòng chọn chương khác.");
-        return;
-    }
-    const pdfUrl = chapter.pdfUrl;
-    // Cập nhật tiêu đề
-    document.getElementById('learningCourseTitle').innerText = course.courseName;
-    document.getElementById('learningChapterTitle').innerHTML = `📌 Chương ${chapter.number}: ${chapter.name}`;
-    
-    // Cập nhật video
-    const videoUrl = chapter.videoUrl;
-    if (videoUrl) {
-        // Chuyển đổi link YouTube sang dạng embed nếu cần
-        let embedUrl = videoUrl;
-        if (videoUrl.includes('youtu.be')) {
-            const videoId = videoUrl.split('/').pop();
-            embedUrl = `https://www.youtube.com/embed/${videoId}`;
-        } else if (videoUrl.includes('watch?v=')) {
-            const videoId = videoUrl.split('v=')[1].split('&')[0];
-            embedUrl = `https://www.youtube.com/embed/${videoId}`;
+        function showLearningPage(courseId, chapterIndex = 0) {
+            currentCourseId = courseId;
+            currentChapterIndex = chapterIndex;
+            const course = courseVideos[courseId];
+            if (!course) { alert("Khóa học chưa có nội dung. Vui lòng quay lại sau."); return; }
+            const chapter = course.chapters[chapterIndex];
+            if (!chapter) { alert("Chương này chưa có nội dung. Vui lòng chọn chương khác."); return; }
+            const pdfUrl = chapter.pdfUrl;
+            document.getElementById('learningCourseTitle').innerText = course.courseName;
+            document.getElementById('learningChapterTitle').innerHTML = `📌 Chương ${chapter.number}: ${chapter.name}`;
+            const videoUrl = chapter.videoUrl;
+            if (videoUrl) {
+                let embedUrl = videoUrl;
+                if (videoUrl.includes('youtu.be')) embedUrl = `https://www.youtube.com/embed/${videoUrl.split('/').pop()}`;
+                else if (videoUrl.includes('watch?v=')) embedUrl = `https://www.youtube.com/embed/${videoUrl.split('v=')[1].split('&')[0]}`;
+                document.getElementById('videoPlayer').src = embedUrl;
+            } else {
+                document.getElementById('videoPlayer').src = "";
+                if (chapterIndex === 0) alert("Chương này chưa có video. Chị đang cập nhật nhé!");
+            }
+            const pdfLink = document.getElementById('pdfDownloadLink');
+            if (pdfUrl && pdfUrl !== "") { pdfLink.href = pdfUrl; pdfLink.style.display = "inline-flex"; }
+            else { pdfLink.style.display = "none"; }
+            const chapterListDiv = document.getElementById('chapterList');
+            chapterListDiv.innerHTML = course.chapters.map((ch, idx) => `
+                <div onclick="changeChapter(${idx})" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: ${idx === currentChapterIndex ? 'var(--gradient)' : '#f9fafb'}; border-radius: 16px; cursor: pointer; transition: all 0.2s;">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <span style="font-weight: bold; background: ${idx === currentChapterIndex ? 'rgba(255,255,255,0.3)' : 'var(--primary)'}; color: white; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">${ch.number}</span>
+                        <span style="color: ${idx === currentChapterIndex ? 'white' : 'var(--dark)'};">${ch.name}</span>
+                    </div>
+                    <span style="color: ${idx === currentChapterIndex ? 'white' : 'var(--gray)'};">${ch.videoUrl ? '🎬 Đã có video' : '⏳ Đang cập nhật'}</span>
+                </div>
+            `).join('');
+            document.getElementById('coursesGrid').style.display = 'none';
+            document.getElementById('ageGroups').style.display = 'none';
+            document.getElementById('learningPage').style.display = 'block';
+            document.getElementById('learningUserName').innerHTML = `<i class="fas fa-user-circle"></i> ${currentUser || 'Học viên'}`;
+            window.scrollTo(0, 0);
         }
-        document.getElementById('videoPlayer').src = embedUrl;
-    } else {
-        document.getElementById('videoPlayer').src = "";
-        alert("Chương này chưa có video. Chị đang cập nhật nhé!");
-    }
-    // Hiển thị nút tải PDF nếu có
-const pdfLink = document.getElementById('pdfDownloadLink');
-if (pdfUrl && pdfUrl !== "") {
-    pdfLink.href = pdfUrl;
-    pdfLink.style.display = "inline-flex";
-} else {
-    pdfLink.style.display = "none";
-}
-    // Hiển thị danh sách chương
-    const chapterListDiv = document.getElementById('chapterList');
-    chapterListDiv.innerHTML = course.chapters.map((ch, idx) => `
-        <div onclick="changeChapter(${idx})" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: ${idx === currentChapterIndex ? 'var(--gradient)' : '#f9fafb'}; border-radius: 16px; cursor: pointer; transition: all 0.2s;">
-            <div style="display: flex; align-items: center; gap: 12px;">
-                <span style="font-weight: bold; background: ${idx === currentChapterIndex ? 'rgba(255,255,255,0.3)' : 'var(--primary)'}; color: ${idx === currentChapterIndex ? 'white' : 'white'}; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">${ch.number}</span>
-                <span style="color: ${idx === currentChapterIndex ? 'white' : 'var(--dark)'};">${ch.name}</span>
-            </div>
-            <span style="color: ${idx === currentChapterIndex ? 'white' : 'var(--gray)'};">${ch.videoUrl ? '🎬 Đã có video' : '⏳ Đang cập nhật'}</span>
-        </div>
-    `).join('');
-    
-    // Ẩn trang khóa học, hiện trang học
-    document.getElementById('coursesGrid').style.display = 'none';
-    document.getElementById('ageGroups').style.display = 'none';
-    document.getElementById('learningPage').style.display = 'block';
-    document.getElementById('learningUserName').innerHTML = `<i class="fas fa-user-circle"></i> ${currentUser || 'Học viên'}`;
-    
-    // Cuộn lên đầu trang
-    window.scrollTo(0, 0);
-}
 
-function changeChapter(chapterIndex) {
-    const course = courseVideos[currentCourseId];
-    if (course && course.chapters[chapterIndex]) {
-        showLearningPage(currentCourseId, chapterIndex);
-    }
-}
+        function changeChapter(chapterIndex) {
+            const course = courseVideos[currentCourseId];
+            if (course && course.chapters[chapterIndex]) showLearningPage(currentCourseId, chapterIndex);
+        }
 
-function backToCourses() {
-    // Ẩn trang học, hiện lại trang khóa học
-    document.getElementById('coursesGrid').style.display = 'grid';
-    document.getElementById('ageGroups').style.display = 'flex';
-    document.getElementById('learningPage').style.display = 'none';
-    document.getElementById('videoPlayer').src = "";
-    
-    // Render lại khóa học (giữ nguyên filter hiện tại)
-    const activeFilter = document.querySelector('.age-btn.active');
-    const group = activeFilter ? activeFilter.getAttribute('data-group') : 'all';
-    renderCourses(group, currentAllowedCourseIds);
-}
+        function backToCourses() {
+            document.getElementById('coursesGrid').style.display = 'grid';
+            document.getElementById('ageGroups').style.display = 'flex';
+            document.getElementById('learningPage').style.display = 'none';
+            document.getElementById('videoPlayer').src = "";
+            const activeFilter = document.querySelector('.age-btn.active');
+            renderCourses(activeFilter ? activeFilter.getAttribute('data-group') : 'all', currentAllowedCourseIds);
+        }
 
-// Sửa lại hàm startCourse để chuyển sang trang học
-function startCourse(courseId) {
-    if (courseVideos[courseId]) {
-        showLearningPage(courseId, 0);
-    } else {
-        alert(`📚 Khóa học "${ALL_COURSES.find(c => c.id === courseId)?.name}"\n\nNội dung đang được cập nhật. Chị sẽ sớm hoàn thiện!`);
-    }
-    if (typeof closeModal === 'function') closeModal();
-}
-</script>
-    </body>
-    <!-- Trang học chi tiết (ẩn ban đầu) -->
+        function startCourse(courseId) {
+            if (courseVideos[courseId]) showLearningPage(courseId, 0);
+            else alert(`📚 Khóa học "${ALL_COURSES.find(c => c.id === courseId)?.name}"\n\nNội dung đang được cập nhật. Chị sẽ sớm hoàn thiện!`);
+            if (typeof closeModal === 'function') closeModal();
+        }
+    </script>
+</body>
+
 <div id="learningPage" style="display: none; min-height: 100vh; background: var(--gradient-soft);">
     <nav class="navbar">
         <div class="nav-container">
@@ -981,7 +873,7 @@ function startCourse(courseId) {
             </div>
             <div class="user-info">
                 <span id="learningUserName"><i class="fas fa-user-circle"></i> Học viên</span>
-                <button id="learningLogoutBtn" style="background: none; border: none; color: var(--gray); cursor: pointer;">Thoát</button>
+                <button id="learningLogoutBtn" style="background: none; border: none; color: var(--gray); cursor: pointer;" onclick="logout()">Thoát</button>
             </div>
         </div>
     </nav>
@@ -993,23 +885,19 @@ function startCourse(courseId) {
                 <p id="learningChapterTitle" style="color: rgba(255,255,255,0.9); margin: 8px 0 0;">Chương 1</p>
             </div>
             <div style="padding: 30px;">
-                <!-- Video sẽ hiện ở đây -->
                 <div id="videoContainer" style="margin-bottom: 30px;">
                     <iframe id="videoPlayer" width="100%" height="450" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 20px;"></iframe>
                 </div>
-                <!-- Nút tải PDF -->
-<div id="pdfDownloadContainer" style="margin: 20px 0; text-align: right;">
-    <a id="pdfDownloadLink" href="#" target="_blank" style="display: none; background: var(--primary); color: white; padding: 10px 20px; border-radius: 40px; text-decoration: none; font-weight: 500;">
-        <i class="fas fa-download"></i> Tải tài liệu PDF
-    </a>
-</div>
-                <!-- Danh sách chương -->
-                <h3 style="margin-bottom: 16px;">📚 Các chương trong khóa</h3>
-                <div id="chapterList" style="display: flex; flex-direction: column; gap: 12px;">
-                    <!-- Các chương sẽ được JavaScript tạo ra -->
+                <div id="pdfDownloadContainer" style="margin: 20px 0; text-align: right;">
+                    <a id="pdfDownloadLink" href="#" target="_blank" style="display: none; background: var(--primary); color: white; padding: 10px 20px; border-radius: 40px; text-decoration: none; font-weight: 500;">
+                        <i class="fas fa-download"></i> Tải tài liệu PDF
+                    </a>
                 </div>
+                <h3 style="margin-bottom: 16px;">📚 Các chương trong khóa</h3>
+                <div id="chapterList" style="display: flex; flex-direction: column; gap: 12px;"></div>
             </div>
         </div>
     </div>
 </div>
+
 </html>
