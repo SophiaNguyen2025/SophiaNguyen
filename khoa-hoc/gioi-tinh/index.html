@@ -395,38 +395,24 @@
             font-size: 1.2rem;
             color: var(--primary);
         }
-
-        .btn-enroll {
-            background: var(--gradient);
-            border: none;
-            color: white;
-            padding: 10px 24px;
-            border-radius: 40px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-
-        .btn-enroll:hover {
-            transform: scale(1.02);
-        }
 .btn-start {
-    background: var(--gradient);
-    border: none;
-    color: white;
-    padding: 12px 28px;
-    border-radius: 50px;
-    cursor: pointer;
-    font-weight: 700;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(232, 62, 140, 0.3);
+    background: var(--gradient) !important;
+    border: none !important;
+    color: white !important;
+    padding: 12px 28px !important;
+    border-radius: 50px !important;
+    cursor: pointer !important;
+    font-weight: 700 !important;
+    font-size: 1rem !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 12px rgba(232, 62, 140, 0.3) !important;
 }
 
 .btn-start:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(232, 62, 140, 0.4);
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 20px rgba(232, 62, 140, 0.4) !important;
 }
+       
         /* Modal */
         .modal {
             display: none;
@@ -898,12 +884,11 @@ function showLearningPage(courseId, chapterIndex = 0) {
     }
     
     const chapter = course.chapters[chapterIndex];
-    const pdfUrl = chapter.pdfUrl;   // 👈 THÊM DÒNG NÀY
-    if (!chapter) {
+        if (!chapter) {
         alert("Chương này chưa có video. Vui lòng chọn chương khác.");
         return;
     }
-    
+    const pdfUrl = chapter.pdfUrl;
     // Cập nhật tiêu đề
     document.getElementById('learningCourseTitle').innerText = course.courseName;
     document.getElementById('learningChapterTitle').innerHTML = `📌 Chương ${chapter.number}: ${chapter.name}`;
@@ -926,7 +911,6 @@ function showLearningPage(courseId, chapterIndex = 0) {
         alert("Chương này chưa có video. Chị đang cập nhật nhé!");
     }
     // Hiển thị nút tải PDF nếu có
-const pdfUrl = chapter.pdfUrl;
 const pdfLink = document.getElementById('pdfDownloadLink');
 if (pdfUrl && pdfUrl !== "") {
     pdfLink.href = pdfUrl;
