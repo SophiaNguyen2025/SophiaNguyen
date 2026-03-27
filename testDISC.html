@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Trắc nghiệm DISC </title>
+  <title>Trắc nghiệm DISC</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -41,12 +41,7 @@
       padding: 15px;
       border-left: 5px solid #3366CC;
       border-radius: 10px;
-    }
-    .question:nth-child(even) {
-      background:#009900;
-    }
-    .question:nth-child(odd) {
-      background: #CCCC99;
+      background: #f9f9ff;
     }
     .question p {
       margin: 0 0 10px;
@@ -57,14 +52,13 @@
       font-weight: normal;
       margin-bottom: 8px;
     }
-    input[type="text"],
-    input[type="email"],
-    input[type="number"] {
+    input[type="text"], input[type="email"] {
       width: 100%;
       padding: 10px;
       margin-top: 8px;
       border-radius: 6px;
       border: 1px solid #ccc;
+      box-sizing: border-box;
     }
     button {
       margin-top: 30px;
@@ -89,305 +83,285 @@
       color: #4a148c;
       font-weight: bold;
     }
+    .share-buttons {
+      margin-top: 20px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .share-buttons button {
+      width: auto;
+      margin-top: 0;
+      padding: 8px 16px;
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="logo">
-      <img src="images/hinhremovenen.png" alt="Logo Sophia">
-    </div>
-    <h1>Trắc nghiệm DISC </h1>
-    <!-- Form cá nhân -->
-<form id="quizForm"</form>
-    <!-- Nút tính kết quả -->
-   <button id="submitBtn" type="button" onclick="submitQuiz()" style="display:none;">
-  Tính kết quả
-</button>
+<div class="container">
+  <div class="logo">
+    <!-- Chị có thể thay đường dẫn logo tại đây -->
+    <img src="images/hinhremovenen.png" alt="Logo Sophia" onerror="this.style.display='none'">
+  </div>
+  <h1>Trắc nghiệm DISC</h1>
 
-  
-    <div id="result"></div>
- 
-    <script>
-    const questions = [
-      {
-        text: "Khi bắt đầu một dự án mới, bạn thường:",
-        options: [
-          { text: "Chủ động lãnh đạo và ra quyết định", type: "D" },
-          { text: "Lắng nghe và hỗ trợ nhóm", type: "S" },
-          { text: "Truyền cảm hứng và kết nối mọi người", type: "I" },
-          { text: "Tìm hiểu kỹ quy trình và tiêu chuẩn", type: "C" }
-        ]
-      },
-      {
-        text: "Trong cuộc họp, bạn thường:",
-        options: [
-          { text: "Tạo không khí vui vẻ, dễ chịu", type: "I" },
-          { text: "Giữ bình tĩnh, lắng nghe trước khi nói", type: "S" },
-          { text: "Ghi chú chi tiết và phân tích kỹ lưỡng", type: "C" },
-          { text: "Thẳng thắn nêu ý kiến, dù có thể gây tranh luận", type: "D" }
-        ]
-      },
-      {
-        text: "Khi gặp áp lực, bạn có xu hướng:",
-        options: [
-          { text: "Giữ nhịp độ ổn định, tránh xáo trộn", type: "S" },
-          { text: "Tăng tốc, quyết đoán hơn", type: "D" },
-          { text: "Tìm người chia sẻ, động viên", type: "I" },
-          { text: "Trở nên cẩn trọng, kiểm tra mọi thứ kỹ hơn", type: "C" }
-        ]
-      },
-      {
-        text: "Bạn cảm thấy hài lòng nhất khi:",
-        options: [
-          { text: "Được mọi người yêu quý và công nhận", type: "I" },
-          { text: "Có môi trường làm việc ổn định", type: "S" },
-          { text: "Đạt được mục tiêu lớn", type: "D" },
-          { text: "Làm việc chính xác, không sai sót", type: "C" }
-        ]
-      },
-      {
-        text: "Khi làm việc nhóm, bạn thường:",
-        options: [
-          { text: "Kết nối mọi người, tạo sự gắn kết", type: "I" },
-          { text: "Đưa ra định hướng và thúc đẩy tiến độ", type: "D" },
-          { text: "Hỗ trợ từng thành viên, giữ hòa khí", type: "S" },
-          { text: "Đảm bảo mọi người tuân thủ quy trình", type: "C" }
-        ]
-      },
-      {
-        text: "Bạn thấy khó chịu nhất khi:",
-        options: [          
-          { text: "Bị ép thay đổi quá nhanh", type: "S" },
-          { text: "Bị kiểm soát hoặc thiếu quyền quyết định", type: "D" },
-          { text: "Bị làm việc thiếu tổ chức, không rõ ràng", type: "C" },
-          { text: "Bị cô lập hoặc không được lắng nghe", type: "I" }
-        ]
-      },
-      {
-        text: "Trong giao tiếp, bạn thường:",
-        options: [
-          { text: "Chính xác, có logic", type: "C" },
-          { text: "Thân thiện, dễ bắt chuyện", type: "I" },
-          { text: "Nhẹ nhàng, kiên nhẫn", type: "S" },
-          { text: "Nói thẳng, không vòng vo", type: "D" }
-        
-        ]
-      },
-      {
-        text: "Bạn đánh giá thành công dựa trên:",
-        options: [
-          { text: "Kết quả và thành tích", type: "D" },
-           { text: "Sự ổn định và hài hòa", type: "S" },
-          { text: "Mối quan hệ và ảnh hưởng", type: "I" },
-          { text: "Độ chính xác và chất lượng", type: "C" }
-        ]
-      },
-      {
-        text: "Khi có mâu thuẫn trong nhóm, bạn thường:",
-        options: [
-          { text: "Đối mặt trực tiếp và giải quyết nhanh chóng", type: "D" },
-          { text: "Tìm cách hòa giải và làm dịu tình hình", type: "I" },
-          { text: "Chờ đợi để mọi thứ tự ổn định", type: "S" },
-          { text: "Phân tích nguyên nhân và đề xuất giải pháp", type: "C" }
-        ]
-      },
-      {
-        text: "Bạn thích làm việc trong môi trường:",
-        options: [
-          { text: "Năng động, có nhiều thử thách", type: "D" },
-          { text: "Hòa đồng, thân thiện", type: "I" },
-          { text: "Ổn định, ít thay đổi", type: "S" },
-          { text: "Có quy trình rõ ràng, minh bạch", type: "C" }
-        ]
-      },
-        {
-        text: "Khi nhận một nhiệm vụ mới, bạn thường:",
-        options: [
-          { text: "Tìm cách hoàn thành nhanh nhất có thể", type: "D" },
-          { text: "Lên kế hoạch chi tiết và thực hiện từ từ", type: "S" },
-          { text: "Hỏi ý kiến đồng nghiệp để làm tốt hơn", type: "I" },
-          { text: "Nghiên cứu kỹ lưỡng trước khi bắt đầu", type: "C" }
-        ]
-      },
-      {
-        text: "Bạn cảm thấy tự tin nhất khi:",
-        options: [
-          { text: "Được trao quyền quyết định", type: "D" },
-          { text: "Được làm việc với nhiều người", type: "I" },
-          { text: "Được làm việc với dữ liệu và thông tin chính xác", type: "C" },
-          { text: "Được làm việc trong môi trường quen thuộc", type: "S" }
-         
-        ]
-      },
-      {
-        text: "Khi làm việc với người khác, bạn thường:",
-        options: [
-          { text: "Đảm bảo mọi người làm đúng theo kế hoạch", type: "C" },
-          { text: "Tạo động lực và khuyến khích mọi người", type: "I" },
-          { text: "Hỗ trợ và đảm bảo mọi người cảm thấy thoải mái", type: "S" },
-          { text: "Đưa ra ý kiến mạnh mẽ và dẫn dắt nhóm", type: "D" }
-        ]
-      },
-      {
-        text: "Bạn cảm thấy áp lực nhất khi:",
-        options: [
-          { text: "Phải thay đổi cách làm việc liên tục", type: "S" },
-           { text: "Không đạt được kết quả như mong muốn", type: "D" },
-          { text: "Không được mọi người ủng hộ", type: "I" },
-          { text: "Phải làm việc trong môi trường thiếu tổ chức", type: "C" }
-        ]
-      },
-      {
-        text: "Khi cần đưa ra quyết định, bạn thường:",
-        options: [
-           { text: "Tham khảo ý kiến người khác trước", type: "I" },
-          { text: "Cân nhắc kỹ lưỡng để tránh rủi ro", type: "S" },
-          { text: "Quyết đoán và nhanh chóng", type: "D" },
-          { text: "Dựa vào dữ liệu và phân tích logic", type: "C" }
-        ]
-      },
-      {
-        text: "Bạn cảm thấy thoải mái nhất khi:",
-        options: [
-          { text: "Được làm việc với nhịp độ ổn định", type: "S" },
-          { text: "Được làm việc với quy trình rõ ràng", type: "C" },
-          { text: "Được thử thách và cạnh tranh", type: "D" },
-          { text: "Được làm việc trong môi trường vui vẻ", type: "I" }
-        ]
-      },
-      {
-        text: "Khi gặp vấn đề, bạn thường:",
-        options: [
-          { text: "Tìm người hỗ trợ hoặc chia sẻ", type: "I" },
-          { text: "Chờ đợi để mọi thứ tự ổn định", type: "S" },
-          { text: "Tìm cách giải quyết ngay lập tức", type: "D" },
-          { text: "Phân tích kỹ lưỡng trước khi hành động", type: "C" }
-        ]
-      },
-      {
-        text: "Bạn cảm thấy tự hào nhất khi:",
-        options: [
-          { text: "Được làm việc trong môi trường ổn định", type: "S" },
-          { text: "Được hoàn thành công việc một cách chính xác", type: "C" },
-          { text: "Đạt được thành tích vượt trội", type: "D" },
-          { text: "Được mọi người yêu quý và công nhận", type: "I" }
-        ]
-      },
-      {
-        text: "Khi nhóm gặp khó khăn hoặc mâu thuẫn, phản ứng tự nhiên của bạn là:",
-        options: [
+  <!-- FORM THÔNG TIN NGƯỜI DÙNG -->
+  <form id="userForm">
+    <label>Họ và tên (tuỳ chọn):</label>
+    <input type="text" id="userName" placeholder="Nhập tên của bạn">
+    <label>Email (tuỳ chọn):</label>
+    <input type="email" id="userEmail" placeholder="Nhập email">
+    <button type="submit">Bắt đầu làm bài</button>
+  </form>
+
+  <!-- FORM CÂU HỎI – ban đầu ẩn -->
+  <form id="quizForm" style="display: none;"></form>
+
+  <!-- NÚT TÍNH KẾT QUẢ – ban đầu ẩn -->
+  <button id="submitBtn" type="button" style="display: none;">Tính kết quả</button>
+
+  <div id="result" class="result"></div>
+</div>
+
+<script>
+  // 20 câu hỏi DISC (giữ nguyên từ code chị)
+  const questions = [
+    { text: "Khi bắt đầu một dự án mới, bạn thường:", options: [
+        { text: "Chủ động lãnh đạo và ra quyết định", type: "D" },
+        { text: "Lắng nghe và hỗ trợ nhóm", type: "S" },
+        { text: "Truyền cảm hứng và kết nối mọi người", type: "I" },
+        { text: "Tìm hiểu kỹ quy trình và tiêu chuẩn", type: "C" }
+      ] },
+    { text: "Trong cuộc họp, bạn thường:", options: [
+        { text: "Tạo không khí vui vẻ, dễ chịu", type: "I" },
+        { text: "Giữ bình tĩnh, lắng nghe trước khi nói", type: "S" },
+        { text: "Ghi chú chi tiết và phân tích kỹ lưỡng", type: "C" },
+        { text: "Thẳng thắn nêu ý kiến, dù có thể gây tranh luận", type: "D" }
+      ] },
+    { text: "Khi gặp áp lực, bạn có xu hướng:", options: [
+        { text: "Giữ nhịp độ ổn định, tránh xáo trộn", type: "S" },
+        { text: "Tăng tốc, quyết đoán hơn", type: "D" },
+        { text: "Tìm người chia sẻ, động viên", type: "I" },
+        { text: "Trở nên cẩn trọng, kiểm tra mọi thứ kỹ hơn", type: "C" }
+      ] },
+    { text: "Bạn cảm thấy hài lòng nhất khi:", options: [
+        { text: "Được mọi người yêu quý và công nhận", type: "I" },
+        { text: "Có môi trường làm việc ổn định", type: "S" },
+        { text: "Đạt được mục tiêu lớn", type: "D" },
+        { text: "Làm việc chính xác, không sai sót", type: "C" }
+      ] },
+    { text: "Khi làm việc nhóm, bạn thường:", options: [
+        { text: "Kết nối mọi người, tạo sự gắn kết", type: "I" },
+        { text: "Đưa ra định hướng và thúc đẩy tiến độ", type: "D" },
+        { text: "Hỗ trợ từng thành viên, giữ hòa khí", type: "S" },
+        { text: "Đảm bảo mọi người tuân thủ quy trình", type: "C" }
+      ] },
+    { text: "Bạn thấy khó chịu nhất khi:", options: [
+        { text: "Bị ép thay đổi quá nhanh", type: "S" },
+        { text: "Bị kiểm soát hoặc thiếu quyền quyết định", type: "D" },
+        { text: "Bị làm việc thiếu tổ chức, không rõ ràng", type: "C" },
+        { text: "Bị cô lập hoặc không được lắng nghe", type: "I" }
+      ] },
+    { text: "Trong giao tiếp, bạn thường:", options: [
+        { text: "Chính xác, có logic", type: "C" },
+        { text: "Thân thiện, dễ bắt chuyện", type: "I" },
+        { text: "Nhẹ nhàng, kiên nhẫn", type: "S" },
+        { text: "Nói thẳng, không vòng vo", type: "D" }
+      ] },
+    { text: "Bạn đánh giá thành công dựa trên:", options: [
+        { text: "Kết quả và thành tích", type: "D" },
+        { text: "Sự ổn định và hài hòa", type: "S" },
+        { text: "Mối quan hệ và ảnh hưởng", type: "I" },
+        { text: "Độ chính xác và chất lượng", type: "C" }
+      ] },
+    { text: "Khi có mâu thuẫn trong nhóm, bạn thường:", options: [
+        { text: "Đối mặt trực tiếp và giải quyết nhanh chóng", type: "D" },
+        { text: "Tìm cách hòa giải và làm dịu tình hình", type: "I" },
+        { text: "Chờ đợi để mọi thứ tự ổn định", type: "S" },
+        { text: "Phân tích nguyên nhân và đề xuất giải pháp", type: "C" }
+      ] },
+    { text: "Bạn thích làm việc trong môi trường:", options: [
+        { text: "Năng động, có nhiều thử thách", type: "D" },
+        { text: "Hòa đồng, thân thiện", type: "I" },
+        { text: "Ổn định, ít thay đổi", type: "S" },
+        { text: "Có quy trình rõ ràng, minh bạch", type: "C" }
+      ] },
+    { text: "Khi nhận một nhiệm vụ mới, bạn thường:", options: [
+        { text: "Tìm cách hoàn thành nhanh nhất có thể", type: "D" },
+        { text: "Lên kế hoạch chi tiết và thực hiện từ từ", type: "S" },
+        { text: "Hỏi ý kiến đồng nghiệp để làm tốt hơn", type: "I" },
+        { text: "Nghiên cứu kỹ lưỡng trước khi bắt đầu", type: "C" }
+      ] },
+    { text: "Bạn cảm thấy tự tin nhất khi:", options: [
+        { text: "Được trao quyền quyết định", type: "D" },
+        { text: "Được làm việc với nhiều người", type: "I" },
+        { text: "Được làm việc với dữ liệu và thông tin chính xác", type: "C" },
+        { text: "Được làm việc trong môi trường quen thuộc", type: "S" }
+      ] },
+    { text: "Khi làm việc với người khác, bạn thường:", options: [
+        { text: "Đảm bảo mọi người làm đúng theo kế hoạch", type: "C" },
+        { text: "Tạo động lực và khuyến khích mọi người", type: "I" },
+        { text: "Hỗ trợ và đảm bảo mọi người cảm thấy thoải mái", type: "S" },
+        { text: "Đưa ra ý kiến mạnh mẽ và dẫn dắt nhóm", type: "D" }
+      ] },
+    { text: "Bạn cảm thấy áp lực nhất khi:", options: [
+        { text: "Phải thay đổi cách làm việc liên tục", type: "S" },
+        { text: "Không đạt được kết quả như mong muốn", type: "D" },
+        { text: "Không được mọi người ủng hộ", type: "I" },
+        { text: "Phải làm việc trong môi trường thiếu tổ chức", type: "C" }
+      ] },
+    { text: "Khi cần đưa ra quyết định, bạn thường:", options: [
+        { text: "Tham khảo ý kiến người khác trước", type: "I" },
+        { text: "Cân nhắc kỹ lưỡng để tránh rủi ro", type: "S" },
+        { text: "Quyết đoán và nhanh chóng", type: "D" },
+        { text: "Dựa vào dữ liệu và phân tích logic", type: "C" }
+      ] },
+    { text: "Bạn cảm thấy thoải mái nhất khi:", options: [
+        { text: "Được làm việc với nhịp độ ổn định", type: "S" },
+        { text: "Được làm việc với quy trình rõ ràng", type: "C" },
+        { text: "Được thử thách và cạnh tranh", type: "D" },
+        { text: "Được làm việc trong môi trường vui vẻ", type: "I" }
+      ] },
+    { text: "Khi gặp vấn đề, bạn thường:", options: [
+        { text: "Tìm người hỗ trợ hoặc chia sẻ", type: "I" },
+        { text: "Chờ đợi để mọi thứ tự ổn định", type: "S" },
+        { text: "Tìm cách giải quyết ngay lập tức", type: "D" },
+        { text: "Phân tích kỹ lưỡng trước khi hành động", type: "C" }
+      ] },
+    { text: "Bạn cảm thấy tự hào nhất khi:", options: [
+        { text: "Được làm việc trong môi trường ổn định", type: "S" },
+        { text: "Được hoàn thành công việc một cách chính xác", type: "C" },
+        { text: "Đạt được thành tích vượt trội", type: "D" },
+        { text: "Được mọi người yêu quý và công nhận", type: "I" }
+      ] },
+    { text: "Khi nhóm gặp khó khăn hoặc mâu thuẫn, phản ứng tự nhiên của bạn là:", options: [
         { text: "Tìm cách xoa dịu và giữ sự hài hòa", type: "S" },
         { text: "Phân tích nguyên nhân và đề xuất giải pháp logic", type: "C" },
         { text: "Chủ động ra quyết định để giải quyết nhanh", type: "D" },
         { text: "Khích lệ tinh thần và tạo không khí tích cực", type: "I" }
-      ]
-      },
-      {
-        text: "Trong môi trường làm việc, điều khiến bạn dễ mất năng lượng nhất là:",
-        options: [
+      ] },
+    { text: "Trong môi trường làm việc, điều khiến bạn dễ mất năng lượng nhất là:", options: [
         { text: "Không được tự quyết hoặc bị áp đặt", type: "D" },
         { text: "Không có sự tương tác hoặc bị phớt lờ", type: "I" },
         { text: "Thay đổi liên tục, thiếu ổn định", type: "S" },
         { text: "Thiếu quy trình rõ ràng hoặc làm việc lộn xộn", type: "C" }
-      }
+      ] }
   ];
-document.getElementById("userForm").addEventListener("submit", function(e) {
-  e.preventDefault();
 
-  // Ẩn form thông tin
-  document.getElementById("userForm").style.display = "none";
-
-  // Hiện form câu hỏi
-  document.getElementById("quizForm").style.display = "block";
-
-  // Hiện nút tính kết quả
-  document.getElementById("submitBtn").style.display = "block";
-});
-
-    window.onload = function() {
-      const form = document.getElementById("quizForm");
-
-      questions.forEach((q, i) => {
-        const div = document.createElement("div");
-        div.className = "question";
-        div.innerHTML = `<strong>Câu ${i + 1}:</strong> ${q.text}`;
-        const answersDiv = document.createElement("div");
-        answersDiv.className = "answers";
-
-        q.options.forEach((opt, j) => {
-          const id = `q${i}_${j}`;
-          answersDiv.innerHTML += `
-            <label>
-              <input type="radio" name="q${i}" value="${opt.type}" id="${id}">
-              ${opt.text}
-            </label>
-          `;
-        });
-
-        div.appendChild(answersDiv);
-        form.appendChild(div);
+  // Khi trang tải xong, tạo nội dung câu hỏi trong quizForm
+  window.onload = function() {
+    const quizForm = document.getElementById("quizForm");
+    questions.forEach((q, i) => {
+      const div = document.createElement("div");
+      div.className = "question";
+      div.innerHTML = `<p><strong>Câu ${i + 1}:</strong> ${q.text}</p>`;
+      const answersDiv = document.createElement("div");
+      answersDiv.className = "answers";
+      q.options.forEach((opt, j) => {
+        const id = `q${i}_${j}`;
+        answersDiv.innerHTML += `
+          <label>
+            <input type="radio" name="q${i}" value="${opt.type}" id="${id}">
+            ${opt.text}
+          </label>
+        `;
       });
+      div.appendChild(answersDiv);
+      quizForm.appendChild(div);
+    });
+  };
+
+  // Xử lý form thông tin: ẩn form user, hiện câu hỏi và nút tính
+  document.getElementById("userForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    // Lấy tên (nếu có) để lưu hoặc chào
+    const userName = document.getElementById("userName").value.trim();
+    if (userName) {
+      // Có thể hiển thị lời chào (tuỳ chọn)
+      console.log("Chào", userName);
+    }
+    // Ẩn form nhập thông tin
+    document.getElementById("userForm").style.display = "none";
+    // Hiện form câu hỏi
+    document.getElementById("quizForm").style.display = "block";
+    // Hiện nút tính kết quả
+    document.getElementById("submitBtn").style.display = "block";
+  });
+
+  // Hàm tính kết quả
+  function submitQuiz() {
+    const quizForm = document.getElementById("quizForm");
+    const inputs = quizForm.querySelectorAll("input[type=radio]:checked");
+    const totalQuestions = questions.length;
+    if (inputs.length < totalQuestions) {
+      alert("Bạn cần trả lời tất cả " + totalQuestions + " câu hỏi!");
+      return;
+    }
+
+    const scores = { D: 0, I: 0, S: 0, C: 0 };
+    inputs.forEach(input => {
+      scores[input.value]++;
+    });
+
+    // Tìm nhóm có điểm cao nhất
+    let maxType = "D";
+    let maxScore = scores.D;
+    for (let type in scores) {
+      if (scores[type] > maxScore) {
+        maxScore = scores[type];
+        maxType = type;
+      }
+    }
+
+    const descriptions = {
+      D: `<strong>🔴 Dominance (Thống trị)</strong><br>
+          Bạn là người quyết đoán, định hướng kết quả, thích thử thách và kiểm soát. 
+          Bạn phù hợp với vai trò lãnh đạo, quản lý dự án, kinh doanh, hoặc các công việc đòi hỏi sự chủ động và cạnh tranh.`,
+      I: `<strong>🟠 Influence (Ảnh hưởng)</strong><br>
+          Bạn là người hòa đồng, truyền cảm hứng, giỏi giao tiếp và kết nối. 
+          Bạn phù hợp với các nghề như marketing, truyền thông, giáo dục, nhân sự hoặc các công việc cần sự tương tác xã hội cao.`,
+      S: `<strong>🟢 Steadiness (Ổn định)</strong><br>
+          Bạn là người kiên nhẫn, ổn định, hỗ trợ người khác và tránh xung đột. 
+          Bạn phù hợp với các nghề như chăm sóc khách hàng, hỗ trợ kỹ thuật, hành chính, hoặc các công việc cần sự kiên trì và đáng tin cậy.`,
+      C: `<strong>🔵 Compliance (Tuân thủ)</strong><br>
+          Bạn là người chính xác, phân tích tốt, tuân thủ quy trình và tiêu chuẩn. 
+          Bạn phù hợp với các nghề như kế toán, kiểm toán, nghiên cứu, lập trình, hoặc các công việc yêu cầu sự tỉ mỉ và logic.`
     };
 
-    function submitQuiz() {
-      const form = document.getElementById("quizForm");
-      const inputs = form.querySelectorAll("input[type=radio]:checked");
+    const resultDiv = document.getElementById("result");
+    resultDiv.style.display = "block";
+    resultDiv.innerHTML = `
+      <h2>Kết quả của bạn: Nhóm ${maxType}</h2>
+      ${descriptions[maxType]}
+      <br><br>
+      <strong>Điểm chi tiết:</strong><br>
+      D: ${scores.D} | I: ${scores.I} | S: ${scores.S} | C: ${scores.C}
+    `;
 
-      const totalQuestions = questions.length;
-      if (inputs.length < totalQuestions) {
-        alert("Bạn cần trả lời tất cả 20 câu hỏi!");
-        return;
-      }
+    // Thêm nút chia sẻ
+    const shareDiv = document.createElement("div");
+    shareDiv.className = "share-buttons";
+    const currentUrl = encodeURIComponent(window.location.href);
+    const resultText = encodeURIComponent(`Kết quả trắc nghiệm DISC của tôi: ${maxType}`);
+    shareDiv.innerHTML = `
+      <h4>📢 Chia sẻ bài test này:</h4>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=${currentUrl}" target="_blank">
+        <button style="background:#3b5998; color:white;">Facebook</button>
+      </a>
+      <a href="https://zalo.me/share?url=${currentUrl}" target="_blank">
+        <button style="background:#0068ff; color:white;">Zalo</button>
+      </a>
+      <a href="https://twitter.com/intent/tweet?text=${resultText}&url=${currentUrl}" target="_blank">
+        <button style="background:#1da1f2; color:white;">Twitter</button>
+      </a>
+      <a href="https://www.tiktok.com/upload?lang=vi" target="_blank">
+        <button style="background:#000000; color:white;">TikTok</button>
+      </a>
+    `;
+    resultDiv.appendChild(shareDiv);
+  }
 
-      const scores = { D: 0, I: 0, S: 0, C: 0 };
-      inputs.forEach(input => scores[input.value]++);
-
-      const maxType = Object.keys(scores).reduce((a, b) =>
-        scores[a] > scores[b] ? a : b
-      );
-
-      const descriptions = {
-        D: `<strong>🔴 Dominance (Thống trị)</strong><br>
-            Bạn là người quyết đoán, định hướng kết quả, thích thử thách và kiểm soát. 
-            Bạn phù hợp với vai trò lãnh đạo, quản lý dự án, kinh doanh, hoặc các công việc đòi hỏi sự chủ động và cạnh tranh.`,
-        I: `<strong>🟠 Influence (Ảnh hưởng)</strong><br>
-            Bạn là người hòa đồng, truyền cảm hứng, giỏi giao tiếp và kết nối. 
-            Bạn phù hợp với các nghề như marketing, truyền thông, giáo dục, nhân sự hoặc các công việc cần sự tương tác xã hội cao.`,
-        S: `<strong>🟢 Steadiness (Ổn định)</strong><br>
-            Bạn là người kiên nhẫn, ổn định, hỗ trợ người khác và tránh xung đột. 
-            Bạn phù hợp với các nghề như chăm sóc khách hàng, hỗ trợ kỹ thuật, hành chính, hoặc các công việc cần sự kiên trì và đáng tin cậy.`,
-        C: `<strong>🔵 Compliance (Tuân thủ)</strong><br>
-            Bạn là người chính xác, phân tích tốt, tuân thủ quy trình và tiêu chuẩn. 
-            Bạn phù hợp với các nghề như kế toán, kiểm toán, nghiên cứu, lập trình, hoặc các công việc yêu cầu sự tỉ mỉ và logic.`
-      };
-      const resultDiv = document.getElementById("result");
-      resultDiv.innerHTML = `
-        <h2>Kết quả của bạn: Nhóm ${maxType}</h2>
-        ${descriptions[maxType]}
-        <br><br>
-        <strong>Điểm chi tiết:</strong><br>
-        D: ${scores.D} | I: ${scores.I} | S: ${scores.S} | C: ${scores.C}
-        `;
- // ✅ Gắn nút chia sẻ
-      const shareDiv = document.createElement("div");
-      shareDiv.className = "share-buttons";
-      shareDiv.innerHTML = `
-        <h4>📢 Chia sẻ bài test này:</h4>
-        <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank">
-          <button style="background:#3b5998; color:white;">Facebook</button>
-        </a>
-        <a href="https://zalo.me/share?url=${encodeURIComponent(window.location.href)}" target="_blank">       
-          <button style="background:#0068ff; color:white;">Zalo</button>
-        </a>
-        <a href="https://twitter.com/intent/tweet?text=Kết quả trắc nghiệm của tôi là: ${encodeURIComponent(result)}&url=${encodeURIComponent(window.location.href)}" target="_blank">
-          <button style="background:#1da1f2; color:white;">Twitter</button>
-        </a>
-        <a href="https://www.tiktok.com/upload?lang=vi" target="_blank">
-    <button style="background:#000000; color:white;">TikTok</button>
-  </a>
-      `;
-      resultDiv.appendChild(shareDiv);
-        }
-  </script>
+  // Gắn sự kiện cho nút tính kết quả
+  document.getElementById("submitBtn").addEventListener("click", submitQuiz);
+</script>
 </body>
 </html>
