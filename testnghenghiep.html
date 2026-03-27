@@ -221,6 +221,30 @@
     </style>
 </head>
 <body>
+    <div class="container">
+  <div class="logo">
+    <!-- Chị có thể thay đường dẫn logo tại đây -->
+    <img src="images/hinhremovenen.png" alt="Logo Sophia" onerror="this.style.display='none'">
+  </div>
+  <h1>Trắc nghiệm DISC</h1>
+
+  <!-- FORM THÔNG TIN NGƯỜI DÙNG -->
+  <form id="userForm">
+    <label>Họ và tên (tuỳ chọn):</label>
+    <input type="text" id="userName" placeholder="Nhập tên của bạn">
+    <label>Email (tuỳ chọn):</label>
+    <input type="email" id="userEmail" placeholder="Nhập email">
+    <button type="submit">Bắt đầu làm bài</button>
+  </form>
+
+  <!-- FORM CÂU HỎI – ban đầu ẩn -->
+  <form id="quizForm" style="display: none;"></form>
+
+  <!-- NÚT TÍNH KẾT QUẢ – ban đầu ẩn -->
+  <button id="submitBtn" type="button" style="display: none;">Tính kết quả</button>
+
+  <div id="result" class="result"></div>
+</div>
 <div class="app-container">
     <div class="test-header">
         <h1>🎯 Khám phá sự nghiệp tương lai</h1>
