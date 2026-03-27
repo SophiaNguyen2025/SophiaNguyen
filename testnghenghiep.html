@@ -45,6 +45,17 @@
             margin-bottom: 8px;
         }
 
+        /* Logo trong header */
+        .logo-header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .logo-header img {
+            max-width: 100px;
+            height: auto;
+            border-radius: 12px;
+        }
+
         .step-indicator {
             background: #eef2f7;
             padding: 12px 20px;
@@ -74,6 +85,30 @@
 
         .quiz-panel.active-panel {
             display: block;
+        }
+
+        /* Form thông tin ban đầu */
+        .info-panel {
+            padding: 30px;
+            background: white;
+        }
+        .info-panel label {
+            display: block;
+            margin-top: 15px;
+            font-weight: 600;
+            color: #1e2a3a;
+        }
+        .info-panel input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 6px;
+            border-radius: 24px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+        }
+        .info-panel button {
+            margin-top: 25px;
+            width: 100%;
         }
 
         @keyframes fadeIn {
@@ -221,72 +256,66 @@
     </style>
 </head>
 <body>
-    <div class="container">
-  <div class="logo">
-    <!-- Chị có thể thay đường dẫn logo tại đây -->
-    <img src="images/hinhremovenen.png" alt="Logo Sophia" onerror="this.style.display='none'">
-  </div>
-  <h1>Trắc nghiệm DISC</h1>
-
-  <!-- FORM THÔNG TIN NGƯỜI DÙNG -->
-  <form id="userForm">
-    <label>Họ và tên (tuỳ chọn):</label>
-    <input type="text" id="userName" placeholder="Nhập tên của bạn">
-    <label>Email (tuỳ chọn):</label>
-    <input type="email" id="userEmail" placeholder="Nhập email">
-    <button type="submit">Bắt đầu làm bài</button>
-  </form>
-
-  <!-- FORM CÂU HỎI – ban đầu ẩn -->
-  <form id="quizForm" style="display: none;"></form>
-
-  <!-- NÚT TÍNH KẾT QUẢ – ban đầu ẩn -->
-  <button id="submitBtn" type="button" style="display: none;">Tính kết quả</button>
-
-  <div id="result" class="result"></div>
-</div>
 <div class="app-container">
     <div class="test-header">
+        <div class="logo-header">
+            <!-- Thay đường dẫn logo của chị vào đây -->
+            <img src="images/hinhremovenen.png" alt="Logo Sophia" onerror="this.style.display='none'">
+        </div>
         <h1>🎯 Khám phá sự nghiệp tương lai</h1>
         <p>Test Holland RIASEC + Career Explorer</p>
     </div>
-    <div class="step-indicator">
-        <span class="step" id="step1Label">❶ Holland (6 nhóm)</span>
-        <span class="step" id="step2Label">❷ Career Explorer</span>
-        <span class="step" id="step3Label">❸ Kết quả & Tương quan</span>
+
+    <!-- PHẦN NHẬP THÔNG TIN BAN ĐẦU (tùy chọn, không lưu dữ liệu) -->
+    <div id="infoPanel" class="info-panel">
+        <label>Họ và tên (tùy chọn):</label>
+        <input type="text" id="userName" placeholder="Nhập tên của bạn">
+        <label>Email (tùy chọn):</label>
+        <input type="email" id="userEmail" placeholder="Nhập email">
+        <button id="startTestBtn">Bắt đầu làm bài →</button>
     </div>
 
-    <!-- MÀN 1: HOLLAND RIASEC TEST (6 nhóm tính cách) -->
-    <div id="panelHolland" class="quiz-panel active-panel">
-        <h3 style="margin-bottom: 20px;">🔍 Bạn thuộc nhóm tính cách nào?</h3>
-        <div id="hollandQuestions"></div>
-        <div class="btn-group">
-            <button class="btn-secondary" disabled style="visibility: hidden;">Quay lại</button>
-            <button id="nextToCareerBtn">Tiếp theo → Khám phá nghề</button>
+    <!-- CÁC BƯỚC TEST (ban đầu ẩn) -->
+    <div id="testSteps" style="display: none;">
+        <div class="step-indicator">
+            <span class="step" id="step1Label">❶ Holland (6 nhóm)</span>
+            <span class="step" id="step2Label">❷ Career Explorer</span>
+            <span class="step" id="step3Label">❸ Kết quả & Tương quan</span>
         </div>
-    </div>
 
-    <!-- MÀN 2: CAREER EXPLORER (dạng trải nghiệm nghề nghiệp) -->
-    <div id="panelCareer" class="quiz-panel">
-        <h3 style="margin-bottom: 8px;">💼 Career Explorer</h3>
-        <p style="margin-bottom: 20px; color: #4b5563;">Hãy chọn phong cách làm việc bạn yêu thích</p>
-        <div id="careerQuestions"></div>
-        <div class="btn-group">
-            <button id="backToHollandBtn" class="btn-secondary">← Quay lại Holland</button>
-            <button id="showResultBtn">Xem kết quả & Định hướng →</button>
+        <!-- MÀN 1: HOLLAND RIASEC TEST -->
+        <div id="panelHolland" class="quiz-panel active-panel">
+            <h3 style="margin-bottom: 20px;">🔍 Bạn thuộc nhóm tính cách nào?</h3>
+            <div id="hollandQuestions"></div>
+            <div class="btn-group">
+                <button class="btn-secondary" disabled style="visibility: hidden;">Quay lại</button>
+                <button id="nextToCareerBtn">Tiếp theo → Khám phá nghề</button>
+            </div>
         </div>
-    </div>
 
-    <!-- MÀN 3: KẾT QUẢ TỔNG HỢP & TƯƠNG QUAN -->
-    <div id="panelResult" class="quiz-panel">
-        <div class="result-container">
-            <h2>📊 Kết quả trắc nghiệm của bạn</h2>
-            <div id="resultContent"></div>
-            <div class="btn-group" style="margin-top: 20px;">
-                <button id="resetBtn">⟳ Làm lại bài test</button>
+        <!-- MÀN 2: CAREER EXPLORER -->
+        <div id="panelCareer" class="quiz-panel">
+            <h3 style="margin-bottom: 8px;">💼 Career Explorer</h3>
+            <p style="margin-bottom: 20px; color: #4b5563;">Hãy chọn phong cách làm việc bạn yêu thích</p>
+            <div id="careerQuestions"></div>
+            <div class="btn-group">
+                <button id="backToHollandBtn" class="btn-secondary">← Quay lại Holland</button>
+                <button id="showResultBtn">Xem kết quả & Định hướng →</button>
+            </div>
+        </div>
+
+        <!-- MÀN 3: KẾT QUẢ TỔNG HỢP -->
+        <div id="panelResult" class="quiz-panel">
+            <div class="result-container">
+                <h2>📊 Kết quả trắc nghiệm của bạn</h2>
+                <div id="resultContent"></div>
+                <div class="btn-group" style="margin-top: 20px;">
+                    <button id="resetBtn">⟳ Làm lại bài test</button>
+                </div>
             </div>
         </div>
     </div>
+
     <footer>Dựa trên mô hình Holland RIASEC và Career Explorer - Đối chiếu mức độ tương quan</footer>
 </div>
 
@@ -301,7 +330,7 @@
         { text: "Tôi thích làm việc có tổ chức, dữ liệu chi tiết, quy trình rõ ràng và kế hoạch.", type: "C" }
     ];
 
-    // Dữ liệu Career Explorer: 5 câu hỏi về sở thích nghề nghiệp (không trùng lặp mục đích)
+    // Dữ liệu Career Explorer: 5 câu hỏi về sở thích nghề nghiệp
     const careerQuestions = [
         { text: "Bạn thích môi trường làm việc linh hoạt, sáng tạo, không gò bó?", options: ["Không thích", "Bình thường", "Rất thích"] },
         { text: "Bạn có hứng thú với việc phân tích số liệu, nghiên cứu thị trường không?", options: ["Không thích", "Bình thường", "Rất thích"] },
@@ -310,21 +339,18 @@
         { text: "Bạn ưa chuộng công việc có quy trình rõ ràng, kiểm soát chặt chẽ?", options: ["Không thích", "Bình thường", "Rất thích"] }
     ];
 
-    // Ánh xạ điểm Career Explorer sang nhóm Holland phù hợp (để tính tương quan)
-    // careerMapping: mỗi câu hướng đến ưu thế nhóm tính cách RIASEC
+    // Ánh xạ điểm Career Explorer sang nhóm Holland
     const careerMapping = [
-        { dimension: "A", weights: { "Không thích": 0, "Bình thường": 1, "Rất thích": 2 } },   // sáng tạo
-        { dimension: "I", weights: { "Không thích": 0, "Bình thường": 1, "Rất thích": 2 } },   // nghiên cứu
-        { dimension: "E", weights: { "Không thích": 0, "Bình thường": 1, "Rất thích": 2 } },   // lãnh đạo
-        { dimension: "S", weights: { "Không thích": 0, "Bình thường": 1, "Rất thích": 2 } },   // xã hội
-        { dimension: "C", weights: { "Không thích": 0, "Bình thường": 1, "Rất thích": 2 } }    // nguyên tắc
+        { dimension: "A", weights: { "Không thích": 0, "Bình thường": 1, "Rất thích": 2 } },
+        { dimension: "I", weights: { "Không thích": 0, "Bình thường": 1, "Rất thích": 2 } },
+        { dimension: "E", weights: { "Không thích": 0, "Bình thường": 1, "Rất thích": 2 } },
+        { dimension: "S", weights: { "Không thích": 0, "Bình thường": 1, "Rất thích": 2 } },
+        { dimension: "C", weights: { "Không thích": 0, "Bình thường": 1, "Rất thích": 2 } }
     ];
 
-    // State lưu trữ
     let hollandScores = { R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 };
-    let careerAnswers = []; // lưu giá trị "Không thích" / "Bình thường" / "Rất thích" cho 5 câu
+    let careerAnswers = [];
 
-    // Helper: render Holland (thang điểm 0-3)
     function renderHolland() {
         const container = document.getElementById("hollandQuestions");
         if (!container) return;
@@ -346,7 +372,6 @@
         });
         container.innerHTML = html;
 
-        // Gắn sự kiện thay đổi để cập nhật điểm số realtime
         document.querySelectorAll('#hollandQuestions .rating-group').forEach(group => {
             const qtype = group.dataset.qtype;
             const radios = group.querySelectorAll('input[type="radio"]');
@@ -354,7 +379,6 @@
                 radio.addEventListener('change', (e) => {
                     if (radio.checked) {
                         hollandScores[qtype] = parseInt(radio.value, 10);
-                        // Cập nhật UI highlight
                         group.querySelectorAll('.rating-label').forEach(label => label.classList.remove('selected'));
                         radio.parentElement.classList.add('selected');
                     }
@@ -363,7 +387,6 @@
         });
     }
 
-    // Render Career Explorer
     function renderCareer() {
         const container = document.getElementById("careerQuestions");
         if (!container) return;
@@ -382,14 +405,12 @@
         });
         container.innerHTML = html;
 
-        // Gắn sự kiện cho career answers
         for (let i = 0; i < careerQuestions.length; i++) {
             const radios = document.querySelectorAll(`input[name="career_${i}"]`);
             radios.forEach(radio => {
                 radio.addEventListener('change', (e) => {
                     if (radio.checked) {
                         careerAnswers[i] = radio.value;
-                        // highlight UI
                         const parentGroup = radio.closest('.rating-group');
                         if (parentGroup) {
                             parentGroup.querySelectorAll('.rating-label').forEach(lbl => lbl.classList.remove('selected'));
@@ -401,7 +422,6 @@
         }
     }
 
-    // Tính điểm Career tổng hợp theo nhóm RIASEC (dựa trên mapping)
     function computeCareerDimensionScores() {
         let careerDim = { R:0, I:0, A:0, S:0, E:0, C:0 };
         for (let i=0; i<careerAnswers.length; i++) {
@@ -412,8 +432,6 @@
                 careerDim[map.dimension] += score;
             }
         }
-        // Chuẩn hóa về thang điểm tương đương 0-3 để so sánh với Holland (tối đa mỗi nhóm career có thể đạt max = 2*? nhưng ở đây 5 câu nên max mỗi nhóm có thể 2-4 điểm -> scale)
-        // Để dễ so sánh tương quan, chia tỷ lệ về khoảng 0-3
         let maxPossible = 0;
         for (let key in careerDim) maxPossible = Math.max(maxPossible, careerDim[key]);
         if (maxPossible > 0) {
@@ -424,19 +442,17 @@
         return careerDim;
     }
 
-    // Tính độ tương quan giữa Holland và Career (dựa trên 6 nhóm)
     function calculateCorrelation(holland, career) {
         let diffTotal = 0;
         const groups = ['R','I','A','S','E','C'];
         for (let g of groups) {
             diffTotal += Math.abs((holland[g] || 0) - (career[g] || 0));
         }
-        const maxDiff = groups.length * 3; // 6*3 = 18
+        const maxDiff = groups.length * 3;
         const similarity = (1 - diffTotal / maxDiff) * 100;
         return Math.min(100, Math.max(0, Math.round(similarity)));
     }
 
-    // Gợi ý nghề dựa trên nhóm Holland cao nhất
     function getJobSuggestions(hollandScores) {
         let maxScore = -1;
         let topType = '';
@@ -454,10 +470,7 @@
         return jobMap[topType] || ['Chuyên viên tư vấn', 'Trợ lý quản lý'];
     }
 
-    // Hiển thị kết quả cuối cùng
     function showFinalResult() {
-        // Đảm bảo lấy giá trị mới nhất từ giao diện (nếu có chưa cập nhật)
-        // Lấy holland từ biến đã lưu, career từ answers
         const careerDimScores = computeCareerDimensionScores();
         const correlationPercent = calculateCorrelation(hollandScores, careerDimScores);
         const topHollandCodes = Object.entries(hollandScores).sort((a,b)=>b[1]-a[1]).slice(0,2);
@@ -488,7 +501,6 @@
             `;
         }
 
-        // Tương quan
         let correlationMessage = "";
         if (correlationPercent >= 70) {
             correlationMessage = "🎉 Tương quan rất cao! Sở thích khám phá nghề của bạn cực kỳ phù hợp với nhóm tính cách nổi trội. Đây là hướng đi bền vững.";
@@ -513,7 +525,6 @@
         `;
 
         document.getElementById("resultContent").innerHTML = resultHtml;
-        // chuyển panel
         document.querySelectorAll('.quiz-panel').forEach(p => p.classList.remove('active-panel'));
         document.getElementById('panelResult').classList.add('active-panel');
         updateStep(3);
@@ -531,14 +542,12 @@
         else if (step === 3) step3.classList.add('active');
     }
 
-    // Điều hướng
     function showPanel(panelId, stepNumber) {
         document.querySelectorAll('.quiz-panel').forEach(p => p.classList.remove('active-panel'));
         document.getElementById(panelId).classList.add('active-panel');
         updateStep(stepNumber);
     }
 
-    // Reset toàn bộ
     function resetTest() {
         hollandScores = { R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 };
         careerAnswers = careerQuestions.map(() => "Bình thường");
@@ -547,21 +556,33 @@
         showPanel('panelHolland', 1);
     }
 
-    // Khởi tạo và gắn sự kiện
-    document.addEventListener('DOMContentLoaded', () => {
+    // Xử lý khi bắt đầu test (ẩn form nhập thông tin, hiện các bước test)
+    document.getElementById('startTestBtn').addEventListener('click', () => {
+        const userName = document.getElementById('userName').value.trim();
+        if (userName) {
+            // Có thể thêm lời chào nếu muốn (không bắt buộc)
+            console.log(`Chào ${userName}, bắt đầu test nhé!`);
+        }
+        // Ẩn panel nhập thông tin
+        document.getElementById('infoPanel').style.display = 'none';
+        // Hiện phần test steps
+        document.getElementById('testSteps').style.display = 'block';
+        // Khởi tạo lại các câu hỏi (đảm bảo hiển thị)
         renderHolland();
         renderCareer();
+        showPanel('panelHolland', 1);
+    });
 
-        // Next từ Holland sang Career
+    // Gắn sự kiện cho các nút trong test
+    document.addEventListener('DOMContentLoaded', () => {
+        // Các nút điều hướng
         document.getElementById('nextToCareerBtn').addEventListener('click', () => {
-            // Cập nhật điểm holland từ radio hiện tại (đã có sẵn do sự kiện change)
             showPanel('panelCareer', 2);
         });
         document.getElementById('backToHollandBtn').addEventListener('click', () => {
             showPanel('panelHolland', 1);
         });
         document.getElementById('showResultBtn').addEventListener('click', () => {
-            // trước khi show kết quả, cập nhật lại career answer từ giao diện
             for (let i=0; i<careerQuestions.length; i++) {
                 const selectedRadio = document.querySelector(`input[name="career_${i}"]:checked`);
                 if (selectedRadio) careerAnswers[i] = selectedRadio.value;
