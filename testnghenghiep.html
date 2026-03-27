@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Bài Test Định Hướng Nghề Nghiệp | Holland RIASEC & Career Explorer</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9edf2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Container chính */
+        .app-container {
+            max-width: 800px;
+            width: 100%;
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        /* Header */
+        .test-header {
+            background: #2c3e66;
+            color: white;
+            padding: 20px 30px;
+            text-align: center;
+        }
+
+        .test-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+
+        .step-indicator {
+            background: #eef2f7;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #ddd;
+            font-weight: 600;
+        }
+
+        .step {
+            color: #aaa;
+            transition: 0.3s;
+        }
+
+        .step.active {
+            color: #2c3e66;
+            border-bottom: 3px solid #2c3e66;
+            padding-bottom: 6px;
+        }
+
+        /* Phần nội dung câu hỏi */
+        .quiz-panel {
+            padding: 30px 30px 20px;
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .quiz-panel.active-panel {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        .question-item {
+            margin-bottom: 28px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            color: #1e2a3a;
+        }
+
+        .rating-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .rating-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #f1f5f9;
+            padding: 6px 12px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .rating-label.selected {
+            background: #2c3e66;
+            color: white;
+        }
+
+        input[type="radio"] {
+            accent-color: #2c3e66;
+            width: 18px;
+            height: 18px;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        button {
+            background: #2c3e66;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #1f2c4b;
+            transform: scale(0.97);
+        }
+
+        .btn-secondary {
+            background: #8a99b4;
+        }
+
+        /* Kết quả */
+        .result-container {
+            padding: 20px 30px 30px;
+        }
+
+        .chart-bars {
+            margin: 20px 0;
+        }
+
+        .bar-item {
+            margin-bottom: 15px;
+        }
+
+        .bar-label {
+            display: inline-block;
+            width: 40px;
+            font-weight: bold;
+        }
+
+        .bar-bg {
+            display: inline-block;
+            width: calc(100% - 60px);
+            background: #e2e8f0;
+            border-radius: 20px;
+            overflow: hidden;
+            vertical-align: middle;
+        }
+
+        .bar-fill {
+            background: #2c6e9e;
+            height: 28px;
+            width: 0%;
+            border-radius: 20px;
+            text-align: right;
+            padding-right: 8px;
+            color: white;
+            line-height: 28px;
+            font-size: 0.8rem;
+            transition: width 0.5s;
+        }
+
+        .correlation-box {
+            background: #eef2ff;
+            padding: 20px;
+            border-radius: 24px;
+            margin: 20px 0;
+            border-left: 6px solid #2c3e66;
+        }
+
+        .job-suggest {
+            background: #fef9e3;
+            padding: 15px;
+            border-radius: 20px;
+            margin-top: 15px;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #6c757d;
+            padding: 16px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        @media (max-width: 550px) {
+            .quiz-panel { padding: 20px; }
+            .rating-group { gap: 8px; }
+        }
+    </style>
+</head>
+<body>
+<div class="app-container">
+    <div class="test-header">
+        <h1>🎯 Khám phá sự nghiệp tương lai</h1>
+        <p>Test Holland RIASEC + Career Explorer</p>
+    </div>
+    <div class="step-indicator">
+        <span class="step" id="step1Label">❶ Holland (6 nhóm)</span>
+        <span class="step" id="step2Label">❷ Career Explorer</span>
+        <span class="step" id="step3Label">❸ Kết quả & Tương quan</span>
+    </div>
+
+    <!-- MÀN 1: HOLLAND RIASEC TEST (6 nhóm tính cách) -->
+    <div id="panelHolland" class="quiz-panel active-panel">
+        <h3 style="margin-bottom: 20px;">🔍 Bạn thuộc nhóm tính cách nào?</h3>
+        <div id="hollandQuestions"></div>
+        <div class="btn-group">
+            <button class="btn-secondary" disabled style="visibility: hidden;">Quay lại</button>
+            <button id="nextToCareerBtn">Tiếp theo → Khám phá nghề</button>
+        </div>
+    </div>
+
+    <!-- MÀN 2: CAREER EXPLORER (dạng trải nghiệm nghề nghiệp) -->
+    <div id="panelCareer" class="quiz-panel">
+        <h3 style="margin-bottom: 8px;">💼 Career Explorer</h3>
+        <p style="margin-bottom: 20px; color: #4b5563;">Hãy chọn phong cách làm việc bạn yêu thích</p>
+        <div id="careerQuestions"></div>
+        <div class="btn-group">
+            <button id="backToHollandBtn" class="btn-secondary">← Quay lại Holland</button>
+            <button id="showResultBtn">Xem kết quả & Định hướng →</button>
+        </div>
+    </div>
+
+    <!-- MÀN 3: KẾT QUẢ TỔNG HỢP & TƯƠNG QUAN -->
+    <div id="panelResult" class="quiz-panel">
+        <div class="result-container">
+            <h2>📊 Kết quả trắc nghiệm của bạn</h2>
+            <div id="resultContent"></div>
+            <div class="btn-group" style="margin-top: 20px;">
+                <button id="resetBtn">⟳ Làm lại bài test</button>
+            </div>
+        </div>
+    </div>
+    <footer>Dựa trên mô hình Holland RIASEC và Career Explorer - Đối chiếu mức độ tương quan</footer>
+</div>
+
+<script>
+    // ---------- DỮ LIỆU CÂU HỎI HOLLAND (R-I-A-S-E-C) ----------
+    const hollandQuestions = [
+        { text: "Tôi thích làm việc với máy móc, công cụ hoặc sửa chữa thiết bị.", type: "R" },
+        { text: "Tôi thích nghiên cứu, tìm tòi, phân tích dữ liệu và giải quyết vấn đề khoa học.", type: "I" },
+        { text: "Tôi thích sáng tạo, thiết kế, viết lách hoặc biểu diễn nghệ thuật.", type: "A" },
+        { text: "Tôi thích giúp đỡ người khác, giảng dạy, tư vấn hoặc chăm sóc.", type: "S" },
+        { text: "Tôi thích lãnh đạo, thuyết phục, bán hàng, quản lý và đạt mục tiêu.", type: "E" },
+        { text: "Tôi thích làm việc có tổ chức, dữ liệu chi tiết, quy trình rõ ràng và kế hoạch.", type: "C" }
+    ];
+
+    // Dữ liệu Career Explorer: 5 câu hỏi về sở thích nghề nghiệp (không trùng lặp mục đích)
+    const careerQuestions = [
+        { text: "Bạn thích môi trường làm việc linh hoạt, sáng tạo, không gò bó?", options: ["Không thích", "Bình thường", "Rất thích"] },
+        { text: "Bạn có hứng thú với việc phân tích số liệu, nghiên cứu thị trường không?", options: ["Không thích", "Bình thường", "Rất thích"] },
+        { text: "Bạn có xu hướng muốn trở thành người lãnh đạo, điều hành nhóm?", options: ["Không thích", "Bình thường", "Rất thích"] },
+        { text: "Bạn thích hỗ trợ cộng đồng, làm việc trong lĩnh vực nhân sự, giáo dục?", options: ["Không thích", "Bình thường", "Rất thích"] },
+        { text: "Bạn ưa chuộng công việc có quy trình rõ ràng, kiểm soát chặt chẽ?", options: ["Không thích", "Bình thường", "Rất thích"] }
+    ];
+
+    // Ánh xạ điểm Career Explorer sang nhóm Holland phù hợp (để tính tương quan)
+    // careerMapping: mỗi câu hướng đến ưu thế nhóm tính cách RIASEC
+    const careerMapping = [
+        { dimension: "A", weights: { "Không thích": 0, "Bình thường": 1, "Rất thích": 2 } },   // sáng tạo
+        { dimension: "I", weights: { "Không thích": 0, "Bình thường": 1, "Rất thích": 2 } },   // nghiên cứu
+        { dimension: "E", weights: { "Không thích": 0, "Bình thường": 1, "Rất thích": 2 } },   // lãnh đạo
+        { dimension: "S", weights: { "Không thích": 0, "Bình thường": 1, "Rất thích": 2 } },   // xã hội
+        { dimension: "C", weights: { "Không thích": 0, "Bình thường": 1, "Rất thích": 2 } }    // nguyên tắc
+    ];
+
+    // State lưu trữ
+    let hollandScores = { R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 };
+    let careerAnswers = []; // lưu giá trị "Không thích" / "Bình thường" / "Rất thích" cho 5 câu
+
+    // Helper: render Holland (thang điểm 0-3)
+    function renderHolland() {
+        const container = document.getElementById("hollandQuestions");
+        if (!container) return;
+        let html = '';
+        hollandQuestions.forEach((q, idx) => {
+            const type = q.type;
+            const savedVal = hollandScores[type] !== undefined ? hollandScores[type] : 0;
+            html += `
+                <div class="question-item">
+                    <div class="question-text">${idx+1}. ${q.text}</div>
+                    <div class="rating-group" data-qtype="${type}">
+                        <label class="rating-label ${savedVal === 0 ? 'selected' : ''}"><input type="radio" name="holland_${type}" value="0" ${savedVal === 0 ? 'checked' : ''}> ❌ Không thích</label>
+                        <label class="rating-label ${savedVal === 1 ? 'selected' : ''}"><input type="radio" name="holland_${type}" value="1" ${savedVal === 1 ? 'checked' : ''}> 😐 Hơi thích</label>
+                        <label class="rating-label ${savedVal === 2 ? 'selected' : ''}"><input type="radio" name="holland_${type}" value="2" ${savedVal === 2 ? 'checked' : ''}> 👍 Thích</label>
+                        <label class="rating-label ${savedVal === 3 ? 'selected' : ''}"><input type="radio" name="holland_${type}" value="3" ${savedVal === 3 ? 'checked' : ''}> ❤️ Rất thích</label>
+                    </div>
+                </div>
+            `;
+        });
+        container.innerHTML = html;
+
+        // Gắn sự kiện thay đổi để cập nhật điểm số realtime
+        document.querySelectorAll('#hollandQuestions .rating-group').forEach(group => {
+            const qtype = group.dataset.qtype;
+            const radios = group.querySelectorAll('input[type="radio"]');
+            radios.forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    if (radio.checked) {
+                        hollandScores[qtype] = parseInt(radio.value, 10);
+                        // Cập nhật UI highlight
+                        group.querySelectorAll('.rating-label').forEach(label => label.classList.remove('selected'));
+                        radio.parentElement.classList.add('selected');
+                    }
+                });
+            });
+        });
+    }
+
+    // Render Career Explorer
+    function renderCareer() {
+        const container = document.getElementById("careerQuestions");
+        if (!container) return;
+        if (careerAnswers.length === 0) {
+            careerAnswers = careerQuestions.map(() => "Bình thường");
+        }
+        let html = '';
+        careerQuestions.forEach((q, idx) => {
+            const selectedVal = careerAnswers[idx];
+            html += `<div class="question-item"><div class="question-text">${idx+1}. ${q.text}</div><div class="rating-group" data-careeridx="${idx}">`;
+            q.options.forEach(opt => {
+                const isChecked = (selectedVal === opt);
+                html += `<label class="rating-label ${isChecked ? 'selected' : ''}"><input type="radio" name="career_${idx}" value="${opt}" ${isChecked ? 'checked' : ''}> ${opt}</label>`;
+            });
+            html += `</div></div>`;
+        });
+        container.innerHTML = html;
+
+        // Gắn sự kiện cho career answers
+        for (let i = 0; i < careerQuestions.length; i++) {
+            const radios = document.querySelectorAll(`input[name="career_${i}"]`);
+            radios.forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    if (radio.checked) {
+                        careerAnswers[i] = radio.value;
+                        // highlight UI
+                        const parentGroup = radio.closest('.rating-group');
+                        if (parentGroup) {
+                            parentGroup.querySelectorAll('.rating-label').forEach(lbl => lbl.classList.remove('selected'));
+                            radio.parentElement.classList.add('selected');
+                        }
+                    }
+                });
+            });
+        }
+    }
+
+    // Tính điểm Career tổng hợp theo nhóm RIASEC (dựa trên mapping)
+    function computeCareerDimensionScores() {
+        let careerDim = { R:0, I:0, A:0, S:0, E:0, C:0 };
+        for (let i=0; i<careerAnswers.length; i++) {
+            const answer = careerAnswers[i];
+            const map = careerMapping[i];
+            if (map && map.dimension) {
+                let score = map.weights[answer] || 0;
+                careerDim[map.dimension] += score;
+            }
+        }
+        // Chuẩn hóa về thang điểm tương đương 0-3 để so sánh với Holland (tối đa mỗi nhóm career có thể đạt max = 2*? nhưng ở đây 5 câu nên max mỗi nhóm có thể 2-4 điểm -> scale)
+        // Để dễ so sánh tương quan, chia tỷ lệ về khoảng 0-3
+        let maxPossible = 0;
+        for (let key in careerDim) maxPossible = Math.max(maxPossible, careerDim[key]);
+        if (maxPossible > 0) {
+            for (let key in careerDim) {
+                careerDim[key] = (careerDim[key] / maxPossible) * 3;
+            }
+        }
+        return careerDim;
+    }
+
+    // Tính độ tương quan giữa Holland và Career (dựa trên 6 nhóm)
+    function calculateCorrelation(holland, career) {
+        let diffTotal = 0;
+        const groups = ['R','I','A','S','E','C'];
+        for (let g of groups) {
+            diffTotal += Math.abs((holland[g] || 0) - (career[g] || 0));
+        }
+        const maxDiff = groups.length * 3; // 6*3 = 18
+        const similarity = (1 - diffTotal / maxDiff) * 100;
+        return Math.min(100, Math.max(0, Math.round(similarity)));
+    }
+
+    // Gợi ý nghề dựa trên nhóm Holland cao nhất
+    function getJobSuggestions(hollandScores) {
+        let maxScore = -1;
+        let topType = '';
+        for (let [key, val] of Object.entries(hollandScores)) {
+            if (val > maxScore) { maxScore = val; topType = key; }
+        }
+        const jobMap = {
+            R: ['Kỹ sư cơ khí', 'Thợ điện', 'Kiến trúc sư xây dựng', 'Chuyên viên kỹ thuật'],
+            I: ['Nhà khoa học', 'Lập trình viên', 'Nghiên cứu viên', 'Dược sĩ'],
+            A: ['Nhà thiết kế đồ họa', 'Nhà văn', 'Đạo diễn', 'Nhạc sĩ'],
+            S: ['Giáo viên', 'Tư vấn tâm lý', 'Nhân viên công tác xã hội', 'Y tá'],
+            E: ['Giám đốc kinh doanh', 'Doanh nhân', 'Luật sư', 'Quản lý dự án'],
+            C: ['Kế toán', 'Thủ quỹ', 'Chuyên viên hành chính', 'Kiểm soát viên']
+        };
+        return jobMap[topType] || ['Chuyên viên tư vấn', 'Trợ lý quản lý'];
+    }
+
+    // Hiển thị kết quả cuối cùng
+    function showFinalResult() {
+        // Đảm bảo lấy giá trị mới nhất từ giao diện (nếu có chưa cập nhật)
+        // Lấy holland từ biến đã lưu, career từ answers
+        const careerDimScores = computeCareerDimensionScores();
+        const correlationPercent = calculateCorrelation(hollandScores, careerDimScores);
+        const topHollandCodes = Object.entries(hollandScores).sort((a,b)=>b[1]-a[1]).slice(0,2);
+        const suggestions = getJobSuggestions(hollandScores);
+
+        let resultHtml = `
+            <div class="chart-bars">
+                <h3>🎨 Điểm 6 nhóm tính cách Holland (RIASEC)</h3>
+        `;
+        for (let [code, score] of Object.entries(hollandScores)) {
+            const percent = (score / 3) * 100;
+            resultHtml += `
+                <div class="bar-item">
+                    <span class="bar-label"><strong>${code}</strong></span>
+                    <div class="bar-bg"><div class="bar-fill" style="width: ${percent}%;">${score.toFixed(1)}</div></div>
+                </div>
+            `;
+        }
+
+        resultHtml += `<h3 style="margin-top: 25px;">🧭 Career Explorer - Phong cách nghề nghiệp</h3>`;
+        for (let [code, score] of Object.entries(careerDimScores)) {
+            const percent = (score / 3) * 100;
+            resultHtml += `
+                <div class="bar-item">
+                    <span class="bar-label"><strong>${code}</strong></span>
+                    <div class="bar-bg"><div class="bar-fill" style="width: ${percent}%; background-color: #4791b0;">${score.toFixed(1)}</div></div>
+                </div>
+            `;
+        }
+
+        // Tương quan
+        let correlationMessage = "";
+        if (correlationPercent >= 70) {
+            correlationMessage = "🎉 Tương quan rất cao! Sở thích khám phá nghề của bạn cực kỳ phù hợp với nhóm tính cách nổi trội. Đây là hướng đi bền vững.";
+        } else if (correlationPercent >= 45) {
+            correlationMessage = "👍 Tương quan khá tốt. Bạn có sự nhất quát giữa con người và mong muốn nghề nghiệp, hãy phát huy thế mạnh.";
+        } else {
+            correlationMessage = "🔄 Tương quan trung bình – thấp. Có thể bạn đang phân vân giữa nhiều hướng. Hãy thử tìm hiểu thêm về những nghề kết hợp cả hai nhóm.";
+        }
+
+        resultHtml += `
+            <div class="correlation-box">
+                <strong>📈 Mức độ tương quan giữa Holland (bản chất bạn) và Career Explorer (sở thích nghề):</strong> ${correlationPercent}% <br>
+                ✨ ${correlationMessage}
+            </div>
+            <div class="job-suggest">
+                <strong>💼 Định hướng nghề nghiệp gợi ý:</strong><br>
+                Dựa trên nhóm trội nhất: <strong>${topHollandCodes[0][0]} - ${topHollandCodes[0][1].toFixed(1)} điểm</strong><br>
+                Các nghề phù hợp: ${suggestions.join(', ')}.<br>
+                <small>📌 Kết hợp với Career Explorer: Nếu bạn thích lãnh đạo (E) hoặc sáng tạo (A) hãy tìm kiếm công việc có tính thử thách và tự chủ.</small>
+            </div>
+            <p style="margin-top: 20px; background:#f0f4fc; padding:12px; border-radius:16px;"><strong>✅ Kết luận:</strong> Hãy chọn nghề nghiệp nơi giao thoa giữa nhóm tính cách chính (Holland) và môi trường làm việc bạn yêu thích (Career). Sự tương quan càng cao, khả năng gắn bó lâu dài càng lớn.</p>
+        `;
+
+        document.getElementById("resultContent").innerHTML = resultHtml;
+        // chuyển panel
+        document.querySelectorAll('.quiz-panel').forEach(p => p.classList.remove('active-panel'));
+        document.getElementById('panelResult').classList.add('active-panel');
+        updateStep(3);
+    }
+
+    function updateStep(step) {
+        const step1 = document.getElementById('step1Label');
+        const step2 = document.getElementById('step2Label');
+        const step3 = document.getElementById('step3Label');
+        step1.classList.remove('active');
+        step2.classList.remove('active');
+        step3.classList.remove('active');
+        if (step === 1) step1.classList.add('active');
+        else if (step === 2) step2.classList.add('active');
+        else if (step === 3) step3.classList.add('active');
+    }
+
+    // Điều hướng
+    function showPanel(panelId, stepNumber) {
+        document.querySelectorAll('.quiz-panel').forEach(p => p.classList.remove('active-panel'));
+        document.getElementById(panelId).classList.add('active-panel');
+        updateStep(stepNumber);
+    }
+
+    // Reset toàn bộ
+    function resetTest() {
+        hollandScores = { R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 };
+        careerAnswers = careerQuestions.map(() => "Bình thường");
+        renderHolland();
+        renderCareer();
+        showPanel('panelHolland', 1);
+    }
+
+    // Khởi tạo và gắn sự kiện
+    document.addEventListener('DOMContentLoaded', () => {
+        renderHolland();
+        renderCareer();
+
+        // Next từ Holland sang Career
+        document.getElementById('nextToCareerBtn').addEventListener('click', () => {
+            // Cập nhật điểm holland từ radio hiện tại (đã có sẵn do sự kiện change)
+            showPanel('panelCareer', 2);
+        });
+        document.getElementById('backToHollandBtn').addEventListener('click', () => {
+            showPanel('panelHolland', 1);
+        });
+        document.getElementById('showResultBtn').addEventListener('click', () => {
+            // trước khi show kết quả, cập nhật lại career answer từ giao diện
+            for (let i=0; i<careerQuestions.length; i++) {
+                const selectedRadio = document.querySelector(`input[name="career_${i}"]:checked`);
+                if (selectedRadio) careerAnswers[i] = selectedRadio.value;
+            }
+            showFinalResult();
+        });
+        document.getElementById('resetBtn').addEventListener('click', () => {
+            resetTest();
+        });
+    });
+</script>
+</body>
+</html>
