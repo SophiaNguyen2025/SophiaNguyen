@@ -91,6 +91,9 @@
         .logout-device-btn { background: #fee2e2; border: none; padding: 4px 12px; border-radius: 20px; color: #e53e3e; cursor: pointer; font-size: 0.7rem; transition: all 0.2s; }
         .logout-device-btn:hover { background: #e53e3e; color: white; }
         .current-badge { background: var(--primary); color: white; padding: 2px 8px; border-radius: 20px; font-size: 0.6rem; margin-left: 8px; }
+        .download-buttons { display: flex; gap: 12px; justify-content: flex-end; margin-bottom: 30px; flex-wrap: wrap; }
+        .download-btn { background: var(--primary); color: white; padding: 8px 16px; border-radius: 40px; text-decoration: none; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s; }
+        .download-btn:hover { background: var(--primary-dark); transform: translateY(-2px); }
     </style>
 </head>
 <body>
@@ -133,7 +136,7 @@
 
     <script>
         // ==================== CẤU HÌNH API ====================
-        const API_URL = "https://script.google.com/macros/s/AKfycbxCldU7i-LHDxqf5svloL6fkoCIPhgieCTZ7o3xo_D86H4TXZ4LSEgVrGNRYxQEL2Fnkw/exec";
+         const API_URL = "https://script.google.com/macros/s/AKfycbxCldU7i-LHDxqf5svloL6fkoCIPhgieCTZ7o3xo_D86H4TXZ4LSEgVrGNRYxQEL2Fnkw/exec";
         
         // Dữ liệu khóa học
         const ALL_COURSES = [
@@ -163,35 +166,38 @@
               chapters: ["Rung động hay yêu?", "Sự đồng thuận", "Ranh giới của những cái chạm", "Lá chắn an toàn", "Hẹn hò văn minh"] }
         ];
 
-        // ==================== NỘI DUNG KHÓA HỌC (VIDEO + PDF) ====================
+        // ==================== NỘI DUNG KHÓA HỌC (VIDEO + PDF + FLASHCARD + PARENT GUIDE) ====================
+        // CHỊ THÊM LINK FLASHCARD VÀ PARENT GUIDE VÀO ĐÂY
         const courseContent = {
             1: {
                 courseName: "Cơ thể tôi là của tôi",
                 chapters: [
-                    { number: 1, name: "Tên gọi đúng của các bộ phận cơ thể", videoUrl: "https://www.youtube.com/embed/8op6VjINSIc", pdfUrl: "https://drive.google.com/uc?export=download&id=1lH-xmZ2yk8zE5OsBw0xA4e0BoL08P6MR" },
-                    { number: 2, name: "Vùng đồ bơi - Ai được chạm vào và khi nào?", videoUrl: "https://www.youtube.com/embed/LuNFq7PJ7Jg", pdfUrl: "https://drive.google.com/uc?export=download&id=1Sz_vGp3kW0QyyipNQJpJUeQxU-pcHTP0" },
-                    { number: 3, name: "Quy tắc bàn tay 5 ngón", videoUrl: "https://www.youtube.com/embed/if2o8PRYEAY", pdfUrl: "https://drive.google.com/uc?export=download&id=1QHzhAcg0cKGpEgEaVfM1MNOeEb6vuqKb" },
-                    { number: 4, name: "Kỹ năng Nói không - Bỏ chạy - Kể lại", videoUrl: "https://www.youtube.com/embed/NYhk0ohpx2w", pdfUrl: "https://drive.google.com/uc?export=download&id=1ZfmNxLUPwQS7ckvQG9rOooOQK3vXR0r3" },
-                    { number: 5, name: "Bí mật tốt và bí mật xấu", videoUrl: "https://www.youtube.com/embed/pJ3QpvgCsJo", pdfUrl: "https://drive.google.com/uc?export=download&id=1Fk1beIIB8ARh7KJZzrlIgZmQDdtK8AVB" }
+                    { number: 1, name: "Tên gọi đúng của các bộ phận cơ thể", videoUrl: "https://www.youtube.com/embed/8op6VjINSIc", pdfUrl: "https://drive.google.com/uc?export=download&id=1lH-xmZ2yk8zE5OsBw0xA4e0BoL08P6MR", flashcardUrl: "", parentGuideUrl: "" },
+                    flashcardUrl: "https://drive.google.com/uc?export=download&id=1I34s7G5zQbvR7b6t-o1VfJ83MFl_qat5",
+                    parentGuideUrl: "https://drive.google.com/uc?export=download&id=1fBc2xRMa9GwX0ZNumB5DTs42V4qBusdO" },
+                    { number: 2, name: "Vùng đồ bơi - Ai được chạm vào và khi nào?", videoUrl: "https://www.youtube.com/embed/LuNFq7PJ7Jg", pdfUrl: "https://drive.google.com/uc?export=download&id=1Sz_vGp3kW0QyyipNQJpJUeQxU-pcHTP0", flashcardUrl: "", parentGuideUrl: "" },
+                    { number: 3, name: "Quy tắc bàn tay 5 ngón", videoUrl: "https://www.youtube.com/embed/if2o8PRYEAY", pdfUrl: "https://drive.google.com/uc?export=download&id=1QHzhAcg0cKGpEgEaVfM1MNOeEb6vuqKb", flashcardUrl: "", parentGuideUrl: "" },
+                    { number: 4, name: "Kỹ năng Nói không - Bỏ chạy - Kể lại", videoUrl: "https://www.youtube.com/embed/NYhk0ohpx2w", pdfUrl: "https://drive.google.com/uc?export=download&id=1ZfmNxLUPwQS7ckvQG9rOooOQK3vXR0r3", flashcardUrl: "", parentGuideUrl: "" },
+                    { number: 5, name: "Bí mật tốt và bí mật xấu", videoUrl: "https://www.youtube.com/embed/pJ3QpvgCsJo", pdfUrl: "https://drive.google.com/uc?export=download&id=1Fk1beIIB8ARh7KJZzrlIgZmQDdtK8AVB", flashcardUrl: "", parentGuideUrl: "" }
                 ]
             },
             2: {
                 courseName: "Đi tìm sự thật về 'Cái rốn'",
                 chapters: [
-                    { number: 1, name: "Ngôi nhà đầu tiên của con - Bụng mẹ", videoUrl: "https://www.youtube.com/embed/9Y2vl-Gh7Ak", pdfUrl: "https://drive.google.com/uc?export=download&id=1wrbxoocrpQUhAkkengswbuRnGCcAU1R4" },
-                    { number: 2, name: "Con đã lớn lên như thế nào?", videoUrl: "https://www.youtube.com/embed/5j2MaOQiXVE", pdfUrl: "https://drive.google.com/uc?export=download&id=1Auq7ChYDvugmtevpCnGRo3mCYn5S9HSZ" },
-                    { number: 3, name: "Ngày con chào đời", videoUrl: "https://www.youtube.com/embed/LVHLJ7nR7ZA", pdfUrl: "https://drive.google.com/uc?export=download&id=1IhFqaX4Yxhf-x_2tL264s_wAWLVZ3vIw" },
-                    { number: 4, name: "Tại sao con giống bố/giống mẹ?", videoUrl: "https://www.youtube.com/embed/Co8pObXy8Rs", pdfUrl: "https://drive.google.com/uc?export=download&id=1znNnKw5VXfbR5NYbqSKVt4rmoTrbleCh" }
+                    { number: 1, name: "Ngôi nhà đầu tiên của con - Bụng mẹ", videoUrl: "https://www.youtube.com/embed/9Y2vl-Gh7Ak", pdfUrl: "https://drive.google.com/uc?export=download&id=1wrbxoocrpQUhAkkengswbuRnGCcAU1R4", flashcardUrl: "", parentGuideUrl: "" },
+                    { number: 2, name: "Con đã lớn lên như thế nào?", videoUrl: "https://www.youtube.com/embed/5j2MaOQiXVE", pdfUrl: "https://drive.google.com/uc?export=download&id=1Auq7ChYDvugmtevpCnGRo3mCYn5S9HSZ", flashcardUrl: "", parentGuideUrl: "" },
+                    { number: 3, name: "Ngày con chào đời", videoUrl: "https://www.youtube.com/embed/LVHLJ7nR7ZA", pdfUrl: "https://drive.google.com/uc?export=download&id=1IhFqaX4Yxhf-x_2tL264s_wAWLVZ3vIw", flashcardUrl: "", parentGuideUrl: "" },
+                    { number: 4, name: "Tại sao con giống bố/giống mẹ?", videoUrl: "https://www.youtube.com/embed/Co8pObXy8Rs", pdfUrl: "https://drive.google.com/uc?export=download&id=1znNnKw5VXfbR5NYbqSKVt4rmoTrbleCh", flashcardUrl: "", parentGuideUrl: "" }
                 ]
             },
             3: {
                 courseName: "Thám tử cơ thể - Giải mã sự thay đổi",
                 chapters: [
-                    { number: 1, name: "Bản đồ Sinh học (Nam & Nữ)", videoUrl: "https://www.youtube.com/embed/leCDiTJuhgA", pdfUrl: "https://drive.google.com/uc?export=download&id=1yrUDm-SWHQc9eOFIh_awEBYZGj0rd9wI" },
-                    { number: 2, name: "Thám tử truy tìm 'Cơn bão Dậy thì'", videoUrl: "https://www.youtube.com/embed/8a-jhp4y4DI", pdfUrl: "https://drive.google.com/uc?export=download&id=1_zzbb_STmd7jNt-t0gbepn2IZvatjDKP" },
-                    { number: 3, name: "Bí mật của Trứng và Tinh trùng", videoUrl: "https://www.youtube.com/embed/n1NlY5FalMo", pdfUrl: "https://drive.google.com/uc?export=download&id=1trdAPmnyVReaWBA_1-XBtmGI-TWKMpkv" },
-                    { number: 4, name: "Phòng thí nghiệm Vệ sinh & Riêng tư", videoUrl: "https://www.youtube.com/embed/jr3yaCCT7XI", pdfUrl: "https://drive.google.com/uc?export=download&id=1M8PZlDkbFrII4koSinKyZQ9jFbQqbPJ1" },
-                    { number: 5, name: "Huy hiệu 'Tôi yêu bản thân' & Tự do là chính mình", videoUrl: "https://www.youtube.com/embed/jOT-dzdyRes", pdfUrl: "https://drive.google.com/uc?export=download&id=1N7KL7eItJhKYEMlui3V8u1Ihrq_S2JD5" }
+                    { number: 1, name: "Bản đồ Sinh học (Nam & Nữ)", videoUrl: "https://www.youtube.com/embed/leCDiTJuhgA", pdfUrl: "https://drive.google.com/uc?export=download&id=1yrUDm-SWHQc9eOFIh_awEBYZGj0rd9wI", flashcardUrl: "", parentGuideUrl: "" },
+                    { number: 2, name: "Thám tử truy tìm 'Cơn bão Dậy thì'", videoUrl: "https://www.youtube.com/embed/8a-jhp4y4DI", pdfUrl: "https://drive.google.com/uc?export=download&id=1_zzbb_STmd7jNt-t0gbepn2IZvatjDKP", flashcardUrl: "", parentGuideUrl: "" },
+                    { number: 3, name: "Bí mật của Trứng và Tinh trùng", videoUrl: "https://www.youtube.com/embed/n1NlY5FalMo", pdfUrl: "https://drive.google.com/uc?export=download&id=1trdAPmnyVReaWBA_1-XBtmGI-TWKMpkv", flashcardUrl: "", parentGuideUrl: "" },
+                    { number: 4, name: "Phòng thí nghiệm Vệ sinh & Riêng tư", videoUrl: "https://www.youtube.com/embed/jr3yaCCT7XI", pdfUrl: "https://drive.google.com/uc?export=download&id=1M8PZlDkbFrII4koSinKyZQ9jFbQqbPJ1", flashcardUrl: "", parentGuideUrl: "" },
+                    { number: 5, name: "Huy hiệu 'Tôi yêu bản thân' & Tự do là chính mình", videoUrl: "https://www.youtube.com/embed/jOT-dzdyRes", pdfUrl: "https://drive.google.com/uc?export=download&id=1N7KL7eItJhKYEMlui3V8u1Ihrq_S2JD5", flashcardUrl: "", parentGuideUrl: "" }
                 ]
             }
         };
@@ -429,7 +435,7 @@
             });
         }
 
-        // ==================== TRANG HỌC ====================
+        // ==================== TRANG HỌC (CÓ 3 NÚT TẢI) ====================
         function showLearningPage(courseId, chapterIndex = 0) {
             const content = courseContent[courseId];
             if (!content) return;
@@ -445,6 +451,18 @@
                 document.body.appendChild(learningPage);
             }
             
+            // Tạo các nút tải
+            let downloadButtons = '';
+            if (chapter.pdfUrl) {
+                downloadButtons += `<a href="${chapter.pdfUrl}" target="_blank" class="download-btn"><i class="fas fa-download"></i> Tài liệu chính (PDF)</a>`;
+            }
+            if (chapter.flashcardUrl) {
+                downloadButtons += `<a href="${chapter.flashcardUrl}" target="_blank" class="download-btn"><i class="fas fa-download"></i> Flashcard cho bé</a>`;
+            }
+            if (chapter.parentGuideUrl) {
+                downloadButtons += `<a href="${chapter.parentGuideUrl}" target="_blank" class="download-btn"><i class="fas fa-download"></i> Hướng dẫn ba mẹ (PDF)</a>`;
+            }
+            
             learningPage.innerHTML = `
                 <div style="background: var(--gradient); padding: 20px; position: sticky; top: 0; z-index: 10;">
                     <button onclick="closeLearningPage()" style="background: white; border: none; padding: 8px 16px; border-radius: 40px; margin-bottom: 12px; cursor: pointer;">← Quay lại</button>
@@ -455,7 +473,7 @@
                     <div style="margin-bottom: 30px;">
                         ${chapter.videoUrl ? `<iframe width="100%" height="450" src="${chapter.videoUrl}" frameborder="0" allowfullscreen style="border-radius: 20px;"></iframe>` : '<div style="background: #f0f0f0; padding: 60px; text-align: center; border-radius: 20px;">Video đang được cập nhật</div>'}
                     </div>
-                    ${chapter.pdfUrl ? `<div style="text-align: right; margin-bottom: 30px;"><a href="${chapter.pdfUrl}" target="_blank" style="background: var(--primary); color: white; padding: 10px 20px; border-radius: 40px; text-decoration: none;"><i class="fas fa-download"></i> Tải tài liệu PDF</a></div>` : ''}
+                    ${downloadButtons ? `<div class="download-buttons">${downloadButtons}</div>` : ''}
                     <h3 style="margin-bottom: 16px;">📚 Các chương trong khóa</h3>
                     <div style="display: flex; flex-direction: column; gap: 12px;">
                         ${content.chapters.map((ch, idx) => `
