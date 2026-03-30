@@ -133,52 +133,66 @@
 
     <script>
         // ==================== CẤU HÌNH API ====================
-        const API_URL = "https://script.google.com/macros/s/AKfycbwNX4hTHik0FDkn6uzmGtyxdNvs3gbzrn7huEFd-Ik5pciB8Kp_LEH4I07nAfFgCHNWjg/exec";
+      const API_URL = "https://script.google.com/macros/s/AKfycbxGL33X4fYKpQHrBISGPUtVSPrJrwwLoO-5XJF4EHU6jBD_3SfPmLmxjOrSFcfUuee01Q/exec";
         
-        // ==================== DỮ LIỆU KHÓA HỌC (6 KHÓA CÓ LINK CŨ) ====================
+        // ==================== DỮ LIỆU KHÓA HỌC (KHÓA 1,2,3 ĐÃ CẬP NHẬT) ====================
         const ALL_COURSES = [
-            // KHÓA 1: Mầm non - Cơ thể tôi là của tôi (ĐÃ CÓ VIDEO + PDF)
+            // KHÓA 1: Mầm non - Cơ thể tôi là của tôi
             { id: 1, name: "Cơ thể tôi là của tôi", group: "preschool", age: "3-5 tuổi", icon: "🛡️", price: "199.000đ", 
               shortDesc: "Bài học đầu tiên về bảo vệ cơ thể cho trẻ mầm non.", 
               fullDesc: "Khóa học giúp trẻ nhận biết và bảo vệ cơ thể mình một cách tự nhiên, không sợ hãi.",
               chapters: ["Tên gọi đúng của các bộ phận cơ thể", "Vùng đồ bơi - Ai được chạm vào và khi nào?", "Quy tắc bàn tay 5 ngón", "Kỹ năng Nói không - Bỏ chạy - Kể lại", "Bí mật tốt và bí mật xấu"],
-              videoUrl: "https://www.youtube.com/embed/8op6VjINSIc",
-              pdfs: ["https://drive.google.com/uc?export=download&id=1lH-xmZ2yk8zE5OsBw0xA4e0BoL08P6MR"] },
-            // KHÓA 2: Mầm non - Đi tìm sự thật về 'Cái rốn' (CHƯA CÓ VIDEO, CÓ PDF)
+              videos: ["https://www.youtube.com/embed/8op6VjINSIc", "https://www.youtube.com/embed/LuNFq7PJ7Jg", "https://www.youtube.com/embed/if2o8PRYEAY", "https://www.youtube.com/embed/NYhk0ohpx2w", "https://www.youtube.com/embed/pJ3QpvgCsJo"],
+              pdfs: [
+                "https://drive.google.com/uc?export=download&id=1lH-xmZ2yk8zE5OsBw0xA4e0BoL08P6MR",
+                "https://drive.google.com/uc?export=download&id=1Sz_vGp3kW0QyyipNQJpJUeQxU-pcHTP0",
+                "https://drive.google.com/uc?export=download&id=1QHzhAcg0cKGpEgEaVfM1MNOeEb6vuqKb",
+                "https://drive.google.com/uc?export=download&id=1ZfmNxLUPwQS7ckvQG9rOooOQK3vXR0r3",
+                "https://drive.google.com/uc?export=download&id=1Fk1beIIB8ARh7KJZzrlIgZmQDdtK8AVB"
+              ] },
+            // KHÓA 2: Mầm non - Đi tìm sự thật về 'Cái rốn'
             { id: 2, name: "Đi tìm sự thật về 'Cái rốn'", group: "preschool", age: "3-5 tuổi", icon: "👶", price: "199.000đ", 
               shortDesc: "Hành trình khám phá nguồn gốc sự sống qua những câu chuyện kể diệu kỳ.", 
               fullDesc: "Khóa học giải thích về nguồn gốc sự sống một cách nhẹ nhàng, phù hợp với tâm lý trẻ nhỏ.",
               chapters: ["Ngôi nhà đầu tiên của con - Bụng mẹ", "Con đã lớn lên như thế nào?", "Ngày con chào đời", "Tại sao con giống bố/giống mẹ?"],
-              videoUrl: "",
-              pdfs: [] },
+              videos: ["https://www.youtube.com/embed/9Y2vl-Gh7Ak", "https://www.youtube.com/embed/5j2MaOQiXVE", "https://www.youtube.com/embed/LVHLJ7nR7ZA", "https://www.youtube.com/embed/Co8pObXy8Rs"],
+              pdfs: [
+                "https://drive.google.com/uc?export=download&id=1wrbxoocrpQUhAkkengswbuRnGCcAU1R4",
+                "https://drive.google.com/uc?export=download&id=1Auq7ChYDvugmtevpCnGRo3mCYn5S9HSZ",
+                "https://drive.google.com/uc?export=download&id=1IhFqaX4Yxhf-x_2tL264s_wAWLVZ3vIw",
+                "https://drive.google.com/uc?export=download&id=1znNnKw5VXfbR5NYbqSKVt4rmoTrbleCh"
+              ] },
             // KHÓA 3: Tiểu học - Thám tử cơ thể
             { id: 3, name: "Thám tử cơ thể - Giải mã sự thay đổi", group: "primary", age: "6-10 tuổi", icon: "🕵️‍♂️", price: "299.000đ", 
               shortDesc: "Làm chủ những thay đổi kỳ diệu của cơ thể và xây dựng lòng tự tin.", 
               fullDesc: "Khóa học giúp bé hiểu về cơ thể, những thay đổi khi lớn lên và biết cách chăm sóc bản thân.",
               chapters: ["Bản đồ Sinh học (Nam & Nữ)", "Thám tử truy tìm 'Cơn bão Dậy thì'", "Bí mật của Trứng và Tinh trùng", "Phòng thí nghiệm Vệ sinh & Riêng tư", "Huy hiệu 'Tôi yêu bản thân' & Tự do là chính mình"],
-              videoUrl: "",
-              pdfs: [] },
-            // KHÓA 4: Tiểu học - Thám tử Internet
+              videos: ["https://www.youtube.com/embed/leCDiTJuhgA", "https://www.youtube.com/embed/8a-jhp4y4DI", "https://www.youtube.com/embed/n1NlY5FalMo", "https://www.youtube.com/embed/jr3yaCCT7XI", "https://www.youtube.com/embed/jOT-dzdyRes"],
+              pdfs: [
+                "https://drive.google.com/uc?export=download&id=1yrUDm-SWHQc9eOFIh_awEBYZGj0rd9wI",
+                "https://drive.google.com/uc?export=download&id=1_zzbb_STmd7jNt-t0gbepn2IZvatjDKP",
+                "https://drive.google.com/uc?export=download&id=1trdAPmnyVReaWBA_1-XBtmGI-TWKMpkv",
+                "https://drive.google.com/uc?export=download&id=1M8PZlDkbFrII4koSinKyZQ9jFbQqbPJ1",
+                "https://drive.google.com/uc?export=download&id=1N7KL7eItJhKYEMlui3V8u1Ihrq_S2JD5"
+              ] },
+            // KHÓA 4: Tiểu học - Thám tử Internet (chưa có nội dung)
             { id: 4, name: "Thám tử Internet - Lá chắn số", group: "primary", age: "6-10 tuổi", icon: "🌐", price: "299.000đ", 
               shortDesc: "Khóa học 'sống còn' để bé tự tin và an toàn khi khám phá thế giới số.", 
               fullDesc: "Trang bị kỹ năng an toàn khi sử dụng internet, nhận diện nguy cơ và cách bảo vệ bản thân.",
               chapters: ["Mặt nạ Online & Những cái bẫy Game", "Thám tử truy tìm 'Dấu chân số'", "Chiến binh 'Lọc màn hình'", "Quái vật Bắt nạt & Lá chắn Tình bạn", "Thám tử Thông thái: Sự thật & Đời thực"],
-              videoUrl: "",
-              pdfs: [] },
-            // KHÓA 5: Dậy thì - Thám tử dậy thì
+              videos: [], pdfs: [] },
+            // KHÓA 5: Dậy thì - Thám tử dậy thì (chưa có nội dung)
             { id: 5, name: "Thám tử dậy thì - Giải mã 'Siêu năng lực' mới", group: "teen", age: "11-15 tuổi", icon: "⚡", price: "399.000đ", 
               shortDesc: "Thấu hiểu sự thay đổi sinh lý và tâm lý bên trong tuổi dậy thì.", 
               fullDesc: "Khóa học giúp teen hiểu rõ về những thay đổi của cơ thể, biết cách chăm sóc bản thân và làm chủ cảm xúc.",
               chapters: ["Cuộc đổ bộ Hormones: Tại sao tôi lại 'khác' thế này?", "Phái đẹp nở hoa: 'Kỳ nguyệt san' và sự kiêu hãnh của con gái", "Phái mạnh vươn mình: Bản lĩnh con trai và những bí mật 'ướt át'", "Yêu thương cơ thể: Tôi không hoàn hảo nhưng tôi là duy nhất", "Làm chủ 'Cái đầu nóng': Quản lý cảm xúc và Stress tuổi dậy thì"],
-              videoUrl: "",
-              pdfs: [] },
-            // KHÓA 6: Dậy thì - Thám tử tình yêu
+              videos: [], pdfs: [] },
+            // KHÓA 6: Dậy thì - Thám tử tình yêu (chưa có nội dung)
             { id: 6, name: "Thám tử tình yêu - Ranh giới & Bản lĩnh", group: "teen", age: "11-15 tuổi", icon: "💕", price: "399.000đ", 
               shortDesc: "Hiểu về tình yêu, ranh giới và các mối quan hệ an toàn.", 
               fullDesc: "Trang bị kỹ năng nhận diện cảm xúc, hiểu về sự đồng thuận và bảo vệ bản thân trong các mối quan hệ.",
-              chapters: ["Rung động hay là yêu? Giải mã nhịp đập trái tim", "Quy tắc 'Sự đồng thuận': Chỉ có 'Có' mới là 'Có' (Consent is Sexy)", "Ranh giới của những cái chạm: Từ nắm tay đến nụ hôn và xa hơn", "Lá chắn an toàn: Kiến thức về tình dục an toàn & tránh thai", "Hẹn hò văn minh: Nhận diện Toxic và chia sẻ bản lĩnh"],
-              videoUrl: "",
-              pdfs: [] }
+              chapters: ["Rung động hay là yêu? Giải mã nhịp đập trái tim", "Quy tắc 'Sự đồng thuận': Chỉ có 'Có' mới là 'Có'", "Ranh giới của những cái chạm", "Lá chắn an toàn", "Hẹn hò văn minh"],
+              videos: [], pdfs: [] }
         ];
 
         let currentUser = null;
@@ -268,9 +282,8 @@
 
         function startCourse(courseId) {
             const course = ALL_COURSES.find(c => c.id === courseId);
-            if (course.videoUrl) {
-                // Chuyển sang trang học nếu có video
-                alert(`📺 Khóa học "${course.name}"\n\nChức năng trang học đang phát triển. Video sẽ được cập nhật sớm!`);
+            if (course.videos && course.videos.length > 0 && course.videos[0]) {
+                alert(`📺 Khóa học "${course.name}"\n\nĐã có video! Chức năng phát video đang được phát triển.`);
             } else {
                 alert(`📚 Khóa học "${course.name}"\n\nNội dung đang được cập nhật. Chị sẽ sớm hoàn thiện!`);
             }
