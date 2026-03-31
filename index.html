@@ -1,286 +1,184 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Sophia Nguyễn - Tâm lý & Phát triển</title>
-  <link rel="stylesheet" href="main.css" />
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Be Vietnam Pro', sans-serif;
-    }
-    
-    /* ==================== BANNER KHÓA HỌC MỚI (NHÚNG TRỰC TIẾP) ==================== */
-    .course-banner {
-        background: linear-gradient(135deg, #fff0f5 0%, #ffe4ec 100%);
-        border-radius: 32px;
-        margin: 60px 20px;
-        padding: 40px 30px;
-        text-align: center;
-        border: 1px solid rgba(232, 62, 140, 0.2);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .course-banner:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 20px 40px rgba(232, 62, 140, 0.15);
-    }
-
-    .course-badge {
-        display: inline-block;
-        background: linear-gradient(135deg, #e83e8c, #f06292);
-        color: white;
-        padding: 8px 20px;
-        border-radius: 40px;
-        font-size: 0.85rem;
-        font-weight: 600;
-        margin-bottom: 20px;
-    }
-
-    .course-banner-title {
-        font-size: 1.8rem;
-        color: #e83e8c;
-        margin-bottom: 16px;
-        font-weight: 700;
-    }
-
-    .course-banner-desc {
-        font-size: 1rem;
-        color: #4a5568;
-        margin-bottom: 24px;
-        line-height: 1.6;
-    }
-
-    .course-banner-features {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 16px;
-        margin-bottom: 32px;
-    }
-
-    .course-banner-features span {
-        background: white;
-        padding: 8px 20px;
-        border-radius: 40px;
-        font-size: 0.9rem;
-        color: #e83e8c;
-        font-weight: 500;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-
-    .course-banner-btn {
-        display: inline-block;
-        background: linear-gradient(135deg, #e83e8c, #f06292);
-        color: white;
-        padding: 14px 32px;
-        border-radius: 50px;
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 1rem;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 12px rgba(232, 62, 140, 0.3);
-    }
-
-    .course-banner-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(232, 62, 140, 0.4);
-    }
-
-    /* Responsive cho banner */
-    @media (max-width: 768px) {
-        .course-banner {
-            margin: 40px 16px;
-            padding: 30px 20px;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lắng nghe tâm giao | Sophia Nguyễn – Đồng hành & Sẻ chia</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #e83e8c;
+            --primary-dark: #c2185b;
+            --dark: #2d3436;
+            --gray: #636e72;
+            --light-gray: #dfe6e9;
+            --white: #ffffff;
+            --gradient: linear-gradient(135deg, #e83e8c 0%, #f06292 50%, #ffb6c1 100%);
+            --gradient-soft: linear-gradient(135deg, #fff0f5 0%, #ffe4ec 100%);
         }
+        body { font-family: 'Be Vietnam Pro', sans-serif; line-height: 1.6; color: var(--dark); background: var(--gradient-soft); }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
         
-        .course-banner-title {
-            font-size: 1.4rem;
-        }
+        /* Navbar */
+        .navbar { background: var(--white); box-shadow: 0 2px 20px rgba(0,0,0,0.05); padding: 1rem 0; position: sticky; top: 0; z-index: 100; }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+        .logo { font-size: 1.5rem; font-weight: bold; background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; display: flex; align-items: center; gap: 10px; }
+        .logo i { background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; font-size: 1.8rem; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--gray); font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+        .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; }
         
-        .course-banner-features {
-            gap: 10px;
-        }
+        /* Hero */
+        .hero { background: var(--gradient); padding: 80px 0 60px; text-align: center; color: white; border-radius: 0 0 40px 40px; }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+        .hero p { font-size: 1.2rem; max-width: 700px; margin: 0 auto; opacity: 0.95; }
         
-        .course-banner-features span {
-            font-size: 0.75rem;
-            padding: 6px 14px;
-        }
+        /* Section */
+        .section { padding: 60px 0; }
+        .section-title { text-align: center; font-size: 2rem; color: var(--primary); margin-bottom: 16px; }
+        .section-sub { text-align: center; color: var(--gray); margin-bottom: 48px; max-width: 700px; margin-left: auto; margin-right: auto; }
         
-        .course-banner-btn {
-            padding: 12px 24px;
-            font-size: 0.9rem;
+        /* Quote */
+        .quote { background: white; border-radius: 32px; padding: 40px; text-align: center; margin: 40px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .quote p { font-size: 1.3rem; font-style: italic; color: var(--primary); line-height: 1.6; }
+        
+        /* Service Cards */
+        .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin: 40px 0; }
+        .service-card { background: white; border-radius: 24px; padding: 30px 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s; }
+        .service-card:hover { transform: translateY(-5px); }
+        .service-icon { font-size: 2.5rem; margin-bottom: 16px; }
+        .service-card h3 { color: var(--primary); margin-bottom: 12px; }
+        .service-card p { color: var(--gray); font-size: 0.9rem; }
+        
+        /* Price Grid */
+        .price-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin: 40px 0; }
+        .price-card { background: white; border-radius: 24px; padding: 28px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: all 0.3s; border: 1px solid var(--light-gray); }
+        .price-card:hover { transform: translateY(-5px); border-color: var(--primary); }
+        .price-card h3 { font-size: 1.3rem; color: var(--primary); margin-bottom: 16px; }
+        .price-desc { color: var(--gray); font-size: 0.9rem; margin-bottom: 20px; min-height: 60px; }
+        .price { font-size: 1.8rem; font-weight: bold; color: var(--dark); margin-bottom: 24px; }
+        .price small { font-size: 0.9rem; font-weight: normal; color: var(--gray); }
+        
+        /* Button */
+        .btn-primary { background: var(--gradient); color: white; border: none; padding: 14px 32px; border-radius: 50px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-block; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(232,62,140,0.3); }
+        .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); padding: 12px 28px; border-radius: 50px; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.2s; }
+        .btn-outline:hover { background: var(--primary); color: white; }
+        
+        /* Commitment */
+        .commitment { background: white; border-radius: 32px; padding: 40px; margin: 40px 0; text-align: center; }
+        .commitment-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-top: 30px; }
+        .commitment-item i { font-size: 2rem; color: var(--primary); margin-bottom: 12px; display: inline-block; }
+        
+        /* Footer */
+        .footer { background: var(--dark); color: white; padding: 40px 0 20px; margin-top: 60px; text-align: center; }
+        
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .menu-toggle { display: block; }
+            .hero h1 { font-size: 1.8rem; }
+            .quote p { font-size: 1rem; }
+            .section-title { font-size: 1.5rem; }
+            .price { font-size: 1.4rem; }
         }
-    }
-  </style>
+    </style>
 </head>
 <body>
-  <!-- HEADER -->
-  <header class="header">
-    <div class="container header-container">
-      <a href="index.html" class="logo">
-        <img src="images/hinhremovenen.png" alt="Sophia Logo" />
-      </a>
-      <div class="menu-toggle" onclick="document.querySelector('.navbar').classList.toggle('show-menu')">☰</div>
-      <nav class="navbar">
-        <ul>
-          <li><a href="index.html">Trang chủ</a></li>
-          <li><a href="about.html">Giới thiệu</a></li>
-          <li><a href="services.html">Dịch vụ</a></li>
-          <li><a href="blog.html">Blog</a></li>
-          <li><a href="contact.html">Liên hệ</a></li>
-        </ul>
-      </nav>
-    </div>
-    <div class="banner">
-      <img src="images/rs1.png" alt="Sophia Nguyễn – Đồng hành & Sẻ chia" class="banner-img" />
-    </div>
-  </header>
-
-  <!-- TET SECTION -->
-  <section class="tet-section">
-    <div class="tet-container">
-      <div class="tet-left">
-        <h2>🌸 Bình an để chữa lành</h2>
-        <p>Chúc bạn một năm mới 2026 đủ dịu dàng với chính mình, đủ kiên nhẫn với người thân yêu, và đủ bao dung để chữa lành những điều còn dang dở.</p>
-      </div>
-      <div class="tet-right">
-        <h2>🌱 Mạnh mẽ để trưởng thành</h2>
-        <p>Mong bạn dám đặt ra mục tiêu mới, dám thay đổi điều chưa phù hợp, và dám trở thành phiên bản tốt hơn của chính mình.</p>
-      </div>
-    </div>
-    <div class="tet-footer">Năm mới không chỉ là đổi lịch… mà là cơ hội để ta viết lại cách mình sống.</div>
-  </section>
-
-  <!-- DỊCH VỤ NỔI BẬT -->
-  <h2 class="section-title" data-aos="fade-down-right" data-aos-duration="1000">Dịch vụ nổi bật</h2>
-  <div class="grid" data-aos="flip-left" data-aos-duration="1000">
-    <div class="box">
-      <img src="images/FB_IMG_1753956095514.jpg" alt="Tư vấn tâm lý">
-      <h3>Tham vấn tâm lý</h3>
-      <p>Đồng hành chữa lành cùng bạn trong từng giai đoạn.</p>
-      <a href="tuvan-tamly1.html" class="cta-btn">🔍 Xem chi tiết</a>
-    </div>
-    <div class="box">
-      <img src="images/IMG_20250730_091140.jpg" alt="Hướng nghiệp">
-      <h3>Hướng nghiệp cá nhân hóa</h3>
-      <p>Khơi mở con đường phù hợp với thế mạnh và giá trị cá nhân.</p>
-      <a href="huong-nghiep.html" class="cta-btn">🔍 Xem chi tiết</a>
-    </div>
-    <div class="box">
-      <img src="images/IMG_20250805_000054.jpg" alt="Đào tạo kỹ năng">
-      <h3>Đào tạo kỹ năng</h3>
-      <p>Kỹ năng là một điều vô cùng quan trọng ngoài kiến thức chuyên môn mà chúng ta cần trang bị.</p>
-      <a href="ky-nang.html" class="cta-btn">🔍 Xem chi tiết</a>
-    </div>
-    <div class="box">
-      <img src="images/4.jpg" alt="Sinh trắc vân tay">
-      <h3>Sinh trắc vân tay</h3>
-      <p>Khám phá tiềm năng bẩm sinh và định hướng phát triển.</p>
-      <a href="van-tay.html" class="cta-btn">🔍 Xem chi tiết</a>
-    </div>
-  </div>
-
-  <!-- ==================== BANNER KHÓA HỌC MỚI ==================== -->
-  <div class="course-banner" data-aos="zoom-in" data-aos-duration="1000">
-    <div class="course-badge">🌱 Khóa học mới</div>
-    <h2 class="course-banner-title">Giáo dục giới tính toàn diện</h2>
-    <p class="course-banner-desc">Đồng hành cùng con qua từng giai đoạn phát triển - Từ mầm non đến tuổi dậy thì.<br>6 khóa học với nội dung khoa học, phù hợp từng lứa tuổi.</p>
-    <div class="course-banner-features">
-      <span>✅ 3 nhóm tuổi</span>
-      <span>✅ 6 khóa học chuyên sâu</span>
-      <span>✅ Video + Tài liệu PDF</span>
-      <span>✅ Học theo lộ trình riêng</span>
-    </div>
-    <a href="/khoa-hoc/gioi-tinh/gioi-thieu/" class="course-banner-btn">📚 Xem chi tiết các khóa học</a>
-  </div>
-
-  <!-- CÁC BÀI TEST TÂM LÝ -->
-  <h2 class="section-title" data-aos="flip-left" data-aos-duration="1000">Các bài test tâm lý</h2>
-  <div class="grid survey-grid" data-aos="zoom-out-left" data-aos-duration="1000">
-    <div class="box">
-      <img src="images/mbti.jpg" alt="MBTI rút gọn">
-      <h3>Khám phá tính cách bản thân</h3>
-      <p>Bài test 40 câu giúp bạn xác định nhóm tính cách cơ bản (ISTJ, ENFP…). Tìm hiểu bài test MBTI là một trong các bước chúng ta hiểu bản thân hơn...</p>
-      <a href="test.html" class="cta-btn">🔍 Khám phá bài test bạn yêu thích</a>
-    </div>
-    <div class="box">
-      <img src="images/Mirror-Work.png" alt="Tự yêu thương">
-      <h3>Mức độ tự yêu thương</h3>
-      <p>Test gồm các tình huống giúp bạn nhận diện mức độ tự quan tâm, tự chấp nhận và ranh giới cá nhân.</p>
-      <a href="test.html" class="cta-btn">🔍 Bạn làm bài test nhé</a>
-    </div>
-    <div class="box">
-      <img src="images/test carree.png" alt="Hướng nghiệp">
-      <h3>Bài test DISC</h3>
-      <p>Khám phá thiên hướng nghề nghiệp của bạn dựa trên nhóm tính cách và đặc điểm hành vi trong các tình huống giả định của công cụ DISC.</p>
-      <a href="test.html" class="cta-btn">🔍 Khám phá các bài test nhé</a>
-    </div>
-    <div class="box">
-      <img src="images/camxuc.jpg" alt="Cảm xúc">
-      <h3>Bạn đối diện cảm xúc tiêu cực thế nào?</h3>
-      <p>Bài test đánh giá khả năng nhận diện và xử lý cảm xúc như buồn, giận, lo âu... Gợi ý phương pháp chăm sóc tinh thần lành mạnh.</p>
-      <a href="test.html" class="cta-btn">🔍 Khám phá bài test trong này?</a>
-    </div>
-  </div>
-
-  <!-- CTA -->
-  <section class="cta-section" data-aos="zoom-in-up" data-aos-duration="1000">
-    <a href="https://zalo.me/0977092182" class="cta-datlich">📅 Đặt lịch tư vấn</a>
-    <a href="contact.html" class="cta-datlich">📩 Gửi tin nhắn cho Sophia</a>
-  </section>
-
-  <section class="cta-section">
-    <div class="box-wheel">
-      <h2>Các bạn thử lựa chọn xem ai sẽ là người đầu tiên làm các bài test đi nào</h2>
-      <a href="vongquaymayman.html" class="cta-btn">🎡 VÒNG QUAY MAY MẮN</a>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="footer" data-aos="fade-zoom-in" data-aos-duration="1000">
-    <div class="footer-container">
-      <div class="footer-logo">
-        <img src="images/hinhremovenen.png" alt="Logo Sophia">
-        <p>Đồng hành & Sẻ chia cùng bạn trên hành trình tâm lý – phát triển – yêu thương.</p>
-      </div>
-      <div class="footer-links">
-        <h4>Dịch vụ</h4>
-        <ul>
-          <li><a href="#">Tham vấn tâm lý</a></li>
-          <li><a href="#">Định hướng nghề nghiệp</a></li>
-          <li><a href="#">Đào tạo kỹ năng</a></li>
-          <li><a href="#">Sinh trắc vân tay</a></li>
-        </ul>
-      </div>
-      <div class="footer-contact">
-        <h4>Liên hệ</h4>
-        <p>📧 sophianguyen2891@gmail.com</p>
-        <p>📞 0977092182</p>
-        <p>🏠 Tân Bình - TPHCM</p>
-        <div class="social-icons">
-          <a href="https://www.facebook.com/Sophiadiemhang1982"><img src="images/fb.png" alt="FB" /></a>
-          <a href="https://www.tiktok.com/@sophia.nguyen2014"><img src="images/tiktok.png" alt="TikTok" /></a>
-          <a href="https://www.youtube.com/@sophianguyen1982-dh"><img src="images/youtube.png" alt="YouTube" /></a>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo"><i class="fas fa-heart"></i><span>Sophia Nguyễn</span></div>
+            <div class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">☰</div>
+            <ul class="nav-links">
+                <li><a href="https://sophianguyen.com.vn">Trang chủ</a></li>
+                <li><a href="https://sophianguyen.com.vn/khoa-hoc/gioi-tinh/gioi-thieu/">Khóa học</a></li>
+                <li><a href="index.html" class="active">Lắng nghe tâm giao</a></li>
+                <li><a href="https://sophianguyen.com.vn/contact.html">Liên hệ</a></li>
+            </ul>
         </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>Copyright ©2024 Sophia Nguyễn. All rights reserved.</p>
-    </div>
-  </footer>
+    </nav>
 
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-  <script>
-    AOS.init({ once: true, duration: 1000, easing: 'ease-out-cubic' });
-  </script>
-  <script>
-    function toggleMenu() {
-      document.querySelector(".navbar").classList.toggle("active");
-    }
-  </script>
+    <section class="hero">
+        <div class="container">
+            <h1>💬 Lắng nghe tâm giao</h1>
+            <p>Một người để lắng nghe – Một điểm tựa tinh thần – Một người bạn đồng hành không phán xét</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="quote">
+            <p>“Bạn cần một người để chia sẻ, không cần lời khuyên?<br>Bạn cảm thấy cô đơn giữa thế giới ồn ào?<br>Bạn đang mỏi mệt và chỉ muốn có ai đó cùng nghe bạn nói?”</p>
+        </div>
+
+        <section class="section">
+            <h2 class="section-title">Đây không phải tư vấn tâm lý</h2>
+            <p class="section-sub">Đây là một không gian an toàn để bạn được là chính mình: chia sẻ, trải lòng, cảm nhận sự kết nối.</p>
+            <div class="service-grid">
+                <div class="service-card"><div class="service-icon">🧑💻</div><h3>Chat</h3><p>Liên lạc qua mail hoặc ứng dụng tùy chọn</p></div>
+                <div class="service-card"><div class="service-icon">☎️</div><h3>Gọi thoại</h3><p>Có thể ẩn danh nếu bạn cần</p></div>
+                <div class="service-card"><div class="service-icon">🧘</div><h3>Trò chuyện kết nối</h3><p>Trực tiếp, thư giãn và không đánh giá</p></div>
+                <div class="service-card"><div class="service-icon">📆</div><h3>Đặt lịch</h3><p>Chủ động thời gian, linh hoạt theo nhu cầu</p></div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Những người phù hợp</h2>
+            <div class="service-grid">
+                <div class="service-card"><div class="service-icon">👔</div><h3>Người trưởng thành bận rộn</h3><p>Nhiều tâm sự, khó tìm người chia sẻ</p></div>
+                <div class="service-card"><div class="service-icon">🏠</div><h3>Sống một mình / xa nhà</h3><p>Cần một kết nối ấm áp, chân thành</p></div>
+                <div class="service-card"><div class="service-icon">😔</div><h3>Stress, mất cân bằng cảm xúc</h3><p>Lo âu nhẹ, cần được lắng nghe</p></div>
+                <div class="service-card"><div class="service-icon">🌈</div><h3>Người LGBTQ+</h3><p>Không gian an toàn để giãi bày</p></div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Chi phí & Đặt lịch</h2>
+            <div class="price-grid">
+                <div class="price-card"><h3>🎁 Gói trải nghiệm</h3><div class="price-desc">Hẹn gặp mặt cafe, free hoàn toàn nếu sau 15p bạn từ chối không muốn tiếp tục</div><div class="price">Miễn phí</div><a href="https://zalo.me/0977092182" class="btn-outline">Đặt lịch</a></div>
+                <div class="price-card"><h3>📞 Lắng nghe sâu</h3><div class="price-desc">Đồng cảm nhẹ nhàng, không phán xét, không lời khuyên</div><div class="price">Liên hệ <small>theo buổi</small></div><a href="https://zalo.me/0977092182" class="btn-outline">Tư vấn</a></div>
+                <div class="price-card"><h3>☕ Trò chuyện thấu cảm</h3><div class="price-desc">Sẻ chia tâm sự như những người bạn cũ</div><div class="price">Liên hệ <small>theo buổi</small></div><a href="https://zalo.me/0977092182" class="btn-outline">Tư vấn</a></div>
+                <div class="price-card"><h3>🪑 Hộ tống cảm xúc</h3><div class="price-desc">3 buổi hỗ trợ, cùng bạn đi qua cảm xúc với một vấn đề cụ thể</div><div class="price">Liên hệ <small>trọn gói</small></div><a href="https://zalo.me/0977092182" class="btn-outline">Tư vấn</a></div>
+            </div>
+        </section>
+
+        <section class="commitment">
+            <h2 class="section-title" style="margin-bottom: 20px;">Cam kết dịch vụ</h2>
+            <div class="commitment-grid">
+                <div class="commitment-item"><i class="fas fa-heart"></i><p>Không rao giảng, không chữa lành ép buộc</p></div>
+                <div class="commitment-item"><i class="fas fa-users"></i><p>Không phân biệt giới, tôn giáo, tuổi tác</p></div>
+                <div class="commitment-item"><i class="fas fa-lock"></i><p>Mọi thông tin được bảo mật tuyệt đối</p></div>
+            </div>
+        </section>
+
+        <section class="commitment">
+            <h2 class="section-title" style="margin-bottom: 20px;">Vì sao chọn Sophia Nguyễn?</h2>
+            <div class="commitment-grid">
+                <div class="commitment-item"><i class="fas fa-clock"></i><p>Hơn 1000 giờ đồng hành 1:1</p></div>
+                <div class="commitment-item"><i class="fas fa-star"></i><p>Phản hồi tích cực từ nhiều người</p></div>
+                <div class="commitment-item"><i class="fas fa-leaf"></i><p>Năng lượng ngập tràn, nhẹ nhàng vừa đủ</p></div>
+                <div class="commitment-item"><i class="fas fa-hand-sparkles"></i><p>Không áp đặt, vững chắc như người bạn tri kỷ</p></div>
+            </div>
+        </section>
+
+        <div style="text-align: center; margin: 40px 0;">
+            <a href="https://zalo.me/0977092182" class="btn-primary" style="margin-right: 16px;">📩 Đăng ký ngay</a>
+            <a href="https://sophianguyen.com.vn" class="btn-outline">🏠 Về trang chủ</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>❤️ Đồng hành & Sẻ chia - Sophia Nguyễn</p>
+            <p style="font-size: 0.8rem; margin-top: 10px;">📧 sophianguyen2891@gmail.com | 📞 0977092182</p>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.addEventListener('click', () => { item.classList.toggle('active'); });
+        });
+    </script>
 </body>
 </html>
