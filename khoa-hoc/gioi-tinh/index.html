@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Sophia Nguyễn - Giáo dục Giới tính Toàn diện</title>
+    <title>Giới thiệu khóa học | Sophia Nguyễn - Giáo dục Giới tính Toàn diện</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --primary: #e83e8c;
-            --primary-light: #f06292;
             --primary-dark: #c2185b;
             --dark: #2d3436;
             --gray: #636e72;
@@ -18,384 +18,232 @@
             --gradient: linear-gradient(135deg, #e83e8c 0%, #f06292 50%, #ffb6c1 100%);
             --gradient-soft: linear-gradient(135deg, #fff0f5 0%, #ffe4ec 100%);
         }
-        body { font-family: 'Segoe UI', system-ui, sans-serif; line-height: 1.6; color: var(--dark); background: var(--gradient-soft); min-height: 100vh; }
-        .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--gradient); display: flex; align-items: center; justify-content: center; z-index: 2000; }
-        .loading-spinner { background: white; padding: 2rem 3rem; border-radius: 32px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
-        .loading-spinner i { font-size: 3rem; color: var(--primary); animation: spin 1s linear infinite; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .unlock-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--gradient); display: flex; align-items: center; justify-content: center; z-index: 1999; transition: all 0.5s ease; }
-        .unlock-box { background: var(--white); padding: 2.5rem; border-radius: 48px; text-align: center; max-width: 420px; width: 90%; box-shadow: 0 30px 50px rgba(0,0,0,0.2); animation: fadeInUp 0.5s ease; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        .unlock-box i { font-size: 4rem; color: var(--primary); margin-bottom: 1rem; }
-        .unlock-box h2 { margin-bottom: 0.5rem; color: var(--dark); }
-        .unlock-box p { color: var(--gray); margin-bottom: 1.5rem; }
-        .unlock-input { display: flex; gap: 10px; margin-bottom: 1rem; flex-wrap: wrap; }
-        .unlock-input input { flex: 1; padding: 14px 20px; border: 2px solid var(--light-gray); border-radius: 60px; font-size: 1rem; outline: none; text-align: center; letter-spacing: 1px; }
-        .unlock-input input:focus { border-color: var(--primary); }
-        .unlock-btn { background: var(--gradient); color: white; border: none; padding: 14px 28px; border-radius: 60px; font-weight: 600; cursor: pointer; width: 100%; font-size: 1rem; transition: transform 0.2s; }
-        .unlock-btn:hover { transform: translateY(-2px); }
-        .error-msg { color: #e53e3e; font-size: 0.85rem; margin-top: 1rem; display: none; }
-        .main-content { display: none; }
-        .navbar { background: var(--white); box-shadow: 0 4px 20px rgba(0,0,0,0.05); padding: 1rem 0; position: sticky; top: 0; z-index: 100; }
-        .nav-container { max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+        body { font-family: 'Be Vietnam Pro', sans-serif; line-height: 1.6; color: var(--dark); background: var(--gradient-soft); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        
+        /* Navbar */
+        .navbar { background: var(--white); box-shadow: 0 2px 20px rgba(0,0,0,0.05); padding: 1rem 0; position: sticky; top: 0; z-index: 100; }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
         .logo { font-size: 1.5rem; font-weight: bold; background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; display: flex; align-items: center; gap: 10px; }
         .logo i { background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; font-size: 1.8rem; }
-        .user-info { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-        #logoutBtn { background: none; border: none; color: var(--gray); cursor: pointer; font-size: 0.9rem; transition: color 0.2s; }
-        #logoutBtn:hover { color: var(--primary); }
-        .device-manager-btn { background: #f0f0f0; border: none; padding: 6px 12px; border-radius: 20px; font-size: 0.7rem; cursor: pointer; color: var(--primary); transition: all 0.2s; }
-        .device-manager-btn:hover { background: var(--primary); color: white; }
-        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--gray); font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+        .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; }
+        
+        /* Hero */
         .hero { background: var(--gradient); padding: 60px 0 50px; text-align: center; color: white; border-radius: 0 0 40px 40px; }
-        .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
-        .hero p { font-size: 1.1rem; opacity: 0.95; max-width: 700px; margin: 0 auto; }
-        .age-groups { display: flex; justify-content: center; gap: 16px; margin: -30px auto 40px; flex-wrap: wrap; position: relative; z-index: 10; }
-        .age-btn { background: var(--white); border: none; padding: 12px 28px; border-radius: 60px; font-weight: 600; font-size: 1rem; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: all 0.3s; color: var(--dark); }
-        .age-btn i { margin-right: 8px; }
-        .age-btn.active { background: var(--gradient); color: white; transform: translateY(-3px); }
-        .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 28px; margin: 30px 0; }
-        .course-card { background: var(--white); border-radius: 28px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: all 0.3s; cursor: pointer; }
-        .course-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
-        .course-header { background: var(--gradient); padding: 20px; color: white; position: relative; }
-        .course-icon { font-size: 2.5rem; margin-bottom: 12px; }
-        .course-header h3 { font-size: 1.2rem; margin-bottom: 8px; }
-        .course-age { display: inline-block; background: rgba(255,255,255,0.25); padding: 4px 12px; border-radius: 40px; font-size: 0.7rem; font-weight: 500; }
+        .hero h1 { font-size: 2.2rem; margin-bottom: 1rem; }
+        .hero p { font-size: 1.1rem; max-width: 700px; margin: 0 auto; opacity: 0.95; }
+        
+        /* Section */
+        .section { padding: 50px 0; }
+        .section-title { text-align: center; font-size: 2rem; color: var(--primary); margin-bottom: 16px; }
+        .section-sub { text-align: center; color: var(--gray); margin-bottom: 40px; max-width: 700px; margin-left: auto; margin-right: auto; }
+        
+        /* Age Groups */
+        .age-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin: 30px 0; }
+        .age-card { background: white; border-radius: 28px; padding: 30px 24px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s; border: 1px solid var(--light-gray); }
+        .age-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .age-icon { font-size: 3rem; margin-bottom: 16px; }
+        .age-card h3 { font-size: 1.4rem; color: var(--primary); margin-bottom: 12px; }
+        .age-card p { color: var(--gray); line-height: 1.5; }
+        
+        /* Courses Grid */
+        .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 28px; margin: 40px 0; }
+        .course-card { background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: all 0.3s; cursor: pointer; border: 1px solid var(--light-gray); }
+        .course-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); border-color: var(--primary-light); }
+        .course-header { background: var(--gradient); padding: 20px; color: white; text-align: center; }
+        .course-icon { font-size: 2.5rem; margin-bottom: 8px; }
+        .course-header h3 { font-size: 1.1rem; margin-bottom: 4px; }
+        .course-age-badge { display: inline-block; background: rgba(255,255,255,0.25); padding: 4px 12px; border-radius: 40px; font-size: 0.7rem; }
         .course-content { padding: 20px; }
         .course-desc { color: var(--gray); font-size: 0.9rem; margin-bottom: 16px; line-height: 1.5; }
         .course-chapters { list-style: none; margin-bottom: 20px; }
-        .course-chapters li { font-size: 0.8rem; padding: 6px 0; display: flex; align-items: center; gap: 10px; color: var(--gray); border-bottom: 1px dashed var(--light-gray); }
+        .course-chapters li { font-size: 0.8rem; padding: 6px 0; color: var(--gray); display: flex; align-items: center; gap: 8px; border-bottom: 1px dashed var(--light-gray); }
         .course-chapters li i { color: var(--primary); font-size: 0.7rem; }
         .course-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--light-gray); }
-        .course-price { font-weight: bold; font-size: 1.2rem; color: var(--primary); }
-        .btn-start { background: var(--gradient) !important; border: none !important; color: white !important; padding: 12px 28px !important; border-radius: 50px !important; cursor: pointer !important; font-weight: 700 !important; font-size: 1rem !important; transition: all 0.3s ease !important; box-shadow: 0 4px 12px rgba(232, 62, 140, 0.3) !important; display: inline-flex !important; align-items: center !important; gap: 8px !important; }
-        .btn-start:hover { transform: translateY(-2px) !important; box-shadow: 0 8px 20px rgba(232, 62, 140, 0.4) !important; }
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
-        .modal.active { display: flex; }
-        .modal-content { background: var(--white); max-width: 600px; width: 100%; max-height: 80vh; border-radius: 32px; overflow-y: auto; }
-        .modal-header { background: var(--gradient); padding: 24px; color: white; position: relative; }
-        .modal-header h3 { font-size: 1.4rem; margin-bottom: 8px; padding-right: 30px; }
-        .close-modal { position: absolute; top: 20px; right: 20px; font-size: 1.5rem; cursor: pointer; background: rgba(255,255,255,0.2); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-        .modal-body { padding: 24px; }
-        .chapter-list { list-style: none; }
-        .chapter-list li { padding: 12px 0; border-bottom: 1px solid var(--light-gray); display: flex; gap: 12px; }
-        .chapter-num { font-weight: bold; color: var(--primary); min-width: 35px; }
+        .course-price { font-weight: bold; font-size: 1.3rem; color: var(--primary); }
+        .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); padding: 8px 20px; border-radius: 40px; cursor: pointer; font-weight: 600; transition: all 0.2s; text-decoration: none; display: inline-block; }
+        .btn-outline:hover { background: var(--primary); color: white; }
+        
+        /* Try & Guide Section */
+        .try-section { background: white; border-radius: 32px; padding: 40px; margin: 40px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid var(--light-gray); }
+        .try-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        .try-box { text-align: center; display: flex; flex-direction: column; height: 100%; }
+        .try-box h3 { font-size: 1.4rem; color: var(--primary); margin-bottom: 16px; }
+        .try-box p { color: var(--gray); margin-bottom: 20px; line-height: 1.5; }
+        .try-video { background: #f5f5f5; border-radius: 20px; overflow: hidden; margin: 20px 0; position: relative; padding-bottom: 56.25%; height: 0; }
+        .try-video iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .btn-try { background: var(--gradient); color: white; border: none; padding: 12px 28px; border-radius: 40px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; align-self: center; margin-top: auto; }
+        .btn-try:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(232,62,140,0.3); }
+        
+        /* FAQ */
+        .faq-grid { max-width: 800px; margin: 0 auto; }
+        .faq-item { background: white; border-radius: 20px; padding: 20px; margin-bottom: 16px; cursor: pointer; transition: all 0.2s; border: 1px solid var(--light-gray); }
+        .faq-item:hover { border-color: var(--primary-light); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .faq-question { display: flex; justify-content: space-between; align-items: center; font-weight: 600; color: var(--dark); font-size: 1rem; }
+        .faq-question i { color: var(--primary); transition: transform 0.2s; }
+        .faq-item.active .faq-question i { transform: rotate(180deg); }
+        .faq-answer { display: none; margin-top: 16px; color: var(--gray); line-height: 1.6; font-size: 0.9rem; border-top: 1px solid var(--light-gray); padding-top: 16px; }
+        .faq-item.active .faq-answer { display: block; }
+        
+        /* CTA */
+        .cta-section { text-align: center; padding: 50px 40px; background: var(--gradient); color: white; border-radius: 32px; margin: 40px 0; }
+        .cta-section h2 { font-size: 1.8rem; margin-bottom: 16px; }
+        .btn-cta { background: white; color: var(--primary); border: none; padding: 14px 32px; border-radius: 50px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-block; margin: 0 8px; }
+        .btn-cta-outline { background: transparent; border: 2px solid white; color: white; padding: 12px 28px; border-radius: 50px; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.2s; margin: 0 8px; }
+        .btn-cta-outline:hover { background: white; color: var(--primary); }
+        .btn-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+        
+        /* Footer */
         .footer { background: var(--dark); color: white; padding: 40px 0 20px; margin-top: 60px; text-align: center; }
-        @media (max-width: 768px) { .hero h1 { font-size: 1.8rem; } .courses-grid { grid-template-columns: 1fr; } .age-btn { padding: 8px 16px; font-size: 0.85rem; } }
-        .loading-text { text-align: center; padding: 40px; color: var(--gray); }
-        .device-list { margin-top: 10px; }
-        .device-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid var(--light-gray); }
-        .device-item:last-child { border-bottom: none; }
-        .device-info { flex: 1; }
-        .device-name { font-weight: 600; color: var(--dark); }
-        .device-time { font-size: 0.7rem; color: var(--gray); }
-        .logout-device-btn { background: #fee2e2; border: none; padding: 4px 12px; border-radius: 20px; color: #e53e3e; cursor: pointer; font-size: 0.7rem; transition: all 0.2s; }
-        .logout-device-btn:hover { background: #e53e3e; color: white; }
-        .current-badge { background: var(--primary); color: white; padding: 2px 8px; border-radius: 20px; font-size: 0.6rem; margin-left: 8px; }
-        .download-buttons { display: flex; gap: 12px; justify-content: flex-end; margin-bottom: 30px; flex-wrap: wrap; }
-        .download-btn { background: var(--primary); color: white; padding: 8px 16px; border-radius: 40px; text-decoration: none; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s; }
-        .download-btn:hover { background: var(--primary-dark); transform: translateY(-2px); }
+        
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .menu-toggle { display: block; }
+            .hero h1 { font-size: 1.6rem; }
+            .try-grid { grid-template-columns: 1fr; gap: 30px; }
+            .section-title { font-size: 1.5rem; }
+            .courses-grid { grid-template-columns: 1fr; }
+            .cta-section { padding: 30px 20px; }
+            .cta-section h2 { font-size: 1.3rem; }
+            .btn-cta, .btn-cta-outline { display: block; margin: 12px auto; width: fit-content; }
+        }
     </style>
 </head>
 <body>
-    <div class="loading-overlay" id="loadingOverlay"><div class="loading-spinner"><i class="fas fa-heart fa-spin"></i><p style="margin-top: 1rem;">Đang tải dữ liệu...</p></div></div>
-    <div class="unlock-screen" id="unlockScreen">
-        <div class="unlock-box">
-            <i class="fas fa-lock"></i>
-            <h2>Khóa học Giáo dục Giới tính</h2>
-            <p>Vui lòng nhập mã khóa học để bắt đầu</p>
-            <div class="unlock-input"><input type="text" id="licenseKey" placeholder="Nhập mã khóa học" autocomplete="off"></div>
-            <button class="unlock-btn" id="unlockBtn"><i class="fas fa-unlock-alt"></i> Mở khóa khóa học</button>
-            <div class="error-msg" id="errorMsg">Mã khóa học không hợp lệ! Vui lòng liên hệ Sophia Nguyễn để được hỗ trợ.</div>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo"><i class="fas fa-heart"></i><span>Sophia Nguyễn</span></div>
+            <div class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">☰</div>
+            <ul class="nav-links">
+                <li><a href="https://sophianguyen.com.vn">Trang chủ</a></li>
+                <li><a href="index.html" class="active">Khóa học</a></li>
+                <li><a href="https://sophianguyen.com.vn/dich-vu/lang-nghe-tam-giao/">Lắng nghe tâm giao</a></li>
+                <li><a href="https://sophianguyen.com.vn/contact.html">Liên hệ</a></li>
+            </ul>
         </div>
-    </div>
-    <div class="main-content" id="mainContent">
-        <nav class="navbar">
-            <div class="nav-container">
-                <div class="logo"><i class="fas fa-heart"></i><span>Sophia Nguyễn</span></div>
-                <div class="user-info">
-                    <span id="userNameDisplay"><i class="fas fa-user-circle"></i> Học viên</span>
-                    <button id="manageDevicesBtn" class="device-manager-btn" style="display:none;"><i class="fas fa-laptop"></i> Quản lý thiết bị</button>
-                    <button id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Thoát</button>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <h1>🌱 Giáo dục giới tính toàn diện</h1>
+            <p>Đồng hành cùng con qua từng giai đoạn phát triển – từ mầm non đến tuổi dậy thì</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Age Groups -->
+        <section class="section">
+            <h2 class="section-title">Phân chia theo độ tuổi</h2>
+            <p class="section-sub">Mỗi giai đoạn có những thay đổi riêng, cần được đồng hành đúng cách</p>
+            <div class="age-grid">
+                <div class="age-card"><div class="age-icon">🍼</div><h3>Mầm non (3-5 tuổi)</h3><p>Nhận biết cơ thể, vùng riêng tư, kỹ năng tự bảo vệ qua câu chuyện và trò chơi.</p></div>
+                <div class="age-card"><div class="age-icon">📖</div><h3>Tiểu học (6-10 tuổi)</h3><p>Hiểu về sự khác biệt giới tính, an toàn trên không gian mạng, kỹ năng xã hội.</p></div>
+                <div class="age-card"><div class="age-icon">🌟</div><h3>Dậy thì (11-15 tuổi)</h3><p>Thấu hiểu thay đổi cơ thể, cảm xúc, tình yêu, ranh giới và sự đồng thuận.</p></div>
+            </div>
+        </section>
+
+        <!-- 6 Courses -->
+        <section class="section">
+            <h2 class="section-title">6 khóa học chuyên sâu</h2>
+            <p class="section-sub">Mỗi khóa học được thiết kế phù hợp với từng độ tuổi, giúp con tiếp thu tự nhiên và hiệu quả</p>
+            <div class="courses-grid" id="coursesGrid"></div>
+        </section>
+
+        <!-- Try & Guide -->
+        <div class="try-section">
+            <div class="try-grid">
+                <div class="try-box">
+                    <h3>🎬 Học thử miễn phí</h3>
+                    <p>Xem trước chương 1 khóa "Cơ thể tôi là của tôi" (dành cho bé 3-5 tuổi)</p>
+                    <div class="try-video">
+                        <iframe src="https://www.youtube.com/embed/8op6VjINSIc" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <a href="https://sophianguyen.com.vn/khoa-hoc/gioi-tinh/" class="btn-try"><i class="fas fa-play"></i> Khám phá khóa học</a>
+                </div>
+                <div class="try-box">
+                    <h3>📘 Hướng dẫn sử dụng</h3>
+                    <p>Cách đăng nhập, tải tài liệu và quản lý thiết bị</p>
+                    <div class="try-video">
+                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <p style="font-size: 0.8rem; color: var(--gray); margin-top: 12px;">* Video hướng dẫn chi tiết sẽ được cập nhật</p>
                 </div>
             </div>
-        </nav>
-        <section class="hero"><div class="container"><h1>🌱 Hệ sinh thái <span style="color:#fff;">Giáo dục Giới tính Toàn diện</span></h1><p>Đồng hành cùng con qua từng giai đoạn phát triển - Từ mầm non đến tuổi dậy thì</p></div></section>
-        <div class="container">
-            <div class="age-groups" id="ageGroups">
-                <button class="age-btn active" data-group="all">📚 Tất cả khóa học</button>
-                <button class="age-btn" data-group="preschool">🍼 Mầm non (3-5 tuổi)</button>
-                <button class="age-btn" data-group="primary">📖 Tiểu học (6-10 tuổi)</button>
-                <button class="age-btn" data-group="teen">🌟 Dậy thì (11-15 tuổi)</button>
-            </div>
-            <div class="courses-grid" id="coursesGrid"><div class="loading-text">Vui lòng chờ tải dữ liệu...</div></div>
         </div>
-        <footer class="footer"><div class="container"><p>❤️ Đồng hành cùng con yêu - Sophia Nguyễn</p><p style="font-size: 0.8rem;">Mọi thắc mắc vui lòng liên hệ: support@sophianguyen.com.vn</p></div></footer>
+
+        <!-- FAQ -->
+        <div class="try-section">
+            <h3 style="text-align: center; color: var(--primary); margin-bottom: 24px;">❓ Câu hỏi thường gặp</h3>
+            <div class="faq-grid">
+                <div class="faq-item"><div class="faq-question">Làm thế nào để nhận mã khóa học? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Sau khi đăng ký và thanh toán, chúng tôi sẽ gửi mã khóa qua email hoặc Zalo trong vòng 24h. Bạn cũng có thể liên hệ trực tiếp để nhận mã nhanh chóng.</div></div>
+                <div class="faq-item"><div class="faq-question">Học trên thiết bị nào? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Khóa học chạy trên mọi trình duyệt (Chrome, Safari, Edge) của máy tính, điện thoại, máy tính bảng. Mỗi tài khoản có thể đăng nhập tối đa 2 thiết bị cùng lúc.</div></div>
+                <div class="faq-item"><div class="faq-question">Có thể học offline không? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Video cần internet để xem, nhưng tài liệu PDF và thẻ bài tập có thể tải về máy để dùng offline.</div></div>
+                <div class="faq-item"><div class="faq-question">Khóa học có chứng chỉ không? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Có! Sau khi hoàn thành khóa học, học viên sẽ nhận được chứng chỉ điện tử xác nhận đã hoàn thành chương trình.</div></div>
+                <div class="faq-item"><div class="faq-question">Chính sách bảo mật thông tin? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Chúng tôi cam kết không chia sẻ thông tin cá nhân của học viên cho bên thứ ba. Mọi dữ liệu được lưu trữ an toàn.</div></div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-section">
+            <h2>🚀 Sẵn sàng đồng hành cùng con?</h2>
+            <p style="margin-bottom: 24px;">Liên hệ ngay để nhận tư vấn và được hỗ trợ mã khóa học</p>
+            <a href="https://zalo.me/0977092182" class="btn-cta">📩 Đăng ký ngay</a>
+            <a href="https://sophianguyen.com.vn/khoa-hoc/gioi-tinh/" class="btn-cta-outline">🔐 Đã có mã? Đăng nhập</a>
+        </div>
     </div>
-    <div class="modal" id="courseModal"><div class="modal-content"><div class="modal-header"><h3 id="modalTitle"></h3><div class="close-modal" onclick="closeModal()">✕</div></div><div class="modal-body" id="modalBody"></div></div></div>
-    <div class="modal" id="deviceModal"><div class="modal-content"><div class="modal-header"><h3>📱 Quản lý thiết bị</h3><div class="close-modal" onclick="closeDeviceModal()">✕</div></div><div class="modal-body" id="deviceModalBody"></div></div></div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>❤️ Đồng hành cùng con yêu - Sophia Nguyễn</p>
+            <p style="font-size: 0.8rem; margin-top: 10px;">📧 sophianguyen2891@gmail.com | 📞 0977092182</p>
+            <p style="font-size: 0.7rem; margin-top: 20px;">© 2025 Sophia Nguyễn. All rights reserved.</p>
+        </div>
+    </footer>
 
     <script>
-        // ==================== CẤU HÌNH API ====================
-        const API_URL = "https://script.google.com/macros/s/AKfycbwjQMcApskP7fqfRo5g_53iP5cPEmkYROZoW5yks-2NjD1KMjZ7dj0eYYkIujV7H5297Q/exec";
-        
-        // Dữ liệu khóa học
-        const ALL_COURSES = [
-            { id: 1, name: "Cơ thể tôi là của tôi", group: "preschool", age: "3-5 tuổi", icon: "🛡️", price: "299.000đ",
-              shortDesc: "Bài học đầu tiên về bảo vệ cơ thể cho trẻ mầm non.",
-              fullDesc: "Khóa học giúp trẻ nhận biết và bảo vệ cơ thể mình một cách tự nhiên.",
-              chapters: ["Tên gọi đúng của các bộ phận cơ thể", "Vùng đồ bơi - Ai được chạm vào và khi nào?", "Quy tắc bàn tay 5 ngón", "Kỹ năng Nói không - Bỏ chạy - Kể lại", "Bí mật tốt và bí mật xấu"] },
-            { id: 2, name: "Đi tìm sự thật về 'Cái rốn'", group: "preschool", age: "3-5 tuổi", icon: "👶", price: "299.000đ",
-              shortDesc: "Hành trình khám phá nguồn gốc sự sống.",
-              fullDesc: "Khóa học giải thích về nguồn gốc sự sống một cách nhẹ nhàng.",
-              chapters: ["Ngôi nhà đầu tiên của con", "Con đã lớn lên như thế nào?", "Ngày con chào đời", "Tại sao con giống bố/giống mẹ?"] },
-            { id: 3, name: "Thám tử cơ thể - Giải mã sự thay đổi", group: "primary", age: "6-10 tuổi", icon: "🕵️‍♂️", price: "299.000đ",
-              shortDesc: "Làm chủ những thay đổi kỳ diệu của cơ thể.",
-              fullDesc: "Khóa học giúp bé hiểu về cơ thể, những thay đổi khi lớn lên.",
-              chapters: ["Bản đồ Sinh học", "Thám tử truy tìm 'Cơn bão Dậy thì'", "Bí mật của Trứng và Tinh trùng", "Phòng thí nghiệm Vệ sinh", "Huy hiệu 'Tôi yêu bản thân'"] },
-            { id: 4, name: "Thám tử Internet - Lá chắn số", group: "primary", age: "6-10 tuổi", icon: "🌐", price: "299.000đ",
-              shortDesc: "An toàn khi khám phá thế giới số.",
-              fullDesc: "Trang bị kỹ năng an toàn khi sử dụng internet.",
-              chapters: ["Mặt nạ Online", "Dấu chân số", "Lọc màn hình", "Bắt nạt qua mạng", "Sự thật & Đời thực"] },
-            { id: 5, name: "Thám tử dậy thì - Giải mã siêu năng lực", group: "teen", age: "11-15 tuổi", icon: "⚡", price: "299.000đ",
-              shortDesc: "Thấu hiểu sự thay đổi tuổi dậy thì.",
-              fullDesc: "Khóa học giúp teen hiểu về cơ thể và làm chủ cảm xúc.",
-              chapters: ["Hormones", "Phái đẹp nở hoa", "Phái mạnh vươn mình", "Yêu thương cơ thể", "Làm chủ cảm xúc"] },
-            { id: 6, name: "Thám tử tình yêu - Ranh giới & Bản lĩnh", group: "teen", age: "11-15 tuổi", icon: "💕", price: "299.000đ",
-              shortDesc: "Hiểu về tình yêu và ranh giới an toàn.",
-              fullDesc: "Kỹ năng nhận diện cảm xúc và bảo vệ bản thân.",
-              chapters: ["Rung động hay yêu?", "Sự đồng thuận", "Ranh giới của những cái chạm", "Lá chắn an toàn", "Hẹn hò văn minh"] }
+        // Dữ liệu 6 khóa học - GIÁ ĐỒNG BỘ 199.000đ
+        const courses = [
+            { id:1, name:"Cơ thể tôi là của tôi", age:"3-5 tuổi", icon:"🛡️", price:"199.000đ", desc:"Bài học đầu tiên về bảo vệ cơ thể cho trẻ mầm non.", chapters:5 },
+            { id:2, name:"Đi tìm sự thật về 'Cái rốn'", age:"3-5 tuổi", icon:"👶", price:"199.000đ", desc:"Hành trình khám phá nguồn gốc sự sống qua những câu chuyện kể diệu kỳ.", chapters:4 },
+            { id:3, name:"Thám tử cơ thể - Giải mã sự thay đổi", age:"6-10 tuổi", icon:"🕵️‍♂️", price:"199.000đ", desc:"Làm chủ những thay đổi kỳ diệu của cơ thể và xây dựng lòng tự tin.", chapters:5 },
+            { id:4, name:"Thám tử Internet - Lá chắn số", age:"6-10 tuổi", icon:"🌐", price:"199.000đ", desc:"Khóa học 'sống còn' để bé tự tin và an toàn khi khám phá thế giới số.", chapters:5 },
+            { id:5, name:"Thám tử dậy thì - Giải mã siêu năng lực", age:"11-15 tuổi", icon:"⚡", price:"199.000đ", desc:"Thấu hiểu sự thay đổi sinh lý và tâm lý bên trong tuổi dậy thì.", chapters:5 },
+            { id:6, name:"Thám tử tình yêu - Ranh giới & Bản lĩnh", age:"11-15 tuổi", icon:"💕", price:"199.000đ", desc:"Hiểu về tình yêu, ranh giới và các mối quan hệ an toàn.", chapters:5 }
         ];
-
-        // ==================== NỘI DUNG KHÓA HỌC ====================
-        const courseContent = {
-            // KHÓA 1 (5 chương) - Flashcard + Parent Guide
-            1: {
-                courseName: "Cơ thể tôi là của tôi",
-                chapters: [
-                    { number: 1, name: "Tên gọi đúng của các bộ phận cơ thể", videoUrl: "https://www.youtube.com/embed/8op6VjINSIc", pdfUrl: "https://drive.google.com/uc?export=download&id=1lH-xmZ2yk8zE5OsBw0xA4e0BoL08P6MR", flashcardUrl: "https://drive.google.com/uc?export=download&id=1I34s7G5zQbvR7b6t-o1VfJ83MFl_qat5", parentGuideUrl: "https://drive.google.com/uc?export=download&id=1fBc2xRMa9GwX0ZNumB5DTs42V4qBusdO" },
-                    { number: 2, name: "Vùng đồ bơi - Ai được chạm vào và khi nào?", videoUrl: "https://www.youtube.com/embed/LuNFq7PJ7Jg", pdfUrl: "https://drive.google.com/uc?export=download&id=1Sz_vGp3kW0QyyipNQJpJUeQxU-pcHTP0", flashcardUrl: "https://drive.google.com/uc?export=download&id=1BENJHuSKUK7FSNrtnkqdy0r6Ou4p-NXl", parentGuideUrl: "https://drive.google.com/uc?export=download&id=140wiVqEzOacLDzCkKpbbMF0vqP2WG4Wo" },
-                    { number: 3, name: "Quy tắc bàn tay 5 ngón", videoUrl: "https://www.youtube.com/embed/if2o8PRYEAY", pdfUrl: "https://drive.google.com/uc?export=download&id=1QHzhAcg0cKGpEgEaVfM1MNOeEb6vuqKb", flashcardUrl: "https://drive.google.com/uc?export=download&id=1kfYk-mcTNTz5_qFve2PLvV_QxuweZpdj", parentGuideUrl: "https://drive.google.com/uc?export=download&id=1zyyYqHBXXorYuvE7DKM_6v700F3VHjVq" },
-                    { number: 4, name: "Kỹ năng Nói không - Bỏ chạy - Kể lại", videoUrl: "https://www.youtube.com/embed/NYhk0ohpx2w", pdfUrl: "https://drive.google.com/uc?export=download&id=1ZfmNxLUPwQS7ckvQG9rOooOQK3vXR0r3", flashcardUrl: "https://drive.google.com/uc?export=download&id=1KmfbiKo2LcqUtFx7l7xssC3P40RnSwz-", parentGuideUrl: "https://drive.google.com/uc?export=download&id=1UNXcXBdetMZ9X5gg_Rmi6FqhkNfRVvrG" },
-                    { number: 5, name: "Bí mật tốt và bí mật xấu", videoUrl: "https://www.youtube.com/embed/pJ3QpvgCsJo", pdfUrl: "https://drive.google.com/uc?export=download&id=1Fk1beIIB8ARh7KJZzrlIgZmQDdtK8AVB", flashcardUrl: "https://drive.google.com/uc?export=download&id=1sO-ZNW8iZ5kP91zfS5fuX3x-6tC45s8R", parentGuideUrl: "https://drive.google.com/uc?export=download&id=1vnROPm3HdmcOm0IE3J9hbx1Th9b664_J" }
-                ]
-            },
-            // KHÓA 2 (4 chương) - Flashcard + Parent Guide
-            2: {
-                courseName: "Đi tìm sự thật về 'Cái rốn'",
-                chapters: [
-                    { number: 1, name: "Ngôi nhà đầu tiên của con - Bụng mẹ", videoUrl: "https://www.youtube.com/embed/9Y2vl-Gh7Ak", pdfUrl: "https://drive.google.com/uc?export=download&id=1wrbxoocrpQUhAkkengswbuRnGCcAU1R4", flashcardUrl: "https://drive.google.com/uc?export=download&id=1K0HGmG5ipvLWxkEqprSvUF7U_ch4qDTd", parentGuideUrl: "https://drive.google.com/uc?export=download&id=10RpIbP848JmAfBzasWPSUJRSWfu5N6Ch" },
-                    { number: 2, name: "Con đã lớn lên như thế nào?", videoUrl: "https://www.youtube.com/embed/5j2MaOQiXVE", pdfUrl: "https://drive.google.com/uc?export=download&id=1Auq7ChYDvugmtevpCnGRo3mCYn5S9HSZ", flashcardUrl: "https://drive.google.com/uc?export=download&id=1ASFl21I5X06nqg5-u4dgFbcUJdb-S_-6", parentGuideUrl: "https://drive.google.com/uc?export=download&id=1kPIxU-I5xiufBHjhvaMz3cOZGp1plWpZ" },
-                    { number: 3, name: "Ngày con chào đời", videoUrl: "https://www.youtube.com/embed/LVHLJ7nR7ZA", pdfUrl: "https://drive.google.com/uc?export=download&id=1IhFqaX4Yxhf-x_2tL264s_wAWLVZ3vIw", flashcardUrl: "https://drive.google.com/uc?export=download&id=1nDOBuCpJdWrYbkmbKwyVvtg9hdR9Ag67", parentGuideUrl: "https://drive.google.com/uc?export=download&id=1LRcFTQGpqt5hgh7cX-IuX3xuq3Q2VJSn" },
-                    { number: 4, name: "Tại sao con giống bố/giống mẹ?", videoUrl: "https://www.youtube.com/embed/Co8pObXy8Rs", pdfUrl: "https://drive.google.com/uc?export=download&id=1znNnKw5VXfbR5NYbqSKVt4rmoTrbleCh", flashcardUrl: "https://drive.google.com/uc?export=download&id=1RSOjkYLH1ATHZzGKIwi-Y2FcGuDdPutd", parentGuideUrl: "https://drive.google.com/uc?export=download&id=1R3MqbdNm_3EwFdQiuG-tPYnZG-_VFtVA" }
-                ]
-            },
-            // KHÓA 3 (5 chương) - 3 loại thẻ: Hỏi đáp, Nhiệm vụ, Tương tác
-            3: {
-                courseName: "Thám tử cơ thể - Giải mã sự thay đổi",
-                chapters: [
-                    { number: 1, name: "Bản đồ Sinh học (Nam & Nữ)", videoUrl: "https://www.youtube.com/embed/leCDiTJuhgA", pdfUrl: "https://drive.google.com/uc?export=download&id=1yrUDm-SWHQc9eOFIh_awEBYZGj0rd9wI", card1: "https://drive.google.com/uc?export=download&id=1juiKfdE5p6UkFY4a4Dg_ovcHpSipxiZg", card2: "https://drive.google.com/uc?export=download&id=1KUdH2k5kQCLr2Ak81WHlReC4LghwfldX", card3: "https://drive.google.com/uc?export=download&id=1yqAsLOI5hCE8amj-yI2nI0-S2tPeZBZ0" },
-                    { number: 2, name: "Thám tử truy tìm 'Cơn bão Dậy thì'", videoUrl: "https://www.youtube.com/embed/8a-jhp4y4DI", pdfUrl: "https://drive.google.com/uc?export=download&id=1_zzbb_STmd7jNt-t0gbepn2IZvatjDKP", card1: "https://drive.google.com/uc?export=download&id=10kU6RTNtcuUeZY_47fMeNrqWTei84g6n", card2: "https://drive.google.com/uc?export=download&id=1b9BzjT9NSr3e1QkriqCC4ydcnRKSCIkK", card3: "https://drive.google.com/uc?export=download&id=1ld-w2kcDtk6lFfHiEZ2oL7Z_5xdTjWim" },
-                    { number: 3, name: "Bí mật của Trứng và Tinh trùng", videoUrl: "https://www.youtube.com/embed/n1NlY5FalMo", pdfUrl: "https://drive.google.com/uc?export=download&id=1trdAPmnyVReaWBA_1-XBtmGI-TWKMpkv", card1: "https://drive.google.com/uc?export=download&id=1LnlE3nxU5C05aWqWxfkpOPn4sX-7X9Of", card2: "https://drive.google.com/uc?export=download&id=1NM-ObvDSuHW8J7UXy9mpJpvEtDV_hZIn", card3: "https://drive.google.com/uc?export=download&id=1CAGiXEvvQETWndaGxzSdafJFDGbJxb7i" },
-                    { number: 4, name: "Phòng thí nghiệm Vệ sinh & Riêng tư", videoUrl: "https://www.youtube.com/embed/jr3yaCCT7XI", pdfUrl: "https://drive.google.com/uc?export=download&id=1M8PZlDkbFrII4koSinKyZQ9jFbQqbPJ1", card1: "https://drive.google.com/uc?export=download&id=1YYLx79TnKpaisb_J90DLDKyLWqv933rA", card2: "https://drive.google.com/uc?export=download&id=15a6IgpMOLQo4E363-fu2xGXur9F-3A1v", card3: "https://drive.google.com/uc?export=download&id=1ly9CXqw2l6sruXrhjgC2SSoaBhHWNG_3" },
-                    { number: 5, name: "Huy hiệu 'Tôi yêu bản thân' & Tự do là chính mình", videoUrl: "https://www.youtube.com/embed/jOT-dzdyRes", pdfUrl: "https://drive.google.com/uc?export=download&id=1N7KL7eItJhKYEMlui3V8u1Ihrq_S2JD5", card1: "https://drive.google.com/uc?export=download&id=1MVeguTNnIOMzyGlnE3m8WQut3QuCXTYx", card2: "https://drive.google.com/uc?export=download&id=1dmQ_dJmZMM6wjn1boEmN_sTEUtrd29IP", card3: "https://drive.google.com/uc?export=download&id=1nQFSFG1IZXAN2MsuQUo_wsLc7ZTllu5N" }
-                ]
-            },
-            // KHÓA 4 (5 chương) - Video + PDF + 3 loại thẻ
-            4: {
-                courseName: "Thám tử Internet - Lá chắn số",
-                chapters: [
-                    { number: 1, name: "Mặt nạ Online & Những cái bẫy Game", videoUrl: "https://www.youtube.com/embed/wY2X3NPb0VE", pdfUrl: "https://drive.google.com/uc?export=download&id=11pp1q5TVN54w2o_5wBdT0MJH2BVBrxFc", card1: "https://drive.google.com/uc?export=download&id=1E61uFMT6OPVEfiwCoJaK6Ql6a4ic_ZOv", card2: "https://drive.google.com/uc?export=download&id=17D8zj_KtkVd7D7jNlX-XGUmE75n0F64E", card3: "https://drive.google.com/uc?export=download&id=1n0JK221KIJVtUdtsSGYt1XCQoNzqE-98" },
-                    { number: 2, name: "Thám tử truy tìm 'Dấu chân số'", videoUrl: "https://www.youtube.com/embed/khkl5d3qGn8", pdfUrl: "https://drive.google.com/uc?export=download&id=1xhUnSseY9wSQOKFA0XhZ_61QP8c-TgaG", card1: "https://drive.google.com/uc?export=download&id=1MkEj9sM9LV13tow1XzB2TA9APpvPQjyu", card2: "https://drive.google.com/uc?export=download&id=116PZUGDuoqtPpzMV3c6xeozRjsEb58tY", card3: "https://drive.google.com/uc?export=download&id=1SQA_wrdV4Kb5PieAl4SpVV1haNZpd8RZ" },
-                    { number: 3, name: "Chiến binh 'Lọc màn hình'", videoUrl: "https://www.youtube.com/embed/TRV7c6dcRO8", pdfUrl: "https://drive.google.com/uc?export=download&id=1oyLPo_RzqI1TVEReEBseLdCzHPdd8UCv", card1: "https://drive.google.com/uc?export=download&id=1CbAQy9S5HnXqnMyS7FlOqJSOvhwBSxSS", card2: "https://drive.google.com/uc?export=download&id=1Y_bKO6CBPikAc_FluAumQ3WsjLoMNEdU", card3: "https://drive.google.com/uc?export=download&id=1M26j4ckCz38cwXVb2yxgGnaTnEnIbaPi" },
-                    { number: 4, name: "Quái vật Bắt nạt & Lá chắn Tình bạn", videoUrl: "https://www.youtube.com/embed/Fns5OVmRptY", pdfUrl: "https://drive.google.com/uc?export=download&id=1wkFXOS6eZpULhNxGzeFV5XbWE2f1gtaJ", card1: "https://drive.google.com/uc?export=download&id=1Pg5gr1GLFDWjstLCtGuAPrtV9RBFjH9y", card2: "https://drive.google.com/uc?export=download&id=1H_IysxZ-R5FAlOVxEX5HCcuyF67eU7P-", card3: "https://drive.google.com/uc?export=download&id=1kxDC1g6qLQN1bD7iq3tiH8kOx2zcRKeY" },
-                    { number: 5, name: "Thám tử Thông thái: Sự thật & Đời thực", videoUrl: "https://www.youtube.com/watch?v=dqB5EHC9Gow", pdfUrl: "https://drive.google.com/uc?export=download&id=1XSoyx7pa0HdymiRxprOk9vB1LUJLTEqF", card1: "https://drive.google.com/uc?export=download&id=10OMMYAASmJ3S3TYqH17QEgoBozQSEP3N", card2: "https://drive.google.com/uc?export=download&id=1gpq-YwbUm_-mIP-xLWqobI0heFAIF0ng", card3: "https://drive.google.com/uc?export=download&id=1k-ozh2UppWVSFMyFN_6vem56fR6EMyng" }
-                ]
-            }
-        };
-
-        let currentUser = null;
-        let currentAllowedCourseIds = [];
-        let currentLicenseKey = null;
-        let currentDeviceId = null;
-
-        function getDeviceId() { let id = localStorage.getItem('deviceId'); if (!id) { id = 'dev_' + Date.now() + '_' + Math.random().toString(36).substr(2, 8); localStorage.setItem('deviceId', id); } return id; }
-        function getDeviceName() { const ua = navigator.userAgent; if (ua.includes('iPhone')) return 'iPhone'; if (ua.includes('Android')) return 'Android'; if (ua.includes('Windows')) return 'Windows PC'; if (ua.includes('Mac')) return 'Mac'; return 'Thiết bị khác'; }
-
-        async function authenticate(licenseKey) {
-            const url = `${API_URL}?ma=${encodeURIComponent(licenseKey)}&deviceId=${encodeURIComponent(getDeviceId())}&deviceName=${encodeURIComponent(getDeviceName())}`;
-            try { const res = await fetch(url); return await res.json(); } catch(e) { return { status: "error", message: "Không thể kết nối" }; }
-        }
-        async function getDevices(licenseKey) { try { const res = await fetch(`${API_URL}?action=getDevices&ma=${encodeURIComponent(licenseKey)}`); return await res.json(); } catch(e) { return { status: "error" }; } }
-        async function logoutDevice(licenseKey, deviceId) { try { const res = await fetch(`${API_URL}?action=logout&ma=${encodeURIComponent(licenseKey)}&deviceId=${encodeURIComponent(deviceId)}`); return await res.json(); } catch(e) { return { status: "error" }; } }
-
-        function showCourseDetail(course) {
-            const modal = document.getElementById('courseModal');
-            document.getElementById('modalTitle').innerHTML = `${course.icon} ${course.name}`;
-            document.getElementById('modalBody').innerHTML = `
-                <p style="margin-bottom:20px; color:var(--gray);">📌 Dành cho trẻ ${course.age}</p>
-                <p style="margin-bottom:20px; font-weight:500;">${course.fullDesc}</p>
-                <h4 style="margin:20px 0 12px; color:var(--primary);"><i class="fas fa-list"></i> Nội dung khóa học:</h4>
-                <ul class="chapter-list">${course.chapters.map((ch, idx) => `<li><span class="chapter-num">Chương ${idx+1}</span><span>${ch}</span></li>`).join('')}</ul>
-                <div style="margin-top:24px; padding-top:16px; border-top:1px solid var(--light-gray); display:flex; justify-content:space-between; align-items:center;">
-                    <span style="font-size:1.3rem; font-weight:bold; color:var(--primary);">${course.price}</span>
-                    <button class="btn-start" onclick="startCourse(${course.id})">▶ Bắt đầu học</button>
-                </div>
-            `;
-            modal.classList.add('active');
-        }
-        function closeModal() { document.getElementById('courseModal').classList.remove('active'); }
-        function closeDeviceModal() { document.getElementById('deviceModal').classList.remove('active'); }
-
-        function renderCourses(group, allowedIds) {
+        
+        function renderCourses() {
             const grid = document.getElementById('coursesGrid');
             if (!grid) return;
-            let filtered = ALL_COURSES.filter(c => allowedIds.includes(c.id));
-            if (group !== 'all') filtered = filtered.filter(c => c.group === group);
-            if (filtered.length === 0) { grid.innerHTML = '<div class="loading-text">Không có khóa học nào trong danh mục này.</div>'; return; }
-            grid.innerHTML = filtered.map(course => `
-                <div class="course-card" onclick='showCourseDetail(${JSON.stringify(course).replace(/'/g, "\\'")})'>
-                    <div class="course-header"><div class="course-icon">${course.icon}</div><h3>${course.name}</h3><span class="course-age">👶 ${course.age}</span></div>
+            grid.innerHTML = courses.map(c => `
+                <div class="course-card">
+                    <div class="course-header">
+                        <div class="course-icon">${c.icon}</div>
+                        <h3>${c.name}</h3>
+                        <span class="course-age-badge">👶 ${c.age}</span>
+                    </div>
                     <div class="course-content">
-                        <p class="course-desc">${course.shortDesc}</p>
-                        <ul class="course-chapters">${course.chapters.slice(0,3).map(ch => `<li><i class="fas fa-circle"></i> ${ch.substring(0,45)}${ch.length>45?'...':''}</li>`).join('')}${course.chapters.length>3?`<li><i class="fas fa-plus-circle"></i> +${course.chapters.length-3} chương khác</li>`:''}</ul>
-                        <div class="course-footer"><span class="course-price">${course.price}</span><button class="btn-start" onclick="event.stopPropagation(); startCourse(${course.id})">▶ Bắt đầu học</button></div>
+                        <p class="course-desc">${c.desc}</p>
+                        <ul class="course-chapters">
+                            ${Array(c.chapters).fill().map((_,i)=>`<li><i class="fas fa-circle"></i> Chương ${i+1}</li>`).join('')}
+                        </ul>
+                        <div class="course-footer">
+                            <span class="course-price">${c.price}</span>
+                            <button class="btn-outline" onclick="window.open('https://sophianguyen.com.vn/khoa-hoc/gioi-tinh/', '_blank')">Mua ngay</button>
+                        </div>
                     </div>
                 </div>
             `).join('');
         }
-
-        async function unlockCourse(key) {
-            const loading = document.getElementById('loadingOverlay');
-            loading.style.display = 'flex';
-            const result = await authenticate(key);
-            loading.style.display = 'none';
-            if (result.status === 'success') {
-                currentUser = result.user;
-                currentAllowedCourseIds = result.courses;
-                currentLicenseKey = key;
-                currentDeviceId = getDeviceId();
-                localStorage.setItem('sophia_license', key);
-                localStorage.setItem('sophia_user', currentUser);
-                localStorage.setItem('sophia_courses', JSON.stringify(currentAllowedCourseIds));
-                document.getElementById('unlockScreen').style.display = 'none';
-                document.getElementById('mainContent').style.display = 'block';
-                document.getElementById('userNameDisplay').innerHTML = `<i class="fas fa-user-circle"></i> ${currentUser}`;
-                document.getElementById('manageDevicesBtn').style.display = 'inline-block';
-                renderCourses('all', currentAllowedCourseIds);
-            } else {
-                const err = document.getElementById('errorMsg');
-                err.innerText = result.message || "Mã khóa không hợp lệ!";
-                err.style.display = 'block';
-                setTimeout(() => err.style.display = 'none', 3000);
-            }
-        }
-
-        function logout() {
-            localStorage.removeItem('sophia_license');
-            localStorage.removeItem('sophia_user');
-            localStorage.removeItem('sophia_courses');
-            document.getElementById('unlockScreen').style.display = 'flex';
-            document.getElementById('mainContent').style.display = 'none';
-            document.getElementById('licenseKey').value = '';
-            document.getElementById('manageDevicesBtn').style.display = 'none';
-        }
-
-        async function checkExistingLicense() {
-            const saved = localStorage.getItem('sophia_license');
-            if (saved) {
-                const loading = document.getElementById('loadingOverlay');
-                loading.style.display = 'flex';
-                const result = await authenticate(saved);
-                loading.style.display = 'none';
-                if (result.status === 'success') {
-                    currentUser = result.user;
-                    currentAllowedCourseIds = result.courses;
-                    currentLicenseKey = saved;
-                    currentDeviceId = getDeviceId();
-                    document.getElementById('unlockScreen').style.display = 'none';
-                    document.getElementById('mainContent').style.display = 'block';
-                    document.getElementById('userNameDisplay').innerHTML = `<i class="fas fa-user-circle"></i> ${currentUser}`;
-                    document.getElementById('manageDevicesBtn').style.display = 'inline-block';
-                    renderCourses('all', currentAllowedCourseIds);
-                } else {
-                    localStorage.removeItem('sophia_license');
-                    localStorage.removeItem('sophia_user');
-                    localStorage.removeItem('sophia_courses');
-                }
-            }
-            document.getElementById('loadingOverlay').style.display = 'none';
-        }
-
-        function startCourse(courseId) { if (courseContent[courseId]) showLearningPage(courseId, 0); else alert(`📚 Khóa học đang được cập nhật!`); closeModal(); }
-
-        async function showDeviceManager() {
-            if (!currentLicenseKey) return;
-            const loading = document.getElementById('loadingOverlay');
-            loading.style.display = 'flex';
-            const result = await getDevices(currentLicenseKey);
-            loading.style.display = 'none';
-            if (result.status === 'success') {
-                const devices = result.devices || [];
-                const body = document.getElementById('deviceModalBody');
-                if (devices.length === 0) body.innerHTML = '<p>Không có thiết bị nào đang đăng nhập.</p>';
-                else {
-                    body.innerHTML = `<p>Hiện tại tài khoản của bạn đang đăng nhập trên ${devices.length} thiết bị:</p><div class="device-list">${devices.map(d => `<div class="device-item"><div class="device-info"><div class="device-name">${escapeHtml(d.deviceName)} ${d.deviceId === currentDeviceId ? '<span class="current-badge">Thiết bị này</span>' : ''}</div><div class="device-time">Đăng nhập: ${new Date(d.lastActive).toLocaleString('vi-VN')}</div></div>${d.deviceId !== currentDeviceId ? `<button class="logout-device-btn" onclick="removeDevice('${d.deviceId}')">Đăng xuất</button>` : ''}</div>`).join('')}</div><p style="margin-top:16px; font-size:0.8rem; color:var(--gray);">* Giới hạn tối đa 2 thiết bị cùng lúc</p>`;
-                }
-                document.getElementById('deviceModal').classList.add('active');
-            } else alert("Không thể tải danh sách thiết bị.");
-        }
-        async function removeDevice(deviceId) { if (!currentLicenseKey) return; const loading = document.getElementById('loadingOverlay'); loading.style.display = 'flex'; const result = await logoutDevice(currentLicenseKey, deviceId); loading.style.display = 'none'; if (result.status === 'success') { alert("Đã đăng xuất thiết bị thành công!"); showDeviceManager(); } else alert("Không thể đăng xuất thiết bị."); }
-        function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m])); }
-
-        // ==================== TRANG HỌC ====================
-        function showLearningPage(courseId, chapterIndex = 0) {
-            const content = courseContent[courseId];
-            if (!content) return;
-            const chapter = content.chapters[chapterIndex];
-            if (!chapter) return;
-            
-            let learningPage = document.getElementById('learningPage');
-            if (!learningPage) { learningPage = document.createElement('div'); learningPage.id = 'learningPage'; learningPage.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:white; z-index:2000; overflow-y:auto; display:none;'; document.body.appendChild(learningPage); }
-            
-            let downloadButtons = '';
-            if (chapter.pdfUrl) downloadButtons += `<a href="${chapter.pdfUrl}" target="_blank" class="download-btn"><i class="fas fa-download"></i> Tài liệu chính (PDF)</a>`;
-            if (chapter.flashcardUrl) downloadButtons += `<a href="${chapter.flashcardUrl}" target="_blank" class="download-btn"><i class="fas fa-download"></i> Flashcard cho bé</a>`;
-            if (chapter.parentGuideUrl) downloadButtons += `<a href="${chapter.parentGuideUrl}" target="_blank" class="download-btn"><i class="fas fa-download"></i> Hướng dẫn ba mẹ</a>`;
-            if (chapter.card1) downloadButtons += `<a href="${chapter.card1}" target="_blank" class="download-btn"><i class="fas fa-download"></i> Thẻ hỏi đáp</a>`;
-            if (chapter.card2) downloadButtons += `<a href="${chapter.card2}" target="_blank" class="download-btn"><i class="fas fa-download"></i> Thẻ nhiệm vụ</a>`;
-            if (chapter.card3) downloadButtons += `<a href="${chapter.card3}" target="_blank" class="download-btn"><i class="fas fa-download"></i> Câu hỏi tương tác</a>`;
-            
-            learningPage.innerHTML = `
-                <div style="background: var(--gradient); padding: 20px; position: sticky; top: 0; z-index: 10;">
-                    <button onclick="closeLearningPage()" style="background: white; border: none; padding: 8px 16px; border-radius: 40px; margin-bottom: 12px; cursor: pointer;">← Quay lại</button>
-                    <h2 style="color: white; margin: 0;">${content.courseName}</h2>
-                    <p style="color: rgba(255,255,255,0.9); margin: 8px 0 0;">Chương ${chapter.number}: ${chapter.name}</p>
-                </div>
-                <div style="padding: 20px; max-width: 900px; margin: 0 auto;">
-                    <div style="margin-bottom: 30px;">${chapter.videoUrl ? `<iframe width="100%" height="450" src="${chapter.videoUrl}" frameborder="0" allowfullscreen style="border-radius: 20px;"></iframe>` : '<div style="background: #f0f0f0; padding: 60px; text-align: center; border-radius: 20px;">Video đang được cập nhật</div>'}</div>
-                    ${downloadButtons ? `<div class="download-buttons">${downloadButtons}</div>` : ''}
-                    <h3 style="margin-bottom: 16px;">📚 Các chương trong khóa</h3>
-                    <div style="display: flex; flex-direction: column; gap: 12px;">${content.chapters.map((ch, idx) => `<div onclick="changeChapter(${courseId}, ${idx})" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: ${idx === chapterIndex ? 'var(--gradient)' : '#f9fafb'}; border-radius: 16px; cursor: pointer;"><div style="display: flex; align-items: center; gap: 12px;"><span style="font-weight: bold; background: ${idx === chapterIndex ? 'rgba(255,255,255,0.3)' : 'var(--primary)'}; color: white; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">${ch.number}</span><span style="color: ${idx === chapterIndex ? 'white' : 'var(--dark)'};">${ch.name}</span></div><span style="color: ${idx === chapterIndex ? 'white' : 'var(--gray)'};">${ch.videoUrl ? '🎬 Đã có video' : '⏳ Đang cập nhật'}</span></div>`).join('')}</div>
-                </div>
-            `;
-            document.getElementById('mainContent').style.display = 'none';
-            learningPage.style.display = 'block';
-            window.scrollTo(0, 0);
-        }
-        function changeChapter(courseId, chapterIndex) { showLearningPage(courseId, chapterIndex); }
-        function closeLearningPage() { const lp = document.getElementById('learningPage'); if (lp) lp.style.display = 'none'; document.getElementById('mainContent').style.display = 'block'; const active = document.querySelector('.age-btn.active'); renderCourses(active ? active.getAttribute('data-group') : 'all', currentAllowedCourseIds); }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            checkExistingLicense();
-            document.getElementById('unlockBtn').addEventListener('click', () => unlockCourse(document.getElementById('licenseKey').value));
-            document.getElementById('licenseKey').addEventListener('keypress', e => { if (e.key === 'Enter') unlockCourse(e.target.value); });
-            document.getElementById('logoutBtn').addEventListener('click', logout);
-            document.getElementById('manageDevicesBtn').addEventListener('click', showDeviceManager);
-            document.getElementById('deviceModal').addEventListener('click', e => { if (e.target === document.getElementById('deviceModal')) closeDeviceModal(); });
-            document.querySelectorAll('.age-btn').forEach(btn => btn.addEventListener('click', () => { if (!currentAllowedCourseIds.length) return; document.querySelectorAll('.age-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); renderCourses(btn.getAttribute('data-group'), currentAllowedCourseIds); }));
-            document.getElementById('courseModal').addEventListener('click', e => { if (e.target === document.getElementById('courseModal')) closeModal(); });
-            window.changeChapter = changeChapter; window.closeLearningPage = closeLearningPage; window.removeDevice = removeDevice;
+        
+        // FAQ toggle
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.addEventListener('click', () => { item.classList.toggle('active'); });
         });
+        
+        renderCourses();
     </script>
 </body>
 </html>
