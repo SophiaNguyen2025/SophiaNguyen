@@ -276,24 +276,28 @@
             }
         });
     }
-    
     function onPlayerStateChange(event) {
-        if (event.data == YT.PlayerState.PLAYING && !popupShown) {
-            var checkInterval = setInterval(function() {
-                if (player && player.getCurrentTime && !popupShown) {
-                    var duration = player.getDuration();
-                    var current = player.getCurrentTime();
-                    if (duration > 0 && (current / duration) >= 0.5) {
-                        clearInterval(checkInterval);
-                        popupShown = true;
-                        document.getElementById('popupOverlay').style.display = 'flex';
+    if (event.data == YT.PlayerState.PLAYING && !popupShown) {
+        var checkInterval = setInterval(function() {
+            if (player && player.getCurrentTime && !popupShown) {
+                var duration = player.getDuration();
+                var current = player.getCurrentTime();
+                if (duration > 0 && (current / duration) >= 0.5) {
+                    clearInterval(checkInterval);
+                    popupShown = true;
+                    document.getElementById('popupOverlay').style.display = 'flex';
+                    player.pauseVideo();
+                    
+                    
+                    player.seekTo(player.getDuration() * 0.5);
+                    setTimeout(function() {
                         player.pauseVideo();
-                    }
+                    }, 100);
                 }
-            }, 1000);
-        }
+            }
+        }, 1000);
     }
-    
+}
     function closePopup() {
         document.getElementById('popupOverlay').style.display = 'none';
     }
