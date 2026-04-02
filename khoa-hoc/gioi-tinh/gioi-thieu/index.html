@@ -213,7 +213,12 @@
                     <div class="course-content">
                         <p class="course-desc">${c.desc}</p>
                         <ul class="course-chapters">${Array(c.chapters).fill().map((_,i)=>`<li><i class="fas fa-circle"></i> Chương ${i+1}</li>`).join('')}</ul>
-                        <div class="course-footer"><span class="course-price">${c.price}</span><button class="btn-outline" onclick="window.open('https://sophianguyen.com.vn/khoa-hoc/gioi-tinh/', '_blank')">Mua ngay</button></div>
+                        <div class="course-footer">
+                        <div class="course-price">
+    <span style="font-size: 1.3rem; color: #e83e8c; font-weight: bold;">${c.price}</span>
+    <span style="font-size: 0.9rem; color: #a0aec0; text-decoration: line-through; margin-left: 8px;">${c.originalPrice}</span>
+</div>                        
+                        <button class="btn-outline" onclick="window.open('https://sophianguyen.com.vn/khoa-hoc/gioi-tinh/', '_blank')">Mua ngay</button></div>
                     </div>
                 </div>
             `).join('');
