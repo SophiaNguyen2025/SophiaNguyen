@@ -218,6 +218,8 @@
     <script>
         <script>
     // Dữ liệu 6 khóa học - GIÁ KHUYẾN MÃI
+ <script>
+    // Dữ liệu 6 khóa học
     const courses = [
         { id:1, name:"Cơ thể tôi là của tôi", age:"3-5 tuổi", icon:"🛡️", price:"99.000đ", originalPrice:"299.000đ", desc:"Bài học đầu tiên về bảo vệ cơ thể.", chapters:5 },
         { id:2, name:"Đi tìm sự thật về 'Cái rốn'", age:"3-5 tuổi", icon:"👶", price:"99.000đ", originalPrice:"299.000đ", desc:"Hành trình khám phá nguồn gốc sự sống.", chapters:4 },
@@ -263,23 +265,15 @@
 </script>
 
 <script>
-    // ========== CHẶN VIDEO SAU 50% (KỸ THUẬT CỨNG RẮN) ==========
+    // ========== CHỈ CHẶN TRONG PHIÊN, KHÔNG LƯU VĨNH VIỄN ==========
     var tag = document.createElement('script');
     tag.src = "https://www.youtube.com/iframe_api";
     var firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
     
     var player;
-    var popupShown = false;
-    
-    // Kiểm tra nếu đã bị khóa từ trước (sau khi tắt popup)
-    if (localStorage.getItem('video_blocked') === 'true') {
-        popupShown = true;
-        // Nếu đã bị khóa, hiện popup ngay khi load trang
-        window.addEventListener('load', function() {
-            document.getElementById('popupOverlay').style.display = 'flex';
-        });
-    }
+    var popupShown = false;      // Chỉ có tác dụng trong phiên hiện tại
+    var checkInterval = null;    // Để dọn dẹp interval khi cần
     
     function onYouTubeIframeAPIReady() {
         player = new YT.Player('trialVideo', {
@@ -290,25 +284,27 @@
     }
     
     function onPlayerStateChange(event) {
-        // Nếu đã bị khóa (popupShown = true), không cho phát bất kỳ
+        // Nếu đã hiện popup trong phiên này, không cho phát tiếp
         if (popupShown) {
             if (event.data == YT.PlayerState.PLAYING) {
                 player.pauseVideo();
-                player.seekTo(player.getDuration() * 0.5);
             }
             return;
         }
         
-        // Nếu đang phát và chưa bị khóa
+        // Khi video bắt đầu phát
         if (event.data == YT.PlayerState.PLAYING) {
-            var checkInterval = setInterval(function() {
+            // Xóa interval cũ nếu có
+            if (checkInterval) clearInterval(checkInterval);
+            
+            checkInterval = setInterval(function() {
                 if (player && player.getCurrentTime && !popupShown) {
                     var duration = player.getDuration();
                     var current = player.getCurrentTime();
                     if (duration > 0 && (current / duration) >= 0.5) {
                         clearInterval(checkInterval);
-                        popupShown = true;
-                        localStorage.setItem('video_blocked', 'true'); // Lưu vào bộ nhớ trình duyệt
+                        checkInterval = null;
+                        popupShown = true;  // Đánh dấu đã hiện popup trong phiên này
                         
                         // Dừng video và khóa ở 50%
                         player.pauseVideo();
@@ -324,8 +320,10 @@
     
     function closePopup() {
         document.getElementById('popupOverlay').style.display = 'none';
-        // KHÔNG reset popupShown hay localStorage – giữ nguyên khóa
+        // KHÔNG reset popupShown – giữ nguyên để không xem tiếp trong phiên này
+        // Nhưng nếu refresh trang, popupShown = false, video sẽ hoạt động lại từ đầu
     }
 </script>
+   
 </body>
 </html>
