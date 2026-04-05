@@ -42,16 +42,18 @@
         .user-info { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
         #logoutBtn { background: none; border: none; color: var(--gray); cursor: pointer; font-size: 0.9rem; transition: color 0.2s; }
         #logoutBtn:hover { color: var(--primary); }
+        .device-manager-btn { background: #f0f0f0; border: none; padding: 6px 12px; border-radius: 20px; font-size: 0.7rem; cursor: pointer; color: var(--primary); transition: all 0.2s; }
+        .device-manager-btn:hover { background: var(--primary); color: white; }
         .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
         .hero { background: var(--gradient); padding: 60px 0 50px; text-align: center; color: white; border-radius: 0 0 40px 40px; }
-        .hero h1 { font-size: 2.2rem; margin-bottom: 1rem; }
+        .hero h1 { font-size: 2rem; margin-bottom: 1rem; }
         .hero p { font-size: 1rem; max-width: 700px; margin: 0 auto; }
         .courses-grid { display: grid; grid-template-columns: 1fr; gap: 28px; margin: 30px 0; }
         .course-card { background: var(--white); border-radius: 28px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: all 0.3s; cursor: pointer; }
         .course-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
         .course-header { background: var(--gradient); padding: 20px; color: white; position: relative; }
-        .course-icon { font-size: 2.5rem; margin-bottom: 8px; }
-        .course-header h3 { font-size: 1.2rem; margin-bottom: 4px; }
+        .course-icon { font-size: 2rem; margin-bottom: 8px; }
+        .course-header h3 { font-size: 1.1rem; margin-bottom: 4px; }
         .course-content { padding: 20px; }
         .course-desc { color: var(--gray); font-size: 0.9rem; margin-bottom: 16px; line-height: 1.5; }
         .course-chapters { list-style: none; margin-bottom: 20px; }
@@ -77,6 +79,15 @@
         .download-buttons { display: flex; gap: 12px; justify-content: flex-end; margin-bottom: 30px; flex-wrap: wrap; }
         .download-btn { background: var(--primary); color: white; padding: 8px 16px; border-radius: 40px; text-decoration: none; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s; }
         .download-btn:hover { background: var(--primary-dark); transform: translateY(-2px); }
+        .device-list { margin-top: 10px; }
+        .device-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid var(--light-gray); }
+        .device-item:last-child { border-bottom: none; }
+        .device-info { flex: 1; }
+        .device-name { font-weight: 600; color: var(--dark); }
+        .device-time { font-size: 0.7rem; color: var(--gray); }
+        .logout-device-btn { background: #fee2e2; border: none; padding: 4px 12px; border-radius: 20px; color: #e53e3e; cursor: pointer; font-size: 0.7rem; transition: all 0.2s; }
+        .logout-device-btn:hover { background: #e53e3e; color: white; }
+        .current-badge { background: var(--primary); color: white; padding: 2px 8px; border-radius: 20px; font-size: 0.6rem; margin-left: 8px; }
     </style>
 </head>
 <body>
@@ -97,6 +108,7 @@
                 <div class="logo"><i class="fas fa-heart"></i><span>Sophia Nguyễn</span></div>
                 <div class="user-info">
                     <span id="userNameDisplay"><i class="fas fa-user-circle"></i> Học viên</span>
+                    <button id="manageDevicesBtn" class="device-manager-btn" style="display:none;"><i class="fas fa-laptop"></i> Quản lý thiết bị</button>
                     <button id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Thoát</button>
                 </div>
             </div>
@@ -108,11 +120,12 @@
         <footer class="footer"><div class="container"><p>❤️ Đồng hành cùng con yêu - Sophia Nguyễn</p></div></footer>
     </div>
     <div class="modal" id="courseModal"><div class="modal-content"><div class="modal-header"><h3 id="modalTitle"></h3><div class="close-modal" onclick="closeModal()">✕</div></div><div class="modal-body" id="modalBody"></div></div></div>
+    <div class="modal" id="deviceModal"><div class="modal-content"><div class="modal-header"><h3>📱 Quản lý thiết bị</h3><div class="close-modal" onclick="closeDeviceModal()">✕</div></div><div class="modal-body" id="deviceModalBody"></div></div></div>
 
     <script>
-        // ==================== DỮ LIỆU KHÓA HỌC ====================
-        // CHỊ SẼ THAY API_URL SAU KHI CÓ APPS SCRIPT
-        const API_URL = "https://script.google.com/macros/s/AKfycbxusgXualsUIDE3rzZxgUHyVGKAcaShMkX4RXuXoxzOKlWZv67ZxYSqapS-_SrxGH9p/exec";    
+        // ==================== CẤU HÌNH API ====================
+        const API_URL = "https://script.google.com/macros/s/AKfycbxusgXualsUIDE3rzZxgUHyVGKAcaShMkX4RXuXoxzOKlWZv67ZxYSqapS-_SrxGH9p/exec";
+        
         const ALL_COURSES = [
             { id: 1, name: "Phá băng tâm lý – Ba Mẹ là Vùng an toàn đầu tiên", price: "299.000đ",
               shortDesc: "Vượt qua sự ngại ngùng, xóa bỏ định kiến, trở thành người bạn đồng hành tin cậy của con.",
@@ -140,19 +153,55 @@
               chapters: ["Phân biệt giới tính, bản dạng giới, xu hướng tính dục", "Khi con khác biệt: Cách lắng nghe và đồng hành", "Xử lý khi con bị bắt nạt", "Cẩm nang từ ngữ văn minh về LGBTQ+"] }
         ];
 
-        let currentUser = null, currentAllowedCourseIds = [], currentLicenseKey = null;
+        let currentUser = null, currentAllowedCourseIds = [], currentLicenseKey = null, currentDeviceId = null;
+
+        function getDeviceId() {
+            let id = localStorage.getItem('parent_deviceId');
+            if (!id) {
+                id = 'dev_' + Date.now() + '_' + Math.random().toString(36).substr(2, 8);
+                localStorage.setItem('parent_deviceId', id);
+            }
+            return id;
+        }
+
+        function getDeviceName() {
+            const ua = navigator.userAgent;
+            if (ua.includes('iPhone')) return 'iPhone';
+            if (ua.includes('Android')) return 'Android';
+            if (ua.includes('Windows')) return 'Windows PC';
+            if (ua.includes('Mac')) return 'Mac';
+            return 'Thiết bị khác';
+        }
 
         async function authenticate(licenseKey) {
-            if (!API_URL) {
-                alert("🔧 API đang được cập nhật. Vui lòng quay lại sau!");
-                return { status: "error", message: "API chưa sẵn sàng" };
-            }
+            const deviceId = getDeviceId();
+            const deviceName = getDeviceName();
+            const url = `${API_URL}?ma=${encodeURIComponent(licenseKey)}&deviceId=${encodeURIComponent(deviceId)}&deviceName=${encodeURIComponent(deviceName)}`;
             try {
-                const url = `${API_URL}?ma=${encodeURIComponent(licenseKey)}&deviceId=temp&deviceName=temp`;
                 const response = await fetch(url);
                 return await response.json();
             } catch(e) {
                 return { status: "error", message: "Không thể kết nối" };
+            }
+        }
+
+        async function getDevices(licenseKey) {
+            const url = `${API_URL}?action=getDevices&ma=${encodeURIComponent(licenseKey)}`;
+            try {
+                const response = await fetch(url);
+                return await response.json();
+            } catch(e) {
+                return { status: "error" };
+            }
+        }
+
+        async function logoutDevice(licenseKey, deviceId) {
+            const url = `${API_URL}?action=logout&ma=${encodeURIComponent(licenseKey)}&deviceId=${encodeURIComponent(deviceId)}`;
+            try {
+                const response = await fetch(url);
+                return await response.json();
+            } catch(e) {
+                return { status: "error" };
             }
         }
 
@@ -171,11 +220,13 @@
             modal.classList.add('active');
         }
         function closeModal() { document.getElementById('courseModal').classList.remove('active'); }
+        function closeDeviceModal() { document.getElementById('deviceModal').classList.remove('active'); }
 
         function renderCourses(group, allowedIds) {
             const grid = document.getElementById('coursesGrid');
             if (!grid) return;
             let filtered = ALL_COURSES.filter(c => allowedIds.includes(c.id));
+            if (filtered.length === 0) { grid.innerHTML = '<div class="loading-text">Không có khóa học nào trong danh mục này.</div>'; return; }
             grid.innerHTML = filtered.map(course => `
                 <div class="course-card" onclick='showCourseDetail(${JSON.stringify(course).replace(/'/g, "\\'")})'>
                     <div class="course-header"><div class="course-icon">📘</div><h3>${course.name}</h3></div>
@@ -189,7 +240,6 @@
         }
 
         async function unlockCourse(key) {
-            if (!API_URL) { alert("🔧 Khóa học đang được cập nhật. Vui lòng quay lại sau!"); return; }
             const loading = document.getElementById('loadingOverlay');
             loading.style.display = 'flex';
             const result = await authenticate(key);
@@ -198,12 +248,14 @@
                 currentUser = result.user;
                 currentAllowedCourseIds = result.courses;
                 currentLicenseKey = key;
-                localStorage.setItem('parent_course_license', key);
-                localStorage.setItem('parent_course_user', currentUser);
-                localStorage.setItem('parent_course_courses', JSON.stringify(currentAllowedCourseIds));
+                currentDeviceId = getDeviceId();
+                localStorage.setItem('parent_license', key);
+                localStorage.setItem('parent_user', currentUser);
+                localStorage.setItem('parent_courses', JSON.stringify(currentAllowedCourseIds));
                 document.getElementById('unlockScreen').style.display = 'none';
                 document.getElementById('mainContent').style.display = 'block';
                 document.getElementById('userNameDisplay').innerHTML = `<i class="fas fa-user-circle"></i> ${currentUser}`;
+                document.getElementById('manageDevicesBtn').style.display = 'inline-block';
                 renderCourses('all', currentAllowedCourseIds);
             } else {
                 const err = document.getElementById('errorMsg');
@@ -214,17 +266,18 @@
         }
 
         function logout() {
-            localStorage.removeItem('parent_course_license');
-            localStorage.removeItem('parent_course_user');
-            localStorage.removeItem('parent_course_courses');
+            localStorage.removeItem('parent_license');
+            localStorage.removeItem('parent_user');
+            localStorage.removeItem('parent_courses');
+            localStorage.removeItem('parent_deviceId');
             document.getElementById('unlockScreen').style.display = 'flex';
             document.getElementById('mainContent').style.display = 'none';
             document.getElementById('licenseKey').value = '';
+            document.getElementById('manageDevicesBtn').style.display = 'none';
         }
 
         async function checkExistingLicense() {
-            if (!API_URL) return;
-            const saved = localStorage.getItem('parent_course_license');
+            const saved = localStorage.getItem('parent_license');
             if (saved) {
                 const loading = document.getElementById('loadingOverlay');
                 loading.style.display = 'flex';
@@ -234,17 +287,73 @@
                     currentUser = result.user;
                     currentAllowedCourseIds = result.courses;
                     currentLicenseKey = saved;
+                    currentDeviceId = getDeviceId();
                     document.getElementById('unlockScreen').style.display = 'none';
                     document.getElementById('mainContent').style.display = 'block';
                     document.getElementById('userNameDisplay').innerHTML = `<i class="fas fa-user-circle"></i> ${currentUser}`;
+                    document.getElementById('manageDevicesBtn').style.display = 'inline-block';
                     renderCourses('all', currentAllowedCourseIds);
                 } else {
-                    localStorage.removeItem('parent_course_license');
-                    localStorage.removeItem('parent_course_user');
-                    localStorage.removeItem('parent_course_courses');
+                    localStorage.removeItem('parent_license');
+                    localStorage.removeItem('parent_user');
+                    localStorage.removeItem('parent_courses');
+                    localStorage.removeItem('parent_deviceId');
                 }
             }
             document.getElementById('loadingOverlay').style.display = 'none';
+        }
+
+        async function showDeviceManager() {
+            if (!currentLicenseKey) return;
+            const loading = document.getElementById('loadingOverlay');
+            loading.style.display = 'flex';
+            const result = await getDevices(currentLicenseKey);
+            loading.style.display = 'none';
+            if (result.status === 'success') {
+                const devices = result.devices || [];
+                const modalBody = document.getElementById('deviceModalBody');
+                if (devices.length === 0) {
+                    modalBody.innerHTML = '<p>Không có thiết bị nào đang đăng nhập.</p>';
+                } else {
+                    modalBody.innerHTML = `
+                        <p>Hiện tại tài khoản của bạn đang đăng nhập trên ${devices.length} thiết bị:</p>
+                        <div class="device-list">
+                            ${devices.map(dev => `
+                                <div class="device-item">
+                                    <div class="device-info">
+                                        <div class="device-name">${escapeHtml(dev.deviceName)} ${dev.deviceId === currentDeviceId ? '<span class="current-badge">Thiết bị này</span>' : ''}</div>
+                                        <div class="device-time">Đăng nhập: ${new Date(dev.lastActive).toLocaleString('vi-VN')}</div>
+                                    </div>
+                                    ${dev.deviceId !== currentDeviceId ? `<button class="logout-device-btn" onclick="removeDevice('${dev.deviceId}')">Đăng xuất</button>` : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                        <p style="margin-top:16px; font-size:0.8rem; color:var(--gray);">* Giới hạn tối đa 2 thiết bị cùng lúc</p>
+                    `;
+                }
+                document.getElementById('deviceModal').classList.add('active');
+            } else {
+                alert("Không thể tải danh sách thiết bị. Vui lòng thử lại.");
+            }
+        }
+
+        async function removeDevice(deviceId) {
+            if (!currentLicenseKey) return;
+            const loading = document.getElementById('loadingOverlay');
+            loading.style.display = 'flex';
+            const result = await logoutDevice(currentLicenseKey, deviceId);
+            loading.style.display = 'none';
+            if (result.status === 'success') {
+                alert("Đã đăng xuất thiết bị thành công!");
+                showDeviceManager();
+            } else {
+                alert("Không thể đăng xuất thiết bị. Vui lòng thử lại.");
+            }
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m]));
         }
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -252,7 +361,10 @@
             document.getElementById('unlockBtn').addEventListener('click', () => unlockCourse(document.getElementById('licenseKey').value));
             document.getElementById('licenseKey').addEventListener('keypress', e => { if (e.key === 'Enter') unlockCourse(e.target.value); });
             document.getElementById('logoutBtn').addEventListener('click', logout);
+            document.getElementById('manageDevicesBtn').addEventListener('click', showDeviceManager);
+            document.getElementById('deviceModal').addEventListener('click', e => { if (e.target === document.getElementById('deviceModal')) closeDeviceModal(); });
             document.getElementById('courseModal').addEventListener('click', e => { if (e.target === document.getElementById('courseModal')) closeModal(); });
+            window.removeDevice = removeDevice;
         });
     </script>
 </body>
