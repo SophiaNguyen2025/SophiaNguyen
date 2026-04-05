@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Khóa học cho cha mẹ | Sophia Nguyễn - Đồng hành cùng con</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #0284c7;
+            --primary-dark: #0369a1;
+            --dark: #1e293b;
+            --gray: #475569;
+            --light-gray: #e2e8f0;
+            --white: #ffffff;
+            --gradient: linear-gradient(135deg, #0284c7 0%, #38bdf8 50%, #7dd3fc 100%);
+            --gradient-soft: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        }
+        body { font-family: 'Be Vietnam Pro', sans-serif; line-height: 1.6; color: var(--dark); background: var(--gradient-soft); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        
+        .navbar { background: var(--white); box-shadow: 0 2px 20px rgba(0,0,0,0.05); padding: 1rem 0; position: sticky; top: 0; z-index: 100; }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+        .logo { font-size: 1.5rem; font-weight: bold; background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; display: flex; align-items: center; gap: 10px; }
+        .logo i { background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; font-size: 1.8rem; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--gray); font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+        .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; }
+        
+        .hero { background: var(--gradient); padding: 60px 0 50px; text-align: center; color: white; border-radius: 0 0 40px 40px; }
+        .hero h1 { font-size: 2.2rem; margin-bottom: 1rem; }
+        .hero p { font-size: 1.1rem; max-width: 700px; margin: 0 auto; opacity: 0.95; }
+        
+        .section { padding: 50px 0; }
+        .section-title { text-align: center; font-size: 2rem; color: var(--primary); margin-bottom: 16px; }
+        .section-sub { text-align: center; color: var(--gray); margin-bottom: 40px; max-width: 700px; margin-left: auto; margin-right: auto; }
+        
+        .chapters-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 30px; margin: 40px 0; }
+        .chapter-card { background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: all 0.3s; border: 1px solid var(--light-gray); }
+        .chapter-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
+        .chapter-header { background: var(--gradient); padding: 20px; color: white; text-align: center; }
+        .chapter-number { font-size: 1.2rem; font-weight: bold; opacity: 0.9; }
+        .chapter-header h3 { font-size: 1.2rem; margin-top: 8px; }
+        .chapter-content { padding: 20px; }
+        .chapter-desc { color: var(--gray); font-size: 0.9rem; margin-bottom: 16px; line-height: 1.5; }
+        .material-list { list-style: none; margin-top: 16px; padding-top: 16px; border-top: 1px dashed var(--light-gray); }
+        .material-list li { font-size: 0.8rem; padding: 4px 0; color: var(--primary); display: flex; align-items: center; gap: 8px; }
+        .material-list li i { font-size: 0.7rem; }
+        
+        .cta-section { text-align: center; padding: 50px 40px; background: var(--gradient); color: white; border-radius: 32px; margin: 40px 0; }
+        .btn-cta { background: white; color: var(--primary); border: none; padding: 14px 32px; border-radius: 50px; font-weight: 700; text-decoration: none; display: inline-block; margin: 0 8px; }
+        .btn-cta-outline { background: transparent; border: 2px solid white; color: white; padding: 12px 28px; border-radius: 50px; font-weight: 600; text-decoration: none; display: inline-block; margin: 0 8px; }
+        .btn-cta-outline:hover { background: white; color: var(--primary); }
+        
+        .footer { background: var(--dark); color: white; padding: 40px 0 20px; margin-top: 60px; text-align: center; }
+        
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .menu-toggle { display: block; }
+            .hero h1 { font-size: 1.6rem; }
+            .section-title { font-size: 1.5rem; }
+            .chapters-grid { grid-template-columns: 1fr; }
+            .btn-cta, .btn-cta-outline { display: block; margin: 12px auto; width: fit-content; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo"><i class="fas fa-heart"></i><span>Sophia Nguyễn</span></div>
+            <div class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">☰</div>
+            <ul class="nav-links">
+                <li><a href="https://sophianguyen.com.vn">Trang chủ</a></li>
+                <li><a href="index.html" class="active">Khóa học cho cha mẹ</a></li>
+                <li><a href="https://sophianguyen.com.vn/khoa-hoc/gioi-tinh/gioi-thieu/">Khóa cho trẻ</a></li>
+                <li><a href="https://sophianguyen.com.vn/contact.html">Liên hệ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <h1>👨‍👩‍👧‍👦 Đồng hành cùng con – Cẩm nang giới tính toàn diện</h1>
+            <p>Khóa học dành riêng cho cha mẹ: Thấu hiểu, đồng hành và bảo vệ con trong thời đại số</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <section class="section">
+            <h2 class="section-title">6 chương học thực tế, dễ áp dụng</h2>
+            <p class="section-sub">Mỗi chương gồm video bài giảng + tài liệu đi kèm (checklist, script mẫu, bản cam kết...)</p>
+            <div class="chapters-grid">
+                <div class="chapter-card"><div class="chapter-header"><div class="chapter-number">Chương 1</div><h3>Phá băng tâm lý – Ba Mẹ là "Vùng an toàn" đầu tiên</h3></div><div class="chapter-content"><p class="chapter-desc">Vượt qua sự ngại ngùng, xóa bỏ định kiến, trở thành người bạn đồng hành tin cậy của con.</p><ul class="material-list"><li><i class="fas fa-check-circle"></i> Checklist "Tâm thế sẵn sàng của Cha Mẹ"</li></ul></div></div>
+                <div class="chapter-card"><div class="chapter-header"><div class="chapter-number">Chương 2</div><h3>Nghệ thuật "Nói chuyện ấy" – Tự nhiên như hơi thở</h3></div><div class="chapter-content"><p class="chapter-desc">Kịch bản thực tế, cách trả lời câu hỏi "khó đỡ" của con một cách tự nhiên.</p><ul class="material-list"><li><i class="fas fa-check-circle"></i> Script mẫu trả lời 10 câu hỏi hóc búa nhất</li></ul></div></div>
+                <div class="chapter-card"><div class="chapter-header"><div class="chapter-number">Chương 3</div><h3>Lá chắn 4.0 – Bảo vệ con trên không gian mạng</h3></div><div class="chapter-content"><p class="chapter-desc">Nhận diện nguy cơ, quản lý con trong thời đại số mà không gây ức chế.</p><ul class="material-list"><li><i class="fas fa-check-circle"></i> Mẫu bản cam kết sử dụng Internet giữa Ba Mẹ và Con</li></ul></div></div>
+                <div class="chapter-card"><div class="chapter-header"><div class="chapter-number">Chương 4</div><h3>Cảnh giác "Sói" quen – Ranh giới và Sự an toàn</h3></div><div class="chapter-content"><p class="chapter-desc">Nhận diện nguy cơ xâm hại từ những người xung quanh, dạy con về vòng tròn quan hệ.</p><ul class="material-list"><li><i class="fas fa-check-circle"></i> Sơ đồ "Vòng tròn quan hệ" phiên bản dành cho Cha Mẹ</li></ul></div></div>
+                <div class="chapter-card"><div class="chapter-header"><div class="chapter-number">Chương 5</div><h3>Quyền đồng thuận – Dạy con về Sự tôn trọng & Trách nhiệm</h3></div><div class="chapter-content"><p class="chapter-desc">Xây dựng tư duy văn minh về ranh giới cá nhân và sự đồng thuận.</p><ul class="material-list"><li><i class="fas fa-check-circle"></i> Bộ thẻ tình huống "Đúng hay Sai" về sự đồng thuận</li></ul></div></div>
+                <div class="chapter-card"><div class="chapter-header"><div class="chapter-number">Chương 6</div><h3>Cầu vồng trong nhà – Thấu hiểu sự đa dạng (LGBTQ+)</h3></div><div class="chapter-content"><p class="chapter-desc">Mở rộng trái tim và kiến thức về bản dạng giới, cách đồng hành khi con khác biệt.</p><ul class="material-list"><li><i class="fas fa-check-circle"></i> Cẩm nang từ ngữ văn minh về cộng đồng LGBTQ+</li></ul></div></div>
+            </div>
+        </section>
+
+        <div class="cta-section">
+            <h2>🚀 Sẵn sàng đồng hành cùng con?</h2>
+            <p style="margin-bottom: 24px;">Đăng ký ngay để nhận tư vấn và được hỗ trợ mã khóa học</p>
+            <a href="https://zalo.me/0977092182" class="btn-cta">📩 Đăng ký ngay</a>
+            <a href="https://sophianguyen.com.vn/khoa-hoc/cha-me/" class="btn-cta-outline">🔐 Đã có mã? Đăng nhập</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>❤️ Đồng hành cùng con yêu - Sophia Nguyễn</p>
+            <p style="font-size: 0.8rem;">📧 sophianguyen2891@gmail.com | 📞 0977092182</p>
+        </div>
+    </footer>
+</body>
+</html>
