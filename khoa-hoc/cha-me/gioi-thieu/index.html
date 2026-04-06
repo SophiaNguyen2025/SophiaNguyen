@@ -65,9 +65,45 @@
             .chapters-grid { grid-template-columns: 1fr; }
             .btn-cta, .btn-cta-outline { display: block; margin: 12px auto; width: fit-content; }
         }
+/* Header và logo */
+.header {
+    background: white;
+    padding: 15px 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.header-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    height: 80px;  /* Chỉnh chiều cao logo theo ý chị */
+    width: auto;
+    display: block;
+}
+
+/* Responsive trên mobile */
+@media (max-width: 768px) {
+    .logo img {
+        height: 45px;
+    }
+}
     </style>
 </head>
-<body>
+<header class="header">
+    <div class="header-container">
+        <a href="https://sophianguyen.com.vn/index.html" class="logo">
+            <img src="https://sophianguyen.com.vn/images/hinhremovenen.png" alt="Sophia Logo" />
+        </a>
+        <!-- Không có menu, chỉ có logo -->
+    </div>
+</header>
+    <body>
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo"><i class="fas fa-heart"></i><span>Sophia Nguyễn</span></div>
