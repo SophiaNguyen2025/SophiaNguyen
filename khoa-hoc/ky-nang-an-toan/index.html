@@ -140,3 +140,257 @@
               shortDesc: "An toàn khi sử dụng điện, nhận biết dây điện hở, ổ cắm nguy hiểm.",
               fullDesc: "Hướng dẫn trẻ sử dụng điện an toàn, tránh các tai nạn đáng tiếc.",
               chapters: ["Điện là gì?", "Ổ cắm và dây điện nguy hiểm", "Cách sử dụng điện an toàn", "Sơ cứu khi bị điện giật"] },
+            { id: 4, name: "Dinh dưỡng cho trẻ em", price: "199.000đ",
+              shortDesc: "Xây dựng thói quen ăn uống lành mạnh, lựa chọn thực phẩm an toàn.",
+              fullDesc: "Giúp trẻ hiểu về dinh dưỡng, ăn uống khoa học để phát triển khỏe mạnh.",
+              chapters: ["Các nhóm thực phẩm", "Thực phẩm có lợi và có hại", "Xây dựng thực đơn lành mạnh", "Thói quen ăn uống tốt"] },
+            { id: 5, name: "Phòng tránh xâm hại", price: "199.000đ",
+              shortDesc: "Nhận biết vùng riêng tư, quy tắc an toàn cơ thể, cách nói không.",
+              fullDesc: "Trang bị kỹ năng bảo vệ cơ thể, nhận biết và phòng tránh xâm hại tình dục trẻ em.",
+              chapters: ["Vùng riêng tư của cơ thể", "Quy tắc an toàn cơ thể", "Cách nói KHÔNG", "Kể lại với người tin cậy"] },
+            { id: 6, name: "Phòng chống hỏa hoạn", price: "199.000đ",
+              shortDesc: "Kỹ năng thoát hiểm khi có cháy, cách sử dụng bình chữa cháy.",
+              fullDesc: "Hướng dẫn trẻ kỹ năng thoát hiểm an toàn khi xảy ra hỏa hoạn.",
+              chapters: ["Nguyên nhân gây cháy", "Cách phát hiện đám cháy", "Kỹ năng thoát hiểm", "Gọi cứu hỏa"] },
+            { id: 7, name: "Phòng tránh đuối nước", price: "199.000đ",
+              shortDesc: "Nguyên tắc an toàn khi bơi, nhận biết vùng nước nguy hiểm.",
+              fullDesc: "Trang bị kỹ năng an toàn dưới nước, phòng tránh đuối nước cho trẻ.",
+              chapters: ["An toàn khi bơi", "Nhận biết vùng nước nguy hiểm", "Kỹ năng cứu đuối cơ bản", "Xử lý khi bị chuột rút"] },
+            { id: 8, name: "Phòng chống bắt cóc", price: "199.000đ",
+              shortDesc: "Nhận diện thủ đoạn của kẻ xấu, kỹ năng chạy thoát và gọi cứu trợ.",
+              fullDesc: "Giúp trẻ nhận biết nguy cơ bị bắt cóc và cách tự bảo vệ bản thân.",
+              chapters: ["Thủ đoạn của kẻ xấu", "Không đi theo người lạ", "Kỹ năng chạy thoát", "Gọi cứu trợ"] }
+        ];
+
+        // ==================== NỘI DUNG KHÓA HỌC (CHỜ CHỊ ĐIỀN LINK) ====================
+        const courseContent = {
+            1: { courseName: "Phòng chống tai nạn thương tích", chapters: [
+                { number: 1, name: "Tai nạn trong nhà", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" },
+                { number: 2, name: "Tai nạn ở trường", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" },
+                { number: 3, name: "Tai nạn nơi công cộng", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" },
+                { number: 4, name: "Cách sơ cứu cơ bản", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" }
+            ] },
+            2: { courseName: "Phòng tránh bạo lực học đường", chapters: [
+                { number: 1, name: "Nhận diện bạo lực học đường", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" },
+                { number: 2, name: "Cách ứng phó khi bị bạo lực", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" },
+                { number: 3, name: "Tìm kiếm sự giúp đỡ", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" },
+                { number: 4, name: "Xây dựng tình bạn lành mạnh", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" }
+            ] },
+            3: { courseName: "Phòng chống tai nạn điện", chapters: [
+                { number: 1, name: "Điện là gì?", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" },
+                { number: 2, name: "Ổ cắm và dây điện nguy hiểm", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" },
+                { number: 3, name: "Cách sử dụng điện an toàn", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" },
+                { number: 4, name: "Sơ cứu khi bị điện giật", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" }
+            ] },
+            4: { courseName: "Dinh dưỡng cho trẻ em", chapters: [
+                { number: 1, name: "Các nhóm thực phẩm", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" },
+                { number: 2, name: "Thực phẩm có lợi và có hại", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" },
+                { number: 3, name: "Xây dựng thực đơn lành mạnh", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" },
+                { number: 4, name: "Thói quen ăn uống tốt", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" }
+            ] },
+            5: { courseName: "Phòng tránh xâm hại", chapters: [
+                { number: 1, name: "Vùng riêng tư của cơ thể", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" },
+                { number: 2, name: "Quy tắc an toàn cơ thể", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" },
+                { number: 3, name: "Cách nói KHÔNG", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" },
+                { number: 4, name: "Kể lại với người tin cậy", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" }
+            ] },
+            6: { courseName: "Phòng chống hỏa hoạn", chapters: [
+                { number: 1, name: "Nguyên nhân gây cháy", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" },
+                { number: 2, name: "Cách phát hiện đám cháy", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" },
+                { number: 3, name: "Kỹ năng thoát hiểm", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" },
+                { number: 4, name: "Gọi cứu hỏa", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" }
+            ] },
+            7: { courseName: "Phòng tránh đuối nước", chapters: [
+                { number: 1, name: "An toàn khi bơi", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" },
+                { number: 2, name: "Nhận biết vùng nước nguy hiểm", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" },
+                { number: 3, name: "Kỹ năng cứu đuối cơ bản", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" },
+                { number: 4, name: "Xử lý khi bị chuột rút", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" }
+            ] },
+            8: { courseName: "Phòng chống bắt cóc", chapters: [
+                { number: 1, name: "Thủ đoạn của kẻ xấu", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" },
+                { number: 2, name: "Không đi theo người lạ", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" },
+                { number: 3, name: "Kỹ năng chạy thoát", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" },
+                { number: 4, name: "Gọi cứu trợ", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" }
+            ] }
+        };
+
+        let currentUser = null, currentAllowedCourseIds = [], currentLicenseKey = null, currentDeviceId = null;
+
+        function getDeviceId() { let id = localStorage.getItem('safety_deviceId'); if (!id) { id = 'dev_' + Date.now() + '_' + Math.random().toString(36).substr(2, 8); localStorage.setItem('safety_deviceId', id); } return id; }
+        function getDeviceName() { const ua = navigator.userAgent; if (ua.includes('iPhone')) return 'iPhone'; if (ua.includes('Android')) return 'Android'; if (ua.includes('Windows')) return 'Windows PC'; if (ua.includes('Mac')) return 'Mac'; return 'Thiết bị khác'; }
+
+        async function authenticate(licenseKey) {
+            if (!API_URL) { alert("🔧 API đang được cập nhật. Vui lòng quay lại sau!"); return { status: "error", message: "API chưa sẵn sàng" }; }
+            const url = `${API_URL}?ma=${encodeURIComponent(licenseKey)}&deviceId=${encodeURIComponent(getDeviceId())}&deviceName=${encodeURIComponent(getDeviceName())}`;
+            try { const res = await fetch(url); return await res.json(); } catch(e) { return { status: "error", message: "Không thể kết nối" }; }
+        }
+        async function getDevices(licenseKey) { try { const res = await fetch(`${API_URL}?action=getDevices&ma=${encodeURIComponent(licenseKey)}`); return await res.json(); } catch(e) { return { status: "error" }; } }
+        async function logoutDevice(licenseKey, deviceId) { try { const res = await fetch(`${API_URL}?action=logout&ma=${encodeURIComponent(licenseKey)}&deviceId=${encodeURIComponent(deviceId)}`); return await res.json(); } catch(e) { return { status: "error" }; } }
+
+        function showCourseDetail(course) {
+            const modal = document.getElementById('courseModal');
+            document.getElementById('modalTitle').innerHTML = `${course.name}`;
+            document.getElementById('modalBody').innerHTML = `
+                <p style="margin-bottom:20px; font-weight:500;">${course.fullDesc}</p>
+                <h4 style="margin:20px 0 12px; color:var(--primary);"><i class="fas fa-list"></i> Nội dung khóa học:</h4>
+                <ul class="chapter-list">${course.chapters.map((ch, idx) => `<li><span class="chapter-num">Bài ${idx+1}</span><span>${ch}</span></li>`).join('')}</ul>
+                <div style="margin-top:24px; padding-top:16px; border-top:1px solid var(--light-gray); display:flex; justify-content:space-between; align-items:center;">
+                    <span style="font-size:1.3rem; font-weight:bold; color:var(--primary);">${course.price}</span>
+                    <button class="btn-start" onclick="startCourse(${course.id})">▶ Bắt đầu học</button>
+                </div>
+            `;
+            modal.classList.add('active');
+        }
+        function closeModal() { document.getElementById('courseModal').classList.remove('active'); }
+        function closeDeviceModal() { document.getElementById('deviceModal').classList.remove('active'); }
+
+        function renderCourses(group, allowedIds) {
+            const grid = document.getElementById('coursesGrid');
+            if (!grid) return;
+            let filtered = ALL_COURSES.filter(c => allowedIds.includes(c.id));
+            if (filtered.length === 0) { grid.innerHTML = '<div class="loading-text">Không có khóa học nào trong danh mục này.</div>'; return; }
+            grid.innerHTML = filtered.map(course => `
+                <div class="course-card" onclick='showCourseDetail(${JSON.stringify(course).replace(/'/g, "\\'")})'>
+                    <div class="course-header"><div class="course-icon">🛡️</div><h3>${course.name}</h3></div>
+                    <div class="course-content">
+                        <p class="course-desc">${course.shortDesc}</p>
+                        <ul class="course-chapters">${course.chapters.slice(0,2).map(ch => `<li><i class="fas fa-circle"></i> ${ch.substring(0,50)}${ch.length>50?'...':''}</li>`).join('')}${course.chapters.length>2?`<li><i class="fas fa-plus-circle"></i> +${course.chapters.length-2} bài khác</li>`:''}</ul>
+                        <div class="course-footer"><span class="course-price">${course.price}</span><button class="btn-start" onclick="event.stopPropagation(); startCourse(${course.id})">▶ Bắt đầu học</button></div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function unlockCourse(key) {
+            if (!API_URL) { alert("🔧 Khóa học đang được cập nhật. Vui lòng quay lại sau!"); return; }
+            const loading = document.getElementById('loadingOverlay');
+            loading.style.display = 'flex';
+            const result = await authenticate(key);
+            loading.style.display = 'none';
+            if (result.status === 'success') {
+                currentUser = result.user;
+                currentAllowedCourseIds = result.courses;
+                currentLicenseKey = key;
+                currentDeviceId = getDeviceId();
+                localStorage.setItem('safety_license', key);
+                localStorage.setItem('safety_user', currentUser);
+                localStorage.setItem('safety_courses', JSON.stringify(currentAllowedCourseIds));
+                document.getElementById('unlockScreen').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+                document.getElementById('userNameDisplay').innerHTML = `<i class="fas fa-user-circle"></i> ${currentUser}`;
+                document.getElementById('manageDevicesBtn').style.display = 'inline-block';
+                renderCourses('all', currentAllowedCourseIds);
+            } else {
+                const err = document.getElementById('errorMsg');
+                err.innerText = result.message || "Mã khóa không hợp lệ!";
+                err.style.display = 'block';
+                setTimeout(() => err.style.display = 'none', 3000);
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('safety_license');
+            localStorage.removeItem('safety_user');
+            localStorage.removeItem('safety_courses');
+            localStorage.removeItem('safety_deviceId');
+            document.getElementById('unlockScreen').style.display = 'flex';
+            document.getElementById('mainContent').style.display = 'none';
+            document.getElementById('licenseKey').value = '';
+            document.getElementById('manageDevicesBtn').style.display = 'none';
+        }
+
+        async function checkExistingLicense() {
+            if (!API_URL) return;
+            const saved = localStorage.getItem('safety_license');
+            if (saved) {
+                const loading = document.getElementById('loadingOverlay');
+                loading.style.display = 'flex';
+                const result = await authenticate(saved);
+                loading.style.display = 'none';
+                if (result.status === 'success') {
+                    currentUser = result.user;
+                    currentAllowedCourseIds = result.courses;
+                    currentLicenseKey = saved;
+                    currentDeviceId = getDeviceId();
+                    document.getElementById('unlockScreen').style.display = 'none';
+                    document.getElementById('mainContent').style.display = 'block';
+                    document.getElementById('userNameDisplay').innerHTML = `<i class="fas fa-user-circle"></i> ${currentUser}`;
+                    document.getElementById('manageDevicesBtn').style.display = 'inline-block';
+                    renderCourses('all', currentAllowedCourseIds);
+                } else {
+                    localStorage.removeItem('safety_license');
+                    localStorage.removeItem('safety_user');
+                    localStorage.removeItem('safety_courses');
+                    localStorage.removeItem('safety_deviceId');
+                }
+            }
+            document.getElementById('loadingOverlay').style.display = 'none';
+        }
+
+        function startCourse(courseId) { if (courseContent[courseId]) showLearningPage(courseId, 0); else alert(`📚 Khóa học đang được cập nhật!`); closeModal(); }
+
+        async function showDeviceManager() {
+            if (!currentLicenseKey) return;
+            const loading = document.getElementById('loadingOverlay');
+            loading.style.display = 'flex';
+            const result = await getDevices(currentLicenseKey);
+            loading.style.display = 'none';
+            if (result.status === 'success') {
+                const devices = result.devices || [];
+                const modalBody = document.getElementById('deviceModalBody');
+                if (devices.length === 0) modalBody.innerHTML = '<p>Không có thiết bị nào đang đăng nhập.</p>';
+                else {
+                    modalBody.innerHTML = `<p>Hiện tại tài khoản của bạn đang đăng nhập trên ${devices.length} thiết bị:</p><div class="device-list">${devices.map(d => `<div class="device-item"><div class="device-info"><div class="device-name">${escapeHtml(d.deviceName)} ${d.deviceId === currentDeviceId ? '<span class="current-badge">Thiết bị này</span>' : ''}</div><div class="device-time">Đăng nhập: ${new Date(d.lastActive).toLocaleString('vi-VN')}</div></div>${d.deviceId !== currentDeviceId ? `<button class="logout-device-btn" onclick="removeDevice('${d.deviceId}')">Đăng xuất</button>` : ''}</div>`).join('')}</div><p style="margin-top:16px; font-size:0.8rem; color:var(--gray);">* Giới hạn tối đa 2 thiết bị cùng lúc</p>`;
+                }
+                document.getElementById('deviceModal').classList.add('active');
+            } else alert("Không thể tải danh sách thiết bị.");
+        }
+
+        async function removeDevice(deviceId) { if (!currentLicenseKey) return; const loading = document.getElementById('loadingOverlay'); loading.style.display = 'flex'; const result = await logoutDevice(currentLicenseKey, deviceId); loading.style.display = 'none'; if (result.status === 'success') { alert("Đã đăng xuất thiết bị thành công!"); showDeviceManager(); } else alert("Không thể đăng xuất thiết bị."); }
+        function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m])); }
+
+        function showLearningPage(courseId, chapterIndex = 0) {
+            const content = courseContent[courseId];
+            if (!content) return;
+            const chapter = content.chapters[chapterIndex];
+            if (!chapter) return;
+            let learningPage = document.getElementById('learningPage');
+            if (!learningPage) { learningPage = document.createElement('div'); learningPage.id = 'learningPage'; learningPage.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:white; z-index:2000; overflow-y:auto; display:none;'; document.body.appendChild(learningPage); }
+            let downloadButtons = '';
+            if (chapter.pdfUrl) downloadButtons += `<a href="${chapter.pdfUrl}" target="_blank" class="download-btn"><i class="fas fa-download"></i> Tài liệu chính (PDF)</a>`;
+            if (chapter.card1) downloadButtons += `<a href="${chapter.card1}" target="_blank" class="download-btn"><i class="fas fa-download"></i> 📘 Thẻ hỏi đáp</a>`;
+            if (chapter.card2) downloadButtons += `<a href="${chapter.card2}" target="_blank" class="download-btn"><i class="fas fa-download"></i> 🎯 Thẻ nhiệm vụ</a>`;
+            if (chapter.card3) downloadButtons += `<a href="${chapter.card3}" target="_blank" class="download-btn"><i class="fas fa-download"></i> 💬 Câu hỏi tương tác</a>`;
+            learningPage.innerHTML = `
+                <div style="background: var(--gradient); padding: 20px; position: sticky; top: 0; z-index: 10;">
+                    <button onclick="closeLearningPage()" style="background: white; border: none; padding: 8px 16px; border-radius: 40px; margin-bottom: 12px; cursor: pointer;">← Quay lại</button>
+                    <h2 style="color: white; margin: 0;">${content.courseName}</h2>
+                    <p style="color: rgba(255,255,255,0.9); margin: 8px 0 0;">Bài ${chapter.number}: ${chapter.name}</p>
+                </div>
+                <div style="padding: 20px; max-width: 900px; margin: 0 auto;">
+                    <div style="margin-bottom: 30px;">${chapter.videoUrl ? `<iframe width="100%" height="450" src="${chapter.videoUrl}" frameborder="0" allowfullscreen style="border-radius: 20px;"></iframe>` : '<div style="background: #f0f0f0; padding: 60px; text-align: center; border-radius: 20px;">Video đang được cập nhật</div>'}</div>
+                    ${downloadButtons ? `<div class="download-buttons">${downloadButtons}</div>` : ''}
+                    <h3 style="margin-bottom: 16px;">📚 Các bài trong khóa</h3>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">${content.chapters.map((ch, idx) => `<div onclick="changeChapter(${courseId}, ${idx})" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: ${idx === chapterIndex ? 'var(--gradient)' : '#f9fafb'}; border-radius: 16px; cursor: pointer;"><div style="display: flex; align-items: center; gap: 12px;"><span style="font-weight: bold; background: ${idx === chapterIndex ? 'rgba(255,255,255,0.3)' : 'var(--primary)'}; color: white; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">${ch.number}</span><span style="color: ${idx === chapterIndex ? 'white' : 'var(--dark)'};">${ch.name}</span></div><span style="color: ${idx === chapterIndex ? 'white' : 'var(--gray)'};">${ch.videoUrl ? '🎬 Đã có video' : '⏳ Đang cập nhật'}</span></div>`).join('')}</div>
+                </div>
+            `;
+            document.getElementById('mainContent').style.display = 'none';
+            learningPage.style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+        function changeChapter(courseId, chapterIndex) { showLearningPage(courseId, chapterIndex); }
+        function closeLearningPage() { const lp = document.getElementById('learningPage'); if (lp) lp.style.display = 'none'; document.getElementById('mainContent').style.display = 'block'; renderCourses('all', currentAllowedCourseIds); }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            checkExistingLicense();
+            document.getElementById('unlockBtn').addEventListener('click', () => unlockCourse(document.getElementById('licenseKey').value));
+            document.getElementById('licenseKey').addEventListener('keypress', e => { if (e.key === 'Enter') unlockCourse(e.target.value); });
+            document.getElementById('logoutBtn').addEventListener('click', logout);
+            document.getElementById('manageDevicesBtn').addEventListener('click', showDeviceManager);
+            document.getElementById('deviceModal').addEventListener('click', e => { if (e.target === document.getElementById('deviceModal')) closeDeviceModal(); });
+            document.getElementById('courseModal').addEventListener('click', e => { if (e.target === document.getElementById('courseModal')) closeModal(); });
+            window.changeChapter = changeChapter; window.closeLearningPage = closeLearningPage; window.removeDevice = removeDevice;
+        });
+    </script>
+</body>
+</html>
