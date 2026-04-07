@@ -1,137 +1,238 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Giới thiệu về Sophia Nguyễn</title>
-  <link rel="stylesheet" href="main.css" />
-  <!-- Thêm thư viện AOS -->
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tham vấn tâm lý - Sophia Nguyễn</title>
+    <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #14b8a6;
+            --primary-dark: #0d9488;
+            --primary-light: #5eead4;
+            --dark: #1e293b;
+            --gray: #475569;
+            --light-gray: #e2e8f0;
+            --white: #ffffff;
+            --gradient: linear-gradient(135deg, #14b8a6 0%, #0d9488 50%, #5eead4 100%);
+            --gradient-soft: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%);
+        }
+        body { font-family: 'Be Vietnam Pro', sans-serif; line-height: 1.6; color: var(--dark); background: var(--gradient-soft); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        
+        .hero { background: var(--gradient); padding: 70px 0 50px; text-align: center; color: white; border-radius: 0 0 40px 40px; }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+        .hero p { font-size: 1.15rem; max-width: 700px; margin: 0 auto; opacity: 0.95; }
+        
+        .section { padding: 60px 0; }
+        .section-title { text-align: center; font-size: 2rem; color: var(--primary); margin-bottom: 16px; }
+        
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        .two-col.reverse { direction: rtl; }
+        .two-col.reverse > * { direction: ltr; }
+        .col-content h2 { color: var(--primary); margin-bottom: 20px; font-size: 1.8rem; }
+        .col-content p { color: var(--gray); margin-bottom: 16px; line-height: 1.7; font-size: 1rem; }
+        .col-content ul { list-style: none; padding: 0; }
+        .col-content ul li { margin-bottom: 12px; display: flex; align-items: center; gap: 12px; color: var(--gray); font-size: 1rem; }
+        .col-content ul li i { color: var(--primary); font-size: 1.2rem; width: 24px; }
+        .col-image { text-align: center; }
+        .col-image i { font-size: 7rem; color: var(--primary); opacity: 0.8; }
+        
+        .three-col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin: 40px 0; }
+        .feature-card { background: white; border-radius: 24px; padding: 32px 24px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s; border: 1px solid var(--light-gray); }
+        .feature-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .feature-icon { font-size: 2.5rem; color: var(--primary); margin-bottom: 20px; }
+        .feature-card h3 { font-size: 1.25rem; margin-bottom: 12px; color: var(--primary); }
+        .feature-card p { color: var(--gray); font-size: 0.95rem; line-height: 1.5; }
+        
+        .process-steps { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; margin: 40px 0; }
+        .step { flex: 1; min-width: 200px; text-align: center; padding: 25px 20px; background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .step-num { width: 45px; height: 45px; background: var(--gradient); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; margin: 0 auto 16px; }
+        .step h4 { color: var(--primary); margin-bottom: 10px; font-size: 1.1rem; }
+        .step p { color: var(--gray); font-size: 0.9rem; }
+        
+        .pricing-box { background: white; border-radius: 24px; padding: 32px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid var(--light-gray); max-width: 500px; margin: 0 auto; }
+        .pricing-box h3 { color: var(--primary); font-size: 1.5rem; margin-bottom: 20px; }
+        .pricing-box p { color: var(--gray); font-size: 1rem; margin-bottom: 12px; }
+        
+        .cta-section { text-align: center; padding: 50px 40px; background: var(--gradient); color: white; border-radius: 32px; margin: 40px 0; }
+        .cta-section h2 { font-size: 1.8rem; margin-bottom: 16px; }
+        .btn-cta { background: white; color: var(--primary); border: none; padding: 14px 36px; border-radius: 50px; font-weight: 700; font-size: 1rem; text-decoration: none; display: inline-block; margin: 0 10px; transition: all 0.2s; }
+        .btn-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+        .btn-cta-outline { background: transparent; border: 2px solid white; color: white; padding: 12px 32px; border-radius: 50px; font-weight: 600; font-size: 1rem; text-decoration: none; display: inline-block; margin: 0 10px; transition: all 0.2s; }
+        .btn-cta-outline:hover { background: white; color: var(--primary); }
+        
+        .footer { background: #0a4a5a; color: white; padding: 40px 0 20px; margin-top: 60px; text-align: center; }
+        .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px; }
+        .footer-logo, .footer-links, .footer-contact { flex: 1; min-width: 200px; text-align: left; }
+        .footer-logo img { width: 120px; margin-bottom: 16px; }
+        .footer-logo p { font-size: 0.85rem; line-height: 1.5; color: #cbd5e0; }
+        .footer-links h4, .footer-contact h4 { color: white; margin-bottom: 16px; font-size: 1rem; }
+        .footer-links ul { list-style: none; padding: 0; }
+        .footer-links ul li { margin-bottom: 8px; }
+        .footer-links ul li a { color: #cbd5e0; text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+        .footer-links ul li a:hover { color: #e83e8c; }
+        .footer-contact p { font-size: 0.85rem; margin-bottom: 8px; color: #cbd5e0; display: flex; align-items: center; gap: 8px; }
+        .social-icons { display: flex; gap: 12px; margin-top: 16px; }
+        .social-icons a { display: inline-block; transition: transform 0.2s; }
+        .social-icons a:hover { transform: translateY(-3px); }
+        .social-icons img { width: 28px; height: 28px; }
+        .footer-bottom { text-align: center; padding-top: 30px; margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.75rem; color: #94a3b8; }
+        
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.8rem; }
+            .two-col { grid-template-columns: 1fr; gap: 30px; }
+            .three-col { grid-template-columns: 1fr; }
+            .section-title { font-size: 1.5rem; }
+            .process-steps { flex-direction: column; }
+            .btn-cta, .btn-cta-outline { display: block; margin: 12px auto; width: fit-content; }
+            .col-content h2 { font-size: 1.5rem; }
+            .footer-container { flex-direction: column; text-align: center; }
+            .footer-logo, .footer-links, .footer-contact { text-align: center; }
+            .footer-contact p { justify-content: center; }
+            .social-icons { justify-content: center; }
+        }
+    </style>
 </head>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
-  body {
-    font-family: 'Be Vietnam Pro', sans-serif;
-  }
-</style>
 <body>
-  <!-- HEADER -->
-<header class="header">
-  <div class="container header-container">
-    <!-- Logo + Navbar nằm cùng dòng -->
-    <a href="index.html" class="logo">
-      <img src="images/hinhremovenen.png" alt="Sophia Logo" />
-    </a>
-    <!-- Nút menu toggle chỉ hiện trên mobile -->
-<div class="menu-toggle" onclick="document.querySelector('.navbar').classList.toggle('show-menu')">
-  ☰
-</div>
-    <nav class="navbar">
-      <ul>
-        <li><a href="index.html">Trang chủ</a></li>
-        <li><a href="about.html">Giới thiệu</a></li>
-        <li><a href="services.html">Dịch vụ</a></li>
-        <li><a href="blog.html">Blog</a></li>
-        <li><a href="contact.html">Liên hệ</a></li>
-      </ul>
-    </nav>
-  </div>
-
-  <!-- Banner nằm dưới -->
-  <div class="banner">
-    <img src="images/rs1.png" alt="Sophia Nguyễn – Đồng hành & Sẻ chia" class="banner-img" />
-  </div>
-</header>
-   <!-- DỊCH VỤ -->
-  <h2 class="section-title" data-aos="fade-down-right" data-aos-duration="1000">Dịch vụ nổi bật</h2>
-  <div class="grid" data-aos="flip-left" data-aos-duration="1000">
-      
-  <section class="box">
-    <h2>Bạn đang gặp phải những vấn đề này?</h2>
-      Cảm thấy stress, bế tắc hoặc trống rỗng mà không rõ lý do.<br>
-      Gặp khó khăn trong các mối quan hệ: gia đình, người yêu, bạn bè, con cái.<br>
-      Thường xuyên lo lắng, cáu giận, tự trách bản thân hoặc mất kiểm soát cảm xúc.<br>
-      Đang trong giai đoạn khủng hoảng tâm lý sau ly hôn, mất mát, biến cố.<br>
-   </section>
-
-  <section class="box">
-    <h2>Quy trình tư vấn</h2>
-       <strong>Bước 1:</strong> Đặt lịch – chọn hình thức phù hợp (online hoặc gặp trực tiếp).<br>
-      <strong>Bước 2:</strong> Buổi đầu tiên – Lắng nghe & định hướng vấn đề.<br>
-      <strong>Bước 3:</strong> Tư vấn chuyên sâu – Đồng hành theo nhu cầu.<br>
-      <strong>Bước 4:</strong> Tổng kết – Gợi ý chăm sóc tinh thần lâu dài.<br>
-  </section>
-
-  <section class="box">
-    <h2>Phương pháp & phong cách làm việc</h2>
-    <p>Sophia kết hợp những kiến thức, kinh nghiệm và trải nghiệm để tiếp cận khách hàng với phong cách nhẹ nhàng – kiên nhẫn – thấu cảm – không phán xét.</p>
-  </section>
-
-  <section class="box">
-    <h2>Thông tin đặt lịch & phí dịch vụ</h2>
-      <strong>Hình thức:</strong> Online (Zoom/Google Meet) hoặc Trực tiếp tại TP.HCM.<br>
-      <strong>Thời lượng:</strong> 50 phút / buổi.<br>
-      <strong>Mức phí:</strong> Liên hệ để trao đổi riêng tùy từng trường hợp cụ thể.
-   </section>
-    
-<div class="service-container">
-    <a href="index.html" class="back-button">← Quay về trang chủ</a>
-
-  <section class="cta-section">
-  <h2>Bạn không cần phải mạnh mẽ suốt cả hành trình.</h2> <br>
-   <h2>Hãy để hành trình chữa lành bắt đầu từ một buổi trò chuyện đầy thấu cảm...></h2>
-  </section>
-  
-    <section class="cta-section" data-aos="zoom-in">
-    <a href="https://zalo.me/0977092182" class="cta-datlich">📅 Đặt lịch tư vấn</a>
-    <a href="contact.html" class="cta-datlich">📩 Gửi tin nhắn cho Sophia</a>
-  </section>
-</div>
-  </div>
-  <footer class="footer" data-aos="fade-up">
-    <div class="footer-container">
-      <div class="footer-logo">
-        <img src="images/hinhremovenen.png" alt="Logo Sophia">
-        <p>Đồng hành & Sẻ chia cùng bạn trên hành trình tâm lý – phát triển – yêu thương.</p>
-      </div>
-
-      <div class="footer-links">
-        <strong><h4>Dịch vụ</h4></strong>
-        <ul>
-          <li><a href="#">Tư vấn tâm lý</a></li>
-          <li><a href="#">Định hướng nghề nghiệp</a></li>
-          <li><a href="#">Đào tạo kỹ năng</a></li>
-          <li><a href="#">Sinh trắc vân tay</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-contact">
-        <strong><h4>Liên hệ</h4></strong>
-        <p>📧 sophianguyen2891@gmail.com</p>
-        <p>📞 0977092182</p>
-        <p>🏠 Tân Bình - TPHCM </p>
-        <div class="social-icons">
-          <a href="https://www.facebook.com/Sophiadiemhang1982"><img src="images/fb.png" alt="FB" /></a>
-          <a href="https://www.tiktok.com/@sophia.nguyen2014?is_from_webapp=1&sender_device=pc"><img src="images/tiktok.png" alt="TikTok" /></a>
-          <a href="https://www.youtube.com/@sophianguyen1982-dh"><img src="images/youtube.png" alt="YouTube" /></a>
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <img src="images/hinhremovenen.png" alt="Sophia Logo" />
+            </a>
+            <div class="menu-toggle" onclick="document.querySelector('.navbar').classList.toggle('show-menu')">☰</div>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="index.html">Trang chủ</a></li>
+                    <li><a href="about.html">Giới thiệu</a></li>
+                    <li><a href="services.html">Dịch vụ</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Liên hệ</a></li>
+                </ul>
+            </nav>
         </div>
-      </div>
+        <div class="banner">
+            <img src="images/rs1.png" alt="Sophia Nguyễn – Đồng hành & Sẻ chia" class="banner-img" style="width: 100%; height: auto; display: block;" />
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>🌿 Tham vấn tâm lý</h1>
+            <p>Đồng hành chữa lành cùng bạn trong từng giai đoạn – nhẹ nhàng, thấu cảm, không phán xét</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- BẠN ĐANG GẶP VẤN ĐỀ? -->
+        <section class="section" data-aos="fade-up">
+            <div class="two-col">
+                <div class="col-content">
+                    <h2>Bạn đang gặp phải những vấn đề này?</h2>
+                    <ul>
+                        <li><i class="fas fa-heart-broken"></i> Cảm thấy stress, bế tắc hoặc trống rỗng mà không rõ lý do</li>
+                        <li><i class="fas fa-users"></i> Gặp khó khăn trong các mối quan hệ: gia đình, người yêu, bạn bè, con cái</li>
+                        <li><i class="fas fa-angry"></i> Thường xuyên lo lắng, cáu giận, tự trách bản thân hoặc mất kiểm soát cảm xúc</li>
+                        <li><i class="fas fa-cloud-rain"></i> Đang trong giai đoạn khủng hoảng tâm lý sau ly hôn, mất mát, biến cố</li>
+                    </ul>
+                </div>
+                <div class="col-image">
+                    <i class="fas fa-seedling"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- QUY TRÌNH TƯ VẤN -->
+        <section class="section" data-aos="fade-up">
+            <h2 class="section-title">Quy trình tư vấn</h2>
+            <div class="process-steps">
+                <div class="step"><div class="step-num">1</div><h4>Đặt lịch</h4><p>Chọn hình thức phù hợp (online hoặc gặp trực tiếp)</p></div>
+                <div class="step"><div class="step-num">2</div><h4>Buổi đầu tiên</h4><p>Lắng nghe & định hướng vấn đề</p></div>
+                <div class="step"><div class="step-num">3</div><h4>Tư vấn chuyên sâu</h4><p>Đồng hành theo nhu cầu</p></div>
+                <div class="step"><div class="step-num">4</div><h4>Tổng kết</h4><p>Gợi ý chăm sóc tinh thần lâu dài</p></div>
+            </div>
+        </section>
+
+        <!-- PHƯƠNG PHÁP LÀM VIỆC -->
+        <section class="section" data-aos="fade-up">
+            <div class="two-col reverse">
+                <div class="col-content">
+                    <h2>Phương pháp & phong cách làm việc</h2>
+                    <p>Sophia kết hợp những kiến thức, kinh nghiệm và trải nghiệm để tiếp cận khách hàng với phong cách nhẹ nhàng – kiên nhẫn – thấu cảm – không phán xét.</p>
+                    <p>Mỗi câu chuyện được lắng nghe một cách trọn vẹn, mỗi cảm xúc được tôn trọng. Sophia ở đây để đồng hành, không phán xét, không ép buộc.</p>
+                </div>
+                <div class="col-image">
+                    <i class="fas fa-hand-holding-heart"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- THÔNG TIN ĐẶT LỊCH -->
+        <section class="section" data-aos="fade-up">
+            <h2 class="section-title">Thông tin đặt lịch & phí dịch vụ</h2>
+            <div class="pricing-box">
+                <h3>📅 Thông tin buổi tư vấn</h3>
+                <p><i class="fas fa-video"></i> Hình thức: Online (Zoom/Google Meet) hoặc Trực tiếp tại TP.HCM</p>
+                <p><i class="fas fa-clock"></i> Thời lượng: 50 phút / buổi</p>
+                <p><i class="fas fa-phone-alt"></i> Mức phí: Liên hệ để trao đổi riêng tùy từng trường hợp cụ thể</p>
+                <p style="font-size: 0.85rem; margin-top: 16px;">* Sophia sẽ tư vấn miễn phí 15 phút đầu để hiểu rõ nhu cầu của bạn</p>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section" data-aos="zoom-in-up">
+            <h2>🌱 Bạn không cần phải mạnh mẽ suốt cả hành trình</h2>
+            <p style="margin-bottom: 24px; font-size: 1rem;">Hãy để hành trình chữa lành bắt đầu từ một buổi trò chuyện đầy thấu cảm...</p>
+            <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+                <a href="https://zalo.me/0977092182" class="btn-cta">📅 Đặt lịch tư vấn</a>
+                <a href="contact.html" class="btn-cta-outline">📩 Gửi tin nhắn cho Sophia</a>
+            </div>
+        </section>
+
+        <div style="text-align: center; margin: 20px 0;">
+            <a href="index.html" style="color: var(--primary); text-decoration: none; font-weight: 500;">← Quay về trang chủ</a>
+        </div>
     </div>
-    <div class="footer-bottom">
-      <p> Copyright ©2024 Sophia Nguyễn. All rights reserved.</p>
-    </div>
-  </footer>
-   
-    
-  <!-- Script AOS -->
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-  <script>
-    AOS.init({
-      duration: 1000,
-      once: true
-    });
-  </script>
+
+    <footer class="footer" data-aos="fade-up">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="images/hinhremovenen.png" alt="Logo Sophia">
+                <p>Đồng hành & Sẻ chia cùng bạn trên hành trình tâm lý – phát triển – yêu thương.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Dịch vụ</h4>
+                <ul>
+                    <li><a href="#">Tham vấn tâm lý</a></li>
+                    <li><a href="#">Định hướng nghề nghiệp</a></li>
+                    <li><a href="#">Đào tạo kỹ năng</a></li>
+                    <li><a href="#">Sinh trắc vân tay</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Liên hệ</h4>
+                <p>📧 sophianguyen2891@gmail.com</p>
+                <p>📞 0977092182</p>
+                <p>🏠 Tân Bình - TPHCM</p>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/Sophiadiemhang1982"><img src="images/fb.png" alt="FB" /></a>
+                    <a href="https://www.tiktok.com/@sophia.nguyen2014"><img src="images/tiktok.png" alt="TikTok" /></a>
+                    <a href="https://www.youtube.com/@sophianguyen1982-dh"><img src="images/youtube.png" alt="YouTube" /></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Copyright ©2024 Sophia Nguyễn. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true, duration: 1000, easing: 'ease-out-cubic' });
+    </script>
 </body>
 </html>
-
- 
