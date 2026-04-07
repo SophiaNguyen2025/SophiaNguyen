@@ -18,50 +18,50 @@
             --gradient: linear-gradient(135deg, #dc2626 0%, #ef4444 50%, #f87171 100%);
             --gradient-soft: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
         }
-        body { font-family: 'Be Vietnam Pro', sans-serif; line-height: 1.6; color: var(--dark); background: var(--gradient-soft); }
+        body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--gradient-soft); color: var(--dark); }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
         
-        .navbar { background: var(--white); box-shadow: 0 2px 20px rgba(0,0,0,0.05); padding: 1rem 0; position: sticky; top: 0; z-index: 100; }
+        .navbar { background: white; box-shadow: 0 2px 20px rgba(0,0,0,0.05); padding: 1rem 0; position: sticky; top: 0; z-index: 100; }
         .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
         .logo { font-size: 1.5rem; font-weight: bold; background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; display: flex; align-items: center; gap: 10px; }
         .logo i { background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; font-size: 1.8rem; }
         .nav-links { display: flex; gap: 2rem; list-style: none; }
-        .nav-links a { text-decoration: none; color: var(--gray); font-weight: 500; transition: color 0.2s; }
+        .nav-links a { text-decoration: none; color: var(--gray); font-weight: 500; }
         .nav-links a:hover, .nav-links a.active { color: var(--primary); }
         .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; }
         
         .hero { background: var(--gradient); padding: 60px 0 50px; text-align: center; color: white; border-radius: 0 0 40px 40px; }
         .hero h1 { font-size: 2.2rem; margin-bottom: 1rem; }
-        .hero p { font-size: 1.1rem; max-width: 700px; margin: 0 auto; opacity: 0.95; }
+        .hero p { font-size: 1.1rem; max-width: 700px; margin: 0 auto; }
         
         .section { padding: 50px 0; }
         .section-title { text-align: center; font-size: 2rem; color: var(--primary); margin-bottom: 16px; }
-        .section-sub { text-align: center; color: var(--gray); margin-bottom: 40px; max-width: 700px; margin-left: auto; margin-right: auto; }
         
-        .chapters-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 30px; margin: 40px 0; }
-        .chapter-card { background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: all 0.3s; border: 1px solid var(--light-gray); }
-        .chapter-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
-        .chapter-header { background: var(--gradient); padding: 20px; color: white; text-align: center; }
-        .chapter-number { font-size: 1.2rem; font-weight: bold; opacity: 0.9; }
-        .chapter-header h3 { font-size: 1.1rem; margin-top: 8px; }
-        .chapter-content { padding: 20px; }
-        .chapter-desc { color: var(--gray); font-size: 0.9rem; margin-bottom: 16px; line-height: 1.5; }
-        .material-list { list-style: none; margin-top: 16px; padding-top: 16px; border-top: 1px dashed var(--light-gray); }
-        .material-list li { font-size: 0.8rem; padding: 4px 0; color: var(--primary); display: flex; align-items: center; gap: 8px; }
-        .material-list li i { font-size: 0.7rem; }
+        .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 30px; margin: 40px 0; }
+        .course-card { background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: all 0.3s; border: 1px solid var(--light-gray); }
+        .course-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
+        .course-header { background: var(--gradient); padding: 20px; color: white; text-align: center; }
+        .course-icon { font-size: 2.5rem; margin-bottom: 8px; }
+        .course-header h3 { font-size: 1.1rem; }
+        .course-content { padding: 20px; }
+        .course-desc { color: var(--gray); font-size: 0.9rem; margin-bottom: 16px; }
+        .course-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--light-gray); }
+        .course-price { font-weight: bold; font-size: 1.2rem; color: var(--primary); }
+        .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); padding: 8px 20px; border-radius: 40px; cursor: pointer; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.2s; }
+        .btn-outline:hover { background: var(--primary); color: white; }
         
         .cta-section { text-align: center; padding: 50px 40px; background: var(--gradient); color: white; border-radius: 32px; margin: 40px 0; }
-        .btn-cta { background: white; color: var(--primary); border: none; padding: 14px 32px; border-radius: 50px; font-weight: 700; text-decoration: none; display: inline-block; margin: 0 8px; }
+        .btn-cta { background: white; color: var(--primary); padding: 14px 32px; border-radius: 50px; font-weight: 700; text-decoration: none; display: inline-block; margin: 0 8px; }
         .btn-cta-outline { background: transparent; border: 2px solid white; color: white; padding: 12px 28px; border-radius: 50px; font-weight: 600; text-decoration: none; display: inline-block; margin: 0 8px; }
-        .btn-cta-outline:hover { background: white; color: var(--primary); }
         
-        .footer { background: var(--dark); color: white; padding: 40px 0 20px; margin-top: 60px; text-align: center; }
-                @media (max-width: 768px) {
+        .footer { background: var(--dark); color: white; padding: 40px 0 20px; text-align: center; margin-top: 60px; }
+        
+        @media (max-width: 768px) {
             .nav-links { display: none; }
             .menu-toggle { display: block; }
             .hero h1 { font-size: 1.6rem; }
             .section-title { font-size: 1.5rem; }
-            .chapters-grid { grid-template-columns: 1fr; }
+            .courses-grid { grid-template-columns: 1fr; }
             .btn-cta, .btn-cta-outline { display: block; margin: 12px auto; width: fit-content; }
         }
     </style>
@@ -73,7 +73,7 @@
             <div class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">☰</div>
             <ul class="nav-links">
                 <li><a href="https://sophianguyen.com.vn">Trang chủ</a></li>
-                <li><a href="index.html" class="active">Khóa học kỹ năng an toàn</a></li>
+                <li><a href="index.html" class="active">Khóa an toàn</a></li>
                 <li><a href="https://sophianguyen.com.vn/khoa-hoc/gioi-tinh/gioi-thieu/">Khóa giới tính</a></li>
                 <li><a href="https://sophianguyen.com.vn/khoa-hoc/cha-me/gioi-thieu/">Khóa cha mẹ</a></li>
             </ul>
@@ -83,25 +83,12 @@
     <section class="hero">
         <div class="container">
             <h1>🛡️ Biệt đội bảo vệ – Kỹ năng an toàn cho trẻ 5-10 tuổi</h1>
-            <p>Trang bị kỹ năng phòng tránh tai nạn, bạo lực, xâm hại, đuối nước, bắt cóc... giúp con tự tin bảo vệ bản thân</p>
+            <p>8 bài học độc lập, trang bị kỹ năng phòng tránh tai nạn, bạo lực, xâm hại, đuối nước, bắt cóc...</p>
         </div>
     </section>
 
     <div class="container">
-        <section class="section">
-            <h2 class="section-title">8 kỹ năng an toàn thiết yếu</h2>
-            <p class="section-sub">Mỗi kỹ năng gồm video bài giảng + tài liệu + thẻ bài tập tương tác</p>
-            <div class="chapters-grid">
-                <div class="chapter-card"><div class="chapter-header"><div class="chapter-number">Kỹ năng 1</div><h3>Phòng chống tai nạn thương tích</h3></div><div class="chapter-content"><p class="chapter-desc">Nhận biết nguy cơ tai nạn trong nhà, trường học, nơi công cộng và cách phòng tránh.</p><ul class="material-list"><li><i class="fas fa-check-circle"></i> Video bài giảng</li><li><i class="fas fa-check-circle"></i> Tài liệu PDF</li><li><i class="fas fa-check-circle"></i> Thẻ hỏi đáp + Nhiệm vụ + Tương tác</li></ul></div></div>
-                <div class="chapter-card"><div class="chapter-header"><div class="chapter-number">Kỹ năng 2</div><h3>Phòng tránh bạo lực học đường</h3></div><div class="chapter-content"><p class="chapter-desc">Nhận diện bạo lực thể chất và tinh thần, cách ứng phó và tìm kiếm sự giúp đỡ.</p><ul class="material-list"><li><i class="fas fa-check-circle"></i> Video bài giảng</li><li><i class="fas fa-check-circle"></i> Tài liệu PDF</li><li><i class="fas fa-check-circle"></i> Thẻ hỏi đáp + Nhiệm vụ + Tương tác</li></ul></div></div>
-                <div class="chapter-card"><div class="chapter-header"><div class="chapter-number">Kỹ năng 3</div><h3>Phòng chống tai nạn điện</h3></div><div class="chapter-content"><p class="chapter-desc">An toàn khi sử dụng điện, nhận biết dây điện hở, ổ cắm nguy hiểm và cách xử lý.</p><ul class="material-list"><li><i class="fas fa-check-circle"></i> Video bài giảng</li><li><i class="fas fa-check-circle"></i> Tài liệu PDF</li><li><i class="fas fa-check-circle"></i> Thẻ hỏi đáp + Nhiệm vụ + Tương tác</li></ul></div></div>
-                <div class="chapter-card"><div class="chapter-header"><div class="chapter-number">Kỹ năng 4</div><h3>Dinh dưỡng cho trẻ em</h3></div><div class="chapter-content"><p class="chapter-desc">Xây dựng thói quen ăn uống lành mạnh, lựa chọn thực phẩm an toàn và bổ dưỡng.</p><ul class="material-list"><li><i class="fas fa-check-circle"></i> Video bài giảng</li><li><i class="fas fa-check-circle"></i> Tài liệu PDF</li><li><i class="fas fa-check-circle"></i> Thẻ hỏi đáp + Nhiệm vụ + Tương tác</li></ul></div></div>
-                <div class="chapter-card"><div class="chapter-header"><div class="chapter-number">Kỹ năng 5</div><h3>Phòng tránh xâm hại</h3></div><div class="chapter-content"><p class="chapter-desc">Nhận biết vùng riêng tư, quy tắc an toàn cơ thể, cách nói không và tìm kiếm sự giúp đỡ.</p><ul class="material-list"><li><i class="fas fa-check-circle"></i> Video bài giảng</li><li><i class="fas fa-check-circle"></i> Tài liệu PDF</li><li><i class="fas fa-check-circle"></i> Thẻ hỏi đáp + Nhiệm vụ + Tương tác</li></ul></div></div>
-                <div class="chapter-card"><div class="chapter-header"><div class="chapter-number">Kỹ năng 6</div><h3>Phòng chống hỏa hoạn</h3></div><div class="chapter-content"><p class="chapter-desc">Kỹ năng thoát hiểm khi có cháy, cách sử dụng bình chữa cháy và gọi cứu hỏa.</p><ul class="material-list"><li><i class="fas fa-check-circle"></i> Video bài giảng</li><li><i class="fas fa-check-circle"></i> Tài liệu PDF</li><li><i class="fas fa-check-circle"></i> Thẻ hỏi đáp + Nhiệm vụ + Tương tác</li></ul></div></div>
-                <div class="chapter-card"><div class="chapter-header"><div class="chapter-number">Kỹ năng 7</div><h3>Phòng tránh đuối nước</h3></div><div class="chapter-content"><p class="chapter-desc">Nguyên tắc an toàn khi bơi, nhận biết vùng nước nguy hiểm và kỹ năng cứu đuối cơ bản.</p><ul class="material-list"><li><i class="fas fa-check-circle"></i> Video bài giảng</li><li><i class="fas fa-check-circle"></i> Tài liệu PDF</li><li><i class="fas fa-check-circle"></i> Thẻ hỏi đáp + Nhiệm vụ + Tương tác</li></ul></div></div>
-                <div class="chapter-card"><div class="chapter-header"><div class="chapter-number">Kỹ năng 8</div><h3>Phòng chống bắt cóc</h3></div><div class="chapter-content"><p class="chapter-desc">Nhận diện thủ đoạn của kẻ xấu, kỹ năng chạy thoát và gọi cứu trợ khi bị bắt cóc.</p><ul class="material-list"><li><i class="fas fa-check-circle"></i> Video bài giảng</li><li><i class="fas fa-check-circle"></i> Tài liệu PDF</li><li><i class="fas fa-check-circle"></i> Thẻ hỏi đáp + Nhiệm vụ + Tương tác</li></ul></div></div>
-            </div>
-        </section>
+        <div class="courses-grid" id="coursesGrid"></div>
 
         <div class="cta-section">
             <h2>🚀 Sẵn sàng trang bị kỹ năng an toàn cho con?</h2>
@@ -114,8 +101,42 @@
     <footer class="footer">
         <div class="container">
             <p>🛡️ Đồng hành cùng con yêu - Sophia Nguyễn</p>
-            <p style="font-size: 0.8rem;">📧 sophianguyen2891@gmail.com | 📞 0977092182</p>
+            <p>📧 sophianguyen2891@gmail.com | 📞 0977092182</p>
         </div>
     </footer>
+
+    <script>
+        const courses = [
+            { id: 1, name: "Phòng chống tai nạn thương tích", icon: "🩹", price: "99.000đ", desc: "Nhận biết nguy cơ tai nạn trong nhà, trường học, nơi công cộng và cách phòng tránh." },
+            { id: 2, name: "Phòng tránh bạo lực học đường", icon: "🤝", price: "99.000đ", desc: "Nhận diện bạo lực thể chất và tinh thần, cách ứng phó và tìm kiếm sự giúp đỡ." },
+            { id: 3, name: "Phòng chống tai nạn điện", icon: "⚡", price: "99.000đ", desc: "An toàn khi sử dụng điện, nhận biết dây điện hở, ổ cắm nguy hiểm và cách xử lý." },
+            { id: 4, name: "Dinh dưỡng cho trẻ em", icon: "🥗", price: "99.000đ", desc: "Xây dựng thói quen ăn uống lành mạnh, lựa chọn thực phẩm an toàn và bổ dưỡng." },
+            { id: 5, name: "Phòng tránh xâm hại", icon: "🛡️", price: "99.000đ", desc: "Nhận biết vùng riêng tư, quy tắc an toàn cơ thể, cách nói không và tìm kiếm sự giúp đỡ." },
+            { id: 6, name: "Phòng chống hỏa hoạn", icon: "🔥", price: "99.000đ", desc: "Kỹ năng thoát hiểm khi có cháy, cách sử dụng bình chữa cháy và gọi cứu hỏa." },
+            { id: 7, name: "Phòng tránh đuối nước", icon: "🏊", price: "99.000đ", desc: "Nguyên tắc an toàn khi bơi, nhận biết vùng nước nguy hiểm và kỹ năng cứu đuối." },
+            { id: 8, name: "Phòng chống bắt cóc", icon: "🚨", price: "99.000đ", desc: "Nhận diện thủ đoạn của kẻ xấu, kỹ năng chạy thoát và gọi cứu trợ khi bị bắt cóc." }
+        ];
+        
+        function renderCourses() {
+            const grid = document.getElementById('coursesGrid');
+            if (!grid) return;
+            grid.innerHTML = courses.map(c => `
+                <div class="course-card">
+                    <div class="course-header">
+                        <div class="course-icon">${c.icon}</div>
+                        <h3>${c.name}</h3>
+                    </div>
+                    <div class="course-content">
+                        <p class="course-desc">${c.desc}</p>
+                        <div class="course-footer">
+                            <span class="course-price">${c.price}</span>
+                            <button class="btn-outline" onclick="window.open('https://sophianguyen.com.vn/khoa-hoc/ky-nang-an-toan/', '_blank')">Mua ngay</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        renderCourses();
+    </script>
 </body>
 </html>
