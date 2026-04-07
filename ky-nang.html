@@ -24,16 +24,13 @@
         body { font-family: 'Be Vietnam Pro', sans-serif; line-height: 1.6; color: var(--dark); background: var(--gradient-soft); }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
         
-        /* Hero */
         .hero { background: var(--gradient); padding: 70px 0 50px; text-align: center; color: white; border-radius: 0 0 40px 40px; }
         .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
         .hero p { font-size: 1.15rem; max-width: 700px; margin: 0 auto; opacity: 0.95; }
         
-        /* Section */
         .section { padding: 60px 0; }
         .section-title { text-align: center; font-size: 2rem; color: var(--primary); margin-bottom: 16px; }
         
-        /* Grid 2 cột */
         .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
         .two-col.reverse { direction: rtl; }
         .two-col.reverse > * { direction: ltr; }
@@ -45,7 +42,6 @@
         .col-image { text-align: center; }
         .col-image i { font-size: 7rem; color: var(--primary); opacity: 0.8; }
         
-        /* Grid 3 cột */
         .three-col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin: 40px 0; }
         .feature-card { background: white; border-radius: 24px; padding: 32px 24px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s; border: 1px solid var(--light-gray); }
         .feature-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
@@ -53,14 +49,12 @@
         .feature-card h3 { font-size: 1.25rem; margin-bottom: 12px; color: var(--primary); }
         .feature-card p { color: var(--gray); font-size: 0.95rem; line-height: 1.5; }
         
-        /* Process Steps */
         .process-steps { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; margin: 40px 0; }
         .step { flex: 1; min-width: 200px; text-align: center; padding: 25px 20px; background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .step-num { width: 45px; height: 45px; background: var(--gradient); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; margin: 0 auto 16px; }
         .step h4 { color: var(--primary); margin-bottom: 10px; font-size: 1.1rem; }
         .step p { color: var(--gray); font-size: 0.9rem; }
         
-        /* CTA */
         .cta-section { text-align: center; padding: 50px 40px; background: var(--gradient); color: white; border-radius: 32px; margin: 40px 0; }
         .cta-section h2 { font-size: 1.8rem; margin-bottom: 16px; }
         .btn-cta { background: white; color: var(--primary); border: none; padding: 14px 36px; border-radius: 50px; font-weight: 700; font-size: 1rem; text-decoration: none; display: inline-block; margin: 0 10px; transition: all 0.2s; }
@@ -68,10 +62,24 @@
         .btn-cta-outline { background: transparent; border: 2px solid white; color: white; padding: 12px 32px; border-radius: 50px; font-weight: 600; font-size: 1rem; text-decoration: none; display: inline-block; margin: 0 10px; transition: all 0.2s; }
         .btn-cta-outline:hover { background: white; color: var(--primary); }
         
-        /* Footer */
-.footer { background: #0a4a5a; color: white; padding: 40px 0 20px; margin-top: 60px; text-align: center; }
-
-            @media (max-width: 768px) {
+        .footer { background: #0a4a5a; color: white; padding: 40px 0 20px; margin-top: 60px; text-align: center; }
+        .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px; }
+        .footer-logo, .footer-links, .footer-contact { flex: 1; min-width: 200px; text-align: left; }
+        .footer-logo img { width: 120px; margin-bottom: 16px; }
+        .footer-logo p { font-size: 0.85rem; line-height: 1.5; color: #cbd5e0; }
+        .footer-links h4, .footer-contact h4 { color: white; margin-bottom: 16px; font-size: 1rem; }
+        .footer-links ul { list-style: none; padding: 0; }
+        .footer-links ul li { margin-bottom: 8px; }
+        .footer-links ul li a { color: #cbd5e0; text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+        .footer-links ul li a:hover { color: #e83e8c; }
+        .footer-contact p { font-size: 0.85rem; margin-bottom: 8px; color: #cbd5e0; display: flex; align-items: center; gap: 8px; }
+        .social-icons { display: flex; gap: 12px; margin-top: 16px; }
+        .social-icons a { display: inline-block; transition: transform 0.2s; }
+        .social-icons a:hover { transform: translateY(-3px); }
+        .social-icons img { width: 28px; height: 28px; }
+        .footer-bottom { text-align: center; padding-top: 30px; margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.75rem; color: #94a3b8; }
+        
+        @media (max-width: 768px) {
             .hero h1 { font-size: 1.8rem; }
             .two-col { grid-template-columns: 1fr; gap: 30px; }
             .three-col { grid-template-columns: 1fr; }
@@ -79,11 +87,14 @@
             .process-steps { flex-direction: column; }
             .btn-cta, .btn-cta-outline { display: block; margin: 12px auto; width: fit-content; }
             .col-content h2 { font-size: 1.5rem; }
+            .footer-container { flex-direction: column; text-align: center; }
+            .footer-logo, .footer-links, .footer-contact { text-align: center; }
+            .footer-contact p { justify-content: center; }
+            .social-icons { justify-content: center; }
         }
     </style>
 </head>
 <body>
-    <!-- HEADER -->
     <header class="header">
         <div class="container header-container">
             <a href="index.html" class="logo">
@@ -105,7 +116,6 @@
         </div>
     </header>
 
-    <!-- HERO -->
     <section class="hero">
         <div class="container">
             <h1>🌟 Đào tạo kỹ năng sống</h1>
@@ -114,7 +124,6 @@
     </section>
 
     <div class="container">
-        <!-- GIỚI THIỆU -->
         <section class="section" data-aos="fade-up">
             <div class="two-col">
                 <div class="col-content">
@@ -122,13 +131,10 @@
                     <p>Theo độ tuổi và nhu cầu riêng của từng cá nhân hoặc nhóm. Phương pháp thực hành, trò chơi, tình huống cụ thể – không lý thuyết suông.</p>
                     <p>Phù hợp cho học sinh, sinh viên, người đi làm – bất kỳ ai muốn phát triển bản thân và sống tự tin hơn.</p>
                 </div>
-                <div class="col-image">
-                    <i class="fas fa-chalkboard-user"></i>
-                </div>
+                <div class="col-image"><i class="fas fa-chalkboard-user"></i></div>
             </div>
         </section>
 
-        <!-- CÁC KỸ NĂNG -->
         <section class="section" data-aos="fade-up">
             <h2 class="section-title">Những kỹ năng bạn có thể học cùng Sophia</h2>
             <div class="three-col">
@@ -141,7 +147,6 @@
             </div>
         </section>
 
-        <!-- QUY TRÌNH -->
         <section class="section" data-aos="fade-up">
             <h2 class="section-title">Quy trình đào tạo / tư vấn</h2>
             <div class="process-steps">
@@ -152,7 +157,6 @@
             </div>
         </section>
 
-        <!-- PHONG CÁCH & CHI PHÍ -->
         <section class="section" data-aos="fade-up">
             <div class="two-col reverse">
                 <div class="col-content">
@@ -165,29 +169,24 @@
                         <li><i class="fas fa-check-circle"></i> Học phí: Liên hệ để thiết kế chương trình riêng</li>
                     </ul>
                 </div>
-                <div class="col-image">
-                    <i class="fas fa-calendar-alt"></i>
-                </div>
+                <div class="col-image"><i class="fas fa-calendar-alt"></i></div>
             </div>
         </section>
 
-                <!-- CTA -->
-<section class="cta-section" data-aos="zoom-in-up" style="text-align: center;">
-    <h2 style="text-align: center;">🚀 Mỗi kỹ năng sống là một bước chuẩn bị</h2>
-    <p style="margin-bottom: 24px; font-size: 1rem; text-align: center;">Để bạn đối diện cuộc đời vững vàng hơn – và sống đúng với chính mình hơn.</p>
-    <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
-        <a href="https://zalo.me/0977092182" class="btn-cta">📅 Đặt lịch tư vấn</a>
-        <a href="contact.html" class="btn-cta-outline">📩 Gửi tin nhắn cho Sophia</a>
-    </div>
-</section>
+        <section class="cta-section" data-aos="zoom-in-up">
+            <h2>🚀 Mỗi kỹ năng sống là một bước chuẩn bị</h2>
+            <p style="margin-bottom: 24px;">Để bạn đối diện cuộc đời vững vàng hơn – và sống đúng với chính mình hơn.</p>
+            <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+                <a href="https://zalo.me/0977092182" class="btn-cta">📅 Đặt lịch tư vấn</a>
+                <a href="contact.html" class="btn-cta-outline">📩 Gửi tin nhắn cho Sophia</a>
+            </div>
+        </section>
 
-        <!-- BACK BUTTON -->
         <div style="text-align: center; margin: 20px 0;">
             <a href="index.html" style="color: var(--primary); text-decoration: none; font-weight: 500;">← Quay về trang chủ</a>
         </div>
     </div>
 
-    <!-- FOOTER -->
     <footer class="footer" data-aos="fade-up">
         <div class="footer-container">
             <div class="footer-logo">
@@ -196,12 +195,7 @@
             </div>
             <div class="footer-links">
                 <h4>Dịch vụ</h4>
-                <ul>
-                    <li><a href="#">Tham vấn tâm lý</a></li>
-                    <li><a href="#">Định hướng nghề nghiệp</a></li>
-                    <li><a href="#">Đào tạo kỹ năng</a></li>
-                    <li><a href="#">Sinh trắc vân tay</a></li>
-                </ul>
+                <ul><li><a href="#">Tham vấn tâm lý</a></li><li><a href="#">Định hướng nghề nghiệp</a></li><li><a href="#">Đào tạo kỹ năng</a></li><li><a href="#">Sinh trắc vân tay</a></li></ul>
             </div>
             <div class="footer-contact">
                 <h4>Liên hệ</h4>
