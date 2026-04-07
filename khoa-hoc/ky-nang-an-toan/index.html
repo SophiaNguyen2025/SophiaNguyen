@@ -118,17 +118,17 @@
 
     <script>
         // ==================== CẤU HÌNH API ====================
-        const API_URL = "https://script.google.com/macros/s/AKfycbwD1E0X4QOqRqzYZ0QFq-LS4yF9LsxEBJH3QrRY_FYJlbQSeC8PAr2djP5y82djs0V9/exec"; // Thay URL của chị vào đây
+        const API_URL = "https://script.google.com/macros/s/AKfycbyiqKz6dm5NJbq2XjNtUgNP5dvPBW6Brojz9iZEntKHk4xnD8PSeuWFJbUlFE8sUiBMng/exec"; 
         
         const ALL_COURSES = [
-            { id: 1, name: "Phòng chống tai nạn thương tích", icon: "🩹", price: "99.000đ", shortDesc: "Nhận biết nguy cơ tai nạn trong nhà, trường học, nơi công cộng.", fullDesc: "Bài học giúp trẻ nhận biết các nguy cơ tai nạn thường gặp và cách xử lý an toàn." },
-            { id: 2, name: "Phòng tránh bạo lực học đường", icon: "🤝", price: "99.000đ", shortDesc: "Nhận diện bạo lực và cách ứng phó.", fullDesc: "Trang bị kỹ năng ứng phó với bạo lực học đường." },
-            { id: 3, name: "Phòng chống tai nạn điện", icon: "⚡", price: "99.000đ", shortDesc: "An toàn khi sử dụng điện.", fullDesc: "Hướng dẫn trẻ sử dụng điện an toàn." },
-            { id: 4, name: "Dinh dưỡng cho trẻ em", icon: "🥗", price: "99.000đ", shortDesc: "Thói quen ăn uống lành mạnh.", fullDesc: "Giúp trẻ hiểu về dinh dưỡng." },
-            { id: 5, name: "Phòng tránh xâm hại", icon: "🛡️", price: "99.000đ", shortDesc: "Nhận biết vùng riêng tư, quy tắc an toàn cơ thể.", fullDesc: "Trang bị kỹ năng bảo vệ cơ thể." },
-            { id: 6, name: "Phòng chống hỏa hoạn", icon: "🔥", price: "99.000đ", shortDesc: "Kỹ năng thoát hiểm khi có cháy.", fullDesc: "Hướng dẫn trẻ kỹ năng thoát hiểm an toàn." },
-            { id: 7, name: "Phòng tránh đuối nước", icon: "🏊", price: "99.000đ", shortDesc: "An toàn khi bơi, nhận biết vùng nước nguy hiểm.", fullDesc: "Trang bị kỹ năng an toàn dưới nước." },
-            { id: 8, name: "Phòng chống bắt cóc", icon: "🚨", price: "99.000đ", shortDesc: "Nhận diện thủ đoạn của kẻ xấu.", fullDesc: "Giúp trẻ nhận biết nguy cơ bị bắt cóc." }
+            { id: 1, name: "Phòng chống tai nạn thương tích", icon: "🩹", price: "49.000đ", shortDesc: "Nhận biết nguy cơ tai nạn trong nhà, trường học, nơi công cộng.", fullDesc: "Bài học giúp trẻ nhận biết các nguy cơ tai nạn thường gặp và cách xử lý an toàn." },
+            { id: 2, name: "Phòng tránh bạo lực học đường", icon: "🤝", price: "49.000đ", shortDesc: "Nhận diện bạo lực và cách ứng phó.", fullDesc: "Trang bị kỹ năng ứng phó với bạo lực học đường." },
+            { id: 3, name: "Phòng chống tai nạn điện", icon: "⚡", price: "49.000đ", shortDesc: "An toàn khi sử dụng điện.", fullDesc: "Hướng dẫn trẻ sử dụng điện an toàn." },
+            { id: 4, name: "Dinh dưỡng cho trẻ em", icon: "🥗", price: "49.000đ", shortDesc: "Thói quen ăn uống lành mạnh.", fullDesc: "Giúp trẻ hiểu về dinh dưỡng." },
+            { id: 5, name: "Phòng tránh xâm hại", icon: "🛡️", price: "49.000đ", shortDesc: "Nhận biết vùng riêng tư, quy tắc an toàn cơ thể.", fullDesc: "Trang bị kỹ năng bảo vệ cơ thể." },
+            { id: 6, name: "Phòng chống hỏa hoạn", icon: "🔥", price: "49.000đ", shortDesc: "Kỹ năng thoát hiểm khi có cháy.", fullDesc: "Hướng dẫn trẻ kỹ năng thoát hiểm an toàn." },
+            { id: 7, name: "Phòng tránh đuối nước", icon: "🏊", price: "49.000đ", shortDesc: "An toàn khi bơi, nhận biết vùng nước nguy hiểm.", fullDesc: "Trang bị kỹ năng an toàn dưới nước." },
+            { id: 8, name: "Phòng chống bắt cóc", icon: "🚨", price: "49.000đ", shortDesc: "Nhận diện thủ đoạn của kẻ xấu.", fullDesc: "Giúp trẻ nhận biết nguy cơ bị bắt cóc." }
         ];
 
         // Nội dung chi tiết từng bài (video + tài liệu) - CHỜ CHỊ ĐIỀN LINK
