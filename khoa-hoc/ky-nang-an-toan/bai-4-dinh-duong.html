@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Bài 4: Dinh dưỡng an toàn - Kỹ năng an toàn | Sophia Nguyễn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: linear-gradient(135deg, #0a4a5a, #1a6b7a);
+            font-family: 'Segoe UI', 'Be Vietnam Pro', sans-serif;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { background: white; border-radius: 32px; padding: 20px; margin-bottom: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .logo { height: 60px; margin-bottom: 10px; }
+        .header h1 { color: #0a4a5a; font-size: 1.8rem; }
+        .video-section { background: white; border-radius: 32px; padding: 20px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 24px; overflow: hidden; }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .exercise { background: white; border-radius: 32px; padding: 20px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .exercise-title { font-size: 1.5rem; color: #0a4a5a; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 3px solid #8BC34A; display: inline-block; }
+        .back-btn { display: inline-block; background: #ffd700; color: #0a4a5a; padding: 12px 24px; border-radius: 40px; text-decoration: none; font-weight: bold; margin-top: 20px; transition: all 0.2s; }
+        .back-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .footer { text-align: center; color: white; padding: 20px; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <img src="https://sophianguyen.com.vn/images/hinhremovenen.png" alt="Sophia Nguyễn" class="logo">
+        <h1>🥗 Bài 4: Dinh dưỡng an toàn</h1>
+    </div>
+
+    <!-- Video bài học -->
+    <div class="video-section">
+        <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/TpvuX8A3h9A" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- Bài tập 1: Tìm nhà cho thực phẩm -->
+    <div class="exercise">
+        <h2 class="exercise-title">🏠 Bài tập 1: Tìm nhà cho thực phẩm</h2>
+        <div id="exercise1"></div>
+    </div>
+
+    <!-- Bài tập 2: Thực phẩm Xanh - Thực phẩm Đỏ -->
+    <div class="exercise">
+        <h2 class="exercise-title">🥗 Bài tập 2: Thực phẩm Xanh - Thực phẩm Đỏ</h2>
+        <div id="exercise2"></div>
+    </div>
+
+    <!-- Bài tập 3: Bàn tay 5 KHÔNG -->
+    <div class="exercise">
+        <h2 class="exercise-title">🖐️ Bài tập 3: Bàn tay 5 KHÔNG</h2>
+        <div id="exercise3"></div>
+    </div>
+
+    <a href="https://sophianguyen.com.vn/khoa-hoc/ky-nang-an-toan/" class="back-btn">← Quay lại danh sách bài học</a>
+    <div class="footer">
+        <p>© 2025 Sophia Nguyễn - Kỹ năng an toàn cho trẻ 5-10 tuổi</p>
+    </div>
+</div>
+
+<script>
+    // ==================== BÀI TẬP 1: TÌM NHÀ CHO THỰC PHẨM ====================
+    (function() {
+        const foodsData = [
+            { id: 0, emoji: "🍚", name: "Cơm", type: "tinhbot" }, { id: 1, emoji: "🍜", name: "Mì", type: "tinhbot" },
+            { id: 2, emoji: "🥖", name: "Bánh mì", type: "tinhbot" }, { id: 3, emoji: "🥔", name: "Khoai tây", type: "tinhbot" },
+            { id: 4, emoji: "🌽", name: "Ngô", type: "tinhbot" }, { id: 5, emoji: "🍠", name: "Khoai lang", type: "tinhbot" },
+            { id: 6, emoji: "🥬", name: "Rau cải", type: "raucu" }, { id: 7, emoji: "🥕", name: "Cà rốt", type: "raucu" },
+            { id: 8, emoji: "🍅", name: "Cà chua", type: "raucu" }, { id: 9, emoji: "🥦", name: "Bông cải xanh", type: "raucu" },
+            { id: 10, emoji: "🥒", name: "Dưa chuột", type: "raucu" }, { id: 11, emoji: "🍎", name: "Táo", type: "raucu" },
+            { id: 12, emoji: "🍌", name: "Chuối", type: "raucu" }, { id: 13, emoji: "🍗", name: "Thịt gà", type: "dam" },
+            { id: 14, emoji: "🥩", name: "Thịt bò", type: "dam" }, { id: 15, emoji: "🐟", name: "Cá", type: "dam" },
+            { id: 16, emoji: "🥚", name: "Trứng", type: "dam" }, { id: 17, emoji: "🫘", name: "Đậu phụ", type: "dam" },
+            { id: 18, emoji: "🥛", name: "Sữa", type: "dam" }, { id: 19, emoji: "🧂", name: "Muối", type: "giavi" },
+            { id: 20, emoji: "🍬", name: "Đường", type: "giavi" }, { id: 21, emoji: "🫒", name: "Dầu ăn", type: "giavi" },
+            { id: 22, emoji: "🧄", name: "Tỏi", type: "giavi" }, { id: 23, emoji: "🧅", name: "Hành", type: "giavi" }
+        ];
+        let classified = { tinhbot: [], raucu: [], dam: [], giavi: [] };
+        let selectedFood = null;
+        function renderExercise1() {
+            const container = document.getElementById('exercise1');
+            const unclassified = foodsData.filter(f => !classified.tinhbot.includes(f.id) && !classified.raucu.includes(f.id) && !classified.dam.includes(f.id) && !classified.giavi.includes(f.id));
+            let html = `<div style="background:#F1F8E9; border-radius:48px; padding:15px; text-align:center; margin-bottom:20px;">📢 Click vào thực phẩm → rồi click vào NGÔI NHÀ để xếp đúng nhóm!</div>
+            <div style="background:#FFF8F0; border-radius:48px; padding:20px; margin-bottom:20px; border:2px dashed #8BC34A;"><h3 style="text-align:center; color:#558B2F;">🍎 CÁC THỰC PHẨM 🍚</h3><div style="display:flex; flex-wrap:wrap; justify-content:center; gap:16px;" id="cardsPool1">${unclassified.map(f => `<div class="food-card" data-id="${f.id}" style="background:white; width:130px; padding:15px 10px; border-radius:28px; text-align:center; cursor:pointer; border:2px solid ${selectedFood === f.id ? '#FFB347' : '#FFDEC4'};"><span style="font-size:50px;">${f.emoji}</span><div style="font-size:14px; font-weight:600;">${f.name}</div></div>`).join('')}</div>${selectedFood !== null ? '<div style="text-align:center; margin-top:10px; color:#FF8C42;">✨ Đã chọn thực phẩm: Hãy click vào NGÔI NHÀ để xếp ✨</div>' : ''}</div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; margin-bottom:20px;">
+                <div class="category" data-cat="tinhbot" style="background:#FDF8F0; border-radius:40px; padding:18px; border-top:8px solid #FFB347;"><h3 style="text-align:center;">🍚 NHÀ TINH BỘT</h3><div id="tinhbotContainer" style="display:flex; flex-wrap:wrap; gap:10px;"></div></div>
+                <div class="category" data-cat="raucu" style="background:#FDF8F0; border-radius:40px; padding:18px; border-top:8px solid #4CAF50;"><h3 style="text-align:center;">🥬 NHÀ RAU CỦ</h3><div id="raucuContainer" style="display:flex; flex-wrap:wrap; gap:10px;"></div></div>
+                <div class="category" data-cat="dam" style="background:#FDF8F0; border-radius:40px; padding:18px; border-top:8px solid #FF6B6B;"><h3 style="text-align:center;">🥩 NHÀ ĐẠM</h3><div id="damContainer" style="display:flex; flex-wrap:wrap; gap:10px;"></div></div>
+                <div class="category" data-cat="giavi" style="background:#FDF8F0; border-radius:40px; padding:18px; border-top:8px solid #9C27B0;"><h3 style="text-align:center;">🧂 NHÀ GIA VỊ</h3><div id="giaviContainer" style="display:flex; flex-wrap:wrap; gap:10px;"></div></div>
+            </div>
+            <button id="submitBtn1" style="background:#8BC34A; border:none; color:white; font-size:20px; font-weight:bold; padding:14px; border-radius:60px; cursor:pointer; width:100%; margin:10px 0;">🔍 NỘP BÀI – KIỂM TRA</button>
+            <div id="resultArea1" style="background:#F1F8E9; border-radius:40px; padding:15px; margin-top:15px; text-align:center;">💡 Hãy xếp tất cả thực phẩm vào đúng nhà nhé!</div>`;
+            container.innerHTML = html;
+            document.querySelectorAll('.food-card').forEach(card => { card.onclick = () => { selectedFood = parseInt(card.getAttribute('data-id')); renderExercise1(); }; });
+            ['tinhbot','raucu','dam','giavi'].forEach(cat => { const catDiv = document.querySelector(`.category[data-cat="${cat}"]`); if(catDiv) catDiv.onclick = (e) => { if(e.target.closest('.remove-btn')) return; if(selectedFood !== null){ const food = foodsData.find(f=>f.id===selectedFood); if(food.type === cat){ if(!classified[cat].includes(selectedFood)){ classified[cat].push(selectedFood); selectedFood = null; renderExercise1(); } } else { alert(`❌ "${food.name}" không phải nhà ${cat === 'tinhbot'?'TINH BỘT':cat==='raucu'?'RAU CỦ':cat==='dam'?'ĐẠM':'GIA VỊ'}!`); } } }; });
+            const renderContainer = (cat, containerId) => { const cont = document.getElementById(containerId); if(cont){ cont.innerHTML = ''; classified[cat].forEach(id => { const f = foodsData.find(f=>f.id===id); const div = document.createElement('div'); div.style.cssText = 'background:white; border-radius:20px; padding:8px 12px; display:inline-flex; align-items:center; gap:8px;'; div.innerHTML = `<span>${f.emoji}</span><span>${f.name}</span><button class="remove-btn" data-id="${f.id}" data-cat="${cat}" style="background:none; border:none; font-size:16px; cursor:pointer;">✖</button>`; cont.appendChild(div); }); } };
+            renderContainer('tinhbot','tinhbotContainer'); renderContainer('raucu','raucuContainer'); renderContainer('dam','damContainer'); renderContainer('giavi','giaviContainer');
+            document.querySelectorAll('.remove-btn').forEach(btn => { btn.onclick = (e) => { e.stopPropagation(); const id = parseInt(btn.getAttribute('data-id')); const cat = btn.getAttribute('data-cat'); classified[cat] = classified[cat].filter(i=>i!==id); selectedFood = null; renderExercise1(); }; });
+            document.getElementById('submitBtn1')?.addEventListener('click', () => { const total = classified.tinhbot.length+classified.raucu.length+classified.dam.length+classified.giavi.length; if(total < foodsData.length){ document.getElementById('resultArea1').innerHTML = `⚠️ Con mới xếp ${total}/${foodsData.length} thực phẩm. Hãy xếp hết rồi nộp bài nhé!`; return; } let correct = 0; foodsData.forEach(f => { if((f.type==='tinhbot' && classified.tinhbot.includes(f.id)) || (f.type==='raucu' && classified.raucu.includes(f.id)) || (f.type==='dam' && classified.dam.includes(f.id)) || (f.type==='giavi' && classified.giavi.includes(f.id))) correct++; }); const percent = Math.round(correct/foodsData.length*100); let msg = correct === foodsData.length ? '🎉 TUYỆT VỜI! Con đã xếp đúng tất cả!' : (correct >= 18 ? '👍 Rất tốt!' : '📖 Con cần học thêm!'); document.getElementById('resultArea1').innerHTML = `<div style="font-size:20px;">🏆 Điểm: ${correct}/${foodsData.length} (${percent}%) 🏆</div><div>${msg}</div><button id="resetBtn1" style="background:#FFB347; border:none; padding:12px 28px; border-radius:40px; cursor:pointer; margin-top:15px;">🔄 LÀM LẠI</button>`; document.getElementById('resetBtn1')?.addEventListener('click', () => { classified = { tinhbot: [], raucu: [], dam: [], giavi: [] }; selectedFood = null; renderExercise1(); }); });
+        }
+        renderExercise1();
+    })();
+
+    // ==================== BÀI TẬP 2: THỰC PHẨM XANH - THỰC PHẨM ĐỎ ====================
+    (function() {
+        const foods = [
+            { id:0, emoji:"🥑", name:"Quả bơ", correct:"good" }, { id:1, emoji:"🍬", name:"Kẹo hồ lô", correct:"bad" },
+            { id:2, emoji:"🍌", name:"Quả chuối", correct:"good" }, { id:3, emoji:"🍞", name:"Bánh mì mốc", correct:"bad" },
+            { id:4, emoji:"🐟", name:"Cá tươi", correct:"good" }, { id:5, emoji:"🍗", name:"Gà rán", correct:"bad" },
+            { id:6, emoji:"🌽", name:"Ngô (bắp)", correct:"good" }, { id:7, emoji:"🍜", name:"Mì tôm", correct:"bad" },
+            { id:8, emoji:"🥔", name:"Khoai tây mọc mầm", correct:"bad" }, { id:9, emoji:"🍚", name:"Cơm", correct:"good" },
+            { id:10, emoji:"🍠", name:"Khoai lang", correct:"good" }, { id:11, emoji:"🥤", name:"Nước ngọt", correct:"bad" },
+            { id:12, emoji:"🥛", name:"Sữa tươi", correct:"good" }, { id:13, emoji:"🧋", name:"Trà sữa", correct:"bad" },
+            { id:14, emoji:"🥩", name:"Thịt tươi", correct:"good" }, { id:15, emoji:"🍖", name:"Thịt nhiễm hóa chất", correct:"bad" },
+            { id:16, emoji:"🥚", name:"Trứng tươi", correct:"good" }, { id:17, emoji:"🥬", name:"Rau xanh", correct:"good" },
+            { id:18, emoji:"🍟", name:"Khoai tây chiên", correct:"bad" }, { id:19, emoji:"🍉", name:"Dưa hấu", correct:"good" },
+            { id:20, emoji:"🍪", name:"Bim bim", correct:"bad" }
+        ];
+        let userAnswers = new Array(foods.length).fill(null);
+        let submitted2 = false;
+        function renderExercise2() {
+            const container = document.getElementById('exercise2');
+            let html = `<div style="background:#F1F8E9; border-radius:48px; padding:15px; text-align:center; margin-bottom:20px;">📢 NHIỆM VỤ: Với mỗi thực phẩm, hãy chọn 🟢 XANH (tốt) hoặc 🔴 ĐỎ (không tốt)</div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:16px; margin-bottom:20px;" id="foodsGrid2"></div>
+            <button id="submitBtn2" style="background:#8BC34A; border:none; color:white; font-size:20px; font-weight:bold; padding:14px; border-radius:60px; cursor:pointer; width:100%; margin:10px 0;">🔍 NỘP BÀI – KIỂM TRA</button>
+            <div id="feedback2" style="background:#F1F8E9; border-radius:40px; padding:15px; text-align:center;">💡 Hãy chọn phân loại cho tất cả các thực phẩm nhé!</div>`;
+            container.innerHTML = html;
+            const grid = document.getElementById('foodsGrid2');
+            foods.forEach((food,idx) => {
+                const answer = userAnswers[idx];
+                const card = document.createElement('div');
+                card.style.cssText = `background:white; border-radius:28px; padding:16px; text-align:center; border:3px solid ${answer === 'good' ? '#4CAF50' : answer === 'bad' ? '#FF6B6B' : '#E0E0E0'}; ${answer ? 'background:'+(answer==='good'?'#E8F5E9':'#FFEBEE') : ''}`;
+                card.innerHTML = `<div style="font-size:60px;">${food.emoji}</div><div style="font-size:16px; font-weight:bold;">${food.name}</div>
+                <div style="display:flex; gap:10px; justify-content:center; margin-top:12px;"><button class="btn-green" data-idx="${idx}" data-choice="good" style="background:#4CAF50; color:white; padding:6px 16px; border-radius:40px; border:none; cursor:pointer;">🟢 TỐT</button><button class="btn-red" data-idx="${idx}" data-choice="bad" style="background:#FF6B6B; color:white; padding:6px 16px; border-radius:40px; border:none; cursor:pointer;">🔴 KHÔNG TỐT</button></div>`;
+                grid.appendChild(card);
+            });
+            document.querySelectorAll('.btn-green').forEach(btn => { btn.onclick = (e) => { e.stopPropagation(); if(!submitted2){ userAnswers[parseInt(btn.getAttribute('data-idx'))] = 'good'; renderExercise2(); } }; });
+            document.querySelectorAll('.btn-red').forEach(btn => { btn.onclick = (e) => { e.stopPropagation(); if(!submitted2){ userAnswers[parseInt(btn.getAttribute('data-idx'))] = 'bad'; renderExercise2(); } }; });
+            document.getElementById('submitBtn2')?.addEventListener('click', () => {
+                if(submitted2) return;
+                let all = userAnswers.every(a => a !== null);
+                if(!all){ document.getElementById('feedback2').innerHTML = '⚠️ Hãy chọn phân loại cho TẤT CẢ các thực phẩm!'; return; }
+                let correct = 0; for(let i=0;i<foods.length;i++) if(userAnswers[i] === foods[i].correct) correct++;
+                let detail = '<div style="text-align:left; margin-top:15px; max-height:300px; overflow-y:auto;"><strong>📋 KẾT QUẢ CHI TIẾT:</strong><br>';
+                for(let i=0;i<foods.length;i++){ const isOk = userAnswers[i]===foods[i].correct; detail += `<div style="padding:6px 0; border-bottom:1px solid #C8E6C9; color:${isOk?'#2E7D32':'#C62828'}">${isOk?'✅':'❌'} ${foods[i].emoji} ${foods[i].name}<br><span style="font-size:12px;">→ Con chọn: ${userAnswers[i]==='good'?'🟢 TỐT':'🔴 KHÔNG TỐT'} | Đáp án đúng: ${foods[i].correct==='good'?'🟢 TỐT':'🔴 KHÔNG TỐT'}</span></div>`; }
+                detail += '</div>';
+                document.getElementById('feedback2').innerHTML = `<div style="font-size:20px;">🏆 Điểm: ${correct}/${foods.length} 🏆</div>${detail}<button id="resetBtn2" style="background:#FFB347; border:none; padding:12px 28px; border-radius:40px; cursor:pointer; margin-top:15px;">🔄 CHƠI LẠI</button>`;
+                submitted2 = true;
+                document.getElementById('resetBtn2')?.addEventListener('click', () => { userAnswers = new Array(foods.length).fill(null); submitted2 = false; renderExercise2(); });
+            });
+        }
+        renderExercise2();
+    })();
+
+    // ==================== BÀI TẬP 3: BÀN TAY 5 KHÔNG ====================
+    (function() {
+        const rules = [
+            { emoji: "🍳🚫", title: "KHÔNG bỏ bữa sáng", desc: "Bỏ bữa sáng sẽ làm cơ thể mệt mỏi", detail: "✅ Bữa sáng rất quan trọng! Hãy ăn sáng đầy đủ để khỏe mạnh và thông minh hơn!" },
+            { emoji: "🍽️🚫", title: "KHÔNG ăn quá nhanh", desc: "Ăn quá nhanh dễ bị hóc hoặc khó tiêu", detail: "✅ Hãy nhai kỹ, ăn chậm để dạ dày dễ tiêu hóa!" },
+            { emoji: "🍕🚫", title: "KHÔNG ăn đồ hỏng, đồ hết hạn", desc: "Thực phẩm bị mốc, ôi thiu có thể gây ngộ độc", detail: "✅ Trước khi ăn, hãy nhờ bố mẹ kiểm tra hạn sử dụng!" },
+            { emoji: "🍔🚫", title: "KHÔNG ăn quá nhiều đồ ngọt, đồ chiên rán", desc: "Ăn nhiều bánh kẹo, nước ngọt dễ gây sâu răng", detail: "✅ Nên ăn nhiều rau xanh, trái cây, uống sữa và nước lọc!" },
+            { emoji: "🦐🚫", title: "KHÔNG ăn đồ gây dị ứng", desc: "Một số bạn bị dị ứng với tôm, cua, sữa...", detail: "✅ Nếu con bị dị ứng với thực phẩm nào, hãy tránh xa và nói với bố mẹ!" }
+        ];
+        let viewed = [false,false,false,false,false];
+        function renderExercise3() {
+            const container = document.getElementById('exercise3');
+            const allViewed = viewed.every(v=>v===true);
+            let html = `<div style="background:#F1F8E9; border-radius:48px; padding:15px; text-align:center; margin-bottom:20px;">🖐️ MỖI THẺ LÀ MỘT ĐIỀU "KHÔNG" 🖐️<br>Click vào thẻ để xem lời khuyên ăn uống lành mạnh!</div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:20px; margin-bottom:20px;" id="cardsGrid3"></div>
+            <div style="text-align:center; margin-bottom:20px;"><span style="background:#8BC34A; color:white; padding:8px 24px; border-radius:40px;">📚 Đã học: ${viewed.filter(v=>v===true).length}/5 quy tắc</span></div>
+            ${allViewed ? `<div style="background:#E8F5E9; border-radius:48px; padding:25px; text-align:center; border:2px solid #4CAF50;"><div style="font-size:48px;">🎉🖐️🥗🎉</div><div style="font-size:24px; font-weight:bold; color:#2E7D32;">CHÚC MỪNG CON!</div><div style="font-size:18px; margin:15px 0;">Con đã học xong <strong>5 ĐIỀU KHÔNG</strong> để ăn uống lành mạnh!</div><button id="resetBtn3" style="background:#FFB347; border:none; padding:12px 28px; border-radius:40px; cursor:pointer;">🔄 HỌC LẠI</button></div>` : `<button id="resetBtn3" style="background:#FFB347; border:none; padding:12px 28px; border-radius:40px; cursor:pointer; width:100%;">🔄 ĐÓNG TẤT CẢ THẺ</button>`}`;
+            container.innerHTML = html;
+            const grid = document.getElementById('cardsGrid3');
+            if(grid){
+                rules.forEach((rule,idx) => {
+                    const card = document.createElement('div');
+                    card.style.cssText = 'background:white; border-radius:36px; overflow:hidden; cursor:pointer; border:2px solid #FFD1A4;';
+                    if(viewed[idx]){
+                        card.innerHTML = `<div style="padding:25px; text-align:center; background:linear-gradient(145deg,#E8F5E9,#C8E6D9);"><div style="font-size:40px;">✅</div><div style="font-size:20px; font-weight:bold; color:#2E7D32;">LỜI KHUYÊN</div><div style="font-size:16px; margin-top:10px;">${rule.detail}</div><div style="font-size:12px; margin-top:15px;">👉 Click để đóng 👈</div></div>`;
+                    } else {
+                        card.innerHTML = `<div style="padding:25px; text-align:center; background:linear-gradient(145deg,#FFF5EA,#FFE8D4);"><div style="font-size:48px; font-weight:bold; color:#FF8C42;">${idx+1}</div><div style="font-size:60px;">${rule.emoji}</div><div style="font-size:22px; font-weight:bold; color:#C27E55;">${rule.title}</div><div style="font-size:16px; color:#7C5A44;">${rule.desc}</div><div style="font-size:12px; margin-top:15px;">👉 Click để xem lời khuyên 👈</div></div>`;
+                    }
+                    card.onclick = () => { viewed[idx] = !viewed[idx]; renderExercise3(); };
+                    grid.appendChild(card);
+                });
+            }
+            document.getElementById('resetBtn3')?.addEventListener('click', () => { viewed = [false,false,false,false,false]; renderExercise3(); });
+        }
+        renderExercise3();
+    })();
+</script>
+</body>
+</html>
