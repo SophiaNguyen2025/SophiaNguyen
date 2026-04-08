@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Bài 3: Phòng chống tai nạn điện - Kỹ năng an toàn | Sophia Nguyễn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: linear-gradient(135deg, #0a4a5a, #1a6b7a);
+            font-family: 'Segoe UI', 'Be Vietnam Pro', sans-serif;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .header { background: white; border-radius: 32px; padding: 20px; margin-bottom: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .logo { height: 60px; margin-bottom: 10px; }
+        .header h1 { color: #0a4a5a; font-size: 1.8rem; }
+        .video-section { background: white; border-radius: 32px; padding: 20px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 24px; overflow: hidden; }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .exercise { background: white; border-radius: 32px; padding: 20px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .exercise-title { font-size: 1.5rem; color: #0a4a5a; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 3px solid #ffd700; display: inline-block; }
+        .back-btn { display: inline-block; background: #ffd700; color: #0a4a5a; padding: 12px 24px; border-radius: 40px; text-decoration: none; font-weight: bold; margin-top: 20px; transition: all 0.2s; }
+        .back-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .footer { text-align: center; color: white; padding: 20px; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <img src="https://sophianguyen.com.vn/images/hinhremovenen.png" alt="Sophia Nguyễn" class="logo">
+        <h1>⚡ Bài 3: Phòng chống tai nạn điện</h1>
+    </div>
+
+    <!-- Video bài học -->
+    <div class="video-section">
+        <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/9d4jzSWz1Jg" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- Bài tập 1: Sổ tay mật mã -->
+    <div class="exercise">
+        <h2 class="exercise-title">📘 Bài tập 1: Sổ tay mật mã - Công thức cấm kỵ</h2>
+        <div id="exercise1"></div>
+    </div>
+
+    <!-- Bài tập 2: Truy tìm kẻ giấu mặt -->
+    <div class="exercise">
+        <h2 class="exercise-title">🕵️‍♀️ Bài tập 2: Truy tìm kẻ giấu mặt</h2>
+        <div id="exercise2"></div>
+    </div>
+
+    <!-- Bài tập 3: Trắc nghiệm - Điện nổi giận -->
+    <div class="exercise">
+        <h2 class="exercise-title">⚡ Bài tập 3: Trắc nghiệm - Điện nổi giận</h2>
+        <div id="exercise3"></div>
+    </div>
+
+    <a href="https://sophianguyen.com.vn/khoa-hoc/ky-nang-an-toan/" class="back-btn">← Quay lại danh sách bài học</a>
+    <div class="footer">
+        <p>© 2025 Sophia Nguyễn - Kỹ năng an toàn cho trẻ 5-10 tuổi</p>
+    </div>
+</div>
+
+<script>
+    // ==================== BÀI TẬP 1: GHÉP ĐÔI + NHẬP VAI ====================
+    (function() {
+        const leftItemsData = [
+            { id: 0, text: "⚠️ Không chạm vào điện khi..." },
+            { id: 1, text: "🔌 Không cắm nhiều thiết bị vào..." },
+            { id: 2, text: "🧯 Khi thấy dây điện bị hở, em cần..." },
+            { id: 3, text: "💡 Không thả diều gần..." }
+        ];
+        const rightItemsData = [
+            { id: 0, text: "báo ngay cho người lớn, không tự sửa.", matchLeftId: 2 },
+            { id: 1, text: "đường dây điện, tránh bị điện giật.", matchLeftId: 3 },
+            { id: 2, text: "tay đang ướt hoặc chân ướt.", matchLeftId: 0 },
+            { id: 3, text: "một ổ cắm vì sẽ gây quá tải, cháy nổ.", matchLeftId: 1 }
+        ];
+        let leftMatched = [false, false, false, false];
+        let rightMatched = [false, false, false, false];
+        let selectedLeft = null, selectedRight = null;
+
+        function renderMatch() {
+            const container = document.getElementById('exercise1');
+            let html = `<div style="background:#FDF8F0; border-radius:48px; padding:24px; border:2px solid #FFDEC4; margin-bottom:20px;">
+                <div class="section-title" style="font-size:24px; font-weight:bold; color:#C27E55; margin-bottom:20px; display:flex; align-items:center; gap:12px; border-bottom:2px dashed #FFDEC4; padding-bottom:12px;">
+                    <span style="font-size:32px;">🔐</span> NHIỆM VỤ 1: GIẢI MÃ CÔNG THỨC CẤM KỴ
+                </div>
+                <div style="display:flex; flex-wrap:wrap; gap:25px; justify-content:space-between;">
+                    <div style="flex:1; min-width:250px; background:#FFF8F0; border-radius:36px; padding:16px;"><h4 style="text-align:center; color:#A87A58;">📌 TÌNH HUỐNG</h4><div id="leftList1"></div></div>
+                    <div style="flex:1; min-width:250px; background:#FFF8F0; border-radius:36px; padding:16px;"><h4 style="text-align:center; color:#A87A58;">✅ CÁCH XỬ LÝ ĐÚNG</h4><div id="rightList1"></div></div>
+                </div>
+                <div id="matchMessage1" style="text-align:center; margin:20px 0; padding:12px; background:#FFF0E8; border-radius:40px;">👉 Click vào một ô bên trái, rồi một ô bên phải để ghép đôi!</div>
+                <button id="resetMatch1" style="background:#E8D8C8; border:none; padding:10px 24px; border-radius:40px; cursor:pointer; width:100%;">🔄 LÀM LẠI PHẦN GHÉP</button>
+            </div>
+            <div style="background:#FDF8F0; border-radius:48px; padding:24px; border:2px solid #FFDEC4;">
+                <div class="section-title" style="font-size:24px; font-weight:bold; color:#C27E55; margin-bottom:20px; display:flex; align-items:center; gap:12px; border-bottom:2px dashed #FFDEC4; padding-bottom:12px;">
+                    <span style="font-size:32px;">🦸</span> NHIỆM VỤ 2: NHẬP VAI DŨNG SĨ – EM SẼ LÀM GÌ?
+                </div>
+                <div id="situationsArea1"></div>
+            </div>`;
+            container.innerHTML = html;
+
+            const leftList = document.getElementById('leftList1');
+            leftItemsData.forEach((item, idx) => {
+                const div = document.createElement('div');
+                div.style.cssText = `background:white; margin:10px 0; padding:14px 16px; border-radius:60px; cursor:pointer; text-align:center; font-weight:600; border:2px solid ${leftMatched[idx] ? '#4CAF50' : '#FFDEC4'}; ${leftMatched[idx] ? 'opacity:0.7; text-decoration:line-through;' : ''} ${selectedLeft === idx ? 'background:#FFE0B5; border-color:#FFB347;' : ''}`;
+                div.textContent = item.text;
+                if (!leftMatched[idx]) div.onclick = () => {
+                    if (selectedRight !== null) {
+                        if (rightItemsData[selectedRight].matchLeftId === idx) { leftMatched[idx] = true; rightMatched[selectedRight] = true; document.getElementById('matchMessage1').innerHTML = "✅ GHÉP ĐÚNG! Tiếp tục nào!"; }
+                        else document.getElementById('matchMessage1').innerHTML = "❌ GHÉP SAI! Hãy thử lại.";
+                        selectedRight = null; selectedLeft = null; renderMatch(); if (leftMatched.every(v => v === true)) document.getElementById('matchMessage1').innerHTML = "🎉 TUYỆT VỜI! Bạn đã giải mã thành công!";
+                        return;
+                    }
+                    selectedLeft = idx; selectedRight = null; renderMatch();
+                };
+                leftList.appendChild(div);
+            });
+            const rightList = document.getElementById('rightList1');
+            rightItemsData.forEach((item, idx) => {
+                const div = document.createElement('div');
+                div.style.cssText = `background:white; margin:10px 0; padding:14px 16px; border-radius:60px; cursor:pointer; text-align:center; font-weight:600; border:2px solid ${rightMatched[idx] ? '#4CAF50' : '#FFDEC4'}; ${rightMatched[idx] ? 'opacity:0.7; text-decoration:line-through;' : ''} ${selectedRight === idx ? 'background:#FFE0B5; border-color:#FFB347;' : ''}`;
+                div.textContent = item.text;
+                if (!rightMatched[idx]) div.onclick = () => {
+                    if (selectedLeft !== null) {
+                        if (item.matchLeftId === selectedLeft) { leftMatched[selectedLeft] = true; rightMatched[idx] = true; document.getElementById('matchMessage1').innerHTML = "✅ GHÉP ĐÚNG! Tiếp tục nào!"; }
+                        else document.getElementById('matchMessage1').innerHTML = "❌ GHÉP SAI! Hãy thử lại.";
+                        selectedLeft = null; selectedRight = null; renderMatch(); if (leftMatched.every(v => v === true)) document.getElementById('matchMessage1').innerHTML = "🎉 TUYỆT VỜI!";
+                        return;
+                    }
+                    selectedRight = idx; selectedLeft = null; renderMatch();
+                };
+                rightList.appendChild(div);
+            });
+            document.getElementById('resetMatch1')?.addEventListener('click', () => { leftMatched = [false,false,false,false]; rightMatched = [false,false,false,false]; selectedLeft = null; selectedRight = null; renderMatch(); document.getElementById('matchMessage1').innerHTML = "🔄 Đã làm lại! Hãy ghép đôi các quy tắc an toàn điện."; });
+
+            const situations = [
+                { text: "⚡ Em nhìn thấy bạn nhỏ đang cho ngón tay vào ổ cắm điện. Em sẽ làm gì?", choices: ["A. Mặc kệ", "B. Nhanh chóng bảo bạn dừng lại và tìm người lớn giúp", "C. Cũng thử cho tay vào"], correct: 1 },
+                { text: "🔥 Thấy dây điện bị chuột cắn trơ lõi đồng, em nên làm gì?", choices: ["A. Tránh xa và báo ngay cho bố mẹ", "B. Lấy băng keo quấn lại", "C. Kéo thử dây"], correct: 0 },
+                { text: "💧 Em thấy ổ cắm điện gần chậu nước bị ướt, nhưng bố mẹ không ở nhà. Em sẽ làm gì?", choices: ["A. Tự tay lau khô ổ cắm", "B. Dùng que sắt để gạt nước ra", "C. Tránh xa, không chạm vào, đợi người lớn về"], correct: 2 },
+                { text: "🔌 Nhà em đang dùng một ổ cắm điện cắm cùng lúc 5 thiết bị. Ổ cắm rất nóng. Em sẽ làm gì?", choices: ["A. Để nguyên", "B. Rút bớt thiết bị ra và báo với người lớn", "C. Cắm thêm một thiết bị nữa"], correct: 1 }
+            ];
+            const situationsDiv = document.getElementById('situationsArea1');
+            situationsDiv.innerHTML = '';
+            situations.forEach((sit, idx) => {
+                const sitDiv = document.createElement('div');
+                sitDiv.style.cssText = 'background:#FFF8F0; border-radius:32px; padding:20px; margin-bottom:20px; border-left:8px solid #FFB347;';
+                sitDiv.innerHTML = `<div style="font-size:18px; font-weight:600; margin-bottom:15px;"><span>🛡️</span> ${sit.text}</div><div class="choices" id="choices-${idx}"></div><div id="feedback-${idx}" style="margin-top:12px; padding:10px; border-radius:30px; background:#FFF0E8;">💡 Hãy chọn một đáp án.</div>`;
+                situationsDiv.appendChild(sitDiv);
+                const choicesDiv = document.getElementById(`choices-${idx}`);
+                sit.choices.forEach((choice, choiceIdx) => {
+                    const choiceDiv = document.createElement('div');
+                    choiceDiv.style.cssText = 'background:white; padding:12px 18px; border-radius:60px; cursor:pointer; border:2px solid #FFDEC4; margin-bottom:10px;';
+                    choiceDiv.textContent = choice;
+                    choiceDiv.onclick = () => {
+                        const fb = document.getElementById(`feedback-${idx}`);
+                        if (choiceIdx === sit.correct) { fb.innerHTML = '✅ ĐÚNG! Bạn đã hành động đúng!'; fb.style.background = '#E8F5E9'; fb.style.color = '#2E7D32'; }
+                        else { fb.innerHTML = `❌ CHƯA ĐÚNG. Cách xử lý đúng là: "${sit.choices[sit.correct]}".`; fb.style.background = '#FFEBEE'; fb.style.color = '#C62828'; }
+                    };
+                    choicesDiv.appendChild(choiceDiv);
+                });
+            });
+        }
+        renderMatch();
+    })();
+
+    // ==================== BÀI TẬP 2: TRUY TÌM KẺ GIẤU MẶT ====================
+    (function() {
+        const situations = [
+            { id:0, emoji:"🔌💧", title:"Ổ cắm điện gần chậu nước", desc:"Ổ cắm đặt cạnh bồn rửa tay, có nước bắn vào", isDanger:true },
+            { id:1, emoji:"✋💧🔌", title:"Tay ướt cắm phích điện", desc:"Vừa rửa tay xong, chưa lau khô đã cắm phích", isDanger:true },
+            { id:2, emoji:"⚠️🔌", title:"Dây điện bị hở lõi đồng", desc:"Dây điện bị chuột cắn, lõi kim loại lộ ra ngoài", isDanger:true },
+            { id:3, emoji:"🧒🔌", title:"Trẻ em cho ngón tay vào ổ cắm", desc:"Bé tò mò thò tay vào ổ điện trên tường", isDanger:true },
+            { id:4, emoji:"💧📺", title:"Nước đổ gần tivi đang bật", desc:"Ly nước để cạnh tivi, bị đổ nước vào thiết bị điện", isDanger:true },
+            { id:5, emoji:"🔌🔌🔌", title:"Cắm quá nhiều thiết bị vào 1 ổ", desc:"Ổ cắm điện có 5-6 phích cắm cùng lúc, rất nóng", isDanger:true },
+            { id:6, emoji:"🧹🔌", title:"Dùng chổi sắt quét dọn gần ổ điện", desc:"Tay cầm chổi kim loại quẹt vào ổ cắm", isDanger:true },
+            { id:7, emoji:"🐱🔌", title:"Thú cưng cắn dây điện", desc:"Chó mèo gặm nhấm dây điện đang cắm", isDanger:true },
+            { id:8, emoji:"📱🔌✅", title:"Sạc điện thoại đúng cách", desc:"Dùng sạc chính hãng, rút ra khi không dùng", isDanger:false },
+            { id:9, emoji:"💡🔧✅", title:"Bật đèn bằng công tắc khô ráo", desc:"Tay khô, công tắc khô ráo, bật đèn bình thường", isDanger:false },
+            { id:10, emoji:"🔌👨‍🔧✅", title:"Nhờ thợ điện sửa ổ cắm hỏng", desc:"Không tự sửa, gọi người lớn hoặc thợ điện", isDanger:false },
+            { id:11, emoji:"⚡🚫✅", title:"Tránh xa cột điện bị đổ", desc:"Nhìn thấy dây điện rớt, em đi vòng xa và báo người lớn", isDanger:false }
+        ];
+        let selectedIds = [];
+        function renderExercise2() {
+            const container = document.getElementById('exercise2');
+            let html = `<div style="background:#E1F5FE; border-radius:24px; padding:15px; text-align:center; margin-bottom:20px;">📢 Nhiệm vụ của thám tử: <strong>Hãy chọn tất cả các tình huống có thể gây tai nạn điện!</strong></div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr)); gap:20px; margin-bottom:20px;" id="imagesGrid2"></div>
+            <button id="submitBtn2" style="background:#FFB347; border:none; color:white; font-size:18px; font-weight:bold; padding:14px; border-radius:60px; cursor:pointer; width:100%;">🔍 NỘP BÀI – KIỂM TRA</button>
+            <div id="resultArea2" style="margin-top:20px;"></div>`;
+            container.innerHTML = html;
+            const grid = document.getElementById('imagesGrid2');
+            situations.forEach(sit => {
+                const isSelected = selectedIds.includes(sit.id);
+                const card = document.createElement('div');
+                card.style.cssText = `background:#FDF8F0; border-radius:36px; padding:20px; text-align:center; cursor:pointer; border:3px solid ${isSelected ? '#4CAF50' : '#FFDEC4'}; ${isSelected ? 'background:#E8F5E9;' : ''}`;
+                card.innerHTML = `<div style="position:relative;"><div style="position:absolute; top:0; right:10px; font-size:28px;">${isSelected ? '✅' : ''}</div>
+                    <div style="font-size:70px;">${sit.emoji}</div><div style="font-size:18px; font-weight:bold; color:#7C5A44;">${sit.title}</div><div style="font-size:14px; color:#A87A58;">${sit.desc}</div></div>`;
+                card.onclick = () => {
+                    if (selectedIds.includes(sit.id)) selectedIds = selectedIds.filter(id => id !== sit.id);
+                    else selectedIds.push(sit.id);
+                    renderExercise2();
+                };
+                grid.appendChild(card);
+            });
+            document.getElementById('submitBtn2').onclick = () => {
+                let correct = 0, details = '';
+                situations.forEach(sit => {
+                    const userChosen = selectedIds.includes(sit.id);
+                    const isCorrect = (userChosen === sit.isDanger);
+                    if (isCorrect) correct++;
+                    const status = (sit.isDanger && userChosen) ? '✅ Đúng – Nguy cơ điện giật' : (sit.isDanger && !userChosen) ? '❌ Sai – Bỏ sót nguy cơ' : (!sit.isDanger && !userChosen) ? '✅ Đúng – An toàn' : '❌ Sai – Không phải nguy cơ';
+                    details += `<div style="padding:6px 0; border-bottom:1px solid #FFDEC4; color:${isCorrect ? '#2E7D32' : '#C62828'}">${status} – ${sit.title}</div>`;
+                });
+                document.getElementById('resultArea2').innerHTML = `<div style="background:#FFF8F0; border-radius:40px; padding:20px; text-align:center;"><div style="font-size:28px; font-weight:bold;">🏆 Điểm: ${correct}/${situations.length} 🏆</div>${details}<button id="resetBtn2" style="background:#E8D8C8; border:none; padding:12px 28px; border-radius:40px; cursor:pointer; margin-top:15px;">🔄 LÀM LẠI</button></div>`;
+                document.getElementById('resetBtn2')?.addEventListener('click', () => { selectedIds = []; renderExercise2(); });
+            };
+        }
+        renderExercise2();
+    })();
+
+    // ==================== BÀI TẬP 3: TRẮC NGHIỆM ====================
+    (function() {
+        const questions = [
+            { text: "Điện giật có thể gây ra tổn thương nghiêm trọng nào cho cơ thể?", options: ["A. Chỉ làm tê nhẹ tay chân", "B. Bỏng sâu, ngừng tim, tổn thương não, thậm chí tử vong", "C. Làm da khô ráp tạm thời", "D. Gây hôi miệng"], correct: 1 },
+            { text: "Nếu bị điện giật mạnh, điều gì có thể xảy ra với tim của nạn nhân?", options: ["A. Tim đập nhanh hơn nhưng vô hại", "B. Tim ngừng đập (ngừng tim) – rất nguy hiểm", "C. Tim to lên vĩnh viễn", "D. Không ảnh hưởng gì"], correct: 1 },
+            { text: "Ngoài bỏng và ngừng tim, điện giật còn có thể gây hậu quả lâu dài nào?", options: ["A. Rối loạn thần kinh, yếu cơ, mất trí nhớ tạm thời", "B. Mọc thêm răng", "C. Cao lên vài cm", "D. Da hồng hào hơn"], correct: 0 }
+        ];
+        let currentIdx = 0, userAnswers = new Array(questions.length).fill(null);
+        function renderExercise3() {
+            const container = document.getElementById('exercise3');
+            if (currentIdx >= questions.length) {
+                let correct = 0;
+                for (let i = 0; i < questions.length; i++) if (userAnswers[i] === questions[i].correct) correct++;
+                let msg = correct === questions.length ? '🎉 TUYỆT VỜI! Bạn là cao thủ an toàn điện!' : (correct >= 2 ? '👍 Khá tốt!' : '📖 Bạn nên học thêm về an toàn điện!');
+                container.innerHTML = `<div style="background:#FDF8F0; border-radius:48px; padding:28px; text-align:center;"><div style="font-size:28px; font-weight:bold;">🏆 Điểm: ${correct}/${questions.length} 🏆</div><div style="margin:20px 0;">${msg}</div><button id="resetQuiz3" style="background:#E8D8C8; border:none; padding:12px 28px; border-radius:40px; cursor:pointer;">🔄 LÀM LẠI</button></div>`;
+                document.getElementById('resetQuiz3')?.addEventListener('click', () => { currentIdx = 0; userAnswers.fill(null); renderExercise3(); });
+                return;
+            }
+            const q = questions[currentIdx];
+            let html = `<div style="background:#FDF8F0; border-radius:48px; padding:28px; border:2px solid #FFDEC4;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:20px;"><span style="background:#FFB347; color:white; padding:6px 18px; border-radius:40px;">Câu ${currentIdx+1}/${questions.length}</span></div>
+                <div style="font-size:20px; font-weight:700; margin-bottom:20px;">⚠️ ${q.text}</div>
+                <div id="options3" style="display:flex; flex-direction:column; gap:12px; margin-bottom:20px;"></div>
+                <div id="feedback3" style="background:#FFF0E8; border-radius:30px; padding:12px;">💡 Hãy chọn một đáp án</div>
+                <button id="nextBtn3" style="background:#FFB347; border:none; color:white; font-size:18px; font-weight:bold; padding:14px; border-radius:60px; cursor:pointer; width:100%; margin-top:15px;">${currentIdx === questions.length-1 ? '🏁 XEM KẾT QUẢ' : '➡️ CÂU TIẾP THEO'}</button>
+            </div>`;
+            container.innerHTML = html;
+            const optionsDiv = document.getElementById('options3');
+            q.options.forEach((opt, idx) => {
+                const optDiv = document.createElement('div');
+                optDiv.style.cssText = 'background:white; border-radius:100px; padding:12px 20px; border:2px solid #FFDEC4; display:flex; align-items:center; gap:15px; cursor:pointer;';
+                optDiv.innerHTML = `<input type="radio" name="q3" value="${idx}" style="width:20px; height:20px;"> ${opt}`;
+                optDiv.onclick = () => { const radio = optDiv.querySelector('input'); radio.checked = true; radio.dispatchEvent(new Event('change')); };
+                optionsDiv.appendChild(optDiv);
+            });
+            document.querySelectorAll('input[name="q3"]').forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    const val = parseInt(e.target.value);
+                    userAnswers[currentIdx] = val;
+                    const fb = document.getElementById('feedback3');
+                    if (val === q.correct) { fb.innerHTML = '✅ Đúng rồi!'; fb.style.background = '#E8F5E9'; fb.style.color = '#2E7D32'; }
+                    else { fb.innerHTML = `❌ Chưa đúng. Đáp án đúng là: ${q.options[q.correct]}`; fb.style.background = '#FFEBEE'; fb.style.color = '#C62828'; }
+                });
+            });
+            document.getElementById('nextBtn3').onclick = () => {
+                if (userAnswers[currentIdx] === null) { document.getElementById('feedback3').innerHTML = '⚠️ Hãy chọn một đáp án trước khi sang câu tiếp theo!'; return; }
+                currentIdx++; renderExercise3();
+            };
+        }
+        renderExercise3();
+    })();
+</script>
+</body>
+</html>
