@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>[TÊN BÀI HỌC] - Kỹ năng an toàn | Sophia Nguyễn</title>
+    <title>Bài 1: Phòng chống tai nạn thương tích - Kỹ năng an toàn | Sophia Nguyễn</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -13,7 +13,7 @@
             padding: 20px;
             min-height: 100vh;
         }
-        .container { max-width: 1000px; margin: 0 auto; }
+        .container { max-width: 1100px; margin: 0 auto; }
         .header { background: white; border-radius: 32px; padding: 20px; margin-bottom: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
         .logo { height: 60px; margin-bottom: 10px; }
         .header h1 { color: #0a4a5a; font-size: 1.8rem; }
@@ -31,31 +31,31 @@
 <div class="container">
     <div class="header">
         <img src="https://sophianguyen.com.vn/images/hinhremovenen.png" alt="Sophia Nguyễn" class="logo">
-        <h1>[TÊN BÀI HỌC]</h1>
+        <h1>🛡️ Bài 1: Phòng chống tai nạn thương tích</h1>
     </div>
 
     <!-- Video bài học -->
     <div class="video-section">
         <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/[ID_YOUTUBE]" frameborder="0" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/kTVqN_sAiQo" frameborder="0" allowfullscreen></iframe>
         </div>
     </div>
 
-    <!-- Bài tập 1 -->
+    <!-- Bài tập 1: Nối đúng - Hiệp sĩ An toàn -->
     <div class="exercise">
-        <h2 class="exercise-title">📝 Bài tập 1: [TÊN BÀI TẬP 1]</h2>
+        <h2 class="exercise-title">🔗 Bài tập 1: Nối đúng - Hiệp sĩ An toàn</h2>
         <div id="exercise1"></div>
     </div>
 
-    <!-- Bài tập 2 -->
+    <!-- Bài tập 2: Phân loại thám tử -->
     <div class="exercise">
-        <h2 class="exercise-title">📍 Bài tập 2: [TÊN BÀI TẬP 2]</h2>
+        <h2 class="exercise-title">🕵️‍♂️ Bài tập 2: Phân loại thám tử</h2>
         <div id="exercise2"></div>
     </div>
 
-    <!-- Bài tập 3 -->
+    <!-- Bài tập 3: Thử thách Hiệp sĩ An toàn -->
     <div class="exercise">
-        <h2 class="exercise-title">🔍 Bài tập 3: [TÊN BÀI TẬP 3]</h2>
+        <h2 class="exercise-title">⚔️ Bài tập 3: Thử thách Hiệp sĩ An toàn</h2>
         <div id="exercise3"></div>
     </div>
 
@@ -66,22 +66,167 @@
 </div>
 
 <script>
-    // ==================== BÀI TẬP 1 ====================
+    // ==================== BÀI TẬP 1: NỐI ĐÚNG ====================
     (function() {
-        // DÁN CODE BÀI TẬP 1 VÀO ĐÂY
-        document.getElementById('exercise1').innerHTML = '<div style="text-align:center; padding:40px; background:#f0f0f0; border-radius:24px;">Đang cập nhật bài tập...</div>';
+        const pairsData = [
+            { situation: { text: "Bạn rủ ra ao hồ chơi gần bờ nước", icon: "🏞️" }, action: { text: "Khuyên bạn không nên ra đó và báo người lớn", icon: "👪" } },
+            { situation: { text: "Phát hiện ổ điện bị hở, dây điện trần", icon: "⚡" }, action: { text: "Tránh xa và báo ngay cho người lớn", icon: "🏃" } },
+            { situation: { text: "Thấy bạn đang chơi ở công trường xây dựng", icon: "🏗️" }, action: { text: "Khuyên bạn ra khỏi khu vực nguy hiểm và báo người lớn", icon: "📢" } },
+            { situation: { text: "Bị bỏng nhẹ do nước sôi", icon: "🔥" }, action: { text: "Ngâm vết bỏng vào nước lạnh sạch ngay", icon: "💧" } },
+            { situation: { text: "Bị đứt tay chảy máu", icon: "🩸" }, action: { text: "Rửa sạch vết thương dưới vòi nước và băng lại", icon: "🩹" } },
+            { situation: { text: "Nhìn thấy dao kéo để bừa bãi trong nhà", icon: "🔪" }, action: { text: "Báo người lớn cất vào nơi an toàn", icon: "🗄️" } }
+        ];
+        let situations = [], actions = [], selectedSitId = null, matchedPairs = 0;
+
+        function shuffleArray(arr) { for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [arr[i], arr[j]] = [arr[j], arr[i]]; } return arr; }
+        function initGame1() {
+            situations = pairsData.map((pair, idx) => ({ id: idx, text: pair.situation.text, icon: pair.situation.icon, pairId: idx, matched: false }));
+            actions = shuffleArray(pairsData.map((pair, idx) => ({ id: idx, text: pair.action.text, icon: pair.action.icon, pairId: idx, matched: false })));
+            selectedSitId = null; matchedPairs = 0; renderGame1();
+        }
+        function updateScore1() { const msgDiv = document.getElementById('feedbackMsg1'); if (matchedPairs === pairsData.length && msgDiv) msgDiv.innerHTML = "🎉 CHÚC MỪNG! Bạn đã nối đúng tất cả. Bạn là HIỆP SĨ AN TOÀN xuất sắc! 🎉"; }
+        function renderGame1() {
+            const container = document.getElementById('exercise1');
+            let html = `<div style="background:#E1F5FE; border-radius:24px; padding:15px; text-align:center; margin-bottom:20px;">🧸 Click chọn một tình huống, rồi click chọn cách xử lý đúng nhất!</div>
+            <div style="display:flex; flex-wrap:wrap; gap:30px; justify-content:center;">
+                <div style="flex:1; min-width:280px; background:#FDF8F0; border-radius:40px; padding:20px; border:2px solid #FFDEC4;"><h3 style="text-align:center;">⚠️ TÌNH HUỐNG</h3><div id="situationsList1"></div></div>
+                <div style="flex:1; min-width:280px; background:#FDF8F0; border-radius:40px; padding:20px; border:2px solid #FFDEC4;"><h3 style="text-align:center;">✅ CÁCH XỬ LÝ</h3><div id="actionsList1"></div></div>
+            </div>
+            <div class="message-area" style="text-align:center; margin-top:20px;"><div id="feedbackMsg1" style="background:#FFF0E8; border-radius:40px; padding:14px; display:inline-block;">👉 Chọn một tình huống, sau đó chọn cách xử lý!</div></div>
+            <div style="text-align:center; margin-top:10px;"><button id="resetBtn1" style="background:#E8D8C8; border:none; padding:10px 24px; border-radius:40px; cursor:pointer;">🔄 Chơi lại</button></div>`;
+            container.innerHTML = html;
+
+            const situationsDiv = document.getElementById('situationsList1');
+            situations.forEach(sit => {
+                const div = document.createElement('div');
+                div.style.cssText = `background:white; border-radius:60px; padding:14px 20px; margin-bottom:12px; display:flex; align-items:center; gap:12px; cursor:pointer; border:2px solid ${sit.matched ? '#4CAF50' : '#FFDEC4'}; ${sit.matched ? 'opacity:0.7; text-decoration:line-through;' : ''} ${selectedSitId === sit.id ? 'background:#E8F5E9; border-color:#6BCB77;' : ''}`;
+                div.innerHTML = `<span style="font-size:32px;">${sit.icon}</span><span style="flex:1; font-weight:500;">${sit.text}</span>`;
+                if (!sit.matched) div.onclick = () => { selectedSitId = sit.id; renderGame1(); };
+                situationsDiv.appendChild(div);
+            });
+            const actionsDiv = document.getElementById('actionsList1');
+            actions.forEach(act => {
+                const div = document.createElement('div');
+                div.style.cssText = `background:white; border-radius:60px; padding:14px 20px; margin-bottom:12px; display:flex; align-items:center; gap:12px; cursor:pointer; border:2px solid ${act.matched ? '#4CAF50' : '#FFDEC4'}; ${act.matched ? 'opacity:0.7; text-decoration:line-through;' : ''}`;
+                div.innerHTML = `<span style="font-size:32px;">${act.icon}</span><span style="flex:1; font-weight:500;">${act.text}</span>`;
+                if (!act.matched) div.onclick = () => {
+                    if (selectedSitId !== null) {
+                        const selectedSit = situations.find(s => s.id === selectedSitId);
+                        if (selectedSit && !selectedSit.matched) {
+                            if (selectedSit.pairId === act.pairId) {
+                                selectedSit.matched = true; act.matched = true; matchedPairs++;
+                                document.getElementById('feedbackMsg1').innerHTML = "✅ Chính xác! Bạn nối đúng rồi!";
+                                selectedSitId = null; renderGame1(); updateScore1();
+                            } else { document.getElementById('feedbackMsg1').innerHTML = "❌ Chưa đúng! Hãy thử lại."; selectedSitId = null; renderGame1(); }
+                        }
+                    } else { document.getElementById('feedbackMsg1').innerHTML = "👉 Hãy chọn một tình huống trước nhé!"; }
+                };
+                actionsDiv.appendChild(div);
+            });
+            document.getElementById('resetBtn1')?.addEventListener('click', () => initGame1());
+        }
+        initGame1();
     })();
 
-    // ==================== BÀI TẬP 2 ====================
+    // ==================== BÀI TẬP 2: PHÂN LOẠI THÁM TỬ ====================
     (function() {
-        // DÁN CODE BÀI TẬP 2 VÀO ĐÂY
-        document.getElementById('exercise2').innerHTML = '<div style="text-align:center; padding:40px; background:#f0f0f0; border-radius:24px;">Đang cập nhật bài tập...</div>';
+        const cardsData = [
+            { id: 1, text: "Leo trèo cây cao", icon: "🌳", type: "danger" }, { id: 2, text: "Chơi gần ao hồ không rào", icon: "💧", type: "danger" },
+            { id: 3, text: "Chạy chơi ở công trường", icon: "🏗️", type: "danger" }, { id: 4, text: "Nghịch dao kéo sắc nhọn", icon: "🔪", type: "danger" },
+            { id: 5, text: "Trèo lan can tầng cao", icon: "🏢", type: "danger" }, { id: 6, text: "Tay bị đứt chảy máu", icon: "🩸", type: "injury" },
+            { id: 7, text: "Trẹo chân khi chạy nhảy", icon: "🦶", type: "injury" }, { id: 8, text: "Bỏng nước sôi", icon: "🔥", type: "injury" },
+            { id: 9, text: "Bị ngã xước đầu gối", icon: "🦵", type: "injury" }, { id: 10, text: "Côn trùng cắn sưng đỏ", icon: "🐝", type: "injury" },
+            { id: 11, text: "Chơi gần ổ điện hở", icon: "⚡", type: "danger" }, { id: 12, text: "Chạy qua đường không có người lớn", icon: "🚗", type: "danger" }
+        ];
+        let classified = { danger: [], injury: [] }; let totalCards2 = cardsData.length;
+        function updateScore2() { const score = classified.danger.length + classified.injury.length; const scoreSpan = document.getElementById('scoreCount2'); if (scoreSpan) scoreSpan.innerText = score; if (score === totalCards2) document.getElementById('feedbackMsg2').innerHTML = "🎉 CHÚC MỪNG! Bạn đã phân loại đúng tất cả. Bạn là THÁM TỬ AN TOÀN xuất sắc! 🎉"; }
+        function renderGame2() {
+            const container = document.getElementById('exercise2');
+            let html = `<div style="background:#E1F5FE; border-radius:24px; padding:15px; text-align:center; margin-bottom:20px;">🔍 Click vào thẻ – xếp đúng cột NGUY HIỂM (chưa bị đau) hay THƯƠNG TÍCH (đã bị đau)</div>
+            <div style="display:flex; flex-wrap:wrap; gap:20px;"><div style="flex:1; background:#FDF8F0; border-radius:40px; padding:20px; border:2px dashed #E8C8A8;"><h3 style="text-align:center;">📦 CÁC TÌNH HUỐNG</h3><div style="display:flex; flex-wrap:wrap; justify-content:center; gap:16px;" id="cardsPool2"></div></div>
+            <div style="flex:1.5; display:flex; flex-direction:column; gap:20px;"><div style="background:#FDF8F0; border-radius:40px; padding:20px; border-left:8px solid #FF6B6B;"><h3>⚠️ NGUY HIỂM <span style="font-size:14px;">(chưa bị đau)</span></h3><div style="display:flex; flex-wrap:wrap; gap:12px;" id="dangerContainer2"></div></div>
+            <div style="background:#FDF8F0; border-radius:40px; padding:20px; border-left:8px solid #4CAF50;"><h3>🩸 THƯƠNG TÍCH <span style="font-size:14px;">(đã bị đau rồi)</span></h3><div style="display:flex; flex-wrap:wrap; gap:12px;" id="injuryContainer2"></div></div></div></div>
+            <div style="text-align:center; margin-top:20px;"><div id="feedbackMsg2" style="background:#FFF0E8; border-radius:40px; padding:14px; display:inline-block;">👉 Click vào thẻ, chọn "Nguy hiểm" hoặc "Thương tích" nhé!</div></div>
+            <div style="text-align:center; margin-top:10px;"><button id="resetBtn2" style="background:#E8D8C8; border:none; padding:10px 24px; border-radius:40px; cursor:pointer;">🔄 Chơi lại</button></div>
+            <div style="text-align:center; margin-top:10px;"><span style="background:#F0E4D8; padding:8px 20px; border-radius:40px;">🏆 Đã phân loại: <span id="scoreCount2">0</span> / <span id="totalCount2">${totalCards2}</span></span></div>`;
+            container.innerHTML = html;
+            const unclassified = cardsData.filter(c => !classified.danger.includes(c.id) && !classified.injury.includes(c.id));
+            const cardsPool = document.getElementById('cardsPool2');
+            unclassified.forEach(card => {
+                const cardEl = document.createElement('div');
+                cardEl.style.cssText = 'background:white; width:140px; padding:16px 12px; border-radius:28px; text-align:center; cursor:pointer; border:2px solid #FFDEC4;';
+                cardEl.innerHTML = `<span style="font-size:48px;">${card.icon}</span><div style="font-size:14px; font-weight:600;">${card.text}</div>`;
+                cardEl.onclick = () => {
+                    const isDanger = confirm(`"${card.text}" là NGUY HIỂM (chưa bị đau) hay THƯƠNG TÍCH (đã bị đau)?\n\nNhấn OK nếu là NGUY HIỂM\nNhấn Cancel nếu là THƯƠNG TÍCH`);
+                    const selectedCat = isDanger ? 'danger' : 'injury';
+                    if (selectedCat === card.type) {
+                        if (selectedCat === 'danger') classified.danger.push(card.id);
+                        else classified.injury.push(card.id);
+                        renderGame2(); updateScore2();
+                    } else { alert(`❌ Chưa đúng! "${card.text}" không phải ${selectedCat === 'danger' ? 'NGUY HIỂM' : 'THƯƠNG TÍCH'}.`); }
+                };
+                cardsPool.appendChild(cardEl);
+            });
+            const dangerContainer = document.getElementById('dangerContainer2');
+            classified.danger.forEach(id => { const card = cardsData.find(c => c.id === id); const div = document.createElement('div'); div.style.cssText = 'background:#FFF5EA; border-radius:24px; padding:10px 14px; display:inline-flex; align-items:center; gap:10px; border:1px solid #FFDEC4;'; div.innerHTML = `<span>${card.icon}</span><span>${card.text}</span><button class="remove-btn" data-id="${card.id}" data-cat="danger" style="background:none; border:none; font-size:18px; cursor:pointer;">✖</button>`; dangerContainer.appendChild(div); });
+            const injuryContainer = document.getElementById('injuryContainer2');
+            classified.injury.forEach(id => { const card = cardsData.find(c => c.id === id); const div = document.createElement('div'); div.style.cssText = 'background:#FFF5EA; border-radius:24px; padding:10px 14px; display:inline-flex; align-items:center; gap:10px; border:1px solid #FFDEC4;'; div.innerHTML = `<span>${card.icon}</span><span>${card.text}</span><button class="remove-btn" data-id="${card.id}" data-cat="injury" style="background:none; border:none; font-size:18px; cursor:pointer;">✖</button>`; injuryContainer.appendChild(div); });
+            document.querySelectorAll('.remove-btn').forEach(btn => { btn.onclick = (e) => { e.stopPropagation(); const id = parseInt(btn.getAttribute('data-id')); const cat = btn.getAttribute('data-cat'); if (cat === 'danger') classified.danger = classified.danger.filter(i => i !== id); else classified.injury = classified.injury.filter(i => i !== id); renderGame2(); updateScore2(); }; });
+            document.getElementById('resetBtn2')?.addEventListener('click', () => { classified = { danger: [], injury: [] }; renderGame2(); updateScore2(); });
+            document.getElementById('totalCount2').innerText = totalCards2; updateScore2();
+        }
+        renderGame2();
     })();
 
-    // ==================== BÀI TẬP 3 ====================
+    // ==================== BÀI TẬP 3: THỬ THÁCH HIỆP SĨ ====================
     (function() {
-        // DÁN CODE BÀI TẬP 3 VÀO ĐÂY
-        document.getElementById('exercise3').innerHTML = '<div style="text-align:center; padding:40px; background:#f0f0f0; border-radius:24px;">Đang cập nhật bài tập...</div>';
+        const questions = [
+            { text: "🏞️ Khi thấy bạn rủ ra ao hồ chơi gần bờ nước mà không có người lớn, em nên làm gì?", options: ["Cùng bạn ra chơi vì nước cạn", "Khuyên bạn không nên ra đó và báo người lớn", "Đứng xa nhìn bạn chơi"], correct: 1, explanation: "Không bao giờ được chơi gần ao hồ sâu khi không có người lớn." },
+            { text: "⚡ Phát hiện ổ điện bị hở, dây điện trần, em sẽ xử lý thế nào?", options: ["Dùng tay không kiểm tra", "Tránh xa và báo ngay cho người lớn", "Lấy que sắt để đẩy dây điện"], correct: 1, explanation: "Tuyệt đối không chạm vào dây điện hở." },
+            { text: "🏗️ Nếu thấy các bạn đang chơi đùa ở công trường xây dựng, em nên làm gì?", options: ["Chạy vào chơi cùng", "Đứng từ xa nhìn", "Khuyên bạn ra khỏi khu vực nguy hiểm và báo người lớn"], correct: 2, explanation: "Công trường xây dựng có nhiều nguy hiểm." },
+            { text: "🔥 Nếu chẳng may bị bỏng nhẹ do nước sôi, em sẽ sơ cứu thế nào?", options: ["Chà đá lạnh lên vết bỏng", "Ngâm vết bỏng vào nước lạnh sạch ngay", "Bôi kem đánh răng"], correct: 1, explanation: "Ngâm vết bỏng vào nước lạnh sạch là cách sơ cứu đúng." },
+            { text: "🩸 Khi bị đứt tay chảy máu, việc đầu tiên em cần làm là gì?", options: ["Rửa vết thương dưới vòi nước sạch và băng lại", "Để máu chảy tự nhiên", "Bôi thuốc đỏ ngay"], correct: 0, explanation: "Rửa sạch vết thương, sau đó băng lại để tránh nhiễm trùng." },
+            { text: "🔪 Khi nhìn thấy dao kéo để bừa bãi trong nhà, em nên làm gì?", options: ["Cầm lên chơi", "Báo người lớn cất vào nơi an toàn", "Để nguyên không quan tâm"], correct: 1, explanation: "Dao kéo sắc nhọn rất nguy hiểm." }
+        ];
+        let currentIdx = 0, score3 = 0, answered = false;
+        function renderExercise3() {
+            const container = document.getElementById('exercise3');
+            if (currentIdx >= questions.length) {
+                let msg = score3 === questions.length * 10 ? '🎉 TUYỆT VỜI! Bạn đạt điểm tối đa!' : `🏆 Bạn đạt ${score3}/${questions.length * 10} điểm.`;
+                container.innerHTML = `<div style="background:#FDF8F0; border-radius:48px; padding:28px; text-align:center;"><div style="font-size:32px; font-weight:bold;">🎉 HOÀN THÀNH! 🎉</div><div style="margin:20px 0;">${msg}</div><button id="resetQuiz3" style="background:#E8D8C8; border:none; padding:12px 28px; border-radius:40px; cursor:pointer;">🔄 CHƠI LẠI</button></div>`;
+                document.getElementById('resetQuiz3')?.addEventListener('click', () => { currentIdx = 0; score3 = 0; answered = false; renderExercise3(); });
+                return;
+            }
+            const q = questions[currentIdx];
+            let html = `<div style="background:#FDF8F0; border-radius:48px; padding:28px; border:2px solid #FFDEC4;">
+                <div style="font-size:22px; font-weight:bold; margin-bottom:24px; text-align:center;">${q.text}</div>
+                <div style="display:flex; flex-direction:column; gap:16px;" id="options3"></div>
+                <div style="text-align:center; margin-top:20px;"><div id="feedback3" style="background:#FFF0E8; border-radius:40px; padding:14px; display:inline-block;">👉 Hãy chọn đáp án đúng nhé!</div></div>
+                <div style="text-align:center; margin-top:15px;"><button id="nextBtn3" style="background:#E8D8C8; border:none; padding:10px 24px; border-radius:40px; cursor:pointer;">${currentIdx === questions.length-1 ? '🏁 HOÀN THÀNH' : '➡️ CÂU TIẾP THEO'}</button></div>
+                <div style="text-align:center; margin-top:10px;">🏆 Điểm: <span id="score3">${score3}</span> / ${questions.length * 10}</div>
+            </div>`;
+            container.innerHTML = html;
+            const optionsDiv = document.getElementById('options3');
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('div');
+                btn.style.cssText = 'background:white; border:2px solid #FFDEC4; border-radius:60px; padding:14px 20px; cursor:pointer; display:flex; align-items:center; gap:14px;';
+                btn.innerHTML = `<span style="background:#F0E4D8; width:34px; height:34px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center;">${String.fromCharCode(65+idx)}</span><span>${opt}</span>`;
+                btn.onclick = () => {
+                    if (answered) return;
+                    answered = true;
+                    const fb = document.getElementById('feedback3');
+                    if (idx === q.correct) { score3 += 10; fb.innerHTML = `✅ Đúng rồi! ${q.explanation} +10 điểm! 🎉`; fb.style.background = "#E8F5E9"; }
+                    else { fb.innerHTML = `❌ Chưa đúng! Đáp án đúng là ${String.fromCharCode(65+q.correct)}: ${q.options[q.correct]}. ${q.explanation}`; fb.style.background = "#FFEBEE"; }
+                    document.getElementById('score3').innerText = score3;
+                };
+                optionsDiv.appendChild(btn);
+            });
+            document.getElementById('nextBtn3').onclick = () => {
+                if (!answered) { document.getElementById('feedback3').innerHTML = "⚠️ Hãy chọn đáp án trước khi sang câu tiếp theo!"; return; }
+                currentIdx++; answered = false; renderExercise3();
+            };
+        }
+        renderExercise3();
     })();
 </script>
 </body>
