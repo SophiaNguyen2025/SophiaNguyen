@@ -2,247 +2,256 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Kỹ năng an toàn cho trẻ 5-10 tuổi | Sophia Nguyễn</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Bài 2: Phòng chống bạo lực học đường - Kỹ năng an toàn | Sophia Nguyễn</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root {
-            --primary: #dc2626;
-            --primary-dark: #b91c1c;
-            --dark: #1e293b;
-            --gray: #475569;
-            --light-gray: #e2e8f0;
-            --white: #ffffff;
-            --gradient: linear-gradient(135deg, #dc2626 0%, #ef4444 50%, #f87171 100%);
-            --gradient-soft: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+        body {
+            background: linear-gradient(135deg, #0a4a5a, #1a6b7a);
+            font-family: 'Segoe UI', 'Be Vietnam Pro', sans-serif;
+            padding: 20px;
+            min-height: 100vh;
         }
-        body { font-family: 'Segoe UI', system-ui, sans-serif; line-height: 1.6; color: var(--dark); background: var(--gradient-soft); min-height: 100vh; }
-        .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--gradient); display: flex; align-items: center; justify-content: center; z-index: 2000; }
-        .loading-spinner { background: white; padding: 2rem 3rem; border-radius: 32px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
-        .loading-spinner i { font-size: 3rem; color: var(--primary); animation: spin 1s linear infinite; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .unlock-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--gradient); display: flex; align-items: center; justify-content: center; z-index: 1999; transition: all 0.5s ease; }
-        .unlock-box { background: var(--white); padding: 2.5rem; border-radius: 48px; text-align: center; max-width: 420px; width: 90%; box-shadow: 0 30px 50px rgba(0,0,0,0.2); animation: fadeInUp 0.5s ease; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        .unlock-box i { font-size: 4rem; color: var(--primary); margin-bottom: 1rem; }
-        .unlock-box h2 { margin-bottom: 0.5rem; color: var(--dark); }
-        .unlock-box p { color: var(--gray); margin-bottom: 1.5rem; }
-        .unlock-input { display: flex; gap: 10px; margin-bottom: 1rem; flex-wrap: wrap; }
-        .unlock-input input { flex: 1; padding: 14px 20px; border: 2px solid var(--light-gray); border-radius: 60px; font-size: 1rem; outline: none; text-align: center; letter-spacing: 1px; }
-        .unlock-input input:focus { border-color: var(--primary); }
-        .unlock-btn { background: var(--gradient); color: white; border: none; padding: 14px 28px; border-radius: 60px; font-weight: 600; cursor: pointer; width: 100%; font-size: 1rem; transition: transform 0.2s; }
-        .unlock-btn:hover { transform: translateY(-2px); }
-        .error-msg { color: #e53e3e; font-size: 0.85rem; margin-top: 1rem; display: none; }
-        .main-content { display: none; }
-        .navbar { background: var(--white); box-shadow: 0 4px 20px rgba(0,0,0,0.05); padding: 1rem 0; position: sticky; top: 0; z-index: 100; }
-        .nav-container { max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
-        .logo { font-size: 1.5rem; font-weight: bold; background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; display: flex; align-items: center; gap: 10px; }
-        .logo i { background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; font-size: 1.8rem; }
-        .user-info { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-        #logoutBtn { background: none; border: none; color: var(--gray); cursor: pointer; font-size: 0.9rem; transition: color 0.2s; }
-        #logoutBtn:hover { color: var(--primary); }
-        .device-manager-btn { background: #f0f0f0; border: none; padding: 6px 12px; border-radius: 20px; font-size: 0.7rem; cursor: pointer; color: var(--primary); transition: all 0.2s; }
-        .device-manager-btn:hover { background: var(--primary); color: white; }
-        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
-        .hero { background: var(--gradient); padding: 60px 0 50px; text-align: center; color: white; border-radius: 0 0 40px 40px; }
-        .hero h1 { font-size: 2rem; margin-bottom: 1rem; }
-        .hero p { font-size: 1rem; max-width: 700px; margin: 0 auto; }
-        .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 28px; margin: 30px 0; }
-        .course-card { background: var(--white); border-radius: 24px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: all 0.3s; cursor: pointer; border: 1px solid var(--light-gray); }
-        .course-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
-        .course-header { background: var(--gradient); padding: 20px; color: white; text-align: center; }
-        .course-icon { font-size: 2.5rem; margin-bottom: 8px; }
-        .course-header h3 { font-size: 1.1rem; margin-bottom: 4px; }
-        .course-content { padding: 20px; }
-        .course-desc { color: var(--gray); font-size: 0.9rem; margin-bottom: 16px; line-height: 1.5; }
-        .course-footer { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--light-gray); text-align: center; }
-        .btn-start { background: var(--gradient) !important; border: none !important; color: white !important; padding: 10px 20px !important; border-radius: 40px !important; cursor: pointer !important; font-weight: 600 !important; font-size: 0.9rem !important; transition: all 0.3s ease !important; display: inline-flex !important; align-items: center !important; gap: 6px !important; text-decoration: none !important; }
-        .btn-start:hover { transform: translateY(-2px) !important; box-shadow: 0 8px 20px rgba(220,38,38,0.4) !important; }
-        .footer { background: #0a4a5a; color: white; padding: 40px 0 20px; margin-top: 60px; text-align: center; }
-        @media (max-width: 768px) { .hero h1 { font-size: 1.5rem; } .courses-grid { grid-template-columns: 1fr; } }
-        .loading-text { text-align: center; padding: 40px; color: var(--gray); }
-        .device-list { margin-top: 10px; }
-        .device-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid var(--light-gray); }
-        .device-item:last-child { border-bottom: none; }
-        .device-info { flex: 1; }
-        .device-name { font-weight: 600; color: var(--dark); }
-        .device-time { font-size: 0.7rem; color: var(--gray); }
-        .logout-device-btn { background: #fee2e2; border: none; padding: 4px 12px; border-radius: 20px; color: #e53e3e; cursor: pointer; font-size: 0.7rem; transition: all 0.2s; }
-        .logout-device-btn:hover { background: #e53e3e; color: white; }
-        .current-badge { background: var(--primary); color: white; padding: 2px 8px; border-radius: 20px; font-size: 0.6rem; margin-left: 8px; }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .header { background: white; border-radius: 32px; padding: 20px; margin-bottom: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .logo { height: 60px; margin-bottom: 10px; }
+        .header h1 { color: #0a4a5a; font-size: 1.8rem; }
+        .video-section { background: white; border-radius: 32px; padding: 20px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 24px; overflow: hidden; }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .exercise { background: white; border-radius: 32px; padding: 20px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .exercise-title { font-size: 1.5rem; color: #0a4a5a; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 3px solid #ffd700; display: inline-block; }
+        .back-btn { display: inline-block; background: #ffd700; color: #0a4a5a; padding: 12px 24px; border-radius: 40px; text-decoration: none; font-weight: bold; margin-top: 20px; transition: all 0.2s; }
+        .back-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .footer { text-align: center; color: white; padding: 20px; font-size: 0.8rem; }
     </style>
 </head>
 <body>
-    <div class="loading-overlay" id="loadingOverlay"><div class="loading-spinner"><i class="fas fa-heart fa-spin"></i><p style="margin-top: 1rem;">Đang tải dữ liệu...</p></div></div>
-    <div class="unlock-screen" id="unlockScreen">
-        <div class="unlock-box">
-            <i class="fas fa-lock"></i>
-            <h2>Khóa học Kỹ năng An toàn</h2>
-            <p>Vui lòng nhập mã khóa học để bắt đầu</p>
-            <div class="unlock-input"><input type="text" id="licenseKey" placeholder="Nhập mã khóa học" autocomplete="off"></div>
-            <button class="unlock-btn" id="unlockBtn"><i class="fas fa-unlock-alt"></i> Mở khóa khóa học</button>
-            <div class="error-msg" id="errorMsg">Mã khóa học không hợp lệ! Vui lòng liên hệ Sophia Nguyễn để được hỗ trợ.</div>
-        </div>
+<div class="container">
+    <div class="header">
+        <img src="https://sophianguyen.com.vn/images/hinhremovenen.png" alt="Sophia Nguyễn" class="logo">
+        <h1>🤝 Bài 2: Phòng chống bạo lực học đường</h1>
     </div>
-    <div class="main-content" id="mainContent">
-        <nav class="navbar">
-            <div class="nav-container">
-                <div class="logo"><i class="fas fa-heart"></i><span>Sophia Nguyễn</span></div>
-                <div class="user-info">
-                    <span id="userNameDisplay"><i class="fas fa-user-circle"></i> Học viên</span>
-                    <button id="manageDevicesBtn" class="device-manager-btn" style="display:none;"><i class="fas fa-laptop"></i> Quản lý thiết bị</button>
-                    <button id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Thoát</button>
-                </div>
-            </div>
-        </nav>
-        <section class="hero"><div class="container"><h1>🛡️ Biệt đội bảo vệ – Kỹ năng an toàn cho trẻ 5-10 tuổi</h1><p>Chọn bài học để bắt đầu</p></div></section>
-        <div class="container">
-            <div class="courses-grid" id="coursesGrid"><div class="loading-text">Vui lòng chờ tải dữ liệu...</div></div>
-        </div>
-        <footer class="footer"><div class="container"><p>🛡️ Đồng hành cùng con yêu - Sophia Nguyễn</p></div></footer>
-    </div>
-    <div class="modal" id="courseModal"><div class="modal-content"><div class="modal-header"><h3 id="modalTitle"></h3><div class="close-modal" onclick="closeModal()">✕</div></div><div class="modal-body" id="modalBody"></div></div></div>
-    <div class="modal" id="deviceModal"><div class="modal-content"><div class="modal-header"><h3>📱 Quản lý thiết bị</h3><div class="close-modal" onclick="closeDeviceModal()">✕</div></div><div class="modal-body" id="deviceModalBody"></div></div></div>
 
-    <script>
-        const API_URL = "https://script.google.com/macros/s/AKfycbwD1E0X4QOqRqzYZ0QFq-LS4yF9LsxEBJH3QrRY_FYJlbQSeC8PAr2djP5y82djs0V9/exec";
-        
-        // Danh sách 8 bài học
-        const ALL_COURSES = [
-            { id: 1, name: "Phòng chống tai nạn thương tích", icon: "🩹", desc: "Nhận biết nguy cơ tai nạn trong nhà, trường học, nơi công cộng.", file: "bai-1-tai-nan-thuong-tich.html" },
-            { id: 2, name: "Phòng tránh bạo lực học đường", icon: "🤝", desc: "Nhận diện bạo lực và cách ứng phó.", file: "bai-2-bao-luc-hoc-duong.html" },
-            { id: 3, name: "Phòng chống tai nạn điện", icon: "⚡", desc: "An toàn khi sử dụng điện.", file: "bai-3-tai-nan-dien.html" },
-            { id: 4, name: "Dinh dưỡng cho trẻ em", icon: "🥗", desc: "Thói quen ăn uống lành mạnh.", file: "bai-4-dinh-duong.html" },
-            { id: 5, name: "Phòng tránh xâm hại", icon: "🛡️", desc: "Nhận biết vùng riêng tư, quy tắc an toàn cơ thể.", file: "bai-5-xam-hai.html" },
-            { id: 6, name: "Phòng chống hỏa hoạn", icon: "🔥", desc: "Kỹ năng thoát hiểm khi có cháy.", file: "bai-6-hoa-hoan.html" },
-            { id: 7, name: "Phòng tránh đuối nước", icon: "🏊", desc: "An toàn khi bơi, nhận biết vùng nước nguy hiểm.", file: "bai-7-duoi-nuoc.html" },
-            { id: 8, name: "Phòng chống bắt cóc", icon: "🚨", desc: "Nhận diện thủ đoạn của kẻ xấu.", file: "bai-8-bat-coc.html" }
+    <!-- Video bài học -->
+    <div class="video-section">
+        <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/MuLvNQj4uvI" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- Bài tập 1: Cấp cứu 113 -->
+    <div class="exercise">
+        <h2 class="exercise-title">📞 Bài tập 1: Cấp cứu 113 - Gọi ai đây?</h2>
+        <div id="exercise1"></div>
+    </div>
+
+    <!-- Bài tập 2: Đúng/Sai - Bé ngoan -->
+    <div class="exercise">
+        <h2 class="exercise-title">😊 Bài tập 2: Đúng/Sai - Bé ngoan</h2>
+        <div id="exercise2"></div>
+    </div>
+
+    <!-- Bài tập 3: Cảm xúc của em -->
+    <div class="exercise">
+        <h2 class="exercise-title">🧸 Bài tập 3: Cảm xúc của em</h2>
+        <div id="exercise3"></div>
+    </div>
+
+    <a href="https://sophianguyen.com.vn/khoa-hoc/ky-nang-an-toan/" class="back-btn">← Quay lại danh sách bài học</a>
+    <div class="footer">
+        <p>© 2025 Sophia Nguyễn - Kỹ năng an toàn cho trẻ 5-10 tuổi</p>
+    </div>
+</div>
+
+<script>
+    // ==================== BÀI TẬP 1: CẤP CỨU 113 ====================
+    (function() {
+        const situations = [
+            { id: 0, emoji: "👧😢👊", text: "Em đang bị một bạn lớn đánh ở sân trường.", correct: "giaovien", helpers: [{ id: "giaovien", emoji: "👩‍🏫", label: "Cô giáo / Thầy giáo" }, { id: "bosme", emoji: "👨‍👩‍👧", label: "Bố mẹ" }, { id: "canhsat", emoji: "👮‍♂️", label: "Chú công an (113)" }] },
+            { id: 1, emoji: "👧💬👧", text: "Em thấy hai bạn đang cãi nhau to và sắp đánh nhau.", correct: "giaovien", helpers: [{ id: "giaovien", emoji: "👩‍🏫", label: "Cô giáo / Thầy giáo" }, { id: "bosme", emoji: "👨‍👩‍👧", label: "Bố mẹ" }, { id: "canhsat", emoji: "👮‍♂️", label: "Chú công an (113)" }] },
+            { id: 2, emoji: "👧🏠😞", text: "Em bị cô giáo quát mắng và đánh em ở lớp (bạo lực từ giáo viên).", correct: "bosme", helpers: [{ id: "giaovien", emoji: "👩‍🏫", label: "Cô giáo / Thầy giáo" }, { id: "bosme", emoji: "👨‍👩‍👧", label: "Bố mẹ" }, { id: "canhsat", emoji: "👮‍♂️", label: "Chú công an (113)" }] },
+            { id: 3, emoji: "👧🚫👧", text: "Em bị các bạn cô lập, không cho chơi cùng và nói xấu em.", correct: "giaovien", helpers: [{ id: "giaovien", emoji: "👩‍🏫", label: "Cô giáo / Thầy giáo" }, { id: "bosme", emoji: "👨‍👩‍👧", label: "Bố mẹ" }, { id: "canhsat", emoji: "👮‍♂️", label: "Chú công an (113)" }] },
+            { id: 4, emoji: "👧🔪😨", text: "Em bị một bạn đe dọa bằng dao hoặc vật nguy hiểm.", correct: "canhsat", helpers: [{ id: "giaovien", emoji: "👩‍🏫", label: "Cô giáo / Thầy giáo" }, { id: "bosme", emoji: "👨‍👩‍👧", label: "Bố mẹ" }, { id: "canhsat", emoji: "👮‍♂️", label: "Chú công an (113)" }] },
+            { id: 5, emoji: "👧🤕👧", text: "Em bị bạn đánh bị thương, chảy máu.", correct: "bosme", helpers: [{ id: "giaovien", emoji: "👩‍🏫", label: "Cô giáo / Thầy giáo" }, { id: "bosme", emoji: "👨‍👩‍👧", label: "Bố mẹ" }, { id: "canhsat", emoji: "👮‍♂️", label: "Chú công an (113)" }] }
         ];
+        let selectedAnswers = new Array(situations.length).fill(null);
+        let submitted1 = false;
 
-        let currentUser = null, currentAllowedCourseIds = [], currentLicenseKey = null, currentDeviceId = null;
+        function renderExercise1() {
+            const container = document.getElementById('exercise1');
+            let html = `<div style="background:#E1F5FE; border-radius:24px; padding:15px; text-align:center; margin-bottom:20px;">📢 Mỗi tình huống, em hãy chọn NGƯỜI SẼ GIÚP em nhé!</div>
+            <div style="display:flex; flex-direction:column; gap:20px; margin-bottom:20px;" id="situationsGrid1"></div>
+            <button class="submit-btn1" style="background:#FFB347; border:none; color:white; font-size:18px; font-weight:bold; padding:14px; border-radius:60px; cursor:pointer; width:100%;">🔍 NỘP BÀI – KIỂM TRA</button>
+            <div id="resultArea1"></div>`;
+            container.innerHTML = html;
 
-        function getDeviceId() { let id = localStorage.getItem('safety_deviceId'); if (!id) { id = 'dev_' + Date.now() + '_' + Math.random().toString(36).substr(2, 8); localStorage.setItem('safety_deviceId', id); } return id; }
-        function getDeviceName() { const ua = navigator.userAgent; if (ua.includes('iPhone')) return 'iPhone'; if (ua.includes('Android')) return 'Android'; if (ua.includes('Windows')) return 'Windows PC'; if (ua.includes('Mac')) return 'Mac'; return 'Thiết bị khác'; }
+            const grid = document.getElementById('situationsGrid1');
+            situations.forEach((sit, idx) => {
+                const selectedId = selectedAnswers[idx];
+                const card = document.createElement('div');
+                card.style.cssText = 'background:#FFF5EA; border-radius:40px; padding:18px; border:2px solid #FFD1A4; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:15px;';
+                let optionsHtml = '';
+                sit.helpers.forEach(helper => {
+                    const isSelected = (selectedId === helper.id);
+                    optionsHtml += `<div class="helper-btn" data-helper="${helper.id}" data-idx="${idx}" style="background:white; border:3px solid #FFD1A4; border-radius:60px; padding:12px 20px; cursor:pointer; text-align:center; min-width:110px; ${isSelected ? 'background:#C8E6D9; border-color:#4CAF50;' : ''}">
+                        <span style="font-size:32px;">${helper.emoji}</span><div style="font-size:14px; font-weight:bold;">${helper.label}</div>
+                    </div>`;
+                });
+                card.innerHTML = `<div style="flex:2; display:flex; align-items:center; gap:15px;"><span style="font-size:50px; background:white; padding:12px; border-radius:60px;">${sit.emoji}</span><div style="font-size:18px; font-weight:bold;">${sit.text}</div></div>
+                <div style="flex:1; display:flex; gap:12px; flex-wrap:wrap; justify-content:flex-end;" class="options-${idx}">${optionsHtml}</div>
+                <div style="font-size:14px; margin-top:8px; text-align:right;" id="status-${idx}">${selectedId ? (selectedId === sit.correct ? '✅ Đúng rồi!' : '❌ Chưa đúng') : '💡 Hãy chọn người sẽ giúp em'}</div>`;
+                grid.appendChild(card);
+            });
 
-        async function authenticate(licenseKey) {
-            const url = `${API_URL}?ma=${encodeURIComponent(licenseKey)}&deviceId=${encodeURIComponent(getDeviceId())}&deviceName=${encodeURIComponent(getDeviceName())}`;
-            try { const res = await fetch(url); return await res.json(); } catch(e) { return { status: "error", message: "Không thể kết nối" }; }
+            document.querySelectorAll('.helper-btn').forEach(btn => {
+                btn.onclick = () => {
+                    if (submitted1) return;
+                    const idx = parseInt(btn.getAttribute('data-idx'));
+                    const helperId = btn.getAttribute('data-helper');
+                    selectedAnswers[idx] = helperId;
+                    renderExercise1();
+                };
+            });
+
+            document.querySelector('.submit-btn1').onclick = () => {
+                if (submitted1) return;
+                let allAnswered = selectedAnswers.every(a => a !== null);
+                if (!allAnswered) { alert('⚠️ Hãy chọn người giúp đỡ cho TẤT CẢ các tình huống!'); return; }
+                let correctCount = 0;
+                for (let i = 0; i < situations.length; i++) if (selectedAnswers[i] === situations[i].correct) correctCount++;
+                let message = correctCount === situations.length ? '🎉 SIÊU GIỎI! Bé biết rất rõ nên gọi ai để được giúp đỡ!' : (correctCount >= 4 ? '👍 Rất tốt! Hãy nhớ: cô giáo giúp ở trường, bố mẹ giúp ở nhà, công an giúp khi nguy hiểm!' : '📖 Bé cần học thêm xem ai sẽ giúp mình nhé.');
+                document.getElementById('resultArea1').innerHTML = `<div style="background:#FFF8F0; border-radius:40px; padding:20px; margin-top:15px; text-align:center;"><div style="font-size:28px; font-weight:bold;">🏆 Điểm: ${correctCount}/${situations.length} 🏆</div><div>${message}</div><button id="resetBtn1" style="background:#E8D8C8; border:none; padding:12px 28px; border-radius:40px; cursor:pointer; margin-top:15px;">🔄 LÀM LẠI</button></div>`;
+                submitted1 = true;
+                document.getElementById('resetBtn1')?.addEventListener('click', () => { selectedAnswers = new Array(situations.length).fill(null); submitted1 = false; renderExercise1(); });
+            };
         }
-        async function getDevices(licenseKey) { try { const res = await fetch(`${API_URL}?action=getDevices&ma=${encodeURIComponent(licenseKey)}`); return await res.json(); } catch(e) { return { status: "error" }; } }
-        async function logoutDevice(licenseKey, deviceId) { try { const res = await fetch(`${API_URL}?action=logout&ma=${encodeURIComponent(licenseKey)}&deviceId=${encodeURIComponent(deviceId)}`); return await res.json(); } catch(e) { return { status: "error" }; } }
+        renderExercise1();
+    })();
 
-        function renderCourses(group, allowedIds) {
-            const grid = document.getElementById('coursesGrid');
-            if (!grid) return;
-            let filtered = ALL_COURSES.filter(c => allowedIds.includes(c.id));
-            if (filtered.length === 0) { grid.innerHTML = '<div class="loading-text">Bạn chưa được đăng ký bài học nào. Vui lòng liên hệ Sophia để được hỗ trợ.</div>'; return; }
-            grid.innerHTML = filtered.map(course => `
-                <div class="course-card">
-                    <div class="course-header"><div class="course-icon">${course.icon}</div><h3>${course.name}</h3></div>
-                    <div class="course-content">
-                        <p class="course-desc">${course.desc}</p>
-                        <div class="course-footer">
-                            <a href="${course.file}" class="btn-start">▶ Bắt đầu học</a>
-                        </div>
-                    </div>
+    // ==================== BÀI TẬP 2: ĐÚNG/SAI ====================
+    (function() {
+        const questions = [
+            { emoji: "👧😢👊", text: "Bạn A đánh bạn B vì bạn B làm rơi hộp bút của A.", correct: "sai" },
+            { emoji: "👧💬👧", text: "Hai bạn đang cãi nhau, một bạn nói: 'Tớ sẽ mách cô giáo nếu cậu không dừng lại'.", correct: "dung" },
+            { emoji: "👧🤐👧", text: "Em thấy bạn bị bắt nạt nhưng sợ nên không dám nói với ai.", correct: "sai" },
+            { emoji: "👧🏃‍♀️👩‍🏫", text: "Khi bị bắt nạt, em chạy đến chỗ cô giáo hoặc người lớn để kể.", correct: "dung" },
+            { emoji: "👧👊👧😠", text: "Em thấy bạn đánh bạn khác, em chạy đến đánh lại để bênh bạn.", correct: "sai" },
+            { emoji: "👧💪👧", text: "Em nói 'KHÔNG' với bạn đang rủ em đi đánh nhau.", correct: "dung" },
+            { emoji: "👧🤝👧", text: "Hai bạn tranh luận, sau đó ngồi lại nói chuyện để hiểu nhau hơn.", correct: "dung" },
+            { emoji: "👧😈👧", text: "Em thấy các bạn đang cô lập, không cho một bạn khác chơi cùng.", correct: "sai" }
+        ];
+        let userAnswers = new Array(questions.length).fill(null);
+        let currentIdx = 0;
+
+        function renderExercise2() {
+            const container = document.getElementById('exercise2');
+            if (currentIdx >= questions.length) {
+                let correct = 0;
+                for (let i = 0; i < questions.length; i++) if (userAnswers[i] === questions[i].correct) correct++;
+                let msg = correct === questions.length ? '🎉 SIÊU BÉ NGOAN! Con làm đúng hết rồi!' : (correct >= 5 ? '👍 Rất tốt!' : '💪 Hãy học thêm nhé!');
+                container.innerHTML = `<div style="background:#FFF8F0; border-radius:48px; padding:30px; text-align:center;"><div style="font-size:40px; font-weight:bold;">🏆 ${correct}/${questions.length} 🏆</div><div style="margin:20px 0;">${msg}</div><button id="resetQuiz2" style="background:#E8D8C8; border:none; padding:12px 28px; border-radius:40px; cursor:pointer;">🔄 CHƠI LẠI</button></div>`;
+                document.getElementById('resetQuiz2')?.addEventListener('click', () => { userAnswers = new Array(questions.length).fill(null); currentIdx = 0; renderExercise2(); });
+                return;
+            }
+            const q = questions[currentIdx];
+            let html = `<div style="background:#FFF5EA; border-radius:48px; padding:28px 24px; border:2px solid #FFD1A4;">
+                <div style="font-size:80px; text-align:center; background:white; padding:20px; border-radius:60px; margin-bottom:15px;">${q.emoji}</div>
+                <div style="font-size:22px; font-weight:bold; text-align:center; background:white; padding:15px; border-radius:40px; margin:15px 0;">${q.text}</div>
+                <div style="display:flex; justify-content:center; gap:30px; flex-wrap:wrap; margin:20px 0;">
+                    <div class="choice-btn" data-choice="dung" style="background:white; border:3px solid #FFD1A4; border-radius:80px; padding:15px 30px; cursor:pointer; text-align:center; min-width:140px;"><span style="font-size:55px;">😊</span><div style="font-size:20px; font-weight:bold;">ĐÚNG</div></div>
+                    <div class="choice-btn" data-choice="sai" style="background:white; border:3px solid #FFD1A4; border-radius:80px; padding:15px 30px; cursor:pointer; text-align:center; min-width:140px;"><span style="font-size:55px;">😞</span><div style="font-size:20px; font-weight:bold;">SAI</div></div>
                 </div>
-            `).join('');
+                <div id="feedback2" style="background:#FFF0E8; border-radius:40px; padding:15px; text-align:center;">💡 Hãy chọn mặt cười (đúng) hoặc mặt mếu (sai) nhé!</div>
+                <button id="nextBtn2" style="background:#FFB347; border:none; color:white; font-size:18px; font-weight:bold; padding:14px; border-radius:60px; cursor:pointer; width:100%; margin-top:15px;">${currentIdx === questions.length-1 ? '🏁 XEM KẾT QUẢ' : '➡️ CÂU TIẾP THEO'}</button>
+                <div style="text-align:center; margin-top:15px;">Câu ${currentIdx+1}/${questions.length}</div>
+            </div>`;
+            container.innerHTML = html;
+            document.querySelectorAll('.choice-btn').forEach(btn => {
+                btn.onclick = () => {
+                    const choice = btn.getAttribute('data-choice');
+                    userAnswers[currentIdx] = choice;
+                    const fb = document.getElementById('feedback2');
+                    if (choice === q.correct) {
+                        fb.innerHTML = '✅ Đúng rồi! Bé ngoan quá! 🎉';
+                        fb.style.background = '#E8F5E9';
+                        fb.style.color = '#2E7D32';
+                    } else {
+                        fb.innerHTML = `❌ Chưa đúng. Hành động này ${q.correct === 'dung' ? 'ĐÚNG' : 'SAI'} rồi.`;
+                        fb.style.background = '#FFEBEE';
+                        fb.style.color = '#C62828';
+                    }
+                    document.querySelectorAll('.choice-btn').forEach(b => { b.style.opacity = '0.6'; b.style.pointerEvents = 'none'; });
+                };
+            });
+            document.getElementById('nextBtn2').onclick = () => {
+                if (userAnswers[currentIdx] === null) { document.getElementById('feedback2').innerHTML = '⚠️ Hãy chọn đáp án trước khi sang câu tiếp theo!'; return; }
+                currentIdx++; renderExercise2();
+            };
         }
+        renderExercise2();
+    })();
 
-        async function unlockCourse(key) {
-            const loading = document.getElementById('loadingOverlay');
-            loading.style.display = 'flex';
-            const result = await authenticate(key);
-            loading.style.display = 'none';
-            if (result.status === 'success') {
-                currentUser = result.user;
-                currentAllowedCourseIds = result.courses;
-                currentLicenseKey = key;
-                currentDeviceId = getDeviceId();
-                localStorage.setItem('safety_license', key);
-                localStorage.setItem('safety_user', currentUser);
-                localStorage.setItem('safety_courses', JSON.stringify(currentAllowedCourseIds));
-                document.getElementById('unlockScreen').style.display = 'none';
-                document.getElementById('mainContent').style.display = 'block';
-                document.getElementById('userNameDisplay').innerHTML = `<i class="fas fa-user-circle"></i> ${currentUser}`;
-                document.getElementById('manageDevicesBtn').style.display = 'inline-block';
-                renderCourses('all', currentAllowedCourseIds);
-            } else {
-                const err = document.getElementById('errorMsg');
-                err.innerText = result.message || "Mã khóa không hợp lệ!";
-                err.style.display = 'block';
-                setTimeout(() => err.style.display = 'none', 3000);
+    // ==================== BÀI TẬP 3: CẢM XÚC CỦA EM ====================
+    (function() {
+        const questions = [
+            { emoji: "😢👧👊", text: "Một bạn lớn đang đánh bạn nhỏ khác. Bạn nhỏ bị đánh sẽ cảm thấy thế nào?", correct: "buon", emotions: [{ id: "vui", emoji: "😊", label: "Vui vẻ" }, { id: "buon", emoji: "😢", label: "Buồn bã" }, { id: "tuc", emoji: "😠", label: "Tức giận" }, { id: "so", emoji: "😨", label: "Sợ hãi" }] },
+            { emoji: "👧❌👧", text: "Các bạn không cho em chơi cùng, còn nói những lời không hay về em.", correct: "buon", emotions: [{ id: "vui", emoji: "😊", label: "Vui vẻ" }, { id: "buon", emoji: "😢", label: "Buồn bã" }, { id: "tuc", emoji: "😠", label: "Tức giận" }, { id: "so", emoji: "😨", label: "Sợ hãi" }] },
+            { emoji: "🙅‍♀️👧😨", text: "Một bạn to con đe dọa sẽ đánh em nếu em mách cô giáo.", correct: "so", emotions: [{ id: "vui", emoji: "😊", label: "Vui vẻ" }, { id: "buon", emoji: "😢", label: "Buồn bã" }, { id: "tuc", emoji: "😠", label: "Tức giận" }, { id: "so", emoji: "😨", label: "Sợ hãi" }] },
+            { emoji: "👧💪👧😠", text: "Em nhìn thấy bạn bị giật tóc và bị đẩy ngã. Em cảm thấy thế nào với hành động của bạn bắt nạt?", correct: "tuc", emotions: [{ id: "vui", emoji: "😊", label: "Vui vẻ" }, { id: "buon", emoji: "😢", label: "Buồn bã" }, { id: "tuc", emoji: "😠", label: "Tức giận" }, { id: "so", emoji: "😨", label: "Sợ hãi" }] },
+            { emoji: "👧🏃‍♀️👩‍🏫", text: "Sau khi bị bắt nạt, em chạy đi tìm cô giáo để kể. Lúc đó em cảm thấy thế nào?", correct: "an_toan", emotions: [{ id: "an_toan", emoji: "😌", label: "An toàn, nhẹ nhõm" }, { id: "buon", emoji: "😢", label: "Buồn bã" }, { id: "tuc", emoji: "😠", label: "Tức giận" }, { id: "so", emoji: "😨", label: "Sợ hãi" }] }
+        ];
+        let userAnswers = new Array(questions.length).fill(null);
+        let currentIdx3 = 0;
+
+        function renderExercise3() {
+            const container = document.getElementById('exercise3');
+            if (currentIdx3 >= questions.length) {
+                let correct = 0;
+                for (let i = 0; i < questions.length; i++) if (userAnswers[i] === questions[i].correct) correct++;
+                let msg = correct === questions.length ? '🎉 TUYỆT VỜI! Em là chuyên gia cảm xúc!' : (correct >= 3 ? '👍 Rất tốt!' : '💪 Hãy học thêm nhé!');
+                container.innerHTML = `<div style="background:#FFF8F0; border-radius:48px; padding:30px; text-align:center;"><div style="font-size:40px; font-weight:bold;">🏆 ${correct}/${questions.length} 🏆</div><div style="margin:20px 0;">${msg}</div><button id="resetQuiz3" style="background:#E8D8C8; border:none; padding:12px 28px; border-radius:40px; cursor:pointer;">🔄 CHƠI LẠI</button></div>`;
+                document.getElementById('resetQuiz3')?.addEventListener('click', () => { userAnswers = new Array(questions.length).fill(null); currentIdx3 = 0; renderExercise3(); });
+                return;
             }
+            const q = questions[currentIdx3];
+            let emotionsHtml = '';
+            q.emotions.forEach(em => { emotionsHtml += `<div class="emotion-btn" data-emotion="${em.id}" style="background:white; border:3px solid #FFD1A4; border-radius:80px; padding:15px 25px; cursor:pointer; text-align:center; min-width:120px;"><span style="font-size:48px;">${em.emoji}</span><div style="font-size:18px; font-weight:bold;">${em.label}</div></div>`; });
+            let html = `<div style="background:#FFF5EA; border-radius:48px; padding:28px 24px; border:2px solid #FFD1A4;">
+                <div style="font-size:100px; text-align:center; background:white; padding:20px; border-radius:60px; margin-bottom:15px;">${q.emoji}</div>
+                <div style="font-size:22px; font-weight:bold; text-align:center; background:white; padding:15px; border-radius:40px; margin:15px 0;">${q.text}</div>
+                <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin:20px 0;" id="emotionsContainer3">${emotionsHtml}</div>
+                <div id="feedback3" style="background:#FFF0E8; border-radius:40px; padding:15px; text-align:center;">💡 Hãy chọn cảm xúc của em nhé!</div>
+                <button id="nextBtn3" style="background:#FFB347; border:none; color:white; font-size:18px; font-weight:bold; padding:14px; border-radius:60px; cursor:pointer; width:100%; margin-top:15px;">${currentIdx3 === questions.length-1 ? '🏁 XEM KẾT QUẢ' : '➡️ CÂU TIẾP THEO'}</button>
+                <div style="text-align:center; margin-top:15px;">Câu ${currentIdx3+1}/${questions.length}</div>
+            </div>`;
+            container.innerHTML = html;
+            document.querySelectorAll('.emotion-btn').forEach(btn => {
+                btn.onclick = () => {
+                    const emotion = btn.getAttribute('data-emotion');
+                    userAnswers[currentIdx3] = emotion;
+                    const fb = document.getElementById('feedback3');
+                    if (emotion === q.correct) {
+                        fb.innerHTML = '✅ Đúng rồi! Bé giỏi quá! 🎉';
+                        fb.style.background = '#E8F5E9';
+                        fb.style.color = '#2E7D32';
+                    } else {
+                        const correctEm = q.emotions.find(e => e.id === q.correct);
+                        fb.innerHTML = `❌ Chưa đúng. Cảm xúc đúng là ${correctEm.emoji} ${correctEm.label}.`;
+                        fb.style.background = '#FFEBEE';
+                        fb.style.color = '#C62828';
+                    }
+                    document.querySelectorAll('.emotion-btn').forEach(b => { b.style.opacity = '0.6'; b.style.pointerEvents = 'none'; });
+                };
+            });
+            document.getElementById('nextBtn3').onclick = () => {
+                if (userAnswers[currentIdx3] === null) { document.getElementById('feedback3').innerHTML = '⚠️ Hãy chọn cảm xúc trước khi sang câu tiếp theo!'; return; }
+                currentIdx3++; renderExercise3();
+            };
         }
-
-        function logout() {
-            localStorage.removeItem('safety_license');
-            localStorage.removeItem('safety_user');
-            localStorage.removeItem('safety_courses');
-            localStorage.removeItem('safety_deviceId');
-            document.getElementById('unlockScreen').style.display = 'flex';
-            document.getElementById('mainContent').style.display = 'none';
-            document.getElementById('licenseKey').value = '';
-            document.getElementById('manageDevicesBtn').style.display = 'none';
-        }
-
-        async function checkExistingLicense() {
-            const saved = localStorage.getItem('safety_license');
-            if (saved) {
-                const loading = document.getElementById('loadingOverlay');
-                loading.style.display = 'flex';
-                const result = await authenticate(saved);
-                loading.style.display = 'none';
-                if (result.status === 'success') {
-                    currentUser = result.user;
-                    currentAllowedCourseIds = result.courses;
-                    currentLicenseKey = saved;
-                    currentDeviceId = getDeviceId();
-                    document.getElementById('unlockScreen').style.display = 'none';
-                    document.getElementById('mainContent').style.display = 'block';
-                    document.getElementById('userNameDisplay').innerHTML = `<i class="fas fa-user-circle"></i> ${currentUser}`;
-                    document.getElementById('manageDevicesBtn').style.display = 'inline-block';
-                    renderCourses('all', currentAllowedCourseIds);
-                } else {
-                    localStorage.removeItem('safety_license');
-                    localStorage.removeItem('safety_user');
-                    localStorage.removeItem('safety_courses');
-                    localStorage.removeItem('safety_deviceId');
-                }
-            }
-            document.getElementById('loadingOverlay').style.display = 'none';
-        }
-
-        async function showDeviceManager() {
-            if (!currentLicenseKey) return;
-            const loading = document.getElementById('loadingOverlay');
-            loading.style.display = 'flex';
-            const result = await getDevices(currentLicenseKey);
-            loading.style.display = 'none';
-            if (result.status === 'success') {
-                const devices = result.devices || [];
-                const modalBody = document.getElementById('deviceModalBody');
-                if (devices.length === 0) modalBody.innerHTML = '<p>Không có thiết bị nào đang đăng nhập.</p>';
-                else {
-                    modalBody.innerHTML = `<p>Hiện tại tài khoản của bạn đang đăng nhập trên ${devices.length} thiết bị:</p><div class="device-list">${devices.map(d => `<div class="device-item"><div class="device-info"><div class="device-name">${escapeHtml(d.deviceName)} ${d.deviceId === currentDeviceId ? '<span class="current-badge">Thiết bị này</span>' : ''}</div><div class="device-time">Đăng nhập: ${new Date(d.lastActive).toLocaleString('vi-VN')}</div></div>${d.deviceId !== currentDeviceId ? `<button class="logout-device-btn" onclick="removeDevice('${d.deviceId}')">Đăng xuất</button>` : ''}</div>`).join('')}</div><p style="margin-top:16px; font-size:0.8rem; color:var(--gray);">* Giới hạn tối đa 2 thiết bị cùng lúc</p>`;
-                }
-                document.getElementById('deviceModal').classList.add('active');
-            } else alert("Không thể tải danh sách thiết bị.");
-        }
-
-        async function removeDevice(deviceId) { if (!currentLicenseKey) return; const loading = document.getElementById('loadingOverlay'); loading.style.display = 'flex'; const result = await logoutDevice(currentLicenseKey, deviceId); loading.style.display = 'none'; if (result.status === 'success') { alert("Đã đăng xuất thiết bị thành công!"); showDeviceManager(); } else alert("Không thể đăng xuất thiết bị."); }
-        function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m])); }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            checkExistingLicense();
-            document.getElementById('unlockBtn').addEventListener('click', () => unlockCourse(document.getElementById('licenseKey').value));
-            document.getElementById('licenseKey').addEventListener('keypress', e => { if (e.key === 'Enter') unlockCourse(e.target.value); });
-            document.getElementById('logoutBtn').addEventListener('click', logout);
-            document.getElementById('manageDevicesBtn').addEventListener('click', showDeviceManager);
-            document.getElementById('deviceModal').addEventListener('click', e => { if (e.target === document.getElementById('deviceModal')) closeDeviceModal(); });
-            window.removeDevice = removeDevice;
-        });
-    </script>
+        renderExercise3();
+    })();
+</script>
 </body>
 </html>
