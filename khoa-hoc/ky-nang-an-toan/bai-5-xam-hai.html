@@ -67,6 +67,7 @@
 
 <script>
     // ==================== BÀI TẬP 1: ĐIỆN THOẠI CẤP CỨU ====================
+       // ==================== BÀI TẬP 1: ĐIỆN THOẠI CẤP CỨU ====================
     (function() {
         const situations = [
             { emoji: "😨👤", text: "Có người lạ muốn chạm vào vùng riêng tư của con. Con cần gọi ai?", correctNumber: "18001567", hint: "Đường dây nóng bảo vệ trẻ em" },
@@ -98,6 +99,9 @@
                 </div>
                 <div id="feedback1" style="margin:0 20px 20px; padding:12px; background:#2A2A2A; border-radius:30px; text-align:center; font-size:14px;">💡 Hãy nhập số cần gọi rồi bấm nút GỌI!</div>
                 <button id="nextBtn1" style="background:#FFB347; border:none; color:#1A1A1A; font-size:18px; font-weight:bold; padding:14px; border-radius:60px; cursor:pointer; width:calc(100% - 40px); margin:0 20px 25px;">${currentIdx === situations.length-1 ? '🏁 HOÀN THÀNH' : '➡️ TÌNH HUỐNG TIẾP'}</button>
+                <div style="text-align:center; padding:10px; margin-top:5px; background:#2A2A2A; border-radius:30px; color:#DDD;">
+                    📞 Đường dây nóng bảo vệ trẻ em: <strong style="color:#FF8C42;">1800 1567</strong>
+                </div>
             </div>`;
             container.innerHTML = html;
             document.querySelectorAll('.key1').forEach(btn => { btn.onclick = () => { if (!gameFinished) { userInput += btn.getAttribute('data-num'); if (userInput.length > 10) userInput = userInput.slice(0,10); renderExercise1(); } }; });
