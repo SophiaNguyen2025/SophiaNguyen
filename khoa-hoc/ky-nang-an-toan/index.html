@@ -48,31 +48,20 @@
         .hero { background: var(--gradient); padding: 60px 0 50px; text-align: center; color: white; border-radius: 0 0 40px 40px; }
         .hero h1 { font-size: 2rem; margin-bottom: 1rem; }
         .hero p { font-size: 1rem; max-width: 700px; margin: 0 auto; }
-        .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 28px; margin: 30px 0; }
-        .course-card { background: var(--white); border-radius: 28px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: all 0.3s; cursor: pointer; }
+        .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 28px; margin: 30px 0; }
+        .course-card { background: var(--white); border-radius: 24px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: all 0.3s; cursor: pointer; border: 1px solid var(--light-gray); }
         .course-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
         .course-header { background: var(--gradient); padding: 20px; color: white; text-align: center; }
-        .course-icon { font-size: 2rem; margin-bottom: 8px; }
-        .course-header h3 { font-size: 1.1rem; }
+        .course-icon { font-size: 2.5rem; margin-bottom: 8px; }
+        .course-header h3 { font-size: 1.1rem; margin-bottom: 4px; }
         .course-content { padding: 20px; }
-        .course-desc { color: var(--gray); font-size: 0.9rem; margin-bottom: 16px; }
-        .course-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--light-gray); }
-        .course-price { font-weight: bold; font-size: 1.2rem; color: var(--primary); }
-        .btn-start { background: var(--gradient) !important; border: none !important; color: white !important; padding: 12px 28px !important; border-radius: 50px !important; cursor: pointer !important; font-weight: 700 !important; font-size: 1rem !important; transition: all 0.3s ease !important; box-shadow: 0 4px 12px rgba(220,38,38,0.3) !important; display: inline-flex !important; align-items: center !important; gap: 8px !important; }
+        .course-desc { color: var(--gray); font-size: 0.9rem; margin-bottom: 16px; line-height: 1.5; }
+        .course-footer { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--light-gray); text-align: center; }
+        .btn-start { background: var(--gradient) !important; border: none !important; color: white !important; padding: 10px 20px !important; border-radius: 40px !important; cursor: pointer !important; font-weight: 600 !important; font-size: 0.9rem !important; transition: all 0.3s ease !important; display: inline-flex !important; align-items: center !important; gap: 6px !important; text-decoration: none !important; }
         .btn-start:hover { transform: translateY(-2px) !important; box-shadow: 0 8px 20px rgba(220,38,38,0.4) !important; }
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
-        .modal.active { display: flex; }
-        .modal-content { background: var(--white); max-width: 600px; width: 100%; max-height: 80vh; border-radius: 32px; overflow-y: auto; }
-        .modal-header { background: var(--gradient); padding: 24px; color: white; position: relative; }
-        .modal-header h3 { font-size: 1.4rem; margin-bottom: 8px; padding-right: 30px; }
-        .close-modal { position: absolute; top: 20px; right: 20px; font-size: 1.5rem; cursor: pointer; background: rgba(255,255,255,0.2); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-        .modal-body { padding: 24px; }
-        .footer { background: var(--dark); color: white; padding: 40px 0 20px; margin-top: 60px; text-align: center; }
+        .footer { background: #0a4a5a; color: white; padding: 40px 0 20px; margin-top: 60px; text-align: center; }
         @media (max-width: 768px) { .hero h1 { font-size: 1.5rem; } .courses-grid { grid-template-columns: 1fr; } }
         .loading-text { text-align: center; padding: 40px; color: var(--gray); }
-        .download-buttons { display: flex; gap: 12px; justify-content: flex-end; margin-bottom: 30px; flex-wrap: wrap; }
-        .download-btn { background: var(--primary); color: white; padding: 8px 16px; border-radius: 40px; text-decoration: none; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s; }
-        .download-btn:hover { background: var(--primary-dark); transform: translateY(-2px); }
         .device-list { margin-top: 10px; }
         .device-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid var(--light-gray); }
         .device-item:last-child { border-bottom: none; }
@@ -117,31 +106,19 @@
     <div class="modal" id="deviceModal"><div class="modal-content"><div class="modal-header"><h3>📱 Quản lý thiết bị</h3><div class="close-modal" onclick="closeDeviceModal()">✕</div></div><div class="modal-body" id="deviceModalBody"></div></div></div>
 
     <script>
-        // ==================== CẤU HÌNH API ====================
-        const API_URL = "https://script.google.com/macros/s/AKfycbw23SDMSj-9mzkGgVanZOPL-atN7PZYJJ2H-tOkb2HyZlAxblso_W3-T-puqvgeUz_k/exec"; 
+        const API_URL = "https://script.google.com/macros/s/AKfycbwD1E0X4QOqRqzYZ0QFq-LS4yF9LsxEBJH3QrRY_FYJlbQSeC8PAr2djP5y82djs0V9/exec";
         
+        // Danh sách 8 bài học
         const ALL_COURSES = [
-            { id: 1, name: "Phòng chống tai nạn thương tích", icon: "🩹", price: "49.000đ", shortDesc: "Nhận biết nguy cơ tai nạn trong nhà, trường học, nơi công cộng.", fullDesc: "Bài học giúp trẻ nhận biết các nguy cơ tai nạn thường gặp và cách xử lý an toàn." },
-            { id: 2, name: "Phòng tránh bạo lực học đường", icon: "🤝", price: "49.000đ", shortDesc: "Nhận diện bạo lực và cách ứng phó.", fullDesc: "Trang bị kỹ năng ứng phó với bạo lực học đường." },
-            { id: 3, name: "Phòng chống tai nạn điện", icon: "⚡", price: "49.000đ", shortDesc: "An toàn khi sử dụng điện.", fullDesc: "Hướng dẫn trẻ sử dụng điện an toàn." },
-            { id: 4, name: "Dinh dưỡng cho trẻ em", icon: "🥗", price: "49.000đ", shortDesc: "Thói quen ăn uống lành mạnh.", fullDesc: "Giúp trẻ hiểu về dinh dưỡng." },
-            { id: 5, name: "Phòng tránh xâm hại", icon: "🛡️", price: "49.000đ", shortDesc: "Nhận biết vùng riêng tư, quy tắc an toàn cơ thể.", fullDesc: "Trang bị kỹ năng bảo vệ cơ thể." },
-            { id: 6, name: "Phòng chống hỏa hoạn", icon: "🔥", price: "49.000đ", shortDesc: "Kỹ năng thoát hiểm khi có cháy.", fullDesc: "Hướng dẫn trẻ kỹ năng thoát hiểm an toàn." },
-            { id: 7, name: "Phòng tránh đuối nước", icon: "🏊", price: "49.000đ", shortDesc: "An toàn khi bơi, nhận biết vùng nước nguy hiểm.", fullDesc: "Trang bị kỹ năng an toàn dưới nước." },
-            { id: 8, name: "Phòng chống bắt cóc", icon: "🚨", price: "49.000đ", shortDesc: "Nhận diện thủ đoạn của kẻ xấu.", fullDesc: "Giúp trẻ nhận biết nguy cơ bị bắt cóc." }
+            { id: 1, name: "Phòng chống tai nạn thương tích", icon: "🩹", desc: "Nhận biết nguy cơ tai nạn trong nhà, trường học, nơi công cộng.", file: "bai-1-tai-nan-thuong-tich.html" },
+            { id: 2, name: "Phòng tránh bạo lực học đường", icon: "🤝", desc: "Nhận diện bạo lực và cách ứng phó.", file: "bai-2-bao-luc-hoc-duong.html" },
+            { id: 3, name: "Phòng chống tai nạn điện", icon: "⚡", desc: "An toàn khi sử dụng điện.", file: "bai-3-tai-nan-dien.html" },
+            { id: 4, name: "Dinh dưỡng cho trẻ em", icon: "🥗", desc: "Thói quen ăn uống lành mạnh.", file: "bai-4-dinh-duong.html" },
+            { id: 5, name: "Phòng tránh xâm hại", icon: "🛡️", desc: "Nhận biết vùng riêng tư, quy tắc an toàn cơ thể.", file: "bai-5-xam-hai.html" },
+            { id: 6, name: "Phòng chống hỏa hoạn", icon: "🔥", desc: "Kỹ năng thoát hiểm khi có cháy.", file: "bai-6-hoa-hoan.html" },
+            { id: 7, name: "Phòng tránh đuối nước", icon: "🏊", desc: "An toàn khi bơi, nhận biết vùng nước nguy hiểm.", file: "bai-7-duoi-nuoc.html" },
+            { id: 8, name: "Phòng chống bắt cóc", icon: "🚨", desc: "Nhận diện thủ đoạn của kẻ xấu.", file: "bai-8-bat-coc.html" }
         ];
-
-        // Nội dung chi tiết từng bài (video + tài liệu) - CHỜ CHỊ ĐIỀN LINK
-        const courseContent = {
-            1: { courseName: "Phòng chống tai nạn thương tích", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" },
-            2: { courseName: "Phòng tránh bạo lực học đường", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" },
-            3: { courseName: "Phòng chống tai nạn điện", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" },
-            4: { courseName: "Dinh dưỡng cho trẻ em", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" },
-            5: { courseName: "Phòng tránh xâm hại", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" },
-            6: { courseName: "Phòng chống hỏa hoạn", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" },
-            7: { courseName: "Phòng tránh đuối nước", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" },
-            8: { courseName: "Phòng chống bắt cóc", videoUrl: "", pdfUrl: "", card1: "", card2: "", card3: "" }
-        };
 
         let currentUser = null, currentAllowedCourseIds = [], currentLicenseKey = null, currentDeviceId = null;
 
@@ -155,34 +132,18 @@
         async function getDevices(licenseKey) { try { const res = await fetch(`${API_URL}?action=getDevices&ma=${encodeURIComponent(licenseKey)}`); return await res.json(); } catch(e) { return { status: "error" }; } }
         async function logoutDevice(licenseKey, deviceId) { try { const res = await fetch(`${API_URL}?action=logout&ma=${encodeURIComponent(licenseKey)}&deviceId=${encodeURIComponent(deviceId)}`); return await res.json(); } catch(e) { return { status: "error" }; } }
 
-        function showCourseDetail(course) {
-            const modal = document.getElementById('courseModal');
-            document.getElementById('modalTitle').innerHTML = `${course.icon} ${course.name}`;
-            document.getElementById('modalBody').innerHTML = `
-                <p style="margin-bottom:20px; font-weight:500;">${course.fullDesc}</p>
-                <div style="margin-top:24px; padding-top:16px; border-top:1px solid var(--light-gray); display:flex; justify-content:space-between; align-items:center;">
-                    <span style="font-size:1.3rem; font-weight:bold; color:var(--primary);">${course.price}</span>
-                    <button class="btn-start" onclick="startCourse(${course.id})">▶ Bắt đầu học</button>
-                </div>
-            `;
-            modal.classList.add('active');
-        }
-        function closeModal() { document.getElementById('courseModal').classList.remove('active'); }
-        function closeDeviceModal() { document.getElementById('deviceModal').classList.remove('active'); }
-
         function renderCourses(group, allowedIds) {
             const grid = document.getElementById('coursesGrid');
             if (!grid) return;
             let filtered = ALL_COURSES.filter(c => allowedIds.includes(c.id));
             if (filtered.length === 0) { grid.innerHTML = '<div class="loading-text">Bạn chưa được đăng ký bài học nào. Vui lòng liên hệ Sophia để được hỗ trợ.</div>'; return; }
             grid.innerHTML = filtered.map(course => `
-                <div class="course-card" onclick='showCourseDetail(${JSON.stringify(course).replace(/'/g, "\\'")})'>
+                <div class="course-card">
                     <div class="course-header"><div class="course-icon">${course.icon}</div><h3>${course.name}</h3></div>
                     <div class="course-content">
-                        <p class="course-desc">${course.shortDesc}</p>
+                        <p class="course-desc">${course.desc}</p>
                         <div class="course-footer">
-                            <span class="course-price">${course.price}</span>
-                            <button class="btn-start" onclick="event.stopPropagation(); startCourse(${course.id})">▶ Bắt đầu học</button>
+                            <a href="${course.file}" class="btn-start">▶ Bắt đầu học</a>
                         </div>
                     </div>
                 </div>
@@ -253,16 +214,6 @@
             document.getElementById('loadingOverlay').style.display = 'none';
         }
 
-        function startCourse(courseId) { 
-            const content = courseContent[courseId];
-            if (content && content.videoUrl) {
-                showLearningPage(courseId);
-            } else {
-                alert(`📚 Bài học "${ALL_COURSES.find(c => c.id === courseId)?.name}"\n\nNội dung đang được cập nhật. Chị sẽ sớm hoàn thiện!`);
-            }
-            closeModal(); 
-        }
-
         async function showDeviceManager() {
             if (!currentLicenseKey) return;
             const loading = document.getElementById('loadingOverlay');
@@ -283,33 +234,6 @@
         async function removeDevice(deviceId) { if (!currentLicenseKey) return; const loading = document.getElementById('loadingOverlay'); loading.style.display = 'flex'; const result = await logoutDevice(currentLicenseKey, deviceId); loading.style.display = 'none'; if (result.status === 'success') { alert("Đã đăng xuất thiết bị thành công!"); showDeviceManager(); } else alert("Không thể đăng xuất thiết bị."); }
         function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m])); }
 
-        function showLearningPage(courseId) {
-            const content = courseContent[courseId];
-            if (!content) return;
-            let learningPage = document.getElementById('learningPage');
-            if (!learningPage) { learningPage = document.createElement('div'); learningPage.id = 'learningPage'; learningPage.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:white; z-index:2000; overflow-y:auto; display:none;'; document.body.appendChild(learningPage); }
-            let downloadButtons = '';
-            if (content.pdfUrl) downloadButtons += `<a href="${content.pdfUrl}" target="_blank" class="download-btn"><i class="fas fa-download"></i> Tài liệu chính (PDF)</a>`;
-            if (content.card1) downloadButtons += `<a href="${content.card1}" target="_blank" class="download-btn"><i class="fas fa-download"></i> 📘 Thẻ hỏi đáp</a>`;
-            if (content.card2) downloadButtons += `<a href="${content.card2}" target="_blank" class="download-btn"><i class="fas fa-download"></i> 🎯 Thẻ nhiệm vụ</a>`;
-            if (content.card3) downloadButtons += `<a href="${content.card3}" target="_blank" class="download-btn"><i class="fas fa-download"></i> 💬 Câu hỏi tương tác</a>`;
-            learningPage.innerHTML = `
-                <div style="background: var(--gradient); padding: 20px; position: sticky; top: 0; z-index: 10;">
-                    <button onclick="closeLearningPage()" style="background: white; border: none; padding: 8px 16px; border-radius: 40px; margin-bottom: 12px; cursor: pointer;">← Quay lại</button>
-                    <h2 style="color: white; margin: 0;">${content.courseName}</h2>
-                </div>
-                <div style="padding: 20px; max-width: 900px; margin: 0 auto;">
-                    <div style="margin-bottom: 30px;">${content.videoUrl ? `<iframe width="100%" height="450" src="${content.videoUrl}" frameborder="0" allowfullscreen style="border-radius: 20px;"></iframe>` : '<div style="background: #f0f0f0; padding: 60px; text-align: center; border-radius: 20px;">Video đang được cập nhật</div>'}</div>
-                    ${downloadButtons ? `<div class="download-buttons">${downloadButtons}</div>` : ''}
-                </div>
-            `;
-            document.getElementById('mainContent').style.display = 'none';
-            learningPage.style.display = 'block';
-            window.scrollTo(0, 0);
-        }
-
-        function closeLearningPage() { const lp = document.getElementById('learningPage'); if (lp) lp.style.display = 'none'; document.getElementById('mainContent').style.display = 'block'; renderCourses('all', currentAllowedCourseIds); }
-
         document.addEventListener('DOMContentLoaded', () => {
             checkExistingLicense();
             document.getElementById('unlockBtn').addEventListener('click', () => unlockCourse(document.getElementById('licenseKey').value));
@@ -317,8 +241,7 @@
             document.getElementById('logoutBtn').addEventListener('click', logout);
             document.getElementById('manageDevicesBtn').addEventListener('click', showDeviceManager);
             document.getElementById('deviceModal').addEventListener('click', e => { if (e.target === document.getElementById('deviceModal')) closeDeviceModal(); });
-            document.getElementById('courseModal').addEventListener('click', e => { if (e.target === document.getElementById('courseModal')) closeModal(); });
-            window.closeLearningPage = closeLearningPage; window.removeDevice = removeDevice;
+            window.removeDevice = removeDevice;
         });
     </script>
 </body>
