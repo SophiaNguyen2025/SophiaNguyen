@@ -113,14 +113,6 @@
     window.addEventListener('resize', () => { resizeCanvas(); if(particles.length) drawConfetti(); });
     
     // ==================== ÂM THANH ====================
-    let applauseAudio = null;
-    function preloadAudio() {
-        applauseAudio = new Audio();
-        applauseAudio.src = "https://cdn.pixabay.com/download/audio/2022/03/15/audio_3c9c4f6b9e.mp3?filename=applause-193276.mp3";
-        applauseAudio.load();
-    }
-    preloadAudio();
-    
     function playKeypadSound() {
         try {
             const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -161,10 +153,34 @@
     
     function playCompleteSound() {
         try {
-            if(applauseAudio) {
-                applauseAudio.currentTime = 0;
-                applauseAudio.play().catch(e => console.log("Audio play error:", e));
-            }
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const gain = audioCtx.createGain();
+            gain.connect(audioCtx.destination);
+            gain.gain.value = 0.3;
+            const bufferSize = 4096;
+            const noise = audioCtx.createBufferSource();
+            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for(let i=0; i<bufferSize; i++) data[i] = Math.random() * 2 - 1;
+            noise.buffer = buffer;
+            noise.loop = true;
+            noise.connect(gain);
+            noise.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 1.2);
+            noise.stop(audioCtx.currentTime + 1.2);
+            
+            setTimeout(() => {
+                const osc = audioCtx.createOscillator();
+                const gain2 = audioCtx.createGain();
+                osc.connect(gain2);
+                gain2.connect(audioCtx.destination);
+                osc.frequency.value = 1046.5;
+                gain2.gain.value = 0.3;
+                osc.type = 'sine';
+                osc.start();
+                gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.5);
+                osc.stop(audioCtx.currentTime + 0.5);
+            }, 1000);
         } catch(e) {}
         createConfetti(2500);
     }
@@ -199,7 +215,7 @@
         setTimeout(() => document.body.classList.remove('shake-screen'), 500);
     }
 
-    // ==================== BÀI TẬP 1: ĐIỆN THOẠI CẤP CỨU ====================
+    // ==================== BÀI TẬP 1: ĐIỆN THOẠI CẤP CỨU (CÓ TIẾNG BẤM PHÍM & LƯU SỐ BA MẸ) ====================
     (function() {
         const situations = [
             { emoji: "😨👤", text: "Có người lạ muốn chạm vào vùng riêng tư của con. Con cần gọi ai?", correctNumber: "18001567", hint: "Đường dây nóng bảo vệ trẻ em" },
@@ -208,30 +224,26 @@
         ];
         let currentIdx = 0, userInput = "", gameFinished = false, correctNumberForCurrent = "";
         let starCount1 = 0;
-        let lastEnteredNumber = "";
+        let savedParentNumber = ""; // Lưu số ba mẹ bé đã nhập
 
         function updateStarDisplay1() { const stars = document.getElementById('starDisplay1'); if(stars) stars.innerHTML = Array(3).fill().map((_,i)=>`<span class="star ${i<starCount1?'active':''}">⭐</span>`).join(''); }
         function renderExercise1() {
             const container = document.getElementById('exercise1');
             if (currentIdx >= situations.length) {
                 playCompleteSound();
-                container.innerHTML = `<div style="background:#1E1E1E; border-radius:48px; padding:30px; text-align:center; color:white;"><div style="font-size:40px;">🎉🏆🎉</div><div style="font-size:28px; font-weight:bold; color:#FFB347;">HOÀN THÀNH!</div><div class="star-score" style="margin:15px 0;" id="starDisplay1Final">${Array(3).fill().map((_,i)=>`<span class="star ${i<starCount1?'active':''}">⭐</span>`).join('')}</div><div style="margin:20px 0;">📞 Con đã biết gọi ai khi gặp nguy hiểm!</div><div style="background:#2A2A2A; border-radius:30px; padding:15px;"><div style="font-size:20px;">📞 Số quan trọng cần nhớ:</div><div style="font-size:24px; font-weight:bold; color:#FF8C42;">113 - Công an</div><div style="font-size:24px; font-weight:bold; color:#FF8C42;">1800 1567 - Đường dây nóng</div></div><button id="resetQuiz1" style="background:#FFB347; border:none; padding:12px 28px; border-radius:40px; cursor:pointer; margin-top:15px;">🔄 CHƠI LẠI</button></div>`;
-                document.getElementById('resetQuiz1')?.addEventListener('click', () => { currentIdx = 0; userInput = ""; gameFinished = false; starCount1=0; lastEnteredNumber=""; renderExercise1(); });
+                // Hiển thị số ba mẹ đã lưu (nếu có)
+                const parentNumberDisplay = savedParentNumber ? `<div style="font-size:24px; font-weight:bold; color:#FF8C42;">📞 Số ba/mẹ: ${savedParentNumber}</div>` : '';
+                container.innerHTML = `<div style="background:#1E1E1E; border-radius:48px; padding:30px; text-align:center; color:white;"><div style="font-size:40px;">🎉🏆🎉</div><div style="font-size:28px; font-weight:bold; color:#FFB347;">HOÀN THÀNH!</div><div class="star-score" style="margin:15px 0;" id="starDisplay1Final">${Array(3).fill().map((_,i)=>`<span class="star ${i<starCount1?'active':''}">⭐</span>`).join('')}</div><div style="margin:20px 0;">📞 Con đã biết gọi ai khi gặp nguy hiểm!</div><div style="background:#2A2A2A; border-radius:30px; padding:15px;"><div style="font-size:20px;">📞 Số quan trọng cần nhớ:</div><div style="font-size:24px; font-weight:bold; color:#FF8C42;">113 - Công an</div><div style="font-size:24px; font-weight:bold; color:#FF8C42;">1800 1567 - Đường dây nóng</div>${parentNumberDisplay}</div><button id="resetQuiz1" style="background:#FFB347; border:none; padding:12px 28px; border-radius:40px; cursor:pointer; margin-top:15px;">🔄 CHƠI LẠI</button></div>`;
+                document.getElementById('resetQuiz1')?.addEventListener('click', () => { currentIdx = 0; userInput = ""; gameFinished = false; starCount1=0; savedParentNumber=""; renderExercise1(); });
                 return;
             }
             const sit = situations[currentIdx];
             correctNumberForCurrent = sit.correctNumber;
             let formattedNumber = userInput.replace(/(\d{4})(\d{3})(\d{4})/, '$1 $2 $3');
-            let displayNumber = userInput === "" ? "📞 ?" : (correctNumberForCurrent === "me" ? `📞 ${userInput}` : formattedNumber);
-            let feedbackMessage = "";
-            if(gameFinished) {
-                if(correctNumberForCurrent === "me") feedbackMessage = `✅ ĐÚNG! Số ${userInput} (bố mẹ) sẽ giúp con! 🎉`;
-                else feedbackMessage = `✅ ĐÚNG! ${correctNumberForCurrent === "18001567" ? 'Đường dây nóng 1800 1567' : 'Số 113 - Công an'} sẽ giúp con! 🎉`;
-            }
             let html = `<div class="star-score" id="starDisplay1">${Array(3).fill().map((_,i)=>`<span class="star ${i<starCount1?'active':''}">⭐</span>`).join('')}</div>
             <div style="background:#1E1E1E; border-radius:48px; overflow:hidden; color:white;">
                 <div style="background:#0A3D2C; padding:20px; text-align:center;"><div style="font-size:70px; background:white; width:100px; height:100px; border-radius:60px; display:flex; align-items:center; justify-content:center; margin:0 auto 10px;">${sit.emoji}</div>
-                <div style="font-size:28px; font-weight:bold; letter-spacing:2px;">${displayNumber}</div>
+                <div style="font-size:28px; font-weight:bold; letter-spacing:2px;">${userInput === "" ? "📞 ?" : formattedNumber}</div>
                 <div style="font-size:14px; color:#90EE90;">${userInput === "" ? "🔴 Đang chờ quay số" : "📞 Đang gọi..."}</div></div>
                 <div style="background:#2A2A2A; margin:15px; padding:15px; border-radius:28px; text-align:center;"><div style="font-size:50px;">${sit.emoji}</div><div style="color:#DDD; font-size:16px;">${sit.text}</div><div style="font-size:12px; color:#AAA; margin-top:8px;">💡 Gợi ý: ${sit.hint}</div></div>
                 <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px; padding:15px 20px;" id="keypad1">
@@ -240,47 +252,51 @@
                     <button id="clearBtn1" style="background:#FF8C42; border:none; border-radius:60px; padding:16px; font-size:20px; cursor:pointer;">C</button>
                     <button id="callBtn1" style="background:#4CAF50; grid-column:span 3; border:none; border-radius:60px; padding:14px; font-size:22px; cursor:pointer;">📞 GỌI</button>
                 </div>
-                <div id="feedback1" style="margin:0 20px 20px; padding:12px; background:#2A2A2A; border-radius:30px; text-align:center; font-size:14px;">${gameFinished ? feedbackMessage : "💡 Hãy nhập số cần gọi rồi bấm nút GỌI!"}</div>
-                ${!gameFinished ? `<button id="nextBtn1" style="background:#FFB347; border:none; color:#1A1A1A; font-size:18px; font-weight:bold; padding:14px; border-radius:60px; cursor:pointer; width:calc(100% - 40px); margin:0 20px 25px;">${currentIdx === situations.length-1 ? '🏁 HOÀN THÀNH' : '➡️ TÌNH HUỐNG TIẾP'}</button>` : ''}
+                <div id="feedback1" style="margin:0 20px 20px; padding:12px; background:#2A2A2A; border-radius:30px; text-align:center; font-size:14px;">💡 Hãy nhập số cần gọi rồi bấm nút GỌI!</div>
+                <button id="nextBtn1" style="background:#FFB347; border:none; color:#1A1A1A; font-size:18px; font-weight:bold; padding:14px; border-radius:60px; cursor:pointer; width:calc(100% - 40px); margin:0 20px 25px;">${currentIdx === situations.length-1 ? '🏁 HOÀN THÀNH' : '➡️ TÌNH HUỐNG TIẾP'}</button>
                 <div style="text-align:center; padding:10px; margin-top:5px; background:#2A2A2A; border-radius:30px; color:#DDD;">
                     📞 Đường dây nóng bảo vệ trẻ em: <strong style="color:#FF8C42;">1800 1567</strong>
                 </div>
             </div>`;
             container.innerHTML = html;
             updateStarDisplay1();
-            if(!gameFinished) {
-                document.querySelectorAll('.key1').forEach(btn => { btn.onclick = () => { if (!gameFinished) { userInput += btn.getAttribute('data-num'); if (userInput.length > 10) userInput = userInput.slice(0,10); playKeypadSound(); renderExercise1(); } }; });
-                document.getElementById('deleteBtn1')?.addEventListener('click', () => { if (!gameFinished) { userInput = userInput.slice(0,-1); playKeypadSound(); renderExercise1(); } });
-                document.getElementById('clearBtn1')?.addEventListener('click', () => { if (!gameFinished) { userInput = ""; playKeypadSound(); renderExercise1(); } });
-                document.getElementById('callBtn1')?.addEventListener('click', () => {
-                    if (gameFinished) return;
-                    const fb = document.getElementById('feedback1');
-                    if (userInput === "") { fb.innerHTML = "⚠️ Hãy nhập số điện thoại trước khi bấm GỌI!"; fb.style.background = "#3A1A1A"; playErrorSound(); return; }
-                    let isCorrect = false;
-                    if (correctNumberForCurrent === "me") { if (userInput.length >= 9) isCorrect = true; }
-                    else isCorrect = (userInput === correctNumberForCurrent);
-                    if (isCorrect) { 
-                        gameFinished = true; 
-                        starCount1++; 
-                        if(correctNumberForCurrent === "me") lastEnteredNumber = userInput;
-                        playSuccessSound(); 
-                        renderExercise1(); 
-                    } else { 
-                        let correctDisplay = correctNumberForCurrent === "me" ? "số điện thoại của bố mẹ (9-10 số)" : (correctNumberForCurrent === "18001567" ? "1800 1567 (đường dây nóng)" : "113 (công an)"); 
-                        fb.innerHTML = `❌ SAI! Hãy gọi ${correctDisplay}. Thử lại nhé!`; 
-                        fb.style.background = "#3A1A1A"; 
-                        userInput = ""; 
-                        playErrorSound(); 
-                        renderExercise1(); 
+            document.querySelectorAll('.key1').forEach(btn => { btn.onclick = () => { if (!gameFinished) { userInput += btn.getAttribute('data-num'); if (userInput.length > 10) userInput = userInput.slice(0,10); playKeypadSound(); renderExercise1(); } }; });
+            document.getElementById('deleteBtn1')?.addEventListener('click', () => { if (!gameFinished) { userInput = userInput.slice(0,-1); playKeypadSound(); renderExercise1(); } });
+            document.getElementById('clearBtn1')?.addEventListener('click', () => { if (!gameFinished) { userInput = ""; playKeypadSound(); renderExercise1(); } });
+            document.getElementById('callBtn1')?.addEventListener('click', () => {
+                if (gameFinished) return;
+                const fb = document.getElementById('feedback1');
+                if (userInput === "") { fb.innerHTML = "⚠️ Hãy nhập số điện thoại trước khi bấm GỌI!"; fb.style.background = "#3A1A1A"; playErrorSound(); return; }
+                let isCorrect = false;
+                if (correctNumberForCurrent === "me") { 
+                    // Cho phép số bất kỳ có độ dài từ 9-10 số (số VN)
+                    if (userInput.length >= 9 && userInput.length <= 10) {
+                        isCorrect = true;
+                        savedParentNumber = userInput; // Lưu số ba mẹ
                     }
-                });
-                document.getElementById('nextBtn1')?.addEventListener('click', () => { if (!gameFinished) { document.getElementById('feedback1').innerHTML = "⚠️ Con phải GỌI ĐÚNG số trước khi chuyển tình huống nhé!"; playErrorSound(); return; } currentIdx++; userInput = ""; gameFinished = false; renderExercise1(); });
-            }
+                } else isCorrect = (userInput === correctNumberForCurrent);
+                if (isCorrect) { 
+                    fb.innerHTML = `✅ ĐÚNG! ${correctNumberForCurrent === "me" ? `Đó là số của bố mẹ (${userInput})` : correctNumberForCurrent === "18001567" ? 'Đường dây nóng 1800 1567' : 'Số 113 - Công an'} sẽ giúp con! 🎉`; 
+                    fb.style.background = "#1A3A1A"; 
+                    gameFinished = true; 
+                    starCount1++; 
+                    playSuccessSound(); 
+                    renderExercise1(); 
+                } else { 
+                    let correctDisplay = correctNumberForCurrent === "me" ? "số điện thoại của bố mẹ (9-10 số)" : (correctNumberForCurrent === "18001567" ? "1800 1567 (đường dây nóng)" : "113 (công an)"); 
+                    fb.innerHTML = `❌ SAI! Hãy gọi ${correctDisplay}. Thử lại nhé!`; 
+                    fb.style.background = "#3A1A1A"; 
+                    userInput = ""; 
+                    playErrorSound(); 
+                    renderExercise1(); 
+                }
+            });
+            document.getElementById('nextBtn1')?.addEventListener('click', () => { if (!gameFinished) { document.getElementById('feedback1').innerHTML = "⚠️ Con phải GỌI ĐÚNG số trước khi chuyển tình huống nhé!"; playErrorSound(); return; } currentIdx++; userInput = ""; gameFinished = false; renderExercise1(); });
         }
         renderExercise1();
     })();
 
-    // ==================== BÀI TẬP 2: THẺ ĐÚNG/SAI (GIỮ NGUYÊN) ====================
+    // ==================== BÀI TẬP 2: THẺ ĐÚNG/SAI (GIỮ NGUYÊN NHƯ CODE CŨ) ====================
     (function() {
         const actionsData = [
             { id: 0, emoji: "🍬👨", text: "Nhận kẹo từ người lạ và đi theo", type: "bad" },
@@ -328,7 +344,7 @@
         renderExercise2();
     })();
 
-    // ==================== BÀI TẬP 3: VÙNG RIÊNG TƯ (GIỮ NGUYÊN) ====================
+    // ==================== BÀI TẬP 3: VÙNG RIÊNG TƯ (GIỮ NGUYÊN NHƯ CODE CŨ) ====================
     (function() {
         let clickedZones = { 'boy-chest': false, 'boy-private': false, 'girl-chest': false, 'girl-private': false };
         let totalClicks = 0;
