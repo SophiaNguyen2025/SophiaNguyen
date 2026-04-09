@@ -25,6 +25,14 @@
         .back-btn { display: inline-block; background: #ffd700; color: #0a4a5a; padding: 12px 24px; border-radius: 40px; text-decoration: none; font-weight: bold; margin-top: 20px; transition: all 0.2s; }
         .back-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
         .footer { text-align: center; color: white; padding: 20px; font-size: 0.8rem; }
+        
+        .shake-screen { animation: shake 0.3s ease-in-out 0s 2; }
+        @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } 100% { transform: translateX(0); } }
+        
+        #confetti-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; }
+        
+        .heart-beat { animation: heartPulse 0.3s ease-in-out; }
+        @keyframes heartPulse { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
     </style>
 </head>
 <body>
@@ -34,26 +42,22 @@
         <h1>🦸 Bài 9: Siêu năng lực cứu hộ (Sơ cấp cứu)</h1>
     </div>
 
-    <!-- Video bài học -->
     <div class="video-section">
         <div class="video-wrapper">
             <iframe src="https://www.youtube.com/embed/_eXx_9_QAEA" frameborder="0" allowfullscreen></iframe>
         </div>
     </div>
 
-    <!-- Bài tập 1: Cứu bạn bị hóc -->
     <div class="exercise">
         <h2 class="exercise-title">🦸 Bài tập 1: Cứu bạn bị hóc - Sắp xếp đúng thứ tự</h2>
         <div id="exercise1"></div>
     </div>
 
-    <!-- Bài tập 2: Sơ cứu vết thương & Nhấn tim -->
     <div class="exercise">
         <h2 class="exercise-title">🩺 Bài tập 2: Sơ cứu vết thương & Nhấn tim</h2>
         <div id="exercise2"></div>
     </div>
 
-    <!-- Bài tập 3: Gọi biệt đội cứu hộ 115 -->
     <div class="exercise">
         <h2 class="exercise-title">📞 Bài tập 3: Gọi biệt đội cứu hộ 115</h2>
         <div id="exercise3"></div>
@@ -61,12 +65,187 @@
 
     <a href="https://sophianguyen.com.vn/khoa-hoc/ky-nang-an-toan/" class="back-btn">← Quay lại danh sách bài học</a>
     <div class="footer">
-        <p>© 2025 Sophia Nguyễn - Kỹ năng an toàn cho trẻ 5-10 tuổi</p>
+        <p>🐿️ Hiệp sĩ Sóc đồng hành cùng con - © 2025 Sophia Nguyễn</p>
     </div>
 </div>
+<canvas id="confetti-canvas"></canvas>
 
 <script>
-    // ==================== BÀI TẬP 1: SẮP XẾP THỨ TỰ CỨU HÓC ====================
+    // ==================== HIỆU ỨNG CONFETTI & ÂM THANH ====================
+    let ctx = null, width = window.innerWidth, height = window.innerHeight, particles = [], animationId = null;
+    function resizeCanvas() { width = window.innerWidth; height = window.innerHeight; const canvas = document.getElementById('confetti-canvas'); if(canvas){ canvas.width = width; canvas.height = height; ctx = canvas.getContext('2d'); } }
+    function createConfetti(duration = 1800) {
+        if(!ctx) return;
+        if(animationId) cancelAnimationFrame(animationId);
+        particles = [];
+        for(let i=0;i<140;i++) {
+            particles.push({ x: Math.random() * width, y: Math.random() * height - height, size: Math.random() * 7 + 3, color: `hsl(${Math.random() * 360}, 80%, 60%)`, speedY: Math.random() * 5 + 3, speedX: (Math.random() - 0.5) * 2, rotation: Math.random() * 360, rotSpeed: (Math.random() - 0.5) * 6 });
+        }
+        drawConfetti();
+        setTimeout(() => { if(animationId) cancelAnimationFrame(animationId); ctx?.clearRect(0,0,width,height); particles = []; }, duration);
+    }
+    function drawConfetti() {
+        if(!ctx) return;
+        ctx.clearRect(0, 0, width, height);
+        let allFinished = true;
+        for(let i=0;i<particles.length;i++) {
+            const p = particles[i];
+            if(p.y < height + 50) {
+                allFinished = false;
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.rotation * Math.PI / 180);
+                ctx.fillStyle = p.color;
+                ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size * 0.6);
+                ctx.restore();
+                p.y += p.speedY;
+                p.x += p.speedX;
+                p.rotation += p.rotSpeed;
+            }
+        }
+        if(!allFinished) animationId = requestAnimationFrame(drawConfetti);
+        else { if(animationId) cancelAnimationFrame(animationId); particles = []; ctx.clearRect(0,0,width,height); }
+    }
+    window.addEventListener('resize', () => { resizeCanvas(); if(particles.length) drawConfetti(); });
+    
+    function playClickSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 880;
+            gain.gain.value = 0.08;
+            osc.type = 'sine';
+            osc.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.08);
+            osc.stop(audioCtx.currentTime + 0.08);
+        } catch(e) {}
+    }
+    
+    function playSuccessSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const frequencies = [880, 1046.5, 1318.5];
+            frequencies.forEach((freq, idx) => {
+                setTimeout(() => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.frequency.value = freq;
+                    gain.gain.value = 0.2;
+                    osc.type = 'sine';
+                    osc.start();
+                    gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                    osc.stop(audioCtx.currentTime + 0.3);
+                }, idx * 120);
+            });
+        } catch(e) {}
+        createConfetti(800);
+    }
+    
+    function playCompleteSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const gain = audioCtx.createGain();
+            gain.connect(audioCtx.destination);
+            gain.gain.value = 0.3;
+            const bufferSize = 4096;
+            const noise = audioCtx.createBufferSource();
+            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for(let i=0; i<bufferSize; i++) data[i] = Math.random() * 2 - 1;
+            noise.buffer = buffer;
+            noise.loop = true;
+            noise.connect(gain);
+            noise.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 1.2);
+            noise.stop(audioCtx.currentTime + 1.2);
+            setTimeout(() => {
+                const osc = audioCtx.createOscillator();
+                const gain2 = audioCtx.createGain();
+                osc.connect(gain2);
+                gain2.connect(audioCtx.destination);
+                osc.frequency.value = 1046.5;
+                gain2.gain.value = 0.3;
+                osc.type = 'sine';
+                osc.start();
+                gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.5);
+                osc.stop(audioCtx.currentTime + 0.5);
+            }, 1000);
+        } catch(e) {}
+        createConfetti(2500);
+    }
+    
+    function playErrorSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 220;
+            gain.gain.value = 0.25;
+            osc.type = 'sawtooth';
+            osc.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.4);
+            osc.stop(audioCtx.currentTime + 0.4);
+            setTimeout(() => {
+                const osc2 = audioCtx.createOscillator();
+                const gain2 = audioCtx.createGain();
+                osc2.connect(gain2);
+                gain2.connect(audioCtx.destination);
+                osc2.frequency.value = 164.81;
+                gain2.gain.value = 0.2;
+                osc2.type = 'sawtooth';
+                osc2.start();
+                gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                osc2.stop(audioCtx.currentTime + 0.3);
+            }, 150);
+        } catch(e) {}
+        document.body.classList.add('shake-screen');
+        setTimeout(() => document.body.classList.remove('shake-screen'), 500);
+    }
+    
+    function playBeepSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 1000;
+            gain.gain.value = 0.15;
+            osc.type = 'sine';
+            osc.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.1);
+            osc.stop(audioCtx.currentTime + 0.1);
+        } catch(e) {}
+    }
+    
+    function playPhoneRingSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            for(let i=0; i<3; i++) {
+                setTimeout(() => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.frequency.value = 880;
+                    gain.gain.value = 0.2;
+                    osc.type = 'sine';
+                    osc.start();
+                    gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.2);
+                    osc.stop(audioCtx.currentTime + 0.2);
+                }, i * 300);
+            }
+        } catch(e) {}
+    }
+
+    // ==================== BÀI TẬP 1: SẮP XẾP THỨ TỰ CỨU HÓC (CÓ ÂM THANH) ====================
     (function() {
         const selfSteps = [
             { id: 0, icon: "🪑🔍", title: "Tìm điểm tựa", desc: "Tìm cạnh ghế gỗ hoặc cạnh bàn chắc chắn ngang tầm bụng" },
@@ -98,7 +277,7 @@
                 const slot = document.createElement('div');
                 slot.style.cssText = 'background:white; border:3px dashed #8BC34A; border-radius:32px; padding:15px; width:260px; min-height:140px; text-align:center; cursor:pointer;';
                 slot.innerHTML = `<div style="font-size:20px; font-weight:bold; color:#8BC34A;">Bước ${i+1}</div><div class="slot-content">${step ? `<span style="font-size:40px;">${step.icon}</span><div><strong>${step.title}</strong></div><div style="font-size:12px;">${step.desc}</div>` : '⬅️ Click vào bước bên dưới, rồi click vào đây'}</div>`;
-                if (!gameLocked1) slot.onclick = () => { if(selectedStepId !== null && userSequence[i] === null){ userSequence[i]=selectedStepId; selectedStepId=null; renderExercise1(); } };
+                if (!gameLocked1) slot.onclick = () => { if(selectedStepId !== null && userSequence[i] === null){ userSequence[i]=selectedStepId; selectedStepId=null; playClickSound(); renderExercise1(); } };
                 slotsDiv.appendChild(slot);
             }
 
@@ -109,24 +288,31 @@
                 const card = document.createElement('div');
                 card.style.cssText = `background:white; border-radius:32px; padding:20px; width:280px; text-align:center; cursor:pointer; border:3px solid ${selectedStepId===step.id ? '#FFB347' : '#FFDEC4'};`;
                 card.innerHTML = `<div style="font-size:50px;">${step.icon}</div><div style="font-size:18px; font-weight:bold;">${step.title}</div><div style="font-size:14px;">${step.desc}</div>`;
-                if(!gameLocked1) card.onclick = () => { selectedStepId = selectedStepId===step.id ? null : step.id; renderExercise1(); };
+                if(!gameLocked1) card.onclick = () => { playClickSound(); selectedStepId = selectedStepId===step.id ? null : step.id; renderExercise1(); };
                 stepsArea.appendChild(card);
             });
 
-            document.querySelectorAll('.mode-btn').forEach(btn => { btn.onclick = () => { if(!gameLocked1){ currentMode=btn.getAttribute('data-mode'); userSequence=[null,null,null]; selectedStepId=null; renderExercise1(); } }; });
+            document.querySelectorAll('.mode-btn').forEach(btn => { btn.onclick = () => { if(!gameLocked1){ playClickSound(); currentMode=btn.getAttribute('data-mode'); userSequence=[null,null,null]; selectedStepId=null; renderExercise1(); } }; });
             document.getElementById('submitBtn1')?.addEventListener('click', () => {
-                if(userSequence.includes(null)){ document.getElementById('feedback1').innerHTML='⚠️ Hãy xếp đủ 3 bước vào các ô trống trước khi kiểm tra!'; return; }
+                if(userSequence.includes(null)){ playErrorSound(); document.getElementById('feedback1').innerHTML='⚠️ Hãy xếp đủ 3 bước vào các ô trống trước khi kiểm tra!'; return; }
                 const correct = [0,1,2]; let ok=true; for(let i=0;i<3;i++) if(userSequence[i]!==correct[i]) ok=false;
                 gameLocked1=true;
-                if(ok){ document.getElementById('feedback1').innerHTML='🎉 TUYỆT VỜI! Con đã sắp xếp đúng thứ tự! 🎉'; document.getElementById('feedback1').style.background='#E8F5E9'; }
-                else{ document.getElementById('feedback1').innerHTML='❌ Chưa đúng thứ tự! Hãy xem lại quy trình!'; document.getElementById('feedback1').style.background='#FFEBEE'; }
-                const resetBtn=document.createElement('button'); resetBtn.className='reset-btn'; resetBtn.innerHTML='🔄 LÀM LẠI'; resetBtn.style.cssText='background:#FFB347; border:none; padding:12px 28px; border-radius:40px; cursor:pointer; margin-top:15px; width:100%;'; resetBtn.onclick=()=>{ userSequence=[null,null,null]; selectedStepId=null; gameLocked1=false; renderExercise1(); }; document.getElementById('exercise1').appendChild(resetBtn);
+                if(ok){ 
+                    document.getElementById('feedback1').innerHTML='🎉 TUYỆT VỜI! Con đã sắp xếp đúng thứ tự! 🎉'; 
+                    document.getElementById('feedback1').style.background='#E8F5E9';
+                    playCompleteSound();
+                } else { 
+                    document.getElementById('feedback1').innerHTML='❌ Chưa đúng thứ tự! Hãy xem lại quy trình!'; 
+                    document.getElementById('feedback1').style.background='#FFEBEE';
+                    playErrorSound();
+                }
+                const resetBtn=document.createElement('button'); resetBtn.className='reset-btn'; resetBtn.innerHTML='🔄 LÀM LẠI'; resetBtn.style.cssText='background:#FFB347; border:none; padding:12px 28px; border-radius:40px; cursor:pointer; margin-top:15px; width:100%;'; resetBtn.onclick=()=>{ playClickSound(); userSequence=[null,null,null]; selectedStepId=null; gameLocked1=false; renderExercise1(); }; document.getElementById('exercise1').appendChild(resetBtn);
             });
         }
         renderExercise1();
     })();
 
-    // ==================== BÀI TẬP 2: SƠ CỨU VẾT THƯƠNG & NHẤN TIM ====================
+    // ==================== BÀI TẬP 2: SƠ CỨU VẾT THƯƠNG & NHẤN TIM (CÓ ÂM THANH) ====================
     (function() {
         let woundAnswers = { kemDanhRang: null, nguaMat: null, khuanSach: null };
         let cprCount = 0, cprRound = 1, patientAwake = false, isPressing = false;
@@ -140,19 +326,64 @@
                 <div style="flex:1; background:white; border-radius:32px; padding:15px; text-align:center;"><div style="font-size:50px;">🧻🩸</div><div>Dùng khăn sạch ấn chặt vào vết thương?</div><div style="display:flex; gap:10px; justify-content:center; margin-top:10px;"><button class="wound-btn" data-wound="khuanSach" data-choice="dung" style="background:#4CAF50; border:none; padding:8px 16px; border-radius:40px; color:white; cursor:pointer;">ĐÚNG</button><button class="wound-btn" data-wound="khuanSach" data-choice="sai" style="background:#FF6B6B; border:none; padding:8px 16px; border-radius:40px; color:white; cursor:pointer;">SAI</button></div><div id="fb-khuanSach" style="margin-top:10px; font-size:13px;">${woundAnswers.khuanSach === null ? '👉 Hãy chọn!' : (woundAnswers.khuanSach === 'dung' ? '✅ Đúng!' : '❌ Sai!')}</div></div>
             </div></div>
             <div style="background:#FFF5EA; border-radius:48px; padding:20px; border:2px solid #FFD1A4;"><div style="font-size:24px; font-weight:bold; margin-bottom:15px;">❤️ NHẤN TIM – "ĐÁNH THỨC TRÁI TIM"</div>
-            <div style="text-align:center;"><div style="background:#FDD7A4; border-radius:60px; padding:20px; display:inline-block; width:200px;"><div style="font-size:80px;">${patientAwake ? '😊💓' : '😴🫀'}</div><div style="font-size:18px; font-weight:bold;">${patientAwake ? 'NẠN NHÂN ĐÃ TỈNH! 🎉' : 'NẠN NHÂN BẤT TỈNH'}</div></div>
+            <div style="text-align:center;"><div style="background:#FDD7A4; border-radius:60px; padding:20px; display:inline-block; width:200px;"><div style="font-size:80px;" id="heartIcon">${patientAwake ? '😊💓' : '😴🫀'}</div><div style="font-size:18px; font-weight:bold;">${patientAwake ? 'NẠN NHÂN ĐÃ TỈNH! 🎉' : 'NẠN NHÂN BẤT TỈNH'}</div></div>
             <div style="margin:20px 0;"><button id="cprBtn" class="cpr-btn" style="background:#FF6B6B; border:none; color:white; font-size:24px; font-weight:bold; padding:15px 30px; border-radius:60px; cursor:pointer;" ${patientAwake ? 'disabled' : ''}>💪 NHẤN TIM (30 nhịp)</button><div style="font-size:36px; font-weight:bold; margin:10px 0;">Nhịp đã nhấn: ${cprCount}/30 (Vòng ${cprRound})</div><div style="background:#FFF0E8; border-radius:40px; padding:10px;">🎵 NHỊP "BABY SHARK" – Nhấn theo nhịp: du-du-du-du-du 🎵</div>${!patientAwake && cprCount>0 ? '<button id="resetCprBtn" style="background:#FFB347; border:none; padding:10px 20px; border-radius:40px; cursor:pointer; margin-top:10px;">🔄 LÀM LẠI NHẤN TIM</button>' : ''}</div></div></div>`;
             container.innerHTML = html;
-            document.querySelectorAll('.wound-btn').forEach(btn => { btn.onclick = () => { const w=btn.getAttribute('data-wound'); const c=btn.getAttribute('data-choice'); let ok=false; if(w==='kemDanhRang') ok=(c==='sai'); else if(w==='nguaMat') ok=(c==='sai'); else if(w==='khuanSach') ok=(c==='dung'); woundAnswers[w]=c; renderExercise2(); }; });
+            
+            document.querySelectorAll('.wound-btn').forEach(btn => { 
+                btn.onclick = () => { 
+                    playClickSound();
+                    const w=btn.getAttribute('data-wound'); 
+                    const c=btn.getAttribute('data-choice'); 
+                    let ok=false; 
+                    if(w==='kemDanhRang') ok=(c==='sai'); 
+                    else if(w==='nguaMat') ok=(c==='sai'); 
+                    else if(w==='khuanSach') ok=(c==='dung'); 
+                    woundAnswers[w]=c;
+                    if(ok) playSuccessSound();
+                    else playErrorSound();
+                    renderExercise2(); 
+                }; 
+            });
+            
             const cprBtn = document.getElementById('cprBtn');
-            if(cprBtn && !patientAwake) cprBtn.onclick = () => { if(isPressing) return; isPressing=true; cprCount=0; let interval = setInterval(() => { if(cprCount<30){ cprCount++; renderExercise2(); } else { clearInterval(interval); if(cprRound===1){ cprRound=2; cprCount=0; renderExercise2(); } else if(cprRound===2){ patientAwake=true; renderExercise2(); } isPressing=false; } }, 100); };
+            if(cprBtn && !patientAwake) cprBtn.onclick = () => { 
+                if(isPressing) return; 
+                isPressing=true; 
+                cprCount=0; 
+                let interval = setInterval(() => { 
+                    if(cprCount<30){ 
+                        cprCount++; 
+                        playBeepSound();
+                        const heartIcon = document.getElementById('heartIcon');
+                        if(heartIcon) {
+                            heartIcon.classList.add('heart-beat');
+                            setTimeout(() => heartIcon.classList.remove('heart-beat'), 300);
+                        }
+                        renderExercise2(); 
+                    } else { 
+                        clearInterval(interval); 
+                        if(cprRound===1){ 
+                            cprRound=2; 
+                            cprCount=0; 
+                            renderExercise2(); 
+                        } else if(cprRound===2){ 
+                            patientAwake=true; 
+                            playCompleteSound();
+                            renderExercise2(); 
+                        } 
+                        isPressing=false; 
+                    } 
+                }, 100); 
+            };
+            
             const resetCpr = document.getElementById('resetCprBtn');
-            if(resetCpr) resetCpr.onclick = () => { cprCount=0; cprRound=1; patientAwake=false; renderExercise2(); };
+            if(resetCpr) resetCpr.onclick = () => { playClickSound(); cprCount=0; cprRound=1; patientAwake=false; renderExercise2(); };
         }
         renderExercise2();
     })();
 
-    // ==================== BÀI TẬP 3: GỌI BIỆT ĐỘI CỨU HỘ 115 ====================
+    // ==================== BÀI TẬP 3: GỌI BIỆT ĐỘI CỨU HỘ 115 (CÓ ÂM THANH) ====================
     (function() {
         let step3 = 1, userName = "", userAddress = "", userSituation = "";
 
@@ -172,23 +403,25 @@
                 html += `<div style="background:#2A2A2A; margin:15px; padding:20px; border-radius:28px; text-align:center;"><div style="font-size:60px;">🎉🩺</div><div style="font-size:20px; font-weight:bold;">ĐÃ GỌI THÀNH CÔNG!</div><div style="background:#3A3A3A; border-radius:30px; padding:15px; margin:15px 0;">🚑 <strong>Biệt đội cứu hộ</strong> đã nhận được cuộc gọi của con.<br>Họ sẽ đến địa chỉ: <strong>${userAddress}</strong> ngay lập tức!<br><br>🦸 Con đã làm rất tốt!</div><button id="resetBtn3" style="background:#FFB347; border:none; padding:12px 28px; border-radius:40px; cursor:pointer;">🔄 GỌI LẠI (THỰC HÀNH TIẾP)</button></div>`;
             }
             container.innerHTML = html;
+            
             if(step3===1){
                 const nameInput = document.getElementById('nameInput');
-                document.getElementById('nextBtn3')?.addEventListener('click',()=>{ const val=nameInput.value.trim(); if(!val){ alert("Hãy nhập tên!"); return; } userName=val; step3=2; renderExercise3(); });
+                document.getElementById('nextBtn3')?.addEventListener('click',()=>{ const val=nameInput.value.trim(); if(!val){ playErrorSound(); alert("Hãy nhập tên!"); return; } playClickSound(); userName=val; step3=2; renderExercise3(); });
             } else if(step3===2){
                 const addrInput = document.getElementById('addressInput');
-                document.getElementById('nextBtn3')?.addEventListener('click',()=>{ const val=addrInput.value.trim(); if(!val){ alert("Hãy nhập địa chỉ!"); return; } userAddress=val; step3=3; renderExercise3(); });
+                document.getElementById('nextBtn3')?.addEventListener('click',()=>{ const val=addrInput.value.trim(); if(!val){ playErrorSound(); alert("Hãy nhập địa chỉ!"); return; } playClickSound(); userAddress=val; step3=3; renderExercise3(); });
             } else if(step3===3){
                 const sel = document.getElementById('situationSelect');
-                document.getElementById('nextBtn3')?.addEventListener('click',()=>{ const val=sel.value; if(!val){ alert("Hãy chọn tình huống!"); return; } userSituation=val; step3=4; renderExercise3(); });
+                document.getElementById('nextBtn3')?.addEventListener('click',()=>{ const val=sel.value; if(!val){ playErrorSound(); alert("Hãy chọn tình huống!"); return; } playClickSound(); userSituation=val; step3=4; renderExercise3(); });
             } else if(step3===4){
-                document.getElementById('callBtn3')?.addEventListener('click',()=>{ step3=5; renderExercise3(); });
+                document.getElementById('callBtn3')?.addEventListener('click',()=>{ playPhoneRingSound(); playCompleteSound(); step3=5; renderExercise3(); });
             } else if(step3===5){
-                document.getElementById('resetBtn3')?.addEventListener('click',()=>{ step3=1; userName=""; userAddress=""; userSituation=""; renderExercise3(); });
+                document.getElementById('resetBtn3')?.addEventListener('click',()=>{ playClickSound(); step3=1; userName=""; userAddress=""; userSituation=""; renderExercise3(); });
             }
         }
         renderExercise3();
     })();
+    resizeCanvas();
 </script>
 </body>
 </html>
