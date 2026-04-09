@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Bài 9: Siêu năng lực cứu hộ - Sơ cấp cứu | Sophia Nguyễn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: linear-gradient(135deg, #0a4a5a, #1a6b7a);
+            font-family: 'Segoe UI', 'Be Vietnam Pro', sans-serif;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { background: white; border-radius: 32px; padding: 20px; margin-bottom: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .logo { height: 60px; margin-bottom: 10px; }
+        .header h1 { color: #0a4a5a; font-size: 1.8rem; }
+        .video-section { background: white; border-radius: 32px; padding: 20px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 24px; overflow: hidden; }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .exercise { background: white; border-radius: 32px; padding: 20px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .exercise-title { font-size: 1.5rem; color: #0a4a5a; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 3px solid #ff6b6b; display: inline-block; }
+        .back-btn { display: inline-block; background: #ffd700; color: #0a4a5a; padding: 12px 24px; border-radius: 40px; text-decoration: none; font-weight: bold; margin-top: 20px; transition: all 0.2s; }
+        .back-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .footer { text-align: center; color: white; padding: 20px; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <img src="https://sophianguyen.com.vn/images/hinhremovenen.png" alt="Sophia Nguyễn" class="logo">
+        <h1>🦸 Bài 9: Siêu năng lực cứu hộ (Sơ cấp cứu)</h1>
+    </div>
+
+    <!-- Video bài học -->
+    <div class="video-section">
+        <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/_eXx_9_QAEA" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- Bài tập 1: Cứu bạn bị hóc -->
+    <div class="exercise">
+        <h2 class="exercise-title">🦸 Bài tập 1: Cứu bạn bị hóc - Sắp xếp đúng thứ tự</h2>
+        <div id="exercise1"></div>
+    </div>
+
+    <!-- Bài tập 2: Sơ cứu vết thương & Nhấn tim -->
+    <div class="exercise">
+        <h2 class="exercise-title">🩺 Bài tập 2: Sơ cứu vết thương & Nhấn tim</h2>
+        <div id="exercise2"></div>
+    </div>
+
+    <!-- Bài tập 3: Gọi biệt đội cứu hộ 115 -->
+    <div class="exercise">
+        <h2 class="exercise-title">📞 Bài tập 3: Gọi biệt đội cứu hộ 115</h2>
+        <div id="exercise3"></div>
+    </div>
+
+    <a href="https://sophianguyen.com.vn/khoa-hoc/ky-nang-an-toan/" class="back-btn">← Quay lại danh sách bài học</a>
+    <div class="footer">
+        <p>© 2025 Sophia Nguyễn - Kỹ năng an toàn cho trẻ 5-10 tuổi</p>
+    </div>
+</div>
+
+<script>
+    // ==================== BÀI TẬP 1: SẮP XẾP THỨ TỰ CỨU HÓC ====================
+    (function() {
+        const selfSteps = [
+            { id: 0, icon: "🪑🔍", title: "Tìm điểm tựa", desc: "Tìm cạnh ghế gỗ hoặc cạnh bàn chắc chắn ngang tầm bụng" },
+            { id: 1, icon: "🧒⬇️🪑", title: "Tì bụng vào cạnh ghế", desc: "Hơi cúi người, tì phần trên rốn vào cạnh ghế" },
+            { id: 2, icon: "💪⬆️💨", title: "Thúc mạnh", desc: "Dùng lực thúc bụng vào cạnh ghế từ dưới lên, lặp lại đến khi vật lạ văng ra" }
+        ];
+        const otherSteps = [
+            { id: 0, icon: "🧍‍♀️🧍", title: "Đứng sau lưng", desc: "Đứng phía sau người bị hóc, vòng tay qua bụng họ" },
+            { id: 1, icon: "✊🎯", title: "Nắm đấm trên rốn", desc: "Một tay nắm đấm đặt vào bụng trên rốn, tay kia ôm lấy nắm đấm" },
+            { id: 2, icon: "💪🔄💨", title: "Kéo mạnh", desc: "Kéo mạnh vào trong và lên trên theo hình chữ J, lặp lại" }
+        ];
+        let currentMode = "self", selectedStepId = null, userSequence = [null, null, null], gameLocked1 = false;
+
+        function renderExercise1() {
+            const container = document.getElementById('exercise1');
+            const steps = currentMode === "self" ? selfSteps : otherSteps;
+            let html = `<div style="background:#FFF0F0; border-radius:48px; padding:15px; text-align:center; margin-bottom:20px;">📢 DẤU HIỆU HÓC: "Đang ăn bỗng im bặt, mặt đỏ, tay ôm cổ"</div>
+            <div style="background:#FFF5EA; border-radius:48px; padding:20px; margin-bottom:20px; text-align:center; border:2px solid #FFD1A4;"><div style="font-size:60px;">${currentMode === "self" ? "😳🍇" : "😳🍬"}</div><div style="font-size:18px; font-weight:bold;">${currentMode === "self" ? "🧒 Bạn nhỏ đang ăn nho thì bị hóc! Không nói được, không ho được!" : "🧒 Bạn nhỏ đang ăn kẹo thì bị hóc! Mặt đỏ bừng, tay ôm cổ!"}</div></div>
+            <div style="display:flex; gap:15px; justify-content:center; margin-bottom:20px;"><button class="mode-btn" data-mode="self" style="background:#FFB347; border:none; padding:12px 24px; border-radius:40px; font-weight:bold; cursor:pointer; ${currentMode==='self'?'background:#4CAF50; color:white;':''}" ${gameLocked1 ? 'disabled' : ''}>🦸 TỰ CỨU (Bị hóc)</button><button class="mode-btn" data-mode="other" style="background:#FFB347; border:none; padding:12px 24px; border-radius:40px; font-weight:bold; cursor:pointer; ${currentMode==='other'?'background:#4CAF50; color:white;':''}" ${gameLocked1 ? 'disabled' : ''}>🦸 CỨU NGƯỜI KHÁC</button></div>
+            <div style="background:#F1F8E9; border-radius:48px; padding:20px; margin-bottom:20px; border:2px solid #8BC34A;"><div style="font-size:18px; font-weight:bold; text-align:center;">📋 THỨ TỰ CÁC BƯỚC CỨU HỘ</div><div style="display:flex; flex-wrap:wrap; gap:15px; justify-content:center; margin-top:15px;" id="slots1"></div><div style="font-size:13px; text-align:center; margin-top:10px;">💡 Click vào bước bên dưới → rồi click vào ô trống để xếp đúng thứ tự!</div></div>
+            <div style="display:flex; flex-wrap:wrap; gap:20px; justify-content:center; margin-bottom:20px;" id="stepsArea1"></div>
+            <button id="submitBtn1" style="background:#4CAF50; border:none; color:white; font-size:20px; font-weight:bold; padding:14px; border-radius:60px; cursor:pointer; width:100%; margin:10px 0;" ${gameLocked1 ? 'disabled' : ''}>🔍 KIỂM TRA THỨ TỰ</button>
+            <div id="feedback1" style="background:#F1F8E9; border-radius:40px; padding:15px; margin-top:15px; text-align:center;">💡 Hãy xếp 3 bước vào các ô theo đúng thứ tự 1 → 2 → 3 nhé!</div>`;
+            container.innerHTML = html;
+
+            const slotsDiv = document.getElementById('slots1');
+            for (let i=0; i<3; i++) {
+                const step = userSequence[i] !== null ? steps.find(s=>s.id===userSequence[i]) : null;
+                const slot = document.createElement('div');
+                slot.style.cssText = 'background:white; border:3px dashed #8BC34A; border-radius:32px; padding:15px; width:260px; min-height:140px; text-align:center; cursor:pointer;';
+                slot.innerHTML = `<div style="font-size:20px; font-weight:bold; color:#8BC34A;">Bước ${i+1}</div><div class="slot-content">${step ? `<span style="font-size:40px;">${step.icon}</span><div><strong>${step.title}</strong></div><div style="font-size:12px;">${step.desc}</div>` : '⬅️ Click vào bước bên dưới, rồi click vào đây'}</div>`;
+                if (!gameLocked1) slot.onclick = () => { if(selectedStepId !== null && userSequence[i] === null){ userSequence[i]=selectedStepId; selectedStepId=null; renderExercise1(); } };
+                slotsDiv.appendChild(slot);
+            }
+
+            const usedIds = userSequence.filter(s=>s!==null);
+            const available = steps.filter(s=>!usedIds.includes(s.id));
+            const stepsArea = document.getElementById('stepsArea1');
+            available.forEach(step => {
+                const card = document.createElement('div');
+                card.style.cssText = `background:white; border-radius:32px; padding:20px; width:280px; text-align:center; cursor:pointer; border:3px solid ${selectedStepId===step.id ? '#FFB347' : '#FFDEC4'};`;
+                card.innerHTML = `<div style="font-size:50px;">${step.icon}</div><div style="font-size:18px; font-weight:bold;">${step.title}</div><div style="font-size:14px;">${step.desc}</div>`;
+                if(!gameLocked1) card.onclick = () => { selectedStepId = selectedStepId===step.id ? null : step.id; renderExercise1(); };
+                stepsArea.appendChild(card);
+            });
+
+            document.querySelectorAll('.mode-btn').forEach(btn => { btn.onclick = () => { if(!gameLocked1){ currentMode=btn.getAttribute('data-mode'); userSequence=[null,null,null]; selectedStepId=null; renderExercise1(); } }; });
+            document.getElementById('submitBtn1')?.addEventListener('click', () => {
+                if(userSequence.includes(null)){ document.getElementById('feedback1').innerHTML='⚠️ Hãy xếp đủ 3 bước vào các ô trống trước khi kiểm tra!'; return; }
+                const correct = [0,1,2]; let ok=true; for(let i=0;i<3;i++) if(userSequence[i]!==correct[i]) ok=false;
+                gameLocked1=true;
+                if(ok){ document.getElementById('feedback1').innerHTML='🎉 TUYỆT VỜI! Con đã sắp xếp đúng thứ tự! 🎉'; document.getElementById('feedback1').style.background='#E8F5E9'; }
+                else{ document.getElementById('feedback1').innerHTML='❌ Chưa đúng thứ tự! Hãy xem lại quy trình!'; document.getElementById('feedback1').style.background='#FFEBEE'; }
+                const resetBtn=document.createElement('button'); resetBtn.className='reset-btn'; resetBtn.innerHTML='🔄 LÀM LẠI'; resetBtn.style.cssText='background:#FFB347; border:none; padding:12px 28px; border-radius:40px; cursor:pointer; margin-top:15px; width:100%;'; resetBtn.onclick=()=>{ userSequence=[null,null,null]; selectedStepId=null; gameLocked1=false; renderExercise1(); }; document.getElementById('exercise1').appendChild(resetBtn);
+            });
+        }
+        renderExercise1();
+    })();
+
+    // ==================== BÀI TẬP 2: SƠ CỨU VẾT THƯƠNG & NHẤN TIM ====================
+    (function() {
+        let woundAnswers = { kemDanhRang: null, nguaMat: null, khuanSach: null };
+        let cprCount = 0, cprRound = 1, patientAwake = false, isPressing = false;
+
+        function renderExercise2() {
+            const container = document.getElementById('exercise2');
+            let html = `<div style="background:#FFF5EA; border-radius:48px; padding:20px; margin-bottom:20px; border:2px solid #FFD1A4;"><div style="font-size:24px; font-weight:bold; margin-bottom:15px;">🩸 CẦM MÁU VẾT THƯƠNG</div>
+            <div style="display:flex; flex-wrap:wrap; gap:20px; justify-content:space-between;">
+                <div style="flex:1; background:white; border-radius:32px; padding:15px; text-align:center;"><div style="font-size:50px;">🪥🩸</div><div>Bôi kem đánh răng vào vết thương?</div><div style="display:flex; gap:10px; justify-content:center; margin-top:10px;"><button class="wound-btn" data-wound="kemDanhRang" data-choice="sai" style="background:#4CAF50; border:none; padding:8px 16px; border-radius:40px; color:white; cursor:pointer;">SAI</button><button class="wound-btn" data-wound="kemDanhRang" data-choice="dung" style="background:#FF6B6B; border:none; padding:8px 16px; border-radius:40px; color:white; cursor:pointer;">ĐÚNG</button></div><div id="fb-kemDanhRang" style="margin-top:10px; font-size:13px;">${woundAnswers.kemDanhRang === null ? '👉 Hãy chọn!' : (woundAnswers.kemDanhRang === 'sai' ? '✅ Đúng!' : '❌ Sai!')}</div></div>
+                <div style="flex:1; background:white; border-radius:32px; padding:15px; text-align:center;"><div style="font-size:50px;">🩸👃</div><div>Chảy máu cam thì ngửa mặt lên?</div><div style="display:flex; gap:10px; justify-content:center; margin-top:10px;"><button class="wound-btn" data-wound="nguaMat" data-choice="sai" style="background:#4CAF50; border:none; padding:8px 16px; border-radius:40px; color:white; cursor:pointer;">SAI</button><button class="wound-btn" data-wound="nguaMat" data-choice="dung" style="background:#FF6B6B; border:none; padding:8px 16px; border-radius:40px; color:white; cursor:pointer;">ĐÚNG</button></div><div id="fb-nguaMat" style="margin-top:10px; font-size:13px;">${woundAnswers.nguaMat === null ? '👉 Hãy chọn!' : (woundAnswers.nguaMat === 'sai' ? '✅ Đúng!' : '❌ Sai!')}</div></div>
+                <div style="flex:1; background:white; border-radius:32px; padding:15px; text-align:center;"><div style="font-size:50px;">🧻🩸</div><div>Dùng khăn sạch ấn chặt vào vết thương?</div><div style="display:flex; gap:10px; justify-content:center; margin-top:10px;"><button class="wound-btn" data-wound="khuanSach" data-choice="dung" style="background:#4CAF50; border:none; padding:8px 16px; border-radius:40px; color:white; cursor:pointer;">ĐÚNG</button><button class="wound-btn" data-wound="khuanSach" data-choice="sai" style="background:#FF6B6B; border:none; padding:8px 16px; border-radius:40px; color:white; cursor:pointer;">SAI</button></div><div id="fb-khuanSach" style="margin-top:10px; font-size:13px;">${woundAnswers.khuanSach === null ? '👉 Hãy chọn!' : (woundAnswers.khuanSach === 'dung' ? '✅ Đúng!' : '❌ Sai!')}</div></div>
+            </div></div>
+            <div style="background:#FFF5EA; border-radius:48px; padding:20px; border:2px solid #FFD1A4;"><div style="font-size:24px; font-weight:bold; margin-bottom:15px;">❤️ NHẤN TIM – "ĐÁNH THỨC TRÁI TIM"</div>
+            <div style="text-align:center;"><div style="background:#FDD7A4; border-radius:60px; padding:20px; display:inline-block; width:200px;"><div style="font-size:80px;">${patientAwake ? '😊💓' : '😴🫀'}</div><div style="font-size:18px; font-weight:bold;">${patientAwake ? 'NẠN NHÂN ĐÃ TỈNH! 🎉' : 'NẠN NHÂN BẤT TỈNH'}</div></div>
+            <div style="margin:20px 0;"><button id="cprBtn" class="cpr-btn" style="background:#FF6B6B; border:none; color:white; font-size:24px; font-weight:bold; padding:15px 30px; border-radius:60px; cursor:pointer;" ${patientAwake ? 'disabled' : ''}>💪 NHẤN TIM (30 nhịp)</button><div style="font-size:36px; font-weight:bold; margin:10px 0;">Nhịp đã nhấn: ${cprCount}/30 (Vòng ${cprRound})</div><div style="background:#FFF0E8; border-radius:40px; padding:10px;">🎵 NHỊP "BABY SHARK" – Nhấn theo nhịp: du-du-du-du-du 🎵</div>${!patientAwake && cprCount>0 ? '<button id="resetCprBtn" style="background:#FFB347; border:none; padding:10px 20px; border-radius:40px; cursor:pointer; margin-top:10px;">🔄 LÀM LẠI NHẤN TIM</button>' : ''}</div></div></div>`;
+            container.innerHTML = html;
+            document.querySelectorAll('.wound-btn').forEach(btn => { btn.onclick = () => { const w=btn.getAttribute('data-wound'); const c=btn.getAttribute('data-choice'); let ok=false; if(w==='kemDanhRang') ok=(c==='sai'); else if(w==='nguaMat') ok=(c==='sai'); else if(w==='khuanSach') ok=(c==='dung'); woundAnswers[w]=c; renderExercise2(); }; });
+            const cprBtn = document.getElementById('cprBtn');
+            if(cprBtn && !patientAwake) cprBtn.onclick = () => { if(isPressing) return; isPressing=true; cprCount=0; let interval = setInterval(() => { if(cprCount<30){ cprCount++; renderExercise2(); } else { clearInterval(interval); if(cprRound===1){ cprRound=2; cprCount=0; renderExercise2(); } else if(cprRound===2){ patientAwake=true; renderExercise2(); } isPressing=false; } }, 100); };
+            const resetCpr = document.getElementById('resetCprBtn');
+            if(resetCpr) resetCpr.onclick = () => { cprCount=0; cprRound=1; patientAwake=false; renderExercise2(); };
+        }
+        renderExercise2();
+    })();
+
+    // ==================== BÀI TẬP 3: GỌI BIỆT ĐỘI CỨU HỘ 115 ====================
+    (function() {
+        let step3 = 1, userName = "", userAddress = "", userSituation = "";
+
+        function renderExercise3() {
+            const container = document.getElementById('exercise3');
+            let html = `<div style="background:#1E1E1E; border-radius:48px; overflow:hidden; color:white;">
+                <div style="background:#0A3D2C; padding:20px; text-align:center;"><div style="font-size:60px; background:white; width:90px; height:90px; border-radius:60px; display:flex; align-items:center; justify-content:center; margin:0 auto 10px;">📞</div><div style="font-size:24px; font-weight:bold;">115</div><div style="font-size:14px;">Đang gọi...</div></div>`;
+            if(step3===1){
+                html += `<div style="background:#2A2A2A; margin:15px; padding:20px; border-radius:28px; text-align:center;"><div style="font-size:40px;">🧒</div><div style="font-size:18px; font-weight:bold;">Chú 115 hỏi: "Cháu tên là gì?"</div><input type="text" id="nameInput" placeholder="Nhập tên của cháu..." style="width:100%; padding:14px; border-radius:40px; border:none; margin:15px 0; text-align:center;"><button id="nextBtn3" style="background:#FF8C42; border:none; padding:14px; border-radius:40px; color:white; font-size:18px; cursor:pointer; width:100%;">➡️ TIẾP THEO</button></div><div style="margin:0 20px 20px; padding:12px; background:#2A2A2A; border-radius:30px; text-align:center;">💡 Hãy nói tên của con cho chú 115 biết nhé!</div>`;
+            } else if(step3===2){
+                html += `<div style="background:#2A2A2A; margin:15px; padding:20px; border-radius:28px; text-align:center;"><div style="font-size:40px;">🏠</div><div style="font-size:18px; font-weight:bold;">Chú 115 hỏi: "Cháu đang ở đâu?"</div><input type="text" id="addressInput" placeholder="Ví dụ: Số nhà 20, đường Lê Lợi..." style="width:100%; padding:14px; border-radius:40px; border:none; margin:15px 0; text-align:center;"><button id="nextBtn3" style="background:#FF8C42; border:none; padding:14px; border-radius:40px; color:white; font-size:18px; cursor:pointer; width:100%;">➡️ TIẾP THEO</button></div><div style="margin:0 20px 20px; padding:12px; background:#2A2A2A; border-radius:30px; text-align:center;">💡 Hãy nói địa chỉ nhà con thật chính xác!</div>`;
+            } else if(step3===3){
+                html += `<div style="background:#2A2A2A; margin:15px; padding:20px; border-radius:28px; text-align:center;"><div style="font-size:40px;">🚨</div><div style="font-size:18px; font-weight:bold;">Chú 115 hỏi: "Có chuyện gì đang xảy ra?"</div><select id="situationSelect" style="width:100%; padding:14px; border-radius:40px; margin:15px 0;"><option value="">-- Chọn tình huống --</option><option value="Bố con bị ngất">Bố con bị ngất</option><option value="Mẹ con bị ngã chảy máu">Mẹ con bị ngã chảy máu</option><option value="Em con bị hóc nghẹn">Em con bị hóc nghẹn</option><option value="Có người bị tai nạn">Có người bị tai nạn</option></select><button id="nextBtn3" style="background:#FF8C42; border:none; padding:14px; border-radius:40px; color:white; font-size:18px; cursor:pointer; width:100%;">➡️ TIẾP THEO</button></div><div style="margin:0 20px 20px; padding:12px; background:#2A2A2A; border-radius:30px; text-align:center;">💡 Hãy kể rõ sự việc để được giúp đỡ nhanh nhất!</div>`;
+            } else if(step3===4){
+                html += `<div style="background:#2A2A2A; margin:15px; padding:20px; border-radius:28px; text-align:center;"><div style="font-size:40px;">📞✅</div><div style="font-size:18px; font-weight:bold;">Xác nhận thông tin:</div><div style="background:#3A3A3A; border-radius:30px; padding:15px; text-align:left; margin-bottom:15px;"><div>🧒 Tên: <strong>${userName}</strong></div><div>🏠 Địa chỉ: <strong>${userAddress}</strong></div><div>🚨 Sự việc: <strong>${userSituation}</strong></div></div><button id="callBtn3" style="background:#4CAF50; border:none; padding:14px; border-radius:40px; color:white; font-size:18px; cursor:pointer; width:100%;">📞 GỌI CẤP CỨU 115</button></div><div style="margin:0 20px 20px; padding:12px; background:#2A2A2A; border-radius:30px; text-align:center;">💡 Kiểm tra lại thông tin trước khi gọi nhé!</div>`;
+            } else if(step3===5){
+                html += `<div style="background:#2A2A2A; margin:15px; padding:20px; border-radius:28px; text-align:center;"><div style="font-size:60px;">🎉🩺</div><div style="font-size:20px; font-weight:bold;">ĐÃ GỌI THÀNH CÔNG!</div><div style="background:#3A3A3A; border-radius:30px; padding:15px; margin:15px 0;">🚑 <strong>Biệt đội cứu hộ</strong> đã nhận được cuộc gọi của con.<br>Họ sẽ đến địa chỉ: <strong>${userAddress}</strong> ngay lập tức!<br><br>🦸 Con đã làm rất tốt!</div><button id="resetBtn3" style="background:#FFB347; border:none; padding:12px 28px; border-radius:40px; cursor:pointer;">🔄 GỌI LẠI (THỰC HÀNH TIẾP)</button></div>`;
+            }
+            container.innerHTML = html;
+            if(step3===1){
+                const nameInput = document.getElementById('nameInput');
+                document.getElementById('nextBtn3')?.addEventListener('click',()=>{ const val=nameInput.value.trim(); if(!val){ alert("Hãy nhập tên!"); return; } userName=val; step3=2; renderExercise3(); });
+            } else if(step3===2){
+                const addrInput = document.getElementById('addressInput');
+                document.getElementById('nextBtn3')?.addEventListener('click',()=>{ const val=addrInput.value.trim(); if(!val){ alert("Hãy nhập địa chỉ!"); return; } userAddress=val; step3=3; renderExercise3(); });
+            } else if(step3===3){
+                const sel = document.getElementById('situationSelect');
+                document.getElementById('nextBtn3')?.addEventListener('click',()=>{ const val=sel.value; if(!val){ alert("Hãy chọn tình huống!"); return; } userSituation=val; step3=4; renderExercise3(); });
+            } else if(step3===4){
+                document.getElementById('callBtn3')?.addEventListener('click',()=>{ step3=5; renderExercise3(); });
+            } else if(step3===5){
+                document.getElementById('resetBtn3')?.addEventListener('click',()=>{ step3=1; userName=""; userAddress=""; userSituation=""; renderExercise3(); });
+            }
+        }
+        renderExercise3();
+    })();
+</script>
+</body>
+</html>
