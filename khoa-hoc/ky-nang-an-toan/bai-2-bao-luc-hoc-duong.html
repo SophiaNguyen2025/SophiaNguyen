@@ -25,6 +25,11 @@
         .back-btn { display: inline-block; background: #ffd700; color: #0a4a5a; padding: 12px 24px; border-radius: 40px; text-decoration: none; font-weight: bold; margin-top: 20px; transition: all 0.2s; }
         .back-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
         .footer { text-align: center; color: white; padding: 20px; font-size: 0.8rem; }
+        
+        .shake-screen { animation: shake 0.3s ease-in-out 0s 2; }
+        @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } 100% { transform: translateX(0); } }
+        
+        #confetti-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; }
     </style>
 </head>
 <body>
@@ -34,26 +39,22 @@
         <h1>🤝 Bài 2: Phòng chống bạo lực học đường</h1>
     </div>
 
-    <!-- Video bài học -->
     <div class="video-section">
         <div class="video-wrapper">
             <iframe src="https://www.youtube.com/embed/MuLvNQj4uvI" frameborder="0" allowfullscreen></iframe>
         </div>
     </div>
 
-    <!-- Bài tập 1: Cấp cứu 113 -->
     <div class="exercise">
         <h2 class="exercise-title">📞 Bài tập 1: Cấp cứu 113 - Gọi ai đây?</h2>
         <div id="exercise1"></div>
     </div>
 
-    <!-- Bài tập 2: Đúng/Sai - Bé ngoan -->
     <div class="exercise">
         <h2 class="exercise-title">😊 Bài tập 2: Đúng/Sai - Bé ngoan</h2>
         <div id="exercise2"></div>
     </div>
 
-    <!-- Bài tập 3: Cảm xúc của em -->
     <div class="exercise">
         <h2 class="exercise-title">🧸 Bài tập 3: Cảm xúc của em</h2>
         <div id="exercise3"></div>
@@ -61,12 +62,151 @@
 
     <a href="https://sophianguyen.com.vn/khoa-hoc/ky-nang-an-toan/" class="back-btn">← Quay lại danh sách bài học</a>
     <div class="footer">
-        <p>© 2025 Sophia Nguyễn - Kỹ năng an toàn cho trẻ 5-10 tuổi</p>
+        <p>🐿️ Hiệp sĩ Sóc đồng hành cùng con - © 2025 Sophia Nguyễn</p>
     </div>
 </div>
+<canvas id="confetti-canvas"></canvas>
 
 <script>
-    // ==================== BÀI TẬP 1: CẤP CỨU 113 ====================
+    // ==================== HIỆU ỨNG CONFETTI & ÂM THANH ====================
+    let ctx = null, width = window.innerWidth, height = window.innerHeight, particles = [], animationId = null;
+    function resizeCanvas() { width = window.innerWidth; height = window.innerHeight; const canvas = document.getElementById('confetti-canvas'); if(canvas){ canvas.width = width; canvas.height = height; ctx = canvas.getContext('2d'); } }
+    function createConfetti(duration = 1800) {
+        if(!ctx) return;
+        if(animationId) cancelAnimationFrame(animationId);
+        particles = [];
+        for(let i=0;i<140;i++) {
+            particles.push({ x: Math.random() * width, y: Math.random() * height - height, size: Math.random() * 7 + 3, color: `hsl(${Math.random() * 360}, 80%, 60%)`, speedY: Math.random() * 5 + 3, speedX: (Math.random() - 0.5) * 2, rotation: Math.random() * 360, rotSpeed: (Math.random() - 0.5) * 6 });
+        }
+        drawConfetti();
+        setTimeout(() => { if(animationId) cancelAnimationFrame(animationId); ctx?.clearRect(0,0,width,height); particles = []; }, duration);
+    }
+    function drawConfetti() {
+        if(!ctx) return;
+        ctx.clearRect(0, 0, width, height);
+        let allFinished = true;
+        for(let i=0;i<particles.length;i++) {
+            const p = particles[i];
+            if(p.y < height + 50) {
+                allFinished = false;
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.rotation * Math.PI / 180);
+                ctx.fillStyle = p.color;
+                ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size * 0.6);
+                ctx.restore();
+                p.y += p.speedY;
+                p.x += p.speedX;
+                p.rotation += p.rotSpeed;
+            }
+        }
+        if(!allFinished) animationId = requestAnimationFrame(drawConfetti);
+        else { if(animationId) cancelAnimationFrame(animationId); particles = []; ctx.clearRect(0,0,width,height); }
+    }
+    window.addEventListener('resize', () => { resizeCanvas(); if(particles.length) drawConfetti(); });
+    
+    function playClickSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 880;
+            gain.gain.value = 0.08;
+            osc.type = 'sine';
+            osc.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.08);
+            osc.stop(audioCtx.currentTime + 0.08);
+        } catch(e) {}
+    }
+    
+    function playSuccessSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const frequencies = [880, 1046.5, 1318.5];
+            frequencies.forEach((freq, idx) => {
+                setTimeout(() => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.frequency.value = freq;
+                    gain.gain.value = 0.2;
+                    osc.type = 'sine';
+                    osc.start();
+                    gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                    osc.stop(audioCtx.currentTime + 0.3);
+                }, idx * 120);
+            });
+        } catch(e) {}
+        createConfetti(800);
+    }
+    
+    function playCompleteSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const gain = audioCtx.createGain();
+            gain.connect(audioCtx.destination);
+            gain.gain.value = 0.3;
+            const bufferSize = 4096;
+            const noise = audioCtx.createBufferSource();
+            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for(let i=0; i<bufferSize; i++) data[i] = Math.random() * 2 - 1;
+            noise.buffer = buffer;
+            noise.loop = true;
+            noise.connect(gain);
+            noise.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 1.2);
+            noise.stop(audioCtx.currentTime + 1.2);
+            setTimeout(() => {
+                const osc = audioCtx.createOscillator();
+                const gain2 = audioCtx.createGain();
+                osc.connect(gain2);
+                gain2.connect(audioCtx.destination);
+                osc.frequency.value = 1046.5;
+                gain2.gain.value = 0.3;
+                osc.type = 'sine';
+                osc.start();
+                gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.5);
+                osc.stop(audioCtx.currentTime + 0.5);
+            }, 1000);
+        } catch(e) {}
+        createConfetti(2500);
+    }
+    
+    function playErrorSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 220;
+            gain.gain.value = 0.25;
+            osc.type = 'sawtooth';
+            osc.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.4);
+            osc.stop(audioCtx.currentTime + 0.4);
+            setTimeout(() => {
+                const osc2 = audioCtx.createOscillator();
+                const gain2 = audioCtx.createGain();
+                osc2.connect(gain2);
+                gain2.connect(audioCtx.destination);
+                osc2.frequency.value = 164.81;
+                gain2.gain.value = 0.2;
+                osc2.type = 'sawtooth';
+                osc2.start();
+                gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                osc2.stop(audioCtx.currentTime + 0.3);
+            }, 150);
+        } catch(e) {}
+        document.body.classList.add('shake-screen');
+        setTimeout(() => document.body.classList.remove('shake-screen'), 500);
+    }
+
+    // ==================== BÀI TẬP 1: CẤP CỨU 113 (CÓ ÂM THANH) ====================
     (function() {
         const situations = [
             { id: 0, emoji: "👧😢👊", text: "Em đang bị một bạn lớn đánh ở sân trường.", correct: "giaovien", helpers: [{ id: "giaovien", emoji: "👩‍🏫", label: "Cô giáo / Thầy giáo" }, { id: "bosme", emoji: "👨‍👩‍👧", label: "Bố mẹ" }, { id: "canhsat", emoji: "👮‍♂️", label: "Chú công an (113)" }] },
@@ -108,6 +248,7 @@
             document.querySelectorAll('.helper-btn').forEach(btn => {
                 btn.onclick = () => {
                     if (submitted1) return;
+                    playClickSound();
                     const idx = parseInt(btn.getAttribute('data-idx'));
                     const helperId = btn.getAttribute('data-helper');
                     selectedAnswers[idx] = helperId;
@@ -118,19 +259,22 @@
             document.querySelector('.submit-btn1').onclick = () => {
                 if (submitted1) return;
                 let allAnswered = selectedAnswers.every(a => a !== null);
-                if (!allAnswered) { alert('⚠️ Hãy chọn người giúp đỡ cho TẤT CẢ các tình huống!'); return; }
+                if (!allAnswered) { playErrorSound(); alert('⚠️ Hãy chọn người giúp đỡ cho TẤT CẢ các tình huống!'); return; }
                 let correctCount = 0;
                 for (let i = 0; i < situations.length; i++) if (selectedAnswers[i] === situations[i].correct) correctCount++;
                 let message = correctCount === situations.length ? '🎉 SIÊU GIỎI! Bé biết rất rõ nên gọi ai để được giúp đỡ!' : (correctCount >= 4 ? '👍 Rất tốt! Hãy nhớ: cô giáo giúp ở trường, bố mẹ giúp ở nhà, công an giúp khi nguy hiểm!' : '📖 Bé cần học thêm xem ai sẽ giúp mình nhé.');
+                if(correctCount === situations.length) playCompleteSound();
+                else if(correctCount >= 4) playSuccessSound();
+                else playErrorSound();
                 document.getElementById('resultArea1').innerHTML = `<div style="background:#FFF8F0; border-radius:40px; padding:20px; margin-top:15px; text-align:center;"><div style="font-size:28px; font-weight:bold;">🏆 Điểm: ${correctCount}/${situations.length} 🏆</div><div>${message}</div><button id="resetBtn1" style="background:#E8D8C8; border:none; padding:12px 28px; border-radius:40px; cursor:pointer; margin-top:15px;">🔄 LÀM LẠI</button></div>`;
                 submitted1 = true;
-                document.getElementById('resetBtn1')?.addEventListener('click', () => { selectedAnswers = new Array(situations.length).fill(null); submitted1 = false; renderExercise1(); });
+                document.getElementById('resetBtn1')?.addEventListener('click', () => { playClickSound(); selectedAnswers = new Array(situations.length).fill(null); submitted1 = false; renderExercise1(); });
             };
         }
         renderExercise1();
     })();
 
-    // ==================== BÀI TẬP 2: ĐÚNG/SAI ====================
+    // ==================== BÀI TẬP 2: ĐÚNG/SAI (CÓ ÂM THANH) ====================
     (function() {
         const questions = [
             { emoji: "👧😢👊", text: "Bạn A đánh bạn B vì bạn B làm rơi hộp bút của A.", correct: "sai" },
@@ -151,8 +295,11 @@
                 let correct = 0;
                 for (let i = 0; i < questions.length; i++) if (userAnswers[i] === questions[i].correct) correct++;
                 let msg = correct === questions.length ? '🎉 SIÊU BÉ NGOAN! Con làm đúng hết rồi!' : (correct >= 5 ? '👍 Rất tốt!' : '💪 Hãy học thêm nhé!');
+                if(correct === questions.length) playCompleteSound();
+                else if(correct >= 5) playSuccessSound();
+                else playErrorSound();
                 container.innerHTML = `<div style="background:#FFF8F0; border-radius:48px; padding:30px; text-align:center;"><div style="font-size:40px; font-weight:bold;">🏆 ${correct}/${questions.length} 🏆</div><div style="margin:20px 0;">${msg}</div><button id="resetQuiz2" style="background:#E8D8C8; border:none; padding:12px 28px; border-radius:40px; cursor:pointer;">🔄 CHƠI LẠI</button></div>`;
-                document.getElementById('resetQuiz2')?.addEventListener('click', () => { userAnswers = new Array(questions.length).fill(null); currentIdx = 0; renderExercise2(); });
+                document.getElementById('resetQuiz2')?.addEventListener('click', () => { playClickSound(); userAnswers = new Array(questions.length).fill(null); currentIdx = 0; renderExercise2(); });
                 return;
             }
             const q = questions[currentIdx];
@@ -170,6 +317,7 @@
             container.innerHTML = html;
             document.querySelectorAll('.choice-btn').forEach(btn => {
                 btn.onclick = () => {
+                    playClickSound();
                     const choice = btn.getAttribute('data-choice');
                     userAnswers[currentIdx] = choice;
                     const fb = document.getElementById('feedback2');
@@ -177,23 +325,26 @@
                         fb.innerHTML = '✅ Đúng rồi! Bé ngoan quá! 🎉';
                         fb.style.background = '#E8F5E9';
                         fb.style.color = '#2E7D32';
+                        playSuccessSound();
                     } else {
                         fb.innerHTML = `❌ Chưa đúng. Hành động này ${q.correct === 'dung' ? 'ĐÚNG' : 'SAI'} rồi.`;
                         fb.style.background = '#FFEBEE';
                         fb.style.color = '#C62828';
+                        playErrorSound();
                     }
                     document.querySelectorAll('.choice-btn').forEach(b => { b.style.opacity = '0.6'; b.style.pointerEvents = 'none'; });
                 };
             });
             document.getElementById('nextBtn2').onclick = () => {
-                if (userAnswers[currentIdx] === null) { document.getElementById('feedback2').innerHTML = '⚠️ Hãy chọn đáp án trước khi sang câu tiếp theo!'; return; }
+                if (userAnswers[currentIdx] === null) { document.getElementById('feedback2').innerHTML = '⚠️ Hãy chọn đáp án trước khi sang câu tiếp theo!'; playErrorSound(); return; }
+                playClickSound();
                 currentIdx++; renderExercise2();
             };
         }
         renderExercise2();
     })();
 
-    // ==================== BÀI TẬP 3: CẢM XÚC CỦA EM ====================
+    // ==================== BÀI TẬP 3: CẢM XÚC CỦA EM (CÓ ÂM THANH) ====================
     (function() {
         const questions = [
             { emoji: "😢👧👊", text: "Một bạn lớn đang đánh bạn nhỏ khác. Bạn nhỏ bị đánh sẽ cảm thấy thế nào?", correct: "buon", emotions: [{ id: "vui", emoji: "😊", label: "Vui vẻ" }, { id: "buon", emoji: "😢", label: "Buồn bã" }, { id: "tuc", emoji: "😠", label: "Tức giận" }, { id: "so", emoji: "😨", label: "Sợ hãi" }] },
@@ -211,8 +362,11 @@
                 let correct = 0;
                 for (let i = 0; i < questions.length; i++) if (userAnswers[i] === questions[i].correct) correct++;
                 let msg = correct === questions.length ? '🎉 TUYỆT VỜI! Em là chuyên gia cảm xúc!' : (correct >= 3 ? '👍 Rất tốt!' : '💪 Hãy học thêm nhé!');
+                if(correct === questions.length) playCompleteSound();
+                else if(correct >= 3) playSuccessSound();
+                else playErrorSound();
                 container.innerHTML = `<div style="background:#FFF8F0; border-radius:48px; padding:30px; text-align:center;"><div style="font-size:40px; font-weight:bold;">🏆 ${correct}/${questions.length} 🏆</div><div style="margin:20px 0;">${msg}</div><button id="resetQuiz3" style="background:#E8D8C8; border:none; padding:12px 28px; border-radius:40px; cursor:pointer;">🔄 CHƠI LẠI</button></div>`;
-                document.getElementById('resetQuiz3')?.addEventListener('click', () => { userAnswers = new Array(questions.length).fill(null); currentIdx3 = 0; renderExercise3(); });
+                document.getElementById('resetQuiz3')?.addEventListener('click', () => { playClickSound(); userAnswers = new Array(questions.length).fill(null); currentIdx3 = 0; renderExercise3(); });
                 return;
             }
             const q = questions[currentIdx3];
@@ -229,6 +383,7 @@
             container.innerHTML = html;
             document.querySelectorAll('.emotion-btn').forEach(btn => {
                 btn.onclick = () => {
+                    playClickSound();
                     const emotion = btn.getAttribute('data-emotion');
                     userAnswers[currentIdx3] = emotion;
                     const fb = document.getElementById('feedback3');
@@ -236,22 +391,26 @@
                         fb.innerHTML = '✅ Đúng rồi! Bé giỏi quá! 🎉';
                         fb.style.background = '#E8F5E9';
                         fb.style.color = '#2E7D32';
+                        playSuccessSound();
                     } else {
                         const correctEm = q.emotions.find(e => e.id === q.correct);
                         fb.innerHTML = `❌ Chưa đúng. Cảm xúc đúng là ${correctEm.emoji} ${correctEm.label}.`;
                         fb.style.background = '#FFEBEE';
                         fb.style.color = '#C62828';
+                        playErrorSound();
                     }
                     document.querySelectorAll('.emotion-btn').forEach(b => { b.style.opacity = '0.6'; b.style.pointerEvents = 'none'; });
                 };
             });
             document.getElementById('nextBtn3').onclick = () => {
-                if (userAnswers[currentIdx3] === null) { document.getElementById('feedback3').innerHTML = '⚠️ Hãy chọn cảm xúc trước khi sang câu tiếp theo!'; return; }
+                if (userAnswers[currentIdx3] === null) { document.getElementById('feedback3').innerHTML = '⚠️ Hãy chọn cảm xúc trước khi sang câu tiếp theo!'; playErrorSound(); return; }
+                playClickSound();
                 currentIdx3++; renderExercise3();
             };
         }
         renderExercise3();
     })();
+    resizeCanvas();
 </script>
 </body>
 </html>
