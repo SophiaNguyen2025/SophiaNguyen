@@ -17,7 +17,6 @@
             max-width: 1000px;
             margin: 0 auto;
         }
-        /* Header */
         .header {
             background: white;
             border-radius: 32px;
@@ -34,7 +33,6 @@
             color: #0a4a5a;
             font-size: 1.8rem;
         }
-        /* Video section */
         .video-section {
             background: white;
             border-radius: 32px;
@@ -57,7 +55,6 @@
             height: 100%;
             border: none;
         }
-        /* Exercise section */
         .exercise {
             background: white;
             border-radius: 32px;
@@ -73,7 +70,6 @@
             border-bottom: 3px solid #ffd700;
             display: inline-block;
         }
-        /* Nút quay lại */
         .back-btn {
             display: inline-block;
             background: #ffd700;
@@ -95,36 +91,36 @@
             padding: 20px;
             font-size: 0.8rem;
         }
+        
+        .shake-screen { animation: shake 0.3s ease-in-out 0s 2; }
+        @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } 100% { transform: translateX(0); } }
+        
+        #confetti-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; }
     </style>
 </head>
 <body>
 <div class="container">
-    <!-- Header -->
     <div class="header">
         <img src="https://sophianguyen.com.vn/images/hinhremovenen.png" alt="Sophia Nguyễn" class="logo">
         <h1>🏊‍♂️ Bài 7: Phòng chống đuối nước</h1>
     </div>
 
-    <!-- Video bài học -->
     <div class="video-section">
         <div class="video-wrapper">
             <iframe src="https://www.youtube.com/embed/b418js6btkM" frameborder="0" allowfullscreen></iframe>
         </div>
     </div>
 
-    <!-- Bài tập 1: 5 điều KHÔNG -->
     <div class="exercise">
         <h2 class="exercise-title">📝 Bài tập 1: 5 điều KHÔNG khi bơi</h2>
         <div id="exercise1"></div>
     </div>
 
-    <!-- Bài tập 2: Nơi an toàn - Nơi nguy hiểm -->
     <div class="exercise">
         <h2 class="exercise-title">📍 Bài tập 2: Nơi an toàn - Nơi nguy hiểm</h2>
         <div id="exercise2"></div>
     </div>
 
-    <!-- Bài tập 3: Tìm biểu hiện đuối nước -->
     <div class="exercise">
         <h2 class="exercise-title">🔍 Bài tập 3: Tìm biểu hiện đuối nước</h2>
         <div id="exercise3"></div>
@@ -132,12 +128,151 @@
 
     <a href="https://sophianguyen.com.vn/khoa-hoc/ky-nang-an-toan/" class="back-btn">← Quay lại danh sách bài học</a>
     <div class="footer">
-        <p>© 2025 Sophia Nguyễn - Kỹ năng an toàn cho trẻ 5-10 tuổi</p>
+        <p>🐿️ Hiệp sĩ Sóc đồng hành cùng con - © 2025 Sophia Nguyễn</p>
     </div>
 </div>
+<canvas id="confetti-canvas"></canvas>
 
 <script>
-    // ==================== BÀI TẬP 1: 5 ĐIỀU KHÔNG ====================
+    // ==================== HIỆU ỨNG CONFETTI & ÂM THANH ====================
+    let ctx = null, width = window.innerWidth, height = window.innerHeight, particles = [], animationId = null;
+    function resizeCanvas() { width = window.innerWidth; height = window.innerHeight; const canvas = document.getElementById('confetti-canvas'); if(canvas){ canvas.width = width; canvas.height = height; ctx = canvas.getContext('2d'); } }
+    function createConfetti(duration = 1800) {
+        if(!ctx) return;
+        if(animationId) cancelAnimationFrame(animationId);
+        particles = [];
+        for(let i=0;i<140;i++) {
+            particles.push({ x: Math.random() * width, y: Math.random() * height - height, size: Math.random() * 7 + 3, color: `hsl(${Math.random() * 360}, 80%, 60%)`, speedY: Math.random() * 5 + 3, speedX: (Math.random() - 0.5) * 2, rotation: Math.random() * 360, rotSpeed: (Math.random() - 0.5) * 6 });
+        }
+        drawConfetti();
+        setTimeout(() => { if(animationId) cancelAnimationFrame(animationId); ctx?.clearRect(0,0,width,height); particles = []; }, duration);
+    }
+    function drawConfetti() {
+        if(!ctx) return;
+        ctx.clearRect(0, 0, width, height);
+        let allFinished = true;
+        for(let i=0;i<particles.length;i++) {
+            const p = particles[i];
+            if(p.y < height + 50) {
+                allFinished = false;
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.rotation * Math.PI / 180);
+                ctx.fillStyle = p.color;
+                ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size * 0.6);
+                ctx.restore();
+                p.y += p.speedY;
+                p.x += p.speedX;
+                p.rotation += p.rotSpeed;
+            }
+        }
+        if(!allFinished) animationId = requestAnimationFrame(drawConfetti);
+        else { if(animationId) cancelAnimationFrame(animationId); particles = []; ctx.clearRect(0,0,width,height); }
+    }
+    window.addEventListener('resize', () => { resizeCanvas(); if(particles.length) drawConfetti(); });
+    
+    function playClickSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 880;
+            gain.gain.value = 0.08;
+            osc.type = 'sine';
+            osc.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.08);
+            osc.stop(audioCtx.currentTime + 0.08);
+        } catch(e) {}
+    }
+    
+    function playSuccessSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const frequencies = [880, 1046.5, 1318.5];
+            frequencies.forEach((freq, idx) => {
+                setTimeout(() => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.frequency.value = freq;
+                    gain.gain.value = 0.2;
+                    osc.type = 'sine';
+                    osc.start();
+                    gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                    osc.stop(audioCtx.currentTime + 0.3);
+                }, idx * 120);
+            });
+        } catch(e) {}
+        createConfetti(800);
+    }
+    
+    function playCompleteSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const gain = audioCtx.createGain();
+            gain.connect(audioCtx.destination);
+            gain.gain.value = 0.3;
+            const bufferSize = 4096;
+            const noise = audioCtx.createBufferSource();
+            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for(let i=0; i<bufferSize; i++) data[i] = Math.random() * 2 - 1;
+            noise.buffer = buffer;
+            noise.loop = true;
+            noise.connect(gain);
+            noise.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 1.2);
+            noise.stop(audioCtx.currentTime + 1.2);
+            setTimeout(() => {
+                const osc = audioCtx.createOscillator();
+                const gain2 = audioCtx.createGain();
+                osc.connect(gain2);
+                gain2.connect(audioCtx.destination);
+                osc.frequency.value = 1046.5;
+                gain2.gain.value = 0.3;
+                osc.type = 'sine';
+                osc.start();
+                gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.5);
+                osc.stop(audioCtx.currentTime + 0.5);
+            }, 1000);
+        } catch(e) {}
+        createConfetti(2500);
+    }
+    
+    function playErrorSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 220;
+            gain.gain.value = 0.25;
+            osc.type = 'sawtooth';
+            osc.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.4);
+            osc.stop(audioCtx.currentTime + 0.4);
+            setTimeout(() => {
+                const osc2 = audioCtx.createOscillator();
+                const gain2 = audioCtx.createGain();
+                osc2.connect(gain2);
+                gain2.connect(audioCtx.destination);
+                osc2.frequency.value = 164.81;
+                gain2.gain.value = 0.2;
+                osc2.type = 'sawtooth';
+                osc2.start();
+                gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                osc2.stop(audioCtx.currentTime + 0.3);
+            }, 150);
+        } catch(e) {}
+        document.body.classList.add('shake-screen');
+        setTimeout(() => document.body.classList.remove('shake-screen'), 500);
+    }
+
+    // ==================== BÀI TẬP 1: 5 ĐIỀU KHÔNG (CÓ ÂM THANH) ====================
     (function() {
         const rules = [
             { emoji: "🏊‍♂️🚫", title: "KHÔNG tự ý đi bơi một mình", desc: "Không đi bơi khi không có người lớn đi cùng", detail: "✅ Luôn có bố mẹ hoặc thầy cô bên cạnh khi xuống nước!" },
@@ -147,21 +282,6 @@
             { emoji: "🌊🚫", title: "KHÔNG bơi ở dòng chảy xa bờ", desc: "Không bơi ở nơi có nước xoáy, dòng chảy xiết", detail: "✅ Dòng chảy xa bờ có thể kéo con ra xa, rất khó quay lại!" }
         ];
         let viewed = [false, false, false, false, false];
-
-        function playSound() {
-            try {
-                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.type = 'sine';
-                osc.frequency.value = 880;
-                gain.gain.value = 0.15;
-                osc.start();
-                osc.stop(audioCtx.currentTime + 0.2);
-            } catch(e) {}
-        }
 
         function renderExercise1() {
             const container = document.getElementById('exercise1');
@@ -206,20 +326,22 @@
                         </div>`;
                     }
                     card.onclick = () => {
+                        playClickSound();
                         viewed[idx] = !viewed[idx];
-                        playSound();
+                        if(viewed[idx]) playSuccessSound();
                         renderExercise1();
+                        if(viewed.every(v=>v===true)) playCompleteSound();
                     };
                     cardsGrid.appendChild(card);
                 });
             }
             const resetBtn = document.getElementById('resetBtn1');
-            if (resetBtn) resetBtn.onclick = () => { viewed = [false,false,false,false,false]; renderExercise1(); playSound(); };
+            if (resetBtn) resetBtn.onclick = () => { playClickSound(); viewed = [false,false,false,false,false]; renderExercise1(); };
         }
         renderExercise1();
     })();
 
-    // ==================== BÀI TẬP 2: NƠI AN TOÀN - NƠI NGUY HIỂM ====================
+    // ==================== BÀI TẬP 2: NƠI AN TOÀN - NƠI NGUY HIỂM (CÓ ÂM THANH) ====================
     (function() {
         const places = [
             { name: "Hồ bơi có nhân viên cứu hộ", emoji: "🏊‍♂️🛟", desc: "Có phao, có người lớn giám sát", correct: "safe" },
@@ -264,28 +386,54 @@
             });
             
             document.querySelectorAll('.btn-safe2').forEach(btn => {
-                btn.onclick = (e) => { e.stopPropagation(); if(!submitted2){ answers[parseInt(btn.dataset.idx)] = 'safe'; renderExercise2(); } };
+                btn.onclick = (e) => { 
+                    e.stopPropagation(); 
+                    if(!submitted2){ 
+                        const idx = parseInt(btn.dataset.idx);
+                        answers[idx] = 'safe';
+                        if(places[idx].correct === 'safe') playSuccessSound();
+                        else playErrorSound();
+                        renderExercise2(); 
+                    } 
+                };
             });
             document.querySelectorAll('.btn-danger2').forEach(btn => {
-                btn.onclick = (e) => { e.stopPropagation(); if(!submitted2){ answers[parseInt(btn.dataset.idx)] = 'danger'; renderExercise2(); } };
+                btn.onclick = (e) => { 
+                    e.stopPropagation(); 
+                    if(!submitted2){ 
+                        const idx = parseInt(btn.dataset.idx);
+                        answers[idx] = 'danger';
+                        if(places[idx].correct === 'danger') playSuccessSound();
+                        else playErrorSound();
+                        renderExercise2(); 
+                    } 
+                };
             });
             
             document.getElementById('submitBtn2').onclick = () => {
                 if(submitted2) return;
                 let allAnswered = answers.every(a => a !== null);
-                if(!allAnswered){ document.getElementById('feedback2').innerHTML = '⚠️ Hãy chọn phân loại cho TẤT CẢ các địa điểm!'; return; }
+                if(!allAnswered){ 
+                    playErrorSound();
+                    document.getElementById('feedback2').innerHTML = '⚠️ Hãy chọn phân loại cho TẤT CẢ các địa điểm!'; 
+                    return; 
+                }
                 let correct = 0;
                 for(let i=0; i<places.length; i++) if(answers[i] === places[i].correct) correct++;
                 const percent = Math.round(correct/places.length*100);
                 let msg = correct === places.length ? '🎉 TUYỆT VỜI! Con đã phân loại chính xác!' : `👍 Điểm: ${correct}/${places.length} (${percent}%). Hãy xem lại những nơi con chọn sai nhé!`;
-                document.getElementById('feedback2').innerHTML = `<div style="font-size:20px;">🏆 Điểm: ${correct}/${places.length} (${percent}%) 🏆</div><div>${msg}</div>`;
+                if(correct === places.length) playCompleteSound();
+                else if(correct >= 7) playSuccessSound();
+                else playErrorSound();
+                document.getElementById('feedback2').innerHTML = `<div style="font-size:20px;">🏆 Điểm: ${correct}/${places.length} (${percent}%) 🏆</div><div>${msg}</div><button id="resetBtn2" style="background:#FFB347; border:none; padding:12px 28px; border-radius:40px; cursor:pointer; margin-top:15px;">🔄 LÀM LẠI</button>`;
                 submitted2 = true;
+                document.getElementById('resetBtn2')?.addEventListener('click', () => { playClickSound(); answers = new Array(places.length).fill(null); submitted2 = false; renderExercise2(); });
             };
         }
         renderExercise2();
     })();
 
-    // ==================== BÀI TẬP 3: TÌM BIỂU HIỆN ĐUỐI NƯỚC ====================
+    // ==================== BÀI TẬP 3: TÌM BIỂU HIỆN ĐUỐI NƯỚC (CÓ ÂM THANH) ====================
     (function() {
         const situations = [
             { title: "Bé trai đang bơi thoải mái", desc: "Mắt nhìn bình thường, tay quạt nước đều", isDrowning: false, emoji: "🏊‍♂️😊" },
@@ -318,7 +466,19 @@
                     <div style="font-size:18px; font-weight:bold; color:#7C5A44;">${sit.title}</div>
                     <div style="font-size:14px; color:#A87A58;">${sit.desc}</div>
                 </div>`;
-                card.onclick = () => { if(!submitted3){ if(selected.includes(idx)) selected = selected.filter(i=>i!==idx); else selected.push(idx); renderExercise3(); } };
+                card.onclick = () => { 
+                    if(!submitted3){ 
+                        playClickSound();
+                        if(selected.includes(idx)) {
+                            selected = selected.filter(i=>i!==idx);
+                        } else {
+                            selected.push(idx);
+                            if(sit.isDrowning) playSuccessSound();
+                            else playErrorSound();
+                        }
+                        renderExercise3(); 
+                    } 
+                };
                 grid.appendChild(card);
             });
             
@@ -327,17 +487,21 @@
                 const correctIds = [1,3,5];
                 let correctCount = selected.filter(id => correctIds.includes(id)).length;
                 let wrongCount = selected.filter(id => !correctIds.includes(id)).length;
-                let missingCount = correctIds.filter(id => !selected.includes(id)).length;
                 if(correctCount === 3 && wrongCount === 0) {
                     document.getElementById('feedback3').innerHTML = '🎉 TUYỆT VỜI! Con đã nhận biết đúng tất cả biểu hiện của người bị đuối nước! 🎉';
+                    playCompleteSound();
                 } else {
                     document.getElementById('feedback3').innerHTML = `❌ Chưa đúng. Con đã chọn ${correctCount}/3 hình đúng và chọn thêm ${wrongCount} hình sai. Hãy xem lại và thử nhé!`;
+                    playErrorSound();
                 }
                 submitted3 = true;
+                document.getElementById('feedback3').innerHTML += `<br><button id="resetBtn3" style="background:#FFB347; border:none; padding:12px 28px; border-radius:40px; cursor:pointer; margin-top:15px;">🔄 LÀM LẠI</button>`;
+                document.getElementById('resetBtn3')?.addEventListener('click', () => { playClickSound(); selected = []; submitted3 = false; renderExercise3(); });
             };
         }
         renderExercise3();
     })();
+    resizeCanvas();
 </script>
 </body>
 </html>
