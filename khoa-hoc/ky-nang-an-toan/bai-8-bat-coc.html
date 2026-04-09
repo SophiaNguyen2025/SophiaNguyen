@@ -25,6 +25,11 @@
         .back-btn { display: inline-block; background: #ffd700; color: #0a4a5a; padding: 12px 24px; border-radius: 40px; text-decoration: none; font-weight: bold; margin-top: 20px; transition: all 0.2s; }
         .back-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
         .footer { text-align: center; color: white; padding: 20px; font-size: 0.8rem; }
+        
+        .shake-screen { animation: shake 0.3s ease-in-out 0s 2; }
+        @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } 100% { transform: translateX(0); } }
+        
+        #confetti-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; }
     </style>
 </head>
 <body>
@@ -34,26 +39,22 @@
         <h1>🚸 Bài 8: Phòng chống bắt cóc</h1>
     </div>
 
-    <!-- Video bài học -->
     <div class="video-section">
         <div class="video-wrapper">
             <iframe src="https://www.youtube.com/embed/keuQsqVhokg" frameborder="0" allowfullscreen></iframe>
         </div>
     </div>
 
-    <!-- Bài tập 1: AI LÀ NGƯỜI LẠ? -->
     <div class="exercise">
         <h2 class="exercise-title">🤔 Bài tập 1: AI LÀ NGƯỜI LẠ?</h2>
         <div id="exercise1"></div>
     </div>
 
-    <!-- Bài tập 2: Nơi an toàn - Nơi nguy hiểm -->
     <div class="exercise">
         <h2 class="exercise-title">📍 Bài tập 2: Nơi an toàn - Nơi nguy hiểm</h2>
         <div id="exercise2"></div>
     </div>
 
-    <!-- Bài tập 3: Cấp cứu 113 - Bé làm gì? -->
     <div class="exercise">
         <h2 class="exercise-title">📞 Bài tập 3: Cấp cứu 113 - Bé làm gì?</h2>
         <div id="exercise3"></div>
@@ -61,22 +62,161 @@
 
     <a href="https://sophianguyen.com.vn/khoa-hoc/ky-nang-an-toan/" class="back-btn">← Quay lại danh sách bài học</a>
     <div class="footer">
-        <p>© 2025 Sophia Nguyễn - Kỹ năng an toàn cho trẻ 5-10 tuổi</p>
+        <p>🐿️ Hiệp sĩ Sóc đồng hành cùng con - © 2025 Sophia Nguyễn</p>
     </div>
 </div>
+<canvas id="confetti-canvas"></canvas>
 
 <script>
-    // ==================== BÀI TẬP 1: AI LÀ NGƯỜI LẠ? ====================
+    // ==================== HIỆU ỨNG CONFETTI & ÂM THANH ====================
+    let ctx = null, width = window.innerWidth, height = window.innerHeight, particles = [], animationId = null;
+    function resizeCanvas() { width = window.innerWidth; height = window.innerHeight; const canvas = document.getElementById('confetti-canvas'); if(canvas){ canvas.width = width; canvas.height = height; ctx = canvas.getContext('2d'); } }
+    function createConfetti(duration = 1800) {
+        if(!ctx) return;
+        if(animationId) cancelAnimationFrame(animationId);
+        particles = [];
+        for(let i=0;i<140;i++) {
+            particles.push({ x: Math.random() * width, y: Math.random() * height - height, size: Math.random() * 7 + 3, color: `hsl(${Math.random() * 360}, 80%, 60%)`, speedY: Math.random() * 5 + 3, speedX: (Math.random() - 0.5) * 2, rotation: Math.random() * 360, rotSpeed: (Math.random() - 0.5) * 6 });
+        }
+        drawConfetti();
+        setTimeout(() => { if(animationId) cancelAnimationFrame(animationId); ctx?.clearRect(0,0,width,height); particles = []; }, duration);
+    }
+    function drawConfetti() {
+        if(!ctx) return;
+        ctx.clearRect(0, 0, width, height);
+        let allFinished = true;
+        for(let i=0;i<particles.length;i++) {
+            const p = particles[i];
+            if(p.y < height + 50) {
+                allFinished = false;
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.rotation * Math.PI / 180);
+                ctx.fillStyle = p.color;
+                ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size * 0.6);
+                ctx.restore();
+                p.y += p.speedY;
+                p.x += p.speedX;
+                p.rotation += p.rotSpeed;
+            }
+        }
+        if(!allFinished) animationId = requestAnimationFrame(drawConfetti);
+        else { if(animationId) cancelAnimationFrame(animationId); particles = []; ctx.clearRect(0,0,width,height); }
+    }
+    window.addEventListener('resize', () => { resizeCanvas(); if(particles.length) drawConfetti(); });
+    
+    function playClickSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 880;
+            gain.gain.value = 0.08;
+            osc.type = 'sine';
+            osc.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.08);
+            osc.stop(audioCtx.currentTime + 0.08);
+        } catch(e) {}
+    }
+    
+    function playSuccessSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const frequencies = [880, 1046.5, 1318.5];
+            frequencies.forEach((freq, idx) => {
+                setTimeout(() => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.frequency.value = freq;
+                    gain.gain.value = 0.2;
+                    osc.type = 'sine';
+                    osc.start();
+                    gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                    osc.stop(audioCtx.currentTime + 0.3);
+                }, idx * 120);
+            });
+        } catch(e) {}
+        createConfetti(800);
+    }
+    
+    function playCompleteSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const gain = audioCtx.createGain();
+            gain.connect(audioCtx.destination);
+            gain.gain.value = 0.3;
+            const bufferSize = 4096;
+            const noise = audioCtx.createBufferSource();
+            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for(let i=0; i<bufferSize; i++) data[i] = Math.random() * 2 - 1;
+            noise.buffer = buffer;
+            noise.loop = true;
+            noise.connect(gain);
+            noise.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 1.2);
+            noise.stop(audioCtx.currentTime + 1.2);
+            setTimeout(() => {
+                const osc = audioCtx.createOscillator();
+                const gain2 = audioCtx.createGain();
+                osc.connect(gain2);
+                gain2.connect(audioCtx.destination);
+                osc.frequency.value = 1046.5;
+                gain2.gain.value = 0.3;
+                osc.type = 'sine';
+                osc.start();
+                gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.5);
+                osc.stop(audioCtx.currentTime + 0.5);
+            }, 1000);
+        } catch(e) {}
+        createConfetti(2500);
+    }
+    
+    function playErrorSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 220;
+            gain.gain.value = 0.25;
+            osc.type = 'sawtooth';
+            osc.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.4);
+            osc.stop(audioCtx.currentTime + 0.4);
+            setTimeout(() => {
+                const osc2 = audioCtx.createOscillator();
+                const gain2 = audioCtx.createGain();
+                osc2.connect(gain2);
+                gain2.connect(audioCtx.destination);
+                osc2.frequency.value = 164.81;
+                gain2.gain.value = 0.2;
+                osc2.type = 'sawtooth';
+                osc2.start();
+                gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                osc2.stop(audioCtx.currentTime + 0.3);
+            }, 150);
+        } catch(e) {}
+        document.body.classList.add('shake-screen');
+        setTimeout(() => document.body.classList.remove('shake-screen'), 500);
+    }
+
+    // ==================== BÀI TẬP 1: AI LÀ NGƯỜI LẠ? (CÓ ÂM THANH) ====================
     (function() {
         const questions = [
-            { emoji: "🍬👨", text: "Một chú lạ mặt đến gần em và cho em kẹo, bảo em đi cùng chú.", correct: "dung", choices: [{ id: "dung", emoji: "😊", label: "ĐÚNG (nguy hiểm)" }, { id: "sai", emoji: "😞", label: "SAI (an toàn)" }] },
-            { emoji: "👮‍♂️", text: "Chú công an đang làm nhiệm vụ, mặc đồng phục, có phù hiệu.", correct: "sai", choices: [{ id: "dung", emoji: "😊", label: "ĐÚNG (nguy hiểm)" }, { id: "sai", emoji: "😞", label: "SAI (an toàn)" }] },
-            { emoji: "👩‍🏫", text: "Cô giáo của em đang dạy học ở trường.", correct: "sai", choices: [{ id: "dung", emoji: "😊", label: "ĐÚNG (nguy hiểm)" }, { id: "sai", emoji: "😞", label: "SAI (an toàn)" }] },
-            { emoji: "🐶🧔", text: "Một người lạ nhờ em giúp tìm chú chó bị lạc, bảo em đi vào ngõ vắng.", correct: "dung", choices: [{ id: "dung", emoji: "😊", label: "ĐÚNG (nguy hiểm)" }, { id: "sai", emoji: "😞", label: "SAI (an toàn)" }] },
-            { emoji: "🚗👨", text: "Một người lạ lái xe lại gần, bảo em lên xe để đưa đi ăn kem.", correct: "dung", choices: [{ id: "dung", emoji: "😊", label: "ĐÚNG (nguy hiểm)" }, { id: "sai", emoji: "😞", label: "SAI (an toàn)" }] },
-            { emoji: "👨‍👩‍👧", text: "Bố mẹ của em đến đón em sau giờ học.", correct: "sai", choices: [{ id: "dung", emoji: "😊", label: "ĐÚNG (nguy hiểm)" }, { id: "sai", emoji: "😞", label: "SAI (an toàn)" }] },
-            { emoji: "🎁👵", text: "Một bà lạ mặt nói: 'Bà là bạn của bà nội cháu, bà đưa cháu về nhé!'", correct: "dung", choices: [{ id: "dung", emoji: "😊", label: "ĐÚNG (nguy hiểm)" }, { id: "sai", emoji: "😞", label: "SAI (an toàn)" }] },
-            { emoji: "🛡️👨", text: "Bác bảo vệ ở trường em, mặc đồng phục, đeo thẻ.", correct: "sai", choices: [{ id: "dung", emoji: "😊", label: "ĐÚNG (nguy hiểm)" }, { id: "sai", emoji: "😞", label: "SAI (an toàn)" }] }
+            { emoji: "🍬👨", text: "Một chú lạ mặt đến gần em và cho em kẹo, bảo em đi cùng chú.", correct: "dung" },
+            { emoji: "👮‍♂️", text: "Chú công an đang làm nhiệm vụ, mặc đồng phục, có phù hiệu.", correct: "sai" },
+            { emoji: "👩‍🏫", text: "Cô giáo của em đang dạy học ở trường.", correct: "sai" },
+            { emoji: "🐶🧔", text: "Một người lạ nhờ em giúp tìm chú chó bị lạc, bảo em đi vào ngõ vắng.", correct: "dung" },
+            { emoji: "🚗👨", text: "Một người lạ lái xe lại gần, bảo em lên xe để đưa đi ăn kem.", correct: "dung" },
+            { emoji: "👨‍👩‍👧", text: "Bố mẹ của em đến đón em sau giờ học.", correct: "sai" },
+            { emoji: "🎁👵", text: "Một bà lạ mặt nói: 'Bà là bạn của bà nội cháu, bà đưa cháu về nhé!'", correct: "dung" },
+            { emoji: "🛡️👨", text: "Bác bảo vệ ở trường em, mặc đồng phục, đeo thẻ.", correct: "sai" }
         ];
         let currentIdx = 0, userAnswers = new Array(questions.length).fill(null);
 
@@ -86,8 +226,11 @@
                 let correct = 0;
                 for (let i = 0; i < questions.length; i++) if (userAnswers[i] === questions[i].correct) correct++;
                 let msg = correct === questions.length ? '🎉 SIÊU GIỎI! Bé biết rất rõ ai là người lạ cần tránh!' : (correct >= 5 ? '👍 Rất tốt!' : '💪 Bé cần học thêm nhé!');
+                if(correct === questions.length) playCompleteSound();
+                else if(correct >= 5) playSuccessSound();
+                else playErrorSound();
                 container.innerHTML = `<div style="background:#FFF8F0; border-radius:48px; padding:30px; text-align:center;"><div style="font-size:40px; font-weight:bold;">🏆 ${correct}/${questions.length} 🏆</div><div style="margin:20px 0;">${msg}</div><button id="resetQuiz1" style="background:#E8D8C8; border:none; padding:12px 28px; border-radius:40px; cursor:pointer;">🔄 CHƠI LẠI</button></div>`;
-                document.getElementById('resetQuiz1')?.addEventListener('click', () => { currentIdx = 0; userAnswers.fill(null); renderExercise1(); });
+                document.getElementById('resetQuiz1')?.addEventListener('click', () => { playClickSound(); currentIdx = 0; userAnswers.fill(null); renderExercise1(); });
                 return;
             }
             const q = questions[currentIdx];
@@ -105,35 +248,50 @@
             container.innerHTML = html;
             document.querySelectorAll('.choice-btn').forEach(btn => {
                 btn.onclick = () => {
+                    playClickSound();
                     const choice = btn.getAttribute('data-choice');
                     userAnswers[currentIdx] = choice;
                     const fb = document.getElementById('feedback1');
-                    if (choice === q.correct) { fb.innerHTML = '✅ Đúng rồi! Bé giỏi quá! 🎉'; fb.style.background = '#E8F5E9'; fb.style.color = '#2E7D32'; }
-                    else { fb.innerHTML = `❌ Chưa đúng. ${q.correct === 'dung' ? 'Người này CÓ THỂ GÂY NGUY HIỂM' : 'Người này AN TOÀN'}.`; fb.style.background = '#FFEBEE'; fb.style.color = '#C62828'; }
+                    if (choice === q.correct) { 
+                        fb.innerHTML = '✅ Đúng rồi! Bé giỏi quá! 🎉'; 
+                        fb.style.background = '#E8F5E9'; 
+                        fb.style.color = '#2E7D32';
+                        playSuccessSound();
+                    } else { 
+                        fb.innerHTML = `❌ Chưa đúng. ${q.correct === 'dung' ? 'Người này CÓ THỂ GÂY NGUY HIỂM' : 'Người này AN TOÀN'}.`; 
+                        fb.style.background = '#FFEBEE'; 
+                        fb.style.color = '#C62828';
+                        playErrorSound();
+                    }
                     document.querySelectorAll('.choice-btn').forEach(b => { b.style.opacity = '0.6'; b.style.pointerEvents = 'none'; });
                 };
             });
             document.getElementById('nextBtn1').onclick = () => {
-                if (userAnswers[currentIdx] === null) { document.getElementById('feedback1').innerHTML = '⚠️ Hãy chọn đáp án trước khi sang câu tiếp theo!'; return; }
+                if (userAnswers[currentIdx] === null) { 
+                    document.getElementById('feedback1').innerHTML = '⚠️ Hãy chọn đáp án trước khi sang câu tiếp theo!';
+                    playErrorSound();
+                    return; 
+                }
+                playClickSound();
                 currentIdx++; renderExercise1();
             };
         }
         renderExercise1();
     })();
 
-    // ==================== BÀI TẬP 2: NƠI AN TOÀN - NƠI NGUY HIỂM ====================
+    // ==================== BÀI TẬP 2: NƠI AN TOÀN - NƠI NGUY HIỂM (CÓ ÂM THANH) ====================
     (function() {
         const questions = [
-            { emoji: "🏫", text: "Bên trong trường học, có thầy cô và bác bảo vệ.", correct: "an_toan", choices: [{ id: "an_toan", emoji: "😊", label: "AN TOÀN" }, { id: "nguy_hiem", emoji: "😞", label: "NGUY HIỂM" }] },
-            { emoji: "🛍️👨‍👩‍👧", text: "Trung tâm thương mại, đi cùng bố mẹ.", correct: "an_toan", choices: [{ id: "an_toan", emoji: "😊", label: "AN TOÀN" }, { id: "nguy_hiem", emoji: "😞", label: "NGUY HIỂM" }] },
-            { emoji: "🌳🕳️", text: "Khu vực vắng vẻ, ít người qua lại.", correct: "nguy_hiem", choices: [{ id: "an_toan", emoji: "😊", label: "AN TOÀN" }, { id: "nguy_hiem", emoji: "😞", label: "NGUY HIỂM" }] },
-            { emoji: "🏘️🌃", text: "Đường phố vắng vào buổi tối, không có đèn đường.", correct: "nguy_hiem", choices: [{ id: "an_toan", emoji: "😊", label: "AN TOÀN" }, { id: "nguy_hiem", emoji: "😞", label: "NGUY HIỂM" }] },
-            { emoji: "🎠👨‍👩‍👧", text: "Khu vui chơi công cộng, có bố mẹ đi cùng.", correct: "an_toan", choices: [{ id: "an_toan", emoji: "😊", label: "AN TOÀN" }, { id: "nguy_hiem", emoji: "😞", label: "NGUY HIỂM" }] },
-            { emoji: "🚸🏫", text: "Cổng trường học khi tan học, có nhiều phụ huynh và thầy cô.", correct: "an_toan", choices: [{ id: "an_toan", emoji: "😊", label: "AN TOÀN" }, { id: "nguy_hiem", emoji: "😞", label: "NGUY HIỂM" }] },
-            { emoji: "🏚️🌲", text: "Nhà hoang, bãi đất trống, công trình đang xây dựng.", correct: "nguy_hiem", choices: [{ id: "an_toan", emoji: "😊", label: "AN TOÀN" }, { id: "nguy_hiem", emoji: "😞", label: "NGUY HIỂM" }] },
-            { emoji: "🏪🌞", text: "Cửa hàng tiện lợi đông người, có camera.", correct: "an_toan", choices: [{ id: "an_toan", emoji: "😊", label: "AN TOÀN" }, { id: "nguy_hiem", emoji: "😞", label: "NGUY HIỂM" }] },
-            { emoji: "🚌👤", text: "Bến xe buýt vắng người, một mình.", correct: "nguy_hiem", choices: [{ id: "an_toan", emoji: "😊", label: "AN TOÀN" }, { id: "nguy_hiem", emoji: "😞", label: "NGUY HIỂM" }] },
-            { emoji: "👮‍♂️🏢", text: "Đồn công an, có chú công an trực.", correct: "an_toan", choices: [{ id: "an_toan", emoji: "😊", label: "AN TOÀN" }, { id: "nguy_hiem", emoji: "😞", label: "NGUY HIỂM" }] }
+            { emoji: "🏫", text: "Bên trong trường học, có thầy cô và bác bảo vệ.", correct: "an_toan" },
+            { emoji: "🛍️👨‍👩‍👧", text: "Trung tâm thương mại, đi cùng bố mẹ.", correct: "an_toan" },
+            { emoji: "🌳🕳️", text: "Khu vực vắng vẻ, ít người qua lại.", correct: "nguy_hiem" },
+            { emoji: "🏘️🌃", text: "Đường phố vắng vào buổi tối, không có đèn đường.", correct: "nguy_hiem" },
+            { emoji: "🎠👨‍👩‍👧", text: "Khu vui chơi công cộng, có bố mẹ đi cùng.", correct: "an_toan" },
+            { emoji: "🚸🏫", text: "Cổng trường học khi tan học, có nhiều phụ huynh và thầy cô.", correct: "an_toan" },
+            { emoji: "🏚️🌲", text: "Nhà hoang, bãi đất trống, công trình đang xây dựng.", correct: "nguy_hiem" },
+            { emoji: "🏪🌞", text: "Cửa hàng tiện lợi đông người, có camera.", correct: "an_toan" },
+            { emoji: "🚌👤", text: "Bến xe buýt vắng người, một mình.", correct: "nguy_hiem" },
+            { emoji: "👮‍♂️🏢", text: "Đồn công an, có chú công an trực.", correct: "an_toan" }
         ];
         let currentIdx2 = 0, userAnswers2 = new Array(questions.length).fill(null);
 
@@ -143,8 +301,11 @@
                 let correct = 0;
                 for (let i = 0; i < questions.length; i++) if (userAnswers2[i] === questions[i].correct) correct++;
                 let msg = correct === questions.length ? '🎉 SIÊU GIỎI! Bé biết rất rõ nơi nào an toàn!' : (correct >= 7 ? '👍 Rất tốt!' : '💪 Bé cần học thêm nhé!');
+                if(correct === questions.length) playCompleteSound();
+                else if(correct >= 7) playSuccessSound();
+                else playErrorSound();
                 container.innerHTML = `<div style="background:#FFF8F0; border-radius:48px; padding:30px; text-align:center;"><div style="font-size:40px; font-weight:bold;">🏆 ${correct}/${questions.length} 🏆</div><div style="margin:20px 0;">${msg}</div><button id="resetQuiz2" style="background:#E8D8C8; border:none; padding:12px 28px; border-radius:40px; cursor:pointer;">🔄 CHƠI LẠI</button></div>`;
-                document.getElementById('resetQuiz2')?.addEventListener('click', () => { currentIdx2 = 0; userAnswers2.fill(null); renderExercise2(); });
+                document.getElementById('resetQuiz2')?.addEventListener('click', () => { playClickSound(); currentIdx2 = 0; userAnswers2.fill(null); renderExercise2(); });
                 return;
             }
             const q = questions[currentIdx2];
@@ -162,23 +323,38 @@
             container.innerHTML = html;
             document.querySelectorAll('.choice-btn2').forEach(btn => {
                 btn.onclick = () => {
+                    playClickSound();
                     const choice = btn.getAttribute('data-choice');
                     userAnswers2[currentIdx2] = choice;
                     const fb = document.getElementById('feedback2');
-                    if (choice === q.correct) { fb.innerHTML = '✅ Đúng rồi! Bé giỏi quá! 🎉'; fb.style.background = '#E8F5E9'; fb.style.color = '#2E7D32'; }
-                    else { fb.innerHTML = `❌ Chưa đúng. Nơi này ${q.correct === 'an_toan' ? 'AN TOÀN' : 'NGUY HIỂM'}.`; fb.style.background = '#FFEBEE'; fb.style.color = '#C62828'; }
+                    if (choice === q.correct) { 
+                        fb.innerHTML = '✅ Đúng rồi! Bé giỏi quá! 🎉'; 
+                        fb.style.background = '#E8F5E9'; 
+                        fb.style.color = '#2E7D32';
+                        playSuccessSound();
+                    } else { 
+                        fb.innerHTML = `❌ Chưa đúng. Nơi này ${q.correct === 'an_toan' ? 'AN TOÀN' : 'NGUY HIỂM'}.`; 
+                        fb.style.background = '#FFEBEE'; 
+                        fb.style.color = '#C62828';
+                        playErrorSound();
+                    }
                     document.querySelectorAll('.choice-btn2').forEach(b => { b.style.opacity = '0.6'; b.style.pointerEvents = 'none'; });
                 };
             });
             document.getElementById('nextBtn2').onclick = () => {
-                if (userAnswers2[currentIdx2] === null) { document.getElementById('feedback2').innerHTML = '⚠️ Hãy chọn đáp án trước khi sang câu tiếp theo!'; return; }
+                if (userAnswers2[currentIdx2] === null) { 
+                    document.getElementById('feedback2').innerHTML = '⚠️ Hãy chọn đáp án trước khi sang câu tiếp theo!';
+                    playErrorSound();
+                    return; 
+                }
+                playClickSound();
                 currentIdx2++; renderExercise2();
             };
         }
         renderExercise2();
     })();
 
-    // ==================== BÀI TẬP 3: CẤP CỨU 113 ====================
+    // ==================== BÀI TẬP 3: CẤP CỨU 113 (CÓ ÂM THANH) ====================
     (function() {
         const questions = [
             { emoji: "🍬👨", text: "Một người lạ cho em kẹo và bảo: 'Cháu đi với chú, chú cho thêm nhiều kẹo nữa!' Em sẽ làm gì?", correct: "tu_choi", choices: [{ emoji: "🍬✅", text: "Nhận kẹo và đi cùng chú", correct: false }, { emoji: "🙅‍♀️🏃", text: "Nói KHÔNG, bỏ chạy đến chỗ đông người", correct: true }] },
@@ -200,8 +376,11 @@
                 let correct = 0;
                 for (let i = 0; i < questions.length; i++) if (userAnswers3[i] === questions[i].correct) correct++;
                 let msg = correct === questions.length ? '🎉 SIÊU AN TOÀN! Bé là cao thủ phòng chống bắt cóc!' : (correct >= 7 ? '👍 Rất tốt!' : '💪 Bé cần học thêm nhé!');
+                if(correct === questions.length) playCompleteSound();
+                else if(correct >= 7) playSuccessSound();
+                else playErrorSound();
                 container.innerHTML = `<div style="background:#FFF8F0; border-radius:48px; padding:30px; text-align:center;"><div style="font-size:40px; font-weight:bold;">🏆 ${correct}/${questions.length} 🏆</div><div style="margin:20px 0;">${msg}</div><button id="resetQuiz3" style="background:#E8D8C8; border:none; padding:12px 28px; border-radius:40px; cursor:pointer;">🔄 CHƠI LẠI</button></div>`;
-                document.getElementById('resetQuiz3')?.addEventListener('click', () => { currentIdx3 = 0; userAnswers3.fill(null); renderExercise3(); });
+                document.getElementById('resetQuiz3')?.addEventListener('click', () => { playClickSound(); currentIdx3 = 0; userAnswers3.fill(null); renderExercise3(); });
                 return;
             }
             const q = questions[currentIdx3];
@@ -218,21 +397,37 @@
             container.innerHTML = html;
             document.querySelectorAll('.choice-btn3').forEach(btn => {
                 btn.onclick = () => {
+                    playClickSound();
                     const isCorrect = btn.getAttribute('data-correct') === 'true';
                     userAnswers3[currentIdx3] = isCorrect ? q.correct : 'wrong';
                     const fb = document.getElementById('feedback3');
-                    if (isCorrect) { fb.innerHTML = '✅ Đúng rồi! Bé giỏi quá! 🎉'; fb.style.background = '#E8F5E9'; fb.style.color = '#2E7D32'; }
-                    else { fb.innerHTML = `❌ Chưa đúng. Hãy nhớ: ${q.correct === 'tu_choi' ? 'KHÔNG đi với người lạ' : q.correct === 'chay' ? 'CHẠY đến nơi an toàn' : q.correct === 'khong_di' ? 'KHÔNG đi với người lạ' : q.correct === 'la_het' ? 'LA THẬT TO' : q.correct === 'tim_cong_an' ? 'TÌM CÔNG AN' : q.correct === 'nho_so' ? 'NHỚ số điện thoại bố mẹ' : q.correct === 'trong_nha' ? 'Ở TRONG NHÀ' : 'ĐI CÙNG bạn hoặc người lớn'}.`; fb.style.background = '#FFEBEE'; fb.style.color = '#C62828'; }
+                    if (isCorrect) { 
+                        fb.innerHTML = '✅ Đúng rồi! Bé giỏi quá! 🎉'; 
+                        fb.style.background = '#E8F5E9'; 
+                        fb.style.color = '#2E7D32';
+                        playSuccessSound();
+                    } else { 
+                        fb.innerHTML = `❌ Chưa đúng. Hãy nhớ: ${q.correct === 'tu_choi' ? 'KHÔNG đi với người lạ' : q.correct === 'chay' ? 'CHẠY đến nơi an toàn' : q.correct === 'khong_di' ? 'KHÔNG đi với người lạ' : q.correct === 'la_het' ? 'LA THẬT TO' : q.correct === 'tim_cong_an' ? 'TÌM CÔNG AN' : q.correct === 'nho_so' ? 'NHỚ số điện thoại bố mẹ' : q.correct === 'trong_nha' ? 'Ở TRONG NHÀ' : 'ĐI CÙNG bạn hoặc người lớn'}.`; 
+                        fb.style.background = '#FFEBEE'; 
+                        fb.style.color = '#C62828';
+                        playErrorSound();
+                    }
                     document.querySelectorAll('.choice-btn3').forEach(b => { b.style.opacity = '0.6'; b.style.pointerEvents = 'none'; });
                 };
             });
             document.getElementById('nextBtn3').onclick = () => {
-                if (userAnswers3[currentIdx3] === null) { document.getElementById('feedback3').innerHTML = '⚠️ Hãy chọn một hành động trước khi sang câu tiếp theo!'; return; }
+                if (userAnswers3[currentIdx3] === null) { 
+                    document.getElementById('feedback3').innerHTML = '⚠️ Hãy chọn một hành động trước khi sang câu tiếp theo!';
+                    playErrorSound();
+                    return; 
+                }
+                playClickSound();
                 currentIdx3++; renderExercise3();
             };
         }
         renderExercise3();
     })();
+    resizeCanvas();
 </script>
 </body>
 </html>
