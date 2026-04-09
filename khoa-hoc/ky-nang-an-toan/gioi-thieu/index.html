@@ -142,16 +142,16 @@
     </footer>
 
     <script>
-        const courses = [
-            { id: 1, name: "Phòng chống tai nạn thương tích", icon: "🩹", price: "49.000đ", desc: "Nhận biết nguy cơ tai nạn trong nhà, trường học, nơi công cộng và cách phòng tránh." },
-            { id: 2, name: "Phòng tránh bạo lực học đường", icon: "🤝", price: "49.000đ", desc: "Nhận diện bạo lực thể chất và tinh thần, cách ứng phó và tìm kiếm sự giúp đỡ." },
-            { id: 3, name: "Phòng chống tai nạn điện", icon: "⚡", price: "49.000đ", desc: "An toàn khi sử dụng điện, nhận biết dây điện hở, ổ cắm nguy hiểm và cách xử lý." },
-            { id: 4, name: "Dinh dưỡng cho trẻ em", icon: "🥗", price: "49.000đ", desc: "Xây dựng thói quen ăn uống lành mạnh, lựa chọn thực phẩm an toàn và bổ dưỡng." },
-            { id: 5, name: "Phòng tránh xâm hại", icon: "🛡️", price: "49.000đ", desc: "Nhận biết vùng riêng tư, quy tắc an toàn cơ thể, cách nói không và tìm kiếm sự giúp đỡ." },
-            { id: 6, name: "Phòng chống hỏa hoạn", icon: "🔥", price: "49.000đ", desc: "Kỹ năng thoát hiểm khi có cháy, cách sử dụng bình chữa cháy và gọi cứu hỏa." },
-            { id: 7, name: "Phòng tránh đuối nước", icon: "🏊", price: "49.000đ", desc: "Nguyên tắc an toàn khi bơi, nhận biết vùng nước nguy hiểm và kỹ năng cứu đuối." },
-            { id: 8, name: "Phòng chống bắt cóc", icon: "🚨", price: "49.000đ", desc: "Nhận diện thủ đoạn của kẻ xấu, kỹ năng chạy thoát và gọi cứu trợ khi bị bắt cóc." }
-            { id: 9, name: "Siêu năng lực cứu hộ (Sơ cấp cứu)", icon: "🦸", price: "49.000đ", desc: "Kỹ năng sơ cấp cứu cơ bản: xử lý vết thương, hóc dị vật, gọi cấp cứu."},
+                const courses = [
+            { id: 1, name: "Phòng chống tai nạn thương tích", age: "5-10 tuổi", icon: "🩹", price: "99.000đ", originalPrice: "299.000đ", desc: "Nhận biết nguy cơ tai nạn trong nhà, trường học.", chapters: 4 },
+            { id: 2, name: "Phòng tránh bạo lực học đường", age: "5-10 tuổi", icon: "🤝", price: "99.000đ", originalPrice: "299.000đ", desc: "Nhận diện bạo lực và cách ứng phó.", chapters: 4 },
+            { id: 3, name: "Phòng chống tai nạn điện", age: "5-10 tuổi", icon: "⚡", price: "99.000đ", originalPrice: "299.000đ", desc: "An toàn khi sử dụng điện.", chapters: 4 },
+            { id: 4, name: "Dinh dưỡng an toàn", age: "5-10 tuổi", icon: "🥗", price: "99.000đ", originalPrice: "299.000đ", desc: "Thói quen ăn uống lành mạnh.", chapters: 4 },
+            { id: 5, name: "Phòng tránh xâm hại", age: "5-10 tuổi", icon: "🛡️", price: "99.000đ", originalPrice: "299.000đ", desc: "Nhận biết vùng riêng tư, quy tắc an toàn cơ thể.", chapters: 4 },
+            { id: 6, name: "Phòng chống hỏa hoạn", age: "5-10 tuổi", icon: "🔥", price: "99.000đ", originalPrice: "299.000đ", desc: "Kỹ năng thoát hiểm khi có cháy.", chapters: 4 },
+            { id: 7, name: "Phòng tránh đuối nước", age: "5-10 tuổi", icon: "🏊", price: "99.000đ", originalPrice: "299.000đ", desc: "An toàn khi bơi, nhận biết vùng nước nguy hiểm.", chapters: 4 },
+            { id: 8, name: "Phòng chống bắt cóc", age: "5-10 tuổi", icon: "🚨", price: "99.000đ", originalPrice: "299.000đ", desc: "Nhận diện thủ đoạn của kẻ xấu.", chapters: 4 },
+            { id: 9, name: "Siêu năng lực cứu hộ (Sơ cấp cứu)", age: "5-10 tuổi", icon: "🦸", price: "99.000đ", originalPrice: "299.000đ", desc: "Kỹ năng sơ cấp cứu cơ bản: xử lý vết thương, hóc dị vật, gọi cấp cứu.", chapters: 4 }
         ];
         
         function renderCourses() {
