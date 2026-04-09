@@ -108,19 +108,18 @@
     <script>
         const API_URL = "https://script.google.com/macros/s/AKfycbw23SDMSj-9mzkGgVanZOPL-atN7PZYJJ2H-tOkb2HyZlAxblso_W3-T-puqvgeUz_k/exec";
         
-        // Danh sách 8 bài học
-        const ALL_COURSES = [
+        // Danh sách 9 bài học
+                const ALL_COURSES = [
             { id: 1, name: "Phòng chống tai nạn thương tích", icon: "🩹", desc: "Nhận biết nguy cơ tai nạn trong nhà, trường học, nơi công cộng.", file: "bai-1-tai-nan-thuong-tich.html" },
             { id: 2, name: "Phòng tránh bạo lực học đường", icon: "🤝", desc: "Nhận diện bạo lực và cách ứng phó.", file: "bai-2-bao-luc-hoc-duong.html" },
             { id: 3, name: "Phòng chống tai nạn điện", icon: "⚡", desc: "An toàn khi sử dụng điện.", file: "bai-3-tai-nan-dien.html" },
-            { id: 4, name: "Dinh dưỡng cho trẻ em", icon: "🥗", desc: "Thói quen ăn uống lành mạnh.", file: "bai-4-dinh-duong.html" },
+            { id: 4, name: "Dinh dưỡng an toàn", icon: "🥗", desc: "Thói quen ăn uống lành mạnh.", file: "bai-4-dinh-duong.html" },
             { id: 5, name: "Phòng tránh xâm hại", icon: "🛡️", desc: "Nhận biết vùng riêng tư, quy tắc an toàn cơ thể.", file: "bai-5-xam-hai.html" },
             { id: 6, name: "Phòng chống hỏa hoạn", icon: "🔥", desc: "Kỹ năng thoát hiểm khi có cháy.", file: "bai-6-hoa-hoan.html" },
             { id: 7, name: "Phòng tránh đuối nước", icon: "🏊", desc: "An toàn khi bơi, nhận biết vùng nước nguy hiểm.", file: "bai-7-duoi-nuoc.html" },
-            { id: 8, name: "Phòng chống bắt cóc", icon: "🚨", desc: "Nhận diện thủ đoạn của kẻ xấu.", file: "bai-8-bat-coc.html" }
-           { id: 9, name: "Siêu năng lực cứu hộ (Sơ cấp cứu)", icon: "🦸", desc: "Kỹ năng sơ cấp cứu cơ bản: xử lý vết thương, hóc dị vật, gọi cấp cứu.", file: "bai-9-so-cap-cuu.html" }
+            { id: 8, name: "Phòng chống bắt cóc", icon: "🚨", desc: "Nhận diện thủ đoạn của kẻ xấu.", file: "bai-8-bat-coc.html" },
+            { id: 9, name: "Siêu năng lực cứu hộ (Sơ cấp cứu)", icon: "🦸", desc: "Kỹ năng sơ cấp cứu cơ bản: xử lý vết thương, hóc dị vật, gọi cấp cứu.", file: "bai-9-so-cap-cuu.html" }
         ];
-
         let currentUser = null, currentAllowedCourseIds = [], currentLicenseKey = null, currentDeviceId = null;
 
         function getDeviceId() { let id = localStorage.getItem('safety_deviceId'); if (!id) { id = 'dev_' + Date.now() + '_' + Math.random().toString(36).substr(2, 8); localStorage.setItem('safety_deviceId', id); } return id; }
