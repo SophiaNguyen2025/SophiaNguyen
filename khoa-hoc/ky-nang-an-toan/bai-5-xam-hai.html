@@ -66,8 +66,59 @@
 </div>
 
 <script>
+    // ==================== ÂM THANH VUI NHỘN KIỂU GAME ====================
+    function playSound(isCorrect) {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            
+            if (isCorrect) {
+                // Âm thanh ĐÚNG: "ting ting ting" vui tai (giống game)
+                const frequencies = [880, 1046.5, 1318.5];
+                frequencies.forEach((freq, index) => {
+                    setTimeout(() => {
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        osc.frequency.value = freq;
+                        gain.gain.value = 0.2;
+                        osc.type = 'sine';
+                        osc.start();
+                        gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                        osc.stop(audioCtx.currentTime + 0.3);
+                    }, index * 120);
+                });
+            } else {
+                // Âm thanh SAI: "bụp bụp" hài hước (giống game)
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.frequency.value = 220;
+                gain.gain.value = 0.25;
+                osc.type = 'sawtooth';
+                osc.start();
+                gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.4);
+                osc.stop(audioCtx.currentTime + 0.4);
+                
+                // Thêm tiếng "bụp" thứ hai
+                setTimeout(() => {
+                    const osc2 = audioCtx.createOscillator();
+                    const gain2 = audioCtx.createGain();
+                    osc2.connect(gain2);
+                    gain2.connect(audioCtx.destination);
+                    osc2.frequency.value = 164.81;
+                    gain2.gain.value = 0.2;
+                    osc2.type = 'sawtooth';
+                    osc2.start();
+                    gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                    osc2.stop(audioCtx.currentTime + 0.3);
+                }, 150);
+            }
+        } catch(e) { console.log("Audio not supported"); }
+    }
+
     // ==================== BÀI TẬP 1: ĐIỆN THOẠI CẤP CỨU ====================
-       // ==================== BÀI TẬP 1: ĐIỆN THOẠI CẤP CỨU ====================
     (function() {
         const situations = [
             { emoji: "😨👤", text: "Có người lạ muốn chạm vào vùng riêng tư của con. Con cần gọi ai?", correctNumber: "18001567", hint: "Đường dây nóng bảo vệ trẻ em" },
@@ -114,8 +165,8 @@
                 let isCorrect = false;
                 if (correctNumberForCurrent === "me") { if (userInput === "0987654321" || userInput.length >= 9) isCorrect = true; }
                 else isCorrect = (userInput === correctNumberForCurrent);
-                if (isCorrect) { fb.innerHTML = `✅ ĐÚNG! ${correctNumberForCurrent === "me" ? 'Đó là số của bố mẹ' : correctNumberForCurrent === "18001567" ? 'Đường dây nóng 1800 1567' : 'Số 113 - Công an'} sẽ giúp con! 🎉`; fb.style.background = "#1A3A1A"; gameFinished = true; }
-                else { let correctDisplay = correctNumberForCurrent === "me" ? "số điện thoại của bố mẹ" : (correctNumberForCurrent === "18001567" ? "1800 1567 (đường dây nóng)" : "113 (công an)"); fb.innerHTML = `❌ SAI! Hãy gọi ${correctDisplay}. Thử lại nhé!`; fb.style.background = "#3A1A1A"; userInput = ""; renderExercise1(); }
+                if (isCorrect) { fb.innerHTML = `✅ ĐÚNG! ${correctNumberForCurrent === "me" ? 'Đó là số của bố mẹ' : correctNumberForCurrent === "18001567" ? 'Đường dây nóng 1800 1567' : 'Số 113 - Công an'} sẽ giúp con! 🎉`; fb.style.background = "#1A3A1A"; gameFinished = true; playSound(true); }
+                else { let correctDisplay = correctNumberForCurrent === "me" ? "số điện thoại của bố mẹ" : (correctNumberForCurrent === "18001567" ? "1800 1567 (đường dây nóng)" : "113 (công an)"); fb.innerHTML = `❌ SAI! Hãy gọi ${correctDisplay}. Thử lại nhé!`; fb.style.background = "#3A1A1A"; userInput = ""; playSound(false); renderExercise1(); }
             });
             document.getElementById('nextBtn1')?.addEventListener('click', () => { if (!gameFinished) { document.getElementById('feedback1').innerHTML = "⚠️ Con phải GỌI ĐÚNG số trước khi chuyển tình huống nhé!"; return; } currentIdx++; userInput = ""; gameFinished = false; renderExercise1(); });
         }
@@ -156,7 +207,7 @@
             const renderContainer = (cat, containerId, type) => { const cont = document.getElementById(containerId); if(cont){ cont.innerHTML = ''; classified[cat].forEach(id => { const a = actionsData.find(a=>a.id===id); const div = document.createElement('div'); div.style.cssText = 'background:white; border-radius:24px; padding:10px 14px; display:inline-flex; align-items:center; gap:10px;'; div.innerHTML = `<span>${a.emoji}</span><span>${a.text}</span><button class="remove-btn" data-id="${a.id}" data-cat="${cat}" style="background:none; border:none; font-size:18px; cursor:pointer;">✖</button>`; cont.appendChild(div); }); } };
             renderContainer('good','goodContainer2'); renderContainer('bad','badContainer2');
             document.querySelectorAll('.remove-btn').forEach(btn => { btn.onclick = (e) => { e.stopPropagation(); const id = parseInt(btn.getAttribute('data-id')); const cat = btn.getAttribute('data-cat'); classified[cat] = classified[cat].filter(i=>i!==id); selectedCard = null; renderExercise2(); }; });
-            document.querySelectorAll('#goodContainer2, #badContainer2').forEach(containerDiv => { containerDiv.addEventListener('click', (e) => { if(selectedCard !== null && !e.target.closest('.remove-btn')){ const action = actionsData.find(a=>a.id===selectedCard); const isGoodTarget = containerDiv.id === 'goodContainer2'; if((isGoodTarget && action.type === 'good') || (!isGoodTarget && action.type === 'bad')){ if(isGoodTarget && !classified.good.includes(selectedCard)){ classified.good.push(selectedCard); selectedCard = null; renderExercise2(); } else if(!isGoodTarget && !classified.bad.includes(selectedCard)){ classified.bad.push(selectedCard); selectedCard = null; renderExercise2(); } } else { alert(`❌ "${action.text}" là hành động ${action.type === 'good' ? 'TỐT' : 'XẤU'}! Hãy xếp vào ô ${action.type === 'good' ? 'ĐÚNG' : 'SAI'} nhé!`); } } }); });
+            document.querySelectorAll('#goodContainer2, #badContainer2').forEach(containerDiv => { containerDiv.addEventListener('click', (e) => { if(selectedCard !== null && !e.target.closest('.remove-btn')){ const action = actionsData.find(a=>a.id===selectedCard); const isGoodTarget = containerDiv.id === 'goodContainer2'; if((isGoodTarget && action.type === 'good') || (!isGoodTarget && action.type === 'bad')){ if(isGoodTarget && !classified.good.includes(selectedCard)){ classified.good.push(selectedCard); selectedCard = null; playSound(true); renderExercise2(); } else if(!isGoodTarget && !classified.bad.includes(selectedCard)){ classified.bad.push(selectedCard); selectedCard = null; playSound(true); renderExercise2(); } } else { playSound(false); alert(`❌ "${action.text}" là hành động ${action.type === 'good' ? 'TỐT' : 'XẤU'}! Hãy xếp vào ô ${action.type === 'good' ? 'ĐÚNG' : 'SAI'} nhé!`); } } }); });
             document.getElementById('submitBtn2')?.addEventListener('click', () => { if(submitted2) return; const total = classified.good.length + classified.bad.length; if(total < actionsData.length){ document.getElementById('resultArea2').innerHTML = `⚠️ Con mới xếp ${total}/${actionsData.length} thẻ. Hãy xếp hết rồi nộp bài nhé!`; return; } let correct = 0; actionsData.forEach(a => { if((a.type === 'good' && classified.good.includes(a.id)) || (a.type === 'bad' && classified.bad.includes(a.id))) correct++; }); const percent = Math.round(correct/actionsData.length*100); let msg = correct === actionsData.length ? '🎉 TUYỆT VỜI! Con phân loại chính xác tất cả!' : (correct >= 7 ? '👍 Rất tốt!' : '📖 Con cần học thêm!'); document.getElementById('resultArea2').innerHTML = `<div style="font-size:20px;">🏆 Điểm: ${correct}/${actionsData.length} (${percent}%) 🏆</div><div>${msg}</div><button id="resetBtn2" style="background:#FFB347; border:none; padding:12px 28px; border-radius:40px; cursor:pointer; margin-top:15px;">🔄 LÀM LẠI</button>`; submitted2 = true; document.getElementById('resetBtn2')?.addEventListener('click', () => { classified = { good: [], bad: [] }; selectedCard = null; submitted2 = false; renderExercise2(); }); });
         }
         renderExercise2();
@@ -203,8 +254,8 @@
             <button id="completeBtn3" style="background:#FFB347; border:none; color:white; font-size:22px; font-weight:bold; padding:14px; border-radius:60px; cursor:pointer; width:100%; margin-top:20px;">🏁 HOÀN THÀNH</button>`;
             container.innerHTML = html;
             function updateInfoTexts() { let boyDone = clickedZones['boy-chest'] && clickedZones['boy-private']; let girlDone = clickedZones['girl-chest'] && clickedZones['girl-private']; document.getElementById('boyInfo3').innerHTML = boyDone ? '✅ Tuyệt vời! Bé trai đã học xong vùng riêng tư!' : `⚠️ Bé trai còn vùng: ${!clickedZones['boy-chest'] ? 'ngực' : ''} ${!clickedZones['boy-chest'] && !clickedZones['boy-private'] ? 'và' : ''} ${!clickedZones['boy-private'] ? 'vùng mặc quần lót' : ''} chưa click`; document.getElementById('girlInfo3').innerHTML = girlDone ? '✅ Tuyệt vời! Bé gái đã học xong vùng riêng tư!' : `⚠️ Bé gái còn vùng: ${!clickedZones['girl-chest'] ? 'ngực' : ''} ${!clickedZones['girl-chest'] && !clickedZones['girl-private'] ? 'và' : ''} ${!clickedZones['girl-private'] ? 'vùng mặc quần lót' : ''} chưa click`; if (boyDone && girlDone) document.getElementById('feedback3').innerHTML = '🎉 TUYỆT VỜI! Con đã biết tất cả vùng riêng tư cần bảo vệ! 🎉'; }
-            document.querySelectorAll('.sensitive').forEach(zone => { zone.onclick = () => { const gender = zone.getAttribute('data-gender'); const zoneType = zone.getAttribute('data-zone'); const key = `${gender}-${zoneType}`; if (!clickedZones[key]) { clickedZones[key] = true; zone.setAttribute('fill', '#4CAF50'); let msg = zoneType === 'chest' ? '✅ Vùng NGỰC là vùng riêng tư!' : '✅ Vùng MẶC QUẦN LÓT là vùng riêng tư!'; document.getElementById('feedback3').innerHTML = msg; updateInfoTexts(); } else { document.getElementById('feedback3').innerHTML = '💛 Con đã học vùng này rồi! Hãy click vào vùng màu cam còn lại!'; } }; });
-            document.getElementById('completeBtn3')?.addEventListener('click', () => { let allCompleted = clickedZones['boy-chest'] && clickedZones['boy-private'] && clickedZones['girl-chest'] && clickedZones['girl-private']; if (!allCompleted) { document.getElementById('feedback3').innerHTML = '⚠️ Con hãy click vào TẤT CẢ các vùng màu cam trên cả 2 bạn nhé!'; } else { document.getElementById('feedback3').innerHTML = '🎉 CHÚC MỪNG CON! Hãy luôn nhớ bảo vệ vùng riêng tư của mình!'; } });
+            document.querySelectorAll('.sensitive').forEach(zone => { zone.onclick = () => { const gender = zone.getAttribute('data-gender'); const zoneType = zone.getAttribute('data-zone'); const key = `${gender}-${zoneType}`; if (!clickedZones[key]) { clickedZones[key] = true; zone.setAttribute('fill', '#4CAF50'); let msg = zoneType === 'chest' ? '✅ Vùng NGỰC là vùng riêng tư!' : '✅ Vùng MẶC QUẦN LÓT là vùng riêng tư!'; document.getElementById('feedback3').innerHTML = msg; playSound(true); updateInfoTexts(); } else { document.getElementById('feedback3').innerHTML = '💛 Con đã học vùng này rồi! Hãy click vào vùng màu cam còn lại!'; } }; });
+            document.getElementById('completeBtn3')?.addEventListener('click', () => { let allCompleted = clickedZones['boy-chest'] && clickedZones['boy-private'] && clickedZones['girl-chest'] && clickedZones['girl-private']; if (!allCompleted) { document.getElementById('feedback3').innerHTML = '⚠️ Con hãy click vào TẤT CẢ các vùng màu cam trên cả 2 bạn nhé!'; playSound(false); } else { document.getElementById('feedback3').innerHTML = '🎉 CHÚC MỪNG CON! Hãy luôn nhớ bảo vệ vùng riêng tư của mình!'; playSound(true); } });
             updateInfoTexts();
         }
         renderExercise3();
