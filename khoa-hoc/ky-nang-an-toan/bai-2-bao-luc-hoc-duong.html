@@ -207,6 +207,7 @@
     }
 
     // ==================== BÀI TẬP 1: CẤP CỨU 113 (CÓ ÂM THANH) ====================
+    // ==================== BÀI TẬP 1: CẤP CỨU 113 (SỬA LẠI ÂM THANH + PHÁO HOA) ====================
     (function() {
         const situations = [
             { id: 0, emoji: "👧😢👊", text: "Em đang bị một bạn lớn đánh ở sân trường.", correct: "giaovien", helpers: [{ id: "giaovien", emoji: "👩‍🏫", label: "Cô giáo / Thầy giáo" }, { id: "bosme", emoji: "👨‍👩‍👧", label: "Bố mẹ" }, { id: "canhsat", emoji: "👮‍♂️", label: "Chú công an (113)" }] },
@@ -251,7 +252,24 @@
                     playClickSound();
                     const idx = parseInt(btn.getAttribute('data-idx'));
                     const helperId = btn.getAttribute('data-helper');
+                    const isCorrect = (helperId === situations[idx].correct);
+                    
                     selectedAnswers[idx] = helperId;
+                    
+                    // Cập nhật trạng thái đúng/sai ngay lập tức
+                    const statusDiv = document.getElementById(`status-${idx}`);
+                    if (statusDiv) {
+                        if (isCorrect) {
+                            statusDiv.innerHTML = '✅ Đúng rồi!';
+                            statusDiv.style.color = '#2E7D32';
+                            playSuccessSound(); // Tiếng ting + pháo hoa khi chọn đúng
+                        } else {
+                            statusDiv.innerHTML = '❌ Chưa đúng';
+                            statusDiv.style.color = '#C62828';
+                            playErrorSound(); // Tiếng buzz + rung khi chọn sai
+                        }
+                    }
+                    
                     renderExercise1();
                 };
             });
@@ -273,7 +291,6 @@
         }
         renderExercise1();
     })();
-
     // ==================== BÀI TẬP 2: ĐÚNG/SAI (CÓ ÂM THANH) ====================
     (function() {
         const questions = [
