@@ -25,6 +25,11 @@
         .back-btn { display: inline-block; background: #ffd700; color: #0a4a5a; padding: 12px 24px; border-radius: 40px; text-decoration: none; font-weight: bold; margin-top: 20px; transition: all 0.2s; }
         .back-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
         .footer { text-align: center; color: white; padding: 20px; font-size: 0.8rem; }
+        
+        .shake-screen { animation: shake 0.3s ease-in-out 0s 2; }
+        @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } 100% { transform: translateX(0); } }
+        
+        #confetti-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; }
     </style>
 </head>
 <body>
@@ -34,26 +39,22 @@
         <h1>🧯 Bài 6: Phòng chống hỏa hoạn</h1>
     </div>
 
-    <!-- Video bài học -->
     <div class="video-section">
         <div class="video-wrapper">
             <iframe src="https://www.youtube.com/embed/tHmkPBwIjjY" frameborder="0" allowfullscreen></iframe>
         </div>
     </div>
 
-    <!-- Bài tập 1: Phân loại an toàn -->
     <div class="exercise">
         <h2 class="exercise-title">📋 Bài tập 1: Phân loại an toàn</h2>
         <div id="exercise1"></div>
     </div>
 
-    <!-- Bài tập 2: Trắc nghiệm Học viện lính cứu hỏa -->
     <div class="exercise">
         <h2 class="exercise-title">🚒 Bài tập 2: Học viện lính cứu hỏa nhí</h2>
         <div id="exercise2"></div>
     </div>
 
-    <!-- Bài tập 3: Sổ tay mật mã -->
     <div class="exercise">
         <h2 class="exercise-title">🔐 Bài tập 3: Sổ tay mật mã - Tuyệt chiêu diệt quái vật lửa</h2>
         <div id="exercise3"></div>
@@ -61,12 +62,151 @@
 
     <a href="https://sophianguyen.com.vn/khoa-hoc/ky-nang-an-toan/" class="back-btn">← Quay lại danh sách bài học</a>
     <div class="footer">
-        <p>© 2025 Sophia Nguyễn - Kỹ năng an toàn cho trẻ 5-10 tuổi</p>
+        <p>🐿️ Hiệp sĩ Sóc đồng hành cùng con - © 2025 Sophia Nguyễn</p>
     </div>
 </div>
+<canvas id="confetti-canvas"></canvas>
 
 <script>
-    // ==================== BÀI TẬP 1: PHÂN LOẠI AN TOÀN ====================
+    // ==================== HIỆU ỨNG CONFETTI & ÂM THANH ====================
+    let ctx = null, width = window.innerWidth, height = window.innerHeight, particles = [], animationId = null;
+    function resizeCanvas() { width = window.innerWidth; height = window.innerHeight; const canvas = document.getElementById('confetti-canvas'); if(canvas){ canvas.width = width; canvas.height = height; ctx = canvas.getContext('2d'); } }
+    function createConfetti(duration = 1800) {
+        if(!ctx) return;
+        if(animationId) cancelAnimationFrame(animationId);
+        particles = [];
+        for(let i=0;i<140;i++) {
+            particles.push({ x: Math.random() * width, y: Math.random() * height - height, size: Math.random() * 7 + 3, color: `hsl(${Math.random() * 360}, 80%, 60%)`, speedY: Math.random() * 5 + 3, speedX: (Math.random() - 0.5) * 2, rotation: Math.random() * 360, rotSpeed: (Math.random() - 0.5) * 6 });
+        }
+        drawConfetti();
+        setTimeout(() => { if(animationId) cancelAnimationFrame(animationId); ctx?.clearRect(0,0,width,height); particles = []; }, duration);
+    }
+    function drawConfetti() {
+        if(!ctx) return;
+        ctx.clearRect(0, 0, width, height);
+        let allFinished = true;
+        for(let i=0;i<particles.length;i++) {
+            const p = particles[i];
+            if(p.y < height + 50) {
+                allFinished = false;
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.rotation * Math.PI / 180);
+                ctx.fillStyle = p.color;
+                ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size * 0.6);
+                ctx.restore();
+                p.y += p.speedY;
+                p.x += p.speedX;
+                p.rotation += p.rotSpeed;
+            }
+        }
+        if(!allFinished) animationId = requestAnimationFrame(drawConfetti);
+        else { if(animationId) cancelAnimationFrame(animationId); particles = []; ctx.clearRect(0,0,width,height); }
+    }
+    window.addEventListener('resize', () => { resizeCanvas(); if(particles.length) drawConfetti(); });
+    
+    function playClickSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 880;
+            gain.gain.value = 0.08;
+            osc.type = 'sine';
+            osc.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.08);
+            osc.stop(audioCtx.currentTime + 0.08);
+        } catch(e) {}
+    }
+    
+    function playSuccessSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const frequencies = [880, 1046.5, 1318.5];
+            frequencies.forEach((freq, idx) => {
+                setTimeout(() => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.frequency.value = freq;
+                    gain.gain.value = 0.2;
+                    osc.type = 'sine';
+                    osc.start();
+                    gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                    osc.stop(audioCtx.currentTime + 0.3);
+                }, idx * 120);
+            });
+        } catch(e) {}
+        createConfetti(800);
+    }
+    
+    function playCompleteSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const gain = audioCtx.createGain();
+            gain.connect(audioCtx.destination);
+            gain.gain.value = 0.3;
+            const bufferSize = 4096;
+            const noise = audioCtx.createBufferSource();
+            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for(let i=0; i<bufferSize; i++) data[i] = Math.random() * 2 - 1;
+            noise.buffer = buffer;
+            noise.loop = true;
+            noise.connect(gain);
+            noise.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 1.2);
+            noise.stop(audioCtx.currentTime + 1.2);
+            setTimeout(() => {
+                const osc = audioCtx.createOscillator();
+                const gain2 = audioCtx.createGain();
+                osc.connect(gain2);
+                gain2.connect(audioCtx.destination);
+                osc.frequency.value = 1046.5;
+                gain2.gain.value = 0.3;
+                osc.type = 'sine';
+                osc.start();
+                gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.5);
+                osc.stop(audioCtx.currentTime + 0.5);
+            }, 1000);
+        } catch(e) {}
+        createConfetti(2500);
+    }
+    
+    function playErrorSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 220;
+            gain.gain.value = 0.25;
+            osc.type = 'sawtooth';
+            osc.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.4);
+            osc.stop(audioCtx.currentTime + 0.4);
+            setTimeout(() => {
+                const osc2 = audioCtx.createOscillator();
+                const gain2 = audioCtx.createGain();
+                osc2.connect(gain2);
+                gain2.connect(audioCtx.destination);
+                osc2.frequency.value = 164.81;
+                gain2.gain.value = 0.2;
+                osc2.type = 'sawtooth';
+                osc2.start();
+                gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                osc2.stop(audioCtx.currentTime + 0.3);
+            }, 150);
+        } catch(e) {}
+        document.body.classList.add('shake-screen');
+        setTimeout(() => document.body.classList.remove('shake-screen'), 500);
+    }
+
+    // ==================== BÀI TẬP 1: PHÂN LOẠI AN TOÀN (CÓ ÂM THANH) ====================
     (function() {
         const cardsData = [
             { id: 0, icon: "🔥", text: "Dùng bình chữa cháy dập lửa nhỏ", type: "safe" },
@@ -117,16 +257,49 @@
                 const cardEl = document.createElement('div');
                 cardEl.style.cssText = 'background:white; width:200px; padding:16px; border-radius:28px; text-align:center; cursor:pointer; border:2px solid #FFDEC4;';
                 cardEl.innerHTML = `<span style="font-size:48px;">${card.icon}</span><div style="font-size:14px; font-weight:600; color:#7C5A44;">${card.text}</div>`;
+                
+                // Tạo popup chọn thay vì confirm
                 cardEl.onclick = () => {
-                    const isSafe = confirm(`"${card.text}" là hành động AN TOÀN hay MẤT AN TOÀN?\n\nNhấn OK nếu là AN TOÀN\nNhấn Cancel nếu là MẤT AN TOÀN`);
-                    const selectedCat = isSafe ? 'safe' : 'danger';
-                    if (selectedCat === card.type) {
-                        if (selectedCat === 'safe') classified.safe.push(card.id);
-                        else classified.danger.push(card.id);
+                    playClickSound();
+                    // Tạo modal lựa chọn
+                    const modal = document.createElement('div');
+                    modal.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); display:flex; align-items:center; justify-content:center; z-index:1001;';
+                    modal.innerHTML = `
+                        <div style="background:white; border-radius:48px; padding:30px; text-align:center; max-width:300px;">
+                            <div style="font-size:60px;">${card.icon}</div>
+                            <div style="font-size:18px; font-weight:bold; margin:15px 0;">${card.text}</div>
+                            <div style="display:flex; gap:15px; margin-top:20px;">
+                                <button id="chooseSafe" style="background:#4CAF50; color:white; border:none; padding:12px 24px; border-radius:40px; font-weight:bold; cursor:pointer;">✅ AN TOÀN</button>
+                                <button id="chooseDanger" style="background:#FF6B6B; color:white; border:none; padding:12px 24px; border-radius:40px; font-weight:bold; cursor:pointer;">❌ MẤT AN TOÀN</button>
+                            </div>
+                            <button id="closeModal" style="background:#ccc; border:none; padding:8px 20px; border-radius:40px; margin-top:15px; cursor:pointer;">Đóng</button>
+                        </div>
+                    `;
+                    document.body.appendChild(modal);
+                    
+                    document.getElementById('chooseSafe').onclick = () => {
+                        if (card.type === 'safe') {
+                            classified.safe.push(card.id);
+                            playSuccessSound();
+                        } else {
+                            playErrorSound();
+                            alert(`❌ "${card.text}" là MẤT AN TOÀN!`);
+                        }
+                        modal.remove();
                         renderExercise1();
-                    } else {
-                        alert(`❌ Chưa đúng! "${card.text}" là ${card.type === 'safe' ? 'AN TOÀN' : 'MẤT AN TOÀN'}. Hãy thử lại!`);
-                    }
+                    };
+                    document.getElementById('chooseDanger').onclick = () => {
+                        if (card.type === 'danger') {
+                            classified.danger.push(card.id);
+                            playSuccessSound();
+                        } else {
+                            playErrorSound();
+                            alert(`❌ "${card.text}" là AN TOÀN!`);
+                        }
+                        modal.remove();
+                        renderExercise1();
+                    };
+                    document.getElementById('closeModal').onclick = () => modal.remove();
                 };
                 cardsPool.appendChild(cardEl);
             });
@@ -151,6 +324,7 @@
             document.querySelectorAll('.remove-btn').forEach(btn => {
                 btn.onclick = (e) => {
                     e.stopPropagation();
+                    playClickSound();
                     const id = parseInt(btn.getAttribute('data-id'));
                     const cat = btn.getAttribute('data-cat');
                     if (cat === 'safe') classified.safe = classified.safe.filter(i => i !== id);
@@ -164,6 +338,7 @@
                 if (submitted1) return;
                 const totalClassified = classified.safe.length + classified.danger.length;
                 if (totalClassified < totalCards) {
+                    playErrorSound();
                     alert(`⚠️ Bạn mới phân loại ${totalClassified}/${totalCards} hành động. Hãy phân loại hết rồi nộp bài!`);
                     return;
                 }
@@ -175,15 +350,18 @@
                 });
                 const percent = Math.round(correctCount / totalCards * 100);
                 let message = correctCount === totalCards ? '🎉 SIÊU LÍNH CỨU HỎA! Bạn phân loại hoàn toàn chính xác! 🎉' : `👍 Điểm: ${correctCount}/${totalCards} (${percent}%). Hãy xem lại bảng phân loại!`;
+                if(correctCount === totalCards) playCompleteSound();
+                else if(correctCount >= 9) playSuccessSound();
+                else playErrorSound();
                 document.getElementById('resultArea1').innerHTML = `<div style="background:#FFF8F0; border-radius:40px; padding:20px; margin-top:15px; text-align:center;"><div style="font-size:28px; font-weight:bold;">🏆 Điểm: ${correctCount}/${totalCards} 🏆</div><div>${message}</div><button id="resetBtn1" style="background:#E8D8C8; border:none; padding:12px 28px; border-radius:40px; font-weight:bold; cursor:pointer; margin-top:15px;">🔄 LÀM LẠI</button></div>`;
                 submitted1 = true;
-                document.getElementById('resetBtn1')?.addEventListener('click', () => { classified = { safe: [], danger: [] }; submitted1 = false; renderExercise1(); });
+                document.getElementById('resetBtn1')?.addEventListener('click', () => { playClickSound(); classified = { safe: [], danger: [] }; submitted1 = false; renderExercise1(); });
             };
         }
         renderExercise1();
     })();
 
-    // ==================== BÀI TẬP 2: TRẮC NGHIỆM ====================
+    // ==================== BÀI TẬP 2: TRẮC NGHIỆM (CÓ ÂM THANH) ====================
     (function() {
         const questions = [
             { text: "🔥 Khi phát hiện đám cháy nhỏ trong nhà (ví dụ: cháy thùng rác), em nên làm gì đầu tiên?", options: ["A. Chạy thật nhanh ra khỏi nhà", "B. Lấy nước dập lửa ngay nếu biết cách, đồng thời hô hoán báo người lớn", "C. Trốn vào tủ quần áo", "D. Mở cửa sổ thật to"], correct: 1 },
@@ -200,8 +378,11 @@
                 let correctCount = 0;
                 for (let i = 0; i < questions.length; i++) if (userAnswers[i] === questions[i].correct) correctCount++;
                 let message = correctCount === questions.length ? '🎉 TUYỆT ĐỈNH! Bạn xứng đáng là LÍNH CỨU HỎA NHÍ XUẤT SẮC!' : (correctCount >= 3 ? '👍 Rất giỏi! Chỉ cần học thêm một chút nữa!' : '📖 Hãy học lại các quy tắc thoát hiểm.');
+                if(correctCount === questions.length) playCompleteSound();
+                else if(correctCount >= 3) playSuccessSound();
+                else playErrorSound();
                 container.innerHTML = `<div style="background:#FDF8F0; border-radius:48px; padding:30px; text-align:center;"><div style="font-size:32px; font-weight:bold;">🏆 Điểm: ${correctCount}/${questions.length} 🏆</div><div style="margin:20px 0;">${message}</div><button id="resetQuiz" style="background:#E8D8C8; border:none; padding:12px 28px; border-radius:40px; font-weight:bold; cursor:pointer;">🔄 CHIẾN ĐẤU LẠI</button></div>`;
-                document.getElementById('resetQuiz')?.addEventListener('click', () => { userAnswers = new Array(questions.length).fill(null); currentIdx = 0; renderExercise2(); });
+                document.getElementById('resetQuiz')?.addEventListener('click', () => { playClickSound(); userAnswers = new Array(questions.length).fill(null); currentIdx = 0; renderExercise2(); });
                 return;
             }
             const q = questions[currentIdx];
@@ -224,6 +405,7 @@
             });
             document.querySelectorAll('input[name="q2"]').forEach(radio => {
                 radio.addEventListener('change', (e) => {
+                    playClickSound();
                     const val = parseInt(e.target.value);
                     userAnswers[currentIdx] = val;
                     const fb = document.getElementById('feedback2');
@@ -231,22 +413,29 @@
                         fb.innerHTML = '✅ Chính xác! Lính cứu hỏa giỏi quá!';
                         fb.style.background = '#E8F5E9';
                         fb.style.color = '#2E7D32';
+                        playSuccessSound();
                     } else {
                         fb.innerHTML = `❌ Chưa đúng. Đáp án đúng là: ${q.options[q.correct]}`;
                         fb.style.background = '#FFEBEE';
                         fb.style.color = '#C62828';
+                        playErrorSound();
                     }
                 });
             });
             document.getElementById('nextBtn2').onclick = () => {
-                if (userAnswers[currentIdx] === null) { document.getElementById('feedback2').innerHTML = '⚠️ Phải chọn đáp án mới qua được thử thách này!'; return; }
+                if (userAnswers[currentIdx] === null) { 
+                    document.getElementById('feedback2').innerHTML = '⚠️ Phải chọn đáp án mới qua được thử thách này!';
+                    playErrorSound();
+                    return; 
+                }
+                playClickSound();
                 currentIdx++; renderExercise2();
             };
         }
         renderExercise2();
     })();
 
-    // ==================== BÀI TẬP 3: SỔ TAY MẬT MÃ ====================
+    // ==================== BÀI TẬP 3: SỔ TAY MẬT MÃ (CÓ ÂM THANH) ====================
     (function() {
         const leftItemsData = [
             { id: 0, text: "🔥 Khi phát hiện đám cháy nhỏ trong phòng..." },
@@ -283,17 +472,24 @@
                 div.style.cssText = `background:white; margin:10px 0; padding:14px 16px; border-radius:60px; cursor:pointer; text-align:center; border:2px solid ${leftMatched[idx] ? '#4CAF50' : '#FFDEC4'}; ${leftMatched[idx] ? 'opacity:0.7; text-decoration:line-through;' : ''} ${selectedLeft === idx ? 'background:#FFE0B5; border-color:#FFB347;' : ''}`;
                 div.textContent = item.text;
                 if (!leftMatched[idx]) div.onclick = () => {
+                    playClickSound();
                     if (selectedRight !== null) {
                         if (rightItemsData[selectedRight].matchLeftId === idx) {
                             leftMatched[idx] = true; rightMatched[selectedRight] = true;
                             document.getElementById('matchMessage3').innerHTML = "✅ GHÉP ĐÚNG! Tuyệt chiêu đã được giải mã!";
-                        } else document.getElementById('matchMessage3').innerHTML = "❌ GHÉP SAI! Hãy thử lại cặp khác.";
+                            playSuccessSound();
+                        } else {
+                            document.getElementById('matchMessage3').innerHTML = "❌ GHÉP SAI! Hãy thử lại cặp khác.";
+                            playErrorSound();
+                        }
                         selectedRight = null; selectedLeft = null;
                         renderExercise3();
-                        if (leftMatched.every(v => v === true)) document.getElementById('matchMessage3').innerHTML = "🎉 TUYỆT VỜI! Bạn đã giải mã thành công tất cả tuyệt chiêu! 🎉";
+                        if (leftMatched.every(v => v === true)) {
+                            document.getElementById('matchMessage3').innerHTML = "🎉 TUYỆT VỜI! Bạn đã giải mã thành công tất cả tuyệt chiêu! 🎉";
+                            playCompleteSound();
+                        }
                         return;
                     }
-                    if (selectedLeft !== null) document.querySelectorAll('#leftList3 .match-item')?.forEach(el => el.classList.remove('selected'));
                     selectedLeft = idx; selectedRight = null;
                     renderExercise3();
                 };
@@ -306,17 +502,24 @@
                 div.style.cssText = `background:white; margin:10px 0; padding:14px 16px; border-radius:60px; cursor:pointer; text-align:center; border:2px solid ${rightMatched[idx] ? '#4CAF50' : '#FFDEC4'}; ${rightMatched[idx] ? 'opacity:0.7; text-decoration:line-through;' : ''} ${selectedRight === idx ? 'background:#FFE0B5; border-color:#FFB347;' : ''}`;
                 div.textContent = item.text;
                 if (!rightMatched[idx]) div.onclick = () => {
+                    playClickSound();
                     if (selectedLeft !== null) {
                         if (item.matchLeftId === selectedLeft) {
                             leftMatched[selectedLeft] = true; rightMatched[idx] = true;
                             document.getElementById('matchMessage3').innerHTML = "✅ GHÉP ĐÚNG! Tuyệt chiêu đã được giải mã!";
-                        } else document.getElementById('matchMessage3').innerHTML = "❌ GHÉP SAI! Hãy thử lại cặp khác.";
+                            playSuccessSound();
+                        } else {
+                            document.getElementById('matchMessage3').innerHTML = "❌ GHÉP SAI! Hãy thử lại cặp khác.";
+                            playErrorSound();
+                        }
                         selectedLeft = null; selectedRight = null;
                         renderExercise3();
-                        if (leftMatched.every(v => v === true)) document.getElementById('matchMessage3').innerHTML = "🎉 TUYỆT VỜI! Bạn đã giải mã thành công tất cả tuyệt chiêu! 🎉";
+                        if (leftMatched.every(v => v === true)) {
+                            document.getElementById('matchMessage3').innerHTML = "🎉 TUYỆT VỜI! Bạn đã giải mã thành công tất cả tuyệt chiêu! 🎉";
+                            playCompleteSound();
+                        }
                         return;
                     }
-                    if (selectedRight !== null) document.querySelectorAll('#rightList3 .match-item')?.forEach(el => el.classList.remove('selected'));
                     selectedRight = idx; selectedLeft = null;
                     renderExercise3();
                 };
@@ -324,6 +527,7 @@
             });
 
             document.getElementById('resetMatch3').onclick = () => {
+                playClickSound();
                 leftMatched = [false, false, false, false]; rightMatched = [false, false, false, false];
                 selectedLeft = null; selectedRight = null;
                 renderExercise3();
@@ -332,6 +536,7 @@
         }
         renderExercise3();
     })();
+    resizeCanvas();
 </script>
 </body>
 </html>
