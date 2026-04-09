@@ -28,16 +28,13 @@
         .back-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
         .footer { text-align: center; color: white; padding: 20px; font-size: 0.8rem; }
         
-        /* Hiệu ứng rung */
         .shake-screen { animation: shake 0.3s ease-in-out 0s 2; }
         @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } 100% { transform: translateX(0); } }
         
-        /* Star score */
         .star-score { text-align: center; margin-bottom: 15px; font-size: 24px; letter-spacing: 5px; }
         .star { color: #ddd; font-size: 28px; }
         .star.active { color: #FFD700; text-shadow: 0 0 5px #FFA500; }
         
-        /* Canvas confetti */
         #confetti-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; }
     </style>
 </head>
@@ -49,26 +46,22 @@
         <div class="soc-character">🐿️✨</div>
     </div>
 
-    <!-- Video bài học -->
     <div class="video-section">
         <div class="video-wrapper">
             <iframe src="https://www.youtube.com/embed/Ysx1NZmkc38" frameborder="0" allowfullscreen></iframe>
         </div>
     </div>
 
-    <!-- Bài tập 1: Điện thoại cấp cứu -->
     <div class="exercise">
         <h2 class="exercise-title">📞 Bài tập 1: Điện thoại cấp cứu - Gọi ai?</h2>
         <div id="exercise1"></div>
     </div>
 
-    <!-- Bài tập 2: Thẻ đúng/sai -->
     <div class="exercise">
         <h2 class="exercise-title">😊 Bài tập 2: Thẻ đúng/sai - Hành động nào là xấu?</h2>
         <div id="exercise2"></div>
     </div>
 
-    <!-- Bài tập 3: Vùng an toàn - Vùng riêng tư -->
     <div class="exercise">
         <h2 class="exercise-title">🔐 Bài tập 3: Vùng an toàn - Vùng riêng tư</h2>
         <div id="exercise3"></div>
@@ -85,12 +78,15 @@
     // ==================== HIỆU ỨNG CONFETTI ====================
     let ctx = null, width = window.innerWidth, height = window.innerHeight, particles = [], animationId = null;
     function resizeCanvas() { width = window.innerWidth; height = window.innerHeight; const canvas = document.getElementById('confetti-canvas'); if(canvas){ canvas.width = width; canvas.height = height; ctx = canvas.getContext('2d'); } }
-    function createConfetti() {
+    function createConfetti(duration = 1800) {
         if(!ctx) return;
-        for(let i=0;i<120;i++) {
-            particles.push({ x: Math.random() * width, y: Math.random() * height - height, size: Math.random() * 7 + 3, color: `hsl(${Math.random() * 60 + 20}, 80%, 60%)`, speedY: Math.random() * 5 + 3, speedX: (Math.random() - 0.5) * 2, rotation: Math.random() * 360, rotSpeed: (Math.random() - 0.5) * 6 });
+        if(animationId) cancelAnimationFrame(animationId);
+        particles = [];
+        for(let i=0;i<140;i++) {
+            particles.push({ x: Math.random() * width, y: Math.random() * height - height, size: Math.random() * 7 + 3, color: `hsl(${Math.random() * 360}, 80%, 60%)`, speedY: Math.random() * 5 + 3, speedX: (Math.random() - 0.5) * 2, rotation: Math.random() * 360, rotSpeed: (Math.random() - 0.5) * 6 });
         }
         drawConfetti();
+        setTimeout(() => { if(animationId) cancelAnimationFrame(animationId); ctx?.clearRect(0,0,width,height); particles = []; }, duration);
     }
     function drawConfetti() {
         if(!ctx) return;
@@ -114,10 +110,25 @@
         if(!allFinished) animationId = requestAnimationFrame(drawConfetti);
         else { if(animationId) cancelAnimationFrame(animationId); particles = []; ctx.clearRect(0,0,width,height); }
     }
-    function startConfetti() { if(animationId) cancelAnimationFrame(animationId); particles = []; resizeCanvas(); createConfetti(); setTimeout(() => { if(animationId) cancelAnimationFrame(animationId); ctx?.clearRect(0,0,width,height); }, 1800); }
     window.addEventListener('resize', () => { resizeCanvas(); if(particles.length) drawConfetti(); });
     
-    // ==================== ÂM THANH GAME VUI NHỘN ====================
+    // ==================== ÂM THANH ====================
+    function playKeypadSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 880;
+            gain.gain.value = 0.1;
+            osc.type = 'sine';
+            osc.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.1);
+            osc.stop(audioCtx.currentTime + 0.1);
+        } catch(e) {}
+    }
+    
     function playSuccessSound() {
         try {
             const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -137,8 +148,45 @@
                 }, idx * 120);
             });
         } catch(e) {}
-        startConfetti();
+        createConfetti(1200);
     }
+    
+    function playCompleteSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            // Tiếng vỗ tay (dùng noise đơn giản)
+            const gain = audioCtx.createGain();
+            gain.connect(audioCtx.destination);
+            gain.gain.value = 0.3;
+            const bufferSize = 4096;
+            const noise = audioCtx.createBufferSource();
+            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for(let i=0; i<bufferSize; i++) data[i] = Math.random() * 2 - 1;
+            noise.buffer = buffer;
+            noise.loop = true;
+            noise.connect(gain);
+            noise.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 1.2);
+            noise.stop(audioCtx.currentTime + 1.2);
+            
+            // Thêm tiếng "ding dong ding" cuối cùng
+            setTimeout(() => {
+                const osc = audioCtx.createOscillator();
+                const gain2 = audioCtx.createGain();
+                osc.connect(gain2);
+                gain2.connect(audioCtx.destination);
+                osc.frequency.value = 1046.5;
+                gain2.gain.value = 0.3;
+                osc.type = 'sine';
+                osc.start();
+                gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.5);
+                osc.stop(audioCtx.currentTime + 0.5);
+            }, 1000);
+        } catch(e) {}
+        createConfetti(2500);
+    }
+    
     function playErrorSound() {
         try {
             const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -169,7 +217,7 @@
         setTimeout(() => document.body.classList.remove('shake-screen'), 500);
     }
 
-    // ==================== BÀI TẬP 1: ĐIỆN THOẠI CẤP CỨU ====================
+    // ==================== BÀI TẬP 1: ĐIỆN THOẠI CẤP CỨU (CÓ TIẾNG BẤM PHÍM) ====================
     (function() {
         const situations = [
             { emoji: "😨👤", text: "Có người lạ muốn chạm vào vùng riêng tư của con. Con cần gọi ai?", correctNumber: "18001567", hint: "Đường dây nóng bảo vệ trẻ em" },
@@ -183,6 +231,7 @@
         function renderExercise1() {
             const container = document.getElementById('exercise1');
             if (currentIdx >= situations.length) {
+                playCompleteSound();
                 container.innerHTML = `<div style="background:#1E1E1E; border-radius:48px; padding:30px; text-align:center; color:white;"><div style="font-size:40px;">🎉🏆🎉</div><div style="font-size:28px; font-weight:bold; color:#FFB347;">HOÀN THÀNH!</div><div class="star-score" style="margin:15px 0;" id="starDisplay1Final">${Array(3).fill().map((_,i)=>`<span class="star ${i<starCount1?'active':''}">⭐</span>`).join('')}</div><div style="margin:20px 0;">📞 Con đã biết gọi ai khi gặp nguy hiểm!</div><div style="background:#2A2A2A; border-radius:30px; padding:15px;"><div style="font-size:20px;">📞 Số quan trọng cần nhớ:</div><div style="font-size:24px; font-weight:bold; color:#FF8C42;">113 - Công an</div><div style="font-size:24px; font-weight:bold; color:#FF8C42;">1800 1567 - Đường dây nóng</div></div><button id="resetQuiz1" style="background:#FFB347; border:none; padding:12px 28px; border-radius:40px; cursor:pointer; margin-top:15px;">🔄 CHƠI LẠI</button></div>`;
                 document.getElementById('resetQuiz1')?.addEventListener('click', () => { currentIdx = 0; userInput = ""; gameFinished = false; starCount1=0; renderExercise1(); });
                 return;
@@ -210,9 +259,9 @@
             </div>`;
             container.innerHTML = html;
             updateStarDisplay1();
-            document.querySelectorAll('.key1').forEach(btn => { btn.onclick = () => { if (!gameFinished) { userInput += btn.getAttribute('data-num'); if (userInput.length > 10) userInput = userInput.slice(0,10); renderExercise1(); } }; });
-            document.getElementById('deleteBtn1')?.addEventListener('click', () => { if (!gameFinished) { userInput = userInput.slice(0,-1); renderExercise1(); } });
-            document.getElementById('clearBtn1')?.addEventListener('click', () => { if (!gameFinished) { userInput = ""; renderExercise1(); } });
+            document.querySelectorAll('.key1').forEach(btn => { btn.onclick = () => { if (!gameFinished) { userInput += btn.getAttribute('data-num'); if (userInput.length > 10) userInput = userInput.slice(0,10); playKeypadSound(); renderExercise1(); } }; });
+            document.getElementById('deleteBtn1')?.addEventListener('click', () => { if (!gameFinished) { userInput = userInput.slice(0,-1); playKeypadSound(); renderExercise1(); } });
+            document.getElementById('clearBtn1')?.addEventListener('click', () => { if (!gameFinished) { userInput = ""; playKeypadSound(); renderExercise1(); } });
             document.getElementById('callBtn1')?.addEventListener('click', () => {
                 if (gameFinished) return;
                 const fb = document.getElementById('feedback1');
@@ -271,7 +320,7 @@
             if(goodCategory) goodCategory.onclick = (e) => { if(e.target.closest('.remove-btn')) return; if(selectedCard !== null){ const action = actionsData.find(a=>a.id===selectedCard); if(action.type === 'good'){ if(!classified.good.includes(selectedCard)){ classified.good.push(selectedCard); playSuccessSound(); selectedCard = null; renderExercise2(); } } else { playErrorSound(); alert(`❌ "${action.text}" là hành động XẤU! Hãy xếp vào ô SAI (😞) nhé!`); } } };
             const badCategory = document.querySelector('.category-bad');
             if(badCategory) badCategory.onclick = (e) => { if(e.target.closest('.remove-btn')) return; if(selectedCard !== null){ const action = actionsData.find(a=>a.id===selectedCard); if(action.type === 'bad'){ if(!classified.bad.includes(selectedCard)){ classified.bad.push(selectedCard); playSuccessSound(); selectedCard = null; renderExercise2(); } } else { playErrorSound(); alert(`❌ "${action.text}" là hành động TỐT! Hãy xếp vào ô ĐÚNG (😊) nhé!`); } } };
-            document.getElementById('submitBtn2')?.addEventListener('click', () => { if(submitted2) return; const total = classified.good.length + classified.bad.length; if(total < actionsData.length){ document.getElementById('resultArea2').innerHTML = `⚠️ Con mới xếp ${total}/${actionsData.length} thẻ. Hãy xếp hết rồi nộp bài nhé!`; playErrorSound(); return; } let correct = 0; actionsData.forEach(a => { if((a.type === 'good' && classified.good.includes(a.id)) || (a.type === 'bad' && classified.bad.includes(a.id))) correct++; }); const percent = Math.round(correct/actionsData.length*100); let msg = correct === actionsData.length ? '🎉 TUYỆT VỜI! Con phân loại chính xác tất cả!' : (correct >= 7 ? '👍 Rất tốt!' : '📖 Con cần học thêm!'); if(correct === actionsData.length) playSuccessSound(); else playErrorSound(); document.getElementById('resultArea2').innerHTML = `<div style="font-size:20px;">🏆 Điểm: ${correct}/${actionsData.length} (${percent}%) 🏆</div><div>${msg}</div><button id="resetBtn2" style="background:#FFB347; border:none; padding:12px 28px; border-radius:40px; cursor:pointer; margin-top:15px;">🔄 LÀM LẠI</button>`; submitted2 = true; document.getElementById('resetBtn2')?.addEventListener('click', () => { classified = { good: [], bad: [] }; selectedCard = null; submitted2 = false; renderExercise2(); }); });
+            document.getElementById('submitBtn2')?.addEventListener('click', () => { if(submitted2) return; const total = classified.good.length + classified.bad.length; if(total < actionsData.length){ document.getElementById('resultArea2').innerHTML = `⚠️ Con mới xếp ${total}/${actionsData.length} thẻ. Hãy xếp hết rồi nộp bài nhé!`; playErrorSound(); return; } let correct = 0; actionsData.forEach(a => { if((a.type === 'good' && classified.good.includes(a.id)) || (a.type === 'bad' && classified.bad.includes(a.id))) correct++; }); const percent = Math.round(correct/actionsData.length*100); let msg = correct === actionsData.length ? '🎉 TUYỆT VỜI! Con phân loại chính xác tất cả!' : (correct >= 7 ? '👍 Rất tốt!' : '📖 Con cần học thêm!'); if(correct === actionsData.length) { playCompleteSound(); } else { playSuccessSound(); } document.getElementById('resultArea2').innerHTML = `<div style="font-size:20px;">🏆 Điểm: ${correct}/${actionsData.length} (${percent}%) 🏆</div><div>${msg}</div><button id="resetBtn2" style="background:#FFB347; border:none; padding:12px 28px; border-radius:40px; cursor:pointer; margin-top:15px;">🔄 LÀM LẠI</button>`; submitted2 = true; document.getElementById('resetBtn2')?.addEventListener('click', () => { classified = { good: [], bad: [] }; selectedCard = null; submitted2 = false; renderExercise2(); }); });
         }
         renderExercise2();
     })();
@@ -279,6 +328,7 @@
     // ==================== BÀI TẬP 3: VÙNG RIÊNG TƯ ====================
     (function() {
         let clickedZones = { 'boy-chest': false, 'boy-private': false, 'girl-chest': false, 'girl-private': false };
+        let totalClicks = 0;
         function renderExercise3() {
             const container = document.getElementById('exercise3');
             let html = `<div style="background:#F1F8E9; border-radius:48px; padding:15px; text-align:center; margin-bottom:20px;">📢 VÙNG RIÊNG TƯ là những vùng mà người khác KHÔNG ĐƯỢC PHÉP chạm vào</div>
@@ -317,8 +367,8 @@
             <button id="completeBtn3" style="background:#FFB347; border:none; color:white; font-size:22px; font-weight:bold; padding:14px; border-radius:60px; cursor:pointer; width:100%; margin-top:20px;">🏁 HOÀN THÀNH</button>`;
             container.innerHTML = html;
             function updateInfoTexts() { let boyDone = clickedZones['boy-chest'] && clickedZones['boy-private']; let girlDone = clickedZones['girl-chest'] && clickedZones['girl-private']; document.getElementById('boyInfo3').innerHTML = boyDone ? '✅ Tuyệt vời! Bé trai đã học xong vùng riêng tư!' : `⚠️ Bé trai còn vùng: ${!clickedZones['boy-chest'] ? 'ngực' : ''} ${!clickedZones['boy-chest'] && !clickedZones['boy-private'] ? 'và' : ''} ${!clickedZones['boy-private'] ? 'vùng mặc quần lót' : ''} chưa click`; document.getElementById('girlInfo3').innerHTML = girlDone ? '✅ Tuyệt vời! Bé gái đã học xong vùng riêng tư!' : `⚠️ Bé gái còn vùng: ${!clickedZones['girl-chest'] ? 'ngực' : ''} ${!clickedZones['girl-chest'] && !clickedZones['girl-private'] ? 'và' : ''} ${!clickedZones['girl-private'] ? 'vùng mặc quần lót' : ''} chưa click`; if (boyDone && girlDone) document.getElementById('feedback3').innerHTML = '🎉 TUYỆT VỜI! Con đã biết tất cả vùng riêng tư cần bảo vệ! 🎉'; }
-            document.querySelectorAll('.sensitive').forEach(zone => { zone.onclick = () => { const gender = zone.getAttribute('data-gender'); const zoneType = zone.getAttribute('data-zone'); const key = `${gender}-${zoneType}`; if (!clickedZones[key]) { clickedZones[key] = true; zone.setAttribute('fill', '#4CAF50'); let msg = zoneType === 'chest' ? '✅ Vùng NGỰC là vùng riêng tư!' : '✅ Vùng MẶC QUẦN LÓT là vùng riêng tư!'; document.getElementById('feedback3').innerHTML = msg; playSuccessSound(); updateInfoTexts(); } else { document.getElementById('feedback3').innerHTML = '💛 Con đã học vùng này rồi! Hãy click vào vùng màu cam còn lại!'; playErrorSound(); } }; });
-            document.getElementById('completeBtn3')?.addEventListener('click', () => { let allCompleted = clickedZones['boy-chest'] && clickedZones['boy-private'] && clickedZones['girl-chest'] && clickedZones['girl-private']; if (!allCompleted) { document.getElementById('feedback3').innerHTML = '⚠️ Con hãy click vào TẤT CẢ các vùng màu cam trên cả 2 bạn nhé!'; playErrorSound(); } else { document.getElementById('feedback3').innerHTML = '🎉 CHÚC MỪNG CON! Hãy luôn nhớ bảo vệ vùng riêng tư của mình!'; playSuccessSound(); } });
+            document.querySelectorAll('.sensitive').forEach(zone => { zone.onclick = () => { const gender = zone.getAttribute('data-gender'); const zoneType = zone.getAttribute('data-zone'); const key = `${gender}-${zoneType}`; if (!clickedZones[key]) { clickedZones[key] = true; zone.setAttribute('fill', '#4CAF50'); let msg = zoneType === 'chest' ? '✅ Vùng NGỰC là vùng riêng tư!' : '✅ Vùng MẶC QUẦN LÓT là vùng riêng tư!'; document.getElementById('feedback3').innerHTML = msg; playSuccessSound(); updateInfoTexts(); totalClicks++; if(totalClicks === 4) playCompleteSound(); } else { document.getElementById('feedback3').innerHTML = '💛 Con đã học vùng này rồi! Hãy click vào vùng màu cam còn lại!'; playErrorSound(); } }; });
+            document.getElementById('completeBtn3')?.addEventListener('click', () => { let allCompleted = clickedZones['boy-chest'] && clickedZones['boy-private'] && clickedZones['girl-chest'] && clickedZones['girl-private']; if (!allCompleted) { document.getElementById('feedback3').innerHTML = '⚠️ Con hãy click vào TẤT CẢ các vùng màu cam trên cả 2 bạn nhé!'; playErrorSound(); } else { document.getElementById('feedback3').innerHTML = '🎉 CHÚC MỪNG CON! Hãy luôn nhớ bảo vệ vùng riêng tư của mình!'; playCompleteSound(); } });
             updateInfoTexts();
         }
         renderExercise3();
