@@ -287,7 +287,226 @@
 }
   </style>
 </head>
-<body>
+ <!-- ========== WIDGET NOTE HÀNG NGÀY - CỦA SOPHIA NGUYỄN ========== -->
+<style>
+  .daily-note {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 320px;
+    background: #fff9ef;
+    border-radius: 28px;
+    box-shadow: 0 20px 35px -10px rgba(0,0,0,0.2);
+    border: 1px solid #ffd966;
+    z-index: 999;
+    font-family: 'Segoe UI', 'Be Vietnam Pro', sans-serif;
+    transition: all 0.3s ease;
+  }
+  .daily-note.left {
+    right: auto;
+    left: 30px;
+  }
+  .daily-note.right {
+    left: auto;
+    right: 30px;
+  }
+  .note-header {
+    background: #ffd966;
+    padding: 12px 18px;
+    border-radius: 28px 28px 0 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    color: #2c5a6e;
+    font-size: 1rem;
+  }
+  .note-header span:first-child {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .note-header i {
+    font-size: 1.2rem;
+  }
+  .note-body {
+    padding: 18px;
+    display: block;
+  }
+  .note-body textarea {
+    width: 100%;
+    border: 2px solid #ffe0a3;
+    border-radius: 24px;
+    padding: 12px;
+    font-size: 14px;
+    font-family: inherit;
+    background: white;
+    resize: vertical;
+    margin-bottom: 12px;
+    outline: none;
+  }
+  .note-body textarea:focus {
+    border-color: #ffb347;
+  }
+  .note-display {
+    background: #fff2df;
+    border-radius: 20px;
+    padding: 12px;
+    margin-bottom: 12px;
+    font-size: 15px;
+    line-height: 1.45;
+    color: #2c3e2f;
+    border-left: 6px solid #ffb347;
+    word-break: break-word;
+    white-space: pre-wrap;
+  }
+  .note-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+  }
+  .note-buttons button {
+    background: #ffb347;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 13px;
+    color: #2c5a6e;
+  }
+  .note-buttons button:hover {
+    background: #ff9f1a;
+    transform: scale(0.96);
+  }
+  .note-buttons button.reset-note {
+    background: #e0d6c6;
+    color: #a55d35;
+  }
+  .mini-badge {
+    font-size: 11px;
+    color: #a87a58;
+    text-align: center;
+    padding-top: 6px;
+    border-top: 1px dashed #ffe0a3;
+    margin-top: 10px;
+  }
+  @media (max-width: 650px) {
+    .daily-note { width: 280px; bottom: 20px; right: 20px; }
+    .daily-note.left { left: 20px; right: auto; }
+  }
+</style>
+
+<div id="dailyNoteWidget" class="daily-note right">
+  <div class="note-header" id="noteHeader">
+    <span>📘 <span style="font-size: 14px;">GÓC NHỎ CỦA CÔ SOPHIA</span></span>
+    <span id="toggleIcon">▼</span>
+  </div>
+  <div class="note-body" id="noteBody">
+    <div id="noteDisplay" class="note-display">
+      💌 Chưa có ghi chú nào. Hãy viết điều em muốn nhắn nhé!
+    </div>
+    <textarea id="noteInput" rows="3" placeholder="Viết ghi chú hôm nay của chị... (ví dụ: 🌟 Hôm nay có bài học mới về kỹ năng an toàn, ba mẹ đăng ký cho con nhé!)"></textarea>
+    <div class="note-buttons">
+      <button id="saveNoteBtn">💾 LƯU GHI CHÚ</button>
+      <button id="resetNoteBtn" class="reset-note">🗑️ XÓA</button>
+    </div>
+    <div class="mini-badge">
+      🖊️ Chị có thể sửa bất cứ lúc nào - tự động lưu trên web
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // --- Cấu hình vị trí: muốn để bên trái thì sửa "right" thành "left" ở class của div cha ---
+    const STORAGE_KEY = 'sophia_daily_note';
+    
+    // Lấy dữ liệu đã lưu
+    function loadNote() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved && saved.trim() !== "") {
+        document.getElementById('noteDisplay').innerHTML = saved.replace(/\n/g, '<br>');
+        document.getElementById('noteInput').value = saved;
+      } else {
+        // mặc định nếu chưa có
+        const defaultMsg = "📝 Hôm nay ấm áp! Hãy cùng con học kỹ năng an toàn nhé 🌈\nBa mẹ để lại câu hỏi bên dưới, cô Sophia sẽ trả lời!";
+        document.getElementById('noteDisplay').innerHTML = defaultMsg.replace(/\n/g, '<br>');
+        document.getElementById('noteInput').value = defaultMsg;
+      }
+    }
+    
+    // Lưu ghi chú
+    function saveNote() {
+      const newNote = document.getElementById('noteInput').value;
+      if (newNote.trim() === "") {
+        alert("✏️ Hãy viết gì đó trước khi lưu nhé!");
+        return;
+      }
+      localStorage.setItem(STORAGE_KEY, newNote);
+      document.getElementById('noteDisplay').innerHTML = newNote.replace(/\n/g, '<br>');
+      // hiệu ứng nhẹ
+      const btn = document.getElementById('saveNoteBtn');
+      const originalText = btn.innerText;
+      btn.innerText = '✅ ĐÃ LƯU!';
+      setTimeout(() => { btn.innerText = originalText; }, 1200);
+      
+      // Chơi thử âm thanh nếu muốn (không bắt buộc, nhưng vui)
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.frequency.value = 880;
+        gain.gain.value = 0.1;
+        osc.type = 'sine';
+        osc.start();
+        gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.2);
+        osc.stop(audioCtx.currentTime + 0.2);
+      } catch(e) {}
+    }
+    
+    // Xóa ghi chú
+    function resetNote() {
+      if (confirm("❓ Chị muốn xóa toàn bộ ghi chú này và trở về mặc định không ạ?")) {
+        localStorage.removeItem(STORAGE_KEY);
+        const defaultMsg = "📝 Hôm nay ấm áp! Hãy cùng con học kỹ năng an toàn nhé 🌈\nBa mẹ để lại câu hỏi bên dưới, cô Sophia sẽ trả lời!";
+        document.getElementById('noteDisplay').innerHTML = defaultMsg.replace(/\n/g, '<br>');
+        document.getElementById('noteInput').value = defaultMsg;
+      }
+    }
+    
+    // Thu gọn / mở rộng widget
+    let isCollapsed = false;
+    function toggleWidget() {
+      const bodyEl = document.getElementById('noteBody');
+      const icon = document.getElementById('toggleIcon');
+      if (isCollapsed) {
+        bodyEl.style.display = 'block';
+        icon.innerHTML = '▼';
+        isCollapsed = false;
+      } else {
+        bodyEl.style.display = 'none';
+        icon.innerHTML = '▲';
+        isCollapsed = true;
+      }
+    }
+    
+    // khởi tạo
+    loadNote();
+    document.getElementById('saveNoteBtn').addEventListener('click', saveNote);
+    document.getElementById('resetNoteBtn').addEventListener('click', resetNote);
+    document.getElementById('noteHeader').addEventListener('click', toggleWidget);
+    
+    // Nếu muốn đổi sang bên trái, chị chỉ cần sửa class của thẻ div cha:
+    // từ "daily-note right" -> "daily-note left"
+  })();
+</script>
+<!-- ========== KẾT THÚC WIDGET NOTE HÀNG NGÀY ========== -->
+  <body>
   <!-- HEADER -->
   <header class="header">
     <div class="container header-container">
