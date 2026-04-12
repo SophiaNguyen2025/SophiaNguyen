@@ -287,13 +287,14 @@
 }
   </style>
 </head>
-<!-- ========== GÓC NHẬT KÝ CỦA CÔ SOPHIA - ĐỌC TỪ GOOGLE SHEET ========== -->
+<!-- ========== GÓC NHẬT KÝ CỦA CÔ SOPHIA - BẢN ĐỌC DÀI KHÔNG GIỚI HẠN ========== -->
 <style>
   .sophia-journal {
     position: fixed;
     bottom: 30px;
     right: 30px;
-    width: 340px;
+    width: 360px;
+    max-width: calc(100vw - 40px);
     background: #fffef7;
     border-radius: 24px 32px 32px 24px;
     box-shadow: 0 20px 35px rgba(0,0,0,0.15);
@@ -313,9 +314,11 @@
     align-items: center;
     gap: 8px;
     font-size: 0.95rem;
+    cursor: pointer;
   }
   .journal-body {
     padding: 20px;
+    display: block;
   }
   .journal-content {
     font-size: 15px;
@@ -324,9 +327,10 @@
     white-space: pre-wrap;
     word-break: break-word;
     background: #fffaf0;
-    padding: 12px;
+    padding: 16px;
     border-radius: 20px;
-    min-height: 120px;
+    max-height: 400px;
+    overflow-y: auto;
   }
   .journal-footer {
     font-size: 10px;
@@ -339,59 +343,98 @@
     color: #b5a07e;
     font-style: italic;
   }
+  /* Nút thu gọn/mở rộng */
+  .toggle-icon {
+    margin-left: auto;
+    font-size: 14px;
+  }
   @media (max-width: 650px) {
-    .sophia-journal { width: 290px; bottom: 20px; right: 20px; }
+    .sophia-journal { width: calc(100vw - 40px); bottom: 20px; right: 20px; left: 20px; }
   }
 </style>
 
 <div id="sophiaJournal" class="sophia-journal">
-  <div class="journal-header">
-    📔 <span>NHẬT KÝ CỦA CÔ SOPHIA</span>
+  <div class="journal-header" id="journalHeader">
+    <span>📔 NHẬT KÝ CỦA CÔ SOPHIA</span>
+    <span class="toggle-icon" id="toggleIcon">▼</span>
   </div>
-  <div class="journal-body">
+  <div class="journal-body" id="journalBody">
     <div id="journalContent" class="journal-content loading">
       📖 Đang tải lời nhắn...
     </div>
-  </div>
-  <div class="journal-footer">
-    💛 Cập nhật mỗi ngày
+    <div class="journal-footer">
+      💛 Cập nhật thường xuyên
+    </div>
   </div>
 </div>
 
 <script>
-  // CHỊ THAY LINK NÀY BẰNG LINK CSV CỦA CHỊ NHÉ!
-  const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRBnTjJxVTpO-LI3vSYQZXtl647KXFWa9T3mOtA61we48PtdloSUfm3_cLkDPOLon4zqgDCJ44JvFx9/pub?gid=0&single=true&output=csv";
-  
-  async function loadJournal() {
-    try {
-      const response = await fetch(GOOGLE_SHEET_CSV_URL);
-      const csvText = await response.text();
+  (function() {
+    // Link CSV của chị
+    const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRBnTjJxVTpO-LI3vSYQZXtl647KXFWa9T3mOtA61we48PtdloSUfm3_cLkDPOLon4zqgDCJ44JvFx9/pub?gid=0&single=true&output=csv";
+    
+    // Đọc nội dung dài từ Google Sheet (dùng fetch + xử lý text thuần)
+    async function loadJournal() {
+      const contentDiv = document.getElementById('journalContent');
+      contentDiv.innerHTML = "📖 Đang tải...";
       
-      // CSV có dạng: dòng đầu là tiêu đề, dòng 2 là nội dung
-      const lines = csvText.split('\n');
-      let content = "";
-      if (lines.length >= 2) {
-        // Bỏ dòng tiêu đề, lấy dòng thứ 2
-        content = lines[1].replace(/^"|"$/g, '').replace(/""/g, '"');
-      } else if (lines.length >= 1) {
-        content = lines[0].replace(/^"|"$/g, '').replace(/""/g, '"');
+      try {
+        const response = await fetch(CSV_URL + "&_=" + Date.now());
+        const text = await response.text();
+        
+        // Cách đọc đơn giản nhất: lấy toàn bộ text và loại bỏ dấu ngoặc kép đầu/cuối
+        let content = text.trim();
+        
+        // Nếu nội dung bắt đầu bằng " và kết thúc bằng " thì bỏ chúng đi
+        if (content.startsWith('"') && content.endsWith('"')) {
+          content = content.substring(1, content.length - 1);
+        }
+        
+        // Thay thế dấu xuống dòng trong CSV (\\n) thành thẻ <br>
+        content = content.replace(/\\n/g, '<br>');
+        
+        // Nếu vẫn còn dấu xuống dòng thường thì cũng thay
+        content = content.replace(/\n/g, '<br>');
+        
+        // Thay thế 2 dấu ngoặc kép liên tiếp thành 1 dấu (cách escape của CSV)
+        content = content.replace(/""/g, '"');
+        
+        if (content && content !== "" && content !== "Trang tính1") {
+          contentDiv.innerHTML = content;
+        } else {
+          contentDiv.innerHTML = "💛 Hôm nay cô Sophia chưa kịp viết nhật ký.<br>Ba mẹ hãy quay lại sau nhé!";
+        }
+      } catch (error) {
+        console.error("Lỗi tải:", error);
+        contentDiv.innerHTML = "🌸 Đang cập nhật nội dung.<br>Cô Sophia sẽ sớm gửi lời nhắn đến ba mẹ!";
       }
-      
-      if (content && content.trim() !== "") {
-        // Chuyển \n thành xuống dòng thực tế
-        document.getElementById('journalContent').innerHTML = content.replace(/\\n/g, '<br>').replace(/\n/g, '<br>');
-      } else {
-        document.getElementById('journalContent').innerHTML = "💛 Hôm nay cô Sophia chưa kịp viết nhật ký. Ba mẹ hãy quay lại sau nhé!";
-      }
-    } catch (error) {
-      console.error("Lỗi tải nhật ký:", error);
-      document.getElementById('journalContent').innerHTML = "🌸 Có lỗi kết nối. Cô Sophia sẽ sớm khắc phục nhé!";
     }
-  }
-  
-  loadJournal();
-  // Mỗi 5 phút tự động cập nhật 1 lần (phòng khi chị sửa nội dung)
-  setInterval(loadJournal, 300000);
+    
+    // Chức năng thu gọn / mở rộng
+    let isCollapsed = false;
+    function toggleWidget() {
+      const bodyEl = document.getElementById('journalBody');
+      const icon = document.getElementById('toggleIcon');
+      if (isCollapsed) {
+        bodyEl.style.display = 'block';
+        icon.innerHTML = '▼';
+        isCollapsed = false;
+      } else {
+        bodyEl.style.display = 'none';
+        icon.innerHTML = '▲';
+        isCollapsed = true;
+      }
+    }
+    
+    // Khởi tạo
+    loadJournal();
+    setInterval(loadJournal, 300000); // Cập nhật mỗi 5 phút
+    
+    const header = document.getElementById('journalHeader');
+    if (header) {
+      header.addEventListener('click', toggleWidget);
+    }
+  })();
 </script>
 <!-- ========== KẾT THÚC GÓC NHẬT KÝ ========== -->
   <body>
