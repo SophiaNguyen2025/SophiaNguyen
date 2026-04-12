@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Góc nhỏ của Sophia – Blog tâm lý & phát triển bản thân</title>
+  <meta name="description" content="Những bài viết chia sẻ về tâm lý, nuôi dạy con, kỹ năng an toàn, và hành trình chữa lành từ Sophia Nguyễn. Đọc để hiểu mình hơn và đồng hành cùng con yêu.">
+  <meta name="keywords" content="blog tâm lý, nuôi dạy con, kỹ năng an toàn, chữa lành, phát triển bản thân, Sophia Nguyễn">
+  <meta name="author" content="Sophia Nguyễn">
+  <link rel="stylesheet" href="main.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: linear-gradient(145deg, #fff5f0 0%, #ffe8e0 100%);
+      font-family: 'Be Vietnam Pro', sans-serif;
+      color: #2c3e2f;
+      line-height: 1.6;
+    }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+
+    /* Header */
+    .header {
+      background: white;
+      padding: 15px 0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .header-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo img { height: 60px; width: auto; }
+    .menu-toggle { display: none; font-size: 28px; cursor: pointer; }
+    .navbar ul { display: flex; gap: 2rem; list-style: none; }
+    .navbar a { text-decoration: none; color: #4a5568; font-weight: 500; transition: 0.2s; }
+    .navbar a:hover { color: #e83e8c; }
+    .banner { margin-top: 20px; text-align: center; }
+    .banner-img { width: 100%; max-height: 250px; object-fit: cover; border-radius: 28px; }
+
+    /* Blog Hero */
+    .blog-hero {
+      text-align: center;
+      margin: 50px 0 30px;
+    }
+    .blog-hero h1 {
+      font-size: 2.5rem;
+      color: #2c3e2f;
+      margin-bottom: 16px;
+    }
+    .blog-hero p {
+      font-size: 1.1rem;
+      color: #666;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* Blog Grid */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 30px;
+      margin: 50px 0;
+    }
+    .blog-card {
+      background: white;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .blog-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+    .blog-image {
+      height: 180px;
+      background: linear-gradient(135deg, #e83e8c20, #f0629220);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 60px;
+    }
+    .blog-content { padding: 24px; }
+    .blog-category {
+      display: inline-block;
+      background: #fce4ec;
+      color: #e83e8c;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .blog-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #2c3e2f;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+    .blog-excerpt {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+    .blog-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: #999;
+      border-top: 1px solid #eee;
+      padding-top: 16px;
+    }
+    .read-more {
+      color: #e83e8c;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .read-more:hover { text-decoration: underline; }
+
+    /* CTA */
+    .cta-section {
+      text-align: center;
+      padding: 50px 40px;
+      background: linear-gradient(135deg, #e83e8c, #f06292);
+      color: white;
+      border-radius: 32px;
+      margin: 50px 0;
+    }
+    .cta-datlich {
+      background: transparent;
+      border: 2px solid white;
+      color: white;
+      padding: 12px 28px;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-block;
+      margin: 0 8px;
+      transition: 0.2s;
+    }
+    .cta-datlich:hover { background: white; color: #e83e8c; }
+    .cta-btn {
+      background: white;
+      color: #e83e8c;
+      padding: 12px 28px;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-block;
+      margin: 0 8px;
+      transition: 0.2s;
+    }
+    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+
+    /* Footer */
+    .footer {
+      background: #1a2a3a;
+      color: white;
+      padding: 50px 0 20px;
+      margin-top: 60px;
+    }
+    .footer-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+    }
+    .footer-logo img { width: 100px; margin-bottom: 16px; filter: brightness(0) invert(1); }
+    .footer-links ul { list-style: none; }
+    .footer-links a { color: #cbd5e0; text-decoration: none; font-size: 0.85rem; }
+    .footer-links a:hover { color: #e83e8c; }
+    .social-icons { display: flex; gap: 12px; margin-top: 16px; }
+    .social-icons img { width: 32px; transition: 0.2s; }
+    .social-icons img:hover { transform: translateY(-3px); }
+    .footer-bottom { text-align: center; padding-top: 30px; margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.75rem; }
+
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+      .navbar ul { display: none; flex-direction: column; gap: 1rem; margin-top: 1rem; }
+      .navbar.show-menu ul { display: flex; }
+      .blog-hero h1 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-container">
+    <a href="index.html" class="logo"><img src="images/hinhremovenen.png" alt="Sophia Logo" /></a>
+    <div class="menu-toggle" onclick="document.querySelector('.navbar').classList.toggle('show-menu')">☰</div>
+    <nav class="navbar">
+      <ul>
+        <li><a href="index.html">Trang chủ</a></li>
+        <li><a href="about.html">Giới thiệu</a></li>
+        <li><a href="services.html">Dịch vụ</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Liên hệ</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="banner"><img src="images/rs1.png" alt="Sophia Nguyễn – Đồng hành & Sẻ chia" class="banner-img" /></div>
+</header>
+
+<div class="container">
+  <div class="blog-hero">
+    <h1>📖 Góc nhỏ của Sophia</h1>
+    <p>Những câu chuyện, chia sẻ và bài viết về tâm lý, nuôi dạy con, kỹ năng an toàn – nơi bạn tìm thấy sự đồng hành và chữa lành.</p>
+  </div>
+
+  <div class="blog-grid" id="blogGrid"></div>
+
+  <div class="cta-section">
+    <h2>💬 Bạn muốn chia sẻ câu chuyện của mình?</h2>
+    <p style="margin-bottom: 24px;">Sophia luôn lắng nghe và đồng hành cùng bạn.</p>
+    <div>
+      <a href="https://zalo.me/0977092182" class="cta-datlich">📅 Đặt lịch tư vấn</a>
+      <a href="contact.html" class="cta-datlich">📩 Gửi tin nhắn</a>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-logo"><img src="images/hinhremovenen.png" alt="Logo Sophia"><p>Đồng hành & Sẻ chia cùng bạn trên hành trình tâm lý – phát triển – yêu thương.</p></div>
+    <div class="footer-links"><h4>Dịch vụ</h4><ul><li><a href="#">Tư vấn tâm lý</a></li><li><a href="#">Định hướng nghề nghiệp</a></li><li><a href="#">Đào tạo kỹ năng</a></li><li><a href="#">Sinh trắc vân tay</a></li></ul></div>
+    <div class="footer-contact"><h4>Liên hệ</h4><p>📧 sophianguyen2891@gmail.com</p><p>📞 0977092182</p><p>🏠 Tân Bình - TPHCM</p><div class="social-icons"><a href="https://www.facebook.com/Sophiadiemhang1982"><img src="images/fb.png" alt="FB" /></a><a href="https://www.tiktok.com/@sophia.nguyen2014"><img src="images/tiktok.png" alt="TikTok" /></a><a href="https://www.youtube.com/@sophianguyen1982-dh"><img src="images/youtube.png" alt="YouTube" /></a></div></div>
+  </div>
+  <div class="footer-bottom"><p>Copyright ©2024 Sophia Nguyễn. All rights reserved.</p></div>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({ once: true, duration: 1000, easing: 'ease-out-cubic' });
+  function toggleMenu() { document.querySelector(".navbar").classList.toggle("show-menu"); }
+
+  // Dữ liệu blog (chị có thể thêm/sửa)
+  const blogs = [
+    { id: 1, title: "Tiếng kêu cứu thầm lặng: Khi cơ thể con lên tiếng thay lời nói", excerpt: "Nhận diện sớm các dấu hiệu trẻ bị xâm hại: thay đổi thể chất, tâm lý và hành vi. Hướng dẫn cha mẹ cách lắng nghe và xử lý.", category: "Bảo vệ trẻ em", date: "12/04/2026", readTime: "7 phút", emoji: "💔", link: "blog-dau-hieu-xam-hai.html" },
+    { id: 2, title: "Bạo lực học đường ở trẻ em: Vấn nạn cần lên tiếng", excerpt: "Thực trạng đáng báo động, nguyên nhân sâu xa, hậu quả nghiêm trọng và giải pháp phòng tránh từ gia đình, nhà trường.", category: "Tâm lý học đường", date: "10/04/2026", readTime: "8 phút", emoji: "💔", link: "blog-bao-luc-hoc-duong.html" },
+    { id: 3, title: "5 dấu hiệu bạn đang bị thao túng tâm lý", excerpt: "Gaslighting, cô lập, kiểm soát... Nhận diện sớm để thoát khỏi mối quan hệ độc hại.", category: "Tâm lý", date: "08/04/2026", readTime: "5 phút", emoji: "🧠", link: "blog-thao-tung-tam-ly.html" },
+    { id: 4, title: "Hướng dẫn con an toàn trên mạng xã hội", excerpt: "Cha mẹ cần đồng hành cùng con trong thời đại số: bảo mật thông tin, nhận diện người lạ, tránh bẫy lừa đảo.", category: "An toàn số", date: "05/04/2026", readTime: "6 phút", emoji: "📱", link: "blog-an-toan-mang-cho-con.html" }
+  ];
+
+  function renderBlogs() {
+    const grid = document.getElementById('blogGrid');
+    if (!grid) return;
+    grid.innerHTML = blogs.map(blog => `
+      <div class="blog-card" onclick="window.location.href='${blog.link}'">
+        <div class="blog-image">${blog.emoji}</div>
+        <div class="blog-content">
+          <span class="blog-category">${blog.category}</span>
+          <h3 class="blog-title">${blog.title}</h3>
+          <p class="blog-excerpt">${blog.excerpt}</p>
+          <div class="blog-meta">
+            <span>📅 ${blog.date}</span>
+            <span>⏱️ ${blog.readTime}</span>
+            <a href="${blog.link}" class="read-more">Đọc tiếp →</a>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  renderBlogs();
+</script>
+</body>
+</html>
