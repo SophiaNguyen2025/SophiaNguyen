@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Bài 2: Sơ cấp cứu chuyên sâu | Bản lĩnh Gen Z | Sophia Nguyễn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0a0a0a;
+            font-family: 'Segoe UI', 'Be Vietnam Pro', sans-serif;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .header { background: #141414; border-radius: 32px; padding: 20px; margin-bottom: 20px; text-align: center; border: 1px solid #2a2a2a; }
+        .logo { height: 60px; margin-bottom: 10px; }
+        .header h1 { color: #e0e0e0; font-size: 1.8rem; }
+        .video-section { background: #141414; border-radius: 32px; padding: 20px; margin-bottom: 20px; border: 1px solid #2a2a2a; }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 24px; overflow: hidden; }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .exercise { background: #141414; border-radius: 32px; padding: 20px; margin-bottom: 20px; border: 1px solid #2a2a2a; }
+        .exercise-title { font-size: 1.5rem; color: #e63946; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 3px solid #e63946; display: inline-block; }
+        .back-btn { display: inline-block; background: #e63946; color: white; padding: 12px 24px; border-radius: 40px; text-decoration: none; font-weight: bold; margin-top: 20px; transition: all 0.2s; }
+        .back-btn:hover { transform: translateY(-2px); background: #c1121f; }
+        .footer { text-align: center; color: #666; padding: 20px; font-size: 0.8rem; }
+        
+        .shake-screen { animation: shake 0.3s ease-in-out 0s 2; }
+        @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } 100% { transform: translateX(0); } }
+        
+        #confetti-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; }
+        
+        /* Style cho các bài tập */
+        .progress-bar { background: #1a1a2e; border-radius: 20px; height: 8px; margin-bottom: 10px; overflow: hidden; }
+        .progress-fill { background: #e63946; height: 100%; border-radius: 20px; transition: width 0.3s; }
+        .scenario-card, .skill-card, .question-card { background: #1a1a2e; border-radius: 24px; padding: 24px; margin-bottom: 25px; border: 1px solid #2a2a3e; }
+        .scenario-header, .skill-header { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; }
+        .scenario-icon, .skill-icon { font-size: 36px; }
+        .scenario-title, .skill-title { font-size: 18px; font-weight: 600; color: #e63946; }
+        .scenario-desc { background: #0a0a12; border-radius: 16px; padding: 15px; margin: 10px 0; color: #ccc; font-size: 14px; line-height: 1.5; }
+        .question-text { font-size: 17px; font-weight: 600; color: #f1f1f1; margin: 15px 0; }
+        .options { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+        .option { background: #0a0a12; border: 2px solid #2a2a3e; border-radius: 16px; padding: 14px 18px; cursor: pointer; transition: all 0.2s; color: #ccc; font-size: 14px; line-height: 1.4; }
+        .option:hover { border-color: #e63946; background: #1e1e32; }
+        .option.selected-correct { border-color: #2ecc71; background: #1a2a1a; color: #2ecc71; }
+        .option.selected-wrong { border-color: #e74c3c; background: #2a1a1a; color: #e74c3c; }
+        .feedback { background: #0a0a12; border-radius: 16px; padding: 15px; margin-top: 15px; font-size: 14px; border-left: 4px solid #e63946; color: #ccc; }
+        .feedback.correct { border-left-color: #2ecc71; color: #2ecc71; }
+        .feedback.wrong { border-left-color: #e74c3c; color: #e74c3c; }
+        .btn-next { background: #e63946; border: none; color: white; font-size: 18px; font-weight: 600; padding: 14px 28px; border-radius: 60px; cursor: pointer; width: 100%; margin-top: 15px; transition: 0.2s; }
+        .btn-next:hover { background: #c1121f; }
+        .result-area { text-align: center; padding: 30px; background: #1a1a2e; border-radius: 24px; margin-top: 20px; }
+        .final-score { font-size: 48px; font-weight: bold; color: #e63946; margin: 20px 0; }
+        .reset-btn { background: #e63946; border: none; padding: 12px 28px; border-radius: 40px; font-weight: 600; font-size: 16px; cursor: pointer; color: white; margin-top: 20px; }
+        
+        .cpr-section { background: #1a1a2e; border-radius: 24px; padding: 24px; margin-bottom: 25px; border: 1px solid #2a2a3e; }
+        .patient-status { background: #0a0a12; border-radius: 20px; padding: 20px; text-align: center; margin-bottom: 20px; }
+        .patient-emoji { font-size: 60px; margin-bottom: 10px; }
+        .cpr-btn { background: #e63946; border: none; color: white; font-size: 20px; font-weight: 600; padding: 15px 30px; border-radius: 60px; cursor: pointer; margin: 10px; }
+        .cpr-count { font-size: 32px; font-weight: bold; color: #e63946; margin: 15px 0; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <img src="https://i.ibb.co/fK21mfr/z6733594850225-2f3b990b665eef085ad3928349c48c7f.jpg" alt="Sophia Nguyễn" class="logo">
+        <h1>🩺 Bài 2: Sơ cấp cứu chuyên sâu</h1>
+    </div>
+
+    <div class="video-section">
+        <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/g8a1JO7LTZs" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- Bài tập 1: Cầm máu & Xử lý vết thương -->
+    <div class="exercise">
+        <h2 class="exercise-title">🩸 Bài tập 1: Cầm máu & Xử lý vết thương</h2>
+        <div id="exercise1"></div>
+    </div>
+
+    <!-- Bài tập 2: CPR & Xử lý ngất xỉu -->
+    <div class="exercise">
+        <h2 class="exercise-title">🫀 Bài tập 2: CPR & Xử lý ngất xỉu</h2>
+        <div id="exercise2"></div>
+    </div>
+
+    <!-- Bài tập 3: Gãy xương & Cố định nẹp -->
+    <div class="exercise">
+        <h2 class="exercise-title">🦴 Bài tập 3: Gãy xương & Cố định nẹp</h2>
+        <div id="exercise3"></div>
+    </div>
+
+    <a href="/khoa-hoc/ky-nang-an-toan/genz/" class="back-btn">← Quay lại danh sách bài học</a>
+    <div class="footer">
+        <p>🛡️ Bản lĩnh Gen Z – Khóa học an toàn dành cho giới trẻ | Sophia Nguyễn</p>
+    </div>
+</div>
+<canvas id="confetti-canvas"></canvas>
+
+<script>
+    // ==================== HIỆU ỨNG CONFETTI & ÂM THANH ====================
+    let ctx = null, width = window.innerWidth, height = window.innerHeight, particles = [], animationId = null;
+    function resizeCanvas() { width = window.innerWidth; height = window.innerHeight; const canvas = document.getElementById('confetti-canvas'); if(canvas){ canvas.width = width; canvas.height = height; ctx = canvas.getContext('2d'); } }
+    function createConfetti(duration = 1800) {
+        if(!ctx) return;
+        if(animationId) cancelAnimationFrame(animationId);
+        particles = [];
+        for(let i=0;i<140;i++) {
+            particles.push({ x: Math.random() * width, y: Math.random() * height - height, size: Math.random() * 7 + 3, color: `hsl(${Math.random() * 360}, 80%, 60%)`, speedY: Math.random() * 5 + 3, speedX: (Math.random() - 0.5) * 2, rotation: Math.random() * 360, rotSpeed: (Math.random() - 0.5) * 6 });
+        }
+        drawConfetti();
+        setTimeout(() => { if(animationId) cancelAnimationFrame(animationId); ctx?.clearRect(0,0,width,height); particles = []; }, duration);
+    }
+    function drawConfetti() {
+        if(!ctx) return;
+        ctx.clearRect(0, 0, width, height);
+        let allFinished = true;
+        for(let i=0;i<particles.length;i++) {
+            const p = particles[i];
+            if(p.y < height + 50) {
+                allFinished = false;
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.rotation * Math.PI / 180);
+                ctx.fillStyle = p.color;
+                ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size * 0.6);
+                ctx.restore();
+                p.y += p.speedY;
+                p.x += p.speedX;
+                p.rotation += p.rotSpeed;
+            }
+        }
+        if(!allFinished) animationId = requestAnimationFrame(drawConfetti);
+        else { if(animationId) cancelAnimationFrame(animationId); particles = []; ctx.clearRect(0,0,width,height); }
+    }
+    window.addEventListener('resize', () => { resizeCanvas(); if(particles.length) drawConfetti(); });
+    
+    function playClickSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 880;
+            gain.gain.value = 0.08;
+            osc.type = 'sine';
+            osc.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.08);
+            osc.stop(audioCtx.currentTime + 0.08);
+        } catch(e) {}
+    }
+    
+    function playSuccessSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const frequencies = [880, 1046.5, 1318.5];
+            frequencies.forEach((freq, idx) => {
+                setTimeout(() => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.frequency.value = freq;
+                    gain.gain.value = 0.2;
+                    osc.type = 'sine';
+                    osc.start();
+                    gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                    osc.stop(audioCtx.currentTime + 0.3);
+                }, idx * 120);
+            });
+        } catch(e) {}
+        createConfetti(800);
+    }
+    
+    function playCompleteSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const gain = audioCtx.createGain();
+            gain.connect(audioCtx.destination);
+            gain.gain.value = 0.3;
+            const bufferSize = 4096;
+            const noise = audioCtx.createBufferSource();
+            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for(let i=0; i<bufferSize; i++) data[i] = Math.random() * 2 - 1;
+            noise.buffer = buffer;
+            noise.loop = true;
+            noise.connect(gain);
+            noise.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 1.2);
+            noise.stop(audioCtx.currentTime + 1.2);
+            setTimeout(() => {
+                const osc = audioCtx.createOscillator();
+                const gain2 = audioCtx.createGain();
+                osc.connect(gain2);
+                gain2.connect(audioCtx.destination);
+                osc.frequency.value = 1046.5;
+                gain2.gain.value = 0.3;
+                osc.type = 'sine';
+                osc.start();
+                gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.5);
+                osc.stop(audioCtx.currentTime + 0.5);
+            }, 1000);
+        } catch(e) {}
+        createConfetti(2500);
+    }
+    
+    function playErrorSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 220;
+            gain.gain.value = 0.25;
+            osc.type = 'sawtooth';
+            osc.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.4);
+            osc.stop(audioCtx.currentTime + 0.4);
+            setTimeout(() => {
+                const osc2 = audioCtx.createOscillator();
+                const gain2 = audioCtx.createGain();
+                osc2.connect(gain2);
+                gain2.connect(audioCtx.destination);
+                osc2.frequency.value = 164.81;
+                gain2.gain.value = 0.2;
+                osc2.type = 'sawtooth';
+                osc2.start();
+                gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                osc2.stop(audioCtx.currentTime + 0.3);
+            }, 150);
+        } catch(e) {}
+        document.body.classList.add('shake-screen');
+        setTimeout(() => document.body.classList.remove('shake-screen'), 500);
+    }
+
+    // ========== BÀI TẬP 1: CẦM MÁU & XỬ LÝ VẾT THƯƠNG ==========
+    (function() {
+        const scenarios = [
+            { icon: "🩸", title: "VẾT THƯƠNG CHẢY MÁU", desc: "Bạn gặp một người bị tai nạn, vết thương ở cẳng tay đang chảy máu khá nhiều. Bạn có một cuộn gạc sạch.", question: "Hành động ĐÚNG nhất lúc này là gì?", options: ["A. Rửa vết thương bằng nước trước rồi mới ép", "B. Đặt gạc lên vết thương và ép trực tiếp bằng tay", "C. Cởi áo quấn quanh tay nạn nhân thật chặt", "D. Đổ cồn vào vết thương để sát trùng"], correct: 1, explanation: "✅ Ép trực tiếp là nguyên tắc cầm máu hàng đầu. Dùng gạc sạch đặt lên vết thương và ép mạnh, liên tục." },
+            { icon: "🔪", title: "DỊ VẬT ĐÂM VÀO CƠ THỂ", desc: "Một người bị mảnh gỗ sắc nhọn đâm vào đùi, dị vật vẫn còn cắm sâu.", question: "Bạn sẽ xử lý thế nào?", options: ["A. Rút ngay mảnh gỗ ra", "B. Để nguyên dị vật, cố định xung quanh và đưa đến bệnh viện", "C. Đổ nước muối vào vết thương", "D. Lấy băng quấn chặt đè lên đầu mảnh gỗ"], correct: 1, explanation: "✅ TUYỆT ĐỐI KHÔNG rút dị vật ra vì có thể gây chảy máu ồ ạt. Hãy cố định tại chỗ và đưa đến cơ sở y tế." },
+            { icon: "🩸💪", title: "TƯ THẾ GIẢM CHẢY MÁU", desc: "Nạn nhân bị thương ở bàn tay, máu chảy nhiều. Bạn đã đặt gạc và ép nhưng máu vẫn chảy.", question: "Ngoài ép trực tiếp, bạn nên làm thêm gì?", options: ["A. Đặt tay nạn nhân cao hơn tim", "B. Đặt tay nạn nhân thấp hơn tim", "C. Cho nạn nhân nằm nghiêng", "D. Lắc mạnh bàn tay"], correct: 0, explanation: "✅ Kê cao chi bị thương (cao hơn tim) giúp giảm áp lực máu chảy về vết thương." }
+        ];
+        let currentIndex = 0, userAnswers = new Array(scenarios.length).fill(null);
+        function renderQuiz1() {
+            const container = document.getElementById('exercise1');
+            if (currentIndex >= scenarios.length) {
+                let correct = 0;
+                for (let i = 0; i < scenarios.length; i++) if (userAnswers[i] === scenarios[i].correct) correct++;
+                let msg = correct === scenarios.length ? '🎉 XUẤT SẮC! Bạn đã nắm vững kỹ thuật cầm máu!' : (correct >= 2 ? '👍 Khá tốt!' : '📖 Hãy học lại các nguyên tắc cầm máu.');
+                if (correct === scenarios.length) playCompleteSound();
+                else playSuccessSound();
+                container.innerHTML = `<div class="result-area"><div class="final-score">${correct}/${scenarios.length}</div><div style="color:#ccc;">${msg}</div><button class="reset-btn" id="reset1">🔄 LÀM LẠI</button></div>`;
+                document.getElementById('reset1')?.addEventListener('click', () => { currentIndex = 0; userAnswers.fill(null); renderQuiz1(); });
+                return;
+            }
+            const s = scenarios[currentIndex];
+            let html = `<div class="progress-bar"><div class="progress-fill" style="width: ${(userAnswers.filter(a=>a!==null).length/scenarios.length)*100}%"></div></div>
+                <div class="scenario-card"><div class="scenario-header"><div class="scenario-icon">${s.icon}</div><div class="scenario-title">${s.title}</div></div>
+                <div class="scenario-desc">${s.desc}</div><div class="question-text">❓ ${s.question}</div><div class="options" id="opts1"></div>
+                <div class="feedback" id="fb1">💡 Hãy chọn phương án xử lý đúng nhất!</div><button class="btn-next" id="next1">${currentIndex === scenarios.length-1 ? '🏁 XEM KẾT QUẢ' : '➡️ TIẾP'}</button></div>`;
+            container.innerHTML = html;
+            const optsDiv = document.getElementById('opts1');
+            s.options.forEach((opt, idx) => {
+                const optDiv = document.createElement('div');
+                optDiv.className = `option ${userAnswers[currentIndex] === idx ? (idx === s.correct ? 'selected-correct' : 'selected-wrong') : ''}`;
+                optDiv.innerText = opt;
+                optDiv.onclick = () => {
+                    if (userAnswers[currentIndex] !== null) return;
+                    userAnswers[currentIndex] = idx;
+                    const fb = document.getElementById('fb1');
+                    if (idx === s.correct) { fb.innerHTML = '✅ ' + s.explanation; fb.className = 'feedback correct'; playSuccessSound(); }
+                    else { fb.innerHTML = '❌ ' + s.explanation; fb.className = 'feedback wrong'; playErrorSound(); }
+                    renderQuiz1();
+                };
+                optsDiv.appendChild(optDiv);
+            });
+            document.getElementById('next1').onclick = () => {
+                if (userAnswers[currentIndex] === null) { document.getElementById('fb1').innerHTML = '⚠️ Hãy chọn đáp án trước!'; playErrorSound(); return; }
+                currentIndex++; renderQuiz1();
+            };
+        }
+        renderQuiz1();
+    })();
+
+    // ========== BÀI TẬP 2: CPR & XỬ LÝ NGẤT XỈU ==========
+    (function() {
+        const faintScenarios = [
+            { icon: "🥵", title: "SAY NẮNG - NGẤT XỈU", desc: "Một bạn học sinh đột nhiên mặt tái nhợt, vã mồ hôi lạnh và ngã xuống.", question: "Thứ tự xử lý ĐÚNG nhất là?", options: ["A. Đưa vào bóng râm → kê cao chân → nới lỏng trang phục → cho uống nước đường khi tỉnh", "B. Cho uống nước ngay → kê cao đầu", "C. Để nạn nhân nằm im → đổ nước vào mặt", "D. Kê cao chân → đưa vào bóng râm"], correct: 0, explanation: "✅ Thông thoáng → tư thế nằm kê cao chân → nới lỏng quần áo → cho uống nước đường khi tỉnh." },
+            { icon: "❤️", title: "NHẬN DIỆN NGỪNG TIM", desc: "Một người lớn tuổi ngã xuống, không phản ứng, không thở.", question: "Hành động đầu tiên bạn cần làm là gì?", options: ["A. Gọi 115 và bắt đầu nhấn tim", "B. Đợi người nhà đến", "C. Cho nạn nhân uống nước", "D. Đặt nạn nhân nằm nghiêng"], correct: 0, explanation: "✅ Gọi cấp cứu ngay, sau đó bắt đầu ép tim nếu nạn nhân không thở." },
+            { icon: "📏", title: "KỸ THUẬT ÉP TIM", desc: "Vị trí đặt tay đúng khi ép tim ở đâu?", options: ["A. Bên trái lồng ngực", "B. Giữa xương ức (đường nối hai núm vú)", "C. Dưới xương sườn phải", "D. Trên xương đòn"], correct: 1, explanation: "✅ Vị trí đúng: giữa xương ức, đường nối hai núm vú. Độ sâu 5-6cm, tốc độ 100-120 lần/phút." }
+        ];
+        let cprCount = 0, cprRound = 1, patientAwake = false, isPressing = false, gameLocked = false;
+        let userAnswers2 = new Array(faintScenarios.length).fill(null);
+        
+        function renderQuiz2() {
+            const container = document.getElementById('exercise2');
+            let html = `<div class="cpr-section">
+                <div class="patient-status"><div class="patient-emoji">${patientAwake ? '😊💓' : '😴🫀'}</div><div class="patient-text">${patientAwake ? 'NẠN NHÂN ĐÃ TỈNH! 🎉' : 'NẠN NHÂN BẤT TỈNH - CẦN ÉP TIM'}</div></div>
+                <div class="cpr-controls"><button class="cpr-btn" id="cprBtn" ${patientAwake || gameLocked ? 'disabled' : ''}>💪 ÉP TIM (30 nhịp)</button>
+                <div class="cpr-count">Nhịp đã ép: ${cprCount}/30 (Vòng ${cprRound})</div>
+                <div class="rhythm-hint" style="background:#0a0a12; padding:12px; border-radius:16px;">🎵 NHỊP "STAYIN' ALIVE" – 100-120 lần/phút 🎵</div>
+                ${!patientAwake && cprCount > 0 && !gameLocked ? '<button class="reset-cpr" id="resetCprBtn" style="background:#e63946; border:none; padding:10px 20px; border-radius:40px; color:white; margin-top:15px;">🔄 LÀM LẠI ÉP TIM</button>' : ''}</div></div>`;
+            
+            for (let idx = 0; idx < faintScenarios.length; idx++) {
+                const s = faintScenarios[idx];
+                const savedAnswer = userAnswers2[idx];
+                html += `<div class="scenario-card"><div class="scenario-header"><div class="scenario-icon">${s.icon}</div><div class="scenario-title">${s.title}</div></div>
+                <div class="scenario-desc">${s.desc}</div><div class="question-text">❓ ${s.question}</div><div class="options" id="opts2-${idx}"></div>
+                <div class="feedback" id="fb2-${idx}">${savedAnswer !== null ? (savedAnswer === s.correct ? '✅ ' + s.explanation : '❌ ' + s.explanation) : '💡 Hãy chọn phương án xử lý đúng!'}</div></div>`;
+            }
+            html += `<button class="btn-next" id="submitBtn2" ${gameLocked ? 'disabled' : ''}>🔍 HOÀN THÀNH & ĐÁNH GIÁ</button>
+                    <div class="feedback" id="feedbackMsg2">💡 Hãy thực hành ép tim và trả lời các tình huống!</div>`;
+            container.innerHTML = html;
+            
+            for (let idx = 0; idx < faintScenarios.length; idx++) {
+                const s = faintScenarios[idx];
+                const optsDiv = document.getElementById(`opts2-${idx}`);
+                s.options.forEach((opt, optIdx) => {
+                    const optDiv = document.createElement('div');
+                    optDiv.className = `option ${userAnswers2[idx] === optIdx ? (optIdx === s.correct ? 'selected-correct' : 'selected-wrong') : ''}`;
+                    optDiv.innerText = opt;
+                    optDiv.onclick = () => {
+                        if (gameLocked) return;
+                        userAnswers2[idx] = optIdx;
+                        const fb = document.getElementById(`fb2-${idx}`);
+                        if (optIdx === s.correct) { fb.innerHTML = '✅ ' + s.explanation; fb.className = 'feedback correct'; playSuccessSound(); }
+                        else { fb.innerHTML = '❌ ' + s.explanation; fb.className = 'feedback wrong'; playErrorSound(); }
+                        renderQuiz2();
+                    };
+                    optsDiv.appendChild(optDiv);
+                });
+            }
+            
+            document.getElementById('cprBtn')?.addEventListener('click', () => {
+                if (isPressing || patientAwake || gameLocked) return;
+                isPressing = true;
+                let countdown = setInterval(() => {
+                    if (cprCount < 30) { cprCount++; renderQuiz2(); playSuccessSound(); }
+                    else {
+                        clearInterval(countdown);
+                        if (cprRound === 1) { cprRound = 2; cprCount = 0; renderQuiz2(); }
+                        else if (cprRound === 2) { patientAwake = true; renderQuiz2(); }
+                        isPressing = false;
+                    }
+                }, 80);
+            });
+            document.getElementById('resetCprBtn')?.addEventListener('click', () => { cprCount = 0; cprRound = 1; patientAwake = false; renderQuiz2(); });
+            document.getElementById('submitBtn2')?.addEventListener('click', () => {
+                if (userAnswers2.includes(null)) { document.getElementById('feedbackMsg2').innerHTML = '⚠️ Hãy trả lời đủ tất cả tình huống!'; playErrorSound(); return; }
+                if (!patientAwake) { document.getElementById('feedbackMsg2').innerHTML = '⚠️ Hãy ép tim đến khi nạn nhân tỉnh!'; playErrorSound(); return; }
+                let correct = 0;
+                for (let i = 0; i < faintScenarios.length; i++) if (userAnswers2[i] === faintScenarios[i].correct) correct++;
+                gameLocked = true;
+                let msg = correct === faintScenarios.length ? '🎉 XUẤT SẮC!' : (correct >= 2 ? '👍 Khá tốt!' : '📖 Hãy học lại!');
+                if (correct === faintScenarios.length) playCompleteSound();
+                else playSuccessSound();
+                document.getElementById('exercise2').innerHTML = `<div class="result-area"><div class="final-score">${correct}/${faintScenarios.length}</div><div style="color:#ccc;">${msg}</div><button class="reset-btn" id="reset2">🔄 LÀM LẠI</button></div>`;
+                document.getElementById('reset2')?.addEventListener('click', () => { cprCount = 0; cprRound = 1; patientAwake = false; userAnswers2.fill(null); gameLocked = false; renderQuiz2(); });
+            });
+        }
+        renderQuiz2();
+    })();
+
+    // ========== BÀI TẬP 3: GÃY XƯƠNG & CỐ ĐỊNH NẸP (EM TẠO THÊM) ==========
+    (function() {
+        const scenarios = [
+            { icon: "🦴", title: "NHẬN DIỆN GÃY XƯƠNG", desc: "Một người trượt chân ngã, cánh tay biến dạng, sưng nề và đau dữ dội khi cử động.", question: "Đây có thể là dấu hiệu của?", options: ["A. Bong gân nhẹ", "B. Gãy xương", "C. Trật khớp vai", "D. Căng cơ"], correct: 1, explanation: "✅ Biến dạng, sưng nề, đau dữ dội và không cử động được là dấu hiệu điển hình của gãy xương." },
+            { icon: "🩹", title: "CỐ ĐỊNH NẸP", desc: "Bạn nghi ngờ nạn nhân bị gãy xương cẳng tay. Bạn có sẵn nẹp (thanh cứng) và băng cuộn.", question: "Nguyên tắc cố định nẹp đúng là?", options: ["A. Đặt nẹp chỉ ở một bên cánh tay", "B. Đặt nẹp ở cả hai bên (mặt trong và mặt ngoài), cố định ít nhất hai điểm (trên và dưới ổ gãy)", "C. Buộc thật chặt để cố định tuyệt đối", "D. Không cần nẹp, chỉ cần đeo tay vào khăn đeo"], correct: 1, explanation: "✅ Nẹp phải đủ dài để cố định khớp trên và dưới ổ gãy, đặt cả hai mặt và không buộc quá chặt gây cản trở tuần hoàn." },
+            { icon: "❄️", title: "SƠ CỨU BAN ĐẦU", desc: "Trước khi đưa nạn nhân gãy xương đến bệnh viện, bạn nên làm gì để giảm đau và sưng?", options: ["A. Chườm đá lạnh (bọc khăn) lên vùng bị thương", "B. Xoa bóp mạnh vùng bị đau", "C. Đắp lá cây lên vết thương", "D. Kéo nắn chỉnh xương"], correct: 0, explanation: "✅ Chườm lạnh giúp giảm đau, giảm sưng và co mạch. Không tự ý kéo nắn xương gãy." }
+        ];
+        let currentIndex = 0, userAnswers = new Array(scenarios.length).fill(null);
+        function renderQuiz3() {
+            const container = document.getElementById('exercise3');
+            if (currentIndex >= scenarios.length) {
+                let correct = 0;
+                for (let i = 0; i < scenarios.length; i++) if (userAnswers[i] === scenarios[i].correct) correct++;
+                let msg = correct === scenarios.length ? '🎉 XUẤT SẮC! Bạn đã nắm vững cách xử lý gãy xương!' : (correct >= 2 ? '👍 Khá tốt!' : '📖 Hãy học lại kỹ thuật cố định nẹp!');
+                if (correct === scenarios.length) playCompleteSound();
+                else playSuccessSound();
+                container.innerHTML = `<div class="result-area"><div class="final-score">${correct}/${scenarios.length}</div><div style="color:#ccc;">${msg}</div><button class="reset-btn" id="reset3">🔄 LÀM LẠI</button></div>`;
+                document.getElementById('reset3')?.addEventListener('click', () => { currentIndex = 0; userAnswers.fill(null); renderQuiz3(); });
+                return;
+            }
+            const s = scenarios[currentIndex];
+            let html = `<div class="progress-bar"><div class="progress-fill" style="width: ${(userAnswers.filter(a=>a!==null).length/scenarios.length)*100}%"></div></div>
+                <div class="scenario-card"><div class="scenario-header"><div class="scenario-icon">${s.icon}</div><div class="scenario-title">${s.title}</div></div>
+                <div class="scenario-desc">${s.desc}</div><div class="question-text">❓ ${s.question}</div><div class="options" id="opts3"></div>
+                <div class="feedback" id="fb3">💡 Hãy chọn phương án xử lý đúng!</div><button class="btn-next" id="next3">${currentIndex === scenarios.length-1 ? '🏁 XEM KẾT QUẢ' : '➡️ TIẾP'}</button></div>`;
+            container.innerHTML = html;
+            const optsDiv = document.getElementById('opts3');
+            s.options.forEach((opt, idx) => {
+                const optDiv = document.createElement('div');
+                optDiv.className = `option ${userAnswers[currentIndex] === idx ? (idx === s.correct ? 'selected-correct' : 'selected-wrong') : ''}`;
+                optDiv.innerText = opt;
+                optDiv.onclick = () => {
+                    if (userAnswers[currentIndex] !== null) return;
+                    userAnswers[currentIndex] = idx;
+                    const fb = document.getElementById('fb3');
+                    if (idx === s.correct) { fb.innerHTML = '✅ ' + s.explanation; fb.className = 'feedback correct'; playSuccessSound(); }
+                    else { fb.innerHTML = '❌ ' + s.explanation; fb.className = 'feedback wrong'; playErrorSound(); }
+                    renderQuiz3();
+                };
+                optsDiv.appendChild(optDiv);
+            });
+            document.getElementById('next3').onclick = () => {
+                if (userAnswers[currentIndex] === null) { document.getElementById('fb3').innerHTML = '⚠️ Hãy chọn đáp án trước!'; playErrorSound(); return; }
+                currentIndex++; renderQuiz3();
+            };
+        }
+        renderQuiz3();
+    })();
+    resizeCanvas();
+</script>
+</body>
+</html>
