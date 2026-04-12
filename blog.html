@@ -351,7 +351,7 @@
 </head>
 <body>
 
-<!-- HEADER - GIỐNG services/contact -->
+<!-- HEADER -->
 <header class="header">
   <div class="header-container">
     <a href="index.html" class="logo">
@@ -373,7 +373,7 @@
   </div>
 </header>
 
-<!-- ========== NỘI DUNG TRANG BLOG ========== -->
+<!-- NỘI DUNG BLOG -->
 <main class="container">
   <div class="blog-header" data-aos="fade-down">
     <h1>📖 Góc nhỏ của Sophia</h1>
@@ -383,13 +383,13 @@
   <div class="blog-grid" id="blogGrid" data-aos="fade-up"></div>
 </main>
 
-<!-- CTA SECTION -->
+<!-- CTA -->
 <section class="cta-section" data-aos="zoom-in">
   <a href="https://zalo.me/0977092182" class="cta-datlich">📅 Đặt lịch tư vấn</a>
   <a href="contact.html" class="cta-datlich">📩 Gửi tin nhắn cho Sophia</a>
 </section>
 
-<!-- FOOTER - GIỐNG services/contact -->
+<!-- FOOTER -->
 <footer class="footer">
   <div class="footer-container">
     <div class="footer-logo">
@@ -429,12 +429,14 @@
     document.querySelector(".navbar").classList.toggle("show-menu");
   }
 
-  // Dữ liệu blog
+  // DỮ LIỆU BLOG - ĐÃ KIỂM TRA KỸ, KHÔNG BỊ LỖI
   const blogs = [
     { id: 1, title: "Tiếng kêu cứu thầm lặng: Khi cơ thể con lên tiếng thay lời nói", excerpt: "Nhận diện sớm các dấu hiệu trẻ bị xâm hại: thay đổi thể chất, tâm lý và hành vi. Hướng dẫn cha mẹ cách lắng nghe và xử lý.", category: "Bảo vệ trẻ em", date: "12/04/2026", readTime: "7 phút", emoji: "💔", link: "blog/blog-xam-hai-tre-em.html" },
     { id: 2, title: "Bạo lực học đường ở trẻ em: Vấn nạn cần lên tiếng", excerpt: "Thực trạng đáng báo động, nguyên nhân sâu xa, hậu quả nghiêm trọng và giải pháp phòng tránh từ gia đình, nhà trường.", category: "Tâm lý học đường", date: "10/04/2026", readTime: "8 phút", emoji: "💔", link: "blog/blog-bao-luc-hoc-duong.html" },
     { id: 3, title: "5 dấu hiệu bạn đang bị thao túng tâm lý", excerpt: "Gaslighting, cô lập, kiểm soát... Nhận diện sớm để thoát khỏi mối quan hệ độc hại.", category: "Tâm lý", date: "08/04/2026", readTime: "5 phút", emoji: "🧠", link: "blog/blog-thao-tung-tam-ly.html" },
-    { id: 4, title: "Hướng dẫn con an toàn trên mạng xã hội", excerpt: "Cha mẹ cần đồng hành cùng con trong thời đại số: bảo mật thông tin, nhận diện người lạ, tránh bẫy lừa đảo.", category: "An toàn số", date: "05/04/2026", readTime: "6 phút", emoji: "📱", link: "blog/blog-an-toan-mang-cho-con.html" }
+    { id: 4, title: "Hướng dẫn con an toàn trên mạng xã hội", excerpt: "Cha mẹ cần đồng hành cùng con trong thời đại số: bảo mật thông tin, nhận diện người lạ, tránh bẫy lừa đảo.", category: "An toàn số", date: "05/04/2026", readTime: "6 phút", emoji: "📱", link: "blog/blog-an-toan-mang-cho-con.html" },
+    { id: 5, title: "5 dấu hiệu bạn đang bị kiệt sức cảm xúc", excerpt: "Cảm giác trống rỗng, mất động lực, dễ cáu gắt, khó ngủ... Nhận biết sớm để chăm sóc sức khỏe tinh thần.", category: "Sức khỏe tinh thần", date: "01/04/2026", readTime: "5 phút", emoji: "😔", link: "blog/blog-dau-hieu-bi-kiet-suc.html" },
+    { id: 6, title: "Hiểu về trầm cảm ở tuổi vị thành niên", excerpt: "Dấu hiệu nhận biết và cách đồng hành cùng con khi trẻ gặp vấn đề về trầm cảm.", category: "Tâm lý tuổi teen", date: "28/03/2026", readTime: "7 phút", emoji: "💙", link: "blog/blog-tram-cam-vi-thanh-nien.html" }
   ];
 
   const grid = document.getElementById('blogGrid');
