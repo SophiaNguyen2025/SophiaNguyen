@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Bài 7: Sức khỏe tâm thần | Bản lĩnh Gen Z | Sophia Nguyễn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0a0a0a;
+            font-family: 'Segoe UI', 'Be Vietnam Pro', sans-serif;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .header { background: #141414; border-radius: 32px; padding: 20px; margin-bottom: 20px; text-align: center; border: 1px solid #2a2a2a; }
+        .logo { height: 60px; margin-bottom: 10px; }
+        .header h1 { color: #e0e0e0; font-size: 1.8rem; }
+        .video-section { background: #141414; border-radius: 32px; padding: 20px; margin-bottom: 20px; border: 1px solid #2a2a2a; }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 24px; overflow: hidden; }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .exercise { background: #141414; border-radius: 32px; padding: 20px; margin-bottom: 20px; border: 1px solid #2a2a2a; }
+        .exercise-title { font-size: 1.5rem; color: #e63946; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 3px solid #e63946; display: inline-block; }
+        .back-btn { display: inline-block; background: #e63946; color: white; padding: 12px 24px; border-radius: 40px; text-decoration: none; font-weight: bold; margin-top: 20px; transition: all 0.2s; }
+        .back-btn:hover { transform: translateY(-2px); background: #c1121f; }
+        .footer { text-align: center; color: #666; padding: 20px; font-size: 0.8rem; }
+        
+        .shake-screen { animation: shake 0.3s ease-in-out 0s 2; }
+        @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } 100% { transform: translateX(0); } }
+        
+        #confetti-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; }
+        
+        .progress-bar { background: #1a1a2e; border-radius: 20px; height: 8px; margin-bottom: 10px; overflow: hidden; }
+        .progress-fill { background: #e63946; height: 100%; border-radius: 20px; transition: width 0.3s; }
+        .progress-badge { background: #1a1a2e; padding: 6px 16px; border-radius: 40px; color: #ccc; font-weight: 600; border: 1px solid #e63946; display: inline-block; margin-bottom: 15px; }
+        
+        .mindful-tip, .calm-tip, .listen-tip { background: #1a1a2e; border-radius: 20px; padding: 15px 20px; margin-bottom: 25px; border-left: 5px solid #e63946; display: flex; align-items: center; gap: 15px; flex-wrap: wrap; }
+        .tip-icon { font-size: 32px; }
+        .tip-text { flex: 1; color: #ccc; font-size: 14px; }
+        .tip-text strong { color: #e63946; }
+        
+        .question-card, .conversation-card { background: #1a1a2e; border-radius: 24px; padding: 24px; margin-bottom: 25px; border: 1px solid #2a2a3e; }
+        .question-text { font-size: 17px; font-weight: 600; color: #e0e0e0; margin-bottom: 20px; line-height: 1.4; }
+        .conversation-bubble { background: #0a0a12; border-radius: 20px; padding: 15px 20px; margin-bottom: 20px; }
+        .bubble-friend { border-left: 5px solid #ffb347; }
+        .friend-name { font-size: 13px; color: #ffb347; margin-bottom: 8px; font-weight: 600; }
+        .friend-message { font-size: 14px; color: #ccc; line-height: 1.5; }
+        
+        .options { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+        .option { background: #0a0a12; border: 2px solid #2a2a3e; border-radius: 16px; padding: 12px 16px; cursor: pointer; transition: all 0.2s; color: #ccc; font-size: 13px; line-height: 1.4; }
+        .option:hover { border-color: #e63946; background: #1e1e32; }
+        .option.selected-correct { border-color: #2ecc71; background: #1a2a1a; color: #2ecc71; }
+        .option.selected-wrong { border-color: #e74c3c; background: #2a1a1a; color: #e74c3c; }
+        .feedback { background: #0a0a12; border-radius: 16px; padding: 15px; margin-top: 15px; font-size: 14px; border-left: 4px solid #e63946; color: #ccc; }
+        .feedback.correct { border-left-color: #2ecc71; color: #2ecc71; }
+        .feedback.wrong { border-left-color: #e74c3c; color: #e74c3c; }
+        
+        .btn-next { background: #e63946; border: none; color: white; font-size: 18px; font-weight: 600; padding: 14px 28px; border-radius: 60px; cursor: pointer; width: 100%; margin: 15px 0; transition: 0.2s; }
+        .btn-next:hover { background: #c1121f; }
+        .reset-btn { background: #e63946; border: none; padding: 12px 28px; border-radius: 40px; font-weight: 600; font-size: 16px; cursor: pointer; color: white; width: 100%; margin-top: 15px; }
+        .result-area { text-align: center; padding: 30px; background: #1a1a2e; border-radius: 24px; margin-top: 20px; }
+        .final-score { font-size: 48px; font-weight: bold; color: #e63946; margin: 20px 0; }
+        
+        .rule-box { background: #1a1a2e; border-radius: 24px; padding: 20px; margin-bottom: 25px; text-align: center; border: 2px solid #e63946; }
+        .rule-title { font-size: 24px; font-weight: 800; color: #e0e0e0; letter-spacing: 3px; margin-bottom: 10px; }
+        .rule-sub { font-size: 14px; color: #aaa; margin-bottom: 15px; }
+        .rule-steps { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 15px 0; }
+        .step-item { background: #0a0a12; border-radius: 16px; padding: 12px; min-width: 80px; text-align: center; }
+        .step-number { font-size: 28px; font-weight: 800; color: #e63946; }
+        .step-label { font-size: 12px; color: #ccc; margin-top: 5px; }
+        .step-desc { font-size: 10px; color: #888; margin-top: 5px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <img src="https://i.ibb.co/fK21mfr/z6733594850225-2f3b990b665eef085ad3928349c48c7f.jpg" alt="Sophia Nguyễn" class="logo">
+        <h1>🧠 Bài 7: Sức khỏe tâm thần</h1>
+    </div>
+
+    <div class="video-section">
+        <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/7rdJBBw6NE0" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- Bài tập 1: Nhận diện tín hiệu cầu cứu -->
+    <div class="exercise">
+        <h2 class="exercise-title">🧠 Bài tập 1: Nhận diện tín hiệu cầu cứu</h2>
+        <div id="exercise1"></div>
+    </div>
+
+    <!-- Bài tập 2: Sơ cứu cảm xúc - 5-4-3-2-1 -->
+    <div class="exercise">
+        <h2 class="exercise-title">🌿 Bài tập 2: Sơ cứu cảm xúc - Quy tắc 5-4-3-2-1</h2>
+        <div id="exercise2"></div>
+    </div>
+
+    <!-- Bài tập 3: Lắng nghe bạn bè - Xử lý khủng hoảng -->
+    <div class="exercise">
+        <h2 class="exercise-title">💚 Bài tập 3: Lắng nghe bạn bè - Xử lý khủng hoảng</h2>
+        <div id="exercise3"></div>
+    </div>
+
+    <a href="/khoa-hoc/ky-nang-an-toan/genz/" class="back-btn">← Quay lại danh sách bài học</a>
+    <div class="footer">
+        <p>🛡️ Bản lĩnh Gen Z – Khóa học an toàn dành cho giới trẻ | Sophia Nguyễn</p>
+    </div>
+</div>
+<canvas id="confetti-canvas"></canvas>
+
+<script>
+    // ==================== HIỆU ỨNG CONFETTI & ÂM THANH ====================
+    let ctx = null, width = window.innerWidth, height = window.innerHeight, particles = [], animationId = null;
+    function resizeCanvas() { width = window.innerWidth; height = window.innerHeight; const canvas = document.getElementById('confetti-canvas'); if(canvas){ canvas.width = width; canvas.height = height; ctx = canvas.getContext('2d'); } }
+    function createConfetti(duration = 1800) {
+        if(!ctx) return;
+        if(animationId) cancelAnimationFrame(animationId);
+        particles = [];
+        for(let i=0;i<140;i++) {
+            particles.push({ x: Math.random() * width, y: Math.random() * height - height, size: Math.random() * 7 + 3, color: `hsl(${Math.random() * 360}, 80%, 60%)`, speedY: Math.random() * 5 + 3, speedX: (Math.random() - 0.5) * 2, rotation: Math.random() * 360, rotSpeed: (Math.random() - 0.5) * 6 });
+        }
+        drawConfetti();
+        setTimeout(() => { if(animationId) cancelAnimationFrame(animationId); ctx?.clearRect(0,0,width,height); particles = []; }, duration);
+    }
+    function drawConfetti() {
+        if(!ctx) return;
+        ctx.clearRect(0, 0, width, height);
+        let allFinished = true;
+        for(let i=0;i<particles.length;i++) {
+            const p = particles[i];
+            if(p.y < height + 50) {
+                allFinished = false;
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.rotation * Math.PI / 180);
+                ctx.fillStyle = p.color;
+                ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size * 0.6);
+                ctx.restore();
+                p.y += p.speedY;
+                p.x += p.speedX;
+                p.rotation += p.rotSpeed;
+            }
+        }
+        if(!allFinished) animationId = requestAnimationFrame(drawConfetti);
+        else { if(animationId) cancelAnimationFrame(animationId); particles = []; ctx.clearRect(0,0,width,height); }
+    }
+    window.addEventListener('resize', () => { resizeCanvas(); if(particles.length) drawConfetti(); });
+    
+    function playClickSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 880;
+            gain.gain.value = 0.08;
+            osc.type = 'sine';
+            osc.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.08);
+            osc.stop(audioCtx.currentTime + 0.08);
+        } catch(e) {}
+    }
+    
+    function playSuccessSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const frequencies = [880, 1046.5, 1318.5];
+            frequencies.forEach((freq, idx) => {
+                setTimeout(() => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.frequency.value = freq;
+                    gain.gain.value = 0.2;
+                    osc.type = 'sine';
+                    osc.start();
+                    gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                    osc.stop(audioCtx.currentTime + 0.3);
+                }, idx * 120);
+            });
+        } catch(e) {}
+        createConfetti(800);
+    }
+    
+    function playCompleteSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const gain = audioCtx.createGain();
+            gain.connect(audioCtx.destination);
+            gain.gain.value = 0.3;
+            const bufferSize = 4096;
+            const noise = audioCtx.createBufferSource();
+            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for(let i=0; i<bufferSize; i++) data[i] = Math.random() * 2 - 1;
+            noise.buffer = buffer;
+            noise.loop = true;
+            noise.connect(gain);
+            noise.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 1.2);
+            noise.stop(audioCtx.currentTime + 1.2);
+            setTimeout(() => {
+                const osc = audioCtx.createOscillator();
+                const gain2 = audioCtx.createGain();
+                osc.connect(gain2);
+                gain2.connect(audioCtx.destination);
+                osc.frequency.value = 1046.5;
+                gain2.gain.value = 0.3;
+                osc.type = 'sine';
+                osc.start();
+                gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.5);
+                osc.stop(audioCtx.currentTime + 0.5);
+            }, 1000);
+        } catch(e) {}
+        createConfetti(2500);
+    }
+    
+    function playErrorSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 220;
+            gain.gain.value = 0.25;
+            osc.type = 'sawtooth';
+            osc.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.4);
+            osc.stop(audioCtx.currentTime + 0.4);
+            setTimeout(() => {
+                const osc2 = audioCtx.createOscillator();
+                const gain2 = audioCtx.createGain();
+                osc2.connect(gain2);
+                gain2.connect(audioCtx.destination);
+                osc2.frequency.value = 164.81;
+                gain2.gain.value = 0.2;
+                osc2.type = 'sawtooth';
+                osc2.start();
+                gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                osc2.stop(audioCtx.currentTime + 0.3);
+            }, 150);
+        } catch(e) {}
+        document.body.classList.add('shake-screen');
+        setTimeout(() => document.body.classList.remove('shake-screen'), 500);
+    }
+
+    // ========== BÀI TẬP 1: NHẬN DIỆN TÍN HIỆU CẦU CỨU ==========
+    (function() {
+        const questions = [
+            { text: "🧠 Bạn mất ngủ hoặc ngủ quá nhiều, không còn hứng thú với mọi thứ trong 3 tuần. Đây là dấu hiệu của?", options: ["A. Stress thường", "B. Dấu hiệu báo động đỏ - cần tìm chuyên gia", "C. Do thời tiết", "D. Bình thường"], correct: 1, explanation: "✅ Đây là dấu hiệu báo động đỏ! Mất ngủ kéo dài >2 tuần có thể là dấu hiệu của trầm cảm." },
+            { text: "🧠 Bạn thường xuyên cảm thấy trống rỗng, dễ cáu gắt. Bạn nên?", options: ["A. Lờ đi", "B. Chia sẻ với người tin cậy hoặc chuyên gia", "C. Uống thuốc giảm đau", "D. Đăng lên mạng xã hội"], correct: 1, explanation: "✅ Chia sẻ với người tin cậy là bước đầu tiên quan trọng. Tìm kiếm giúp đỡ là dấu hiệu của sự mạnh mẽ." },
+            { text: "🧠 Lo lắng trước kỳ thi, tim đập nhanh, khó thở. Đây là?", options: ["A. Rối loạn lo âu nghiêm trọng", "B. Căng thẳng bình thường, có thể tự xoa dịu bằng thở", "C. Bệnh tim mạch", "D. Không có gì"], correct: 1, explanation: "✅ Căng thẳng trước áp lực là bình thường. Hãy thử các kỹ thuật thở sâu." },
+            { text: "🧠 Bạn thấy bạn thân nói 'Mình vô dụng', 'Cuộc sống chẳng có ý nghĩa'. Bạn nên?", options: ["A. Nói 'Cố lên'", "B. Lắng nghe, khuyến khích bạn tìm sự giúp đỡ", "C. Mặc kệ", "D. Nói 'Có thế mà cũng buồn'"], correct: 1, explanation: "✅ Những câu nói tiêu cực có thể là dấu hiệu của trầm cảm. Hãy lắng nghe và khuyến khích tìm sự giúp đỡ chuyên nghiệp." },
+            { text: "🧠 Dấu hiệu nào là 'báo động đỏ'?", options: ["A. Buồn thoáng qua", "B. Mất ngủ kéo dài + mất hứng thú + ý nghĩ tự hại", "C. Căng thẳng nhẹ", "D. Mệt mỏi sau ngày học"], correct: 1, explanation: "✅ Mất ngủ kéo dài, mất hứng thú và ý nghĩ tự hại là những dấu hiệu báo động đỏ cần can thiệp y tế ngay." },
+            { text: "🧠 'Sơ cứu cảm xúc' là gì?", options: ["A. Uống thuốc an thần", "B. Kỹ thuật tự xoa dịu như quy tắc 5-4-3-2-1", "C. Gọi cấp cứu", "D. Đăng lên mạng xã hội"], correct: 1, explanation: "✅ Sơ cứu cảm xúc là kỹ năng tự giúp mình khi bị lo âu, giúp kéo tâm trí về hiện tại." }
+        ];
+        let currentIdx = 0, userAnswers = new Array(questions.length).fill(null);
+        function renderQuiz1() {
+            const container = document.getElementById('exercise1');
+            if (currentIdx >= questions.length) {
+                let correct = 0;
+                for (let i=0; i<questions.length; i++) if (userAnswers[i] === questions[i].correct) correct++;
+                let msg = correct === questions.length ? '🎉 XUẤT SẮC! Bạn đã nắm vững cách nhận diện tín hiệu cầu cứu!' : (correct >= 4 ? '👍 Khá tốt!' : '📖 Hãy học lại các dấu hiệu báo động đỏ.');
+                if (correct === questions.length) playCompleteSound(); else playSuccessSound();
+                container.innerHTML = `<div class="result-area"><div class="final-score">${correct}/${questions.length}</div><div style="color:#ccc;">${msg}</div><button class="reset-btn" id="reset1">🔄 LÀM LẠI</button></div>`;
+                document.getElementById('reset1')?.addEventListener('click', () => { currentIdx = 0; userAnswers.fill(null); renderQuiz1(); });
+                return;
+            }
+            const q = questions[currentIdx];
+            let html = `<div class="progress-badge">💚 Đã nhận diện: ${userAnswers.filter(a=>a!==null).length}/${questions.length} dấu hiệu</div>
+                <div class="mindful-tip"><div class="tip-icon">💚</div><div class="tip-text"><strong>BẠN KHÔNG CÔ ĐƠN:</strong> 1/5 người trẻ gặp vấn đề về sức khỏe tâm thần. Nhận diện sớm là cách bảo vệ bản thân và người thân!</div></div>
+                <div class="question-card"><div class="question-text">❓ ${q.text}</div><div class="options" id="opts1"></div>
+                <div class="feedback" id="fb1">💡 Hãy chọn đáp án đúng!</div><button class="btn-next" id="next1">${currentIdx === questions.length-1 ? '🏁 XEM KẾT QUẢ' : '➡️ TIẾP'}</button></div>`;
+            container.innerHTML = html;
+            const optsDiv = document.getElementById('opts1');
+            q.options.forEach((opt, idx) => {
+                const optDiv = document.createElement('div');
+                optDiv.className = `option ${userAnswers[currentIdx] === idx ? (idx === q.correct ? 'selected-correct' : 'selected-wrong') : ''}`;
+                optDiv.innerText = opt;
+                optDiv.onclick = () => {
+                    if (userAnswers[currentIdx] !== null) return;
+                    userAnswers[currentIdx] = idx;
+                    const fb = document.getElementById('fb1');
+                    if (idx === q.correct) { fb.innerHTML = '✅ ' + q.explanation; fb.className = 'feedback correct'; playSuccessSound(); }
+                    else { fb.innerHTML = '❌ ' + q.explanation; fb.className = 'feedback wrong'; playErrorSound(); }
+                    renderQuiz1();
+                };
+                optsDiv.appendChild(optDiv);
+            });
+            document.getElementById('next1').onclick = () => {
+                if (userAnswers[currentIdx] === null) { document.getElementById('fb1').innerHTML = '⚠️ Hãy chọn đáp án trước!'; playErrorSound(); return; }
+                currentIdx++; renderQuiz1();
+            };
+        }
+        renderQuiz1();
+    })();
+
+    // ========== BÀI TẬP 2: QUY TẮC 5-4-3-2-1 ==========
+    (function() {
+        const questions = [
+            { text: "🌿 Bạn đang lo âu, tim đập nhanh. Bước đầu tiên của quy tắc 5-4-3-2-1 là?", options: ["A. Nằm xuống nhắm mắt", "B. Nhìn và kể tên 5 vật bạn thấy", "C. Gọi bố mẹ", "D. Đăng lên mạng"], correct: 1, explanation: "✅ Bước 1: NHÌN và kể tên 5 vật xung quanh, giúp kéo tâm trí về hiện tại." },
+            { text: "🌿 Sau khi nhìn 5 vật, bước tiếp theo là?", options: ["A. Ngửi 3 mùi", "B. Chạm 4 vật", "C. Nghe 2 âm thanh", "D. Nếm 1 vị"], correct: 1, explanation: "✅ Thứ tự: NHÌN 5 → CHẠM 4 → NGHE 3 → NGỬI 2 → NẾM 1." },
+            { text: "📱 Cảm thấy lo lắng, bứt rứt khi thấy bạn bè đi chơi mà mình không đi. Đây là hội chứng?", options: ["A. Trầm cảm", "B. FOMO - Sợ bỏ lỡ", "C. Rối loạn lo âu", "D. Sợ xã hội"], correct: 1, explanation: "✅ FOMO là hội chứng sợ bỏ lỡ. Hãy nhớ: mạng xã hội chỉ là 'màn trình diễn'." },
+            { text: "📱 Giải pháp giảm FOMO?", options: ["A. Xem điện thoại nhiều hơn", "B. Digital Detox - ngắt kết nối định kỳ", "C. So sánh bản thân với người khác", "D. Đăng nhiều ảnh"], correct: 1, explanation: "✅ Digital Detox giúp tập trung vào cuộc sống thực, giảm áp lực từ mạng xã hội." },
+            { text: "💜 Khi quá tải với mạng xã hội, nên làm gì đầu tiên?", options: ["A. Xóa hết bạn bè", "B. Đặt điện thoại xuống, ra ngoài đi bộ 30 phút", "C. Đăng than vãn", "D. So sánh với người nổi tiếng"], correct: 1, explanation: "✅ Ngắt kết nối tạm thời, làm điều bạn thích, hít thở không khí trong lành." },
+            { text: "💜 Lòng tự trọng lành mạnh dựa trên điều gì?", options: ["A. So sánh với người khác", "B. Ngừng so sánh 'hậu trường' của mình với 'màn trình diễn' của người khác", "C. Có nhiều like", "D. Đẹp hơn người khác"], correct: 1, explanation: "✅ Mỗi người có giá trị riêng. Đừng so sánh khó khăn của bạn với thành công hào nhoáng người khác đăng lên mạng." }
+        ];
+        let currentIdx = 0, userAnswers = new Array(questions.length).fill(null);
+        function renderQuiz2() {
+            const container = document.getElementById('exercise2');
+            if (currentIdx >= questions.length) {
+                let correct = 0;
+                for (let i=0; i<questions.length; i++) if (userAnswers[i] === questions[i].correct) correct++;
+                let msg = correct === questions.length ? '🎉 XUẤT SẮC! Bạn đã nắm vững kỹ thuật tự xoa dịu!' : (correct >= 4 ? '👍 Khá tốt!' : '📖 Hãy học lại quy tắc 5-4-3-2-1.');
+                if (correct === questions.length) playCompleteSound(); else playSuccessSound();
+                container.innerHTML = `<div class="result-area"><div class="final-score">${correct}/${questions.length}</div><div style="color:#ccc;">${msg}</div><button class="reset-btn" id="reset2">🔄 LÀM LẠI</button></div>`;
+                document.getElementById('reset2')?.addEventListener('click', () => { currentIdx = 0; userAnswers.fill(null); renderQuiz2(); });
+                return;
+            }
+            const q = questions[currentIdx];
+            let html = `<div class="progress-badge">🌿 Đã thực hành: ${userAnswers.filter(a=>a!==null).length}/${questions.length} kỹ thuật</div>
+                <div class="rule-box"><div class="rule-title">5-4-3-2-1</div><div class="rule-sub">KỸ THUẬT TỰ XOA DỊU KHI LO ÂU</div>
+                <div class="rule-steps"><div class="step-item"><div class="step-number">5</div><div class="step-label">NHÌN</div><div class="step-desc">5 vật</div></div>
+                <div class="step-item"><div class="step-number">4</div><div class="step-label">CHẠM</div><div class="step-desc">4 vật</div></div>
+                <div class="step-item"><div class="step-number">3</div><div class="step-label">NGHE</div><div class="step-desc">3 âm thanh</div></div>
+                <div class="step-item"><div class="step-number">2</div><div class="step-label">NGỬI</div><div class="step-desc">2 mùi</div></div>
+                <div class="step-item"><div class="step-number">1</div><div class="step-label">NẾM</div><div class="step-desc">1 vị</div></div></div></div>
+                <div class="question-card"><div class="question-text">❓ ${q.text}</div><div class="options" id="opts2"></div>
+                <div class="feedback" id="fb2">💡 Hãy chọn đáp án đúng!</div><button class="btn-next" id="next2">${currentIdx === questions.length-1 ? '🏁 XEM KẾT QUẢ' : '➡️ TIẾP'}</button></div>`;
+            container.innerHTML = html;
+            const optsDiv = document.getElementById('opts2');
+            q.options.forEach((opt, idx) => {
+                const optDiv = document.createElement('div');
+                optDiv.className = `option ${userAnswers[currentIdx] === idx ? (idx === q.correct ? 'selected-correct' : 'selected-wrong') : ''}`;
+                optDiv.innerText = opt;
+                optDiv.onclick = () => {
+                    if (userAnswers[currentIdx] !== null) return;
+                    userAnswers[currentIdx] = idx;
+                    const fb = document.getElementById('fb2');
+                    if (idx === q.correct) { fb.innerHTML = '✅ ' + q.explanation; fb.className = 'feedback correct'; playSuccessSound(); }
+                    else { fb.innerHTML = '❌ ' + q.explanation; fb.className = 'feedback wrong'; playErrorSound(); }
+                    renderQuiz2();
+                };
+                optsDiv.appendChild(optDiv);
+            });
+            document.getElementById('next2').onclick = () => {
+                if (userAnswers[currentIdx] === null) { document.getElementById('fb2').innerHTML = '⚠️ Hãy chọn đáp án trước!'; playErrorSound(); return; }
+                currentIdx++; renderQuiz2();
+            };
+        }
+        renderQuiz2();
+    })();
+
+    // ========== BÀI TẬP 3: LẮNG NGHE BẠN BÈ ==========
+    (function() {
+        const conversations = [
+            { friend: "Minh", message: "Dạo này tớ chán quá. Chẳng muốn làm gì cả. Tớ có vô dụng không?", question: "Bạn nên trả lời thế nào?", options: ["A. 'Có thế mà cũng buồn? Cố lên!'", "B. 'Mình thấy bạn đang rất mệt mỏi. Cảm ơn bạn đã chia sẻ. Mình ở đây, lắng nghe bạn.'", "C. 'Chuyện nhỏ, mai sẽ hết'", "D. 'Tớ cũng chán lắm'"], correct: 1, explanation: "✅ Lắng nghe không phán xét, thừa nhận cảm xúc của họ. Tránh các câu 'Cố lên' vì vô tình phủ nhận cảm xúc." },
+            { friend: "Lan", message: "Tớ không biết nữa... đôi khi tớ nghĩ chẳng còn muốn sống nữa.", question: "Đây là tình huống khẩn cấp. Bạn cần làm gì?", options: ["A. 'Đừng nghĩ linh tinh'", "B. Lắng nghe và hứa giữ bí mật", "C. Báo ngay cho người lớn hoặc gọi 111", "D. Rủ bạn đi chơi"], correct: 2, explanation: "✅ Khi bạn bè có ý định tự hại, bạn KHÔNG thể xử lý một mình. Hãy báo ngay cho người lớn tin cậy hoặc gọi 111." },
+            { friend: "Nam", message: "Tớ vừa bị điểm kém. Bố mẹ sẽ la mắng mất. Tớ sợ quá.", question: "Cách phản hồi nào KHÔNG NÊN dùng?", options: ["A. 'Chuyện nhỏ thôi mà'", "B. 'Mình hiểu bạn đang lo lắng'", "C. 'Cảm giác của bạn rất bình thường'", "D. 'Ừ, mình nghe bạn nói đây'"], correct: 0, explanation: "✅ Câu 'Chuyện nhỏ thôi mà' vô tình phủ nhận cảm xúc của họ. Hãy thừa nhận cảm xúc thay vì coi nhẹ vấn đề." },
+            { friend: "Hoa", message: "Tớ đã chia sẻ với bạn ấy, nhưng bạn ấy bảo tớ yếu đuối. Tớ còn nên tin ai?", question: "Bạn nên trả lời thế nào?", options: ["A. 'Ừ, bạn ấy nói đúng'", "B. 'Cảm xúc của bạn là có thật và quan trọng. Mình tin bạn. Nếu cần, mình sẽ đi cùng bạn đến gặp chuyên gia.'", "C. 'Thôi kệ đi'", "D. 'Bạn ấy không hiểu bạn đâu'"], correct: 1, explanation: "✅ Hãy khẳng định cảm xúc của họ là có thật và quan trọng. Đề xuất đi cùng họ đến chuyên gia nếu cần." },
+            { friend: "An", message: "Tớ cảm thấy bạn không thể hiểu được tớ đang trải qua điều gì đâu.", question: "Bạn nên làm gì?", options: ["A. 'Ừ thôi, không nói thì thôi'", "B. 'Bạn nói đúng, mình không thể hiểu hoàn toàn. Nhưng mình vẫn muốn ở bên cạnh bạn.'", "C. 'Sao bạn khó tính thế?'", "D. 'Tớ cũng từng trải qua rồi'"], correct: 1, explanation: "✅ Thừa nhận rằng bạn không thể hiểu hoàn toàn là cách thể hiện sự chân thành. Điều quan trọng là bạn vẫn ở bên cạnh họ." },
+            { friend: "Bình", message: "Cảm ơn cậu. Nhưng cậu đừng nói với ai nhé, tớ chỉ tin mỗi cậu.", question: "Giới hạn của bạn với tư cách là người bạn là gì?", options: ["A. 'Ok, tớ hứa'", "B. 'Tớ sẽ cố gắng giữ bí mật, nhưng nếu có nguy cơ bạn tự hại, tớ sẽ phải báo cho người lớn để bảo vệ bạn.'", "C. 'Tớ không giữ bí mật được đâu'", "D. 'Cậu yên tâm'"], correct: 1, explanation: "✅ Nếu bạn bè có nguy cơ tự hại, bạn CÓ QUYỀN và CÓ TRÁCH NHIỆM báo cho người lớn để bảo vệ họ. Sự an toàn mới là quan trọng nhất." }
+        ];
+        let currentIdx = 0, userAnswers = new Array(conversations.length).fill(null);
+        function renderQuiz3() {
+            const container = document.getElementById('exercise3');
+            if (currentIdx >= conversations.length) {
+                let correct = 0;
+                for (let i=0; i<conversations.length; i++) if (userAnswers[i] === conversations[i].correct) correct++;
+                let msg = correct === conversations.length ? '🎉 XUẤT SẮC! Bạn đã nắm vững kỹ năng hỗ trợ bạn bè!' : (correct >= 4 ? '👍 Khá tốt!' : '📖 Hãy học lại cách lắng nghe không phán xét.');
+                if (correct === conversations.length) playCompleteSound(); else playSuccessSound();
+                container.innerHTML = `<div class="result-area"><div class="final-score">${correct}/${conversations.length}</div><div style="color:#ccc;">${msg}</div><button class="reset-btn" id="reset3">🔄 LÀM LẠI</button></div>`;
+                document.getElementById('reset3')?.addEventListener('click', () => { currentIdx = 0; userAnswers.fill(null); renderQuiz3(); });
+                return;
+            }
+            const c = conversations[currentIdx];
+            let html = `<div class="progress-badge">💚 Đã hỗ trợ: ${userAnswers.filter(a=>a!==null).length}/${conversations.length} bạn bè</div>
+                <div class="listen-tip"><div class="tip-icon">💚</div><div class="tip-text"><strong>NGUYÊN TẮC LẮNG NGHE:</strong> Không phán xét, không gạt bỏ cảm xúc, không đưa ra lời khuyên vội vàng. Đôi khi chỉ cần 'Mình ở đây với bạn' đã đủ an ủi.</div></div>
+                <div class="conversation-card"><div class="conversation-bubble bubble-friend"><div class="friend-name">${c.friend}:</div><div class="friend-message">"${c.message}"</div></div>
+                <div class="question-text">❓ ${c.question}</div><div class="options" id="opts3"></div>
+                <div class="feedback" id="fb3">💡 Hãy chọn cách phản hồi phù hợp nhất!</div><button class="btn-next" id="next3">${currentIdx === conversations.length-1 ? '🏁 XEM KẾT QUẢ' : '➡️ TIẾP'}</button></div>`;
+            container.innerHTML = html;
+            const optsDiv = document.getElementById('opts3');
+            c.options.forEach((opt, idx) => {
+                const optDiv = document.createElement('div');
+                optDiv.className = `option ${userAnswers[currentIdx] === idx ? (idx === c.correct ? 'selected-correct' : 'selected-wrong') : ''}`;
+                optDiv.innerText = opt;
+                optDiv.onclick = () => {
+                    if (userAnswers[currentIdx] !== null) return;
+                    userAnswers[currentIdx] = idx;
+                    const fb = document.getElementById('fb3');
+                    if (idx === c.correct) { fb.innerHTML = '✅ ' + c.explanation; fb.className = 'feedback correct'; playSuccessSound(); }
+                    else { fb.innerHTML = '❌ ' + c.explanation; fb.className = 'feedback wrong'; playErrorSound(); }
+                    renderQuiz3();
+                };
+                optsDiv.appendChild(optDiv);
+            });
+            document.getElementById('next3').onclick = () => {
+                if (userAnswers[currentIdx] === null) { document.getElementById('fb3').innerHTML = '⚠️ Hãy chọn đáp án trước!'; playErrorSound(); return; }
+                currentIdx++; renderQuiz3();
+            };
+        }
+        renderQuiz3();
+    })();
+    resizeCanvas();
+</script>
+</body>
+</html>
