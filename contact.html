@@ -7,171 +7,186 @@
   <meta name="description" content="Liên hệ với Sophia Nguyễn để được tư vấn tâm lý, hướng nghiệp, đào tạo kỹ năng. Đặt lịch qua Zalo, Facebook hoặc gọi điện trực tiếp.">
   <meta name="keywords" content="liên hệ Sophia Nguyễn, tư vấn tâm lý, đặt lịch, zalo, facebook">
   <meta name="author" content="Sophia Nguyễn">
-   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
-  body {
-    font-family: 'Be Vietnam Pro', sans-serif;
-  }
-  /* ==================== FOOTER ==================== */
-.footer {
-    background: #0a4a5a;
-    color: white;
-    padding: 50px 0 20px;
-    margin-top: 60px;
-}
+  <link rel="stylesheet" href="main.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: linear-gradient(145deg, #fff5f0 0%, #ffe8e0 100%);
+      font-family: 'Be Vietnam Pro', sans-serif;
+      color: #2c3e2f;
+      line-height: 1.6;
+    }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
 
-.footer-container {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 24px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 40px;
-}
+    /* Header */
+    .header {
+      background: white;
+      padding: 15px 0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .header-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo img { height: 60px; width: auto; }
+    .menu-toggle { display: none; font-size: 28px; cursor: pointer; }
+    .navbar ul { display: flex; gap: 2rem; list-style: none; }
+    .navbar a { text-decoration: none; color: #4a5568; font-weight: 500; transition: 0.2s; }
+    .navbar a:hover { color: #e83e8c; }
+    .banner { margin-top: 20px; text-align: center; }
+    .banner-img { width: 100%; max-height: 250px; object-fit: cover; border-radius: 28px; }
 
-.footer-logo img {
-    width: 120px;
-    margin-bottom: 16px;
-}
+    /* Contact Section */
+    .contact-section {
+      padding: 60px 0;
+    }
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      color: #e83e8c;
+      margin-bottom: 16px;
+    }
+    .contact-intro {
+      text-align: center;
+      color: #666;
+      max-width: 700px;
+      margin: 0 auto 40px;
+    }
+    .contact-info-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      margin-bottom: 60px;
+    }
+    .contact-info {
+      flex: 1;
+      background: white;
+      border-radius: 24px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    .contact-info h3 {
+      font-size: 1.5rem;
+      color: #e83e8c;
+      margin-bottom: 20px;
+    }
+    .contact-info p {
+      margin-bottom: 12px;
+      color: #4a5568;
+    }
+    .contact-form {
+      flex: 1;
+      background: white;
+      border-radius: 24px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 1rem;
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: #e83e8c;
+    }
+    .cta-btn {
+      background: linear-gradient(135deg, #e83e8c, #f06292);
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+      width: 100%;
+    }
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(232,62,140,0.3);
+    }
 
-.footer-logo p {
-    font-size: 0.85rem;
-    line-height: 1.6;
-    color: #cbd5e0;
-}
+    /* FAQ */
+    .faq-section {
+      background: white;
+      border-radius: 32px;
+      padding: 40px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    .faq-section h3 {
+      font-size: 1.5rem;
+      color: #e83e8c;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    .faq-section ul {
+      list-style: none;
+    }
+    .faq-section li {
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .faq-section li:last-child {
+      border-bottom: none;
+    }
+    .faq-section strong {
+      color: #2c3e2f;
+    }
 
-.footer-links h4, .footer-map h4, .footer-contact h4 {
-    margin-bottom: 16px;
-    font-size: 1.1rem;
-    color: white;
-}
-
-.footer-links ul {
-    list-style: none;
-}
-
-.footer-links ul li {
-    margin-bottom: 8px;
-}
-
-.footer-links ul li a {
-    color: #cbd5e0;
-    text-decoration: none;
-    font-size: 0.85rem;
-    transition: color 0.2s;
-}
-
-.footer-links ul li a:hover {
-    color: #e83e8c;
-}
-
-/* Bản đồ */
-.map-wrapper {
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
-
-.map-wrapper iframe {
-    width: 100%;
-    height: 180px;
-    border: none;
-    display: block;
-    filter: grayscale(0.2);
-    transition: all 0.3s ease;
-}
-
-.map-wrapper iframe:hover {
-    filter: grayscale(0);
-}
-
-.footer-map p {
-    font-size: 0.75rem;
-    color: #fbbf24;
-    margin-top: 8px;
-}
-
-/* Liên hệ */
-.footer-contact p {
-    font-size: 0.85rem;
-    margin-bottom: 10px;
-    color: #cbd5e0;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.social-icons {
-    display: flex;
-    gap: 12px;
-    margin-top: 16px;
-}
-
-.social-icons a {
-    display: inline-block;
-    transition: transform 0.2s;
-}
-
-.social-icons a:hover {
-    transform: translateY(-3px);
-}
-
-.social-icons img {
-    width: 32px;
-    height: 32px;
-}
-
-/* Footer bottom */
-.footer-bottom {
-    text-align: center;
-    padding-top: 30px;
-    margin-top: 30px;
-    border-top: 1px solid rgba(255,255,255,0.1);
-    font-size: 0.75rem;
-    color: #94a3b8;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
+    /* Footer */
+    .footer {
+      background: #1a2a3a;
+      color: white;
+      padding: 50px 0 20px;
+      margin-top: 60px;
+    }
     .footer-container {
-        grid-template-columns: 1fr;
-        gap: 30px;
-        text-align: center;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
     }
-    
-    .footer-logo p {
-        max-width: 300px;
-        margin: 0 auto;
-    }
-    
-    .footer-contact p {
-        justify-content: center;
-    }
-    
-    .social-icons {
-        justify-content: center;
-    }
-    
-    .map-wrapper iframe {
-        height: 200px;
-    }
-}
-</style>
-<body>
- 
-  <!-- HEADER -->
-<header class="header">
-  <div class="container header-container">
-    <!-- Logo + Navbar nằm cùng dòng -->
-    <a href="index.html" class="logo">
-      <img src="images/hinhremovenen.png" alt="Sophia Logo" />
-    </a>
-    <!-- Nút menu toggle chỉ hiện trên mobile -->
-<div class="menu-toggle" onclick="document.querySelector('.navbar').classList.toggle('show-menu')">
-  ☰
-</div>
+    .footer-logo img { width: 100px; margin-bottom: 16px; filter: brightness(0) invert(1); }
+    .footer-links ul { list-style: none; }
+    .footer-links a { color: #cbd5e0; text-decoration: none; font-size: 0.85rem; }
+    .footer-links a:hover { color: #e83e8c; }
+    .footer-map p { font-size: 0.75rem; color: #fbbf24; margin-top: 8px; }
+    .footer-contact p { font-size: 0.85rem; margin-bottom: 10px; color: #cbd5e0; }
+    .social-icons { display: flex; gap: 12px; margin-top: 16px; }
+    .social-icons img { width: 32px; transition: 0.2s; }
+    .social-icons img:hover { transform: translateY(-3px); }
+    .footer-bottom { text-align: center; padding-top: 30px; margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.75rem; }
 
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+      .navbar ul { display: none; flex-direction: column; gap: 1rem; margin-top: 1rem; }
+      .navbar.show-menu ul { display: flex; }
+      .contact-info-form { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-container">
+    <a href="index.html" class="logo"><img src="images/hinhremovenen.png" alt="Sophia Logo" /></a>
+    <div class="menu-toggle" onclick="document.querySelector('.navbar').classList.toggle('show-menu')">☰</div>
     <nav class="navbar">
       <ul>
         <li><a href="index.html">Trang chủ</a></li>
@@ -182,41 +197,33 @@
       </ul>
     </nav>
   </div>
-
-  <!-- Banner nằm dưới -->
-  <div class="banner">
-    <img src="images/rs1.png" alt="Sophia Nguyễn – Đồng hành & Sẻ chia" class="banner-img" />
-  </div>
+  <div class="banner"><img src="images/rs1.png" alt="Sophia Nguyễn – Đồng hành & Sẻ chia" class="banner-img" /></div>
 </header>
 
- <!-- HERO -->
-    <section class="contact-section" data-aos="zoom-in-down" data-aos-duration="1200
 <section class="contact-section">
   <div class="container">
-    <h2 class="section-title">Liên hệ với Sophia Nguyễn</h2>
-    <p class="contact-intro">Sophia luôn sẵn sàng lắng nghe và đồng hành cùng bạn. Gửi tin nhắn hoặc kết nối qua các kênh bên dưới nhé!</p>
+    <h2 class="section-title" data-aos="fade-down">📬 Liên hệ với Sophia Nguyễn</h2>
+    <p class="contact-intro" data-aos="fade-up">Sophia luôn sẵn sàng lắng nghe và đồng hành cùng bạn. Gửi tin nhắn hoặc kết nối qua các kênh bên dưới nhé!</p>
 
-    <div class="contact-info-form">
-      <!-- THÔNG TIN LIÊN HỆ -->
+    <div class="contact-info-form" data-aos="zoom-in">
       <div class="contact-info">
-        <h3>Thông tin liên hệ</h3>
+        <h3>📞 Thông tin liên hệ</h3>
         <p><strong>Hotline:</strong> 0977 092 182</p>
         <p><strong>Email:</strong> sophianguyen2891@gmail.com</p>
         <p><strong>Địa chỉ:</strong> Tân Bình, TP.HCM</p>
+        <p><strong>Zalo:</strong> 0977092182</p>
       </div>
 
-      <!-- FORM LIÊN HỆ -->
       <form action="https://formspree.io/f/xvgqdgko" method="POST" class="contact-form">
         <input type="text" name="name" placeholder="Họ và tên" required>
         <input type="email" name="email" placeholder="Email của bạn" required>
         <textarea name="message" rows="5" placeholder="Nội dung cần trao đổi..." required></textarea>
-        <button type="submit" class="cta-btn">GỬI ĐI</button>
+        <button type="submit" class="cta-btn">📩 GỬI ĐI</button>
       </form>
     </div>
 
-    <!-- FAQ -->
-    <div class="faq-section">
-      <h3>Câu hỏi thường gặp</h3>
+    <div class="faq-section" data-aos="fade-up">
+      <h3>❓ Câu hỏi thường gặp</h3>
       <ul>
         <li><strong>Sophia có tư vấn trực tiếp không?</strong><br>✅ Có, Sophia có cả tư vấn online và trực tiếp nếu lịch phù hợp.</li>
         <li><strong>Sau bao lâu thì được phản hồi?</strong><br>⏳ Thường trong vòng 24h kể từ khi gửi form.</li>
@@ -225,61 +232,21 @@
     </div>
   </div>
 </section>
-  <footer class="footer" data-aos="fade-up">
-    <div class="footer-container">
-      <div class="footer-logo">
-        <img src="images/hinhremovenen.png" alt="Logo Sophia">
-        <p>Đồng hành & Sẻ chia cùng bạn trên hành trình tâm lý – phát triển – yêu thương.</p>
-      </div>
 
-      <div class="footer-links">
-        <strong><h4>Dịch vụ</h4></strong>
-        <ul>
-          <li><a href="#">Tư vấn tâm lý</a></li>
-          <li><a href="#">Định hướng nghề nghiệp</a></li>
-          <li><a href="#">Đào tạo kỹ năng</a></li>
-          <li><a href="#">Sinh trắc vân tay</a></li>
-        </ul>
-      </div>
- <div class="footer-map">
-    <h4>📍 Sophia Nguyễn</h4>
-    <div class="map-wrapper">
-        <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2011370.49063534!2d105.62948206017298!3d10.061508194634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2538aa37322d867b%3A0xa6ab3c950d893f03!2zU29waGlhTmd1eWVuIC0gxJDhu5NuZyBow6BuaCAmIFPhursgY2hpYQ!5e0!3m2!1svi!2s!4v1775469816647!5m2!1svi!2s" 
-            width="100%" 
-            height="250" 
-            style="border:0; border-radius: 16px;" 
-            allowfullscreen="" 
-            loading="lazy" 
-            referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
-    </div>
-    <p style="font-size: 0.8rem; margin-top: 8px;">⭐ 5.0 - Đánh giá từ học viên</p>
-</div>
-      <div class="footer-contact">
-        <strong><h4>Liên hệ</h4></strong>
-        <p>📧 sophianguyen2891@gmail.com</p>
-        <p>📞 0977092182</p>
-        <p>🏠 Tân Bình - TPHCM </p>
-        <div class="social-icons">
-          <a href="https://www.facebook.com/Sophiadiemhang1982"><img src="images/fb.png" alt="FB" /></a>
-          <a href="https://www.tiktok.com/@sophia.nguyen2014?is_from_webapp=1&sender_device=pc"><img src="images/tiktok.png" alt="TikTok" /></a>
-          <a href="https://www.youtube.com/@sophianguyen1982-dh"><img src="images/youtube.png" alt="YouTube" /></a>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p> Copyright ©2024 Sophia Nguyễn. All rights reserved.</p>
-    </div>
-  </footer>
-  <!-- Script AOS -->
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-  <script>
-    AOS.init({
-      duration: 1000,
-      once: true
-    });
-  </script>
-  
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-logo"><img src="images/hinhremovenen.png" alt="Logo Sophia"><p>Đồng hành & Sẻ chia cùng bạn trên hành trình tâm lý – phát triển – yêu thương.</p></div>
+    <div class="footer-links"><h4>Dịch vụ</h4><ul><li><a href="#">Tư vấn tâm lý</a></li><li><a href="#">Định hướng nghề nghiệp</a></li><li><a href="#">Đào tạo kỹ năng</a></li><li><a href="#">Sinh trắc vân tay</a></li></ul></div>
+    <div class="footer-map"><h4>📍 Sophia Nguyễn</h4><div class="map-wrapper"><iframe title="Bản đồ văn phòng Sophia Nguyễn" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2011370.49063534!2d105.62948206017298!3d10.061508194634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2538aa37322d867b%3A0xa6ab3c950d893f03!2zU29waGlhTmd1eWVuIC0gxJDhu5NuZyBow6BuaCAmIFPhursgY2hpYQ!5e0!3m2!1svi!2s!4v1775469816647!5m2!1svi!2s" width="100%" height="180" style="border:0; border-radius: 16px;" allowfullscreen="" loading="lazy"></iframe></div><p style="font-size: 0.8rem; margin-top: 8px;">⭐ 5.0 - Đánh giá từ học viên</p></div>
+    <div class="footer-contact"><h4>Liên hệ</h4><p>📧 sophianguyen2891@gmail.com</p><p>📞 0977092182</p><p>🏠 Tân Bình - TPHCM</p><div class="social-icons"><a href="https://www.facebook.com/Sophiadiemhang1982"><img src="images/fb.png" alt="FB" /></a><a href="https://www.tiktok.com/@sophia.nguyen2014"><img src="images/tiktok.png" alt="TikTok" /></a><a href="https://www.youtube.com/@sophianguyen1982-dh"><img src="images/youtube.png" alt="YouTube" /></a></div></div>
+  </div>
+  <div class="footer-bottom"><p>Copyright ©2024 Sophia Nguyễn. All rights reserved.</p></div>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({ once: true, duration: 1000, easing: 'ease-out-cubic' });
+  function toggleMenu() { document.querySelector(".navbar").classList.toggle("show-menu"); }
+</script>
 </body>
 </html>
