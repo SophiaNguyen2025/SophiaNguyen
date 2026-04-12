@@ -2,30 +2,177 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Giới thiệu về Sophia Nguyễn</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bạo lực học đường ở trẻ em: Vấn nạn cần lên tiếng | Sophia Nguyễn</title>
+  <meta name="description" content="Bạo lực học đường - thực trạng đáng báo động, nguyên nhân sâu xa, hậu quả nghiêm trọng và giải pháp phòng tránh từ gia đình, nhà trường và xã hội.">
+  <meta name="keywords" content="bạo lực học đường, trẻ em, bắt nạt học đường, tâm lý học đường, phòng chống bạo lực">
+  <meta name="author" content="Sophia Nguyễn">
   <link rel="stylesheet" href="main.css" />
-  <!-- Thêm thư viện AOS -->
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: linear-gradient(145deg, #fff5f0 0%, #ffe8e0 100%);
+      font-family: 'Be Vietnam Pro', sans-serif;
+      color: #2c3e2f;
+      line-height: 1.6;
+    }
+    .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+    /* Header */
+    .header {
+      background: white;
+      padding: 15px 0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .header-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo img { height: 60px; width: auto; }
+    .menu-toggle { display: none; font-size: 28px; cursor: pointer; }
+    .navbar ul { display: flex; gap: 2rem; list-style: none; }
+    .navbar a { text-decoration: none; color: #4a5568; font-weight: 500; transition: 0.2s; }
+    .navbar a:hover { color: #e83e8c; }
+    .banner { margin-top: 20px; text-align: center; }
+    .banner-img { width: 100%; max-height: 250px; object-fit: cover; border-radius: 28px; }
+
+    /* Blog content */
+    .blog-header {
+      text-align: center;
+      margin: 40px 0 30px;
+    }
+    .blog-header h1 {
+      font-size: 2.2rem;
+      color: #2c3e2f;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+    .blog-meta {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      color: #888;
+      font-size: 0.85rem;
+      margin-bottom: 30px;
+    }
+    .blog-content {
+      background: white;
+      border-radius: 32px;
+      padding: 40px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+    .blog-content h2 {
+      font-size: 1.6rem;
+      color: #e83e8c;
+      margin: 30px 0 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #f0c0d0;
+    }
+    .blog-content h3 {
+      font-size: 1.2rem;
+      color: #c06c7a;
+      margin: 20px 0 12px;
+    }
+    .blog-content p {
+      margin-bottom: 16px;
+      color: #4a4a4a;
+    }
+    .blog-content ul, .blog-content ol {
+      margin: 16px 0 16px 24px;
+      color: #4a4a4a;
+    }
+    .blog-content li {
+      margin: 8px 0;
+    }
+    .callout {
+      background: #fef5f0;
+      border-left: 5px solid #e83e8c;
+      padding: 20px 24px;
+      border-radius: 20px;
+      font-style: italic;
+      margin: 24px 0;
+      display: block;
+      color: #5a3e3a;
+    }
+    .highlight {
+      background: #fef0f0;
+      padding: 20px 24px;
+      border-radius: 20px;
+      margin: 24px 0;
+    }
+    .highlight strong {
+      color: #e83e8c;
+    }
+
+    /* CTA */
+    .cta-section {
+      text-align: center;
+      padding: 50px 40px;
+      background: linear-gradient(135deg, #e83e8c, #f06292);
+      color: white;
+      border-radius: 32px;
+      margin: 50px 0;
+    }
+    .cta-datlich {
+      background: transparent;
+      border: 2px solid white;
+      color: white;
+      padding: 12px 28px;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-block;
+      margin: 0 8px;
+      transition: 0.2s;
+    }
+    .cta-datlich:hover { background: white; color: #e83e8c; }
+
+    /* Footer */
+    .footer {
+      background: #1a2a3a;
+      color: white;
+      padding: 50px 0 20px;
+      margin-top: 60px;
+    }
+    .footer-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+    }
+    .footer-logo img { width: 100px; margin-bottom: 16px; filter: brightness(0) invert(1); }
+    .footer-links ul { list-style: none; }
+    .footer-links a { color: #cbd5e0; text-decoration: none; font-size: 0.85rem; }
+    .footer-links a:hover { color: #e83e8c; }
+    .social-icons { display: flex; gap: 12px; margin-top: 16px; }
+    .social-icons img { width: 32px; transition: 0.2s; }
+    .social-icons img:hover { transform: translateY(-3px); }
+    .footer-bottom { text-align: center; padding-top: 30px; margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.75rem; }
+
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+      .navbar ul { display: none; flex-direction: column; gap: 1rem; margin-top: 1rem; }
+      .navbar.show-menu ul { display: flex; }
+      .blog-header h1 { font-size: 1.6rem; }
+      .blog-content { padding: 24px; }
+    }
+  </style>
 </head>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
-  body {
-    font-family: 'Be Vietnam Pro', sans-serif;
-  }
-</style>
 <body>
-  <!-- HEADER -->
+
 <header class="header">
-  <div class="container header-container">
-    <!-- Logo + Navbar nằm cùng dòng -->
-    <a href="index.html" class="logo">
-      <img src="images/hinhremovenen.png" alt="Sophia Logo" />
-    </a>
-    <!-- Nút menu toggle chỉ hiện trên mobile -->
-<div class="menu-toggle" onclick="document.querySelector('.navbar').classList.toggle('show-menu')">
-  ☰
-</div>
+  <div class="header-container">
+    <a href="index.html" class="logo"><img src="images/hinhremovenen.png" alt="Sophia Logo" /></a>
+    <div class="menu-toggle" onclick="document.querySelector('.navbar').classList.toggle('show-menu')">☰</div>
     <nav class="navbar">
       <ul>
         <li><a href="index.html">Trang chủ</a></li>
@@ -36,162 +183,106 @@
       </ul>
     </nav>
   </div>
-
-  <!-- Banner nằm dưới -->
-  <div class="banner">
-    <img src="images/rs1.png" alt="Sophia Nguyễn – Đồng hành & Sẻ chia" class="banner-img" />
-  </div>
+  <div class="banner"><img src="images/rs1.png" alt="Sophia Nguyễn – Đồng hành & Sẻ chia" class="banner-img" /></div>
 </header>
 
- <h1>Bạo lực học đường ở trẻ em: Vấn nạn cần lên tiếng</h1>
+<div class="container">
+  <div class="blog-header">
+    <h1>💔 Bạo lực học đường ở trẻ em: Vấn nạn cần lên tiếng</h1>
+    <div class="blog-meta">
+      <span><i class="far fa-calendar-alt"></i> 12/04/2026</span>
+      <span><i class="far fa-clock"></i> 8 phút đọc</span>
+      <span><i class="far fa-folder-open"></i> Tâm lý học đường</span>
+    </div>
+  </div>
 
-  <p><span class="callout">Khi một đứa trẻ bị đánh, bị xúc phạm, bị cô lập trong chính môi trường học tập của mình</span>, đó không chỉ là một hành vi sai trái — đó là một lời cảnh báo về sự đổ vỡ trong hệ thống giáo dục và xã hội.</p>
+  <div class="blog-content">
+    <p><span class="callout">Khi một đứa trẻ bị đánh, bị xúc phạm, bị cô lập trong chính môi trường học tập của mình</span> đó không chỉ là một hành vi sai trái — đó là một lời cảnh báo về sự đổ vỡ trong hệ thống giáo dục và xã hội.</p>
 
-  <h2>Bạo lực học đường là gì?</h2>
-  <p>Bạo lực học đường không chỉ là những cú đấm hay lời chửi rủa. Đó là tất cả những hành vi gây tổn thương thể chất, tinh thần, cảm xúc cho học sinh trong môi trường học tập:</p>
-  <ul>
-    <li><strong>Thể chất</strong>: đánh nhau, xô đẩy, lột đồ, dùng vật dụng gây thương tích.</li>
-    <li><strong>Tâm lý</strong>: xúc phạm, chế giễu, cô lập, đe dọa.</li>
-    <li><strong>Tình dục</strong>: quấy rối, sàm sỡ, xâm hại.</li>
-    <li><strong>Trên mạng</strong>: tung tin sai lệch, bình luận ác ý, phát tán hình ảnh riêng tư.</li>
-  </ul>
-
-  <h2>Thực trạng đáng báo động</h2>
-  <div class="highlight">
+    <h2>📌 Bạo lực học đường là gì?</h2>
+    <p>Bạo lực học đường không chỉ là những cú đấm hay lời chửi rủa. Đó là tất cả những hành vi gây tổn thương thể chất, tinh thần, cảm xúc cho học sinh trong môi trường học tập:</p>
     <ul>
-      <li>Mỗi năm có gần <strong>1.600 vụ học sinh đánh nhau</strong>, trung bình <strong>5 vụ/ngày</strong> (theo Bộ GD&ĐT).</li>
-      <li><strong>50% trẻ từ 13–15 tuổi</strong> từng là nạn nhân (theo UNICEF).</li>
-      <li>Hậu quả: <strong>tự tử, rối loạn tâm lý, bỏ học</strong>.</li>
+      <li><strong>Thể chất</strong>: đánh nhau, xô đẩy, lột đồ, dùng vật dụng gây thương tích.</li>
+      <li><strong>Tâm lý</strong>: xúc phạm, chế giễu, cô lập, đe dọa.</li>
+      <li><strong>Tình dục</strong>: quấy rối, sàm sỡ, xâm hại.</li>
+      <li><strong>Trên mạng</strong>: tung tin sai lệch, bình luận ác ý, phát tán hình ảnh riêng tư.</li>
     </ul>
-  </div>
 
-  <h2>Nguyên nhân sâu xa</h2>
-  <h3>1. Tâm lý tuổi vị thành niên</h3>
-  <ul>
-    <li>Dễ bị ảnh hưởng bởi bạn bè, mạng xã hội.</li>
-    <li>Thiếu kỹ năng kiểm soát cảm xúc, giải quyết mâu thuẫn.</li>
-  </ul>
-
-  <h3>2. Gia đình thiếu kết nối</h3>
-  <ul>
-    <li>Cha mẹ bận rộn, ít trò chuyện, thậm chí dùng bạo lực với con.</li>
-    <li>Trẻ học cách “giải quyết vấn đề” bằng cách bắt chước người lớn.</li>
-  </ul>
-
-  <h3>3. Mạng xã hội và văn hóa bạo lực</h3>
-  <ul>
-    <li>Clip đánh nhau, bắt nạt được chia sẻ rộng rãi.</li>
-    <li>Trẻ muốn gây chú ý bằng hành vi tiêu cực.</li>
-  </ul>
-
-  <h3>4. Nhà trường thiếu hỗ trợ tâm lý</h3>
-  <ul>
-    <li>Nhiều trường chưa có phòng tham vấn tâm lý.</li>
-    <li>Giáo viên thiếu kỹ năng nhận diện và can thiệp sớm.</li>
-  </ul>
-
-  <h2>Hậu quả nghiêm trọng</h2>
-  <ul>
-    <li><strong>Thể chất</strong>: chấn thương, mất ngủ, suy nhược.</li>
-    <li><strong>Tâm lý</strong>: trầm cảm, lo âu, ám ảnh.</li>
-    <li><strong>Học tập</strong>: giảm sút thành tích, bỏ học.</li>
-    <li><strong>Xã hội</strong>: mất lòng tin, dễ trở thành người gây bạo lực.</li>
-  </ul>
-
-  <h2>Làm gì để phòng tránh?</h2>
-  <h3>Gia đình</h3>
-  <ul>
-    <li>Tạo môi trường yêu thương, không dùng bạo lực.</li>
-    <li>Trò chuyện thường xuyên, lắng nghe cảm xúc của con.</li>
-    <li>Dạy con kỹ năng sống, cách xử lý mâu thuẫn.</li>
-  </ul>
-
-  <h3>🏫 Nhà trường</h3>
-  <ul>
-    <li>Thiết lập quy tắc ứng xử rõ ràng.</li>
-    <li>Tổ chức hoạt động tăng kết nối giữa học sinh.</li>
-    <li>Thành lập phòng tham vấn tâm lý.</li>
-  </ul>
-
-  <h3>Giáo viên</h3>
-  <ul>
-    <li>Quan sát, nhận diện sớm dấu hiệu trẻ bị bắt nạt.</li>
-    <li>Can thiệp kịp thời.</li>
-    <li>Tạo môi trường lớp học thân thiện.</li>
-  </ul>
-
-  <h3>Học sinh</h3>
-  <ul>
-    <li>Nói không với bạo lực, tố cáo hành vi sai trái.</li>
-    <li>Học cách kiểm soát cảm xúc.</li>
-    <li>Tìm kiếm sự giúp đỡ từ người lớn.</li>
-  </ul>
-
-  <h2>Vai trò của cộng đồng</h2>
-  <ul>
-    <li>Truyền thông cần đưa tin có trách nhiệm.</li>
-    <li>Chính quyền cần kiểm soát nội dung độc hại.</li>
-    <li>Tổ chức xã hội hỗ trợ tâm lý, pháp lý cho nạn nhân.</li>
-  </ul>
-
-  <div class="highlight">
-    <strong>Bạo lực học đường không phải là chuyện riêng của một đứa trẻ — đó là chuyện của cả xã hội.</strong><br>
-    Mỗi người lớn cần là một tấm gương, một người bảo vệ, một người đồng hành để trẻ em được lớn lên trong môi trường an toàn, tử tế và đầy yêu thương.
-  </div>
-   </div>
-  <section class="cta-section" data-aos="zoom-in-up" data-aos-duration="1000">
-    <a href="https://zalo.me/0977092182" class="cta-datlich">📅 Đặt lịch tư vấn</a>
-    <a href="contact.html" class="cta-datlich">📩 Gửi tin nhắn cho Sophia</a>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="footer" data-aos="fade-zoom-in" data-aos-duration="1000">
-    <div class="footer-container">
-      <div class="footer-logo">
-        <img src="images/hinhremovenen.png" alt="Logo Sophia">
-        <p>Đồng hành & Sẻ chia cùng bạn trên hành trình tâm lý – phát triển – yêu thương.</p>
-      </div>
-
-      <div class="footer-links">
-        <strong><h4>Dịch vụ</h4></strong>
-        <ul>
-          <li><a href="#">Tư vấn tâm lý</a></li>
-          <li><a href="#">Định hướng nghề nghiệp</a></li>
-          <li><a href="#">Đào tạo kỹ năng</a></li>
-          <li><a href="#">Sinh trắc vân tay</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-contact">
-        <strong><h4>Liên hệ</h4></strong>
-        <p>📧 sophianguyen2891@gmail.com</p>
-        <p>📞 0977092182</p>
-        <p>🏠 Tân Bình - TPHCM </p>
-        <div class="social-icons">
-          <a href="https://www.facebook.com/Sophiadiemhang1982"><img src="images/fb.png" alt="FB" /></a>
-          <a href="https://www.tiktok.com/@sophia.nguyen2014?is_from_webapp=1&sender_device=pc"><img src="images/tiktok.png" alt="TikTok" /></a>
-          <a href="https://www.youtube.com/@sophianguyen1982-dh"><img src="images/youtube.png" alt="YouTube" /></a>
-        </div>
-      </div>
+    <h2>📊 Thực trạng đáng báo động</h2>
+    <div class="highlight">
+      <ul>
+        <li>Mỗi năm có gần <strong>1.600 vụ học sinh đánh nhau</strong>, trung bình <strong>5 vụ/ngày</strong> (theo Bộ GD&ĐT).</li>
+        <li><strong>50% trẻ từ 13–15 tuổi</strong> từng là nạn nhân (theo UNICEF).</li>
+        <li>Hậu quả: <strong>tự tử, rối loạn tâm lý, bỏ học</strong>.</li>
+      </ul>
     </div>
-    <div class="footer-bottom">
-      <p> Copyright ©2024 Sophia Nguyễn. All rights reserved.</p>
-    </div>
-  </footer>
 
-  <!-- AOS JS -->
-    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <h2>🔍 Nguyên nhân sâu xa</h2>
+    <h3>1. Tâm lý tuổi vị thành niên</h3>
+    <ul><li>Dễ bị ảnh hưởng bởi bạn bè, mạng xã hội.</li><li>Thiếu kỹ năng kiểm soát cảm xúc, giải quyết mâu thuẫn.</li></ul>
+    <h3>2. Gia đình thiếu kết nối</h3>
+    <ul><li>Cha mẹ bận rộn, ít trò chuyện, thậm chí dùng bạo lực với con.</li><li>Trẻ học cách “giải quyết vấn đề” bằng cách bắt chước người lớn.</li></ul>
+    <h3>3. Mạng xã hội và văn hóa bạo lực</h3>
+    <ul><li>Clip đánh nhau, bắt nạt được chia sẻ rộng rãi.</li><li>Trẻ muốn gây chú ý bằng hành vi tiêu cực.</li></ul>
+    <h3>4. Nhà trường thiếu hỗ trợ tâm lý</h3>
+    <ul><li>Nhiều trường chưa có phòng tham vấn tâm lý.</li><li>Giáo viên thiếu kỹ năng nhận diện và can thiệp sớm.</li></ul>
+
+    <h2>⚠️ Hậu quả nghiêm trọng</h2>
+    <ul>
+      <li><strong>Thể chất</strong>: chấn thương, mất ngủ, suy nhược.</li>
+      <li><strong>Tâm lý</strong>: trầm cảm, lo âu, ám ảnh.</li>
+      <li><strong>Học tập</strong>: giảm sút thành tích, bỏ học.</li>
+      <li><strong>Xã hội</strong>: mất lòng tin, dễ trở thành người gây bạo lực.</li>
+    </ul>
+
+    <h2>🛡️ Làm gì để phòng tránh?</h2>
+    <h3>🏠 Gia đình</h3>
+    <ul><li>Tạo môi trường yêu thương, không dùng bạo lực.</li><li>Trò chuyện thường xuyên, lắng nghe cảm xúc của con.</li><li>Dạy con kỹ năng sống, cách xử lý mâu thuẫn.</li></ul>
+    <h3>🏫 Nhà trường</h3>
+    <ul><li>Thiết lập quy tắc ứng xử rõ ràng.</li><li>Tổ chức hoạt động tăng kết nối giữa học sinh.</li><li>Thành lập phòng tham vấn tâm lý.</li></ul>
+    <h3>👩‍🏫 Giáo viên</h3>
+    <ul><li>Quan sát, nhận diện sớm dấu hiệu trẻ bị bắt nạt.</li><li>Can thiệp kịp thời.</li><li>Tạo môi trường lớp học thân thiện.</li></ul>
+    <h3>👧 Học sinh</h3>
+    <ul><li>Nói không với bạo lực, tố cáo hành vi sai trái.</li><li>Học cách kiểm soát cảm xúc.</li><li>Tìm kiếm sự giúp đỡ từ người lớn.</li></ul>
+
+    <h2>🌍 Vai trò của cộng đồng</h2>
+    <ul>
+      <li>Truyền thông cần đưa tin có trách nhiệm.</li>
+      <li>Chính quyền cần kiểm soát nội dung độc hại.</li>
+      <li>Tổ chức xã hội hỗ trợ tâm lý, pháp lý cho nạn nhân.</li>
+    </ul>
+
+    <div class="highlight">
+      <strong>💬 Bạo lực học đường không phải là chuyện riêng của một đứa trẻ — đó là chuyện của cả xã hội.</strong><br>
+      Mỗi người lớn cần là một tấm gương, một người bảo vệ, một người đồng hành để trẻ em được lớn lên trong môi trường an toàn, tử tế và đầy yêu thương.
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="cta-section">
+    <h2>💬 Bạn muốn chia sẻ câu chuyện của mình?</h2>
+    <p style="margin-bottom: 24px;">Sophia luôn lắng nghe và đồng hành cùng bạn.</p>
+    <div>
+      <a href="https://zalo.me/0977092182" class="cta-datlich">📅 Đặt lịch tư vấn</a>
+      <a href="contact.html" class="cta-datlich">📩 Gửi tin nhắn</a>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-logo"><img src="images/hinhremovenen.png" alt="Logo Sophia"><p>Đồng hành & Sẻ chia cùng bạn trên hành trình tâm lý – phát triển – yêu thương.</p></div>
+    <div class="footer-links"><h4>Dịch vụ</h4><ul><li><a href="#">Tư vấn tâm lý</a></li><li><a href="#">Định hướng nghề nghiệp</a></li><li><a href="#">Đào tạo kỹ năng</a></li><li><a href="#">Sinh trắc vân tay</a></li></ul></div>
+    <div class="footer-contact"><h4>Liên hệ</h4><p>📧 sophianguyen2891@gmail.com</p><p>📞 0977092182</p><p>🏠 Tân Bình - TPHCM</p><div class="social-icons"><a href="https://www.facebook.com/Sophiadiemhang1982"><img src="images/fb.png" alt="FB" /></a><a href="https://www.tiktok.com/@sophia.nguyen2014"><img src="images/tiktok.png" alt="TikTok" /></a><a href="https://www.youtube.com/@sophianguyen1982-dh"><img src="images/youtube.png" alt="YouTube" /></a></div></div>
+  </div>
+  <div class="footer-bottom"><p>Copyright ©2024 Sophia Nguyễn. All rights reserved.</p></div>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <script>
-  AOS.init({
-    once: true, // chỉ animate 1 lần
-    duration: 1000,
-    easing: 'ease-out-cubic',
-  });
-</script>
-  <script>
-  function toggleMenu() {
-    document.querySelector(".navbar").classList.toggle("active");
-  }
+  AOS.init({ once: true, duration: 1000, easing: 'ease-out-cubic' });
+  function toggleMenu() { document.querySelector(".navbar").classList.toggle("show-menu"); }
 </script>
 </body>
 </html>
