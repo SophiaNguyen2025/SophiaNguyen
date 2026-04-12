@@ -32,6 +32,44 @@
         }
         .logo { height: 50px; }
 
+        /* Navbar giống khóa an toàn trẻ em */
+        .navbar {
+            background: #0f0f0f;
+            padding: 12px 0;
+            border-bottom: 1px solid #2a2a2a;
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #ccc;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: #e63946;
+        }
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: white;
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; width: 100%; flex-direction: column; gap: 1rem; margin-top: 1rem; }
+            .nav-links.show { display: flex; }
+            .menu-toggle { display: block; }
+        }
+
         /* Hero */
         .hero {
             padding: 80px 0;
@@ -155,11 +193,25 @@
 </head>
 <body>
 
+<!-- Header với logo -->
 <header class="header">
     <div class="container">
         <img src="https://i.ibb.co/fK21mfr/z6733594850225-2f3b990b665eef085ad3928349c48c7f.jpg" alt="Sophia Nguyễn" class="logo">
     </div>
 </header>
+
+<!-- Navbar menu (giống khóa an toàn trẻ em) -->
+<nav class="navbar">
+    <div class="container nav-container">
+        <div class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">☰</div>
+        <ul class="nav-links">
+            <li><a href="https://sophianguyen.com.vn">Trang chủ</a></li>
+            <li><a href="/khoa-hoc/ky-nang-an-toan/" class="active">Khóa an toàn</a></li>
+            <li><a href="https://sophianguyen.com.vn/khoa-hoc/gioi-tinh/gioi-thieu/">Khóa giới tính</a></li>
+            <li><a href="https://sophianguyen.com.vn/khoa-hoc/cha-me/gioi-thieu/">Khóa cha mẹ</a></li>
+        </ul>
+    </div>
+</nav>
 
 <main>
     <!-- Hero -->
@@ -172,7 +224,7 @@
                     <p>8 bài học chốt về an toàn giao thông, sơ cấp cứu, tự vệ xã hội, an toàn mạng, sức khỏe tâm thần và pháp luật – giúp bạn trẻ tự tin làm chủ cuộc sống.</p>
                     <div style="display: flex; gap: 16px; flex-wrap: wrap;">
                         <a href="#" class="btn-primary" id="buyBtn">💰 Đăng ký ngay - 299.000đ</a>
-                        <a href="#" class="btn-outline" id="loginBtn">🔐 Đã có mã? Đăng nhập</a>
+                        <a href="/khoa-hoc/ky-nang-an-toan/genz/course.html" class="btn-outline" id="loginBtn">🔐 Đã có mã? Đăng nhập</a>
                     </div>
                 </div>
                 <div class="hero-image">
@@ -205,7 +257,7 @@
             <h2 style="color: white; margin-bottom: 16px;">🚀 Sẵn sàng chinh phục bản lĩnh Gen Z?</h2>
             <p style="margin-bottom: 24px;">Đăng ký ngay để nhận tư vấn và được hỗ trợ mã khóa học</p>
             <a href="https://zalo.me/0977092182" class="btn-primary">📩 Đăng ký ngay</a>
-            <a href="#" class="btn-outline" id="loginBtn2">🔐 Đã có mã? Đăng nhập</a>
+            <a href="/khoa-hoc/ky-nang-an-toan/genz/course.html" class="btn-outline">🔐 Đã có mã? Đăng nhập</a>
         </div>
     </section>
 </main>
