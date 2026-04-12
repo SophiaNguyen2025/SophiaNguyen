@@ -113,9 +113,10 @@
     <div class="modal" id="deviceModal"><div class="modal-content"><div class="modal-header"><h3>📱 Quản lý thiết bị</h3><div class="close-modal" onclick="closeDeviceModal()">✕</div></div><div class="modal-body" id="deviceModalBody"></div></div></div>
 
     <script>
-        // Chị thay API_URL bằng link API thật của chị nhé!
-        const API_URL = "https://script.google.com/macros/s/CHAY_THAY_API_THAT_CUA_CHI/exec";
-       
+        // ==================== CẤU HÌNH API ====================
+        // API của chị
+        const API_URL = "https://script.google.com/macros/s/AKfycbxk3A6AFXVamgr7qlyzzuMu82IzSofNp8zNrS5YkpPmRDhmeea5s-HUlZKRoFqKwO7z/exec";
+        
         // Danh sách 8 bài học Gen Z
         const ALL_COURSES = [
             { id: 1, name: "An toàn Giao thông & Sự cố dọc đường", icon: "🚛", desc: "Điểm mù, va chạm, xử lý sự cố khi hỏng xe giữa đường.", file: "bai-1-giao-thong.html" },
@@ -130,23 +131,62 @@
         
         let currentUser = null, currentAllowedCourseIds = [], currentLicenseKey = null, currentDeviceId = null;
 
-        function getDeviceId() { let id = localStorage.getItem('genz_deviceId'); if (!id) { id = 'dev_' + Date.now() + '_' + Math.random().toString(36).substr(2, 8); localStorage.setItem('genz_deviceId', id); } return id; }
-        function getDeviceName() { const ua = navigator.userAgent; if (ua.includes('iPhone')) return 'iPhone'; if (ua.includes('Android')) return 'Android'; if (ua.includes('Windows')) return 'Windows PC'; if (ua.includes('Mac')) return 'Mac'; return 'Thiết bị khác'; }
-
-        async function authenticate(licenseKey) {
-            const url = `${API_URL}?ma=${encodeURIComponent(licenseKey)}&deviceId=${encodeURIComponent(getDeviceId())}&deviceName=${encodeURIComponent(getDeviceName())}&course=genz`;
-            try { const res = await fetch(url); return await res.json(); } catch(e) { return { status: "error", message: "Không thể kết nối" }; }
+        function getDeviceId() { 
+            let id = localStorage.getItem('genz_deviceId'); 
+            if (!id) { 
+                id = 'dev_' + Date.now() + '_' + Math.random().toString(36).substr(2, 8); 
+                localStorage.setItem('genz_deviceId', id); 
+            } 
+            return id; 
         }
         
-        async function getDevices(licenseKey) { try { const res = await fetch(`${API_URL}?action=getDevices&ma=${encodeURIComponent(licenseKey)}&course=genz`); return await res.json(); } catch(e) { return { status: "error" }; } }
+        function getDeviceName() { 
+            const ua = navigator.userAgent; 
+            if (ua.includes('iPhone')) return 'iPhone'; 
+            if (ua.includes('Android')) return 'Android'; 
+            if (ua.includes('Windows')) return 'Windows PC'; 
+            if (ua.includes('Mac')) return 'Mac'; 
+            return 'Thiết bị khác'; 
+        }
+
+        // Gọi API xác thực (theo đúng định dạng API của chị)
+        async function authenticate(licenseKey) {
+            const url = `${API_URL}?ma=${encodeURIComponent(licenseKey)}&deviceId=${encodeURIComponent(getDeviceId())}&deviceName=${encodeURIComponent(getDeviceName())}`;
+            try { 
+                const res = await fetch(url); 
+                return await res.json(); 
+            } catch(e) { 
+                console.error("Lỗi kết nối API:", e);
+                return { status: "error", message: "Không thể kết nối đến máy chủ" }; 
+            }
+        }
         
-        async function logoutDevice(licenseKey, deviceId) { try { const res = await fetch(`${API_URL}?action=logout&ma=${encodeURIComponent(licenseKey)}&deviceId=${encodeURIComponent(deviceId)}&course=genz`); return await res.json(); } catch(e) { return { status: "error" }; } }
+        async function getDevices(licenseKey) { 
+            try { 
+                const res = await fetch(`${API_URL}?action=getDevices&ma=${encodeURIComponent(licenseKey)}`); 
+                return await res.json(); 
+            } catch(e) { 
+                return { status: "error" }; 
+            } 
+        }
+        
+        async function logoutDevice(licenseKey, deviceId) { 
+            try { 
+                const res = await fetch(`${API_URL}?action=logout&ma=${encodeURIComponent(licenseKey)}&deviceId=${encodeURIComponent(deviceId)}`); 
+                return await res.json(); 
+            } catch(e) { 
+                return { status: "error" }; 
+            } 
+        }
 
         function renderCourses(allowedIds) {
             const grid = document.getElementById('coursesGrid');
             if (!grid) return;
             let filtered = ALL_COURSES.filter(c => allowedIds.includes(c.id));
-            if (filtered.length === 0) { grid.innerHTML = '<div class="loading-text">Bạn chưa được đăng ký bài học nào. Vui lòng liên hệ Sophia để được hỗ trợ.</div>'; return; }
+            if (filtered.length === 0) { 
+                grid.innerHTML = '<div class="loading-text">Bạn chưa được đăng ký bài học nào. Vui lòng liên hệ Sophia để được hỗ trợ.</div>'; 
+                return; 
+            }
             grid.innerHTML = filtered.map(course => `
                 <div class="course-card">
                     <div class="course-header"><div class="course-icon">${course.icon}</div><h3>${course.name}</h3></div>
@@ -165,14 +205,17 @@
             loading.style.display = 'flex';
             const result = await authenticate(key);
             loading.style.display = 'none';
+            
             if (result.status === 'success') {
                 currentUser = result.user;
                 currentAllowedCourseIds = result.courses;
                 currentLicenseKey = key;
                 currentDeviceId = getDeviceId();
+                
                 localStorage.setItem('genz_license', key);
                 localStorage.setItem('genz_user', currentUser);
                 localStorage.setItem('genz_courses', JSON.stringify(currentAllowedCourseIds));
+                
                 document.getElementById('unlockScreen').style.display = 'none';
                 document.getElementById('mainContent').style.display = 'block';
                 document.getElementById('userNameDisplay').innerHTML = `<i class="fas fa-user-circle"></i> ${currentUser}`;
@@ -235,15 +278,34 @@
                 const modalBody = document.getElementById('deviceModalBody');
                 if (devices.length === 0) modalBody.innerHTML = '<p>Không có thiết bị nào đang đăng nhập.</p>';
                 else {
-                    modalBody.innerHTML = `<p>Hiện tại tài khoản của bạn đang đăng nhập trên ${devices.length} thiết bị:</p><div class="device-list">${devices.map(d => `<div class="device-item"><div class="device-info"><div class="device-name">${escapeHtml(d.deviceName)} ${d.deviceId === currentDeviceId ? '<span class="current-badge">Thiết bị này</span>' : ''}</div><div class="device-time">Đăng nhập: ${new Date(d.lastActive).toLocaleString('vi-VN')}</div></div>${d.deviceId !== currentDeviceId ? `<button class="logout-device-btn" onclick="removeDevice('${d.deviceId}')">Đăng xuất</button>` : ''}</div>`).join('')}</div><p style="margin-top:16px; font-size:0.8rem; color:var(--gray);">* Giới hạn tối đa 2 thiết bị cùng lúc</p>`;
+                    modalBody.innerHTML = `<p>Hiện tại tài khoản của bạn đang đăng nhập trên ${devices.length} thiết bị:</p>
+                    <div class="device-list">${devices.map(d => `<div class="device-item"><div class="device-info"><div class="device-name">${escapeHtml(d.deviceName)} ${d.deviceId === currentDeviceId ? '<span class="current-badge">Thiết bị này</span>' : ''}</div><div class="device-time">Đăng nhập: ${new Date(d.lastActive).toLocaleString('vi-VN')}</div></div>${d.deviceId !== currentDeviceId ? `<button class="logout-device-btn" onclick="removeDevice('${d.deviceId}')">Đăng xuất</button>` : ''}</div>`).join('')}</div>
+                    <p style="margin-top:16px; font-size:0.8rem; color:var(--gray);">* Giới hạn tối đa 2 thiết bị cùng lúc</p>`;
                 }
                 document.getElementById('deviceModal').classList.add('active');
             } else alert("Không thể tải danh sách thiết bị.");
         }
 
-        async function removeDevice(deviceId) { if (!currentLicenseKey) return; const loading = document.getElementById('loadingOverlay'); loading.style.display = 'flex'; const result = await logoutDevice(currentLicenseKey, deviceId); loading.style.display = 'none'; if (result.status === 'success') { alert("Đã đăng xuất thiết bị thành công!"); showDeviceManager(); } else alert("Không thể đăng xuất thiết bị."); }
-        function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m])); }
-        function closeDeviceModal() { document.getElementById('deviceModal').classList.remove('active'); }
+        async function removeDevice(deviceId) { 
+            if (!currentLicenseKey) return; 
+            const loading = document.getElementById('loadingOverlay'); 
+            loading.style.display = 'flex'; 
+            const result = await logoutDevice(currentLicenseKey, deviceId); 
+            loading.style.display = 'none'; 
+            if (result.status === 'success') { 
+                alert("Đã đăng xuất thiết bị thành công!"); 
+                showDeviceManager(); 
+            } else alert("Không thể đăng xuất thiết bị."); 
+        }
+        
+        function escapeHtml(str) { 
+            if (!str) return ''; 
+            return str.replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m])); 
+        }
+        
+        function closeDeviceModal() { 
+            document.getElementById('deviceModal').classList.remove('active'); 
+        }
 
         document.addEventListener('DOMContentLoaded', () => {
             checkExistingLicense();
