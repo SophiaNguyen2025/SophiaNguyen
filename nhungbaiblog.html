@@ -7,7 +7,7 @@
   <meta name="description" content="Những bài viết chia sẻ về tâm lý, phát triển bản thân, kỹ năng an toàn và những câu chuyện chữa lành từ Sophia Nguyễn.">
   <meta name="keywords" content="blog tâm lý, phát triển bản thân, kỹ năng an toàn, chữa lành, Sophia Nguyễn">
   <meta name="author" content="Sophia Nguyễn">
-  <link rel="stylesheet" href="main.css" />
+  <link rel="stylesheet" href="../main.css" />
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -227,19 +227,19 @@
 
 <header class="header">
   <div class="header-container">
-    <a href="index.html" class="logo"><img src="images/hinhremovenen.png" alt="Sophia Logo" /></a>
+    <a href="../index.html" class="logo"><img src="../images/hinhremovenen.png" alt="Sophia Logo" /></a>
     <div class="menu-toggle" onclick="document.querySelector('.navbar').classList.toggle('show-menu')">☰</div>
     <nav class="navbar">
       <ul>
-        <li><a href="index.html">Trang chủ</a></li>
-        <li><a href="about.html">Giới thiệu</a></li>
-        <li><a href="services.html">Dịch vụ</a></li>
-        <li><a href="blog.html">Blog</a></li>
-        <li><a href="contact.html">Liên hệ</a></li>
+        <li><a href="../index.html">Trang chủ</a></li>
+        <li><a href="../about.html">Giới thiệu</a></li>
+        <li><a href="../services.html">Dịch vụ</a></li>
+        <li><a href="../blog.html">Blog</a></li>
+        <li><a href="../contact.html">Liên hệ</a></li>
       </ul>
     </nav>
   </div>
-  <div class="banner"><img src="images/rs1.png" alt="Sophia Nguyễn – Đồng hành & Sẻ chia" class="banner-img" /></div>
+  <div class="banner"><img src="../images/rs1.png" alt="Sophia Nguyễn – Đồng hành & Sẻ chia" class="banner-img" /></div>
 </header>
 
 <section class="blog-hero">
@@ -272,16 +272,16 @@
       <p style="margin-bottom: 24px;">Sophia luôn lắng nghe và đồng hành cùng bạn.</p>
       <div>
         <a href="https://zalo.me/0977092182" class="cta-datlich">📅 Đặt lịch tư vấn</a>
-        <a href="contact.html" class="cta-datlich">📩 Gửi tin nhắn</a>
+        <a href="../contact.html" class="cta-datlich">📩 Gửi tin nhắn</a>
       </div>
     </div>
   </div>
 
 <footer class="footer">
   <div class="footer-container">
-    <div class="footer-logo"><img src="images/hinhremovenen.png" alt="Logo Sophia"><p>Đồng hành & Sẻ chia cùng bạn trên hành trình tâm lý – phát triển – yêu thương.</p></div>
+    <div class="footer-logo"><img src="../images/hinhremovenen.png" alt="Logo Sophia"><p>Đồng hành & Sẻ chia cùng bạn trên hành trình tâm lý – phát triển – yêu thương.</p></div>
     <div class="footer-links"><h4>Dịch vụ</h4><ul><li><a href="#">Tư vấn tâm lý</a></li><li><a href="#">Định hướng nghề nghiệp</a></li><li><a href="#">Đào tạo kỹ năng</a></li><li><a href="#">Sinh trắc vân tay</a></li></ul></div>
-    <div class="footer-contact"><h4>Liên hệ</h4><p>📧 sophianguyen2891@gmail.com</p><p>📞 0977092182</p><p>🏠 Tân Bình - TPHCM</p><div class="social-icons"><a href="https://www.facebook.com/Sophiadiemhang1982"><img src="images/fb.png" alt="FB" /></a><a href="https://www.tiktok.com/@sophia.nguyen2014"><img src="images/tiktok.png" alt="TikTok" /></a><a href="https://www.youtube.com/@sophianguyen1982-dh"><img src="images/youtube.png" alt="YouTube" /></a></div></div>
+    <div class="footer-contact"><h4>Liên hệ</h4><p>📧 sophianguyen2891@gmail.com</p><p>📞 0977092182</p><p>🏠 Tân Bình - TPHCM</p><div class="social-icons"><a href="https://www.facebook.com/Sophiadiemhang1982"><img src="../images/fb.png" alt="FB" /></a><a href="https://www.tiktok.com/@sophia.nguyen2014"><img src="../images/tiktok.png" alt="TikTok" /></a><a href="https://www.youtube.com/@sophianguyen1982-dh"><img src="../images/youtube.png" alt="YouTube" /></a></div></div>
   </div>
   <div class="footer-bottom"><p>Copyright ©2024 Sophia Nguyễn. All rights reserved.</p></div>
 </footer>
@@ -291,23 +291,23 @@
   AOS.init({ once: true, duration: 1000, easing: 'ease-out-cubic' });
   function toggleMenu() { document.querySelector(".navbar").classList.toggle("show-menu"); }
 
-  // Dữ liệu blog mẫu (chị có thể thêm/sửa)
-   // Dữ liệu blog mới (đã cập nhật theo yêu cầu)
+  // Dữ liệu blog (chị có thể thêm/sửa)
   const blogs = [
-    { id: 1, title: "Dấu hiệu nhận biết trẻ bị xâm hại tình dục", excerpt: "Những thay đổi bất thường về hành vi, cảm xúc và thể chất cha mẹ cần đặc biệt lưu ý để bảo vệ con kịp thời.", category: "An toàn trẻ em", date: "12/04/2026", readTime: "6 phút", emoji: "🛡️", link: "blog-xam-hai-tre-em.html" },
-    { id: 2, title: "Hướng dẫn con an toàn trên mạng xã hội", excerpt: "Cha mẹ cần đồng hành cùng con trong thời đại số: bảo mật thông tin, nhận diện người lạ, tránh bẫy lừa đảo.", category: "An toàn số", date: "12/04/2026", readTime: "5 phút", emoji: "📱", link: "blog-an-toan-mang-cho-con.html" },
-    { id: 3, title: "5 dấu hiệu bạn đang bị thao túng tâm lý", excerpt: "Gaslighting, cô lập, kiểm soát... Nhận diện sớm để thoát khỏi mối quan hệ độc hại.", category: "Tâm lý", date: "12/04/2026", readTime: "4 phút", emoji: "🧠", link: "blog-thao-tung-tam-ly.html" },
-    { id: 4, title: "5 dấu hiệu bạn đang bị kiệt sức cảm xúc", excerpt: "Cảm giác trống rỗng, mất động lực, dễ cáu gắt... Đó có thể là dấu hiệu bạn đang kiệt sức về mặt cảm xúc.", category: "Tâm lý", date: "10/04/2026", readTime: "3 phút", emoji: "😔", link: "blog-kiet-suc-cam-xuc.html" },
-    { id: 5, title: "Làm thế nào để nói 'KHÔNG' mà không cảm thấy có lỗi?", excerpt: "Nghệ thuật từ chối – kỹ năng quan trọng để bảo vệ ranh giới cá nhân và sức khỏe tinh thần.", category: "Kỹ năng sống", date: "08/04/2026", readTime: "4 phút", emoji: "🙅‍♀️", link: "blog-cach-noi-khong.html" },
-    { id: 6, title: "Hiểu về trầm cảm ở tuổi vị thành niên", excerpt: "Những dấu hiệu nhận biết và cách đồng hành cùng con khi con gặp vấn đề về tâm lý.", category: "Tâm lý", date: "05/04/2026", readTime: "5 phút", emoji: "💙", link: "blog-tram-cam-vi-thanh-nien.html" },
-    { id: 7, title: "Deepfake là gì? Cách nhận diện và bảo vệ bản thân", excerpt: "Công nghệ AI tạo video giả mạo đang ngày càng tinh vi. Hãy học cách bảo vệ mình!", category: "An toàn số", date: "01/04/2026", readTime: "6 phút", emoji: "🤖", link: "blog-deepfake.html" },
-    { id: 8, title: "5 bài tập thở giúp giảm lo âu tức thì", excerpt: "Những kỹ thuật thở đơn giản bạn có thể thực hành bất cứ lúc nào để xoa dịu tâm trí.", category: "Sức khỏe tinh thần", date: "28/03/2026", readTime: "3 phút", emoji: "🌬️", link: "blog-bai-tap-tho.html" }
+    { id: 1, title: "Dấu hiệu nhận biết trẻ bị xâm hại tình dục", excerpt: "Những thay đổi bất thường về hành vi, cảm xúc và thể chất cha mẹ cần đặc biệt lưu ý để bảo vệ con kịp thời.", category: "An toàn trẻ em", date: "12/04/2026", readTime: "6 phút", emoji: "🛡️", link: "blog/blog-xam-hai-tre-em.html" },
+    { id: 2, title: "Hướng dẫn con an toàn trên mạng xã hội", excerpt: "Cha mẹ cần đồng hành cùng con trong thời đại số: bảo mật thông tin, nhận diện người lạ, tránh bẫy lừa đảo.", category: "An toàn số", date: "11/04/2026", readTime: "5 phút", emoji: "📱", link: "blog/blog-an-toan-mang-cho-con.html" },
+    { id: 3, title: "5 dấu hiệu bạn đang bị thao túng tâm lý", excerpt: "Gaslighting, cô lập, kiểm soát... Nhận diện sớm để thoát khỏi mối quan hệ độc hại.", category: "Tâm lý", date: "10/04/2026", readTime: "4 phút", emoji: "🧠", link: "blog/blog-thao-tung-tam-ly.html" },
+    { id: 4, title: "5 dấu hiệu bạn đang bị kiệt sức cảm xúc", excerpt: "Cảm giác trống rỗng, mất động lực, dễ cáu gắt... Đó có thể là dấu hiệu bạn đang kiệt sức về mặt cảm xúc.", category: "Tâm lý", date: "08/04/2026", readTime: "3 phút", emoji: "😔", link: "blog/blog-kiet-suc-cam-xuc.html" },
+    { id: 5, title: "Làm thế nào để nói 'KHÔNG' mà không cảm thấy có lỗi?", excerpt: "Nghệ thuật từ chối – kỹ năng quan trọng để bảo vệ ranh giới cá nhân và sức khỏe tinh thần.", category: "Kỹ năng sống", date: "06/04/2026", readTime: "4 phút", emoji: "🙅‍♀️", link: "blog/blog-cach-noi-khong.html" },
+    { id: 6, title: "Hiểu về trầm cảm ở tuổi vị thành niên", excerpt: "Những dấu hiệu nhận biết và cách đồng hành cùng con khi con gặp vấn đề về tâm lý.", category: "Tâm lý", date: "03/04/2026", readTime: "5 phút", emoji: "💙", link: "blog/blog-tram-cam-vi-thanh-nien.html" },
+    { id: 7, title: "Deepfake là gì? Cách nhận diện và bảo vệ bản thân", excerpt: "Công nghệ AI tạo video giả mạo đang ngày càng tinh vi. Hãy học cách bảo vệ mình!", category: "An toàn số", date: "28/03/2026", readTime: "6 phút", emoji: "🤖", link: "blog/blog-deepfake.html" },
+    { id: 8, title: "5 bài tập thở giúp giảm lo âu tức thì", excerpt: "Những kỹ thuật thở đơn giản bạn có thể thực hành bất cứ lúc nào để xoa dịu tâm trí.", category: "Sức khỏe tinh thần", date: "23/03/2026", readTime: "3 phút", emoji: "🌬️", link: "blog/blog-bai-tap-tho.html" }
   ];
 
   const categories = [...new Set(blogs.map(b => b.category))];
 
   function renderBlogs() {
     const grid = document.getElementById('blogGrid');
+    if (!grid) return;
     grid.innerHTML = blogs.map(blog => `
       <div class="blog-card" onclick="window.location.href='${blog.link}'">
         <div class="blog-image">${blog.emoji}</div>
@@ -327,6 +327,7 @@
 
   function renderCategories() {
     const catList = document.getElementById('categoryList');
+    if (!catList) return;
     catList.innerHTML = categories.map(cat => `<li><a href="#">📌 ${cat}</a></li>`).join('');
   }
 
