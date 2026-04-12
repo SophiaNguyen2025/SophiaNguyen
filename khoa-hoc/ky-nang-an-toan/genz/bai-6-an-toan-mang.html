@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Bài 6: An toàn Không gian mạng & Tài chính số | Bản lĩnh Gen Z | Sophia Nguyễn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0a0a0a;
+            font-family: 'Segoe UI', 'Be Vietnam Pro', sans-serif;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .header { background: #141414; border-radius: 32px; padding: 20px; margin-bottom: 20px; text-align: center; border: 1px solid #2a2a2a; }
+        .logo { height: 60px; margin-bottom: 10px; }
+        .header h1 { color: #e0e0e0; font-size: 1.8rem; }
+        .video-section { background: #141414; border-radius: 32px; padding: 20px; margin-bottom: 20px; border: 1px solid #2a2a2a; }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 24px; overflow: hidden; }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .exercise { background: #141414; border-radius: 32px; padding: 20px; margin-bottom: 20px; border: 1px solid #2a2a2a; }
+        .exercise-title { font-size: 1.5rem; color: #e63946; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 3px solid #e63946; display: inline-block; }
+        .back-btn { display: inline-block; background: #e63946; color: white; padding: 12px 24px; border-radius: 40px; text-decoration: none; font-weight: bold; margin-top: 20px; transition: all 0.2s; }
+        .back-btn:hover { transform: translateY(-2px); background: #c1121f; }
+        .footer { text-align: center; color: #666; padding: 20px; font-size: 0.8rem; }
+        
+        .shake-screen { animation: shake 0.3s ease-in-out 0s 2; }
+        @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } 100% { transform: translateX(0); } }
+        
+        #confetti-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; }
+        
+        .progress-bar { background: #1a1a2e; border-radius: 20px; height: 8px; margin-bottom: 10px; overflow: hidden; }
+        .progress-fill { background: #e63946; height: 100%; border-radius: 20px; transition: width 0.3s; }
+        .progress-badge { background: #1a1a2e; padding: 6px 16px; border-radius: 40px; color: #ccc; font-weight: 600; border: 1px solid #e63946; display: inline-block; margin-bottom: 15px; }
+        
+        .security-tip, .warning-box, .money-tip { background: #1a1a2e; border-radius: 20px; padding: 15px 20px; margin-bottom: 25px; border-left: 5px solid #e63946; display: flex; align-items: center; gap: 15px; flex-wrap: wrap; }
+        .tip-icon, .warning-icon { font-size: 32px; }
+        .tip-text, .warning-text { flex: 1; color: #ccc; font-size: 14px; }
+        .tip-text strong, .warning-text strong { color: #e63946; }
+        
+        .question-card, .scenario-card { background: #1a1a2e; border-radius: 24px; padding: 24px; margin-bottom: 25px; border: 1px solid #2a2a3e; }
+        .question-text, .scenario-title { font-size: 17px; font-weight: 600; color: #e0e0e0; margin-bottom: 15px; }
+        .scenario-desc { font-size: 14px; color: #aaa; margin-bottom: 20px; background: #0a0a12; padding: 15px; border-radius: 16px; }
+        .options { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+        .option { background: #0a0a12; border: 2px solid #2a2a3e; border-radius: 16px; padding: 12px 16px; cursor: pointer; transition: all 0.2s; color: #ccc; font-size: 13px; line-height: 1.4; }
+        .option:hover { border-color: #e63946; background: #1e1e32; }
+        .option.selected-correct { border-color: #2ecc71; background: #1a2a1a; color: #2ecc71; }
+        .option.selected-wrong { border-color: #e74c3c; background: #2a1a1a; color: #e74c3c; }
+        .feedback { background: #0a0a12; border-radius: 16px; padding: 15px; margin-top: 15px; font-size: 14px; border-left: 4px solid #e63946; color: #ccc; }
+        .feedback.correct { border-left-color: #2ecc71; color: #2ecc71; }
+        .feedback.wrong { border-left-color: #e74c3c; color: #e74c3c; }
+        
+        .btn-next { background: #e63946; border: none; color: white; font-size: 18px; font-weight: 600; padding: 14px 28px; border-radius: 60px; cursor: pointer; width: 100%; margin: 15px 0; transition: 0.2s; }
+        .btn-next:hover { background: #c1121f; }
+        .reset-btn { background: #e63946; border: none; padding: 12px 28px; border-radius: 40px; font-weight: 600; font-size: 16px; cursor: pointer; color: white; width: 100%; margin-top: 15px; }
+        .result-area { text-align: center; padding: 30px; background: #1a1a2e; border-radius: 24px; margin-top: 20px; }
+        .final-score { font-size: 48px; font-weight: bold; color: #e63946; margin: 20px 0; }
+        
+        .section-title { font-size: 18px; font-weight: 700; color: #e63946; margin: 20px 0 15px 0; padding-bottom: 8px; border-bottom: 2px solid #e63946; }
+        .checklist-area { background: #1a1a2e; border-radius: 24px; padding: 20px; margin: 20px 0; border: 1px solid #2a2a3e; }
+        .checklist-title { font-size: 16px; font-weight: 700; color: #e0e0e0; margin-bottom: 15px; }
+        .checklist-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #2a2a3e; cursor: pointer; }
+        .checklist-item:last-child { border-bottom: none; }
+        .checklist-checkbox { width: 22px; height: 22px; border: 2px solid #e63946; border-radius: 6px; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+        .checklist-checkbox.checked { background: #2ecc71; border-color: #2ecc71; }
+        .checklist-checkbox.checked::after { content: "✓"; color: white; font-size: 14px; font-weight: bold; }
+        .checklist-text { font-size: 13px; color: #ccc; flex: 1; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <img src="https://i.ibb.co/fK21mfr/z6733594850225-2f3b990b665eef085ad3928349c48c7f.jpg" alt="Sophia Nguyễn" class="logo">
+        <h1>💻 Bài 6: An toàn Không gian mạng & Tài chính số</h1>
+    </div>
+
+    <div class="video-section">
+        <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/YV7rsX8WmtA" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- Bài tập 1: Bảo mật số - 2FA -->
+    <div class="exercise">
+        <h2 class="exercise-title">🔐 Bài tập 1: Bảo mật số - Xây tường thành 2FA</h2>
+        <div id="exercise1"></div>
+    </div>
+
+    <!-- Bài tập 2: Nhận diện bẫy lừa đảo -->
+    <div class="exercise">
+        <h2 class="exercise-title">🎣 Bài tập 2: Nhận diện bẫy lừa đảo</h2>
+        <div id="exercise2"></div>
+    </div>
+
+    <!-- Bài tập 3: Túi tiền an toàn & Ứng xử bạo lực mạng -->
+    <div class="exercise">
+        <h2 class="exercise-title">💰 Bài tập 3: Túi tiền an toàn & Ứng xử bạo lực mạng</h2>
+        <div id="exercise3"></div>
+    </div>
+
+    <a href="/khoa-hoc/ky-nang-an-toan/genz/" class="back-btn">← Quay lại danh sách bài học</a>
+    <div class="footer">
+        <p>🛡️ Bản lĩnh Gen Z – Khóa học an toàn dành cho giới trẻ | Sophia Nguyễn</p>
+    </div>
+</div>
+<canvas id="confetti-canvas"></canvas>
+
+<script>
+    // ==================== HIỆU ỨNG CONFETTI & ÂM THANH ====================
+    let ctx = null, width = window.innerWidth, height = window.innerHeight, particles = [], animationId = null;
+    function resizeCanvas() { width = window.innerWidth; height = window.innerHeight; const canvas = document.getElementById('confetti-canvas'); if(canvas){ canvas.width = width; canvas.height = height; ctx = canvas.getContext('2d'); } }
+    function createConfetti(duration = 1800) {
+        if(!ctx) return;
+        if(animationId) cancelAnimationFrame(animationId);
+        particles = [];
+        for(let i=0;i<140;i++) {
+            particles.push({ x: Math.random() * width, y: Math.random() * height - height, size: Math.random() * 7 + 3, color: `hsl(${Math.random() * 360}, 80%, 60%)`, speedY: Math.random() * 5 + 3, speedX: (Math.random() - 0.5) * 2, rotation: Math.random() * 360, rotSpeed: (Math.random() - 0.5) * 6 });
+        }
+        drawConfetti();
+        setTimeout(() => { if(animationId) cancelAnimationFrame(animationId); ctx?.clearRect(0,0,width,height); particles = []; }, duration);
+    }
+    function drawConfetti() {
+        if(!ctx) return;
+        ctx.clearRect(0, 0, width, height);
+        let allFinished = true;
+        for(let i=0;i<particles.length;i++) {
+            const p = particles[i];
+            if(p.y < height + 50) {
+                allFinished = false;
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.rotation * Math.PI / 180);
+                ctx.fillStyle = p.color;
+                ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size * 0.6);
+                ctx.restore();
+                p.y += p.speedY;
+                p.x += p.speedX;
+                p.rotation += p.rotSpeed;
+            }
+        }
+        if(!allFinished) animationId = requestAnimationFrame(drawConfetti);
+        else { if(animationId) cancelAnimationFrame(animationId); particles = []; ctx.clearRect(0,0,width,height); }
+    }
+    window.addEventListener('resize', () => { resizeCanvas(); if(particles.length) drawConfetti(); });
+    
+    function playClickSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 880;
+            gain.gain.value = 0.08;
+            osc.type = 'sine';
+            osc.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.08);
+            osc.stop(audioCtx.currentTime + 0.08);
+        } catch(e) {}
+    }
+    
+    function playSuccessSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const frequencies = [880, 1046.5, 1318.5];
+            frequencies.forEach((freq, idx) => {
+                setTimeout(() => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.frequency.value = freq;
+                    gain.gain.value = 0.2;
+                    osc.type = 'sine';
+                    osc.start();
+                    gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                    osc.stop(audioCtx.currentTime + 0.3);
+                }, idx * 120);
+            });
+        } catch(e) {}
+        createConfetti(800);
+    }
+    
+    function playCompleteSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const gain = audioCtx.createGain();
+            gain.connect(audioCtx.destination);
+            gain.gain.value = 0.3;
+            const bufferSize = 4096;
+            const noise = audioCtx.createBufferSource();
+            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for(let i=0; i<bufferSize; i++) data[i] = Math.random() * 2 - 1;
+            noise.buffer = buffer;
+            noise.loop = true;
+            noise.connect(gain);
+            noise.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 1.2);
+            noise.stop(audioCtx.currentTime + 1.2);
+            setTimeout(() => {
+                const osc = audioCtx.createOscillator();
+                const gain2 = audioCtx.createGain();
+                osc.connect(gain2);
+                gain2.connect(audioCtx.destination);
+                osc.frequency.value = 1046.5;
+                gain2.gain.value = 0.3;
+                osc.type = 'sine';
+                osc.start();
+                gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.5);
+                osc.stop(audioCtx.currentTime + 0.5);
+            }, 1000);
+        } catch(e) {}
+        createConfetti(2500);
+    }
+    
+    function playErrorSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 220;
+            gain.gain.value = 0.25;
+            osc.type = 'sawtooth';
+            osc.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.4);
+            osc.stop(audioCtx.currentTime + 0.4);
+            setTimeout(() => {
+                const osc2 = audioCtx.createOscillator();
+                const gain2 = audioCtx.createGain();
+                osc2.connect(gain2);
+                gain2.connect(audioCtx.destination);
+                osc2.frequency.value = 164.81;
+                gain2.gain.value = 0.2;
+                osc2.type = 'sawtooth';
+                osc2.start();
+                gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                osc2.stop(audioCtx.currentTime + 0.3);
+            }, 150);
+        } catch(e) {}
+        document.body.classList.add('shake-screen');
+        setTimeout(() => document.body.classList.remove('shake-screen'), 500);
+    }
+
+    // ========== BÀI TẬP 1: BẢO MẬT SỐ - 2FA ==========
+    (function() {
+        const questions = [
+            { text: "🔐 Xác thực 2 yếu tố (2FA) là gì?", options: ["A. Nhập mật khẩu 2 lần", "B. Mật khẩu + mã OTP từ điện thoại/email", "C. Có 2 tài khoản dự phòng", "D. Đăng nhập trên 2 thiết bị"], correct: 1, explanation: "✅ 2FA là lớp bảo vệ thứ 2 sau mật khẩu, thường là mã OTP." },
+            { text: "🔐 Bạn nhận email 'Tài khoản sắp bị khóa, click link xác minh'. Bạn nên?", options: ["A. Click link ngay", "B. Chuyển tiếp email", "C. Không click, kiểm tra trực tiếp trên app", "D. Trả lời cung cấp mật khẩu"], correct: 2, explanation: "✅ Đây là lừa đảo Phishing. Không bao giờ click link lạ." },
+            { text: "🔐 Mật khẩu thế nào là an toàn nhất?", options: ["A. Dùng 1 mật khẩu cho mọi tài khoản", "B. Dùng ngày sinh", "C. Dài 8-12 ký tự, chữ hoa, thường, số, ký tự đặc biệt, khác nhau mỗi tài khoản", "D. Để trống"], correct: 2, explanation: "✅ Mật khẩu mạnh nên dài, có cả chữ hoa, thường, số và ký tự đặc biệt." },
+            { text: "🔐 'Dấu chân số' là gì?", options: ["A. Dấu vân tay", "B. Toàn bộ thông tin bạn để lại trên Internet", "C. Số bước chân", "D. Ứng dụng đếm bước"], correct: 1, explanation: "✅ Mọi bài đăng, like, comment, tìm kiếm đều là dấu chân số." },
+            { text: "🔐 Khi đăng nhập tài khoản quan trọng, bạn nên?", options: ["A. Đăng nhập qua link trong tin nhắn", "B. Dùng app chính thống, bật 2FA", "C. Dùng Wi-Fi công cộng không VPN", "D. Lưu mật khẩu trên trình duyệt"], correct: 1, explanation: "✅ Luôn đăng nhập qua kênh chính thống, bật 2FA." }
+        ];
+        let currentIdx = 0, userAnswers = new Array(questions.length).fill(null);
+        function renderQuiz1() {
+            const container = document.getElementById('exercise1');
+            if (currentIdx >= questions.length) {
+                let correct = 0;
+                for (let i=0; i<questions.length; i++) if (userAnswers[i] === questions[i].correct) correct++;
+                let msg = correct === questions.length ? '🎉 XUẤT SẮC! Bạn đã nắm vững kiến thức bảo mật số!' : (correct >= 3 ? '👍 Khá tốt!' : '📖 Hãy học lại về 2FA và mật khẩu mạnh.');
+                if (correct === questions.length) playCompleteSound(); else playSuccessSound();
+                container.innerHTML = `<div class="result-area"><div class="final-score">${correct}/${questions.length}</div><div style="color:#ccc;">${msg}</div><button class="reset-btn" id="reset1">🔄 LÀM LẠI</button></div>`;
+                document.getElementById('reset1')?.addEventListener('click', () => { currentIdx = 0; userAnswers.fill(null); renderQuiz1(); });
+                return;
+            }
+            const q = questions[currentIdx];
+            let html = `<div class="progress-badge">🛡️ Đã bảo vệ: ${userAnswers.filter(a=>a!==null).length}/${questions.length} tài khoản</div>
+                <div class="security-tip"><div class="tip-icon">🔐</div><div class="tip-text"><strong>MẸO:</strong> Bật xác thực 2 lớp (2FA) ngay hôm nay! Chỉ mất 2 phút nhưng an toàn gấp 10 lần.</div></div>
+                <div class="question-card"><div class="question-text">❓ ${q.text}</div><div class="options" id="opts1"></div>
+                <div class="feedback" id="fb1">💡 Hãy chọn đáp án đúng!</div><button class="btn-next" id="next1">${currentIdx === questions.length-1 ? '🏁 XEM KẾT QUẢ' : '➡️ TIẾP'}</button></div>`;
+            container.innerHTML = html;
+            const optsDiv = document.getElementById('opts1');
+            q.options.forEach((opt, idx) => {
+                const optDiv = document.createElement('div');
+                optDiv.className = `option ${userAnswers[currentIdx] === idx ? (idx === q.correct ? 'selected-correct' : 'selected-wrong') : ''}`;
+                optDiv.innerText = opt;
+                optDiv.onclick = () => {
+                    if (userAnswers[currentIdx] !== null) return;
+                    userAnswers[currentIdx] = idx;
+                    const fb = document.getElementById('fb1');
+                    if (idx === q.correct) { fb.innerHTML = '✅ ' + q.explanation; fb.className = 'feedback correct'; playSuccessSound(); }
+                    else { fb.innerHTML = '❌ ' + q.explanation; fb.className = 'feedback wrong'; playErrorSound(); }
+                    renderQuiz1();
+                };
+                optsDiv.appendChild(optDiv);
+            });
+            document.getElementById('next1').onclick = () => {
+                if (userAnswers[currentIdx] === null) { document.getElementById('fb1').innerHTML = '⚠️ Hãy chọn đáp án trước!'; playErrorSound(); return; }
+                currentIdx++; renderQuiz1();
+            };
+        }
+        renderQuiz1();
+    })();
+
+    // ========== BÀI TẬP 2: NHẬN DIỆN BẪY LỪA ĐẢO ==========
+    (function() {
+        const scenarios = [
+            { title: "📞 CUỘC GỌI TỪ CÔNG AN", desc: "Người tự xưng công an nói bạn liên quan vụ án rửa tiền, yêu cầu chuyển tiền vào tài khoản tạm giữ.", options: ["A. Chuyển tiền ngay", "B. Cúp máy, không làm theo. Cơ quan chức năng không yêu cầu chuyển tiền qua điện thoại", "C. Cung cấp OTP", "D. Gửi ảnh CCCD"], correct: 1, explanation: "✅ Cảnh sát KHÔNG BAO GIỜ gọi yêu cầu chuyển tiền. Hãy cúp máy." },
+            { title: "💼 VIỆC NHẸ LƯƠNG CAO", desc: "Tin nhắn rủ làm cộng tác viên chốt đơn, chỉ cần nạp 2 triệu kích hoạt.", options: ["A. Đăng ký ngay", "B. Rủ bạn bè cùng làm", "C. Từ chối, đây là bẫy lừa đảo yêu cầu nạp tiền trước", "D. Nạp 500k thử"], correct: 2, explanation: "✅ Không có công việc nào yêu cầu nạp tiền trước. Đây là lừa đảo." },
+            { title: "😈 HACK FACEBOOK MƯỢN TIỀN", desc: "Bạn thân nhắn tin mượn 5 triệu, tài khoản lạ không phải tên bạn thân.", options: ["A. Chuyển ngay", "B. Gọi điện xác nhận trước khi chuyển", "C. Hỏi thêm rồi chuyển", "D. Chuyển nửa số tiền"], correct: 1, explanation: "✅ LUÔN GỌI ĐIỆN XÁC NHẬN trước khi chuyển khoản khi nhận tin nhắn mượn tiền." },
+            { title: "💎 ĐẦU TƯ TIỀN ẢO LỜI TO", desc: "Sàn đầu tư mới cam kết lợi nhuận 30-50%/tháng.", options: ["A. Đầu tư hết tiền", "B. Vay thêm để đầu tư", "C. Tin vì thấy nhiều người rút được tiền", "D. Cảnh giác, lợi nhuận quá cao là lừa đảo"], correct: 3, explanation: "✅ Không có đầu tư nào an toàn mà lợi nhuận 30-50%/tháng. Đây là lừa đảo Ponzi." },
+            { title: "📦 SHOPEE TRÚNG THƯỞNG", desc: "SMS: 'Shopee chúc mừng bạn trúng 10 triệu. Click link để nhận quà.'", options: ["A. Click ngay", "B. Không click, xóa tin. Shopee không gửi link lạ qua SMS", "C. Chia sẻ link", "D. Nhập thông tin thẻ"], correct: 1, explanation: "✅ Đây là lừa đảo Phishing qua SMS (Smishing). Không click link lạ." },
+            { title: "🏦 NGÂN HÀNG GỌI BÁO NỢ", desc: "Tổng đài ngân hàng gọi yêu cầu cung cấp OTP để xác minh.", options: ["A. Cung cấp OTP", "B. Tắt máy, gọi lại số tổng đài chính thống", "C. Cung cấp nửa mã OTP", "D. Gửi ảnh OTP qua Zalo"], correct: 1, explanation: "✅ Ngân hàng KHÔNG BAO GIỜ hỏi OTP. Mã OTP là tài sản cá nhân, không chia sẻ." }
+        ];
+        let currentIdx = 0, userAnswers = new Array(scenarios.length).fill(null);
+        function renderQuiz2() {
+            const container = document.getElementById('exercise2');
+            if (currentIdx >= scenarios.length) {
+                let correct = 0;
+                for (let i=0; i<scenarios.length; i++) if (userAnswers[i] === scenarios[i].correct) correct++;
+                let msg = correct === scenarios.length ? '🎉 XUẤT SẮC! Bạn đã nắm vững các kịch bản lừa đảo!' : (correct >= 4 ? '👍 Khá tốt!' : '📖 Hãy học lại các hình thức lừa đảo.');
+                if (correct === scenarios.length) playCompleteSound(); else playSuccessSound();
+                container.innerHTML = `<div class="result-area"><div class="final-score">${correct}/${scenarios.length}</div><div style="color:#ccc;">${msg}</div><button class="reset-btn" id="reset2">🔄 LÀM LẠI</button></div>`;
+                document.getElementById('reset2')?.addEventListener('click', () => { currentIdx = 0; userAnswers.fill(null); renderQuiz2(); });
+                return;
+            }
+            const s = scenarios[currentIdx];
+            let html = `<div class="progress-badge">🎣 Đã nhận diện: ${userAnswers.filter(a=>a!==null).length}/${scenarios.length} bẫy lừa</div>
+                <div class="warning-box"><div class="warning-icon">⚠️</div><div class="warning-text"><strong>CẢNH BÁO:</strong> Tội phạm mạng ngày càng tinh vi. Đọc kỹ từng tình huống!</div></div>
+                <div class="scenario-card"><div class="scenario-title">${s.title}</div><div class="scenario-desc">${s.desc}</div><div class="options" id="opts2"></div>
+                <div class="feedback" id="fb2">💡 Hãy chọn cách xử lý thông minh!</div><button class="btn-next" id="next2">${currentIdx === scenarios.length-1 ? '🏁 XEM KẾT QUẢ' : '➡️ TIẾP'}</button></div>`;
+            container.innerHTML = html;
+            const optsDiv = document.getElementById('opts2');
+            s.options.forEach((opt, idx) => {
+                const optDiv = document.createElement('div');
+                optDiv.className = `option ${userAnswers[currentIdx] === idx ? (idx === s.correct ? 'selected-correct' : 'selected-wrong') : ''}`;
+                optDiv.innerText = opt;
+                optDiv.onclick = () => {
+                    if (userAnswers[currentIdx] !== null) return;
+                    userAnswers[currentIdx] = idx;
+                    const fb = document.getElementById('fb2');
+                    if (idx === s.correct) { fb.innerHTML = '✅ ' + s.explanation; fb.className = 'feedback correct'; playSuccessSound(); }
+                    else { fb.innerHTML = '❌ ' + s.explanation; fb.className = 'feedback wrong'; playErrorSound(); }
+                    renderQuiz2();
+                };
+                optsDiv.appendChild(optDiv);
+            });
+            document.getElementById('next2').onclick = () => {
+                if (userAnswers[currentIdx] === null) { document.getElementById('fb2').innerHTML = '⚠️ Hãy chọn đáp án trước!'; playErrorSound(); return; }
+                currentIdx++; renderQuiz2();
+            };
+        }
+        renderQuiz2();
+    })();
+
+    // ========== BÀI TẬP 3: TÚI TIỀN AN TOÀN & BẠO LỰC MẠNG ==========
+    (function() {
+        const questions = [
+            { text: "💰 Wi-Fi công cộng khi chuyển tiền, bạn nên?", options: ["A. Dùng Wi-Fi công cộng bình thường", "B. Tắt Wi-Fi, dùng 4G/5G", "C. Không chuyển tiền", "D. Nhờ nhân viên chuyển hộ"], correct: 1, explanation: "✅ Wi-Fi công cộng dễ bị đánh cắp dữ liệu. Hãy dùng 4G/5G khi giao dịch nhạy cảm." },
+            { text: "💰 Có người gọi yêu cầu cung cấp OTP, bạn nên?", options: ["A. Cung cấp OTP", "B. Cung cấp nửa mã", "C. Tuyệt đối không cung cấp. Ngân hàng không bao giờ hỏi OTP qua điện thoại", "D. Đọc mã cho họ"], correct: 2, explanation: "✅ Mã OTP là lớp bảo vệ cuối cùng. KHÔNG BAO GIỜ cung cấp cho bất kỳ ai." },
+            { text: "💰 Người yêu cũ đe dọa phát tán ảnh nhạy cảm. Đây là hành vi gì?", options: ["A. Làm theo yêu cầu", "B. Sextortion - lưu bằng chứng, báo công an", "C. Im lặng", "D. Tự giải quyết"], correct: 1, explanation: "✅ Sextortion là hành vi phạm tội. Hãy chụp màn hình làm bằng chứng và báo công an." },
+            { text: "💰 Bị nhóm người xúc phạm trên Facebook, cách xử lý đúng?", options: ["A. Cãi lại", "B. Chụp bằng chứng → chặn → báo cáo", "C. Bỏ qua", "D. Nhờ bạn bè cãi hộ"], correct: 1, explanation: "✅ Quy trình: CHỤP BẰNG CHỨNG → CHẶN → BÁO CÁO. Không tranh cãi trực tiếp." },
+            { text: "💰 Mua hàng trên web lạ, có nên lưu thông tin thẻ?", options: ["A. Lưu để tiện", "B. Không lưu, chỉ thanh toán qua trung gian uy tín", "C. Lưu thẻ phụ ít tiền", "D. Nhập thẻ bất kỳ"], correct: 1, explanation: "✅ Chỉ lưu thông tin trên nền tảng uy tín. Với web lạ, hãy dùng ví điện tử hoặc cổng thanh toán trung gian." }
+        ];
+        const checklistItems = [
+            { id: 0, text: "🔐 Bật xác thực 2 lớp (2FA) cho tài khoản ngân hàng và mạng xã hội", checked: false },
+            { id: 1, text: "🔑 Không dùng chung mật khẩu cho nhiều tài khoản", checked: false },
+            { id: 2, text: "📱 Không cung cấp mã OTP cho bất kỳ ai", checked: false },
+            { id: 3, text: "💰 Không chuyển tiền khi chưa xác nhận trực tiếp bằng điện thoại", checked: false },
+            { id: 4, text: "🌐 Không dùng Wi-Fi công cộng để giao dịch ngân hàng", checked: false },
+            { id: 5, text: "📸 Không chia sẻ hình ảnh nhạy cảm dưới bất kỳ hình thức nào", checked: false },
+            { id: 6, text: "🚫 Khi bị bạo lực mạng: Chụp bằng chứng → Chặn → Báo cáo", checked: false }
+        ];
+        let currentIdx = 0, userAnswers = new Array(questions.length).fill(null), checklistState = [...checklistItems], gameLocked = false;
+        function renderQuiz3() {
+            const container = document.getElementById('exercise3');
+            if (currentIdx < questions.length) {
+                const q = questions[currentIdx];
+                let html = `<div class="progress-badge">💰 Đã bảo vệ: ${userAnswers.filter(a=>a!==null).length}/${questions.length} tình huống</div>
+                    <div class="money-tip"><div class="tip-icon">💰</div><div class="tip-text"><strong>MẸO:</strong> Mã OTP là 'chìa khóa' cuối cùng của tài khoản. Không ai được quyền hỏi nó!</div></div>
+                    <div class="question-card"><div class="question-text">❓ ${q.text}</div><div class="options" id="opts3"></div>
+                    <div class="feedback" id="fb3">💡 Hãy chọn đáp án đúng!</div><button class="btn-next" id="next3">${currentIdx === questions.length-1 ? '🏁 XEM CHECKLIST' : '➡️ TIẾP'}</button></div>`;
+                container.innerHTML = html;
+                const optsDiv = document.getElementById('opts3');
+                q.options.forEach((opt, idx) => {
+                    const optDiv = document.createElement('div');
+                    optDiv.className = `option ${userAnswers[currentIdx] === idx ? (idx === q.correct ? 'selected-correct' : 'selected-wrong') : ''}`;
+                    optDiv.innerText = opt;
+                    optDiv.onclick = () => {
+                        if (userAnswers[currentIdx] !== null) return;
+                        userAnswers[currentIdx] = idx;
+                        const fb = document.getElementById('fb3');
+                        if (idx === q.correct) { fb.innerHTML = '✅ ' + q.explanation; fb.className = 'feedback correct'; playSuccessSound(); }
+                        else { fb.innerHTML = '❌ ' + q.explanation; fb.className = 'feedback wrong'; playErrorSound(); }
+                        renderQuiz3();
+                    };
+                    optsDiv.appendChild(optDiv);
+                });
+                document.getElementById('next3').onclick = () => {
+                    if (userAnswers[currentIdx] === null) { document.getElementById('fb3').innerHTML = '⚠️ Hãy chọn đáp án trước!'; playErrorSound(); return; }
+                    currentIdx++; renderQuiz3();
+                };
+            } else {
+                let correctCount = 0;
+                for (let i=0; i<questions.length; i++) if (userAnswers[i] === questions[i].correct) correctCount++;
+                const checkedCount = checklistState.filter(c => c.checked).length;
+                let html = `<div class="progress-badge">💰 Đã bảo vệ: ${questions.length}/${questions.length} tình huống</div>
+                    <div class="section-title">✅ CHECKLIST AN TOÀN SỐ</div>
+                    <div class="checklist-area"><div class="checklist-title">Hãy tick vào những việc bạn SẼ LÀM:</div><div id="checklistContainer"></div></div>
+                    <button class="btn-next" id="submitBtn3">🔍 HOÀN THÀNH & ĐÁNH GIÁ</button>
+                    <div class="feedback" id="fb3">💡 Hãy tick vào checklist và hoàn thành!</div>`;
+                container.innerHTML = html;
+                const checklistContainer = document.getElementById('checklistContainer');
+                checklistState.forEach((item, idx) => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'checklist-item';
+                    itemDiv.innerHTML = `<div class="checklist-checkbox ${item.checked ? 'checked' : ''}" data-idx="${idx}"></div><div class="checklist-text">${item.text}</div>`;
+                    if (!gameLocked) itemDiv.addEventListener('click', () => { checklistState[idx].checked = !checklistState[idx].checked; renderQuiz3(); playSuccessSound(); });
+                    checklistContainer.appendChild(itemDiv);
+                });
+                document.getElementById('submitBtn3').onclick = () => {
+                    gameLocked = true;
+                    const total = questions.length;
+                    let msg = (correctCount === total && checkedCount === checklistItems.length) ? '🎉 XUẤT SẮC! Bạn đã nắm vững kỹ năng bảo vệ tài chính và an toàn mạng!' : (correctCount >= 3 && checkedCount >= 5 ? '👍 Khá tốt!' : '📖 Hãy học lại các quy tắc bảo vệ OTP và an toàn Wi-Fi!');
+                    if (correctCount === total && checkedCount === checklistItems.length) playCompleteSound(); else playSuccessSound();
+                    container.innerHTML = `<div class="result-area"><div class="final-score">📊 ${correctCount}/${total} | ✅ ${checkedCount}/${checklistItems.length}</div><div style="color:#ccc;">${msg}</div><button class="reset-btn" id="reset3">🔄 LÀM LẠI</button></div>`;
+                    document.getElementById('reset3')?.addEventListener('click', () => { currentIdx = 0; userAnswers.fill(null); checklistState = checklistItems.map(i=>({...i,checked:false})); gameLocked=false; renderQuiz3(); });
+                };
+            }
+        }
+        renderQuiz3();
+    })();
+    resizeCanvas();
+</script>
+</body>
+</html>
