@@ -6,23 +6,13 @@
     <title>Bản lĩnh Gen Z – Khóa học an toàn dành cho giới trẻ | Sophia Nguyễn</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background: #0a0a0a;
-            font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, sans-serif;
+            font-family: 'Segoe UI', 'Poppins', system-ui, sans-serif;
             color: #e0e0e0;
         }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
         /* Header */
         .header {
@@ -40,34 +30,9 @@
             flex-wrap: wrap;
             gap: 20px;
         }
-        .logo {
-            height: 50px;
-        }
-        .nav-links {
-            display: flex;
-            gap: 32px;
-            align-items: center;
-        }
-        .nav-links a {
-            color: #ccc;
-            text-decoration: none;
-            transition: 0.2s;
-        }
-        .nav-links a:hover {
-            color: #e63946;
-        }
-        .btn-enroll {
-            background: #e63946;
-            padding: 10px 24px;
-            border-radius: 40px;
-            color: white !important;
-            font-weight: 600;
-        }
-        .btn-enroll:hover {
-            background: #c1121f;
-        }
+        .logo { height: 50px; }
 
-        /* Hero section */
+        /* Hero */
         .hero {
             padding: 80px 0;
             background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
@@ -78,9 +43,7 @@
             gap: 50px;
             flex-wrap: wrap;
         }
-        .hero-content {
-            flex: 1;
-        }
+        .hero-content { flex: 1; }
         .hero-badge {
             display: inline-block;
             background: #e63946;
@@ -103,54 +66,11 @@
             margin-bottom: 30px;
             line-height: 1.6;
         }
-        .hero-stats {
-            display: flex;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-        .stat {
-            text-align: center;
-        }
-        .stat-number {
-            font-size: 32px;
-            font-weight: 800;
-            color: #e63946;
-        }
-        .stat-label {
-            font-size: 14px;
-            color: #888;
-        }
-        .hero-image {
-            flex: 1;
-            text-align: center;
-        }
-        .hero-image img {
-            max-width: 100%;
-            border-radius: 24px;
-        }
-        .btn-primary {
-            background: #e63946;
-            color: white;
-            border: none;
-            padding: 14px 32px;
-            border-radius: 60px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-            text-decoration: none;
-            display: inline-block;
-        }
-        .btn-primary:hover {
-            background: #c1121f;
-            transform: translateY(-3px);
-        }
+        .hero-image { flex: 1; text-align: center; }
+        .hero-image img { max-width: 100%; border-radius: 24px; }
 
-        /* Section */
-        .section {
-            padding: 70px 0;
-            border-bottom: 1px solid #2a2a2a;
-        }
+        /* 8 bài học */
+        .section { padding: 70px 0; border-bottom: 1px solid #2a2a2a; }
         .section-title {
             font-size: 32px;
             font-weight: 700;
@@ -158,11 +78,7 @@
             text-align: center;
             margin-bottom: 50px;
         }
-        .section-title span {
-            color: #e63946;
-        }
-
-        /* 8 bài học grid */
+        .section-title span { color: #e63946; }
         .lessons-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -179,72 +95,45 @@
             transform: translateY(-5px);
             border-color: #e63946;
         }
-        .lesson-icon {
-            font-size: 48px;
-            margin-bottom: 16px;
-        }
-        .lesson-card h3 {
-            font-size: 20px;
-            color: white;
-            margin-bottom: 12px;
-        }
-        .lesson-card p {
-            font-size: 14px;
-            color: #888;
-            line-height: 1.5;
-        }
+        .lesson-icon { font-size: 48px; margin-bottom: 16px; }
+        .lesson-card h3 { font-size: 20px; color: white; margin-bottom: 12px; }
+        .lesson-card p { font-size: 14px; color: #888; line-height: 1.5; }
 
-        /* Quyền lợi */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-        .feature {
+        /* CTA */
+        .cta-section {
             text-align: center;
-            padding: 24px;
-            background: #141414;
-            border-radius: 20px;
-            border: 1px solid #2a2a2a;
-        }
-        .feature i {
-            font-size: 48px;
-            color: #e63946;
-            margin-bottom: 16px;
-        }
-        .feature h4 {
-            font-size: 20px;
-            color: white;
-            margin-bottom: 12px;
-        }
-        .feature p {
-            font-size: 14px;
-            color: #888;
-        }
-
-        /* Pricing */
-        .pricing {
-            text-align: center;
+            padding: 60px 40px;
             background: #141414;
             border-radius: 32px;
-            padding: 48px;
             margin: 40px 0;
             border: 1px solid #2a2a2a;
         }
-        .price {
-            font-size: 48px;
-            font-weight: 800;
-            color: #e63946;
-        }
-        .price small {
+        .btn-primary {
+            background: #e63946;
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 60px;
             font-size: 18px;
-            color: #888;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0 8px;
         }
-        .pricing .btn-primary {
-            margin-top: 24px;
-            font-size: 20px;
-            padding: 16px 40px;
+        .btn-primary:hover { background: #c1121f; transform: translateY(-2px); }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #e63946;
+            color: #e63946;
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0 8px;
         }
+        .btn-outline:hover { background: #e63946; color: white; }
 
         /* Footer */
         .footer {
@@ -253,12 +142,14 @@
             text-align: center;
             color: #666;
             font-size: 14px;
+            border-top: 1px solid #2a2a2a;
+            margin-top: 60px;
         }
 
         @media (max-width: 768px) {
             .hero-content h1 { font-size: 32px; }
             .section-title { font-size: 28px; }
-            .pricing { padding: 32px; }
+            .btn-primary, .btn-outline { display: block; margin: 12px auto; width: fit-content; }
         }
     </style>
 </head>
@@ -266,12 +157,7 @@
 
 <header class="header">
     <div class="container">
-        <img src="https://i.ibb.co/fK21mfr/z6733594850225-2f3b990b665eef085ad3928349c48c7f.jpg" alt="Sophia Nguyễn" class="logo" style="height: 50px; width: auto; background: transparent;">
-        <div class="nav-links">
-            <a href="#khoa-hoc">Khóa học</a>
-            <a href="#quyen-loi">Quyền lợi</a>
-            <a href="#" class="btn-enroll" id="enrollNowBtn">Đăng ký ngay</a>
-        </div>
+        <img src="https://i.ibb.co/fK21mfr/z6733594850225-2f3b990b665eef085ad3928349c48c7f.jpg" alt="Sophia Nguyễn" class="logo">
     </div>
 </header>
 
@@ -284,22 +170,20 @@
                     <div class="hero-badge">🔥 DÀNH CHO GEN Z</div>
                     <h1>BẢN LĨNH GEN Z<br>Kỹ năng an toàn & sinh tồn</h1>
                     <p>8 bài học chốt về an toàn giao thông, sơ cấp cứu, tự vệ xã hội, an toàn mạng, sức khỏe tâm thần và pháp luật – giúp bạn trẻ tự tin làm chủ cuộc sống.</p>
-                    <div class="hero-stats">
-                        <div class="stat"><div class="stat-number">8+</div><div class="stat-label">bài học chuyên sâu</div></div>
-                        <div class="stat"><div class="stat-number">100%</div><div class="stat-label">tình huống thực tế</div></div>
-                        <div class="stat"><div class="stat-number">📜</div><div class="stat-label">chứng nhận hoàn thành</div></div>
+                    <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+                        <a href="#" class="btn-primary" id="buyBtn">💰 Đăng ký ngay - 299.000đ</a>
+                        <a href="#" class="btn-outline" id="loginBtn">🔐 Đã có mã? Đăng nhập</a>
                     </div>
-                    <a href="#" class="btn-primary" id="buyNowBtn">💰 Đăng ký ngay - 299.000đ</a>
                 </div>
                 <div class="hero-image">
-                    <img src="https://placehold.co/500x400/1a1a2e/e63946?text=GEN+Z" alt="Bản lĩnh Gen Z">
+                    <div style="font-size: 120px;">🛡️⚡</div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- 8 bài học -->
-    <section class="section" id="khoa-hoc">
+    <section class="section">
         <div class="container">
             <h2 class="section-title">📚 <span>8 BÀI HỌC</span> CHỐT</h2>
             <div class="lessons-grid">
@@ -315,48 +199,23 @@
         </div>
     </section>
 
-    <!-- Quyền lợi -->
-    <section class="section" id="quyen-loi">
-        <div class="container">
-            <h2 class="section-title">✨ <span>QUYỀN LỢI</span> CỦA HỌC VIÊN</h2>
-            <div class="features-grid">
-                <div class="feature"><i class="fas fa-video"></i><h4>8 video bài giảng</h4><p>Chất lượng cao, tình huống thực tế</p></div>
-                <div class="feature"><i class="fas fa-gamepad"></i><h4>Bài tập tương tác</h4><p>Trắc nghiệm, mô phỏng tình huống</p></div>
-                <div class="feature"><i class="fas fa-certificate"></i><h4>Chứng nhận hoàn thành</h4><p>Có giá trị, tải PDF</p></div>
-                <div class="feature"><i class="fas fa-mobile-alt"></i><h4>Học mọi lúc, mọi nơi</h4><p>Trên điện thoại, máy tính</p></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Giá -->
-    <section class="section">
-        <div class="container">
-            <div class="pricing">
-                <h2 style="color: white; margin-bottom: 16px;">🚀 ĐẶC BIỆT KHAI GIẢNG</h2>
-                <div class="price">299.000đ <small>/ khóa học</small></div>
-                <p style="margin: 16px 0; color: #aaa;">Học một lần, nhớ cả đời. Truy cập không giới hạn.</p>
-                <a href="#" class="btn-primary" id="finalEnrollBtn">🎯 ĐĂNG KÝ NGAY</a>
-            </div>
+    <!-- CTA -->
+    <section class="container">
+        <div class="cta-section">
+            <h2 style="color: white; margin-bottom: 16px;">🚀 Sẵn sàng chinh phục bản lĩnh Gen Z?</h2>
+            <p style="margin-bottom: 24px;">Đăng ký ngay để nhận tư vấn và được hỗ trợ mã khóa học</p>
+            <a href="https://zalo.me/0977092182" class="btn-primary">📩 Đăng ký ngay</a>
+            <a href="#" class="btn-outline" id="loginBtn2">🔐 Đã có mã? Đăng nhập</a>
         </div>
     </section>
 </main>
 
 <footer class="footer">
     <div class="container">
-        <p>© 2025 Sophia Nguyễn – Bản lĩnh Gen Z. Mọi quyền được bảo lưu.</p>
+        <p>🛡️ Bản lĩnh Gen Z – Khóa học an toàn dành cho giới trẻ | Sophia Nguyễn</p>
+        <p>📧 sophianguyen2891@gmail.com | 📞 0977092182</p>
     </div>
 </footer>
 
-<script>
-    // Các nút đăng ký chuyển đến trang thanh toán (chị thay link sau)
-    const enrollBtns = document.querySelectorAll('#enrollNowBtn, #buyNowBtn, #finalEnrollBtn');
-    enrollBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            alert('🔐 Chị sẽ thay link thanh toán / trang nhập mã sau ạ!');
-            // window.location.href = "https://sophianguyen.com.vn/thanh-toan/genz";
-        });
-    });
-</script>
 </body>
 </html>
