@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Bài 4: An toàn trong Hẹn hò | Bản lĩnh Gen Z | Sophia Nguyễn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0a0a0a;
+            font-family: 'Segoe UI', 'Be Vietnam Pro', sans-serif;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .header { background: #141414; border-radius: 32px; padding: 20px; margin-bottom: 20px; text-align: center; border: 1px solid #2a2a2a; }
+        .logo { height: 60px; margin-bottom: 10px; }
+        .header h1 { color: #e0e0e0; font-size: 1.8rem; }
+        .video-section { background: #141414; border-radius: 32px; padding: 20px; margin-bottom: 20px; border: 1px solid #2a2a2a; }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 24px; overflow: hidden; }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .exercise { background: #141414; border-radius: 32px; padding: 20px; margin-bottom: 20px; border: 1px solid #2a2a2a; }
+        .exercise-title { font-size: 1.5rem; color: #e63946; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 3px solid #e63946; display: inline-block; }
+        .back-btn { display: inline-block; background: #e63946; color: white; padding: 12px 24px; border-radius: 40px; text-decoration: none; font-weight: bold; margin-top: 20px; transition: all 0.2s; }
+        .back-btn:hover { transform: translateY(-2px); background: #c1121f; }
+        .footer { text-align: center; color: #666; padding: 20px; font-size: 0.8rem; }
+        
+        .shake-screen { animation: shake 0.3s ease-in-out 0s 2; }
+        @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } 100% { transform: translateX(0); } }
+        
+        #confetti-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; }
+        
+        .progress-bar { background: #1a1a2e; border-radius: 20px; height: 8px; margin-bottom: 10px; overflow: hidden; }
+        .progress-fill { background: #e63946; height: 100%; border-radius: 20px; transition: width 0.3s; }
+        .question-card { background: #1a1a2e; border-radius: 24px; padding: 24px; margin-bottom: 25px; border: 1px solid #2a2a3e; }
+        .question-text { font-size: 17px; font-weight: 600; color: #f1f1f1; margin-bottom: 20px; line-height: 1.4; }
+        .options { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+        .option { background: #0a0a12; border: 2px solid #2a2a3e; border-radius: 16px; padding: 12px 16px; cursor: pointer; transition: all 0.2s; color: #ccc; font-size: 14px; line-height: 1.4; }
+        .option:hover { border-color: #e63946; background: #1e1e32; }
+        .option.selected-correct { border-color: #2ecc71; background: #1a2a1a; color: #2ecc71; }
+        .option.selected-wrong { border-color: #e74c3c; background: #2a1a1a; color: #e74c3c; }
+        .feedback { background: #0a0a12; border-radius: 16px; padding: 15px; margin-top: 15px; font-size: 14px; border-left: 4px solid #e63946; color: #ccc; }
+        .feedback.correct { border-left-color: #2ecc71; color: #2ecc71; }
+        .feedback.wrong { border-left-color: #e74c3c; color: #e74c3c; }
+        .btn-next { background: #e63946; border: none; color: white; font-size: 18px; font-weight: 600; padding: 14px 28px; border-radius: 60px; cursor: pointer; width: 100%; margin-top: 15px; transition: 0.2s; }
+        .btn-next:hover { background: #c1121f; }
+        .result-area { text-align: center; padding: 30px; background: #1a1a2e; border-radius: 24px; margin-top: 20px; }
+        .final-score { font-size: 48px; font-weight: bold; color: #e63946; margin: 20px 0; }
+        .reset-btn { background: #e63946; border: none; padding: 12px 28px; border-radius: 40px; font-weight: 600; font-size: 16px; cursor: pointer; color: white; margin-top: 20px; }
+        
+        .fries-box { background: #1a1a2e; border-radius: 24px; padding: 20px; margin-bottom: 25px; border: 1px solid #2a2a3e; display: flex; flex-wrap: wrap; justify-content: space-around; gap: 10px; }
+        .fries-item { text-align: center; flex: 1; min-width: 80px; }
+        .fries-letter { font-size: 28px; font-weight: bold; color: #e63946; }
+        .fries-word { font-size: 11px; color: #ccc; }
+        
+        .checklist-area { background: #1a1a2e; border-radius: 20px; padding: 20px; margin: 20px 0; border: 1px solid #2a2a3e; }
+        .checklist-title { font-size: 16px; font-weight: 600; color: #e63946; margin-bottom: 15px; }
+        .checklist-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #2a2a3e; cursor: pointer; }
+        .checklist-item:last-child { border-bottom: none; }
+        .checklist-checkbox { width: 22px; height: 22px; border: 2px solid #2a2a3e; border-radius: 6px; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+        .checklist-checkbox.checked { background: #2ecc71; border-color: #2ecc71; }
+        .checklist-checkbox.checked::after { content: "✓"; color: white; font-size: 14px; font-weight: bold; }
+        .checklist-text { font-size: 13px; color: #ccc; flex: 1; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <img src="https://i.ibb.co/fK21mfr/z6733594850225-2f3b990b665eef085ad3928349c48c7f.jpg" alt="Sophia Nguyễn" class="logo">
+        <h1>💖 Bài 4: An toàn trong Hẹn hò</h1>
+    </div>
+
+    <div class="video-section">
+        <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/G9GRwccpROM" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- Bài tập 1: Sự đồng thuận - F.R.I.E.S -->
+    <div class="exercise">
+        <h2 class="exercise-title">💖 Bài tập 1: Sự đồng thuận - Quy tắc F.R.I.E.S</h2>
+        <div id="exercise1"></div>
+    </div>
+
+    <!-- Bài tập 2: Nhận diện Red Flags -->
+    <div class="exercise">
+        <h2 class="exercise-title">🚩 Bài tập 2: Nhận diện Red Flags trong tình yêu</h2>
+        <div id="exercise2"></div>
+    </div>
+
+    <!-- Bài tập 3: Hẹn hò an toàn & Bảo vệ ranh giới số -->
+    <div class="exercise">
+        <h2 class="exercise-title">🔐 Bài tập 3: Hẹn hò an toàn & Bảo vệ ranh giới số</h2>
+        <div id="exercise3"></div>
+    </div>
+
+    <a href="/khoa-hoc/ky-nang-an-toan/genz/" class="back-btn">← Quay lại danh sách bài học</a>
+    <div class="footer">
+        <p>🛡️ Bản lĩnh Gen Z – Khóa học an toàn dành cho giới trẻ | Sophia Nguyễn</p>
+    </div>
+</div>
+<canvas id="confetti-canvas"></canvas>
+
+<script>
+    // ==================== HIỆU ỨNG CONFETTI & ÂM THANH ====================
+    let ctx = null, width = window.innerWidth, height = window.innerHeight, particles = [], animationId = null;
+    function resizeCanvas() { width = window.innerWidth; height = window.innerHeight; const canvas = document.getElementById('confetti-canvas'); if(canvas){ canvas.width = width; canvas.height = height; ctx = canvas.getContext('2d'); } }
+    function createConfetti(duration = 1800) {
+        if(!ctx) return;
+        if(animationId) cancelAnimationFrame(animationId);
+        particles = [];
+        for(let i=0;i<140;i++) {
+            particles.push({ x: Math.random() * width, y: Math.random() * height - height, size: Math.random() * 7 + 3, color: `hsl(${Math.random() * 360}, 80%, 60%)`, speedY: Math.random() * 5 + 3, speedX: (Math.random() - 0.5) * 2, rotation: Math.random() * 360, rotSpeed: (Math.random() - 0.5) * 6 });
+        }
+        drawConfetti();
+        setTimeout(() => { if(animationId) cancelAnimationFrame(animationId); ctx?.clearRect(0,0,width,height); particles = []; }, duration);
+    }
+    function drawConfetti() {
+        if(!ctx) return;
+        ctx.clearRect(0, 0, width, height);
+        let allFinished = true;
+        for(let i=0;i<particles.length;i++) {
+            const p = particles[i];
+            if(p.y < height + 50) {
+                allFinished = false;
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.rotation * Math.PI / 180);
+                ctx.fillStyle = p.color;
+                ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size * 0.6);
+                ctx.restore();
+                p.y += p.speedY;
+                p.x += p.speedX;
+                p.rotation += p.rotSpeed;
+            }
+        }
+        if(!allFinished) animationId = requestAnimationFrame(drawConfetti);
+        else { if(animationId) cancelAnimationFrame(animationId); particles = []; ctx.clearRect(0,0,width,height); }
+    }
+    window.addEventListener('resize', () => { resizeCanvas(); if(particles.length) drawConfetti(); });
+    
+    function playClickSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 880;
+            gain.gain.value = 0.08;
+            osc.type = 'sine';
+            osc.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.08);
+            osc.stop(audioCtx.currentTime + 0.08);
+        } catch(e) {}
+    }
+    
+    function playSuccessSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const frequencies = [880, 1046.5, 1318.5];
+            frequencies.forEach((freq, idx) => {
+                setTimeout(() => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.frequency.value = freq;
+                    gain.gain.value = 0.2;
+                    osc.type = 'sine';
+                    osc.start();
+                    gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                    osc.stop(audioCtx.currentTime + 0.3);
+                }, idx * 120);
+            });
+        } catch(e) {}
+        createConfetti(800);
+    }
+    
+    function playCompleteSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const gain = audioCtx.createGain();
+            gain.connect(audioCtx.destination);
+            gain.gain.value = 0.3;
+            const bufferSize = 4096;
+            const noise = audioCtx.createBufferSource();
+            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for(let i=0; i<bufferSize; i++) data[i] = Math.random() * 2 - 1;
+            noise.buffer = buffer;
+            noise.loop = true;
+            noise.connect(gain);
+            noise.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 1.2);
+            noise.stop(audioCtx.currentTime + 1.2);
+            setTimeout(() => {
+                const osc = audioCtx.createOscillator();
+                const gain2 = audioCtx.createGain();
+                osc.connect(gain2);
+                gain2.connect(audioCtx.destination);
+                osc.frequency.value = 1046.5;
+                gain2.gain.value = 0.3;
+                osc.type = 'sine';
+                osc.start();
+                gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.5);
+                osc.stop(audioCtx.currentTime + 0.5);
+            }, 1000);
+        } catch(e) {}
+        createConfetti(2500);
+    }
+    
+    function playErrorSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 220;
+            gain.gain.value = 0.25;
+            osc.type = 'sawtooth';
+            osc.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.4);
+            osc.stop(audioCtx.currentTime + 0.4);
+            setTimeout(() => {
+                const osc2 = audioCtx.createOscillator();
+                const gain2 = audioCtx.createGain();
+                osc2.connect(gain2);
+                gain2.connect(audioCtx.destination);
+                osc2.frequency.value = 164.81;
+                gain2.gain.value = 0.2;
+                osc2.type = 'sawtooth';
+                osc2.start();
+                gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                osc2.stop(audioCtx.currentTime + 0.3);
+            }, 150);
+        } catch(e) {}
+        document.body.classList.add('shake-screen');
+        setTimeout(() => document.body.classList.remove('shake-screen'), 500);
+    }
+
+    // ========== BÀI TẬP 1: SỰ ĐỒNG THUẬN - F.R.I.E.S ==========
+    (function() {
+        const questions = [
+            { text: "💖 'Freely Given' (Tự nguyện) có nghĩa là gì?", options: ["A. Đồng ý vì bị đe dọa", "B. Đồng ý một cách tự do, không bị ép buộc", "C. Đồng ý vì cảm thấy có lỗi", "D. Đồng ý vì bạn bè xung quanh đều đồng ý"], correct: 1, explanation: "✅ Đúng! 'Freely Given' nghĩa là sự đồng thuận phải xuất phát từ ý chí tự do, không bị ép buộc." },
+            { text: "💖 'Reversible' (Có thể rút lại) có nghĩa là gì?", options: ["A. Một khi đã đồng ý thì không thể thay đổi", "B. Có thể rút lại sự đồng ý bất cứ lúc nào", "C. Chỉ có thể rút lại trước khi bắt đầu", "D. Phải có sự cho phép của đối phương mới được rút lại"], correct: 1, explanation: "✅ Bạn có quyền rút lại sự đồng ý bất cứ lúc nào, không cần lý do." },
+            { text: "💖 'Informed' (Đầy đủ thông tin) có nghĩa là gì?", options: ["A. Đồng ý mà không cần biết chi tiết", "B. Tin tưởng đối phương và đồng ý mọi thứ", "C. Biết rõ mình đang đồng ý với điều gì", "D. Chỉ cần đối phương nói là đủ"], correct: 2, explanation: "✅ Bạn cần được cung cấp đầy đủ thông tin về những gì sắp diễn ra trước khi quyết định đồng ý." },
+            { text: "💖 'Enthusiastic' (Nhiệt tình) có nghĩa là gì?", options: ["A. Làm điều gì đó vì thấy 'phải làm'", "B. Chỉ làm những gì bạn thực sự muốn, không phải vì áp lực", "C. Đồng ý để đối phương vui lòng", "D. Làm theo vì sợ làm mất lòng"], correct: 1, explanation: "✅ 'Enthusiastic' có nghĩa là bạn thực sự muốn làm điều đó, không phải vì cảm thấy có nghĩa vụ." },
+            { text: "💖 'Specific' (Cụ thể) có nghĩa là gì?", options: ["A. Đồng ý một việc có nghĩa là đồng ý mọi việc", "B. Đã đồng ý hôm trước thì hôm sau cũng được", "C. Đồng ý việc này không có nghĩa là đồng ý việc khác", "D. Chỉ cần đồng ý một lần là đủ"], correct: 2, explanation: "✅ Sự đồng thuận phải cụ thể cho từng hành động. Đồng ý hôn không có nghĩa là đồng ý với những hành động khác." },
+            { text: "💖 Tình huống: Bạn cảm thấy không thoải mái và muốn dừng lại. Theo quy tắc F.R.I.E.S, bạn có quyền làm gì?", options: ["A. Tiếp tục vì không muốn làm đối phương thất vọng", "B. Rút lại sự đồng ý ngay lập tức", "C. Im lặng chịu đựng đến cuối", "D. Hẹn lần khác rồi tính"], correct: 1, explanation: "✅ 'Reversible' cho phép bạn thay đổi quyết định bất cứ lúc nào." }
+        ];
+        let currentIndex = 0, userAnswers = new Array(questions.length).fill(null);
+        function renderQuiz1() {
+            const container = document.getElementById('exercise1');
+            if (currentIndex >= questions.length) {
+                let correct = 0;
+                for (let i = 0; i < questions.length; i++) if (userAnswers[i] === questions[i].correct) correct++;
+                let msg = correct === questions.length ? '🎉 XUẤT SẮC! Bạn đã nắm vững quy tắc F.R.I.E.S!' : (correct >= 4 ? '👍 Khá tốt!' : '📖 Hãy học lại 5 yếu tố của sự đồng thuận.');
+                if (correct === questions.length) playCompleteSound();
+                else playSuccessSound();
+                container.innerHTML = `<div class="result-area"><div class="final-score">${correct}/${questions.length}</div><div style="color:#ccc;">${msg}</div><button class="reset-btn" id="reset1">🔄 LÀM LẠI</button></div>`;
+                document.getElementById('reset1')?.addEventListener('click', () => { currentIndex = 0; userAnswers.fill(null); renderQuiz1(); });
+                return;
+            }
+            const q = questions[currentIndex];
+            let html = `<div class="progress-bar"><div class="progress-fill" style="width: ${(userAnswers.filter(a=>a!==null).length/questions.length)*100}%"></div></div>
+                <div class="fries-box"><div class="fries-item"><div class="fries-letter">F</div><div class="fries-word">Freely Given</div></div><div class="fries-item"><div class="fries-letter">R</div><div class="fries-word">Reversible</div></div><div class="fries-item"><div class="fries-letter">I</div><div class="fries-word">Informed</div></div><div class="fries-item"><div class="fries-letter">E</div><div class="fries-word">Enthusiastic</div></div><div class="fries-item"><div class="fries-letter">S</div><div class="fries-word">Specific</div></div></div>
+                <div class="question-card"><div class="question-text">❓ ${q.text}</div><div class="options" id="opts1"></div>
+                <div class="feedback" id="fb1">💡 Hãy chọn đáp án đúng!</div><button class="btn-next" id="next1">${currentIndex === questions.length-1 ? '🏁 XEM KẾT QUẢ' : '➡️ TIẾP'}</button></div>`;
+            container.innerHTML = html;
+            const optsDiv = document.getElementById('opts1');
+            q.options.forEach((opt, idx) => {
+                const optDiv = document.createElement('div');
+                optDiv.className = `option ${userAnswers[currentIndex] === idx ? (idx === q.correct ? 'selected-correct' : 'selected-wrong') : ''}`;
+                optDiv.innerText = opt;
+                optDiv.onclick = () => {
+                    if (userAnswers[currentIndex] !== null) return;
+                    userAnswers[currentIndex] = idx;
+                    const fb = document.getElementById('fb1');
+                    if (idx === q.correct) { fb.innerHTML = '✅ ' + q.explanation; fb.className = 'feedback correct'; playSuccessSound(); }
+                    else { fb.innerHTML = '❌ ' + q.explanation; fb.className = 'feedback wrong'; playErrorSound(); }
+                    renderQuiz1();
+                };
+                optsDiv.appendChild(optDiv);
+            });
+            document.getElementById('next1').onclick = () => {
+                if (userAnswers[currentIndex] === null) { document.getElementById('fb1').innerHTML = '⚠️ Hãy chọn đáp án trước!'; playErrorSound(); return; }
+                currentIndex++; renderQuiz1();
+            };
+        }
+        renderQuiz1();
+    })();
+
+    // ========== BÀI TẬP 2: NHẬN DIỆN RED FLAGS ==========
+    (function() {
+        const scenarios = [
+            { text: "🚩 Sau 3 ngày quen, đối phương liên tục nhắn 'Anh chưa bao giờ gặp ai như em', 'Anh muốn cưới em'. Đây là dấu hiệu của?", options: ["A. Tình yêu mãnh liệt", "B. Love Bombing", "C. Sự quan tâm đáng trân trọng", "D. Hành động bình thường"], correct: 1, explanation: "✅ Love Bombing là chiêu thức tấn công tình cảm dồn dập để tạo sự lệ thuộc." },
+            { text: "🚩 Đối phương yêu cầu gửi mật khẩu Facebook, kiểm tra tin nhắn. Đây là?", options: ["A. Biểu hiện của sự tin tưởng", "B. Hành vi kiểm soát - Red Flag", "C. Điều bình thường", "D. Cách xây dựng minh bạch"], correct: 1, explanation: "✅ Kiểm soát mật khẩu là hành vi xâm phạm quyền riêng tư nghiêm trọng." },
+            { text: "🚩 Mỗi khi đi chơi, đối phương liên tục gọi hỏi 'Em ở đâu? Với ai?' Đây là?", options: ["A. Sự quan tâm chân thành", "B. Ghen tuông bệnh lý", "C. Hành động bình thường", "D. Biểu hiện của tình yêu"], correct: 1, explanation: "✅ Ghen tuông bệnh lý được ngụy trang thành 'sự quan tâm' nhưng thực chất là kiểm soát." },
+            { text: "🚩 Bạn nói 'Hôm qua anh đã hứa...' Đối phương đáp 'Anh chưa bao giờ nói, em bị ảo tưởng'. Đây là?", options: ["A. Đùa vui", "B. Quên thật sự", "C. Gaslighting", "D. Giao tiếp bình thường"], correct: 2, explanation: "✅ Gaslighting khiến nạn nhân nghi ngờ trí nhớ và cảm xúc của chính mình." },
+            { text: "🚩 Đối phương nói 'Nếu không đồng ý, anh sẽ chia tay. Em phải đáp lại.' Đây là?", options: ["A. Điều kiện bình thường", "B. Thao túng và ép buộc", "C. Kiểm tra lòng chung thủy", "D. Sự thẳng thắn"], correct: 1, explanation: "✅ Sự đồng thuận phải tự nguyện, không bị ép buộc." },
+            { text: "🚩 'Anh chỉ kiểm soát em vì anh yêu em.' Đây là?", options: ["A. Lời tỏ tình ngọt ngào", "B. Biện minh cho hành vi kiểm soát", "C. Sự thật hiển nhiên", "D. Lời khuyên chân thành"], correct: 1, explanation: "✅ Kiểm soát KHÔNG BAO GIỜ là yêu thương." }
+        ];
+        let currentIndex = 0, userAnswers = new Array(scenarios.length).fill(null);
+        function renderQuiz2() {
+            const container = document.getElementById('exercise2');
+            if (currentIndex >= scenarios.length) {
+                let correct = 0;
+                for (let i = 0; i < scenarios.length; i++) if (userAnswers[i] === scenarios[i].correct) correct++;
+                let msg = correct === scenarios.length ? '🎉 XUẤT SẮC! Bạn đã nắm vững các dấu hiệu Red Flags!' : (correct >= 4 ? '👍 Khá tốt!' : '📖 Hãy học lại các dấu hiệu độc hại.');
+                if (correct === scenarios.length) playCompleteSound();
+                else playSuccessSound();
+                container.innerHTML = `<div class="result-area"><div class="final-score">${correct}/${scenarios.length}</div><div style="color:#ccc;">${msg}</div><button class="reset-btn" id="reset2">🔄 LÀM LẠI</button></div>`;
+                document.getElementById('reset2')?.addEventListener('click', () => { currentIndex = 0; userAnswers.fill(null); renderQuiz2(); });
+                return;
+            }
+            const s = scenarios[currentIndex];
+            let html = `<div class="progress-bar"><div class="progress-fill" style="width: ${(userAnswers.filter(a=>a!==null).length/scenarios.length)*100}%"></div></div>
+                <div class="question-card"><div class="question-text">❓ ${s.text}</div><div class="options" id="opts2"></div>
+                <div class="feedback" id="fb2">💡 Hãy chọn đáp án đúng!</div><button class="btn-next" id="next2">${currentIndex === scenarios.length-1 ? '🏁 XEM KẾT QUẢ' : '➡️ TIẾP'}</button></div>`;
+            container.innerHTML = html;
+            const optsDiv = document.getElementById('opts2');
+            s.options.forEach((opt, idx) => {
+                const optDiv = document.createElement('div');
+                optDiv.className = `option ${userAnswers[currentIndex] === idx ? (idx === s.correct ? 'selected-correct' : 'selected-wrong') : ''}`;
+                optDiv.innerText = opt;
+                optDiv.onclick = () => {
+                    if (userAnswers[currentIndex] !== null) return;
+                    userAnswers[currentIndex] = idx;
+                    const fb = document.getElementById('fb2');
+                    if (idx === s.correct) { fb.innerHTML = '✅ ' + s.explanation; fb.className = 'feedback correct'; playSuccessSound(); }
+                    else { fb.innerHTML = '❌ ' + s.explanation; fb.className = 'feedback wrong'; playErrorSound(); }
+                    renderQuiz2();
+                };
+                optsDiv.appendChild(optDiv);
+            });
+            document.getElementById('next2').onclick = () => {
+                if (userAnswers[currentIndex] === null) { document.getElementById('fb2').innerHTML = '⚠️ Hãy chọn đáp án trước!'; playErrorSound(); return; }
+                currentIndex++; renderQuiz2();
+            };
+        }
+        renderQuiz2();
+    })();
+
+    // ========== BÀI TẬP 3: HẸN HÒ AN TOÀN & RANH GIỚI SỐ ==========
+    (function() {
+        const questions = [
+            { text: "🔐 Lần đầu gặp mặt người quen qua app, bạn nên làm gì?", options: ["A. Đồng ý đến nhà họ", "B. Gặp ở nơi công cộng vào ban ngày", "C. Đi một mình không báo ai", "D. Hẹn ở công viên vắng"], correct: 1, explanation: "✅ Luôn chọn nơi công cộng, có camera an ninh, vào ban ngày." },
+            { text: "🔐 Trước khi đi hẹn hò, bạn nên làm gì để an toàn?", options: ["A. Không làm gì cả", "B. Gửi ảnh và vị trí cho bạn thân, thiết lập mã code khẩn cấp", "C. Tắt điện thoại", "D. Hẹn ở nơi vắng vẻ"], correct: 1, explanation: "✅ Mạng lưới bảo vệ rất quan trọng. Hãy chia sẻ thông tin cuộc hẹn với người tin cậy." },
+            { text: "🔐 Đối phương ép gửi ảnh nhạy cảm, nói 'Nếu yêu anh thì làm đi'. Bạn nên?", options: ["A. Gửi để chứng minh", "B. Từ chối dứt khoát, nếu vẫn ép thì dừng lại", "C. Hứa sẽ gửi sau", "D. Im lặng"], correct: 1, explanation: "✅ KHÔNG BAO GIỜ chia sẻ ảnh nhạy cảm dưới áp lực." },
+            { text: "🔐 Đối phương đe dọa phát tán ảnh nhạy cảm nếu chia tay. Đây là hành vi gì?", options: ["A. Đe dọa bình thường", "B. Sextortion - tống tình", "C. Làm theo để họ không phát tán", "D. Tự giải quyết"], correct: 1, explanation: "✅ Sextortion là hành vi phạm tội. Hãy lưu bằng chứng và báo công an." },
+            { text: "🔐 Đối phương yêu cầu chia sẻ mật khẩu mạng xã hội. Bạn nên?", options: ["A. Đồng ý để xây dựng lòng tin", "B. Từ chối vì đây là ranh giới cá nhân", "C. Chia sẻ một phần", "D. Để họ cài ứng dụng theo dõi"], correct: 1, explanation: "✅ Không bao giờ chia sẻ mật khẩu. Đây là quyền riêng tư cần được bảo vệ." }
+        ];
+        const checklistItems = [
+            { id: 0, text: "📍 Gặp ở nơi công cộng - KHÔNG gặp riêng ở nhà", checked: false },
+            { id: 1, text: "🚗 Tự chủ di chuyển (tự đi, tự về)", checked: false },
+            { id: 2, text: "👥 Gửi ảnh người định gặp và vị trí cho bạn thân", checked: false },
+            { id: 3, text: "🆘 Thiết lập 'mã code khẩn cấp'", checked: false },
+            { id: 4, text: "📱 KHÔNG gửi ảnh nhạy cảm dù bất kỳ áp lực nào", checked: false },
+            { id: 5, text: "🔒 KHÔNG chia sẻ mật khẩu mạng xã hội", checked: false }
+        ];
+        let currentIndex = 0, userAnswers = new Array(questions.length).fill(null), checklistState = [...checklistItems], gameLocked = false;
+        function renderQuiz3() {
+            const container = document.getElementById('exercise3');
+            if (currentIndex < questions.length) {
+                const q = questions[currentIndex];
+                let html = `<div class="progress-bar"><div class="progress-fill" style="width: ${(userAnswers.filter(a=>a!==null).length/questions.length)*100}%"></div></div>
+                    <div class="question-card"><div class="question-text">❓ ${q.text}</div><div class="options" id="opts3"></div>
+                    <div class="feedback" id="fb3">💡 Hãy chọn đáp án đúng!</div><button class="btn-next" id="next3">${currentIndex === questions.length-1 ? '🏁 XEM CHECKLIST' : '➡️ TIẾP'}</button></div>`;
+                container.innerHTML = html;
+                const optsDiv = document.getElementById('opts3');
+                q.options.forEach((opt, idx) => {
+                    const optDiv = document.createElement('div');
+                    optDiv.className = `option ${userAnswers[currentIndex] === idx ? (idx === q.correct ? 'selected-correct' : 'selected-wrong') : ''}`;
+                    optDiv.innerText = opt;
+                    optDiv.onclick = () => {
+                        if (userAnswers[currentIndex] !== null) return;
+                        userAnswers[currentIndex] = idx;
+                        const fb = document.getElementById('fb3');
+                        if (idx === q.correct) { fb.innerHTML = '✅ ' + q.explanation; fb.className = 'feedback correct'; playSuccessSound(); }
+                        else { fb.innerHTML = '❌ ' + q.explanation; fb.className = 'feedback wrong'; playErrorSound(); }
+                        renderQuiz3();
+                    };
+                    optsDiv.appendChild(optDiv);
+                });
+                document.getElementById('next3').onclick = () => {
+                    if (userAnswers[currentIndex] === null) { document.getElementById('fb3').innerHTML = '⚠️ Hãy chọn đáp án trước!'; playErrorSound(); return; }
+                    currentIndex++; renderQuiz3();
+                };
+            } else {
+                let correctCount = 0;
+                for (let i = 0; i < questions.length; i++) if (userAnswers[i] === questions[i].correct) correctCount++;
+                const checkedCount = checklistState.filter(c => c.checked).length;
+                let html = `<div class="progress-bar"><div class="progress-fill" style="width: 100%"></div></div>
+                    <div class="checklist-area"><div class="checklist-title">✅ CHECKLIST HẸN HÒ AN TOÀN</div><div id="checklistContainer"></div></div>
+                    <button class="btn-next" id="submitBtn3">🔍 HOÀN THÀNH & ĐÁNH GIÁ</button>
+                    <div class="feedback" id="fb3">💡 Hãy tick vào checklist và hoàn thành!</div>`;
+                container.innerHTML = html;
+                const checklistContainer = document.getElementById('checklistContainer');
+                checklistState.forEach((item, idx) => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'checklist-item';
+                    itemDiv.innerHTML = `<div class="checklist-checkbox ${item.checked ? 'checked' : ''}" data-idx="${idx}"></div><div class="checklist-text">${item.text}</div>`;
+                    if (!gameLocked) itemDiv.addEventListener('click', () => { checklistState[idx].checked = !checklistState[idx].checked; renderQuiz3(); playSuccessSound(); });
+                    checklistContainer.appendChild(itemDiv);
+                });
+                document.getElementById('submitBtn3').onclick = () => {
+                    gameLocked = true;
+                    const total = questions.length;
+                    const msg = (correctCount === total && checkedCount === checklistItems.length) ? '🎉 XUẤT SẮC! Bạn đã nắm vững kỹ năng hẹn hò an toàn!' : (correctCount >= 3 && checkedCount >= 4 ? '👍 Khá tốt!' : '📖 Hãy học lại các quy tắc an toàn!');
+                    if (correctCount === total && checkedCount === checklistItems.length) playCompleteSound();
+                    else playSuccessSound();
+                    container.innerHTML = `<div class="result-area"><div class="final-score">📊 ${correctCount}/${total} | ✅ ${checkedCount}/${checklistItems.length}</div><div style="color:#ccc;">${msg}</div><button class="reset-btn" id="reset3">🔄 LÀM LẠI</button></div>`;
+                    document.getElementById('reset3')?.addEventListener('click', () => { currentIndex = 0; userAnswers.fill(null); checklistState = checklistItems.map(i=>({...i,checked:false})); gameLocked=false; renderQuiz3(); });
+                };
+            }
+        }
+        renderQuiz3();
+    })();
+    resizeCanvas();
+</script>
+</body>
+</html>
