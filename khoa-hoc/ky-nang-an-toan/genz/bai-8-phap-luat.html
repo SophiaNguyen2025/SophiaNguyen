@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Bài 8: Hiểu biết Pháp luật & Trách nhiệm | Bản lĩnh Gen Z | Sophia Nguyễn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0a0a0a;
+            font-family: 'Segoe UI', 'Be Vietnam Pro', sans-serif;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .header { background: #141414; border-radius: 32px; padding: 20px; margin-bottom: 20px; text-align: center; border: 1px solid #2a2a2a; }
+        .logo { height: 60px; margin-bottom: 10px; }
+        .header h1 { color: #e0e0e0; font-size: 1.8rem; }
+        .video-section { background: #141414; border-radius: 32px; padding: 20px; margin-bottom: 20px; border: 1px solid #2a2a2a; }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 24px; overflow: hidden; }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .exercise { background: #141414; border-radius: 32px; padding: 20px; margin-bottom: 20px; border: 1px solid #2a2a2a; }
+        .exercise-title { font-size: 1.5rem; color: #e63946; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 3px solid #e63946; display: inline-block; }
+        .back-btn { display: inline-block; background: #e63946; color: white; padding: 12px 24px; border-radius: 40px; text-decoration: none; font-weight: bold; margin-top: 20px; transition: all 0.2s; }
+        .back-btn:hover { transform: translateY(-2px); background: #c1121f; }
+        .footer { text-align: center; color: #666; padding: 20px; font-size: 0.8rem; }
+        
+        .shake-screen { animation: shake 0.3s ease-in-out 0s 2; }
+        @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } 100% { transform: translateX(0); } }
+        
+        #confetti-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; }
+        
+        .progress-bar { background: #1a1a2e; border-radius: 20px; height: 8px; margin-bottom: 10px; overflow: hidden; }
+        .progress-fill { background: #e63946; height: 100%; border-radius: 20px; transition: width 0.3s; }
+        .progress-badge { background: #1a1a2e; padding: 6px 16px; border-radius: 40px; color: #ccc; font-weight: 600; border: 1px solid #e63946; display: inline-block; margin-bottom: 15px; }
+        
+        .law-tip, .defense-tip { background: #1a1a2e; border-radius: 20px; padding: 15px 20px; margin-bottom: 25px; border-left: 5px solid #e63946; display: flex; align-items: center; gap: 15px; flex-wrap: wrap; }
+        .tip-icon { font-size: 32px; }
+        .tip-text { flex: 1; color: #ccc; font-size: 14px; }
+        .tip-text strong { color: #e63946; }
+        
+        .timeline-box { background: #1a1a2e; border-radius: 24px; padding: 20px; margin-bottom: 25px; border: 1px solid #2a2a3e; text-align: center; }
+        .timeline-title { font-size: 16px; font-weight: 700; color: #e0e0e0; margin-bottom: 15px; }
+        .timeline { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
+        .milestone { background: #0a0a12; border-radius: 16px; padding: 12px; min-width: 100px; text-align: center; border: 1px solid #e63946; }
+        .milestone-age { font-size: 24px; font-weight: 800; color: #e63946; }
+        .milestone-label { font-size: 11px; color: #aaa; margin-top: 5px; line-height: 1.3; }
+        
+        .question-card { background: #1a1a2e; border-radius: 24px; padding: 24px; margin-bottom: 25px; border: 1px solid #2a2a3e; }
+        .question-text { font-size: 17px; font-weight: 600; color: #e0e0e0; margin-bottom: 20px; line-height: 1.4; }
+        .options { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+        .option { background: #0a0a12; border: 2px solid #2a2a3e; border-radius: 16px; padding: 12px 16px; cursor: pointer; transition: all 0.2s; color: #ccc; font-size: 13px; line-height: 1.4; }
+        .option:hover { border-color: #e63946; background: #1e1e32; }
+        .option.selected-correct { border-color: #2ecc71; background: #1a2a1a; color: #2ecc71; }
+        .option.selected-wrong { border-color: #e74c3c; background: #2a1a1a; color: #e74c3c; }
+        .feedback { background: #0a0a12; border-radius: 16px; padding: 15px; margin-top: 15px; font-size: 14px; border-left: 4px solid #e63946; color: #ccc; }
+        .feedback.correct { border-left-color: #2ecc71; color: #2ecc71; }
+        .feedback.wrong { border-left-color: #e74c3c; color: #e74c3c; }
+        
+        .btn-next { background: #e63946; border: none; color: white; font-size: 18px; font-weight: 600; padding: 14px 28px; border-radius: 60px; cursor: pointer; width: 100%; margin: 15px 0; transition: 0.2s; }
+        .btn-next:hover { background: #c1121f; }
+        .reset-btn { background: #e63946; border: none; padding: 12px 28px; border-radius: 40px; font-weight: 600; font-size: 16px; cursor: pointer; color: white; width: 100%; margin-top: 15px; }
+        .result-area { text-align: center; padding: 30px; background: #1a1a2e; border-radius: 24px; margin-top: 20px; }
+        .final-score { font-size: 48px; font-weight: bold; color: #e63946; margin: 20px 0; }
+        
+        .checklist-area { background: #1a1a2e; border-radius: 24px; padding: 20px; margin: 20px 0; border: 1px solid #2a2a3e; }
+        .checklist-title { font-size: 16px; font-weight: 700; color: #e0e0e0; margin-bottom: 15px; }
+        .checklist-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #2a2a3e; cursor: pointer; }
+        .checklist-item:last-child { border-bottom: none; }
+        .checklist-checkbox { width: 22px; height: 22px; border: 2px solid #e63946; border-radius: 6px; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+        .checklist-checkbox.checked { background: #2ecc71; border-color: #2ecc71; }
+        .checklist-checkbox.checked::after { content: "✓"; color: white; font-size: 14px; font-weight: bold; }
+        .checklist-text { font-size: 13px; color: #ccc; flex: 1; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <img src="https://i.ibb.co/fK21mfr/z6733594850225-2f3b990b665eef085ad3928349c48c7f.jpg" alt="Sophia Nguyễn" class="logo">
+        <h1>⚖️ Bài 8: Hiểu biết Pháp luật & Trách nhiệm</h1>
+    </div>
+
+    <div class="video-section">
+        <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/qjr5yO3syG0" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- Bài tập 1: Mốc tuổi - Trách nhiệm hình sự -->
+    <div class="exercise">
+        <h2 class="exercise-title">⚖️ Bài tập 1: Mốc tuổi - Trách nhiệm hình sự</h2>
+        <div id="exercise1"></div>
+    </div>
+
+    <!-- Bài tập 2: Luật An ninh mạng & Giao thông -->
+    <div class="exercise">
+        <h2 class="exercise-title">📱🚗 Bài tập 2: Luật An ninh mạng & Giao thông</h2>
+        <div id="exercise2"></div>
+    </div>
+
+    <!-- Bài tập 3: Quyền tự vệ & Trợ giúp pháp lý -->
+    <div class="exercise">
+        <h2 class="exercise-title">🛡️ Bài tập 3: Quyền tự vệ & Trợ giúp pháp lý</h2>
+        <div id="exercise3"></div>
+    </div>
+
+    <a href="/khoa-hoc/ky-nang-an-toan/genz/" class="back-btn">← Quay lại danh sách bài học</a>
+    <div class="footer">
+        <p>🛡️ Bản lĩnh Gen Z – Khóa học an toàn dành cho giới trẻ | Sophia Nguyễn</p>
+    </div>
+</div>
+<canvas id="confetti-canvas"></canvas>
+
+<script>
+    // ==================== HIỆU ỨNG CONFETTI & ÂM THANH ====================
+    let ctx = null, width = window.innerWidth, height = window.innerHeight, particles = [], animationId = null;
+    function resizeCanvas() { width = window.innerWidth; height = window.innerHeight; const canvas = document.getElementById('confetti-canvas'); if(canvas){ canvas.width = width; canvas.height = height; ctx = canvas.getContext('2d'); } }
+    function createConfetti(duration = 1800) {
+        if(!ctx) return;
+        if(animationId) cancelAnimationFrame(animationId);
+        particles = [];
+        for(let i=0;i<140;i++) {
+            particles.push({ x: Math.random() * width, y: Math.random() * height - height, size: Math.random() * 7 + 3, color: `hsl(${Math.random() * 360}, 80%, 60%)`, speedY: Math.random() * 5 + 3, speedX: (Math.random() - 0.5) * 2, rotation: Math.random() * 360, rotSpeed: (Math.random() - 0.5) * 6 });
+        }
+        drawConfetti();
+        setTimeout(() => { if(animationId) cancelAnimationFrame(animationId); ctx?.clearRect(0,0,width,height); particles = []; }, duration);
+    }
+    function drawConfetti() {
+        if(!ctx) return;
+        ctx.clearRect(0, 0, width, height);
+        let allFinished = true;
+        for(let i=0;i<particles.length;i++) {
+            const p = particles[i];
+            if(p.y < height + 50) {
+                allFinished = false;
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.rotation * Math.PI / 180);
+                ctx.fillStyle = p.color;
+                ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size * 0.6);
+                ctx.restore();
+                p.y += p.speedY;
+                p.x += p.speedX;
+                p.rotation += p.rotSpeed;
+            }
+        }
+        if(!allFinished) animationId = requestAnimationFrame(drawConfetti);
+        else { if(animationId) cancelAnimationFrame(animationId); particles = []; ctx.clearRect(0,0,width,height); }
+    }
+    window.addEventListener('resize', () => { resizeCanvas(); if(particles.length) drawConfetti(); });
+    
+    function playClickSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 880;
+            gain.gain.value = 0.08;
+            osc.type = 'sine';
+            osc.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.08);
+            osc.stop(audioCtx.currentTime + 0.08);
+        } catch(e) {}
+    }
+    
+    function playSuccessSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const frequencies = [880, 1046.5, 1318.5];
+            frequencies.forEach((freq, idx) => {
+                setTimeout(() => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.frequency.value = freq;
+                    gain.gain.value = 0.2;
+                    osc.type = 'sine';
+                    osc.start();
+                    gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                    osc.stop(audioCtx.currentTime + 0.3);
+                }, idx * 120);
+            });
+        } catch(e) {}
+        createConfetti(800);
+    }
+    
+    function playCompleteSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const gain = audioCtx.createGain();
+            gain.connect(audioCtx.destination);
+            gain.gain.value = 0.3;
+            const bufferSize = 4096;
+            const noise = audioCtx.createBufferSource();
+            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for(let i=0; i<bufferSize; i++) data[i] = Math.random() * 2 - 1;
+            noise.buffer = buffer;
+            noise.loop = true;
+            noise.connect(gain);
+            noise.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 1.2);
+            noise.stop(audioCtx.currentTime + 1.2);
+            setTimeout(() => {
+                const osc = audioCtx.createOscillator();
+                const gain2 = audioCtx.createGain();
+                osc.connect(gain2);
+                gain2.connect(audioCtx.destination);
+                osc.frequency.value = 1046.5;
+                gain2.gain.value = 0.3;
+                osc.type = 'sine';
+                osc.start();
+                gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.5);
+                osc.stop(audioCtx.currentTime + 0.5);
+            }, 1000);
+        } catch(e) {}
+        createConfetti(2500);
+    }
+    
+    function playErrorSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 220;
+            gain.gain.value = 0.25;
+            osc.type = 'sawtooth';
+            osc.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.4);
+            osc.stop(audioCtx.currentTime + 0.4);
+            setTimeout(() => {
+                const osc2 = audioCtx.createOscillator();
+                const gain2 = audioCtx.createGain();
+                osc2.connect(gain2);
+                gain2.connect(audioCtx.destination);
+                osc2.frequency.value = 164.81;
+                gain2.gain.value = 0.2;
+                osc2.type = 'sawtooth';
+                osc2.start();
+                gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                osc2.stop(audioCtx.currentTime + 0.3);
+            }, 150);
+        } catch(e) {}
+        document.body.classList.add('shake-screen');
+        setTimeout(() => document.body.classList.remove('shake-screen'), 500);
+    }
+
+    // ========== BÀI TẬP 1: MỐC TUỔI - TRÁCH NHIỆM HÌNH SỰ ==========
+    (function() {
+        const questions = [
+            { text: "⚖️ Bạn 13 tuổi, có thể bị truy cứu trách nhiệm hình sự không?", options: ["A. Có, nếu tội đặc biệt nghiêm trọng", "B. Không, 14 tuổi mới bắt đầu", "C. Có, nếu có người làm chứng", "D. Luôn bị truy cứu"], correct: 1, explanation: "✅ Đúng! Độ tuổi bắt đầu chịu trách nhiệm hình sự là 14 tuổi. Người dưới 14 tuổi không bị truy cứu trách nhiệm hình sự." },
+            { text: "⚖️ Bạn 15 tuổi, có thể bị truy cứu về mọi tội phạm chưa?", options: ["A. Có, từ 14 tuổi đã chịu mọi tội", "B. Chưa, chỉ chịu về tội rất nghiêm trọng hoặc đặc biệt nghiêm trọng", "C. Không bao giờ", "D. Chỉ khi có người lớn đi cùng"], correct: 1, explanation: "✅ Đúng! Từ 14-16 tuổi chỉ chịu trách nhiệm về tội phạm rất nghiêm trọng hoặc đặc biệt nghiêm trọng. Từ 16 tuổi mới chịu về mọi tội." },
+            { text: "⚖️ Ở độ tuổi nào được coi là có đầy đủ năng lực hành vi dân sự?", options: ["A. 14 tuổi", "B. 16 tuổi", "C. 18 tuổi", "D. 21 tuổi"], correct: 2, explanation: "✅ Đúng! 18 tuổi là mốc trưởng thành, có đầy đủ năng lực hành vi dân sự, tự chịu trách nhiệm hoàn toàn." },
+            { text: "⚖️ Bạn 15 tuổi trộm cắp 5 triệu đồng, có bị xử lý hình sự không?", options: ["A. Không, vì dưới 16", "B. Có, vì trộm cắp là tội nghiêm trọng", "C. Chỉ bị phạt hành chính", "D. Không bị gì"], correct: 2, explanation: "✅ Với người 14-16 tuổi, chỉ bị xử lý hình sự về tội rất nghiêm trọng. Trộm 5 triệu thường ở mức nghiêm trọng, có thể bị xử phạt hành chính hoặc trường giáo dưỡng." },
+            { text: "⚖️ 'Sự thiếu hiểu biết về pháp luật' có được miễn trừ trách nhiệm không?", options: ["A. Có", "B. Không", "C. Có, nếu dưới 18", "D. Có, nếu lần đầu"], correct: 1, explanation: "✅ 'Không biết luật không có nghĩa là không có tội'. Mọi công dân có trách nhiệm tìm hiểu và tuân thủ pháp luật." },
+            { text: "⚖️ Bạn 17 tuổi cố ý gây thương tích 30%, bị xử lý thế nào?", options: ["A. Không bị gì", "B. Chỉ phạt hành chính", "C. Bị truy cứu hình sự vì từ 16 tuổi đã chịu trách nhiệm mọi tội", "D. Chỉ khiển trách"], correct: 2, explanation: "✅ Từ đủ 16 tuổi, bạn phải chịu trách nhiệm hình sự về MỌI tội phạm mình gây ra." }
+        ];
+        let currentIdx = 0, userAnswers = new Array(questions.length).fill(null);
+        function renderQuiz1() {
+            const container = document.getElementById('exercise1');
+            if (currentIdx >= questions.length) {
+                let correct = 0;
+                for (let i=0; i<questions.length; i++) if (userAnswers[i] === questions[i].correct) correct++;
+                let msg = correct === questions.length ? '🎉 XUẤT SẮC! Bạn đã nắm vững các mốc tuổi trách nhiệm hình sự!' : (correct >= 4 ? '👍 Khá tốt!' : '📖 Hãy học lại các mốc tuổi 14-16-18.');
+                if (correct === questions.length) playCompleteSound(); else playSuccessSound();
+                container.innerHTML = `<div class="result-area"><div class="final-score">${correct}/${questions.length}</div><div style="color:#ccc;">${msg}</div><button class="reset-btn" id="reset1">🔄 LÀM LẠI</button></div>`;
+                document.getElementById('reset1')?.addEventListener('click', () => { currentIdx = 0; userAnswers.fill(null); renderQuiz1(); });
+                return;
+            }
+            const q = questions[currentIdx];
+            let html = `<div class="progress-badge">⚖️ Đã hiểu: ${userAnswers.filter(a=>a!==null).length}/${questions.length} mốc tuổi</div>
+                <div class="timeline-box"><div class="timeline-title">📅 MỐC TUỔI QUAN TRỌNG</div>
+                <div class="timeline"><div class="milestone"><div class="milestone-age">14</div><div class="milestone-label">Bắt đầu chịu TNHS về tội rất nghiêm trọng</div></div>
+                <div class="milestone"><div class="milestone-age">16</div><div class="milestone-label">Chịu TNHS về MỌI tội phạm</div></div>
+                <div class="milestone"><div class="milestone-age">18</div><div class="milestone-label">Đầy đủ năng lực hành vi dân sự</div></div></div></div>
+                <div class="question-card"><div class="question-text">❓ ${q.text}</div><div class="options" id="opts1"></div>
+                <div class="feedback" id="fb1">💡 Hãy chọn đáp án đúng!</div><button class="btn-next" id="next1">${currentIdx === questions.length-1 ? '🏁 XEM KẾT QUẢ' : '➡️ TIẾP'}</button></div>`;
+            container.innerHTML = html;
+            const optsDiv = document.getElementById('opts1');
+            q.options.forEach((opt, idx) => {
+                const optDiv = document.createElement('div');
+                optDiv.className = `option ${userAnswers[currentIdx] === idx ? (idx === q.correct ? 'selected-correct' : 'selected-wrong') : ''}`;
+                optDiv.innerText = opt;
+                optDiv.onclick = () => {
+                    if (userAnswers[currentIdx] !== null) return;
+                    userAnswers[currentIdx] = idx;
+                    const fb = document.getElementById('fb1');
+                    if (idx === q.correct) { fb.innerHTML = '✅ ' + q.explanation; fb.className = 'feedback correct'; playSuccessSound(); }
+                    else { fb.innerHTML = '❌ ' + q.explanation; fb.className = 'feedback wrong'; playErrorSound(); }
+                    renderQuiz1();
+                };
+                optsDiv.appendChild(optDiv);
+            });
+            document.getElementById('next1').onclick = () => {
+                if (userAnswers[currentIdx] === null) { document.getElementById('fb1').innerHTML = '⚠️ Hãy chọn đáp án trước!'; playErrorSound(); return; }
+                currentIdx++; renderQuiz1();
+            };
+        }
+        renderQuiz1();
+    })();
+
+    // ========== BÀI TẬP 2: LUẬT AN NINH MẠNG & GIAO THÔNG ==========
+    (function() {
+        const questions = [
+            { text: "📱 Tự ý đăng ảnh bạn thân khi chưa xin phép có vi phạm pháp luật không?", options: ["A. Không, chỉ là đùa vui", "B. Có, vi phạm quyền đối với hình ảnh", "C. Chỉ vi phạm nếu yêu cầu gỡ", "D. Không sao vì là bạn thân"], correct: 1, explanation: "✅ Quyền đối với hình ảnh được pháp luật bảo vệ. Tự ý đăng tải hình ảnh người khác khi chưa được đồng ý có thể bị xử phạt." },
+            { text: "📱 Bị người khác đăng bài bôi nhọ danh dự, có thể bị xử lý thế nào?", options: ["A. Không bị gì", "B. Có thể bị xử phạt hành chính hoặc truy cứu hình sự", "C. Chỉ khiển trách", "D. Không sao vì là trên mạng"], correct: 1, explanation: "✅ Xúc phạm danh dự, nhân phẩm trên mạng xã hội có thể bị xử phạt hành chính hoặc truy cứu trách nhiệm hình sự." },
+            { text: "🚗 Bạn 17 tuổi uống bia rồi đi xe máy điện, có vi phạm không?", options: ["A. Không", "B. Có, vì nồng độ cồn bị cấm tuyệt đối với người điều khiển phương tiện", "C. Chỉ vi phạm nếu say", "D. Không sao vì còn nhỏ"], correct: 1, explanation: "✅ Luật cấm tuyệt đối người điều khiển phương tiện sử dụng rượu bia. Nồng độ cồn = 0 với người dưới 18." },
+            { text: "🚗 Bạn dưới 18 bị dừng xe kiểm tra, bạn có quyền gì?", options: ["A. Không có quyền", "B. Được quyền yêu cầu có người giám hộ đi cùng khi làm việc tại đồn", "C. Được bỏ chạy", "D. Được không trả lời"], correct: 1, explanation: "✅ Người dưới 18 có quyền được có người giám hộ (bố mẹ) đi cùng khi làm việc với cơ quan chức năng." },
+            { text: "🧪 Sử dụng 'bóng cười' có bị coi là vi phạm pháp luật không?", options: ["A. Không", "B. Có, N2O nằm trong danh mục chất cấm", "C. Chỉ cấm với người dưới 18", "D. Không sao vì nhiều người dùng"], correct: 1, explanation: "✅ N2O nằm trong danh mục chất cấm. Tàng trữ, sử dụng có thể bị xử phạt hành chính hoặc hình sự." },
+            { text: "📱 Bạn thấy bạn cùng lớp lấy trộm ảnh người nổi tiếng chỉnh sửa đăng lên mạng, bạn nên?", options: ["A. Im lặng", "B. Khuyên bạn gỡ bài, giải thích vi phạm quyền hình ảnh", "C. Làm theo", "D. Chia sẻ bài viết"], correct: 1, explanation: "✅ Hãy là người bạn có trách nhiệm. Khuyên bạn gỡ bài và giải thích hậu quả pháp lý." }
+        ];
+        let currentIdx = 0, userAnswers = new Array(questions.length).fill(null);
+        function renderQuiz2() {
+            const container = document.getElementById('exercise2');
+            if (currentIdx >= questions.length) {
+                let correct = 0;
+                for (let i=0; i<questions.length; i++) if (userAnswers[i] === questions[i].correct) correct++;
+                let msg = correct === questions.length ? '🎉 XUẤT SẮC! Bạn đã nắm vững luật an ninh mạng và giao thông!' : (correct >= 4 ? '👍 Khá tốt!' : '📖 Hãy học lại các quy định về quyền hình ảnh và nồng độ cồn.');
+                if (correct === questions.length) playCompleteSound(); else playSuccessSound();
+                container.innerHTML = `<div class="result-area"><div class="final-score">${correct}/${questions.length}</div><div style="color:#ccc;">${msg}</div><button class="reset-btn" id="reset2">🔄 LÀM LẠI</button></div>`;
+                document.getElementById('reset2')?.addEventListener('click', () => { currentIdx = 0; userAnswers.fill(null); renderQuiz2(); });
+                return;
+            }
+            const q = questions[currentIdx];
+            let html = `<div class="progress-badge">⚖️ Đã xử lý: ${userAnswers.filter(a=>a!==null).length}/${questions.length} tình huống</div>
+                <div class="law-tip"><div class="tip-icon">⚖️</div><div class="tip-text"><strong>QUAN TRỌNG:</strong> Trên không gian mạng, mọi hành vi 'nhấp chuột' đều có thể dẫn đến hệ lụy pháp lý. Hãy suy nghĩ trước khi đăng, chia sẻ!</div></div>
+                <div class="question-card"><div class="question-text">❓ ${q.text}</div><div class="options" id="opts2"></div>
+                <div class="feedback" id="fb2">💡 Hãy chọn đáp án đúng!</div><button class="btn-next" id="next2">${currentIdx === questions.length-1 ? '🏁 XEM KẾT QUẢ' : '➡️ TIẾP'}</button></div>`;
+            container.innerHTML = html;
+            const optsDiv = document.getElementById('opts2');
+            q.options.forEach((opt, idx) => {
+                const optDiv = document.createElement('div');
+                optDiv.className = `option ${userAnswers[currentIdx] === idx ? (idx === q.correct ? 'selected-correct' : 'selected-wrong') : ''}`;
+                optDiv.innerText = opt;
+                optDiv.onclick = () => {
+                    if (userAnswers[currentIdx] !== null) return;
+                    userAnswers[currentIdx] = idx;
+                    const fb = document.getElementById('fb2');
+                    if (idx === q.correct) { fb.innerHTML = '✅ ' + q.explanation; fb.className = 'feedback correct'; playSuccessSound(); }
+                    else { fb.innerHTML = '❌ ' + q.explanation; fb.className = 'feedback wrong'; playErrorSound(); }
+                    renderQuiz2();
+                };
+                optsDiv.appendChild(optDiv);
+            });
+            document.getElementById('next2').onclick = () => {
+                if (userAnswers[currentIdx] === null) { document.getElementById('fb2').innerHTML = '⚠️ Hãy chọn đáp án trước!'; playErrorSound(); return; }
+                currentIdx++; renderQuiz2();
+            };
+        }
+        renderQuiz2();
+    })();
+
+    // ========== BÀI TẬP 3: QUYỀN TỰ VỆ & TRỢ GIÚP PHÁP LÝ ==========
+    (function() {
+        const questions = [
+            { text: "🛡️ Chống trả khi bị tấn công để bảo vệ bản thân gọi là gì?", options: ["A. Cố ý gây thương tích", "B. Phòng vệ chính đáng", "C. Trả thù", "D. Gây rối"], correct: 1, explanation: "✅ Phòng vệ chính đáng là hành vi tự vệ để chống lại hành vi xâm hại, nhưng phải tương xứng với mức độ nguy hiểm." },
+            { text: "🛡️ Khi nào phòng vệ bị coi là vượt quá giới hạn?", options: ["A. Chống trả bằng tay không", "B. Tiếp tục đánh khi kẻ tấn công đã bỏ chạy", "C. Chạy thoát", "D. Gọi công an"], correct: 1, explanation: "✅ Vượt quá giới hạn khi hành vi chống trả không còn cần thiết (kẻ tấn công đã bỏ chạy). Lúc đó bạn có thể bị xử lý hình sự." },
+            { text: "📞 Bạn dưới 18 bị xâm hại, có thể gọi số nào miễn phí?", options: ["A. 113", "B. 115", "C. 111", "D. 114"], correct: 2, explanation: "✅ 111 là Tổng đài quốc gia bảo vệ trẻ em, hoạt động 24/7, tư vấn và hỗ trợ miễn phí." },
+            { text: "📞 Bạn cần tư vấn pháp lý miễn phí, có thể liên hệ đâu?", options: ["A. Trung tâm trợ giúp pháp lý nhà nước", "B. Luật sư tư nhân", "C. Đăng lên mạng xã hội", "D. Hỏi bạn bè"], correct: 0, explanation: "✅ Trung tâm trợ giúp pháp lý nhà nước cung cấp dịch vụ tư vấn pháp luật miễn phí cho trẻ em, người nghèo." },
+            { text: "🛡️ Khi bị tấn công, ưu tiên hàng đầu của bạn là gì?", options: ["A. Ở lại đánh trả", "B. Thoát thân, chạy đến nơi đông người, la hét", "C. Làm theo yêu cầu", "D. Im lặng chịu đựng"], correct: 1, explanation: "✅ Ưu tiên hàng đầu là SỰ AN TOÀN CỦA BẠN. Hãy tìm cách thoát thân và la hét để cầu cứu." },
+            { text: "📞 Bạn thấy bạn mình bị xâm hại, ngoài 111 có thể gọi cho ai?", options: ["A. Chỉ 111", "B. Báo cha mẹ bạn, giáo viên, hoặc 113", "C. Không làm gì", "D. Đăng lên mạng"], correct: 1, explanation: "✅ Hãy là người bạn có trách nhiệm. Báo ngay cho người lớn tin cậy hoặc gọi công an 113." }
+        ];
+        const checklistItems = [
+            { id: 0, text: "📞 Lưu số 111 (Tổng đài bảo vệ trẻ em) vào điện thoại", checked: false },
+            { id: 1, text: "📞 Biết số 113 (Công an) và 115 (Cấp cứu)", checked: false },
+            { id: 2, text: "🛡️ Hiểu rõ: Phòng vệ chính đáng chỉ được phép khi bị tấn công trực tiếp", checked: false },
+            { id: 3, text: "🛡️ Đánh người khi họ đã bỏ chạy là VƯỢT QUÁ GIỚI HẠN", checked: false },
+            { id: 4, text: "🏃 Ưu tiên THOÁT THÂN, CHẠY đến nơi an toàn thay vì đánh trả", checked: false },
+            { id: 5, text: "⚖️ Biết có Trung tâm trợ giúp pháp lý miễn phí cho người dưới 18", checked: false }
+        ];
+        let currentIdx = 0, userAnswers = new Array(questions.length).fill(null), checklistState = [...checklistItems], gameLocked = false;
+        function renderQuiz3() {
+            const container = document.getElementById('exercise3');
+            if (currentIdx < questions.length) {
+                const q = questions[currentIdx];
+                let html = `<div class="progress-badge">🛡️ Đã hiểu: ${userAnswers.filter(a=>a!==null).length}/${questions.length} quyền tự vệ</div>
+                    <div class="defense-tip"><div class="tip-icon">🛡️</div><div class="tip-text"><strong>PHÒNG VỆ CHÍNH ĐÁNG:</strong> Là quyền được bảo vệ bản thân khi bị tấn công, nhưng phải tương xứng với mức độ nguy hiểm. Nếu vượt quá giới hạn, bạn có thể bị xử lý hình sự.</div></div>
+                    <div class="question-card"><div class="question-text">❓ ${q.text}</div><div class="options" id="opts3"></div>
+                    <div class="feedback" id="fb3">💡 Hãy chọn đáp án đúng!</div><button class="btn-next" id="next3">${currentIdx === questions.length-1 ? '🏁 XEM CHECKLIST' : '➡️ TIẾP'}</button></div>`;
+                container.innerHTML = html;
+                const optsDiv = document.getElementById('opts3');
+                q.options.forEach((opt, idx) => {
+                    const optDiv = document.createElement('div');
+                    optDiv.className = `option ${userAnswers[currentIdx] === idx ? (idx === q.correct ? 'selected-correct' : 'selected-wrong') : ''}`;
+                    optDiv.innerText = opt;
+                    optDiv.onclick = () => {
+                        if (userAnswers[currentIdx] !== null) return;
+                        userAnswers[currentIdx] = idx;
+                        const fb = document.getElementById('fb3');
+                        if (idx === q.correct) { fb.innerHTML = '✅ ' + q.explanation; fb.className = 'feedback correct'; playSuccessSound(); }
+                        else { fb.innerHTML = '❌ ' + q.explanation; fb.className = 'feedback wrong'; playErrorSound(); }
+                        renderQuiz3();
+                    };
+                    optsDiv.appendChild(optDiv);
+                });
+                document.getElementById('next3').onclick = () => {
+                    if (userAnswers[currentIdx] === null) { document.getElementById('fb3').innerHTML = '⚠️ Hãy chọn đáp án trước!'; playErrorSound(); return; }
+                    currentIdx++; renderQuiz3();
+                };
+            } else {
+                let correctCount = 0;
+                for (let i=0; i<questions.length; i++) if (userAnswers[i] === questions[i].correct) correctCount++;
+                const checkedCount = checklistState.filter(c => c.checked).length;
+                let html = `<div class="progress-badge">🛡️ Đã hiểu: ${questions.length}/${questions.length} quyền tự vệ</div>
+                    <div class="checklist-area"><div class="checklist-title">✅ CHECKLIST BẢO VỆ BẢN THÂN</div><div id="checklistContainer"></div></div>
+                    <button class="btn-next" id="submitBtn3">🔍 HOÀN THÀNH & ĐÁNH GIÁ</button>
+                    <div class="feedback" id="fb3">💡 Hãy tick vào checklist và hoàn thành!</div>`;
+                container.innerHTML = html;
+                const checklistContainer = document.getElementById('checklistContainer');
+                checklistState.forEach((item, idx) => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'checklist-item';
+                    itemDiv.innerHTML = `<div class="checklist-checkbox ${item.checked ? 'checked' : ''}" data-idx="${idx}"></div><div class="checklist-text">${item.text}</div>`;
+                    if (!gameLocked) itemDiv.addEventListener('click', () => { checklistState[idx].checked = !checklistState[idx].checked; renderQuiz3(); playSuccessSound(); });
+                    checklistContainer.appendChild(itemDiv);
+                });
+                document.getElementById('submitBtn3').onclick = () => {
+                    gameLocked = true;
+                    const total = questions.length;
+                    let msg = (correctCount === total && checkedCount === checklistItems.length) ? '🎉 XUẤT SẮC! Bạn đã nắm vững quyền tự vệ và các đầu mối trợ giúp pháp lý!' : (correctCount >= 4 && checkedCount >= 4 ? '👍 Khá tốt!' : '📖 Hãy học lại về phòng vệ chính đáng và các số điện thoại trợ giúp!');
+                    if (correctCount === total && checkedCount === checklistItems.length) playCompleteSound(); else playSuccessSound();
+                    container.innerHTML = `<div class="result-area"><div class="final-score">📊 ${correctCount}/${total} | ✅ ${checkedCount}/${checklistItems.length}</div><div style="color:#ccc;">${msg}</div><button class="reset-btn" id="reset3">🔄 LÀM LẠI</button></div>`;
+                    document.getElementById('reset3')?.addEventListener('click', () => { currentIdx = 0; userAnswers.fill(null); checklistState = checklistItems.map(i=>({...i,checked:false})); gameLocked=false; renderQuiz3(); });
+                };
+            }
+        }
+        renderQuiz3();
+    })();
+    resizeCanvas();
+</script>
+</body>
+</html>
