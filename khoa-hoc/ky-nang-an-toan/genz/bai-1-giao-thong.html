@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Bài 1: An toàn Giao thông & Sự cố dọc đường | Bản lĩnh Gen Z | Sophia Nguyễn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0a0a0a;
+            font-family: 'Segoe UI', 'Be Vietnam Pro', sans-serif;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .header { background: #141414; border-radius: 32px; padding: 20px; margin-bottom: 20px; text-align: center; border: 1px solid #2a2a2a; }
+        .logo { height: 60px; margin-bottom: 10px; }
+        .header h1 { color: #e0e0e0; font-size: 1.8rem; }
+        .video-section { background: #141414; border-radius: 32px; padding: 20px; margin-bottom: 20px; border: 1px solid #2a2a2a; }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 24px; overflow: hidden; }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .exercise { background: #141414; border-radius: 32px; padding: 20px; margin-bottom: 20px; border: 1px solid #2a2a2a; }
+        .exercise-title { font-size: 1.5rem; color: #e63946; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 3px solid #e63946; display: inline-block; }
+        .back-btn { display: inline-block; background: #e63946; color: white; padding: 12px 24px; border-radius: 40px; text-decoration: none; font-weight: bold; margin-top: 20px; transition: all 0.2s; }
+        .back-btn:hover { transform: translateY(-2px); background: #c1121f; }
+        .footer { text-align: center; color: #666; padding: 20px; font-size: 0.8rem; }
+        
+        .shake-screen { animation: shake 0.3s ease-in-out 0s 2; }
+        @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } 100% { transform: translateX(0); } }
+        
+        #confetti-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <img src="https://i.ibb.co/fK21mfr/z6733594850225-2f3b990b665eef085ad3928349c48c7f.jpg" alt="Sophia Nguyễn" class="logo">
+        <h1>🚛 Bài 1: An toàn Giao thông & Sự cố dọc đường</h1>
+    </div>
+
+    <div class="video-section">
+        <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/74C_PerSfmU" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- ========== BÀI TẬP 1: ĐIỂM MÙ ========== -->
+    <div class="exercise">
+        <h2 class="exercise-title">🚛 Bài tập 1: Điểm mù – Sinh tồn trên đường</h2>
+        <div id="exercise1"></div>
+    </div>
+
+    <!-- ========== BÀI TẬP 2: XỬ LÝ SỰ CỐ ========== -->
+    <div class="exercise">
+        <h2 class="exercise-title">🛠️ Bài tập 2: Xử lý sự cố dọc đường</h2>
+        <div id="exercise2"></div>
+    </div>
+
+    <!-- ========== BÀI TẬP 3: VA CHẠM GIAO THÔNG ========== -->
+    <div class="exercise">
+        <h2 class="exercise-title">🚨 Bài tập 3: Va chạm giao thông – Xử lý thông minh</h2>
+        <div id="exercise3"></div>
+    </div>
+
+    <a href="/khoa-hoc/ky-nang-an-toan/genz/" class="back-btn">← Quay lại danh sách bài học</a>
+    <div class="footer">
+        <p>🛡️ Bản lĩnh Gen Z – Khóa học an toàn dành cho giới trẻ | Sophia Nguyễn</p>
+    </div>
+</div>
+<canvas id="confetti-canvas"></canvas>
+
+<script>
+    // ==================== HIỆU ỨNG CONFETTI & ÂM THANH ====================
+    let ctx = null, width = window.innerWidth, height = window.innerHeight, particles = [], animationId = null;
+    function resizeCanvas() { width = window.innerWidth; height = window.innerHeight; const canvas = document.getElementById('confetti-canvas'); if(canvas){ canvas.width = width; canvas.height = height; ctx = canvas.getContext('2d'); } }
+    function createConfetti(duration = 1800) {
+        if(!ctx) return;
+        if(animationId) cancelAnimationFrame(animationId);
+        particles = [];
+        for(let i=0;i<140;i++) {
+            particles.push({ x: Math.random() * width, y: Math.random() * height - height, size: Math.random() * 7 + 3, color: `hsl(${Math.random() * 360}, 80%, 60%)`, speedY: Math.random() * 5 + 3, speedX: (Math.random() - 0.5) * 2, rotation: Math.random() * 360, rotSpeed: (Math.random() - 0.5) * 6 });
+        }
+        drawConfetti();
+        setTimeout(() => { if(animationId) cancelAnimationFrame(animationId); ctx?.clearRect(0,0,width,height); particles = []; }, duration);
+    }
+    function drawConfetti() {
+        if(!ctx) return;
+        ctx.clearRect(0, 0, width, height);
+        let allFinished = true;
+        for(let i=0;i<particles.length;i++) {
+            const p = particles[i];
+            if(p.y < height + 50) {
+                allFinished = false;
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.rotation * Math.PI / 180);
+                ctx.fillStyle = p.color;
+                ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size * 0.6);
+                ctx.restore();
+                p.y += p.speedY;
+                p.x += p.speedX;
+                p.rotation += p.rotSpeed;
+            }
+        }
+        if(!allFinished) animationId = requestAnimationFrame(drawConfetti);
+        else { if(animationId) cancelAnimationFrame(animationId); particles = []; ctx.clearRect(0,0,width,height); }
+    }
+    window.addEventListener('resize', () => { resizeCanvas(); if(particles.length) drawConfetti(); });
+    
+    function playClickSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 880;
+            gain.gain.value = 0.08;
+            osc.type = 'sine';
+            osc.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.08);
+            osc.stop(audioCtx.currentTime + 0.08);
+        } catch(e) {}
+    }
+    
+    function playSuccessSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const frequencies = [880, 1046.5, 1318.5];
+            frequencies.forEach((freq, idx) => {
+                setTimeout(() => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.frequency.value = freq;
+                    gain.gain.value = 0.2;
+                    osc.type = 'sine';
+                    osc.start();
+                    gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                    osc.stop(audioCtx.currentTime + 0.3);
+                }, idx * 120);
+            });
+        } catch(e) {}
+        createConfetti(800);
+    }
+    
+    function playCompleteSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const gain = audioCtx.createGain();
+            gain.connect(audioCtx.destination);
+            gain.gain.value = 0.3;
+            const bufferSize = 4096;
+            const noise = audioCtx.createBufferSource();
+            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for(let i=0; i<bufferSize; i++) data[i] = Math.random() * 2 - 1;
+            noise.buffer = buffer;
+            noise.loop = true;
+            noise.connect(gain);
+            noise.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 1.2);
+            noise.stop(audioCtx.currentTime + 1.2);
+            setTimeout(() => {
+                const osc = audioCtx.createOscillator();
+                const gain2 = audioCtx.createGain();
+                osc.connect(gain2);
+                gain2.connect(audioCtx.destination);
+                osc.frequency.value = 1046.5;
+                gain2.gain.value = 0.3;
+                osc.type = 'sine';
+                osc.start();
+                gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.5);
+                osc.stop(audioCtx.currentTime + 0.5);
+            }, 1000);
+        } catch(e) {}
+        createConfetti(2500);
+    }
+    
+    function playErrorSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 220;
+            gain.gain.value = 0.25;
+            osc.type = 'sawtooth';
+            osc.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.4);
+            osc.stop(audioCtx.currentTime + 0.4);
+            setTimeout(() => {
+                const osc2 = audioCtx.createOscillator();
+                const gain2 = audioCtx.createGain();
+                osc2.connect(gain2);
+                gain2.connect(audioCtx.destination);
+                osc2.frequency.value = 164.81;
+                gain2.gain.value = 0.2;
+                osc2.type = 'sawtooth';
+                osc2.start();
+                gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                osc2.stop(audioCtx.currentTime + 0.3);
+            }, 150);
+        } catch(e) {}
+        document.body.classList.add('shake-screen');
+        setTimeout(() => document.body.classList.remove('shake-screen'), 500);
+    }
+
+    // ========== BÀI TẬP 1: ĐIỂM MÙ ==========
+    (function() {
+        const questions = [
+            { text: "🚛 Bạn đang đi xe máy ở bên phải một xe tải lớn. Theo nguyên tắc 'điểm mù', khi nào bạn AN TOÀN nhất?",
+              options: ["Khi bạn nhìn thấy gương chiếu hậu của tài xế xe tải", "Khi bạn đi song song với cabin xe tải", "Khi bạn bám sát đuôi xe tải để tránh gió", "Khi bạn đi ngay trước đầu xe tải"],
+              correct: 0, explanation: "✅ Đúng! Quy tắc sinh tồn: 'Nếu bạn không nhìn thấy gương chiếu hậu của bác tài, nghĩa là bác tài không nhìn thấy bạn.'" },
+            { text: "🚛 Khoảng cách an toàn tối thiểu khi đi sau xe tải trên đường cao tốc (trời khô ráo) là bao nhiêu?",
+              options: ["Cách 2-3 mét để tránh xe khác chen ngang", "Đủ để phanh gấp (ít nhất 3 giây hoặc 50m tùy tốc độ)", "Đi song song để tài xế thấy bạn", "Bất kỳ khoảng cách nào cũng được"],
+              correct: 1, explanation: "✅ Đúng! Quy tắc '3 giây': chọn một điểm cố định, khi xe trước đi qua, bạn đếm ít nhất 3 giây sau mới tới điểm đó." },
+            { text: "🚛 Bạn đang đi trên đường, phía trước có xe container rẽ phải. Bạn nên làm gì?",
+              options: ["Chạy nhanh lên để vượt qua trước khi xe rẽ", "Bấm còi báo hiệu và đi song song với xe", "Giảm tốc, giữ khoảng cách và không cố vượt khi xe đang rẽ", "Bám sát đuôi xe để không bị xe sau tông"],
+              correct: 2, explanation: "✅ Đúng! Xe tải lớn cần khoảng không gian rất rộng để rẽ. Đừng bao giờ cố vượt khi xe đang rẽ." },
+            { text: "🚛 Trước một hành trình dài (hơn 100km), việc kiểm tra nào là QUAN TRỌNG NHẤT trên xe máy?",
+              options: ["Kiểm tra màu sơn xe", "Kiểm tra áp suất lốp và hệ thống phanh", "Kiểm tra loại nhớt đang dùng", "Kiểm tra đèn led trang trí"],
+              correct: 1, explanation: "✅ Đúng! Phanh và lốp là hai yếu tố sống còn." },
+            { text: "🚛 Khi trời mưa to, tầm nhìn hạn chế, bạn nên làm gì để an toàn?",
+              options: ["Bật đèn xi nhan để báo hiệu liên tục", "Bật đèn xe (cả đèn cốt) và giảm tốc độ, tăng khoảng cách an toàn", "Chạy vào làn dừng khẩn cấp để tránh mưa", "Tắt đèn để đỡ chói mắt người khác"],
+              correct: 1, explanation: "✅ Đúng! Bật đèn để người khác nhìn thấy bạn, giảm tốc độ và tăng khoảng cách an toàn." }
+        ];
+        let currentQuestion = 0, userAnswers = new Array(questions.length).fill(null);
+        function renderQuiz() {
+            const container = document.getElementById('exercise1');
+            if (currentQuestion >= questions.length) {
+                let correct = 0;
+                for (let i = 0; i < questions.length; i++) if (userAnswers[i] === questions[i].correct) correct++;
+                let msg = correct === questions.length ? '🎉 TUYỆT VỜI! Bạn đã nắm vững kỹ năng sinh tồn trên đường!' : (correct >= 3 ? '👍 Khá tốt! Hãy xem lại những câu sai.' : '📖 Hãy học lại các nguyên tắc an toàn giao thông.');
+                if (correct === questions.length) playCompleteSound();
+                else playSuccessSound();
+                container.innerHTML = `<div style="background:#1a1a2e; border-radius:24px; padding:30px; text-align:center;"><div style="font-size:28px; font-weight:bold; color:#e0e0e0;">🏆 ${correct}/${questions.length} 🏆</div><div style="margin:20px 0; color:#cccccc;">${msg}</div><button id="resetQuiz" style="background:#e63946; border:none; padding:12px 28px; border-radius:40px; cursor:pointer; color:white;">🔄 LÀM LẠI</button></div>`;
+                document.getElementById('resetQuiz')?.addEventListener('click', () => { currentQuestion = 0; userAnswers.fill(null); renderQuiz(); });
+                return;
+            }
+            const q = questions[currentQuestion];
+            let html = `<div style="background:#1a1a2e; border-radius:24px; padding:20px;"><div style="font-weight:bold; color:#e0e0e0; margin-bottom:15px;">Thử thách ${currentQuestion+1}/${questions.length}</div><div style="font-size:18px; color:#e0e0e0; margin-bottom:20px;">${q.text}</div><div class="options">`;
+            q.options.forEach((opt, idx) => {
+                html += `<div class="opt" data-opt="${idx}" style="background:#0a0a0a; border:1px solid #2a2a2a; border-radius:60px; padding:12px 18px; margin-bottom:10px; cursor:pointer; color:#cccccc;">${opt}</div>`;
+            });
+            html += `</div><div id="fb" style="margin-top:15px; padding:10px; border-radius:16px; background:#0a0a0a; color:#aaaaaa;"></div><button id="nextBtn" style="background:#e63946; border:none; padding:12px; border-radius:60px; color:white; margin-top:15px; width:100%; cursor:pointer;">${currentQuestion === questions.length-1 ? '🏁 XEM KẾT QUẢ' : '➡️ TIẾP THEO'}</button></div>`;
+            container.innerHTML = html;
+            document.querySelectorAll('.opt').forEach(opt => {
+                opt.onclick = () => {
+                    const val = parseInt(opt.getAttribute('data-opt'));
+                    userAnswers[currentQuestion] = val;
+                    const fb = document.getElementById('fb');
+                    if (val === q.correct) { fb.innerHTML = q.explanation; fb.style.color = '#2ecc71'; playSuccessSound(); }
+                    else { fb.innerHTML = `❌ Sai. ${q.explanation}`; fb.style.color = '#e63946'; playErrorSound(); }
+                    document.querySelectorAll('.opt').forEach(o => o.style.opacity = '0.6');
+                };
+            });
+            document.getElementById('nextBtn').onclick = () => {
+                if (userAnswers[currentQuestion] === null) { document.getElementById('fb').innerHTML = '⚠️ Hãy chọn đáp án trước!'; playErrorSound(); return; }
+                currentQuestion++; renderQuiz();
+            };
+        }
+        renderQuiz();
+    })();
+
+    // ========== BÀI TẬP 2: XỬ LÝ SỰ CỐ ==========
+    (function() {
+        const stepsData = [
+            { id: 0, icon: "🛡️", title: "Di chuyển an toàn", desc: "Tấp xe vào lề đường bên phải, bật đèn cảnh báo, đưa xe vào nơi có ánh sáng" },
+            { id: 1, icon: "📍", title: "Thông báo vị trí", desc: "Gửi định vị qua Zalo/Google Maps cho người thân hoặc bạn bè tin cậy" },
+            { id: 2, icon: "🆘", title: "Tìm kiếm trợ giúp uy tín", desc: "Đến cửa hàng tiện lợi, cây xăng hoặc nhà dân có người già/phụ nữ để nhờ hỗ trợ" }
+        ];
+        let sequence = [null, null, null], selectedStep = null, multipleChoiceAnswer = null, gameLocked = false;
+        function resetGame() { sequence = [null, null, null]; selectedStep = null; multipleChoiceAnswer = null; gameLocked = false; renderGame2(); }
+        function renderGame2() {
+            const container = document.getElementById('exercise2');
+            let html = `<div style="background:#1a1a2e; border-radius:24px; padding:20px;"><div style="margin-bottom:15px; color:#e0e0e0;">📋 Sắp xếp thứ tự xử lý (1→2→3):</div><div id="slots" style="display:flex; gap:15px; flex-wrap:wrap; margin-bottom:20px;"></div><div id="steps" style="display:flex; gap:15px; flex-wrap:wrap; margin-bottom:20px;"></div><div style="margin:15px 0; color:#e0e0e0;"><div>❓ Khi xe hỏng ở khu vực vắng người, bạn nên ưu tiên tìm sự trợ giúp từ ai?</div><div id="choices" style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;"></div></div><button id="submitBtn2" style="background:#e63946; border:none; padding:12px; border-radius:60px; color:white; width:100%; cursor:pointer;">🔍 KIỂM TRA</button><div id="fb2" style="margin-top:15px; padding:10px; background:#0a0a0a; border-radius:16px; color:#aaaaaa;"></div></div>`;
+            container.innerHTML = html;
+            const slotsDiv = document.getElementById('slots');
+            for (let i=0; i<3; i++) {
+                const step = sequence[i] !== null ? stepsData.find(s => s.id === sequence[i]) : null;
+                const slot = document.createElement('div');
+                slot.style.cssText = 'background:#0a0a0a; border:2px dashed #e63946; border-radius:16px; padding:15px; width:180px; text-align:center; cursor:pointer; color:#e0e0e0;';
+                slot.innerHTML = `<div style="font-weight:bold;">Bước ${i+1}</div>${step ? `<div>${step.icon} ${step.title}</div>` : '⬅️ Click'}`;
+                if (!gameLocked) slot.onclick = () => { if (selectedStep !== null && sequence[i] === null) { sequence[i] = selectedStep; selectedStep = null; renderGame2(); } };
+                slotsDiv.appendChild(slot);
+            }
+            const usedIds = sequence.filter(s => s !== null);
+            const available = stepsData.filter(s => !usedIds.includes(s.id));
+            const stepsDiv = document.getElementById('steps');
+            available.forEach(step => {
+                const stepDiv = document.createElement('div');
+                stepDiv.style.cssText = `background:#0a0a0a; border:1px solid ${selectedStep === step.id ? '#e63946' : '#2a2a2a'}; border-radius:16px; padding:15px; width:180px; text-align:center; cursor:pointer; color:#cccccc;`;
+                stepDiv.innerHTML = `<div>${step.icon} ${step.title}</div><div style="font-size:12px; color:#888;">${step.desc}</div>`;
+                if (!gameLocked) stepDiv.onclick = () => { selectedStep = selectedStep === step.id ? null : step.id; renderGame2(); };
+                stepsDiv.appendChild(stepDiv);
+            });
+            const choicesDiv = document.getElementById('choices');
+            const choices = ["Bất kỳ người lạ", "Cửa hàng tiện lợi/cây xăng/nhà có người già/phụ nữ", "Đi vào ngõ tối", "Đứng giữa đường vẫy xe"];
+            choices.forEach((ch, idx) => {
+                const btn = document.createElement('div');
+                btn.style.cssText = `background:${multipleChoiceAnswer === idx ? (idx === 1 ? '#2ecc71' : '#e63946') : '#0a0a0a'}; border:1px solid #2a2a2a; border-radius:40px; padding:8px 16px; cursor:pointer; color:#cccccc;`;
+                btn.innerText = ch;
+                if (!gameLocked) btn.onclick = () => { multipleChoiceAnswer = idx; renderGame2(); };
+                choicesDiv.appendChild(btn);
+            });
+            document.getElementById('submitBtn2').onclick = () => {
+                if (sequence.includes(null)) { document.getElementById('fb2').innerHTML = '⚠️ Hãy xếp đủ 3 bước!'; playErrorSound(); return; }
+                if (multipleChoiceAnswer === null) { document.getElementById('fb2').innerHTML = '⚠️ Hãy chọn đáp án!'; playErrorSound(); return; }
+                const correctSeq = [0,1,2];
+                let seqOk = true;
+                for (let i=0; i<3; i++) if (sequence[i] !== correctSeq[i]) seqOk = false;
+                const choiceOk = (multipleChoiceAnswer === 1);
+                if (seqOk && choiceOk) { document.getElementById('fb2').innerHTML = '🎉 XUẤT SẮC! Bạn đã nắm vững quy trình xử lý sự cố!'; playCompleteSound(); }
+                else if (seqOk && !choiceOk) { document.getElementById('fb2').innerHTML = '⚠️ Thứ tự đúng, nhưng cần chọn đúng nơi tìm trợ giúp!'; playErrorSound(); }
+                else { document.getElementById('fb2').innerHTML = '❌ Hãy xem lại quy trình xử lý sự cố dọc đường!'; playErrorSound(); }
+                gameLocked = true;
+                const resetBtn = document.createElement('button'); resetBtn.innerText = '🔄 LÀM LẠI'; resetBtn.style.cssText = 'background:#e63946; border:none; padding:10px; border-radius:40px; color:white; margin-top:15px; width:100%; cursor:pointer;'; resetBtn.onclick = () => resetGame(); document.getElementById('exercise2').appendChild(resetBtn);
+            };
+        }
+        renderGame2();
+    })();
+
+    // ========== BÀI TẬP 3: VA CHẠM GIAO THÔNG ==========
+    (function() {
+        const questions = [
+            { text: "🚨 Bạn vừa bị một xe máy khác va quẹt nhẹ ở ngã tư. Người kia xuống xe và lớn tiếng chửi bới, đổ lỗi cho bạn. HÀNH ĐỘNG ĐẦU TIÊN bạn nên làm gì?", options: ["Cãi lại thật to", "Bình tĩnh, kiểm tra mức độ va chạm, không tranh cãi gay gắt", "Dùng bạo lực", "Bỏ chạy"], correct: 1, explanation: "Giữ bình tĩnh là bước đầu tiên. Hãy kiểm tra thiệt hại và xử lý văn minh." },
+            { text: "📸 Trước khi di chuyển phương tiện sau va chạm, bạn CẦN làm gì để bảo vệ quyền lợi?", options: ["Lập tức dắt xe vào lề", "Chụp ảnh hiện trường, vị trí các xe, biển số xe liên quan", "Gọi điện cho bạn bè kể chuyện", "Thỏa thuận bồi thường ngay"], correct: 1, explanation: "Luôn chụp ảnh, quay phim hiện trường trước khi di chuyển phương tiện." },
+            { text: "⚠️ Đối phương có dấu hiệu say xỉn và hung hăng, cầm theo vũ khí. Bạn nên làm gì?", options: ["Ở lại phân bua", "Thách thức đánh nhau", "Khóa xe, di chuyển vào khu vực đông người, gọi công an", "Chạy thật nhanh lên xe và bỏ đi"], correct: 2, explanation: "Tuyệt đối không đứng lại ở nơi vắng vẻ. Hãy tìm nơi an toàn có người và gọi hỗ trợ." }
+        ];
+        let userAnswers = [null, null, null], gameLocked = false;
+        function resetGame3() { userAnswers = [null, null, null]; gameLocked = false; renderGame3(); }
+        function renderGame3() {
+            const container = document.getElementById('exercise3');
+            let html = `<div style="background:#1a1a2e; border-radius:24px; padding:20px;">`;
+            questions.forEach((q, idx) => {
+                html += `<div style="margin-bottom:20px;"><div style="font-weight:bold; color:#e0e0e0;">${q.text}</div><div id="opts-${idx}" style="margin:10px 0;"></div><div id="fb-${idx}" style="font-size:13px; color:#aaaaaa;"></div></div>`;
+            });
+            html += `<button id="submitBtn3" style="background:#e63946; border:none; padding:12px; border-radius:60px; color:white; width:100%; cursor:pointer;">🔍 HOÀN THÀNH & ĐÁNH GIÁ</button><div id="fb3" style="margin-top:15px; padding:10px; background:#0a0a0a; border-radius:16px; color:#aaaaaa;"></div></div>`;
+            container.innerHTML = html;
+            questions.forEach((q, idx) => {
+                const optsDiv = document.getElementById(`opts-${idx}`);
+                q.options.forEach((opt, optIdx) => {
+                    const btn = document.createElement('div');
+                    btn.style.cssText = `background:${userAnswers[idx] === optIdx ? (optIdx === q.correct ? '#2ecc71' : '#e63946') : '#0a0a0a'}; border:1px solid #2a2a2a; border-radius:40px; padding:8px 12px; margin-bottom:8px; cursor:pointer; font-size:14px; color:#cccccc;`;
+                    btn.innerText = opt;
+                    if (!gameLocked) btn.onclick = () => { userAnswers[idx] = optIdx; renderGame3(); };
+                    optsDiv.appendChild(btn);
+                });
+                if (userAnswers[idx] !== null) {
+                    const fb = document.getElementById(`fb-${idx}`);
+                    if (userAnswers[idx] === q.correct) { fb.innerHTML = `✅ ${q.explanation}`; fb.style.color = '#2ecc71'; }
+                    else { fb.innerHTML = `❌ ${q.explanation}`; fb.style.color = '#e63946'; }
+                }
+            });
+            document.getElementById('submitBtn3').onclick = () => {
+                if (userAnswers.includes(null)) { document.getElementById('fb3').innerHTML = '⚠️ Hãy trả lời đủ 3 câu hỏi!'; playErrorSound(); return; }
+                let correct = 0;
+                for (let i=0; i<questions.length; i++) if (userAnswers[i] === questions[i].correct) correct++;
+                if (correct === 3) { document.getElementById('fb3').innerHTML = '🎉 XUẤT SẮC! Bạn đã nắm vững kỹ năng xử lý va chạm!'; playCompleteSound(); }
+                else { document.getElementById('fb3').innerHTML = `📊 Điểm: ${correct}/3. Hãy xem lại phần giải thích!`; playErrorSound(); }
+                gameLocked = true;
+                const resetBtn = document.createElement('button'); resetBtn.innerText = '🔄 LÀM LẠI'; resetBtn.style.cssText = 'background:#e63946; border:none; padding:10px; border-radius:40px; color:white; margin-top:15px; width:100%; cursor:pointer;'; resetBtn.onclick = () => resetGame3(); document.getElementById('exercise3').appendChild(resetBtn);
+            };
+        }
+        renderGame3();
+    })();
+    resizeCanvas();
+</script>
+</body>
+</html>
