@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Bài 5: Kỹ năng Sinh tồn & Dã ngoại | Bản lĩnh Gen Z | Sophia Nguyễn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0a0a0a;
+            font-family: 'Segoe UI', 'Be Vietnam Pro', sans-serif;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .header { background: #141414; border-radius: 32px; padding: 20px; margin-bottom: 20px; text-align: center; border: 1px solid #2a2a2a; }
+        .logo { height: 60px; margin-bottom: 10px; }
+        .header h1 { color: #e0e0e0; font-size: 1.8rem; }
+        .video-section { background: #141414; border-radius: 32px; padding: 20px; margin-bottom: 20px; border: 1px solid #2a2a2a; }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 24px; overflow: hidden; }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .exercise { background: #141414; border-radius: 32px; padding: 20px; margin-bottom: 20px; border: 1px solid #2a2a2a; }
+        .exercise-title { font-size: 1.5rem; color: #e63946; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 3px solid #e63946; display: inline-block; }
+        .back-btn { display: inline-block; background: #e63946; color: white; padding: 12px 24px; border-radius: 40px; text-decoration: none; font-weight: bold; margin-top: 20px; transition: all 0.2s; }
+        .back-btn:hover { transform: translateY(-2px); background: #c1121f; }
+        .footer { text-align: center; color: #666; padding: 20px; font-size: 0.8rem; }
+        
+        .shake-screen { animation: shake 0.3s ease-in-out 0s 2; }
+        @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } 100% { transform: translateX(0); } }
+        
+        #confetti-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; }
+        
+        .progress-bar { background: #1a1a2e; border-radius: 20px; height: 8px; margin-bottom: 10px; overflow: hidden; }
+        .progress-fill { background: #e63946; height: 100%; border-radius: 20px; transition: width 0.3s; }
+        .scenario-box { background: #1a1a2e; border-radius: 24px; padding: 20px; margin-bottom: 25px; border: 1px solid #2a2a3e; text-align: center; }
+        .scenario-emoji { font-size: 60px; margin-bottom: 10px; }
+        .scenario-title { font-size: 20px; font-weight: 700; color: #e0e0e0; margin-bottom: 8px; }
+        .scenario-desc { font-size: 15px; color: #aaa; }
+        .step-card { background: #1a1a2e; border-radius: 20px; padding: 20px; margin-bottom: 20px; border-left: 6px solid #e63946; }
+        .step-card.completed { border-left-color: #2ecc71; background: #1e2a1e; }
+        .step-header { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; flex-wrap: wrap; }
+        .step-letter { background: #e63946; width: 50px; height: 50px; border-radius: 60px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 800; color: white; }
+        .step-title { font-size: 20px; font-weight: 700; color: #e0e0e0; }
+        .step-desc { font-size: 14px; color: #aaa; margin-bottom: 15px; padding-left: 65px; }
+        .step-actions { display: flex; gap: 12px; flex-wrap: wrap; padding-left: 65px; }
+        .action-btn { background: #0a0a12; border: 1px solid #2a2a3e; padding: 8px 16px; border-radius: 40px; color: #ccc; font-weight: 500; cursor: pointer; transition: 0.2s; }
+        .action-btn:hover { background: #e63946; color: white; border-color: #e63946; }
+        .action-btn.correct-action { background: #2ecc71; border-color: #2ecc71; color: white; }
+        .step-feedback { padding-left: 65px; margin-top: 10px; font-size: 13px; color: #2ecc71; }
+        
+        .rule-box { background: #1a1a2e; border-radius: 24px; padding: 20px; margin-bottom: 25px; border: 1px solid #2a2a3e; text-align: center; }
+        .rule-title { font-size: 20px; font-weight: 700; color: #e63946; margin-bottom: 10px; }
+        .rule-desc { font-size: 14px; color: #ccc; line-height: 1.5; }
+        .drag-area { display: flex; flex-wrap: wrap; gap: 25px; margin-bottom: 30px; justify-content: center; }
+        .items-pool { flex: 1.2; background: #1a1a2e; border-radius: 24px; padding: 20px; border: 2px dashed #e63946; }
+        .items-pool h3 { text-align: center; color: #e0e0e0; margin-bottom: 20px; font-size: 16px; }
+        .drag-items { display: flex; flex-direction: column; gap: 12px; }
+        .drag-item { background: #0a0a12; border-radius: 16px; padding: 14px; display: flex; align-items: center; gap: 12px; cursor: pointer; border: 2px solid #2a2a3e; }
+        .drag-item:hover { transform: translateX(5px); border-color: #e63946; }
+        .drag-item.selected { background: #e63946; border-color: #e63946; color: white; }
+        .drag-emoji { font-size: 32px; }
+        .drag-text { flex: 1; font-size: 14px; font-weight: 600; color: #ccc; }
+        .drag-time { font-size: 12px; color: #888; }
+        .priority-area { flex: 1; background: #1a1a2e; border-radius: 24px; padding: 20px; border: 2px solid #e63946; }
+        .priority-area h3 { text-align: center; color: #e0e0e0; margin-bottom: 20px; font-size: 16px; }
+        .priority-slots { display: flex; flex-direction: column; gap: 12px; }
+        .priority-slot { background: #0a0a12; border-radius: 16px; padding: 14px; min-height: 80px; border: 2px dashed #2a2a3e; cursor: pointer; }
+        .priority-slot:hover { border-color: #e63946; background: #1a1a2e; }
+        .slot-number { font-size: 12px; font-weight: 600; color: #e63946; margin-bottom: 6px; }
+        .slot-content { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .slot-emoji { font-size: 28px; }
+        .slot-text { font-size: 14px; font-weight: 500; color: #ccc; }
+        
+        .signal-card { background: #1a1a2e; border-radius: 20px; padding: 20px; margin-bottom: 20px; border: 1px solid #2a2a3e; }
+        .signal-title { font-size: 18px; font-weight: 700; color: #e0e0e0; margin-bottom: 15px; }
+        .signal-options { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 15px; }
+        .signal-opt { background: #0a0a12; border: 2px solid #2a2a3e; border-radius: 60px; padding: 8px 18px; cursor: pointer; color: #ccc; font-size: 13px; }
+        .signal-opt:hover { background: #e63946; color: white; border-color: #e63946; }
+        .signal-opt.selected-correct { background: #2ecc71; border-color: #2ecc71; color: white; }
+        .signal-opt.selected-wrong { background: #e74c3c; border-color: #e74c3c; color: white; }
+        .signal-feedback { font-size: 13px; color: #aaa; margin-top: 8px; }
+        
+        .btn-next, .btn-submit { background: #e63946; border: none; color: white; font-size: 18px; font-weight: 600; padding: 14px 28px; border-radius: 60px; cursor: pointer; width: 100%; margin: 15px 0; transition: 0.2s; }
+        .btn-next:hover, .btn-submit:hover { background: #c1121f; }
+        .reset-btn { background: #e63946; border: none; padding: 12px 28px; border-radius: 40px; font-weight: 600; font-size: 16px; cursor: pointer; color: white; width: 100%; margin-top: 15px; }
+        .result-area { text-align: center; padding: 30px; background: #1a1a2e; border-radius: 24px; margin-top: 20px; }
+        .final-score { font-size: 48px; font-weight: bold; color: #e63946; margin: 20px 0; }
+        .complete-message { background: #1a1a2e; border-radius: 24px; padding: 30px; text-align: center; border: 2px solid #2ecc71; margin-top: 20px; }
+        .progress-badge { background: #1a1a2e; padding: 6px 16px; border-radius: 40px; color: #ccc; font-weight: 600; border: 1px solid #e63946; display: inline-block; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <img src="https://i.ibb.co/fK21mfr/z6733594850225-2f3b990b665eef085ad3928349c48c7f.jpg" alt="Sophia Nguyễn" class="logo">
+        <h1>🏕️ Bài 5: Kỹ năng Sinh tồn & Dã ngoại</h1>
+    </div>
+
+    <div class="video-section">
+        <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/Vb7M4VJfJ_Y" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- Bài tập 1: S.T.O.P -->
+    <div class="exercise">
+        <h2 class="exercise-title">🛑 Bài tập 1: S.T.O.P - Ra quyết định sinh tồn</h2>
+        <div id="exercise1"></div>
+    </div>
+
+    <!-- Bài tập 2: Quy tắc số 3 -->
+    <div class="exercise">
+        <h2 class="exercise-title">⏳ Bài tập 2: Quy tắc số 3 - Sắp xếp ưu tiên</h2>
+        <div id="exercise2"></div>
+    </div>
+
+    <!-- Bài tập 3: Phát tín hiệu SOS -->
+    <div class="exercise">
+        <h2 class="exercise-title">🆘 Bài tập 3: Phát tín hiệu SOS - Cứu nạn</h2>
+        <div id="exercise3"></div>
+    </div>
+
+    <a href="/khoa-hoc/ky-nang-an-toan/genz/" class="back-btn">← Quay lại danh sách bài học</a>
+    <div class="footer">
+        <p>🛡️ Bản lĩnh Gen Z – Khóa học an toàn dành cho giới trẻ | Sophia Nguyễn</p>
+    </div>
+</div>
+<canvas id="confetti-canvas"></canvas>
+
+<script>
+    // ==================== HIỆU ỨNG CONFETTI & ÂM THANH ====================
+    let ctx = null, width = window.innerWidth, height = window.innerHeight, particles = [], animationId = null;
+    function resizeCanvas() { width = window.innerWidth; height = window.innerHeight; const canvas = document.getElementById('confetti-canvas'); if(canvas){ canvas.width = width; canvas.height = height; ctx = canvas.getContext('2d'); } }
+    function createConfetti(duration = 1800) {
+        if(!ctx) return;
+        if(animationId) cancelAnimationFrame(animationId);
+        particles = [];
+        for(let i=0;i<140;i++) {
+            particles.push({ x: Math.random() * width, y: Math.random() * height - height, size: Math.random() * 7 + 3, color: `hsl(${Math.random() * 360}, 80%, 60%)`, speedY: Math.random() * 5 + 3, speedX: (Math.random() - 0.5) * 2, rotation: Math.random() * 360, rotSpeed: (Math.random() - 0.5) * 6 });
+        }
+        drawConfetti();
+        setTimeout(() => { if(animationId) cancelAnimationFrame(animationId); ctx?.clearRect(0,0,width,height); particles = []; }, duration);
+    }
+    function drawConfetti() {
+        if(!ctx) return;
+        ctx.clearRect(0, 0, width, height);
+        let allFinished = true;
+        for(let i=0;i<particles.length;i++) {
+            const p = particles[i];
+            if(p.y < height + 50) {
+                allFinished = false;
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.rotation * Math.PI / 180);
+                ctx.fillStyle = p.color;
+                ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size * 0.6);
+                ctx.restore();
+                p.y += p.speedY;
+                p.x += p.speedX;
+                p.rotation += p.rotSpeed;
+            }
+        }
+        if(!allFinished) animationId = requestAnimationFrame(drawConfetti);
+        else { if(animationId) cancelAnimationFrame(animationId); particles = []; ctx.clearRect(0,0,width,height); }
+    }
+    window.addEventListener('resize', () => { resizeCanvas(); if(particles.length) drawConfetti(); });
+    
+    function playClickSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 880;
+            gain.gain.value = 0.08;
+            osc.type = 'sine';
+            osc.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.08);
+            osc.stop(audioCtx.currentTime + 0.08);
+        } catch(e) {}
+    }
+    
+    function playSuccessSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const frequencies = [880, 1046.5, 1318.5];
+            frequencies.forEach((freq, idx) => {
+                setTimeout(() => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.frequency.value = freq;
+                    gain.gain.value = 0.2;
+                    osc.type = 'sine';
+                    osc.start();
+                    gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                    osc.stop(audioCtx.currentTime + 0.3);
+                }, idx * 120);
+            });
+        } catch(e) {}
+        createConfetti(800);
+    }
+    
+    function playCompleteSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const gain = audioCtx.createGain();
+            gain.connect(audioCtx.destination);
+            gain.gain.value = 0.3;
+            const bufferSize = 4096;
+            const noise = audioCtx.createBufferSource();
+            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for(let i=0; i<bufferSize; i++) data[i] = Math.random() * 2 - 1;
+            noise.buffer = buffer;
+            noise.loop = true;
+            noise.connect(gain);
+            noise.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 1.2);
+            noise.stop(audioCtx.currentTime + 1.2);
+            setTimeout(() => {
+                const osc = audioCtx.createOscillator();
+                const gain2 = audioCtx.createGain();
+                osc.connect(gain2);
+                gain2.connect(audioCtx.destination);
+                osc.frequency.value = 1046.5;
+                gain2.gain.value = 0.3;
+                osc.type = 'sine';
+                osc.start();
+                gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.5);
+                osc.stop(audioCtx.currentTime + 0.5);
+            }, 1000);
+        } catch(e) {}
+        createConfetti(2500);
+    }
+    
+    function playErrorSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 220;
+            gain.gain.value = 0.25;
+            osc.type = 'sawtooth';
+            osc.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.4);
+            osc.stop(audioCtx.currentTime + 0.4);
+            setTimeout(() => {
+                const osc2 = audioCtx.createOscillator();
+                const gain2 = audioCtx.createGain();
+                osc2.connect(gain2);
+                gain2.connect(audioCtx.destination);
+                osc2.frequency.value = 164.81;
+                gain2.gain.value = 0.2;
+                osc2.type = 'sawtooth';
+                osc2.start();
+                gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                osc2.stop(audioCtx.currentTime + 0.3);
+            }, 150);
+        } catch(e) {}
+        document.body.classList.add('shake-screen');
+        setTimeout(() => document.body.classList.remove('shake-screen'), 500);
+    }
+
+    // ========== BÀI TẬP 1: S.T.O.P ==========
+    (function() {
+        const steps = [
+            { letter: "S", title: "SIT DOWN - NGỒI XUỐNG", desc: "Bạn vừa nhận ra mình bị lạc trong rừng. Điện thoại hết pin, trời sắp tối. Điều đầu tiên bạn cần làm là gì?", options: ["A. Chạy lung tung", "B. Ngồi xuống, hít thở sâu và giữ bình tĩnh", "C. Leo lên cây cao", "D. La hét thật to"], correct: 1, feedback: "✅ Đúng! Hoảng loạn là kẻ thù số 1 khi bị lạc." },
+            { letter: "T", title: "THINK - SUY NGHĨ", desc: "Sau khi bình tĩnh, bạn cần nhớ lại lần cuối cùng mình biết chắc vị trí. Bạn nên làm gì?", options: ["A. Chọn hướng bất kỳ", "B. Nhớ lại cột mốc cuối cùng, kiểm tra điện thoại", "C. Nằm ngủ chờ sáng", "D. Đốt lửa ngay"], correct: 1, feedback: "✅ Hãy cố gắng nhớ lại lần cuối bạn biết chắc mình đang ở đâu." },
+            { letter: "O", title: "OBSERVE - QUAN SÁT", desc: "Bạn đang ở trong rừng, trời bắt đầu tối. Bạn cần quan sát xung quanh để tìm gì?", options: ["A. Nơi trú ẩn và nguồn nước", "B. Cây có quả", "C. Đường mòn", "D. Cây cao để leo"], correct: 0, feedback: "✅ Quan sát để tìm nơi trú ẩn và nguồn nước - ưu tiên hàng đầu." },
+            { letter: "P", title: "PLAN - LẬP KẾ HOẠCH", desc: "Trời đã tối, bạn đã tìm được một gốc cây lớn có thể trú ẩn. Bạn nên làm gì?", options: ["A. Ở lại trú ẩn qua đêm", "B. Tiếp tục đi tìm đường", "C. Đốt lửa thật to chờ cứu hộ", "D. Leo núi để có tầm nhìn xa"], correct: 0, feedback: "✅ Nếu trời tối, hãy ở lại nơi trú ẩn. Di chuyển trong bóng tối rất nguy hiểm." }
+        ];
+        let stepCompleted = [false,false,false,false], selectedAnswers = [null,null,null,null];
+        function renderQuiz1() {
+            const container = document.getElementById('exercise1');
+            let allDone = stepCompleted.every(v=>v===true);
+            let html = `<div class="scenario-box"><div class="scenario-emoji">🏞️😰</div><div class="scenario-title">TÌNH HUỐNG: LẠC TRONG RỪNG</div><div class="scenario-desc">Bạn đang đi trekking thì bị tách khỏi đoàn. Điện thoại hết pin, trời bắt đầu tối.</div></div>`;
+            for (let i=0; i<steps.length; i++) {
+                const s = steps[i];
+                const isCompleted = stepCompleted[i];
+                const savedAnswer = selectedAnswers[i];
+                html += `<div class="step-card ${isCompleted ? 'completed' : ''}"><div class="step-header"><div class="step-letter">${s.letter}</div><div class="step-title">${s.title}</div></div>
+                <div class="step-desc">${s.desc}</div><div class="step-actions" id="actions1-${i}"></div>
+                ${savedAnswer !== null ? `<div class="step-feedback">${savedAnswer === s.correct ? '✅ ' + s.feedback : '❌ ' + s.feedback}</div>` : ''}</div>`;
+            }
+            html += `<div class="progress-badge">📚 Đã xử lý: ${stepCompleted.filter(v=>v===true).length}/4 tình huống</div>`;
+            if (allDone) html += `<div class="complete-message"><div style="font-size:48px;">🏕️🎉🏆</div><div style="font-size:20px; font-weight:bold; color:#2ecc71;">CHÚC MỪNG CON!</div><div style="margin:15px 0;">Con đã nắm vững quy tắc S.T.O.P!</div><button class="reset-btn" id="reset1">🔄 LÀM LẠI</button></div>`;
+            else html += `<button class="reset-btn" id="reset1" style="background:#2a2a3e;">🔄 LÀM LẠI</button>`;
+            container.innerHTML = html;
+            for (let i=0; i<steps.length; i++) {
+                const s = steps[i];
+                const actionsDiv = document.getElementById(`actions1-${i}`);
+                if (actionsDiv) {
+                    s.options.forEach((opt, idx) => {
+                        const btn = document.createElement('button');
+                        btn.className = `action-btn ${selectedAnswers[i] === idx ? (idx === s.correct ? 'correct-action' : '') : ''}`;
+                        btn.innerText = opt;
+                        btn.onclick = () => {
+                            if (stepCompleted[i]) return;
+                            selectedAnswers[i] = idx;
+                            if (idx === s.correct) { stepCompleted[i] = true; playSuccessSound(); }
+                            else playErrorSound();
+                            renderQuiz1();
+                        };
+                        actionsDiv.appendChild(btn);
+                    });
+                }
+            }
+            document.getElementById('reset1')?.addEventListener('click', () => { stepCompleted = [false,false,false,false]; selectedAnswers = [null,null,null,null]; renderQuiz1(); playClickSound(); });
+        }
+        renderQuiz1();
+    })();
+
+    // ========== BÀI TẬP 2: QUY TẮC SỐ 3 ==========
+    (function() {
+        const survivalNeeds = [
+            { id: 0, emoji: "🏕️", name: "NƠI TRÚ ẨN", time: "3 giờ", correctOrder: 1 },
+            { id: 1, emoji: "💧", name: "NGUỒN NƯỚC", time: "3 ngày", correctOrder: 2 },
+            { id: 2, emoji: "🍎", name: "THỨC ĂN", time: "3 tuần", correctOrder: 3 }
+        ];
+        let selectedItem = null, priorityOrder = [null, null, null], gameCompleted = false;
+        function resetGame2() { selectedItem = null; priorityOrder = [null, null, null]; gameCompleted = false; renderQuiz2(); }
+        function checkResult2() {
+            if (priorityOrder.includes(null)) { document.getElementById('fb2').innerHTML = '⚠️ Hãy xếp đủ 3 nhu cầu!'; document.getElementById('fb2').className = 'feedback wrong'; playErrorSound(); return; }
+            let isCorrect = true;
+            for (let i=0; i<3; i++) { const need = survivalNeeds.find(n => n.id === priorityOrder[i]); if (need.correctOrder !== i+1) isCorrect = false; }
+            if (isCorrect) { document.getElementById('fb2').innerHTML = '🎉 CHÍNH XÁC! Trú ẩn → Nước → Thức ăn!'; document.getElementById('fb2').className = 'feedback correct'; playCompleteSound(); gameCompleted = true; }
+            else { document.getElementById('fb2').innerHTML = '❌ Chưa đúng! Hãy nhớ thứ tự ưu tiên.'; document.getElementById('fb2').className = 'feedback wrong'; playErrorSound(); }
+        }
+        function renderQuiz2() {
+            const container = document.getElementById('exercise2');
+            if (gameCompleted) {
+                container.innerHTML = `<div class="result-area"><div class="final-score">🏆 HOÀN THÀNH!</div><div>Bạn đã nắm vững quy tắc ưu tiên sinh tồn!</div><button class="reset-btn" id="reset2">🔄 LÀM LẠI</button></div>`;
+                document.getElementById('reset2')?.addEventListener('click', () => resetGame2());
+                return;
+            }
+            let html = `<div class="rule-box"><div class="rule-title">⏳ QUY TẮC CON SỐ 3</div><div class="rule-desc">Con người chỉ chịu được: <strong>🏕️ 3 giờ</strong> thiếu trú ẩn • <strong>💧 3 ngày</strong> thiếu nước • <strong>🍎 3 tuần</strong> thiếu thức ăn</div></div>
+            <div class="drag-area"><div class="items-pool"><h3>📦 CÁC NHU CẦU (Click chọn → click vào ô ưu tiên)</h3><div class="drag-items" id="dragItems2"></div></div>
+            <div class="priority-area"><h3>🎯 THỨ TỰ ƯU TIÊN (1 → 2 → 3)</h3><div class="priority-slots" id="prioritySlots2"></div></div></div>
+            <button class="btn-submit" id="submit2">🔍 KIỂM TRA THỨ TỰ</button><div id="fb2" class="feedback" style="margin-top:15px;">💡 Click chọn nhu cầu → click vào ô ưu tiên!</div>
+            <button class="reset-btn" id="reset2">🔄 LÀM LẠI</button>`;
+            container.innerHTML = html;
+            const usedIds = priorityOrder.filter(id=>id!==null);
+            const available = survivalNeeds.filter(item=>!usedIds.includes(item.id));
+            const dragDiv = document.getElementById('dragItems2');
+            available.forEach(item => {
+                const div = document.createElement('div');
+                div.className = `drag-item ${selectedItem === item.id ? 'selected' : ''}`;
+                div.innerHTML = `<div class="drag-emoji">${item.emoji}</div><div class="drag-text">${item.name}</div><div class="drag-time">⏱️ ${item.time}</div>`;
+                div.onclick = () => { selectedItem = selectedItem === item.id ? null : item.id; renderQuiz2(); playClickSound(); };
+                dragDiv.appendChild(div);
+            });
+            const slotsDiv = document.getElementById('prioritySlots2');
+            for (let i=0; i<3; i++) {
+                const needId = priorityOrder[i];
+                const need = needId !== null ? survivalNeeds.find(n=>n.id===needId) : null;
+                const slot = document.createElement('div');
+                slot.className = 'priority-slot';
+                slot.innerHTML = `<div class="slot-number">Ưu tiên ${i+1}</div><div class="slot-content">${need ? `<div class="slot-emoji">${need.emoji}</div><div class="slot-text">${need.name}</div><div style="font-size:11px; color:#888;">⏱️ ${need.time}</div>` : '⬅️ Click chọn nhu cầu bên trái, rồi click vào đây'}</div>`;
+                if (selectedItem !== null && need === null) slot.onclick = () => { priorityOrder[i] = selectedItem; selectedItem = null; renderQuiz2(); playSuccessSound(); };
+                slotsDiv.appendChild(slot);
+            }
+            document.getElementById('submit2').onclick = checkResult2;
+            document.getElementById('reset2').onclick = () => resetGame2();
+        }
+        renderQuiz2();
+    })();
+
+    // ========== BÀI TẬP 3: PHÁT TÍN HIỆU SOS ==========
+    (function() {
+        const signals = [
+            { id:0, title: "🪞 PHẢN CHIẾU ÁNH SÁNG", desc: "Cách dùng gương phát tín hiệu SOS đúng nhất?", options: ["Chiếu liên tục", "Nháy 3 ngắn - 3 dài - 3 ngắn", "Cất gương đi", "Đập gương lấy mảnh"], correct:1, explanation:"✅ Nháy theo mã SOS: 3 ngắn - 3 dài - 3 ngắn." },
+            { id:1, title: "📢 CÒI CỨU HỘ", desc: "Tín hiệu SOS bằng còi là gì?", options:["Thổi liên tục","1 dài-1 ngắn-1 dài","3 ngắn-3 dài-3 ngắn","5 ngắn"], correct:2, explanation:"✅ 3 ngắn - 3 dài - 3 ngắn, lặp lại sau mỗi vài phút." },
+            { id:2, title: "🔥 LỬA & KHÓI", desc: "Cách tạo tín hiệu khói vào ban ngày?", options:["Đốt lửa thật to","Dùng lá tươi tạo khói trắng thành 3 đợt","Dập tắt lửa","Đốt liên tục"], correct:1, explanation:"✅ Ban ngày, khói trắng dễ thấy. Tạo 3 đợt khói tương ứng mã SOS." },
+            { id:3, title: "🪨 DẤU HIỆU MẶT ĐẤT", desc: "Cách tạo dấu hiệu cho máy bay dễ thấy nhất?", options:["Vẽ hình trái tim","Tạo chữ SOS hoặc HELP kích thước lớn","Viết tên mình","Không làm gì"], correct:1, explanation:"✅ Dấu hiệu cần có độ tương phản cao và kích thước lớn (3-5m)." }
+        ];
+        let currentIdx = 0, userAnswers = new Array(signals.length).fill(null);
+        function renderQuiz3() {
+            const container = document.getElementById('exercise3');
+            if (currentIdx >= signals.length) {
+                let correct = 0;
+                for (let i=0; i<signals.length; i++) if (userAnswers[i] === signals[i].correct) correct++;
+                let msg = correct === signals.length ? '🎉 XUẤT SẮC! Bạn đã nắm vững các cách phát tín hiệu SOS!' : (correct >= 2 ? '👍 Khá tốt!' : '📖 Hãy học lại các tín hiệu SOS!');
+                if (correct === signals.length) playCompleteSound(); else playSuccessSound();
+                container.innerHTML = `<div class="result-area"><div class="final-score">${correct}/${signals.length}</div><div style="color:#ccc;">${msg}</div><button class="reset-btn" id="reset3">🔄 LÀM LẠI</button></div>`;
+                document.getElementById('reset3')?.addEventListener('click', () => { currentIdx = 0; userAnswers.fill(null); renderQuiz3(); });
+                return;
+            }
+            const s = signals[currentIdx];
+            let html = `<div class="progress-badge">📢 Đã xử lý: ${userAnswers.filter(a=>a!==null).length}/${signals.length} tín hiệu</div>
+                <div class="signal-card"><div class="signal-title">${s.title}</div><div class="signal-options" id="opts3"></div>
+                <div class="signal-feedback" id="fb3">💡 Hãy chọn cách phát tín hiệu SOS đúng nhất!</div>
+                <button class="btn-next" id="next3">${currentIdx === signals.length-1 ? '🏁 XEM KẾT QUẢ' : '➡️ TÍN HIỆU TIẾP'}</button></div>`;
+            container.innerHTML = html;
+            const optsDiv = document.getElementById('opts3');
+            s.options.forEach((opt, idx) => {
+                const optDiv = document.createElement('div');
+                optDiv.className = `signal-opt ${userAnswers[currentIdx] === idx ? (idx === s.correct ? 'selected-correct' : 'selected-wrong') : ''}`;
+                optDiv.innerText = opt;
+                optDiv.onclick = () => {
+                    if (userAnswers[currentIdx] !== null) return;
+                    userAnswers[currentIdx] = idx;
+                    const fb = document.getElementById('fb3');
+                    if (idx === s.correct) { fb.innerHTML = '✅ ' + s.explanation; playSuccessSound(); }
+                    else { fb.innerHTML = '❌ ' + s.explanation; playErrorSound(); }
+                    renderQuiz3();
+                };
+                optsDiv.appendChild(optDiv);
+            });
+            document.getElementById('next3').onclick = () => {
+                if (userAnswers[currentIdx] === null) { document.getElementById('fb3').innerHTML = '⚠️ Hãy chọn đáp án trước!'; playErrorSound(); return; }
+                currentIdx++; renderQuiz3();
+            };
+        }
+        renderQuiz3();
+    })();
+    resizeCanvas();
+</script>
+</body>
+</html>
