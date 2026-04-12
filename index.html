@@ -614,7 +614,31 @@
       <a href="test.html" class="cta-btn">🔍 Khám phá bài test trong này?</a>
     </div>
   </div>
+<!-- BLOG MỚI NHẤT -->
+<h2 class="section-title" data-aos="fade-down-right" data-aos-duration="1000">📝 Bài viết mới từ Góc nhỏ của Sophia</h2>
+<div class="blog-preview" data-aos="zoom-in" data-aos-duration="1000" id="blogPreview"></div>
+<a href="nhungbaiblog.html" class="cta-btn" style="display: block; width: fit-content; margin: 20px auto;">📖 Xem tất cả bài viết →</a>
 
+<script>
+   const previewBlogs = [
+    { title: "Dấu hiệu nhận biết trẻ bị xâm hại tình dục", excerpt: "Những thay đổi bất thường về hành vi, cảm xúc và thể chất cha mẹ cần đặc biệt lưu ý.", link: "blog-xam-hai-tre-em.html", emoji: "🛡️" },
+    { title: "Hướng dẫn con an toàn trên mạng xã hội", excerpt: "Cha mẹ cần đồng hành cùng con trong thời đại số: bảo mật thông tin, nhận diện người lạ.", link: "blog-an-toan-mang-cho-con.html", emoji: "📱" },
+    { title: "5 dấu hiệu bạn đang bị thao túng tâm lý", excerpt: "Gaslighting, cô lập, kiểm soát... Nhận diện sớm để thoát khỏi mối quan hệ độc hại.", link: "blog-thao-tung-tam-ly.html", emoji: "🧠" }
+  ];
+  const previewDiv = document.getElementById('blogPreview');
+  if (previewDiv) {
+    previewDiv.innerHTML = `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; margin: 30px 0;">
+      ${previewBlogs.map(blog => `
+        <div style="background: white; border-radius: 20px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.2s; cursor: pointer;" onclick="window.location.href='${blog.link}'">
+          <div style="font-size: 40px; margin-bottom: 12px;">${blog.emoji}</div>
+          <h3 style="color: #2c3e2f; margin-bottom: 8px;">${blog.title}</h3>
+          <p style="color: #666; font-size: 14px;">${blog.excerpt}</p>
+          <div style="margin-top: 12px; color: #e83e8c; font-weight: 600;">Đọc tiếp →</div>
+        </div>
+      `).join('')}
+    </div>`;
+  }
+</script>
   <!-- CTA -->
   <section class="cta-section" data-aos="zoom-in-up" data-aos-duration="1000">
     <a href="https://zalo.me/0977092182" class="cta-datlich">📅 Đặt lịch tư vấn</a>
