@@ -287,176 +287,113 @@
 }
   </style>
 </head>
-<!-- ========== GÓC TÂM TRẠNG - PHIÊN BẢN BỨC THƯ TREO TƯỜNG ========== -->
+<!-- ========== GÓC NHẬT KÝ CỦA CÔ SOPHIA - ĐỌC TỪ GOOGLE SHEET ========== -->
 <style>
-  .sophia-letter {
+  .sophia-journal {
     position: fixed;
     bottom: 30px;
     right: 30px;
-    width: 320px;
-    background: #fffef5;
-    padding: 20px 22px 22px 22px;
-    border-radius: 16px 32px 32px 16px;
-    box-shadow: 12px 16px 28px rgba(0,0,0,0.12);
+    width: 340px;
+    background: #fffef7;
+    border-radius: 24px 32px 32px 24px;
+    box-shadow: 0 20px 35px rgba(0,0,0,0.15);
+    border-left: 10px solid #f3bc6c;
     font-family: 'Segoe UI', 'Be Vietnam Pro', sans-serif;
     z-index: 999;
-    transition: all 0.25s ease;
-    border: 1px solid #f7e2b0;
-    backdrop-filter: blur(2px);
+    transition: 0.2s;
   }
-  .sophia-letter:hover {
-    transform: translateY(-6px);
-    box-shadow: 16px 20px 32px rgba(0,0,0,0.15);
+  .sophia-journal:hover { transform: translateY(-5px); }
+  .journal-header {
+    background: #fdf3e0;
+    padding: 14px 18px;
+    border-radius: 20px 20px 0 0;
+    font-weight: bold;
+    color: #b45f2b;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
   }
-  /* Đặt bên trái nếu muốn */
-  .sophia-letter.left {
-    right: auto;
-    left: 30px;
+  .journal-body {
+    padding: 20px;
   }
-  .letter-content {
+  .journal-content {
     font-size: 15px;
     line-height: 1.6;
-    color: #5a3e28;
+    color: #4a3724;
     white-space: pre-wrap;
     word-break: break-word;
-    font-style: normal;
-    text-align: left;
-  }
-  .letter-edit-area {
-    margin-top: 18px;
-    display: none;
-    background: #fef7e8;
-    border-radius: 24px;
+    background: #fffaf0;
     padding: 12px;
-  }
-  .letter-edit-area textarea {
-    width: 100%;
     border-radius: 20px;
-    border: 1px solid #f5cf9b;
-    padding: 12px;
-    font-family: inherit;
-    font-size: 14px;
-    background: white;
-    resize: vertical;
+    min-height: 120px;
   }
-  .letter-edit-area button {
-    margin-top: 10px;
-    background: #f3bc6c;
-    border: none;
-    padding: 8px 20px;
-    border-radius: 40px;
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 13px;
-    color: white;
-    transition: 0.2s;
-  }
-  .letter-edit-area button:hover {
-    background: #e5a146;
-  }
-  .edit-icon {
-    position: absolute;
-    bottom: 12px;
-    right: 18px;
-    font-size: 18px;
-    color: #d9b48b;
-    cursor: pointer;
-    opacity: 0.5;
-    transition: 0.2s;
-  }
-  .edit-icon:hover {
-    opacity: 1;
-    color: #f3bc6c;
-  }
-  .letter-footer {
+  .journal-footer {
     font-size: 10px;
     color: #c9aa82;
     text-align: right;
-    margin-top: 16px;
-    border-top: 1px dashed #f1e0c4;
-    padding-top: 10px;
-    letter-spacing: 0.5px;
+    padding: 10px 18px 14px 18px;
+    border-top: 1px solid #f5e5d0;
+  }
+  .loading {
+    color: #b5a07e;
+    font-style: italic;
   }
   @media (max-width: 650px) {
-    .sophia-letter { width: 280px; bottom: 20px; right: 20px; padding: 16px 18px; }
-    .sophia-letter.left { left: 20px; right: auto; }
+    .sophia-journal { width: 290px; bottom: 20px; right: 20px; }
   }
 </style>
 
-<div id="sophiaLetter" class="sophia-letter right">
-  <div id="letterDisplay" class="letter-content">
-    🌼 Đang tải lời nhắn...
+<div id="sophiaJournal" class="sophia-journal">
+  <div class="journal-header">
+    📔 <span>NHẬT KÝ CỦA CÔ SOPHIA</span>
   </div>
-  <div id="letterEditArea" class="letter-edit-area">
-    <textarea id="letterInput" rows="3" placeholder="Viết điều chị muốn nhắn..."></textarea>
-    <button id="saveLetterBtn">💾 LƯU LẠI</button>
+  <div class="journal-body">
+    <div id="journalContent" class="journal-content loading">
+      📖 Đang tải lời nhắn...
+    </div>
   </div>
-  <div class="edit-icon" id="showEditIcon">✏️</div>
-  <div class="letter-footer">
-    📮 Góc nhỏ của cô Sophia
+  <div class="journal-footer">
+    💛 Cập nhật mỗi ngày
   </div>
 </div>
 
 <script>
-  (function() {
-    const STORAGE_KEY = 'sophia_letter_note';
-    const displayDiv = document.getElementById('letterDisplay');
-    const editArea = document.getElementById('letterEditArea');
-    const textarea = document.getElementById('letterInput');
-    const saveBtn = document.getElementById('saveLetterBtn');
-    const editIcon = document.getElementById('showEditIcon');
-    
-    // Tải nội dung đã lưu
-    function loadLetter() {
-      let saved = localStorage.getItem(STORAGE_KEY);
-      if (!saved || saved.trim() === "") {
-        saved = "💛 Gửi ba mẹ và các con yêu quý! 💛\n\nHôm nay cô Sophia muốn nhắn:\nHãy dành 10 phút mỗi ngày để hỏi con: 'Hôm nay con vui nhất điều gì?' 🥰\n\nBa mẹ thử xem nhé!";
-      }
-      displayDiv.innerText = saved;
-      textarea.value = saved;
-    }
-    
-    // Lưu nội dung
-    function saveLetter() {
-      const newText = textarea.value.trim();
-      if (newText === "") {
-        alert("✍️ Chị chưa viết gì để lưu ạ!");
-        return;
-      }
-      localStorage.setItem(STORAGE_KEY, newText);
-      displayDiv.innerText = newText;
-      editArea.style.display = "none";
+  // CHỊ THAY LINK NÀY BẰNG LINK CSV CỦA CHỊ NHÉ!
+  const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRBnTjJxVTpO-LI3vSYQZXtl647KXFWa9T3mOtA61we48PtdloSUfm3_cLkDPOLon4zqgDCJ44JvFx9/pub?gid=0&single=true&output=csv";
+  
+  async function loadJournal() {
+    try {
+      const response = await fetch(GOOGLE_SHEET_CSV_URL);
+      const csvText = await response.text();
       
-      // tiếng ting vui tai
-      try {
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.frequency.value = 880;
-        gain.gain.value = 0.1;
-        osc.type = 'sine';
-        osc.start();
-        gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.2);
-        osc.stop(audioCtx.currentTime + 0.2);
-      } catch(e) {}
+      // CSV có dạng: dòng đầu là tiêu đề, dòng 2 là nội dung
+      const lines = csvText.split('\n');
+      let content = "";
+      if (lines.length >= 2) {
+        // Bỏ dòng tiêu đề, lấy dòng thứ 2
+        content = lines[1].replace(/^"|"$/g, '').replace(/""/g, '"');
+      } else if (lines.length >= 1) {
+        content = lines[0].replace(/^"|"$/g, '').replace(/""/g, '"');
+      }
+      
+      if (content && content.trim() !== "") {
+        // Chuyển \n thành xuống dòng thực tế
+        document.getElementById('journalContent').innerHTML = content.replace(/\\n/g, '<br>').replace(/\n/g, '<br>');
+      } else {
+        document.getElementById('journalContent').innerHTML = "💛 Hôm nay cô Sophia chưa kịp viết nhật ký. Ba mẹ hãy quay lại sau nhé!";
+      }
+    } catch (error) {
+      console.error("Lỗi tải nhật ký:", error);
+      document.getElementById('journalContent').innerHTML = "🌸 Có lỗi kết nối. Cô Sophia sẽ sớm khắc phục nhé!";
     }
-    
-    // Bấm vào bút chì để hiện ô sửa
-    editIcon.addEventListener('click', function() {
-      editArea.style.display = "block";
-      textarea.focus();
-    });
-    
-    saveBtn.addEventListener('click', saveLetter);
-    
-    loadLetter();
-    
-    // Nếu muốn đổi vị trí: sửa class "right" thành "left"
-  })();
+  }
+  
+  loadJournal();
+  // Mỗi 5 phút tự động cập nhật 1 lần (phòng khi chị sửa nội dung)
+  setInterval(loadJournal, 300000);
 </script>
-<!-- ========== KẾT THÚC GÓC TÂM TRẠNG ========== -->
+<!-- ========== KẾT THÚC GÓC NHẬT KÝ ========== -->
   <body>
   <!-- HEADER -->
   <header class="header">
