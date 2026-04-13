@@ -12,107 +12,28 @@
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Be Vietnam Pro', sans-serif;
-      background: linear-gradient(145deg, #fff5f0 0%, #ffe8e0 100%);
-      color: #2c3e2f;
-      line-height: 1.6;
-    }
-
-    .container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    /* ==================== HEADER ==================== */
-    .header {
-      background: white;
-      padding: 15px 0;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    }
-
-    .header-container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo img {
-      height: 60px;
-      width: auto;
-    }
-
-    .menu-toggle {
-      display: none;
-      font-size: 28px;
-      cursor: pointer;
-    }
-
-    .navbar ul {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
-
-    .navbar a {
-      text-decoration: none;
-      color: #4a5568;
-      font-weight: 500;
-      transition: 0.2s;
-    }
-
-    .navbar a:hover {
-      color: #e83e8c;
-    }
-
-    .banner {
-      margin-top: 20px;
-      text-align: center;
-    }
-
-    .banner-img {
-      width: 100%;
-      max-height: 250px;
-      object-fit: cover;
-      border-radius: 28px;
-    }
-
-    /* ==================== BLOG ==================== */
+    /* CSS RIÊNG CHO BLOG - KHÔNG ẢNH HƯỞNG HEADER */
     .blog-header {
       text-align: center;
       margin: 60px 0 30px;
     }
-
     .blog-header h1 {
       font-size: 2.5rem;
       margin-bottom: 16px;
       color: #e83e8c;
     }
-
     .blog-header p {
       font-size: 1.1rem;
       color: #666;
       max-width: 700px;
       margin: 0 auto;
     }
-
     .blog-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
       gap: 30px;
-      margin: 50px 0;
+      margin: 50px 0 60px;
     }
-
     .blog-card {
       background: white;
       border-radius: 24px;
@@ -121,12 +42,10 @@
       transition: all 0.3s ease;
       cursor: pointer;
     }
-
     .blog-card:hover {
       transform: translateY(-8px);
       box-shadow: 0 20px 40px rgba(0,0,0,0.15);
     }
-
     .blog-image {
       height: 180px;
       background: linear-gradient(135deg, #e83e8c20, #f0629220);
@@ -135,11 +54,9 @@
       justify-content: center;
       font-size: 60px;
     }
-
     .blog-content {
       padding: 24px;
     }
-
     .blog-category {
       display: inline-block;
       background: #fce4ec;
@@ -150,7 +67,6 @@
       font-weight: 600;
       margin-bottom: 12px;
     }
-
     .blog-title {
       font-size: 1.2rem;
       font-weight: 700;
@@ -158,14 +74,12 @@
       line-height: 1.4;
       color: #2c3e2f;
     }
-
     .blog-excerpt {
       font-size: 0.9rem;
       color: #666;
       margin-bottom: 16px;
       line-height: 1.6;
     }
-
     .blog-meta {
       display: flex;
       justify-content: space-between;
@@ -175,20 +89,16 @@
       border-top: 1px solid #eee;
       padding-top: 16px;
     }
-
     .read-more {
       color: #e83e8c;
       font-weight: 600;
       text-decoration: none;
     }
-
-    /* ==================== CTA SECTION ==================== */
     .cta-section {
       text-align: center;
       padding: 40px 20px;
       margin: 40px auto;
     }
-
     .cta-datlich {
       display: inline-block;
       background: linear-gradient(135deg, #e83e8c, #f06292);
@@ -201,159 +111,32 @@
       transition: all 0.3s ease;
       box-shadow: 0 4px 12px rgba(232,62,140,0.2);
     }
-
     .cta-datlich:hover {
       transform: translateY(-2px);
       box-shadow: 0 8px 20px rgba(232,62,140,0.3);
     }
-
-    /* ==================== FOOTER ==================== */
-    .footer {
-      background: #1a2a3a;
-      color: white;
-      padding: 50px 0 20px;
-      margin-top: 60px;
-    }
-
-    .footer-container {
+    .container {
       max-width: 1280px;
       margin: 0 auto;
       padding: 0 24px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 40px;
     }
-
-    .footer-logo img {
-      width: 120px;
-      margin-bottom: 16px;
-    }
-
-    .footer-logo p {
-      font-size: 0.85rem;
-      line-height: 1.6;
-      color: #cbd5e0;
-      text-align: left;
-    }
-
-    .footer-links h4, .footer-contact h4 {
-      margin-bottom: 16px;
-      font-size: 1.1rem;
-      color: white;
-      text-align: left;
-    }
-
-    .footer-links ul {
-      list-style: none;
-      text-align: left;
-    }
-
-    .footer-links ul li {
-      margin-bottom: 8px;
-    }
-
-    .footer-links ul li a {
-      color: #cbd5e0;
-      text-decoration: none;
-      font-size: 0.85rem;
-      transition: color 0.2s;
-    }
-
-    .footer-links ul li a:hover {
-      color: #e83e8c;
-    }
-
-    .footer-contact p {
-      font-size: 0.85rem;
-      margin-bottom: 10px;
-      color: #cbd5e0;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      text-align: left;
-    }
-
-    .social-icons {
-      display: flex;
-      gap: 12px;
-      margin-top: 16px;
-      justify-content: flex-start;
-    }
-
-    .social-icons a {
-      display: inline-block;
-      transition: transform 0.2s;
-    }
-
-    .social-icons a:hover {
-      transform: translateY(-3px);
-    }
-
-    .social-icons img {
-      width: 32px;
-      height: 32px;
-    }
-
-    .footer-bottom {
-      text-align: center;
-      padding-top: 30px;
-      margin-top: 30px;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      font-size: 0.75rem;
-      color: #94a3b8;
-    }
-
-    /* ==================== RESPONSIVE ==================== */
     @media (max-width: 768px) {
-      .menu-toggle {
-        display: block;
-      }
-
-      .navbar ul {
-        display: none;
-        flex-direction: column;
-        gap: 1rem;
-        margin-top: 1rem;
-      }
-
-      .navbar.show-menu ul {
-        display: flex;
-      }
-
-      .blog-header h1 {
-        font-size: 1.8rem;
-      }
-
       .cta-datlich {
         display: block;
         margin: 12px auto;
         width: fit-content;
       }
-
-      .footer-container {
-        grid-template-columns: 1fr;
-        gap: 30px;
-      }
-
-      .footer-logo p,
-      .footer-links h4,
-      .footer-contact h4,
-      .footer-links ul,
-      .footer-contact p {
-        text-align: center;
-      }
-
-      .social-icons {
-        justify-content: center;
+      .blog-header h1 {
+        font-size: 1.8rem;
       }
     }
   </style>
 </head>
 <body>
 
-<!-- HEADER -->
+<!-- ========== HEADER - COPY NGUYÊN BẢN TỪ INDEX/SERVICES ========== -->
 <header class="header">
-  <div class="header-container">
+  <div class="container header-container">
     <a href="index.html" class="logo">
       <img src="images/hinhremovenen.png" alt="Sophia Logo" />
     </a>
@@ -389,7 +172,7 @@
   <a href="contact.html" class="cta-datlich">📩 Gửi tin nhắn cho Sophia</a>
 </section>
 
-<!-- FOOTER -->
+<!-- FOOTER - COPY NGUYÊN BẢN TỪ INDEX/SERVICES -->
 <footer class="footer">
   <div class="footer-container">
     <div class="footer-logo">
@@ -404,6 +187,13 @@
         <li><a href="#">Đào tạo kỹ năng</a></li>
         <li><a href="#">Sinh trắc vân tay</a></li>
       </ul>
+    </div>
+    <div class="footer-map">
+      <h4>📍 Sophia Nguyễn</h4>
+      <div class="map-wrapper">
+        <iframe title="Bản đồ văn phòng Sophia Nguyễn" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2011370.49063534!2d105.62948206017298!3d10.061508194634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2538aa37322d867b%3A0xa6ab3c950d893f03!2zU29waGlhTmd1eWVuIC0gxJDhu5NuZyBow6BuaCAmIFPhursgY2hpYQ!5e0!3m2!1svi!2s!4v1775469816647!5m2!1svi!2s" width="100%" height="180" style="border:0; border-radius: 16px;" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+      <p>⭐ 5.0 - Đánh giá từ học viên</p>
     </div>
     <div class="footer-contact">
       <h4>Liên hệ</h4>
@@ -429,7 +219,7 @@
     document.querySelector(".navbar").classList.toggle("show-menu");
   }
 
-  // DỮ LIỆU BLOG - ĐÃ KIỂM TRA KỸ, KHÔNG BỊ LỖI
+  // 6 BÀI BLOG
   const blogs = [
     { id: 1, title: "Tiếng kêu cứu thầm lặng: Khi cơ thể con lên tiếng thay lời nói", excerpt: "Nhận diện sớm các dấu hiệu trẻ bị xâm hại: thay đổi thể chất, tâm lý và hành vi. Hướng dẫn cha mẹ cách lắng nghe và xử lý.", category: "Bảo vệ trẻ em", date: "12/04/2026", readTime: "7 phút", emoji: "💔", link: "blog/blog-xam-hai-tre-em.html" },
     { id: 2, title: "Bạo lực học đường ở trẻ em: Vấn nạn cần lên tiếng", excerpt: "Thực trạng đáng báo động, nguyên nhân sâu xa, hậu quả nghiêm trọng và giải pháp phòng tránh từ gia đình, nhà trường.", category: "Tâm lý học đường", date: "10/04/2026", readTime: "8 phút", emoji: "💔", link: "blog/blog-bao-luc-hoc-duong.html" },
