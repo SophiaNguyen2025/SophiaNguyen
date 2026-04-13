@@ -122,35 +122,149 @@
       .contact-info-form {
         flex-direction: column;
       }
-    /* FIX FOOTER BỊ LỆCH */
+ /* ==================== FOOTER ==================== */
+.footer {
+    background: #1a2a3a;
+    color: white;
+    padding: 50px 0 20px;
+    margin-top: 60px;
+}
+
 .footer-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 30px;
-  align-items: start;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
 }
 
-/* Responsive cho tablet */
-@media (max-width: 992px) {
-  .footer-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.footer-logo img {
+    width: 120px;
+    margin-bottom: 16px;
 }
 
-/* Responsive cho mobile */
-@media (max-width: 576px) {
-  .footer-container {
-    grid-template-columns: 1fr;
-  }
+.footer-logo p {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: #cbd5e0;
 }
 
-/* Fix map cho đẹp */
-.footer-map iframe {
-  width: 100%;
-  height: 180px;
-  border-radius: 16px;
+.footer-links h4, .footer-map h4, .footer-contact h4 {
+    margin-bottom: 16px;
+    font-size: 1.1rem;
+    color: white;
 }
+
+.footer-links ul {
+    list-style: none;
+}
+
+.footer-links ul li {
+    margin-bottom: 8px;
+}
+.footer-links ul li a {
+    color: #cbd5e0;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s;
+}
+
+.footer-links ul li a:hover {
+    color: #e83e8c;
+}
+
+/* Bản đồ */
+.map-wrapper {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.map-wrapper iframe {
+    width: 100%;
+    height: 180px;
+    border: none;
+    display: block;
+    filter: grayscale(0.2);
+    transition: all 0.3s ease;
+}
+
+.map-wrapper iframe:hover {
+    filter: grayscale(0);
+}
+
+.footer-map p {
+    font-size: 0.75rem;
+    color: #fbbf24;
+    margin-top: 8px;
+}
+
+/* Liên hệ */
+.footer-contact p {
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+    color: #cbd5e0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.social-icons {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.social-icons a {
+    display: inline-block;
+    transition: transform 0.2s;
+}
+
+.social-icons a:hover {
+    transform: translateY(-3px);
+}
+
+.social-icons img {
+    width: 32px;
+    height: 32px;
+}
+
+/* Footer bottom */
+.footer-bottom {
+    text-align: center;
+    padding-top: 30px;
+    margin-top: 30px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.75rem;
+    color: #94a3b8;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        text-align: center;
     }
+    
+    .footer-logo p {
+        max-width: 300px;
+        margin: 0 auto;
+    }
+    
+    .footer-contact p {
+        justify-content: center;
+    }
+    
+    .social-icons {
+        justify-content: center;
+    }
+    
+    .map-wrapper iframe {
+        height: 200px;
+    }
+}
   </style>
 </head>
 <body>
@@ -211,8 +325,8 @@
   </div>
 </section>
 
-<!-- FOOTER - COPY NGUYÊN BẢN TỪ INDEX/SERVICES -->
-<footer class="footer">
+<!-- FOOTER -->
+<footer class="footer" data-aos="fade-zoom-in" data-aos-duration="1000">
   <div class="footer-container">
     <div class="footer-logo">
       <img src="images/hinhremovenen.png" alt="Logo Sophia">
@@ -230,9 +344,18 @@
     <div class="footer-map">
       <h4>📍 Sophia Nguyễn</h4>
       <div class="map-wrapper">
-        <iframe title="Bản đồ văn phòng Sophia Nguyễn" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2011370.49063534!2d105.62948206017298!3d10.061508194634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2538aa37322d867b%3A0xa6ab3c950d893f03!2zU29waGlhTmd1eWVuIC0gxJDhu5NuZyBow6BuaCAmIFPhursgY2hpYQ!5e0!3m2!1svi!2s!4v1775469816647!5m2!1svi!2s" width="100%" height="180" style="border:0; border-radius: 16px;" allowfullscreen="" loading="lazy"></iframe>
+        <iframe 
+          title="Bản đồ văn phòng Sophia Nguyễn"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2011370.49063534!2d105.62948206017298!3d10.061508194634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2538aa37322d867b%3A0xa6ab3c950d893f03!2zU29waGlhTmd1eWVuIC0gxJDhu5NuZyBow6BuaCAmIFPhursgY2hpYQ!5e0!3m2!1svi!2s!4v1775469816647!5m2!1svi!2s" 
+          width="100%" 
+          height="250" 
+          style="border:0; border-radius: 16px;" 
+          allowfullscreen="" 
+          loading="lazy" 
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
       </div>
-      <p>⭐ 5.0 - Đánh giá từ học viên</p>
+      <p style="font-size: 0.8rem; margin-top: 8px;">⭐ 5.0 - Đánh giá từ học viên</p>
     </div>
     <div class="footer-contact">
       <h4>Liên hệ</h4>
