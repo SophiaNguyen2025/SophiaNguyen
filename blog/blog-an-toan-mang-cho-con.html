@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hướng dẫn con sử dụng internet an toàn – Đồng hành cùng con trong thời đại số | Sophia Nguyễn</title>
+  <meta name="description" content="Hướng dẫn cha mẹ cách đồng hành cùng con trên không gian mạng: 5 checklist chi tiết từ thiết lập kỹ thuật, quy tắc vàng, nhận diện nguy cơ đến xây dựng văn hóa số trong gia đình.">
+  <meta name="keywords" content="an toàn internet cho trẻ, hướng dẫn con dùng mạng xã hội, đồng hành cùng con, bảo vệ trẻ em trên mạng, Sophia Nguyễn">
+  <meta name="author" content="Sophia Nguyễn">
+  <link rel="stylesheet" href="../main.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: linear-gradient(145deg, #fff5f0 0%, #ffe8e0 100%);
+      font-family: 'Be Vietnam Pro', sans-serif;
+      color: #2c3e2f;
+      line-height: 1.6;
+    }
+    .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+    /* Header */
+    .header {
+      background: white;
+      padding: 15px 0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .header-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo img { height: 60px; width: auto; }
+    .menu-toggle { display: none; font-size: 28px; cursor: pointer; }
+    .navbar ul { display: flex; gap: 2rem; list-style: none; }
+    .navbar a { text-decoration: none; color: #4a5568; font-weight: 500; transition: 0.2s; }
+    .navbar a:hover { color: #e83e8c; }
+    .banner { margin-top: 20px; text-align: center; }
+    .banner-img { width: 100%; max-height: 250px; object-fit: cover; border-radius: 28px; }
+
+    /* Blog content */
+    .blog-header {
+      text-align: center;
+      margin: 40px 0 30px;
+    }
+    .blog-header h1 {
+      font-size: 2rem;
+      color: #2c3e2f;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+    .blog-meta {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      color: #888;
+      font-size: 0.85rem;
+      margin-bottom: 30px;
+    }
+    .blog-content {
+      background: white;
+      border-radius: 32px;
+      padding: 40px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+    .blog-content h2 {
+      font-size: 1.5rem;
+      color: #e83e8c;
+      margin: 30px 0 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #f0c0d0;
+    }
+    .blog-content h3 {
+      font-size: 1.2rem;
+      color: #c06c7a;
+      margin: 20px 0 12px;
+    }
+    .blog-content p {
+      margin-bottom: 16px;
+      color: #4a4a4a;
+    }
+    .blog-content ul, .blog-content ol {
+      margin: 16px 0 16px 24px;
+      color: #4a4a4a;
+    }
+    .blog-content li {
+      margin: 8px 0;
+    }
+    .callout {
+      background: #fef5f0;
+      border-left: 5px solid #e83e8c;
+      padding: 20px 24px;
+      border-radius: 20px;
+      font-style: italic;
+      margin: 24px 0;
+      display: block;
+      color: #5a3e3a;
+    }
+    .checklist {
+      list-style: none;
+      margin: 16px 0;
+      padding-left: 0;
+    }
+    .checklist li {
+      margin: 12px 0;
+      padding-left: 28px;
+      position: relative;
+    }
+    .checklist li:before {
+      content: "✅";
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    .highlight {
+      background: #fef0f0;
+      padding: 20px 24px;
+      border-radius: 20px;
+      margin: 24px 0;
+    }
+    .highlight strong {
+      color: #e83e8c;
+    }
+
+    /* CTA */
+    .cta-section {
+      text-align: center;
+      padding: 50px 40px;
+      background: linear-gradient(135deg, #e83e8c, #f06292);
+      color: white;
+      border-radius: 32px;
+      margin: 50px 0;
+    }
+    .cta-datlich {
+      background: transparent;
+      border: 2px solid white;
+      color: white;
+      padding: 12px 28px;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-block;
+      margin: 0 8px;
+      transition: 0.2s;
+    }
+    .cta-datlich:hover { background: white; color: #e83e8c; }
+
+    /* Footer */
+    .footer {
+      background: #1a2a3a;
+      color: white;
+      padding: 50px 0 20px;
+      margin-top: 60px;
+    }
+    .footer-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+    }
+    .footer-logo img { width: 100px; margin-bottom: 16px; filter: brightness(0) invert(1); }
+    .footer-links ul { list-style: none; }
+    .footer-links a { color: #cbd5e0; text-decoration: none; font-size: 0.85rem; }
+    .footer-links a:hover { color: #e83e8c; }
+    .social-icons { display: flex; gap: 12px; margin-top: 16px; }
+    .social-icons img { width: 32px; transition: 0.2s; }
+    .social-icons img:hover { transform: translateY(-3px); }
+    .footer-bottom { text-align: center; padding-top: 30px; margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.75rem; }
+
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+      .navbar ul { display: none; flex-direction: column; gap: 1rem; margin-top: 1rem; }
+      .navbar.show-menu ul { display: flex; }
+      .blog-header h1 { font-size: 1.6rem; }
+      .blog-content { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-container">
+    <a href="../index.html" class="logo"><img src="../images/hinhremovenen.png" alt="Sophia Logo" /></a>
+    <div class="menu-toggle" onclick="document.querySelector('.navbar').classList.toggle('show-menu')">☰</div>
+    <nav class="navbar">
+      <ul>
+        <li><a href="../index.html">Trang chủ</a></li>
+        <li><a href="../about.html">Giới thiệu</a></li>
+        <li><a href="../services.html">Dịch vụ</a></li>
+        <li><a href="../blog.html">Blog</a></li>
+        <li><a href="../contact.html">Liên hệ</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="banner"><img src="../images/rs1.png" alt="Sophia Nguyễn – Đồng hành & Sẻ chia" class="banner-img" /></div>
+</header>
+
+<div class="container">
+  <div class="blog-header">
+    <h1>📱 Hướng dẫn con sử dụng internet an toàn – Đồng hành cùng con trong thời đại số</h1>
+    <div class="blog-meta">
+      <span><i class="far fa-calendar-alt"></i> 13/04/2026</span>
+      <span><i class="far fa-clock"></i> 8 phút đọc</span>
+      <span><i class="far fa-folder-open"></i> An toàn số cho trẻ</span>
+    </div>
+  </div>
+
+  <div class="blog-content">
+    <p>Với vai trò một người làm trong ngành giáo dục và kỹ năng sống, khi được hỏi về việc hướng dẫn con sử dụng mạng internet như thế nào, chắc chắn câu trả lời của tôi sẽ thiên về <strong>"đồng hành" thay vì "cấm đoán"</strong>.</p>
+
+    <p>Việc các ba mẹ cấm đoán con sử dụng internet ở xã hội 2026 này thì thực sự có lẽ phải xin đưa ra nhận định: <strong>"đây là một nước cờ sai"</strong>. Vì song song với việc xã hội phát triển, đồng nghĩa với con người cũng phải phát triển theo đó mà lên. Không thể biến con thành người lạc hậu với công nghệ vũ bão ngày nay, chỉ vì một niềm tin mãnh liệt rằng PHẢI CẤM TIỆT, KHÔNG CHO SỬ DỤNG MỚI NGOAN ĐƯỢC.</p>
+
+    <div class="callout">
+      Bằng một cách nào đó, tâm trí con người vận hành rất hay ho: <strong>"càng cấm càng làm"</strong>. Vì lúc bị cấm, não bộ sẽ sản sinh ra một loại chất dẫn truyền thần kinh gây kích thích, hứng khởi, tò mò, thôi thúc làm việc đó để thỏa mãn sự kích thích. Người ta thích đổ rác ở nơi bị cấm, thích hút thuốc nơi bị cấm, thích đái bậy ở nơi cấm đái bậy để chứng tỏ cái bản ngã của mình…
+    </div>
+
+    <p>Thế nên, lời khuyên của tôi với quý phụ huynh rằng: <strong>hãy đồng hành cùng con trong quá trình khám phá thế giới số, chứ đừng cấm cản con.</strong> Dù thế giới số đó có nhiều cạm bẫy, thì cũng hãy cùng con nhận diện và vượt qua nó, chứ đừng bao bọc con quá, vì mình không thể sống cuộc đời thay con được.</p>
+
+    <h2>📋 Checklist chi tiết dành cho cha mẹ</h2>
+
+    <h3>1. Thiết lập "Lớp giáp" kỹ thuật (Dành cho cha mẹ)</h3>
+    <p>Trước khi dạy con, phụ huynh cần chủ động kiểm soát môi trường mạng bằng công cụ:</p>
+    <ul class="checklist">
+      <li>Cài đặt chế độ riêng tư: Đảm bảo tài khoản của con không ở chế độ công khai (Public).</li>
+      <li>Kích hoạt bộ lọc nội dung: Sử dụng YouTube Kids, Google SafeSearch hoặc các tính năng Family Link để giới hạn độ tuổi.</li>
+      <li>Kiểm soát quyền gắn thẻ (Tag): Cài đặt để bất kỳ ai muốn gắn thẻ con vào ảnh/bài viết đều phải được phê duyệt.</li>
+      <li>Bảo mật 2 lớp (2FA): Hướng dẫn con cách bảo vệ mật khẩu và cài đặt mã xác thực để tránh bị hack tài khoản.</li>
+    </ul>
+
+    <h3>2. 5 Quy tắc "Vàng" dạy con (Dành cho trẻ)</h3>
+    <p>Phụ huynh có thể trình bày phần này dưới dạng một bản cam kết nhỏ giữa cha mẹ và con:</p>
+    <ul class="checklist">
+      <li><strong>Quy tắc "Dấu chân số":</strong> Dạy con rằng bất cứ thứ gì đăng lên mạng (ảnh, bình luận) sẽ tồn tại vĩnh viễn, ngay cả khi đã xóa.</li>
+      <li><strong>Quy tắc "Người lạ - Người quen":</strong> Tuyệt đối không kết bạn, không nhận quà và không gặp mặt người lạ ngoài đời nếu không có sự đồng ý của cha mẹ.</li>
+      <li><strong>Quy tắc "Sống thật":</strong> Không giả mạo tuổi tác, không dùng tên giả để đi bắt nạt hoặc tham gia các hội nhóm tiêu cực.</li>
+      <li><strong>Quy tắc "Nội dung nhạy cảm":</strong> Không bao giờ gửi ảnh chụp bộ phận cơ thể hoặc thông tin cá nhân (địa chỉ nhà, trường học) cho bất kỳ ai.</li>
+      <li><strong>Quy tắc "Dừng lại 3 giây":</strong> Trước khi ấn "Đăng" hoặc "Gửi", hãy tự hỏi: Nội dung này có làm hại ai không? Mình có hối hận nếu thầy cô hoặc ông bà nhìn thấy không?</li>
+    </ul>
+
+    <h3>3. Nhận diện "Kẻ săn mồi" và Bắt nạt mạng</h3>
+    <p>Giúp con nhận biết các dấu hiệu nguy hiểm:</p>
+    <ul class="checklist">
+      <li><strong>Dấu hiệu dụ dỗ:</strong> Kẻ xấu thường tặng quà trong game, khen ngợi quá mức hoặc yêu cầu con giữ bí mật cuộc trò chuyện với cha mẹ.</li>
+      <li><strong>Dấu hiệu bắt nạt:</strong> Những tin nhắn xúc phạm, chế giễu ngoại hình hoặc bị tẩy chay khỏi các nhóm chat chung.</li>
+      <li><strong>Hành động phản kháng:</strong> Dạy con 3 bước: <strong>Chụp màn hình bằng chứng → Chặn (Block) → Báo cáo với cha mẹ/thầy cô.</strong></li>
+    </ul>
+
+    <h3>4. Xây dựng "Văn hóa số" trong gia đình</h3>
+    <p>Tạo ra một môi trường cởi mở để con không phải giấu diếm:</p>
+    <ul class="checklist">
+      <li><strong>Khung giờ "Không màn hình":</strong> Quy định thời gian cả nhà cùng rời xa điện thoại (ví dụ: trong bữa cơm, trước khi đi ngủ 1 tiếng).</li>
+      <li><strong>Thỏa thuận về thời gian:</strong> Con được dùng mạng xã hội bao nhiêu phút/ngày? (Tùy theo độ tuổi).</li>
+      <li><strong>Góc chia sẻ:</strong> Mỗi tuần một lần, hãy hỏi con: "Dạo này trên mạng có trend gì vui không con?" để con thấy cha mẹ là người bạn đồng hành, không phải "cảnh sát mạng".</li>
+    </ul>
+
+    <h3>5. Tài nguyên hỗ trợ<h3>
+    <p>Các địa chỉ tin cậy có thể liên hệ khi cần:</p>
+    <ul class="checklist">
+      <li><strong>Số điện thoại khẩn cấp:</strong> Tổng đài quốc gia bảo vệ trẻ em <strong>111</strong>.</li>
+      <li><strong>Ứng dụng quản lý:</strong> Google Family Link, Kaspersky Safe Kids...</li>
+      <li><strong>Cổng cảnh báo an toàn thông tin:</strong> <a href="https://canhbao.ncsc.gov.vn" target="_blank">canhbao.ncsc.gov.vn</a>.</li>
+    </ul>
+
+    <div class="highlight">
+      <p><strong>💬 Lời kết:</strong> Đồng hành cùng con trên không gian mạng không phải là điều dễ dàng, nhưng đó là cách duy nhất để con thực sự an toàn và trưởng thành. Hãy là người bạn đồng hành, không phải người cai quản.</p>
+      <p style="margin-top: 16px;">🔹 <strong>Trong khóa học "Bản lĩnh Gen Z" và "Kỹ năng an toàn cho trẻ", tôi dành hẳn những bài học chuyên sâu về an toàn không gian mạng, nhận diện lừa đảo và bảo vệ thông tin cá nhân. Ba mẹ có thể tham khảo thêm tại website để trang bị cho con những kỹ năng cần thiết nhất.</strong></p>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="cta-section">
+    <h2>💬 Bạn muốn chia sẻ câu chuyện của mình?</h2>
+    <p style="margin-bottom: 24px;">Sophia luôn lắng nghe và đồng hành cùng bạn.</p>
+    <div>
+      <a href="https://zalo.me/0977092182" class="cta-datlich">📅 Đặt lịch tư vấn</a>
+      <a href="../contact.html" class="cta-datlich">📩 Gửi tin nhắn</a>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-logo"><img src="../images/hinhremovenen.png" alt="Logo Sophia"><p>Đồng hành & Sẻ chia cùng bạn trên hành trình tâm lý – phát triển – yêu thương.</p></div>
+    <div class="footer-links"><h4>Dịch vụ</h4><ul><li><a href="#">Tư vấn tâm lý</a></li><li><a href="#">Định hướng nghề nghiệp</a></li><li><a href="#">Đào tạo kỹ năng</a></li><li><a href="#">Sinh trắc vân tay</a></li></ul></div>
+    <div class="footer-contact"><h4>Liên hệ</h4><p>📧 sophianguyen2891@gmail.com</p><p>📞 0977092182</p><p>🏠 Tân Bình - TPHCM</p><div class="social-icons"><a href="https://www.facebook.com/Sophiadiemhang1982"><img src="../images/fb.png" alt="FB" /></a><a href="https://www.tiktok.com/@sophia.nguyen2014"><img src="../images/tiktok.png" alt="TikTok" /></a><a href="https://www.youtube.com/@sophianguyen1982-dh"><img src="../images/youtube.png" alt="YouTube" /></a></div></div>
+  </div>
+  <div class="footer-bottom"><p>Copyright ©2024 Sophia Nguyễn. All rights reserved.</p></div>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({ once: true, duration: 1000, easing: 'ease-out-cubic' });
+  function toggleMenu() { document.querySelector(".navbar").classList.toggle("show-menu"); }
+</script>
+</body>
+</html>
