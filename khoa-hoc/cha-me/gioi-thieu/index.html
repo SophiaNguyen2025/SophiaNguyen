@@ -95,6 +95,7 @@
 }
     </style>
 </head>
+    
 <header class="header">
     <div class="header-container">
         <a href="https://sophianguyen.com.vn/index.html" class="logo">
@@ -103,6 +104,7 @@
         <!-- Không có menu, chỉ có logo -->
     </div>
 </header>
+    
     <body>
     <nav class="navbar">
         <div class="nav-container">
@@ -137,7 +139,39 @@
                 <div class="chapter-card"><div class="chapter-header"><div class="chapter-number">Chương 6</div><h3>Cầu vồng trong nhà – Thấu hiểu sự đa dạng (LGBTQ+)</h3></div><div class="chapter-content"><p class="chapter-desc">Mở rộng trái tim và kiến thức về bản dạng giới, cách đồng hành khi con khác biệt.</p><ul class="material-list"><li><i class="fas fa-check-circle"></i> Cẩm nang từ ngữ văn minh về cộng đồng LGBTQ+</li></ul></div></div>
             </div>
         </section>
+<!-- Phần Học thử miễn phí -->
+<div class="try-section">
+    <div class="try-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+        <!-- Cột 1: Học thử -->
+        <div class="try-box" style="text-align: center;">
+            <h3 style="color: var(--primary); margin-bottom: 16px;">🎬 Học thử miễn phí</h3>
+            <p>Xem ngay bài học mẫu để trải nghiệm nội dung và hình thức tương tác</p>
+            <div class="try-video" style="position: relative; padding-bottom: 56.25%; height: 0; margin: 20px 0; background: #000; border-radius: 20px; overflow: hidden;">
+                <iframe id="trialVideo" src="https://www.youtube.com/embed/haOO0ikdOEI?enablejsapi=1" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <a href="#" class="btn-try" style="background: var(--gradient); color: white; border: none; padding: 12px 28px; border-radius: 40px; font-weight: 600; text-decoration: none; display: inline-block; margin-top: auto;"><i class="fas fa-play"></i> Khám phá khóa học</a>
+        </div>
 
+        <!-- Cột 2: Hướng dẫn sử dụng -->
+        <div class="try-box" style="text-align: center;">
+            <h3 style="color: var(--primary); margin-bottom: 16px;">📘 Hướng dẫn sử dụng</h3>
+            <p>Cách đăng nhập, tải tài liệu và quản lý thiết bị</p>
+            <div class="try-video" style="position: relative; padding-bottom: 56.25%; height: 0; margin: 20px 0; background: #000; border-radius: 20px; overflow: hidden;">
+                <iframe src="https://www.youtube.com/embed/aL9psAdU-AE" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Popup thông báo sau khi xem 50% video -->
+<div id="popupOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center;">
+    <div style="background: white; border-radius: 32px; padding: 40px; text-align: center; max-width: 400px; margin: 20px;">
+        <h3 style="color: var(--primary); margin-bottom: 16px;">🎉 Bạn đã xem được 50% nội dung!</h3>
+        <p style="margin-bottom: 24px;">Đăng ký ngay hôm nay để học tiếp những kiến thức bổ ích cùng con yêu.</p>
+        <a href="https://zalo.me/0977092182" target="_blank" class="btn-try" style="background: var(--gradient); color: white; padding: 12px 28px; border-radius: 40px; text-decoration: none; display: inline-block;">📩 Đăng ký học ngay qua Zalo</a>
+        <button onclick="closePopup()" style="display: block; margin: 16px auto 0; background: none; border: none; color: #999; cursor: pointer;">❌ Đóng</button>
+    </div>
+</div>
         <div class="cta-section">
             <h2>🚀 Sẵn sàng đồng hành cùng con?</h2>
             <p style="margin-bottom: 24px;">Đăng ký ngay để nhận tư vấn và được hỗ trợ mã khóa học</p>
@@ -152,5 +186,59 @@
             <p style="font-size: 0.8rem;">📧 sophianguyen2891@gmail.com | 📞 0977092182</p>
         </div>
     </footer>
-</body>
+<script>
+    // ========== HỌC THỬ - POPUP SAU 50% VIDEO ==========
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    
+    var player;
+    var popupShown = false;
+    var checkInterval = null;
+    
+    function onYouTubeIframeAPIReady() {
+        var videoElement = document.getElementById('trialVideo');
+        if (videoElement) {
+            player = new YT.Player('trialVideo', {
+                events: {
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+    }
+    
+    function onPlayerStateChange(event) {
+        if (popupShown) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                player.pauseVideo();
+            }
+            return;
+        }
+        
+        if (event.data == YT.PlayerState.PLAYING) {
+            if (checkInterval) clearInterval(checkInterval);
+            
+            checkInterval = setInterval(function() {
+                if (player && player.getCurrentTime && !popupShown) {
+                    var duration = player.getDuration();
+                    var current = player.getCurrentTime();
+                    if (duration > 0 && (current / duration) >= 0.5) {
+                        clearInterval(checkInterval);
+                        checkInterval = null;
+                        popupShown = true;
+                        player.pauseVideo();
+                        player.seekTo(duration * 0.5);
+                        document.getElementById('popupOverlay').style.display = 'flex';
+                    }
+                }
+            }, 500);
+        }
+    }
+    
+    function closePopup() {
+        document.getElementById('popupOverlay').style.display = 'none';
+    }
+</script>
+    </body>
 </html>
