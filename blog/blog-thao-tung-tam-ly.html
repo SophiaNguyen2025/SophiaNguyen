@@ -204,6 +204,50 @@
       .blog-content { padding: 24px; }
       .comparison-table th, .comparison-table td { font-size: 0.85rem; }
     }
+            /* Nút chia sẻ */
+        .share-section {
+            text-align: center;
+            margin: 40px 0 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 20px;
+        }
+        .share-section h4 {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            color: #2c3e2f;
+        }
+        .share-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+        .share-btn i {
+            font-size: 1rem;
+        }
+        .share-btn.facebook { background: #1877f2; color: white; }
+        .share-btn.twitter { background: #1da1f2; color: white; }
+        .share-btn.linkedin { background: #0077b5; color: white; }
+        .share-btn.zalo { background: #0068ff; color: white; }
+        .share-btn.copy-link { background: #6c757d; color: white; }
+        .share-btn:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
   </style>
 </head>
 <body>
@@ -307,7 +351,17 @@
     </div>
   </div>
 </div>
-
+<!-- Nút chia sẻ bài viết -->
+<div class="share-section">
+    <h4>📢 Chia sẻ bài viết này</h4>
+    <div class="share-buttons">
+        <a href="#" class="share-btn facebook" onclick="shareOnFacebook()"><i class="fab fa-facebook-f"></i> Facebook</a>
+        <a href="#" class="share-btn twitter" onclick="shareOnTwitter()"><i class="fab fa-twitter"></i> Twitter</a>
+        <a href="#" class="share-btn linkedin" onclick="shareOnLinkedIn()"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+        <a href="#" class="share-btn zalo" onclick="shareOnZalo()"><i class="fas fa-comment-dots"></i> Zalo</a>
+        <button class="share-btn copy-link" onclick="copyPageUrl()"><i class="fas fa-link"></i> Sao chép link</button>
+    </div>
+</div>
 <div class="container">
   <div class="cta-section">
     <h2>💬 Bạn đang bị thao túng hoặc nghi ngờ bản thân?</h2>
@@ -332,6 +386,42 @@
 <script>
   AOS.init({ once: true, duration: 1000, easing: 'ease-out-cubic' });
   function toggleMenu() { document.querySelector(".navbar").classList.toggle("show-menu"); }
+</script>
+  <script>
+    // Hàm chia sẻ lên Facebook
+    function shareOnFacebook() {
+        const url = encodeURIComponent(window.location.href);
+        const title = encodeURIComponent(document.title);
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
+    }
+    
+    // Hàm chia sẻ lên Twitter
+    function shareOnTwitter() {
+        const url = encodeURIComponent(window.location.href);
+        const title = encodeURIComponent(document.title);
+        window.open(`https://twitter.com/intent/tweet?text=${title}&url=${url}`, '_blank', 'width=600,height=400');
+    }
+    
+    // Hàm chia sẻ lên LinkedIn
+    function shareOnLinkedIn() {
+        const url = encodeURIComponent(window.location.href);
+        window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank', 'width=600,height=400');
+    }
+    
+    // Hàm chia sẻ lên Zalo (dùng link zalo.me)
+    function shareOnZalo() {
+        const url = encodeURIComponent(window.location.href);
+        window.open(`https://zalo.me/share?url=${url}`, '_blank', 'width=600,height=400');
+    }
+    
+    // Hàm sao chép link
+    function copyPageUrl() {
+        navigator.clipboard.writeText(window.location.href).then(function() {
+            alert('✅ Đã sao chép link bài viết!');
+        }).catch(function() {
+            alert('❌ Không thể sao chép link. Hãy thử lại.');
+        });
+    }
 </script>
 </body>
 </html>
