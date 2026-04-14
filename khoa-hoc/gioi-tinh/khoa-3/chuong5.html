@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Khóa 3 - Chương 5: Tôi là duy nhất | Sophia Nguyen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #F0E0F0;
+            font-family: 'Segoe UI', 'Quicksand', 'Nunito', 'Poppins', sans-serif;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 32px;
+            padding: 20px;
+            margin-bottom: 25px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            width: 70px;
+            margin: 0 auto 10px auto;
+        }
+
+        .logo img {
+            width: 100%;
+            height: auto;
+        }
+
+        .course-badge {
+            background: #B88AC8;
+            display: inline-block;
+            padding: 5px 18px;
+            border-radius: 40px;
+            font-size: 13px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 12px;
+        }
+
+        .chapter-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #9B6EB0;
+            text-align: center;
+            background: #FDF8F0;
+            display: inline-block;
+            padding: 8px 30px;
+            border-radius: 60px;
+            margin-top: 5px;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 32px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .video-label {
+            background: #FDF8F0;
+            padding: 12px 20px;
+            font-weight: bold;
+            color: #9B6EB0;
+            font-size: 18px;
+            text-align: center;
+            border-top: 2px solid #E0C8E8;
+        }
+
+        /* Màu sắc 3 bài tập khác nhau - tông tím */
+        .exercise-1 {
+            background: white;
+            border-radius: 32px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border-top: 6px solid #B88AC8;
+        }
+
+        .exercise-2 {
+            background: white;
+            border-radius: 32px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border-top: 6px solid #9B6EB0;
+        }
+
+        .exercise-3 {
+            background: white;
+            border-radius: 32px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border-top: 6px solid #7A4A9A;
+        }
+
+        .ex-title-1 { font-size: 26px; font-weight: bold; color: #B88AC8; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+        .ex-title-2 { font-size: 26px; font-weight: bold; color: #9B6EB0; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+        .ex-title-3 { font-size: 26px; font-weight: bold; color: #7A4A9A; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+
+        .ex-desc {
+            color: #8A6A9A;
+            margin-bottom: 20px;
+            font-size: 15px;
+            padding-left: 22px;
+        }
+
+        /* Bài tập 1: Điền từ vào chỗ trống */
+        .fill-blank-text {
+            background: #FDFCFA;
+            border-radius: 24px;
+            padding: 25px;
+            line-height: 2;
+            font-size: 17px;
+            color: #5A4A6A;
+            margin-bottom: 20px;
+            border: 1px solid #E0D0E8;
+        }
+
+        .blank {
+            display: inline-block;
+            min-width: 120px;
+            background: #FFF8F0;
+            border: 2px dashed #B88AC8;
+            border-radius: 30px;
+            padding: 4px 12px;
+            margin: 0 5px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+            color: #B88AC8;
+        }
+
+        .blank.filled {
+            background: #B88AC8;
+            color: white;
+            border: 2px solid #B88AC8;
+        }
+
+        .word-bank {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 20px 0;
+            justify-content: center;
+        }
+
+        .word-card {
+            background: #F0ECE4;
+            padding: 10px 20px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #5A4A6A;
+            transition: 0.2s;
+            border: 1px solid #E0D0E8;
+        }
+
+        .word-card:hover {
+            background: #B88AC8;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .word-card.used {
+            background: #D0C8D0;
+            color: #A098A0;
+            cursor: not-allowed;
+            transform: none;
+            text-decoration: line-through;
+        }
+
+        /* Bài tập 2: Sắp xếp thứ tự */
+        .sequence-item {
+            background: #FDFCFA;
+            border: 1px solid #E0D0E8;
+            border-radius: 60px;
+            padding: 14px 20px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: move;
+            transition: 0.2s;
+        }
+
+        .sequence-item.dragging {
+            opacity: 0.4;
+        }
+
+        .sequence-number {
+            width: 36px;
+            height: 36px;
+            background: #9B6EB0;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .sequence-text {
+            flex: 1;
+            color: #5A4A6A;
+        }
+
+        .sequence-drag-icon {
+            color: #D0C8D8;
+            font-size: 20px;
+        }
+
+        /* Bài tập 3: Phân tích tình huống */
+        .analysis-item {
+            background: #FDFCFA;
+            border: 1px solid #E0D0E8;
+            border-radius: 24px;
+            padding: 18px;
+            margin-bottom: 16px;
+        }
+
+        .statement-text {
+            font-weight: bold;
+            color: #5A4A6A;
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .tf-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 12px;
+        }
+
+        .tf-btn {
+            padding: 6px 20px;
+            border-radius: 40px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .tf-true {
+            background: #E0E8E0;
+            color: #4A7A4A;
+        }
+
+        .tf-true.selected {
+            background: #7BA87B;
+            color: white;
+        }
+
+        .tf-false {
+            background: #E8E0E0;
+            color: #A07070;
+        }
+
+        .tf-false.selected {
+            background: #E8A070;
+            color: white;
+        }
+
+        .reason-area {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px dashed #E0D0E8;
+        }
+
+        .reason-label {
+            font-size: 13px;
+            color: #8A6A9A;
+            margin-bottom: 8px;
+        }
+
+        .reason-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #E0D0E8;
+            border-radius: 20px;
+            font-family: inherit;
+            resize: vertical;
+            background: #F8F4F0;
+        }
+
+        .reason-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .reason-option {
+            background: #F0ECE4;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .reason-option:hover {
+            background: #7A4A9A;
+            color: white;
+        }
+
+        .check-btn {
+            border: none;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 12px 28px;
+            border-radius: 60px;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 100%;
+            transition: 0.2s;
+        }
+
+        .btn-1 { background: #B88AC8; }
+        .btn-1:hover { background: #A87AB8; }
+        .btn-2 { background: #9B6EB0; }
+        .btn-2:hover { background: #8B5EA0; }
+        .btn-3 { background: #7A4A9A; }
+        .btn-3:hover { background: #6A3A8A; }
+
+        .result-area {
+            margin-top: 18px;
+            border-radius: 24px;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .exercise-1, .exercise-2, .exercise-3 { padding: 18px; }
+            .chapter-title { font-size: 24px; padding: 6px 20px; }
+            .blank { min-width: 80px; font-size: 13px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="logo">
+            <img src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Sophia Nguyen Logo">
+        </div>
+        <div class="course-badge">💎 Khóa 3 - Dành cho bé 6-10 tuổi</div>
+        <div>
+            <span class="chapter-title">💎 Tôi là duy nhất</span>
+        </div>
+    </div>
+
+    <div class="video-card">
+        <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/gUigW0OxW2g" title="Bài giảng Khóa 3 Chương 5" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="video-label">
+            🎬 Bài học: Tôi là duy nhất – Mỗi người là một viên kim cương độc bản!
+        </div>
+    </div>
+
+    <!-- BÀI TẬP 1: ĐIỀN TỪ VÀO CHỖ TRỐNG (màu tím lavender) -->
+    <div class="exercise-1">
+        <div class="ex-title-1">📝 Bài tập 1: Điền từ vào chỗ trống</div>
+        <div class="ex-desc">🧠 Kéo thả từ đúng vào các ô trống trong đoạn văn bên dưới.</div>
+        <div id="fillBlankArea"></div>
+        <div class="word-bank" id="wordBank"></div>
+        <button class="check-btn btn-1" id="checkFillBtn">✅ Kiểm tra bài tập 1</button>
+        <div id="fillResult" class="result-area" style="display: none;"></div>
+    </div>
+
+    <!-- BÀI TẬP 2: SẮP XẾP THỨ TỰ (màu tím trung bình) - ĐẢO TÙM LUM -->
+    <div class="exercise-2">
+        <div class="ex-title-2">🔢 Bài tập 2: Sắp xếp thứ tự</div>
+        <div class="ex-desc">🎯 Kéo thả để sắp xếp các bước để yêu thương bản thân theo đúng trình tự.</div>
+        <div id="sequenceArea"></div>
+        <button class="check-btn btn-2" id="checkSeqBtn">🔍 Kiểm tra bài tập 2</button>
+        <div id="seqResult" class="result-area" style="display: none;"></div>
+    </div>
+
+    <!-- BÀI TẬP 3: PHÂN TÍCH TÌNH HUỐNG (màu tím đậm) -->
+    <div class="exercise-3">
+        <div class="ex-title-3">💬 Bài tập 3: Phân tích tình huống</div>
+        <div class="ex-desc">🤔 Đọc nhận định, chọn Đúng hoặc Sai và giải thích lý do.</div>
+        <div id="analysisArea"></div>
+        <button class="check-btn btn-3" id="checkAnalysisBtn">🌟 Kiểm tra bài tập 3</button>
+        <div id="analysisResult" class="result-area" style="display: none;"></div>
+    </div>
+</div>
+
+<script>
+    // ---------------------- BÀI TẬP 1: ĐIỀN TỪ ----------------------
+    const blankText = `Mỗi người đều là một ________ độc bản, không ai giống ai hoàn toàn. 
+    Con trai có quyền thể hiện ________ như khóc khi buồn – đó gọi là "phá bỏ hộp xanh". 
+    Con gái có quyền ________, theo đuổi ước mơ lớn – đó gọi là "phá bỏ hộp hồng". 
+    Trên cơ thể, ________ là thứ không ai giống ai, chứng minh con là duy nhất. 
+    ________ là chìa khóa mạnh mẽ nhất giúp con tỏa sáng. 
+    Hãy nhớ: Sự ________ không phải là khuyết điểm, mà là yếu tố tạo nên vẻ đẹp riêng của con.`;
+
+    const words = ["viên kim cương", "cảm xúc", "mạnh mẽ", "dấu vân tay", "Tình yêu bản thân", "khác biệt"];
+    const correctMap = {
+        0: "viên kim cương", 1: "cảm xúc", 2: "mạnh mẽ", 3: "dấu vân tay", 4: "Tình yêu bản thân", 5: "khác biệt"
+    };
+
+    let blanksFilled = new Array(6).fill(null);
+    let availableWords = [...words];
+
+    function renderFillBlank() {
+        const container = document.getElementById('fillBlankArea');
+        const parts = blankText.split(/(________)/g);
+        container.innerHTML = '<div class="fill-blank-text"></div>';
+        const textDiv = container.querySelector('.fill-blank-text');
+        
+        let blankIndex = 0;
+        parts.forEach(part => {
+            if (part === '________') {
+                const blankSpan = document.createElement('span');
+                blankSpan.className = 'blank';
+                if (blanksFilled[blankIndex]) {
+                    blankSpan.classList.add('filled');
+                    blankSpan.textContent = blanksFilled[blankIndex];
+                } else {
+                    blankSpan.textContent = '______';
+                }
+                blankSpan.dataset.index = blankIndex;
+                blankSpan.onclick = () => {
+                    if (blanksFilled[blankIndex]) {
+                        const returnedWord = blanksFilled[blankIndex];
+                        blanksFilled[blankIndex] = null;
+                        availableWords.push(returnedWord);
+                        renderFillBlank();
+                        renderWordBank();
+                    }
+                };
+                textDiv.appendChild(blankSpan);
+                blankIndex++;
+            } else {
+                textDiv.appendChild(document.createTextNode(part));
+            }
+        });
+    }
+
+    function renderWordBank() {
+        const container = document.getElementById('wordBank');
+        container.innerHTML = '';
+        availableWords.forEach(word => {
+            const wordCard = document.createElement('div');
+            wordCard.className = 'word-card';
+            wordCard.textContent = word;
+            wordCard.onclick = () => {
+                const emptyIndex = blanksFilled.findIndex(v => v === null);
+                if (emptyIndex !== -1) {
+                    blanksFilled[emptyIndex] = word;
+                    const wordIdx = availableWords.indexOf(word);
+                    if (wordIdx !== -1) availableWords.splice(wordIdx, 1);
+                    renderFillBlank();
+                    renderWordBank();
+                }
+            };
+            container.appendChild(wordCard);
+        });
+    }
+
+    function checkFillBlank() {
+        let correct = 0;
+        for (let i = 0; i < blanksFilled.length; i++) {
+            if (blanksFilled[i] === correctMap[i]) correct++;
+        }
+        const resultDiv = document.getElementById('fillResult');
+        resultDiv.style.display = 'block';
+        if (correct === blanksFilled.length) {
+            resultDiv.innerHTML = '🎉🎉🎉 Tuyệt vời! Bé điền đúng tất cả các từ về giá trị bản thân! 🎉🎉🎉';
+            resultDiv.style.background = "#DFF0DF";
+        } else {
+            resultDiv.innerHTML = `📚 Bé điền đúng ${correct}/${blanksFilled.length} từ. Hãy xem lại video và thử lại nhé! 💪`;
+            resultDiv.style.background = "#FFEFE0";
+        }
+    }
+
+    // ---------------------- BÀI TẬP 2: SẮP XẾP THỨ TỰ (ĐẢO TÙM LUM) ----------------------
+    const sequenceItems = [
+        { text: "💎 Nhận ra mình có giá trị riêng, không cần so sánh với ai", order: 1 },
+        { text: "💪 Chấp nhận điểm mạnh và điểm yếu của bản thân", order: 2 },
+        { text: "💖 Dám thể hiện cảm xúc thật, không sợ bị đánh giá", order: 3 },
+        { text: "🎯 Theo đuổi đam mê và sở thích của chính mình", order: 4 },
+        { text: "🌟 Tỏa sáng theo cách riêng, tự tin là chính mình", order: 5 }
+    ];
+
+    // ĐẢO LỘN THỨ TỰ NGẪU NHIÊN
+    let currentSequence = [...sequenceItems].sort(() => Math.random() - 0.5);
+    let dragIndex = null;
+
+    function renderSequence() {
+        const container = document.getElementById('sequenceArea');
+        container.innerHTML = '';
+        currentSequence.forEach((item, idx) => {
+            const row = document.createElement('div');
+            row.className = 'sequence-item';
+            row.draggable = true;
+            row.dataset.index = idx;
+            row.innerHTML = `
+                <div class="sequence-number">${idx + 1}</div>
+                <div class="sequence-text">${item.text}</div>
+                <div class="sequence-drag-icon">⋮⋮</div>
+            `;
+            row.ondragstart = (e) => {
+                dragIndex = idx;
+                e.dataTransfer.effectAllowed = 'move';
+                row.classList.add('dragging');
+            };
+            row.ondragend = (e) => {
+                row.classList.remove('dragging');
+                dragIndex = null;
+            };
+            row.ondragover = (e) => {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+            };
+            row.ondrop = (e) => {
+                e.preventDefault();
+                if (dragIndex !== null && dragIndex !== idx) {
+                    const newSeq = [...currentSequence];
+                    const dragged = newSeq[dragIndex];
+                    newSeq.splice(dragIndex, 1);
+                    newSeq.splice(idx, 0, dragged);
+                    currentSequence = newSeq;
+                    renderSequence();
+                }
+            };
+            container.appendChild(row);
+        });
+    }
+
+    function checkSequence() {
+        let correct = 0;
+        currentSequence.forEach((item, idx) => {
+            if (item.order === idx + 1) correct++;
+        });
+        const resultDiv = document.getElementById('seqResult');
+        resultDiv.style.display = 'block';
+        if (correct === sequenceItems.length) {
+            resultDiv.innerHTML = '🎉🎉🎉 Xuất sắc! Bé sắp xếp đúng các bước để yêu thương bản thân! 🎉🎉🎉';
+            resultDiv.style.background = "#DFF0DF";
+        } else {
+            resultDiv.innerHTML = `💎 Bé sắp xếp đúng ${correct}/${sequenceItems.length} bước. Hãy kéo thả để sắp xếp lại đúng thứ tự nhé! 💪`;
+            resultDiv.style.background = "#FFEFE0";
+        }
+    }
+
+    // ---------------------- BÀI TẬP 3: PHÂN TÍCH TÌNH HUỐNG ----------------------
+    const analysisData = [
+        { text: "Con trai khóc là yếu đuối, không nên khóc trước mặt người khác.", correct: false, reason: "" },
+        { text: "Con gái có thể chơi bóng đá, làm bác sĩ, phi công - không bị giới hạn bởi giới tính.", correct: true, reason: "" },
+        { text: "Mỗi người có dấu vân tay khác nhau, không ai giống ai.", correct: true, reason: "" },
+        { text: "Nếu con khác biệt với các bạn, đó là điều xấu, cần phải thay đổi để giống người khác.", correct: false, reason: "" }
+    ];
+
+    const reasonOptions = {
+        true: {
+            0: ["Sai rồi! Con trai cũng có quyền thể hiện cảm xúc, khóc giúp giải tỏa và mạnh mẽ hơn"],
+            1: ["Đúng rồi! Sở thích và nghề nghiệp không phân biệt giới tính"],
+            2: ["Đúng! Dấu vân tay là bằng chứng mỗi người là duy nhất"],
+            3: ["Sai! Sự khác biệt là điều bình thường và tạo nên vẻ đẹp riêng của mỗi người"]
+        },
+        false: {
+            0: ["Con trai hoàn toàn có thể khóc, đó là cách thể hiện cảm xúc tự nhiên"],
+            1: ["Sai! Con gái có thể làm mọi điều con mong muốn"],
+            2: ["Sai! Đây là sự thật khoa học, mỗi người có dấu vân tay riêng"],
+            3: ["Hãy tự hào vì sự khác biệt của mình, đó là điều làm con đặc biệt"]
+        }
+    };
+
+    let analysisAnswers = analysisData.map(() => ({ tf: null, reason: "" }));
+
+    function renderAnalysis() {
+        const container = document.getElementById('analysisArea');
+        container.innerHTML = '';
+        analysisData.forEach((item, idx) => {
+            const aDiv = document.createElement('div');
+            aDiv.className = 'analysis-item';
+            aDiv.innerHTML = `
+                <div class="statement-text">${idx+1}. ${item.text}</div>
+                <div class="tf-buttons">
+                    <button class="tf-btn tf-true" data-idx="${idx}" data-val="true">✅ Đúng</button>
+                    <button class="tf-btn tf-false" data-idx="${idx}" data-val="false">❌ Sai</button>
+                </div>
+                <div class="reason-area" id="reason-area-${idx}">
+                    <div class="reason-label">📝 Giải thích lý do (chọn hoặc tự viết):</div>
+                    <div class="reason-options" id="reason-options-${idx}"></div>
+                    <textarea class="reason-input" id="reason-input-${idx}" rows="2" placeholder="Hoặc tự viết câu trả lời của con..."></textarea>
+                </div>
+            `;
+            container.appendChild(aDiv);
+
+            const trueBtn = aDiv.querySelector(`.tf-true[data-idx="${idx}"]`);
+            const falseBtn = aDiv.querySelector(`.tf-false[data-idx="${idx}"]`);
+            
+            if (analysisAnswers[idx].tf === true) trueBtn.classList.add('selected');
+            if (analysisAnswers[idx].tf === false) falseBtn.classList.add('selected');
+            
+            trueBtn.onclick = () => {
+                analysisAnswers[idx].tf = true;
+                renderAnalysis();
+            };
+            falseBtn.onclick = () => {
+                analysisAnswers[idx].tf = false;
+                renderAnalysis();
+            };
+
+            const reasonOptionsDiv = aDiv.querySelector(`#reason-options-${idx}`);
+            
+            if (analysisAnswers[idx].tf !== null) {
+                const opts = analysisAnswers[idx].tf ? reasonOptions.true[idx] : reasonOptions.false[idx];
+                opts.forEach(opt => {
+                    const optChip = document.createElement('div');
+                    optChip.className = 'reason-option';
+                    optChip.textContent = opt;
+                    optChip.onclick = () => {
+                        analysisAnswers[idx].reason = opt;
+                        document.getElementById(`reason-input-${idx}`).value = opt;
+                    };
+                    reasonOptionsDiv.appendChild(optChip);
+                });
+            }
+
+            const textarea = aDiv.querySelector(`#reason-input-${idx}`);
+            textarea.value = analysisAnswers[idx].reason || "";
+            textarea.oninput = (e) => {
+                analysisAnswers[idx].reason = e.target.value;
+            };
+        });
+    }
+
+    function checkAnalysis() {
+        let correct = 0;
+        analysisData.forEach((item, idx) => {
+            if (analysisAnswers[idx].tf === item.correct) correct++;
+        });
+        const resultDiv = document.getElementById('analysisResult');
+        resultDiv.style.display = 'block';
+        if (correct === analysisData.length) {
+            resultDiv.innerHTML = '🎉🎉🎉 Tuyệt vời! Bé hiểu rằng mình là duy nhất và rất quý giá! 🎉🎉🎉';
+            resultDiv.style.background = "#DFF0DF";
+        } else {
+            resultDiv.innerHTML = `💎 Bé trả lời đúng ${correct}/${analysisData.length} câu. Hãy xem lại và chọn lại nhé! 💪`;
+            resultDiv.style.background = "#FFEFE0";
+        }
+    }
+
+    // Khởi tạo
+    renderFillBlank();
+    renderWordBank();
+    renderSequence();
+    renderAnalysis();
+
+    document.getElementById('checkFillBtn').addEventListener('click', checkFillBlank);
+    document.getElementById('checkSeqBtn').addEventListener('click', checkSequence);
+    document.getElementById('checkAnalysisBtn').addEventListener('click', checkAnalysis);
+</script>
+</body>
+</html>
