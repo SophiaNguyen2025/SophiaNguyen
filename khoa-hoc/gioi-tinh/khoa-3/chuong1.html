@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Khóa 3 - Chương 1: Giải mã cơ thể | Sophia Nguyen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #F0EAE4;
+            font-family: 'Segoe UI', 'Quicksand', 'Nunito', 'Poppins', sans-serif;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 32px;
+            padding: 20px;
+            margin-bottom: 25px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            width: 70px;
+            margin: 0 auto 10px auto;
+        }
+
+        .logo img {
+            width: 100%;
+            height: auto;
+        }
+
+        .course-badge {
+            background: #D4A878;
+            display: inline-block;
+            padding: 5px 18px;
+            border-radius: 40px;
+            font-size: 13px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 12px;
+        }
+
+        .chapter-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #8B5A3C;
+            text-align: center;
+            background: #FDF8F0;
+            display: inline-block;
+            padding: 8px 30px;
+            border-radius: 60px;
+            margin-top: 5px;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 32px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .video-label {
+            background: #FDF8F0;
+            padding: 12px 20px;
+            font-weight: bold;
+            color: #8B5A3C;
+            font-size: 18px;
+            text-align: center;
+            border-top: 2px solid #E8D8C8;
+        }
+
+        /* Màu sắc 3 bài tập khác nhau */
+        .exercise-1 {
+            background: white;
+            border-radius: 32px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border-top: 6px solid #E8A070;
+        }
+
+        .exercise-2 {
+            background: white;
+            border-radius: 32px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border-top: 6px solid #5BA0C0;
+        }
+
+        .exercise-3 {
+            background: white;
+            border-radius: 32px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border-top: 6px solid #7BA87B;
+        }
+
+        .ex-title-1 { font-size: 26px; font-weight: bold; color: #E8A070; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+        .ex-title-2 { font-size: 26px; font-weight: bold; color: #5BA0C0; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+        .ex-title-3 { font-size: 26px; font-weight: bold; color: #7BA87B; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+
+        .ex-desc {
+            color: #8A7A6A;
+            margin-bottom: 20px;
+            font-size: 15px;
+            padding-left: 22px;
+        }
+
+        /* Bài tập 1: Điền từ vào chỗ trống */
+        .fill-blank-text {
+            background: #FDFCFA;
+            border-radius: 24px;
+            padding: 25px;
+            line-height: 2;
+            font-size: 17px;
+            color: #5A4A3A;
+            margin-bottom: 20px;
+            border: 1px solid #E8E0D8;
+        }
+
+        .blank {
+            display: inline-block;
+            min-width: 120px;
+            background: #FFF8F0;
+            border: 2px dashed #E8A070;
+            border-radius: 30px;
+            padding: 4px 12px;
+            margin: 0 5px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+            color: #E8A070;
+        }
+
+        .blank.filled {
+            background: #E8A070;
+            color: white;
+            border: 2px solid #E8A070;
+        }
+
+        .word-bank {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 20px 0;
+            justify-content: center;
+        }
+
+        .word-card {
+            background: #F0ECE4;
+            padding: 10px 20px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #5A4A3A;
+            transition: 0.2s;
+            border: 1px solid #E0D8D0;
+        }
+
+        .word-card:hover {
+            background: #E8A070;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .word-card.used {
+            background: #D0C8C0;
+            color: #A09890;
+            cursor: not-allowed;
+            transform: none;
+            text-decoration: line-through;
+        }
+
+        /* Bài tập 2: Sắp xếp thứ tự */
+        .sequence-item {
+            background: #FDFCFA;
+            border: 1px solid #E8E0D8;
+            border-radius: 60px;
+            padding: 14px 20px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: move;
+            transition: 0.2s;
+        }
+
+        .sequence-item.dragging {
+            opacity: 0.4;
+        }
+
+        .sequence-number {
+            width: 36px;
+            height: 36px;
+            background: #5BA0C0;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .sequence-text {
+            flex: 1;
+            color: #5A4A3A;
+        }
+
+        .sequence-drag-icon {
+            color: #C0B8B0;
+            font-size: 20px;
+        }
+
+        /* Bài tập 3: Phân tích đúng/sai có giải thích */
+        .analysis-item {
+            background: #FDFCFA;
+            border: 1px solid #E8E0D8;
+            border-radius: 24px;
+            padding: 18px;
+            margin-bottom: 16px;
+        }
+
+        .statement-text {
+            font-weight: bold;
+            color: #5A4A3A;
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .tf-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 12px;
+        }
+
+        .tf-btn {
+            padding: 6px 20px;
+            border-radius: 40px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .tf-true {
+            background: #E0E8E0;
+            color: #4A7A4A;
+        }
+
+        .tf-true.selected {
+            background: #7BA87B;
+            color: white;
+        }
+
+        .tf-false {
+            background: #E8E0E0;
+            color: #A07070;
+        }
+
+        .tf-false.selected {
+            background: #E8A070;
+            color: white;
+        }
+
+        .reason-area {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px dashed #E0D8D0;
+        }
+
+        .reason-label {
+            font-size: 13px;
+            color: #8A7A6A;
+            margin-bottom: 8px;
+        }
+
+        .reason-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #E0D8D0;
+            border-radius: 20px;
+            font-family: inherit;
+            resize: vertical;
+            background: #F8F4F0;
+        }
+
+        .reason-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .reason-option {
+            background: #F0ECE4;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .reason-option:hover {
+            background: #7BA87B;
+            color: white;
+        }
+
+        .check-btn {
+            border: none;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 12px 28px;
+            border-radius: 60px;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 100%;
+            transition: 0.2s;
+        }
+
+        .btn-1 { background: #E8A070; }
+        .btn-1:hover { background: #D08850; }
+        .btn-2 { background: #5BA0C0; }
+        .btn-2:hover { background: #4A8AA8; }
+        .btn-3 { background: #7BA87B; }
+        .btn-3:hover { background: #6A9068; }
+
+        .result-area {
+            margin-top: 18px;
+            border-radius: 24px;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .exercise-1, .exercise-2, .exercise-3 { padding: 18px; }
+            .chapter-title { font-size: 24px; padding: 6px 20px; }
+            .blank { min-width: 80px; font-size: 13px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="logo">
+            <img src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Sophia Nguyen Logo">
+        </div>
+        <div class="course-badge">🧬 Khóa 3 - Dành cho bé 6-10 tuổi</div>
+        <div>
+            <span class="chapter-title">🔬 Giải mã cơ thể</span>
+        </div>
+    </div>
+
+    <div class="video-card">
+        <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/EYzco-8hhEw" title="Bài giảng Khóa 3 Chương 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="video-label">
+            🎬 Bài học: Giải mã cơ thể – Khám phá bộ máy kỳ diệu bên trong con người!
+        </div>
+    </div>
+
+    <!-- BÀI TẬP 1: ĐIỀN TỪ VÀO CHỖ TRỐNG (màu cam) -->
+    <div class="exercise-1">
+        <div class="ex-title-1">📝 Bài tập 1: Điền từ vào chỗ trống</div>
+        <div class="ex-desc">🧠 Kéo thả từ đúng vào các ô trống trong đoạn văn bên dưới.</div>
+        <div id="fillBlankArea"></div>
+        <div class="word-bank" id="wordBank"></div>
+        <button class="check-btn btn-1" id="checkFillBtn">✅ Kiểm tra bài tập 1</button>
+        <div id="fillResult" class="result-area" style="display: none;"></div>
+    </div>
+
+    <!-- BÀI TẬP 2: SẮP XẾP THỨ TỰ (màu xanh dương) - ĐÃ ĐẢO TÙM LUM -->
+    <div class="exercise-2">
+        <div class="ex-title-2">🔢 Bài tập 2: Sắp xếp thứ tự</div>
+        <div class="ex-desc">🎯 Kéo thả để sắp xếp các bước hình thành em bé theo đúng trình tự (từ bước 1 đến bước 5).</div>
+        <div id="sequenceArea"></div>
+        <button class="check-btn btn-2" id="checkSeqBtn">🔍 Kiểm tra bài tập 2</button>
+        <div id="seqResult" class="result-area" style="display: none;"></div>
+    </div>
+
+    <!-- BÀI TẬP 3: PHÂN TÍCH ĐÚNG/SAI (màu xanh lá) -->
+    <div class="exercise-3">
+        <div class="ex-title-3">🎯 Bài tập 3: Phân tích đúng / sai</div>
+        <div class="ex-desc">🤔 Chọn Đúng hoặc Sai và giải thích lý do (có thể chọn gợi ý hoặc tự viết).</div>
+        <div id="analysisArea"></div>
+        <button class="check-btn btn-3" id="checkAnalysisBtn">🌟 Kiểm tra bài tập 3</button>
+        <div id="analysisResult" class="result-area" style="display: none;"></div>
+    </div>
+</div>
+
+<script>
+    // ---------------------- BÀI TẬP 1: ĐIỀN TỪ ----------------------
+    const blankText = `Cơ thể con người thật kỳ diệu! Ở nam giới, ________ được sản xuất tại ________ (nằm trong bìu). 
+    Ở nữ giới, ________ được lưu giữ trong ________. Khi tinh trùng gặp trứng, chúng kết hợp tạo thành ________. 
+    Hợp tử sẽ di chuyển vào ________ - nơi em bé sẽ lớn lên trong 9 tháng. 
+    Khi em bé đã sẵn sàng chào đời, em sẽ đi qua ________ để ra ngoài.`;
+
+    const words = ["tinh trùng", "tinh hoàn", "trứng", "buồng trứng", "hợp tử", "tử cung", "âm đạo"];
+    const correctMap = {
+        0: "tinh trùng", 1: "tinh hoàn", 2: "trứng", 3: "buồng trứng",
+        4: "hợp tử", 5: "tử cung", 6: "âm đạo"
+    };
+
+    let blanksFilled = new Array(7).fill(null);
+    let availableWords = [...words];
+
+    function renderFillBlank() {
+        const container = document.getElementById('fillBlankArea');
+        const parts = blankText.split(/(________)/g);
+        container.innerHTML = '<div class="fill-blank-text"></div>';
+        const textDiv = container.querySelector('.fill-blank-text');
+        
+        let blankIndex = 0;
+        parts.forEach(part => {
+            if (part === '________') {
+                const blankSpan = document.createElement('span');
+                blankSpan.className = 'blank';
+                if (blanksFilled[blankIndex]) {
+                    blankSpan.classList.add('filled');
+                    blankSpan.textContent = blanksFilled[blankIndex];
+                } else {
+                    blankSpan.textContent = '______';
+                }
+                blankSpan.dataset.index = blankIndex;
+                blankSpan.onclick = () => {
+                    if (blanksFilled[blankIndex]) {
+                        const returnedWord = blanksFilled[blankIndex];
+                        blanksFilled[blankIndex] = null;
+                        availableWords.push(returnedWord);
+                        renderFillBlank();
+                        renderWordBank();
+                    }
+                };
+                textDiv.appendChild(blankSpan);
+                blankIndex++;
+            } else {
+                textDiv.appendChild(document.createTextNode(part));
+            }
+        });
+    }
+
+    function renderWordBank() {
+        const container = document.getElementById('wordBank');
+        container.innerHTML = '';
+        availableWords.forEach(word => {
+            const wordCard = document.createElement('div');
+            wordCard.className = 'word-card';
+            wordCard.textContent = word;
+            wordCard.onclick = () => {
+                const emptyIndex = blanksFilled.findIndex(v => v === null);
+                if (emptyIndex !== -1) {
+                    blanksFilled[emptyIndex] = word;
+                    const wordIdx = availableWords.indexOf(word);
+                    if (wordIdx !== -1) availableWords.splice(wordIdx, 1);
+                    renderFillBlank();
+                    renderWordBank();
+                }
+            };
+            container.appendChild(wordCard);
+        });
+    }
+
+    function checkFillBlank() {
+        let correct = 0;
+        for (let i = 0; i < blanksFilled.length; i++) {
+            if (blanksFilled[i] === correctMap[i]) correct++;
+        }
+        const resultDiv = document.getElementById('fillResult');
+        resultDiv.style.display = 'block';
+        if (correct === blanksFilled.length) {
+            resultDiv.innerHTML = '🎉🎉🎉 Tuyệt vời! Bé điền đúng tất cả các từ! 🎉🎉🎉';
+            resultDiv.style.background = "#DFF0DF";
+        } else {
+            resultDiv.innerHTML = `📚 Bé điền đúng ${correct}/${blanksFilled.length} từ. Hãy xem lại video và thử lại nhé! 💪`;
+            resultDiv.style.background = "#FFEFE0";
+        }
+    }
+
+    // ---------------------- BÀI TẬP 2: SẮP XẾP THỨ TỰ (ĐẢO TÙM LUM) ----------------------
+    const sequenceItems = [
+        { text: "🧬 Tinh trùng từ tinh hoàn gặp trứng từ buồng trứng", order: 1 },
+        { text: "🔬 Hình thành hợp tử", order: 2 },
+        { text: "🏠 Hợp tử di chuyển vào tử cung và làm tổ", order: 3 },
+        { text: "👶 Phôi thai phát triển thành thai nhi trong tử cung", order: 4 },
+        { text: "🤱 Em bé chào đời qua đường âm đạo", order: 5 }
+    ];
+
+    // ĐẢO LỘN THỨ TỰ NGẪU NHIÊN
+    let currentSequence = [...sequenceItems].sort(() => Math.random() - 0.5);
+    let dragIndex = null;
+
+    function renderSequence() {
+        const container = document.getElementById('sequenceArea');
+        container.innerHTML = '';
+        currentSequence.forEach((item, idx) => {
+            const row = document.createElement('div');
+            row.className = 'sequence-item';
+            row.draggable = true;
+            row.dataset.index = idx;
+            row.innerHTML = `
+                <div class="sequence-number">${idx + 1}</div>
+                <div class="sequence-text">${item.text}</div>
+                <div class="sequence-drag-icon">⋮⋮</div>
+            `;
+            row.ondragstart = (e) => {
+                dragIndex = idx;
+                e.dataTransfer.effectAllowed = 'move';
+                row.classList.add('dragging');
+            };
+            row.ondragend = (e) => {
+                row.classList.remove('dragging');
+                dragIndex = null;
+            };
+            row.ondragover = (e) => {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+            };
+            row.ondrop = (e) => {
+                e.preventDefault();
+                if (dragIndex !== null && dragIndex !== idx) {
+                    const newSeq = [...currentSequence];
+                    const dragged = newSeq[dragIndex];
+                    newSeq.splice(dragIndex, 1);
+                    newSeq.splice(idx, 0, dragged);
+                    currentSequence = newSeq;
+                    renderSequence();
+                }
+            };
+            container.appendChild(row);
+        });
+    }
+
+    function checkSequence() {
+        let correct = 0;
+        currentSequence.forEach((item, idx) => {
+            if (item.order === idx + 1) correct++;
+        });
+        const resultDiv = document.getElementById('seqResult');
+        resultDiv.style.display = 'block';
+        if (correct === sequenceItems.length) {
+            resultDiv.innerHTML = '🎉🎉🎉 Xuất sắc! Bé sắp xếp đúng quá trình hình thành em bé! 🎉🎉🎉';
+            resultDiv.style.background = "#DFF0DF";
+        } else {
+            resultDiv.innerHTML = `🔬 Bé sắp xếp đúng ${correct}/${sequenceItems.length} bước. Hãy kéo thả để sắp xếp lại đúng thứ tự nhé! 💪`;
+            resultDiv.style.background = "#FFEFE0";
+        }
+    }
+
+    // ---------------------- BÀI TẬP 3: PHÂN TÍCH ĐÚNG/SAI ----------------------
+    const analysisData = [
+        { text: "Con trai và con gái có cơ thể giống hệt nhau.", correct: false, reason: "" },
+        { text: "Tử cung là nơi em bé lớn lên trong bụng mẹ.", correct: true, reason: "" },
+        { text: "Học về cơ thể là điều xấu, không nên học.", correct: false, reason: "" },
+        { text: "Tinh trùng được sản xuất ở tinh hoàn.", correct: true, reason: "" }
+    ];
+
+    const reasonOptions = {
+        true: {
+            0: ["Con trai và con gái có cơ thể khác nhau (bộ phận sinh dục khác nhau)"],
+            1: ["Đúng rồi! Tử cung là nơi em bé phát triển trong 9 tháng"],
+            2: ["Hiểu về cơ thể là điều bình thường và cần thiết để biết cách chăm sóc bản thân"],
+            3: ["Đúng! Tinh hoàn là nơi sản xuất tinh trùng"]
+        },
+        false: {
+            0: ["Con trai có dương vật, tinh hoàn; con gái có âm đạo, buồng trứng"],
+            1: ["Sai rồi! Đó là tử cung"],
+            2: ["Học về cơ thể giúp chúng ta hiểu và bảo vệ chính mình"],
+            3: ["Sai! Tinh trùng được sản xuất ở tinh hoàn, không phải nơi khác"]
+        }
+    };
+
+    let analysisAnswers = analysisData.map(() => ({ tf: null, reason: "" }));
+
+    function renderAnalysis() {
+        const container = document.getElementById('analysisArea');
+        container.innerHTML = '';
+        analysisData.forEach((item, idx) => {
+            const aDiv = document.createElement('div');
+            aDiv.className = 'analysis-item';
+            aDiv.innerHTML = `
+                <div class="statement-text">${idx+1}. ${item.text}</div>
+                <div class="tf-buttons">
+                    <button class="tf-btn tf-true" data-idx="${idx}" data-val="true">✅ Đúng</button>
+                    <button class="tf-btn tf-false" data-idx="${idx}" data-val="false">❌ Sai</button>
+                </div>
+                <div class="reason-area" id="reason-area-${idx}">
+                    <div class="reason-label">📝 Giải thích lý do (chọn hoặc tự viết):</div>
+                    <div class="reason-options" id="reason-options-${idx}"></div>
+                    <textarea class="reason-input" id="reason-input-${idx}" rows="2" placeholder="Hoặc tự viết câu trả lời của con..."></textarea>
+                </div>
+            `;
+            container.appendChild(aDiv);
+
+            const trueBtn = aDiv.querySelector(`.tf-true[data-idx="${idx}"]`);
+            const falseBtn = aDiv.querySelector(`.tf-false[data-idx="${idx}"]`);
+            
+            if (analysisAnswers[idx].tf === true) trueBtn.classList.add('selected');
+            if (analysisAnswers[idx].tf === false) falseBtn.classList.add('selected');
+            
+            trueBtn.onclick = () => {
+                analysisAnswers[idx].tf = true;
+                renderAnalysis();
+            };
+            falseBtn.onclick = () => {
+                analysisAnswers[idx].tf = false;
+                renderAnalysis();
+            };
+
+            const reasonOptionsDiv = aDiv.querySelector(`#reason-options-${idx}`);
+            
+            if (analysisAnswers[idx].tf !== null) {
+                const opts = analysisAnswers[idx].tf ? reasonOptions.true[idx] : reasonOptions.false[idx];
+                opts.forEach(opt => {
+                    const optChip = document.createElement('div');
+                    optChip.className = 'reason-option';
+                    optChip.textContent = opt;
+                    optChip.onclick = () => {
+                        analysisAnswers[idx].reason = opt;
+                        document.getElementById(`reason-input-${idx}`).value = opt;
+                    };
+                    reasonOptionsDiv.appendChild(optChip);
+                });
+            }
+
+            const textarea = aDiv.querySelector(`#reason-input-${idx}`);
+            textarea.value = analysisAnswers[idx].reason || "";
+            textarea.oninput = (e) => {
+                analysisAnswers[idx].reason = e.target.value;
+            };
+        });
+    }
+
+    function checkAnalysis() {
+        let correct = 0;
+        analysisData.forEach((item, idx) => {
+            if (analysisAnswers[idx].tf === item.correct) correct++;
+        });
+        const resultDiv = document.getElementById('analysisResult');
+        resultDiv.style.display = 'block';
+        if (correct === analysisData.length) {
+            resultDiv.innerHTML = '🎉🎉🎉 Tuyệt vời! Bé phân tích đúng cả 4 câu và có giải thích tốt! 🎉🎉🎉';
+            resultDiv.style.background = "#DFF0DF";
+        } else {
+            resultDiv.innerHTML = `💬 Bé trả lời đúng ${correct}/${analysisData.length} câu về Đúng/Sai. Hãy xem lại và chọn lại nhé! 💪`;
+            resultDiv.style.background = "#FFEFE0";
+        }
+    }
+
+    // Khởi tạo
+    renderFillBlank();
+    renderWordBank();
+    renderSequence();
+    renderAnalysis();
+
+    document.getElementById('checkFillBtn').addEventListener('click', checkFillBlank);
+    document.getElementById('checkSeqBtn').addEventListener('click', checkSequence);
+    document.getElementById('checkAnalysisBtn').addEventListener('click', checkAnalysis);
+</script>
+</body>
+</html>
