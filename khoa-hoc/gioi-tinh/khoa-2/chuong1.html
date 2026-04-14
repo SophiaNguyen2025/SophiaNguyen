@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Khóa 2 - Chương 1: Ngôi nhà đầu tiên của con | Sophia Nguyen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #FCE9E0;
+            font-family: 'Segoe UI', 'Quicksand', 'Comic Neue', 'Nunito', 'Poppins', cursive;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 32px;
+            padding: 20px;
+            margin-bottom: 25px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            width: 70px;
+            margin: 0 auto 10px auto;
+        }
+
+        .logo img {
+            width: 100%;
+            height: auto;
+        }
+
+        .course-badge {
+            background: #FFD5C0;
+            display: inline-block;
+            padding: 5px 18px;
+            border-radius: 40px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #B85C2E;
+            margin-bottom: 12px;
+        }
+
+        .chapter-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #C27E55;
+            text-align: center;
+            background: #FFF5F0;
+            display: inline-block;
+            padding: 8px 30px;
+            border-radius: 60px;
+            margin-top: 5px;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 32px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .video-label {
+            background: #FFF2EB;
+            padding: 12px 20px;
+            font-weight: bold;
+            color: #C66E46;
+            font-size: 18px;
+            text-align: center;
+            border-top: 2px solid #FFDECC;
+        }
+
+        .exercise {
+            background: white;
+            border-radius: 32px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .ex-title {
+            font-size: 26px;
+            font-weight: bold;
+            color: #D98654;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 6px solid #F4B183;
+            padding-left: 16px;
+        }
+
+        .ex-desc {
+            color: #B67B58;
+            margin-bottom: 20px;
+            font-size: 15px;
+            padding-left: 22px;
+        }
+
+        .question-item {
+            background: #FFFBF8;
+            border-radius: 24px;
+            padding: 16px 20px;
+            margin-bottom: 16px;
+            border: 1px solid #FFE4D4;
+        }
+
+        .question-text {
+            font-weight: 700;
+            color: #784B2E;
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 10px 0;
+            padding: 8px 12px;
+            background: #FFF5EF;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .option:hover {
+            background: #FFEDE2;
+            border-color: #F7BC8C;
+        }
+
+        input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #E58E62;
+            cursor: pointer;
+        }
+
+        .truefalse-btns {
+            display: flex;
+            gap: 20px;
+            margin-top: 8px;
+        }
+
+        .tf-btn {
+            background: #F0E1D8;
+            border: none;
+            padding: 8px 24px;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.2s;
+        }
+
+        .tf-btn.selected-true {
+            background: #9BC4A0;
+            color: white;
+        }
+
+        .tf-btn.selected-false {
+            background: #E6A28C;
+            color: white;
+        }
+
+        .match-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 15px 0;
+            align-items: center;
+        }
+
+        .match-term {
+            background: #FFE4D0;
+            padding: 10px 16px;
+            border-radius: 60px;
+            font-weight: bold;
+            min-width: 140px;
+            text-align: center;
+            color: #7A4D2E;
+        }
+
+        .match-def {
+            flex: 1;
+            background: #FFF3EC;
+            padding: 10px 16px;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid #FFDCC8;
+        }
+
+        .match-def.selected {
+            background: #F7BC8C;
+            color: white;
+            border-color: #D97A48;
+        }
+
+        .check-btn {
+            background: #D98654;
+            border: none;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 12px 28px;
+            border-radius: 60px;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 100%;
+            transition: 0.2s;
+        }
+
+        .check-btn:hover {
+            background: #C06E42;
+        }
+
+        .result-area {
+            margin-top: 18px;
+            background: #F6F0E8;
+            border-radius: 24px;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+            color: #A56642;
+        }
+
+        .sticker-row {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+
+        .sticker {
+            background: #FFF5EE;
+            border-radius: 60px;
+            padding: 8px 18px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+            color: #B85C2E;
+        }
+
+        @media (max-width: 600px) {
+            .exercise {
+                padding: 18px;
+            }
+            .chapter-title {
+                font-size: 24px;
+                padding: 6px 20px;
+            }
+            .match-term {
+                min-width: 100px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="logo">
+            <img src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Sophia Nguyen Logo">
+        </div>
+        <div class="course-badge">🌸 Khóa 2 - Dành cho bé 3-5 tuổi</div>
+        <div>
+            <span class="chapter-title">🏠 Ngôi nhà đầu tiên của con</span>
+        </div>
+    </div>
+
+    <!-- Sticker dễ thương -->
+    <div class="sticker-row">
+        <div class="sticker">🤰 Mẹ yêu thương</div>
+        <div class="sticker">👶 Bé lớn lên mỗi ngày</div>
+        <div class="sticker">🔴 Sợi dây thần kỳ</div>
+        <div class="sticker">⭐ Huy chương rốn xinh</div>
+    </div>
+
+    <div class="video-card">
+        <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/k246_Ad8oDU" title="Bài giảng Khóa 2 Chương 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="video-label">
+            🎬 Bài học: Ngôi nhà đầu tiên của con – Cùng bạn Sóc khám phá bụng mẹ nhé!
+        </div>
+    </div>
+
+    <div class="exercise" id="ex1">
+        <div class="ex-title">📝 Bài tập 1: Bé nhớ bài học không?</div>
+        <div class="ex-desc">🌸 Chọn câu trả lời đúng nhất.</div>
+        <div id="quiz-questions"></div>
+        <button class="check-btn" id="checkQuizBtn">✅ Kiểm tra bài tập 1</button>
+        <div id="quizResult" class="result-area" style="display: none;"></div>
+    </div>
+
+    <div class="exercise" id="ex2">
+        <div class="ex-title">🔗 Bài tập 2: Ghép đôi thông minh</div>
+        <div class="ex-desc">🎯 Nhấn vào ô nghĩa bên phải để ghép với từ bên trái nhé!</div>
+        <div id="matchingArea"></div>
+        <button class="check-btn" id="checkMatchBtn">🔍 Kiểm tra ghép đôi</button>
+        <div id="matchResult" class="result-area" style="display: none;"></div>
+    </div>
+
+    <div class="exercise" id="ex3">
+        <div class="ex-title">✅❌ Bài tập 3: Đúng hay sai?</div>
+        <div class="ex-desc">🐣 Đọc câu và chọn Đúng (Đ) hoặc Sai (S) nhé.</div>
+        <div id="tf-questions"></div>
+        <button class="check-btn" id="checkTfBtn">📋 Kiểm tra Đúng/Sai</button>
+        <div id="tfResult" class="result-area" style="display: none;"></div>
+    </div>
+</div>
+
+<script>
+    const quizData = [
+        {
+            text: "🏠 Ngôi nhà đầu tiên của con là ở đâu?",
+            options: ["Trong bụng mẹ 🤰", "Ở bãi rác 🗑️", "Trong tổ chim 🪹", "Trên mặt trăng 🌙"],
+            correct: 0
+        },
+        {
+            text: "🔗 Sợi dây thần kỳ nối con với mẹ gọi là gì?",
+            options: ["Dây giày 👟", "Dây rốn 🔴", "Dây chun 🎀", "Dây điện ⚡"],
+            correct: 1
+        },
+        {
+            text: "🏅 Sau khi con chào đời, dây rốn rụng đi để lại dấu tích gì trên bụng con?",
+            options: ["Cái rốn ⭐", "Cái sẹo to 😢", "Hình trái tim 💖", "Không có gì ❌"],
+            correct: 0
+        },
+        {
+            text: "💓 Khi còn trong bụng mẹ, con đã nghe thấy âm thanh gì quen thuộc?",
+            options: ["Tiếng mưa rơi 🌧️", "Nhịp tim của mẹ 💗", "Tiếng ô tô 🚗", "Tiếng mèo kêu 🐱"],
+            correct: 1
+        }
+    ];
+
+    let userAnswers = [null, null, null, null];
+
+    function renderQuiz() {
+        const container = document.getElementById('quiz-questions');
+        container.innerHTML = '';
+        quizData.forEach((q, idx) => {
+            const qDiv = document.createElement('div');
+            qDiv.className = 'question-item';
+            qDiv.innerHTML = `<div class="question-text">${idx+1}. ${q.text}</div>`;
+            q.options.forEach((opt, optIdx) => {
+                const optDiv = document.createElement('div');
+                optDiv.className = 'option';
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = `quiz${idx}`;
+                radio.value = optIdx;
+                if (userAnswers[idx] === optIdx) radio.checked = true;
+                radio.addEventListener('change', (e) => {
+                    userAnswers[idx] = parseInt(e.target.value);
+                });
+                optDiv.appendChild(radio);
+                optDiv.appendChild(document.createTextNode(opt));
+                qDiv.appendChild(optDiv);
+            });
+            container.appendChild(qDiv);
+        });
+    }
+
+    function checkQuiz() {
+        let correctCount = 0;
+        quizData.forEach((q, idx) => {
+            if (userAnswers[idx] === q.correct) correctCount++;
+        });
+        const resultDiv = document.getElementById('quizResult');
+        resultDiv.style.display = 'block';
+        if (correctCount === quizData.length) {
+            resultDiv.innerHTML = '🎉🎉🎉 Tuyệt vời! Bé trả lời đúng cả 4 câu. Giỏi quá! 🎉🎉🎉';
+            resultDiv.style.background = "#DFF0DF";
+        } else {
+            resultDiv.innerHTML = `🌻 Bé trả lời đúng ${correctCount}/4 câu. Hãy xem lại video và làm lại bài nhé! Cố lên con yêu! 💪💖`;
+            resultDiv.style.background = "#FFEFE0";
+        }
+    }
+
+    const matchTerms = [
+        { term: "🏠 Bụng mẹ", defIdx: null },
+        { term: "🔴 Dây rốn", defIdx: null },
+        { term: "⭐ Chiếc rốn", defIdx: null },
+        { term: "💗 Nhịp tim mẹ", defIdx: null }
+    ];
+
+    const defsList = [
+        "Ngôi nhà đầu tiên ấm áp của con 🏡",
+        "Sợi dây thần kỳ mang thức ăn & oxy ✨",
+        "Huy chương tình yêu còn lại sau khi dây rốn rụng 🏅",
+        "Âm thanh thình thịch con nghe khi trong bụng 💓"
+    ];
+
+    let currentMatches = [null, null, null, null];
+
+    function renderMatching() {
+        const container = document.getElementById('matchingArea');
+        container.innerHTML = '';
+        matchTerms.forEach((termObj, tIdx) => {
+            const row = document.createElement('div');
+            row.className = 'match-row';
+            const termSpan = document.createElement('div');
+            termSpan.className = 'match-term';
+            termSpan.innerText = termObj.term;
+            row.appendChild(termSpan);
+
+            const defContainer = document.createElement('div');
+            defContainer.style.flex = '1';
+            defContainer.style.display = 'flex';
+            defContainer.style.flexWrap = 'wrap';
+            defContainer.style.gap = '10px';
+
+            defsList.forEach((def, dIdx) => {
+                const defBtn = document.createElement('div');
+                defBtn.className = 'match-def';
+                defBtn.innerText = def;
+                if (currentMatches[tIdx] === dIdx) {
+                    defBtn.classList.add('selected');
+                }
+                defBtn.addEventListener('click', () => {
+                    currentMatches[tIdx] = dIdx;
+                    renderMatching();
+                });
+                defContainer.appendChild(defBtn);
+            });
+            row.appendChild(defContainer);
+            container.appendChild(row);
+        });
+    }
+
+    function checkMatching() {
+        let correct = 0;
+        for (let i = 0; i < currentMatches.length; i++) {
+            if (currentMatches[i] === i) correct++;
+        }
+        const resultDiv = document.getElementById('matchResult');
+        resultDiv.style.display = 'block';
+        if (correct === matchTerms.length) {
+            resultDiv.innerHTML = '🎉🎉🎉 Xuất sắc! Bé ghép đúng hết 4 cặp. Bé hiểu bài quá! 🎉🎉🎉';
+            resultDiv.style.background = "#DFF0DF";
+        } else {
+            resultDiv.innerHTML = `🌱 Bé ghép đúng ${correct}/4 cặp. Thử lại lần nữa xem nào, con làm tốt lắm! 💖`;
+            resultDiv.style.background = "#FFEFE0";
+        }
+    }
+
+    const tfData = [
+        { text: "Ngôi nhà đầu tiên của con là ở bãi rác. 🗑️", correct: false },
+        { text: "Dây rốn giúp mang thức ăn và oxy từ mẹ nuôi con. 🥗💨", correct: true },
+        { text: "Chiếc rốn là dấu tích còn lại sau khi dây rốn rụng, ai cũng có một chiếc rốn. ⭐", correct: true },
+        { text: "Khi còn trong bụng mẹ, con không thể nghe thấy gì cả. 🙉", correct: false }
+    ];
+
+    let tfAnswers = [null, null, null, null];
+
+    function renderTF() {
+        const container = document.getElementById('tf-questions');
+        container.innerHTML = '';
+        tfData.forEach((item, idx) => {
+            const qDiv = document.createElement('div');
+            qDiv.className = 'question-item';
+            qDiv.innerHTML = `<div class="question-text">${idx+1}. ${item.text}</div>`;
+            const btnWrapper = document.createElement('div');
+            btnWrapper.className = 'truefalse-btns';
+            const trueBtn = document.createElement('button');
+            trueBtn.innerText = '✅ Đúng';
+            trueBtn.className = 'tf-btn';
+            if (tfAnswers[idx] === true) trueBtn.classList.add('selected-true');
+            const falseBtn = document.createElement('button');
+            falseBtn.innerText = '❌ Sai';
+            falseBtn.className = 'tf-btn';
+            if (tfAnswers[idx] === false) falseBtn.classList.add('selected-false');
+
+            trueBtn.onclick = () => {
+                tfAnswers[idx] = true;
+                renderTF();
+            };
+            falseBtn.onclick = () => {
+                tfAnswers[idx] = false;
+                renderTF();
+            };
+            btnWrapper.appendChild(trueBtn);
+            btnWrapper.appendChild(falseBtn);
+            qDiv.appendChild(btnWrapper);
+            container.appendChild(qDiv);
+        });
+    }
+
+    function checkTF() {
+        let correctCount = 0;
+        tfData.forEach((item, idx) => {
+            if (tfAnswers[idx] === item.correct) correctCount++;
+        });
+        const resultDiv = document.getElementById('tfResult');
+        resultDiv.style.display = 'block';
+        if (correctCount === tfData.length) {
+            resultDiv.innerHTML = '🎉🎉🎉 Bé giỏi quá! Đúng hết 4 câu. Con hiểu rất rõ về ngôi nhà đầu tiên của mình! 🎉🎉🎉';
+            resultDiv.style.background = "#DFF0DF";
+        } else {
+            resultDiv.innerHTML = `💪 Bé trả lời đúng ${correctCount}/4 câu. Cùng xem lại bài và chọn lại nha con yêu! 🧸💕`;
+            resultDiv.style.background = "#FFEFE0";
+        }
+    }
+
+    function init() {
+        renderQuiz();
+        renderMatching();
+        renderTF();
+        document.getElementById('checkQuizBtn').addEventListener('click', checkQuiz);
+        document.getElementById('checkMatchBtn').addEventListener('click', checkMatching);
+        document.getElementById('checkTfBtn').addEventListener('click', checkTF);
+    }
+    init();
+</script>
+</body>
+</html>
