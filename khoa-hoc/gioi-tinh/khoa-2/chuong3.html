@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Khóa 2 - Chương 3: Hành trình kỳ diệu | Sophia Nguyen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #FFF0E8;
+            font-family: 'Segoe UI', 'Quicksand', 'Comic Neue', 'Nunito', 'Poppins', cursive;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 32px;
+            padding: 20px;
+            margin-bottom: 25px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            width: 70px;
+            margin: 0 auto 10px auto;
+        }
+
+        .logo img {
+            width: 100%;
+            height: auto;
+        }
+
+        .course-badge {
+            background: #FFE0C4;
+            display: inline-block;
+            padding: 5px 18px;
+            border-radius: 40px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #A96F4A;
+            margin-bottom: 12px;
+        }
+
+        .chapter-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #C27E55;
+            text-align: center;
+            background: #FFF5F0;
+            display: inline-block;
+            padding: 8px 30px;
+            border-radius: 60px;
+            margin-top: 5px;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 32px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .video-label {
+            background: #FFF7F0;
+            padding: 12px 20px;
+            font-weight: bold;
+            color: #D98F62;
+            font-size: 18px;
+            text-align: center;
+            border-top: 2px solid #FFE2CA;
+        }
+
+        .exercise {
+            background: white;
+            border-radius: 32px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .ex-title {
+            font-size: 26px;
+            font-weight: bold;
+            color: #D98F62;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 6px solid #F7BC8C;
+            padding-left: 16px;
+        }
+
+        .ex-desc {
+            color: #B87A54;
+            margin-bottom: 20px;
+            font-size: 15px;
+            padding-left: 22px;
+        }
+
+        .question-item {
+            background: #FFFBF8;
+            border-radius: 24px;
+            padding: 16px 20px;
+            margin-bottom: 16px;
+            border: 1px solid #FFE4D4;
+        }
+
+        .question-text {
+            font-weight: 700;
+            color: #784B2E;
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 10px 0;
+            padding: 8px 12px;
+            background: #FFF5EF;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .option:hover {
+            background: #FFEDE2;
+            border-color: #F7BC8C;
+        }
+
+        input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #E58E62;
+            cursor: pointer;
+        }
+
+        .emotion-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .emotion-btn {
+            background: #FFF5EF;
+            border: 2px solid #FFE0D0;
+            border-radius: 60px;
+            padding: 15px 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+            min-width: 120px;
+        }
+
+        .emotion-btn.selected {
+            background: #F7BC8C;
+            border-color: #D97A48;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .emotion-emoji {
+            font-size: 40px;
+            display: block;
+        }
+
+        .emotion-label {
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .match-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 15px 0;
+            align-items: center;
+        }
+
+        .match-term {
+            background: #FFE4D0;
+            padding: 10px 16px;
+            border-radius: 60px;
+            font-weight: bold;
+            min-width: 140px;
+            text-align: center;
+            color: #7A4D2E;
+        }
+
+        .match-def {
+            flex: 1;
+            background: #FFF3EC;
+            padding: 10px 16px;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid #FFDCC8;
+        }
+
+        .match-def.selected {
+            background: #F7BC8C;
+            color: white;
+            border-color: #D97A48;
+        }
+
+        .check-btn {
+            background: #D98654;
+            border: none;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 12px 28px;
+            border-radius: 60px;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 100%;
+            transition: 0.2s;
+        }
+
+        .check-btn:hover {
+            background: #C06E42;
+        }
+
+        .result-area {
+            margin-top: 18px;
+            background: #F6F0E8;
+            border-radius: 24px;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+            color: #A56642;
+        }
+
+        .sticker-row {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+
+        .sticker {
+            background: #FFF7F0;
+            border-radius: 60px;
+            padding: 8px 18px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+            color: #B85C2E;
+        }
+
+        @media (max-width: 600px) {
+            .exercise {
+                padding: 18px;
+            }
+            .chapter-title {
+                font-size: 24px;
+                padding: 6px 20px;
+            }
+            .emotion-btn {
+                padding: 10px 15px;
+                min-width: 90px;
+            }
+            .emotion-emoji {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="logo">
+            <img src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Sophia Nguyen Logo">
+        </div>
+        <div class="course-badge">🌸 Khóa 2 - Dành cho bé 3-5 tuổi</div>
+        <div>
+            <span class="chapter-title">🎈 Hành trình kỳ diệu</span>
+        </div>
+    </div>
+
+    <!-- Sticker hành trình -->
+    <div class="sticker-row">
+        <div class="sticker">🤰 Sẵn sàng chào đời</div>
+        <div class="sticker">🎁 Món quà tuyệt vời</div>
+        <div class="sticker">🤱 Da kề da ấm áp</div>
+        <div class="sticker">💖 Vòng tay yêu thương</div>
+    </div>
+
+    <div class="video-card">
+        <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/R4BGtBGN6NE" title="Bài giảng Khóa 2 Chương 3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="video-label">
+            🎬 Bài học: Hành trình kỳ diệu – Từ bụng mẹ đến vòng tay yêu thương!
+        </div>
+    </div>
+
+    <!-- BÀI TẬP 1: Ghép đôi sự kiện -->
+    <div class="exercise" id="ex1">
+        <div class="ex-title">🔗 Bài tập 1: Ghép đôi kỳ diệu</div>
+        <div class="ex-desc">🌸 Nhấn vào ô bên phải để ghép với sự kiện bên trái nhé!</div>
+        <div id="matchingArea"></div>
+        <button class="check-btn" id="checkMatchBtn">✅ Kiểm tra bài tập 1</button>
+        <div id="matchResult" class="result-area" style="display: none;"></div>
+    </div>
+
+    <!-- BÀI TẬP 2: Cảm xúc khi được ôm -->
+    <div class="exercise" id="ex2">
+        <div class="ex-title">💖 Bài tập 2: Con cảm thấy thế nào?</div>
+        <div class="ex-desc">🎯 Khi được bố mẹ ôm ấp, con thấy thế nào? Hãy chọn nhé!</div>
+        <div id="emotionArea"></div>
+        <button class="check-btn" id="checkEmotionBtn">😊 Kiểm tra bài tập 2</button>
+        <div id="emotionResult" class="result-area" style="display: none;"></div>
+    </div>
+
+    <!-- BÀI TẬP 3: Đúng hay sai -->
+    <div class="exercise" id="ex3">
+        <div class="ex-title">✅❌ Bài tập 3: Đúng hay sai?</div>
+        <div class="ex-desc">🐣 Đọc câu và chọn Đúng (Đ) hoặc Sai (S) nhé.</div>
+        <div id="tfQuestions"></div>
+        <button class="check-btn" id="checkTfBtn">📋 Kiểm tra Đúng/Sai</button>
+        <div id="tfResult" class="result-area" style="display: none;"></div>
+    </div>
+</div>
+
+<script>
+    // ---------------------- BÀI TẬP 1: GHÉP ĐÔI ----------------------
+    const matchTerms = [
+        { term: "🤰 Khi đến lúc chào đời", defIdx: null },
+        { term: "🤱 Khoảnh khắc đầu tiên", defIdx: null },
+        { term: "💕 Da kề da", defIdx: null },
+        { term: "🎁 Con là...", defIdx: null }
+    ];
+
+    const defsList = [
+        "Con sẵn sàng ra ngoài gặp bố mẹ",
+        "Mẹ ôm con vào lòng",
+        "Được áp sát vào lòng mẹ nghe nhịp tim",
+        "Món quà tuyệt vời nhất của cả nhà"
+    ];
+
+    let currentMatches = [null, null, null, null];
+
+    function renderMatching() {
+        const container = document.getElementById('matchingArea');
+        container.innerHTML = '';
+        matchTerms.forEach((termObj, tIdx) => {
+            const row = document.createElement('div');
+            row.className = 'match-row';
+            const termSpan = document.createElement('div');
+            termSpan.className = 'match-term';
+            termSpan.innerText = termObj.term;
+            row.appendChild(termSpan);
+
+            const defContainer = document.createElement('div');
+            defContainer.style.flex = '1';
+            defContainer.style.display = 'flex';
+            defContainer.style.flexWrap = 'wrap';
+            defContainer.style.gap = '10px';
+
+            defsList.forEach((def, dIdx) => {
+                const defBtn = document.createElement('div');
+                defBtn.className = 'match-def';
+                defBtn.innerText = def;
+                if (currentMatches[tIdx] === dIdx) {
+                    defBtn.classList.add('selected');
+                }
+                defBtn.addEventListener('click', () => {
+                    currentMatches[tIdx] = dIdx;
+                    renderMatching();
+                });
+                defContainer.appendChild(defBtn);
+            });
+            row.appendChild(defContainer);
+            container.appendChild(row);
+        });
+    }
+
+    function checkMatching() {
+        let correct = 0;
+        for (let i = 0; i < currentMatches.length; i++) {
+            if (currentMatches[i] === i) correct++;
+        }
+        const resultDiv = document.getElementById('matchResult');
+        resultDiv.style.display = 'block';
+        if (correct === matchTerms.length) {
+            resultDiv.innerHTML = '🎉🎉🎉 Xuất sắc! Bé ghép đúng hết 4 cặp. Con hiểu hành trình của mình quá! 🎉🎉🎉';
+            resultDiv.style.background = "#DFF0DF";
+        } else {
+            resultDiv.innerHTML = `🌱 Bé ghép đúng ${correct}/4 cặp. Thử lại lần nữa xem nào, con làm tốt lắm! 💖`;
+            resultDiv.style.background = "#FFEFE0";
+        }
+    }
+
+    // ---------------------- BÀI TẬP 2: CẢM XÚC ----------------------
+    const emotions = [
+        { emoji: "😊", label: "Vui vẻ", value: "happy", isGood: true },
+        { emoji: "🥰", label: "Yêu thương", value: "love", isGood: true },
+        { emoji: "😌", label: "An toàn", value: "safe", isGood: true },
+        { emoji: "😢", label: "Buồn", value: "sad", isGood: false }
+    ];
+
+    let selectedEmotion = null;
+
+    function renderEmotions() {
+        const container = document.getElementById('emotionArea');
+        container.innerHTML = '';
+        const btnWrapper = document.createElement('div');
+        btnWrapper.className = 'emotion-buttons';
+        
+        emotions.forEach(em => {
+            const btn = document.createElement('div');
+            btn.className = 'emotion-btn';
+            if (selectedEmotion === em.value) btn.classList.add('selected');
+            btn.innerHTML = `
+                <div class="emotion-emoji">${em.emoji}</div>
+                <div class="emotion-label">${em.label}</div>
+            `;
+            btn.onclick = () => {
+                selectedEmotion = em.value;
+                renderEmotions();
+            };
+            btnWrapper.appendChild(btn);
+        });
+        container.appendChild(btnWrapper);
+    }
+
+    function checkEmotion() {
+        const resultDiv = document.getElementById('emotionResult');
+        resultDiv.style.display = 'block';
+        if (selectedEmotion === 'happy' || selectedEmotion === 'love' || selectedEmotion === 'safe') {
+            resultDiv.innerHTML = '🎉🎉🎉 Đúng rồi! Khi được bố mẹ ôm ấp, con cảm thấy vui vẻ, yêu thương và an toàn. Đó là cảm giác tuyệt vời nhất! 🥰🎉🎉🎉';
+            resultDiv.style.background = "#DFF0DF";
+        } else if (selectedEmotion === 'sad') {
+            resultDiv.innerHTML = '🌻 Con yêu à, khi được bố mẹ ôm, con sẽ thấy vui vẻ và an toàn hơn là buồn. Hãy thử chọn lại cảm xúc khác nhé! 💕';
+            resultDiv.style.background = "#FFEFE0";
+        } else {
+            resultDiv.innerHTML = '🌸 Con hãy chọn một cảm xúc mà con cảm thấy khi được bố mẹ ôm ấp nhé! 🥰';
+            resultDiv.style.background = "#FFEFE0";
+        }
+    }
+
+    // ---------------------- BÀI TẬP 3: ĐÚNG/SAI ----------------------
+    const tfData = [
+        { text: "Khi đến lúc chào đời, con đã sẵn sàng để ra ngoài gặp bố mẹ. 🤗", correct: true },
+        { text: "Sau khi sinh, mẹ không ôm con ngay. 😢", correct: false },
+        { text: "Da kề da giúp con ấm áp và nghe được nhịp tim của mẹ. 💓", correct: true },
+        { text: "Con không phải là món quà đặc biệt của cả nhà. 🎁", correct: false }
+    ];
+
+    let tfAnswers = [null, null, null, null];
+
+    function renderTF() {
+        const container = document.getElementById('tfQuestions');
+        container.innerHTML = '';
+        tfData.forEach((item, idx) => {
+            const qDiv = document.createElement('div');
+            qDiv.className = 'question-item';
+            qDiv.innerHTML = `<div class="question-text">${idx+1}. ${item.text}</div>`;
+            const btnWrapper = document.createElement('div');
+            btnWrapper.style.display = 'flex';
+            btnWrapper.style.gap = '20px';
+            btnWrapper.style.marginTop = '8px';
+            
+            const trueBtn = document.createElement('button');
+            trueBtn.innerText = '✅ Đúng';
+            trueBtn.style.background = '#F3EAF8';
+            trueBtn.style.border = 'none';
+            trueBtn.style.padding = '8px 24px';
+            trueBtn.style.borderRadius = '40px';
+            trueBtn.style.fontWeight = 'bold';
+            trueBtn.style.cursor = 'pointer';
+            trueBtn.style.fontSize = '16px';
+            if (tfAnswers[idx] === true) {
+                trueBtn.style.background = '#9BC4A0';
+                trueBtn.style.color = 'white';
+            }
+            
+            const falseBtn = document.createElement('button');
+            falseBtn.innerText = '❌ Sai';
+            falseBtn.style.background = '#B87BC2';
+            falseBtn.style.border = 'none';
+            falseBtn.style.padding = '8px 24px';
+            falseBtn.style.borderRadius = '40px';
+            falseBtn.style.fontWeight = 'bold';
+            falseBtn.style.cursor = 'pointer';
+            falseBtn.style.fontSize = '16px';
+            if (tfAnswers[idx] === false) {
+                falseBtn.style.background = '#E6A28C';
+                falseBtn.style.color = 'white';
+            }
+
+            trueBtn.onclick = () => {
+                tfAnswers[idx] = true;
+                renderTF();
+            };
+            falseBtn.onclick = () => {
+                tfAnswers[idx] = false;
+                renderTF();
+            };
+            btnWrapper.appendChild(trueBtn);
+            btnWrapper.appendChild(falseBtn);
+            qDiv.appendChild(btnWrapper);
+            container.appendChild(qDiv);
+        });
+    }
+
+    function checkTF() {
+        let correctCount = 0;
+        tfData.forEach((item, idx) => {
+            if (tfAnswers[idx] === item.correct) correctCount++;
+        });
+        const resultDiv = document.getElementById('tfResult');
+        resultDiv.style.display = 'block';
+        if (correctCount === tfData.length) {
+            resultDiv.innerHTML = '🎉🎉🎉 Bé giỏi quá! Con hiểu rõ hành trình chào đời của mình rồi! 🎉🎉🎉';
+            resultDiv.style.background = "#DFF0DF";
+        } else {
+            resultDiv.innerHTML = `💪 Bé trả lời đúng ${correctCount}/${tfData.length} câu. Cùng xem lại bài và chọn lại nha con yêu! 🧸💕`;
+            resultDiv.style.background = "#FFEFE0";
+        }
+    }
+
+    function init() {
+        renderMatching();
+        renderEmotions();
+        renderTF();
+        document.getElementById('checkMatchBtn').addEventListener('click', checkMatching);
+        document.getElementById('checkEmotionBtn').addEventListener('click', checkEmotion);
+        document.getElementById('checkTfBtn').addEventListener('click', checkTF);
+    }
+    init();
+</script>
+</body>
+</html>
