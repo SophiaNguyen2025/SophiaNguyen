@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Kỹ năng an toàn cho trẻ 5-10 tuổi | Sophia Nguyễn</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="description" content="9 bài học giúp trẻ phòng tránh tai nạn thương tích, bạo lực học đường, xâm hại, đuối nước, bắt cóc và các kỹ năng an toàn khác. Có bài tập tương tác, âm thanh, hình ảnh sinh động.">
+    <meta name="keywords" content="kỹ năng an toàn cho trẻ, phòng chống tai nạn, bạo lực học đường, xâm hại trẻ em, đuối nước, bắt cóc">
+    <meta name="author" content="Sophia Nguyễn">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
@@ -18,247 +19,281 @@
             --gradient: linear-gradient(135deg, #dc2626 0%, #ef4444 50%, #f87171 100%);
             --gradient-soft: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
         }
-        body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--gradient-soft); color: var(--dark); }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-        
-        .navbar { background: white; box-shadow: 0 2px 20px rgba(0,0,0,0.05); padding: 1rem 0; position: sticky; top: 0; z-index: 100; }
-        .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; line-height: 1.6; color: var(--dark); background: var(--gradient-soft); min-height: 100vh; }
+        .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--gradient); display: flex; align-items: center; justify-content: center; z-index: 2000; }
+        .loading-spinner { background: white; padding: 2rem 3rem; border-radius: 32px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        .loading-spinner i { font-size: 3rem; color: var(--primary); animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .unlock-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--gradient); display: flex; align-items: center; justify-content: center; z-index: 1999; transition: all 0.5s ease; }
+        .unlock-box { background: var(--white); padding: 2.5rem; border-radius: 48px; text-align: center; max-width: 420px; width: 90%; box-shadow: 0 30px 50px rgba(0,0,0,0.2); animation: fadeInUp 0.5s ease; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .unlock-box i { font-size: 4rem; color: var(--primary); margin-bottom: 1rem; }
+        .unlock-box h2 { margin-bottom: 0.5rem; color: var(--dark); }
+        .unlock-box p { color: var(--gray); margin-bottom: 1.5rem; }
+        .unlock-input { display: flex; gap: 10px; margin-bottom: 1rem; flex-wrap: wrap; }
+        .unlock-input input { flex: 1; padding: 14px 20px; border: 2px solid var(--light-gray); border-radius: 60px; font-size: 1rem; outline: none; text-align: center; letter-spacing: 1px; }
+        .unlock-input input:focus { border-color: var(--primary); }
+        .unlock-btn { background: var(--gradient); color: white; border: none; padding: 14px 28px; border-radius: 60px; font-weight: 600; cursor: pointer; width: 100%; font-size: 1rem; transition: transform 0.2s; }
+        .unlock-btn:hover { transform: translateY(-2px); }
+        .error-msg { color: #e53e3e; font-size: 0.85rem; margin-top: 1rem; display: none; }
+        .main-content { display: none; }
+        .navbar { background: var(--white); box-shadow: 0 4px 20px rgba(0,0,0,0.05); padding: 1rem 0; position: sticky; top: 0; z-index: 100; }
+        .nav-container { max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
         .logo { font-size: 1.5rem; font-weight: bold; background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; display: flex; align-items: center; gap: 10px; }
         .logo i { background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; font-size: 1.8rem; }
-        .nav-links { display: flex; gap: 2rem; list-style: none; }
-        .nav-links a { text-decoration: none; color: var(--gray); font-weight: 500; }
-        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
-        .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; }
-        
+        .user-info { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+        #logoutBtn { background: none; border: none; color: var(--gray); cursor: pointer; font-size: 0.9rem; transition: color 0.2s; }
+        #logoutBtn:hover { color: var(--primary); }
+        .device-manager-btn { background: #f0f0f0; border: none; padding: 6px 12px; border-radius: 20px; font-size: 0.7rem; cursor: pointer; color: var(--primary); transition: all 0.2s; }
+        .device-manager-btn:hover { background: var(--primary); color: white; }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
         .hero { background: var(--gradient); padding: 60px 0 50px; text-align: center; color: white; border-radius: 0 0 40px 40px; }
-        .hero h1 { font-size: 2.2rem; margin-bottom: 1rem; }
-        .hero p { font-size: 1.1rem; max-width: 700px; margin: 0 auto; }
-        
-        .section { padding: 50px 0; }
-        .section-title { text-align: center; font-size: 2rem; color: var(--primary); margin-bottom: 16px; }
-        
-        .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 30px; margin: 40px 0; }
-        .course-card { background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: all 0.3s; border: 1px solid var(--light-gray); }
+        .hero h1 { font-size: 2rem; margin-bottom: 1rem; }
+        .hero p { font-size: 1rem; max-width: 700px; margin: 0 auto; }
+        .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 28px; margin: 30px 0; }
+        .course-card { background: var(--white); border-radius: 24px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: all 0.3s; cursor: pointer; border: 1px solid var(--light-gray); }
         .course-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
         .course-header { background: var(--gradient); padding: 20px; color: white; text-align: center; }
         .course-icon { font-size: 2.5rem; margin-bottom: 8px; }
-        .course-header h3 { font-size: 1.1rem; }
+        .course-header h3 { font-size: 1.1rem; margin-bottom: 4px; }
         .course-content { padding: 20px; }
-        .course-desc { color: var(--gray); font-size: 0.9rem; margin-bottom: 16px; }
-        .course-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--light-gray); }
-        .course-price { font-weight: bold; font-size: 1.2rem; color: var(--primary); }
-        .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); padding: 8px 20px; border-radius: 40px; cursor: pointer; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.2s; }
-        .btn-outline:hover { background: var(--primary); color: white; }
-       
-        .cta-section { text-align: center; padding: 50px 40px; background: var(--gradient); color: white; border-radius: 32px; margin: 40px 0; }
-        .btn-cta { background: white; color: var(--primary); padding: 14px 32px; border-radius: 50px; font-weight: 700; text-decoration: none; display: inline-block; margin: 0 8px; }
-        .btn-cta-outline { background: transparent; border: 2px solid white; color: white; padding: 12px 28px; border-radius: 50px; font-weight: 600; text-decoration: none; display: inline-block; margin: 0 8px; }
+        .course-desc { color: var(--gray); font-size: 0.9rem; margin-bottom: 16px; line-height: 1.5; }
+        .course-footer { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--light-gray); display: flex; justify-content: space-between; align-items: center; }
+        .course-price { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .price-old { font-size: 0.9rem; color: #999; text-decoration: line-through; }
+        .price-new { font-size: 1.3rem; font-weight: bold; color: var(--primary); }
+        .btn-buy { background: var(--gradient); color: white; border: none; padding: 8px 20px; border-radius: 40px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.2s; }
+        .btn-buy:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(220,38,38,0.3); }
+        .footer { background: #0a4a5a; color: white; padding: 40px 0 20px; margin-top: 60px; text-align: center; }
         
-        .footer { background: var(--dark); color: white; padding: 40px 0 20px; text-align: center; margin-top: 60px; }
-        
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .menu-toggle { display: block; }
-            .hero h1 { font-size: 1.6rem; }
-            .section-title { font-size: 1.5rem; }
-            .courses-grid { grid-template-columns: 1fr; }
-            .btn-cta, .btn-cta-outline { display: block; margin: 12px auto; width: fit-content; }
+        /* Combo badge */
+        .combo-badge {
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            border-radius: 60px;
+            padding: 20px 30px;
+            margin: 30px auto 20px;
+            text-align: center;
+            max-width: 500px;
+            animation: pulse 1.5s infinite;
+            cursor: pointer;
+            transition: 0.2s;
         }
-  /* Header và logo */
-.header {
-    background: white;
-    padding: 15px 0;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-}
-.header-container {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo img {
-    height: 80px;  /* Chỉnh chiều cao logo theo ý chị */
-    width: auto;
-    display: block;
-}
-
-/* Responsive trên mobile */
-@media (max-width: 768px) {
-    .logo img {
-        height: 45px;
-    }
-}
+        .combo-badge:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(255,215,0,0.5);
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,215,0,0.4); }
+            70% { transform: scale(1.02); box-shadow: 0 0 0 15px rgba(255,215,0,0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,215,0,0); }
+        }
+        .combo-badge h3 { color: #1a1a2e; font-size: 1.5rem; margin-bottom: 8px; }
+        .combo-badge p { color: #1a1a2e; font-size: 0.9rem; margin-bottom: 12px; }
+        .combo-price { font-size: 1.8rem; font-weight: 800; color: #1a1a2e; }
+        .combo-old-price { font-size: 1rem; text-decoration: line-through; color: #555; margin-left: 10px; }
+        .btn-combo { background: #1a1a2e; color: #ffd700; border: none; padding: 10px 24px; border-radius: 40px; font-weight: 700; cursor: pointer; margin-top: 10px; }
+        .btn-combo:hover { background: #2a2a3e; transform: translateY(-2px); }
+        
+        @media (max-width: 768px) { .hero h1 { font-size: 1.5rem; } .courses-grid { grid-template-columns: 1fr; } .course-footer { flex-direction: column; gap: 12px; } .combo-badge { margin: 20px; padding: 15px 20px; } }
+        .loading-text { text-align: center; padding: 40px; color: var(--gray); }
+        .device-list { margin-top: 10px; }
+        .device-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid var(--light-gray); }
+        .device-item:last-child { border-bottom: none; }
+        .device-info { flex: 1; }
+        .device-name { font-weight: 600; color: var(--dark); }
+        .device-time { font-size: 0.7rem; color: var(--gray); }
+        .logout-device-btn { background: #fee2e2; border: none; padding: 4px 12px; border-radius: 20px; color: #e53e3e; cursor: pointer; font-size: 0.7rem; transition: all 0.2s; }
+        .logout-device-btn:hover { background: #e53e3e; color: white; }
+        .current-badge { background: var(--primary); color: white; padding: 2px 8px; border-radius: 20px; font-size: 0.6rem; margin-left: 8px; }
     </style>
-    
 </head>
-             <header class="header">
-    <div class="container header-container">
-        <a href="https://sophianguyen.com.vn/index.html" class="logo">
-            <img src="https://sophianguyen.com.vn/images/hinhremovenen.png" alt="Sophia Logo" />
-        </a>
-            </div>
-</header>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo"><i class="fas fa-heart"></i><span>Sophia Nguyễn</span></div>
-            <div class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">☰</div>
-            <ul class="nav-links">
-                <li><a href="https://sophianguyen.com.vn">Trang chủ</a></li>
-                <li><a href="index.html" class="active">Khóa an toàn</a></li>
-                <li><a href="https://sophianguyen.com.vn/khoa-hoc/gioi-tinh/gioi-thieu/">Khóa giới tính</a></li>
-                <li><a href="https://sophianguyen.com.vn/khoa-hoc/cha-me/gioi-thieu/">Khóa cha mẹ</a></li>
-            </ul>
+    <div class="loading-overlay" id="loadingOverlay"><div class="loading-spinner"><i class="fas fa-heart fa-spin"></i><p style="margin-top: 1rem;">Đang tải dữ liệu...</p></div></div>
+    <div class="unlock-screen" id="unlockScreen">
+        <div class="unlock-box">
+            <i class="fas fa-lock"></i>
+            <h2>Khóa học Kỹ năng An toàn</h2>
+            <p>Vui lòng nhập mã khóa học để bắt đầu</p>
+            <div class="unlock-input"><input type="text" id="licenseKey" placeholder="Nhập mã khóa học" autocomplete="off"></div>
+            <button class="unlock-btn" id="unlockBtn"><i class="fas fa-unlock-alt"></i> Mở khóa khóa học</button>
+            <div class="error-msg" id="errorMsg">Mã khóa học không hợp lệ! Vui lòng liên hệ Sophia Nguyễn để được hỗ trợ.</div>
         </div>
-    </nav>
-    <section class="hero">
-        <div class="container">
-            <h1>🛡️ Biệt đội bảo vệ – Kỹ năng an toàn cho trẻ 5-10 tuổi</h1>
-            <p>8 bài học độc lập, trang bị kỹ năng phòng tránh tai nạn, bạo lực, xâm hại, đuối nước, bắt cóc...</p>
-        </div>
-    </section>
-    <div class="container">
-        <div class="courses-grid" id="coursesGrid"></div>
-<!-- Phần Học thử miễn phí -->
-        
-<div class="try-section">
-    <div class="try-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
-        <!-- Cột 1: Học thử -->
-        <div class="try-box" style="text-align: center;">
-            <h3 style="color: var(--primary); margin-bottom: 16px;">🎬 Học thử miễn phí</h3>
-            <p>Xem ngay bài học mẫu để trải nghiệm nội dung và hình thức tương tác</p>
-            <div class="try-video" style="position: relative; padding-bottom: 56.25%; height: 0; margin: 20px 0; background: #000; border-radius: 20px; overflow: hidden;">
-                <iframe id="trialVideo" src="https://www.youtube.com/embed/_eXx_9_QAEA?enablejsapi=1" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div class="main-content" id="mainContent">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo"><i class="fas fa-heart"></i><span>Sophia Nguyễn</span></div>
+                <div class="user-info">
+                    <span id="userNameDisplay"><i class="fas fa-user-circle"></i> Học viên</span>
+                    <button id="manageDevicesBtn" class="device-manager-btn" style="display:none;"><i class="fas fa-laptop"></i> Quản lý thiết bị</button>
+                    <button id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Thoát</button>
+                </div>
             </div>
-            <a href="#" class="btn-try" style="background: var(--gradient); color: white; border: none; padding: 12px 28px; border-radius: 40px; font-weight: 600; text-decoration: none; display: inline-block; margin-top: auto;"><i class="fas fa-play"></i> Khám phá khóa học</a>
-        </div>
-
-        <!-- Cột 2: Hướng dẫn sử dụng -->
-        <div class="try-box" style="text-align: center;">
-            <h3 style="color: var(--primary); margin-bottom: 16px;">📘 Hướng dẫn sử dụng</h3>
-            <p>Cách đăng nhập, tải tài liệu và quản lý thiết bị</p>
-            <div class="try-video" style="position: relative; padding-bottom: 56.25%; height: 0; margin: 20px 0; background: #000; border-radius: 20px; overflow: hidden;">
-                <iframe src="https://www.youtube.com/embed/aL9psAdU-AE" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" frameborder="0" allowfullscreen></iframe>
+        </nav>
+        <section class="hero"><div class="container"><h1>🛡️ Biệt đội bảo vệ – Kỹ năng an toàn cho trẻ 5-10 tuổi</h1><p>Chọn bài học để bắt đầu</p></div></section>
+        <div class="container">
+            <div class="courses-grid" id="coursesGrid"></div>
+            
+            <!-- COMBO BADGE -->
+            <div class="combo-badge" onclick="window.open('https://zalo.me/0977092182', '_blank')">
+                <h3>⚡ SIÊU BẢO VỆ ⚡</h3>
+                <p>Mua 3 chủ đề bất kỳ - Tặng ngay 1 chủ đề!</p>
+                <div><span class="combo-price">129.000đ</span> <span class="combo-old-price">397.000đ</span></div>
+                <button class="btn-combo">🎯 CHỌN NGAY</button>
+            </div>
+            
+            <div class="cta-section" style="margin-top: 20px;">
+                <h2>🚀 Sẵn sàng trang bị kỹ năng an toàn cho con?</h2>
+                <p style="margin-bottom: 24px;">Đăng ký ngay để nhận tư vấn và được hỗ trợ mã khóa học</p>
+                <a href="https://zalo.me/0977092182" class="btn-cta" style="background: white; color: var(--primary); padding: 14px 32px; border-radius: 50px; font-weight: 700; text-decoration: none; display: inline-block; margin: 0 8px;">📩 Đăng ký ngay</a>
+                <a href="https://sophianguyen.com.vn/khoa-hoc/ky-nang-an-toan/" class="btn-cta-outline" style="background: transparent; border: 2px solid white; color: white; padding: 12px 28px; border-radius: 50px; font-weight: 600; text-decoration: none; display: inline-block; margin: 0 8px;">🔐 Đã có mã? Đăng nhập</a>
             </div>
         </div>
+        <footer class="footer"><div class="container"><p>🛡️ Đồng hành cùng con yêu - Sophia Nguyễn</p></div></footer>
     </div>
-</div>
-
-<!-- Popup thông báo sau khi xem 50% video -->
-<div id="popupOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center;">
-    <div style="background: white; border-radius: 32px; padding: 40px; text-align: center; max-width: 400px; margin: 20px;">
-        <h3 style="color: var(--primary); margin-bottom: 16px;">🎉 Bạn đã xem được 50% nội dung!</h3>
-        <p style="margin-bottom: 24px;">Đăng ký ngay hôm nay để học tiếp những kiến thức bổ ích cùng con yêu.</p>
-        <a href="https://zalo.me/0977092182" target="_blank" class="btn-try" style="background: var(--gradient); color: white; padding: 12px 28px; border-radius: 40px; text-decoration: none; display: inline-block;">📩 Đăng ký học ngay qua Zalo</a>
-        <button onclick="closePopup()" style="display: block; margin: 16px auto 0; background: none; border: none; color: #999; cursor: pointer;">❌ Đóng</button>
-    </div>
-</div>
-        <div class="cta-section">
-            <h2>🚀 Sẵn sàng trang bị kỹ năng an toàn cho con?</h2>
-            <p style="margin-bottom: 24px;">Đăng ký ngay để nhận tư vấn và được hỗ trợ mã khóa học</p>
-            <a href="https://zalo.me/0977092182" class="btn-cta">📩 Đăng ký ngay</a>
-            <a href="https://sophianguyen.com.vn/khoa-hoc/ky-nang-an-toan/" class="btn-cta-outline">🔐 Đã có mã? Đăng nhập</a>
-        </div>
-    </div>
-
-    <footer class="footer">
-        <div class="container">
-            <p>🛡️ Đồng hành cùng con yêu - Sophia Nguyễn</p>
-            <p>📧 sophianguyen2891@gmail.com | 📞 0977092182</p>
-        </div>
-    </footer>
-
+    <div class="modal" id="courseModal"><div class="modal-content"><div class="modal-header"><h3 id="modalTitle"></h3><div class="close-modal" onclick="closeModal()">✕</div></div><div class="modal-body" id="modalBody"></div></div></div>
+    <div class="modal" id="deviceModal"><div class="modal-content"><div class="modal-header"><h3>📱 Quản lý thiết bị</h3><div class="close-modal" onclick="closeDeviceModal()">✕</div></div><div class="modal-body" id="deviceModalBody"></div></div></div>
     <script>
-                const courses = [
-            { id: 1, name: "Phòng chống tai nạn thương tích", age: "5-10 tuổi", icon: "🩹", price: "99.000đ", originalPrice: "299.000đ", desc: "Nhận biết nguy cơ tai nạn trong nhà, trường học.", chapters: 4 },
-            { id: 2, name: "Phòng tránh bạo lực học đường", age: "5-10 tuổi", icon: "🤝", price: "99.000đ", originalPrice: "299.000đ", desc: "Nhận diện bạo lực và cách ứng phó.", chapters: 4 },
-            { id: 3, name: "Phòng chống tai nạn điện", age: "5-10 tuổi", icon: "⚡", price: "99.000đ", originalPrice: "299.000đ", desc: "An toàn khi sử dụng điện.", chapters: 4 },
-            { id: 4, name: "Dinh dưỡng an toàn", age: "5-10 tuổi", icon: "🥗", price: "99.000đ", originalPrice: "299.000đ", desc: "Thói quen ăn uống lành mạnh.", chapters: 4 },
-            { id: 5, name: "Phòng tránh xâm hại", age: "5-10 tuổi", icon: "🛡️", price: "99.000đ", originalPrice: "299.000đ", desc: "Nhận biết vùng riêng tư, quy tắc an toàn cơ thể.", chapters: 4 },
-            { id: 6, name: "Phòng chống hỏa hoạn", age: "5-10 tuổi", icon: "🔥", price: "99.000đ", originalPrice: "299.000đ", desc: "Kỹ năng thoát hiểm khi có cháy.", chapters: 4 },
-            { id: 7, name: "Phòng tránh đuối nước", age: "5-10 tuổi", icon: "🏊", price: "99.000đ", originalPrice: "299.000đ", desc: "An toàn khi bơi, nhận biết vùng nước nguy hiểm.", chapters: 4 },
-            { id: 8, name: "Phòng chống bắt cóc", age: "5-10 tuổi", icon: "🚨", price: "99.000đ", originalPrice: "299.000đ", desc: "Nhận diện thủ đoạn của kẻ xấu.", chapters: 4 },
-            { id: 9, name: "Siêu năng lực cứu hộ (Sơ cấp cứu)", age: "5-10 tuổi", icon: "🦸", price: "99.000đ", originalPrice: "299.000đ", desc: "Kỹ năng sơ cấp cứu cơ bản: xử lý vết thương, hóc dị vật, gọi cấp cứu.", chapters: 4 }
+        const API_URL = "https://script.google.com/macros/s/AKfycbw23SDMSj-9mzkGgVanZOPL-atN7PZYJJ2H-tOkb2HyZlAxblso_W3-T-puqvgeUz_k/exec";
+       
+        const ALL_COURSES = [
+            { id: 1, name: "Phòng chống tai nạn thương tích", icon: "🩹", desc: "Nhận biết nguy cơ tai nạn trong nhà, trường học, nơi công cộng.", file: "bai-1-tai-nan-thuong-tich.html", price: 99000, originalPrice: 299000 },
+            { id: 2, name: "Phòng tránh bạo lực học đường", icon: "🤝", desc: "Nhận diện bạo lực và cách ứng phó.", file: "bai-2-bao-luc-hoc-duong.html", price: 99000, originalPrice: 299000 },
+            { id: 3, name: "Phòng chống tai nạn điện", icon: "⚡", desc: "An toàn khi sử dụng điện.", file: "bai-3-tai-nan-dien.html", price: 99000, originalPrice: 299000 },
+            { id: 4, name: "Dinh dưỡng an toàn", icon: "🥗", desc: "Thói quen ăn uống lành mạnh.", file: "bai-4-dinh-duong.html", price: 99000, originalPrice: 299000 },
+            { id: 5, name: "Phòng tránh xâm hại", icon: "🛡️", desc: "Nhận biết vùng riêng tư, quy tắc an toàn cơ thể.", file: "bai-5-xam-hai.html", price: 99000, originalPrice: 299000 },
+            { id: 6, name: "Phòng chống hỏa hoạn", icon: "🔥", desc: "Kỹ năng thoát hiểm khi có cháy.", file: "bai-6-hoa-hoan.html", price: 99000, originalPrice: 299000 },
+            { id: 7, name: "Phòng tránh đuối nước", icon: "🏊", desc: "An toàn khi bơi, nhận biết vùng nước nguy hiểm.", file: "bai-7-duoi-nuoc.html", price: 99000, originalPrice: 299000 },
+            { id: 8, name: "Phòng chống bắt cóc", icon: "🚨", desc: "Nhận diện thủ đoạn của kẻ xấu.", file: "bai-8-bat-coc.html", price: 99000, originalPrice: 299000 },
+            { id: 9, name: "Siêu năng lực cứu hộ (Sơ cấp cứu)", icon: "🦸", desc: "Kỹ năng sơ cấp cứu cơ bản: xử lý vết thương, hóc dị vật, gọi cấp cứu.", file: "bai-9-so-cap-cuu.html", price: 99000, originalPrice: 299000 }
         ];
-        
-        function renderCourses() {
+        let currentUser = null, currentAllowedCourseIds = [], currentLicenseKey = null, currentDeviceId = null;
+
+        function getDeviceId() { let id = localStorage.getItem('safety_deviceId'); if (!id) { id = 'dev_' + Date.now() + '_' + Math.random().toString(36).substr(2, 8); localStorage.setItem('safety_deviceId', id); } return id; }
+        function getDeviceName() { const ua = navigator.userAgent; if (ua.includes('iPhone')) return 'iPhone'; if (ua.includes('Android')) return 'Android'; if (ua.includes('Windows')) return 'Windows PC'; if (ua.includes('Mac')) return 'Mac'; return 'Thiết bị khác'; }
+
+        async function authenticate(licenseKey) {
+            const url = `${API_URL}?ma=${encodeURIComponent(licenseKey)}&deviceId=${encodeURIComponent(getDeviceId())}&deviceName=${encodeURIComponent(getDeviceName())}`;
+            try { const res = await fetch(url); return await res.json(); } catch(e) { return { status: "error", message: "Không thể kết nối" }; }
+        }
+        async function getDevices(licenseKey) { try { const res = await fetch(`${API_URL}?action=getDevices&ma=${encodeURIComponent(licenseKey)}`); return await res.json(); } catch(e) { return { status: "error" }; } }
+        async function logoutDevice(licenseKey, deviceId) { try { const res = await fetch(`${API_URL}?action=logout&ma=${encodeURIComponent(licenseKey)}&deviceId=${encodeURIComponent(deviceId)}`); return await res.json(); } catch(e) { return { status: "error" }; } }
+
+        function renderCourses(allowedIds) {
             const grid = document.getElementById('coursesGrid');
             if (!grid) return;
-            grid.innerHTML = courses.map(c => `
+            let filtered = ALL_COURSES.filter(c => allowedIds.includes(c.id));
+            if (filtered.length === 0) { grid.innerHTML = '<div class="loading-text">Bạn chưa được đăng ký bài học nào. Vui lòng liên hệ Sophia để được hỗ trợ.</div>'; return; }
+            grid.innerHTML = filtered.map(course => `
                 <div class="course-card">
-                    <div class="course-header">
-                        <div class="course-icon">${c.icon}</div>
-                        <h3>${c.name}</h3>
-                    </div>
+                    <div class="course-header"><div class="course-icon">${course.icon}</div><h3>${course.name}</h3></div>
                     <div class="course-content">
-                        <p class="course-desc">${c.desc}</p>
+                        <p class="course-desc">${course.desc}</p>
                         <div class="course-footer">
-                            <span class="course-price">${c.price}</span>
-                            <button class="btn-outline" onclick="window.open('https://sophianguyen.com.vn/khoa-hoc/ky-nang-an-toan/', '_blank')">Mua ngay</button>
+                            <div class="course-price">
+                                <span class="price-old">${course.originalPrice.toLocaleString('vi-VN')}đ</span>
+                                <span class="price-new">${course.price.toLocaleString('vi-VN')}đ</span>
+                            </div>
+                            <a href="https://zalo.me/0977092182" class="btn-buy" target="_blank">🛒 Mua ngay</a>
                         </div>
                     </div>
                 </div>
             `).join('');
         }
-        renderCourses();
-    </script>
-    <script>
-    // ========== HỌC THỬ - POPUP SAU 50% VIDEO ==========
-    var tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    
-    var player;
-    var popupShown = false;
-    var checkInterval = null;
-    
-    function onYouTubeIframeAPIReady() {
-        var videoElement = document.getElementById('trialVideo');
-        if (videoElement) {
-            player = new YT.Player('trialVideo', {
-                events: {
-                    'onStateChange': onPlayerStateChange
-                }
-            });
-        }
-    }
-    
-    function onPlayerStateChange(event) {
-        if (popupShown) {
-            if (event.data == YT.PlayerState.PLAYING) {
-                player.pauseVideo();
+
+        async function unlockCourse(key) {
+            const loading = document.getElementById('loadingOverlay');
+            loading.style.display = 'flex';
+            const result = await authenticate(key);
+            loading.style.display = 'none';
+            if (result.status === 'success') {
+                currentUser = result.user;
+                currentAllowedCourseIds = result.courses;
+                currentLicenseKey = key;
+                currentDeviceId = getDeviceId();
+                localStorage.setItem('safety_license', key);
+                localStorage.setItem('safety_user', currentUser);
+                localStorage.setItem('safety_courses', JSON.stringify(currentAllowedCourseIds));
+                document.getElementById('unlockScreen').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+                document.getElementById('userNameDisplay').innerHTML = `<i class="fas fa-user-circle"></i> ${currentUser}`;
+                document.getElementById('manageDevicesBtn').style.display = 'inline-block';
+                renderCourses(currentAllowedCourseIds);
+            } else {
+                const err = document.getElementById('errorMsg');
+                err.innerText = result.message || "Mã khóa không hợp lệ!";
+                err.style.display = 'block';
+                setTimeout(() => err.style.display = 'none', 3000);
             }
-            return;
         }
-        
-        if (event.data == YT.PlayerState.PLAYING) {
-            if (checkInterval) clearInterval(checkInterval);
-            
-            checkInterval = setInterval(function() {
-                if (player && player.getCurrentTime && !popupShown) {
-                    var duration = player.getDuration();
-                    var current = player.getCurrentTime();
-                    if (duration > 0 && (current / duration) >= 0.5) {
-                        clearInterval(checkInterval);
-                        checkInterval = null;
-                        popupShown = true;
-                        player.pauseVideo();
-                        player.seekTo(duration * 0.5);
-                        document.getElementById('popupOverlay').style.display = 'flex';
-                    }
+
+        function logout() {
+            localStorage.removeItem('safety_license');
+            localStorage.removeItem('safety_user');
+            localStorage.removeItem('safety_courses');
+            localStorage.removeItem('safety_deviceId');
+            document.getElementById('unlockScreen').style.display = 'flex';
+            document.getElementById('mainContent').style.display = 'none';
+            document.getElementById('licenseKey').value = '';
+            document.getElementById('manageDevicesBtn').style.display = 'none';
+        }
+
+        async function checkExistingLicense() {
+            const saved = localStorage.getItem('safety_license');
+            if (saved) {
+                const loading = document.getElementById('loadingOverlay');
+                loading.style.display = 'flex';
+                const result = await authenticate(saved);
+                loading.style.display = 'none';
+                if (result.status === 'success') {
+                    currentUser = result.user;
+                    currentAllowedCourseIds = result.courses;
+                    currentLicenseKey = saved;
+                    currentDeviceId = getDeviceId();
+                    document.getElementById('unlockScreen').style.display = 'none';
+                    document.getElementById('mainContent').style.display = 'block';
+                    document.getElementById('userNameDisplay').innerHTML = `<i class="fas fa-user-circle"></i> ${currentUser}`;
+                    document.getElementById('manageDevicesBtn').style.display = 'inline-block';
+                    renderCourses(currentAllowedCourseIds);
+                } else {
+                    localStorage.removeItem('safety_license');
+                    localStorage.removeItem('safety_user');
+                    localStorage.removeItem('safety_courses');
+                    localStorage.removeItem('safety_deviceId');
                 }
-            }, 500);
+            }
+            document.getElementById('loadingOverlay').style.display = 'none';
         }
-    }
-    
-    function closePopup() {
-        document.getElementById('popupOverlay').style.display = 'none';
-    }
-</script>
+
+        async function showDeviceManager() {
+            if (!currentLicenseKey) return;
+            const loading = document.getElementById('loadingOverlay');
+            loading.style.display = 'flex';
+            const result = await getDevices(currentLicenseKey);
+            loading.style.display = 'none';
+            if (result.status === 'success') {
+                const devices = result.devices || [];
+                const modalBody = document.getElementById('deviceModalBody');
+                if (devices.length === 0) modalBody.innerHTML = '<p>Không có thiết bị nào đang đăng nhập.</p>';
+                else {
+                    modalBody.innerHTML = `<p>Hiện tại tài khoản của bạn đang đăng nhập trên ${devices.length} thiết bị:</p><div class="device-list">${devices.map(d => `<div class="device-item"><div class="device-info"><div class="device-name">${escapeHtml(d.deviceName)} ${d.deviceId === currentDeviceId ? '<span class="current-badge">Thiết bị này</span>' : ''}</div><div class="device-time">Đăng nhập: ${new Date(d.lastActive).toLocaleString('vi-VN')}</div></div>${d.deviceId !== currentDeviceId ? `<button class="logout-device-btn" onclick="removeDevice('${d.deviceId}')">Đăng xuất</button>` : ''}</div>`).join('')}</div><p style="margin-top:16px; font-size:0.8rem; color:var(--gray);">* Giới hạn tối đa 2 thiết bị cùng lúc</p>`;
+                }
+                document.getElementById('deviceModal').classList.add('active');
+            } else alert("Không thể tải danh sách thiết bị.");
+        }
+
+        async function removeDevice(deviceId) { if (!currentLicenseKey) return; const loading = document.getElementById('loadingOverlay'); loading.style.display = 'flex'; const result = await logoutDevice(currentLicenseKey, deviceId); loading.style.display = 'none'; if (result.status === 'success') { alert("Đã đăng xuất thiết bị thành công!"); showDeviceManager(); } else alert("Không thể đăng xuất thiết bị."); }
+        function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m])); }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            checkExistingLicense();
+            document.getElementById('unlockBtn').addEventListener('click', () => unlockCourse(document.getElementById('licenseKey').value));
+            document.getElementById('licenseKey').addEventListener('keypress', e => { if (e.key === 'Enter') unlockCourse(e.target.value); });
+            document.getElementById('logoutBtn').addEventListener('click', logout);
+            document.getElementById('manageDevicesBtn').addEventListener('click', showDeviceManager);
+            document.getElementById('deviceModal').addEventListener('click', e => { if (e.target === document.getElementById('deviceModal')) closeDeviceModal(); });
+            window.removeDevice = removeDevice;
+        });
+    </script>
 </body>
 </html>
-
