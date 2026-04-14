@@ -198,6 +198,50 @@
       .blog-header h1 { font-size: 1.6rem; }
       .blog-content { padding: 24px; }
     }
+            /* Nút chia sẻ */
+        .share-section {
+            text-align: center;
+            margin: 40px 0 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 20px;
+        }
+        .share-section h4 {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            color: #2c3e2f;
+        }
+        .share-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+        .share-btn i {
+            font-size: 1rem;
+        }
+        .share-btn.facebook { background: #1877f2; color: white; }
+        .share-btn.twitter { background: #1da1f2; color: white; }
+        .share-btn.linkedin { background: #0077b5; color: white; }
+        .share-btn.zalo { background: #0068ff; color: white; }
+        .share-btn.copy-link { background: #6c757d; color: white; }
+        .share-btn:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
   </style>
 </head>
 <body>
@@ -311,11 +355,21 @@
     <div class="highlight">
       <p><strong>💬 Lời kêu gọi:</strong> Trầm cảm ở tuổi vị thành niên không phải là dấu hiệu của sự yếu đuối, cũng không phải là "bệnh của người giàu" hay "chỉ là thoáng qua". Đó là một vấn đề sức khỏe tâm thần thực sự, cần được nhìn nhận và điều trị một cách nghiêm túc.</p>
       <p>Là cha mẹ, đừng đợi đến khi con lên tiếng cầu cứu. Hãy quan sát, lắng nghe và đồng hành. Đôi khi, chỉ cần một câu nói đúng lúc, một sự hiện diện bên cạnh, cũng đủ để con biết rằng mình không cô đơn.</p>
-      <p style="margin-top: 16px;">🔹 <strong>Trong khóa học "Bản lĩnh Gen Z" và các chương trình tham vấn tâm lý, tôi luôn dành không gian để lắng nghe và hỗ trợ các bạn trẻ cũng như cha mẹ. Nếu bạn cần một người đồng hành, hãy liên hệ với tôi.</strong></p>
+      <p style="margin-top: 16px;">🔹 <strong>Trong khóa học "Bản lĩnh tuổi Teen" và các chương trình tham vấn tâm lý, tôi luôn dành không gian để lắng nghe và hỗ trợ các bạn trẻ cũng như cha mẹ. Nếu bạn cần một người đồng hành, hãy liên hệ với tôi.</strong></p>
     </div>
   </div>
 </div>
-
+<!-- Nút chia sẻ bài viết -->
+<div class="share-section">
+    <h4>📢 Chia sẻ bài viết này</h4>
+    <div class="share-buttons">
+        <a href="#" class="share-btn facebook" onclick="shareOnFacebook()"><i class="fab fa-facebook-f"></i> Facebook</a>
+        <a href="#" class="share-btn twitter" onclick="shareOnTwitter()"><i class="fab fa-twitter"></i> Twitter</a>
+        <a href="#" class="share-btn linkedin" onclick="shareOnLinkedIn()"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+        <a href="#" class="share-btn zalo" onclick="shareOnZalo()"><i class="fas fa-comment-dots"></i> Zalo</a>
+        <button class="share-btn copy-link" onclick="copyPageUrl()"><i class="fas fa-link"></i> Sao chép link</button>
+    </div>
+</div>
 <div class="container">
   <div class="cta-section">
     <h2>💬 Bạn cần hỗ trợ hoặc muốn chia sẻ?</h2>
