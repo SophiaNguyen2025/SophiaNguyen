@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Chương 4: Kỹ năng phản xạ tự vệ | Khóa 1 - Giáo dục giới tính | Sophia Nguyễn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: linear-gradient(145deg, #f0e8e0 0%, #e8c8a8 100%);
+            font-family: 'Segoe UI', 'Be Vietnam Pro', sans-serif;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container { max-width: 1100px; margin: 0 auto; }
+        
+        .header { background: white; border-radius: 32px; padding: 20px; margin-bottom: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .logo { height: 60px; margin-bottom: 10px; }
+        .header h1 { color: #d98f5a; font-size: 1.8rem; }
+        
+        .video-section { background: white; border-radius: 32px; padding: 20px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 24px; overflow: hidden; }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        
+        .exercise { background: white; border-radius: 32px; padding: 20px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .exercise-title { font-size: 1.5rem; color: #d98f5a; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 3px solid #d98f5a; display: inline-block; }
+        
+        /* Flashcard */
+        .flashcard-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin: 20px 0; }
+        .flashcard { width: 260px; height: 200px; perspective: 1000px; cursor: pointer; }
+        .flashcard-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; border-radius: 24px; }
+        .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .flashcard-front { background: linear-gradient(135deg, #fffbf5, #ffe8d4); border: 2px solid #d98f5a; }
+        .flashcard-back { background: #d98f5a; color: white; transform: rotateY(180deg); }
+        .flashcard-emoji { font-size: 48px; margin-bottom: 12px; }
+        .flashcard-title { font-size: 20px; font-weight: bold; margin-bottom: 8px; }
+        .flashcard-desc { font-size: 14px; line-height: 1.4; }
+        
+        /* Accordion Parent Guide */
+        .accordion-item { border: 1px solid #f0d0b0; border-radius: 20px; margin-bottom: 12px; overflow: hidden; }
+        .accordion-header { background: #fff5ea; padding: 15px 20px; cursor: pointer; font-weight: 600; color: #d98f5a; display: flex; justify-content: space-between; align-items: center; }
+        .accordion-header i { transition: transform 0.3s; }
+        .accordion-item.active .accordion-header i { transform: rotate(180deg); }
+        .accordion-content { display: none; padding: 20px; background: white; border-top: 1px solid #f0d0b0; line-height: 1.6; }
+        .accordion-item.active .accordion-content { display: block; }
+        
+        /* Quiz */
+        .quiz-question { background: #fff5ea; border-radius: 20px; padding: 20px; margin-bottom: 20px; }
+        .quiz-question-text { font-size: 18px; font-weight: 600; margin-bottom: 15px; color: #2c3e2f; }
+        .quiz-options { display: flex; flex-direction: column; gap: 10px; }
+        .quiz-option { background: white; border: 2px solid #f0d0b0; border-radius: 60px; padding: 12px 18px; cursor: pointer; transition: 0.2s; color: #333; display: flex; align-items: center; gap: 12px; }
+        .quiz-option:hover { border-color: #d98f5a; background: #fff5ea; }
+        .quiz-option span:first-child { font-size: 24px; min-width: 40px; text-align: center; }
+        .quiz-feedback { margin-top: 12px; padding: 10px; border-radius: 16px; font-size: 14px; }
+        .quiz-feedback.correct { background: #e8f5e9; color: #2ecc71; border-left: 4px solid #2ecc71; }
+        .quiz-feedback.wrong { background: #ffebee; color: #e74c3c; border-left: 4px solid #e74c3c; }
+        
+        .btn-next { background: #d98f5a; color: white; border: none; padding: 12px 24px; border-radius: 40px; font-weight: 600; cursor: pointer; margin-top: 15px; transition: 0.2s; }
+        .btn-next:hover { background: #c27e55; transform: translateY(-2px); }
+        .complete-btn { background: #27ae60; color: white; border: none; padding: 14px; border-radius: 60px; font-weight: bold; width: 100%; margin: 20px 0; cursor: pointer; }
+        .back-link { display: inline-block; margin-top: 20px; color: #d98f5a; text-decoration: none; }
+        
+        .shake { animation: shake 0.3s ease-in-out 0s 2; }
+        @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } 100% { transform: translateX(0); } }
+        #confetti-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; }
+        
+        @media (max-width: 768px) { .flashcard { width: 200px; height: 180px; } .flashcard-emoji { font-size: 36px; } .flashcard-title { font-size: 16px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <img src="https://sophianguyen.com.vn/images/hinhremovenen.png" alt="Sophia Nguyễn" class="logo">
+        <h1>🛡️ Chương 4: Kỹ năng phản xạ tự vệ</h1>
+    </div>
+
+    <div class="video-section">
+        <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/hZznYf2UZqE" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- BÀI TẬP 1: FLASHCARD -->
+    <div class="exercise">
+        <h2 class="exercise-title">📖 Bài tập 1: Flashcard - 3 phép thuật bảo vệ</h2>
+        <p style="margin-bottom: 16px; color: #666;">📌 Click vào thẻ để lật xem mặt sau nhé!</p>
+        <div class="flashcard-grid" id="flashcardGrid"></div>
+    </div>
+
+    <!-- BÀI TẬP 2: PARENT GUIDE (ACCORDION) -->
+    <div class="exercise">
+        <h2 class="exercise-title">📘 Bài tập 2: Cẩm nang dành cho ba mẹ</h2>
+        <div id="parentGuideAccordion"></div>
+    </div>
+
+    <!-- BÀI TẬP 3: TRẮC NGHIỆM CHO BÉ -->
+    <div class="exercise">
+        <h2 class="exercise-title">🎯 Bài tập 3: Bé hãy chọn đáp án đúng nhé!</h2>
+        <div id="quizContainer"></div>
+        <button class="complete-btn" id="completeBtn">✅ Đánh dấu đã hoàn thành chương này</button>
+    </div>
+
+    <a href="/khoa-hoc/gioi-tinh/khoa-1/" class="back-link">← Quay lại danh sách chương</a>
+</div>
+<canvas id="confetti-canvas"></canvas>
+
+<script>
+    // ==================== CONFETTI & ÂM THANH ====================
+    let ctx = null, width = window.innerWidth, height = window.innerHeight, particles = [], animationId = null;
+    function resizeCanvas() { width = window.innerWidth; height = window.innerHeight; const canvas = document.getElementById('confetti-canvas'); if(canvas){ canvas.width = width; canvas.height = height; ctx = canvas.getContext('2d'); } }
+    function createConfetti(duration = 1800) {
+        if(!ctx) return;
+        if(animationId) cancelAnimationFrame(animationId);
+        particles = [];
+        for(let i=0;i<140;i++) {
+            particles.push({ x: Math.random() * width, y: Math.random() * height - height, size: Math.random() * 7 + 3, color: `hsl(${Math.random() * 360}, 80%, 60%)`, speedY: Math.random() * 5 + 3, speedX: (Math.random() - 0.5) * 2, rotation: Math.random() * 360, rotSpeed: (Math.random() - 0.5) * 6 });
+        }
+        drawConfetti();
+        setTimeout(() => { if(animationId) cancelAnimationFrame(animationId); ctx?.clearRect(0,0,width,height); particles = []; }, duration);
+    }
+    function drawConfetti() {
+        if(!ctx) return;
+        ctx.clearRect(0, 0, width, height);
+        let allFinished = true;
+        for(let i=0;i<particles.length;i++) {
+            const p = particles[i];
+            if(p.y < height + 50) {
+                allFinished = false;
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.rotation * Math.PI / 180);
+                ctx.fillStyle = p.color;
+                ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size * 0.6);
+                ctx.restore();
+                p.y += p.speedY;
+                p.x += p.speedX;
+                p.rotation += p.rotSpeed;
+            }
+        }
+        if(!allFinished) animationId = requestAnimationFrame(drawConfetti);
+        else { if(animationId) cancelAnimationFrame(animationId); particles = []; ctx.clearRect(0,0,width,height); }
+    }
+    window.addEventListener('resize', () => { resizeCanvas(); if(particles.length) drawConfetti(); });
+    
+    function playClickSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 880;
+            gain.gain.value = 0.08;
+            osc.type = 'sine';
+            osc.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.08);
+            osc.stop(audioCtx.currentTime + 0.08);
+        } catch(e) {}
+    }
+    
+    function playSuccessSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const frequencies = [880, 1046.5, 1318.5];
+            frequencies.forEach((freq, idx) => {
+                setTimeout(() => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.frequency.value = freq;
+                    gain.gain.value = 0.2;
+                    osc.type = 'sine';
+                    osc.start();
+                    gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                    osc.stop(audioCtx.currentTime + 0.3);
+                }, idx * 120);
+            });
+        } catch(e) {}
+        createConfetti(800);
+    }
+    
+    function playCompleteSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const gain = audioCtx.createGain();
+            gain.connect(audioCtx.destination);
+            gain.gain.value = 0.3;
+            const bufferSize = 4096;
+            const noise = audioCtx.createBufferSource();
+            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for(let i=0; i<bufferSize; i++) data[i] = Math.random() * 2 - 1;
+            noise.buffer = buffer;
+            noise.loop = true;
+            noise.connect(gain);
+            noise.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 1.2);
+            noise.stop(audioCtx.currentTime + 1.2);
+            setTimeout(() => {
+                const osc = audioCtx.createOscillator();
+                const gain2 = audioCtx.createGain();
+                osc.connect(gain2);
+                gain2.connect(audioCtx.destination);
+                osc.frequency.value = 1046.5;
+                gain2.gain.value = 0.3;
+                osc.type = 'sine';
+                osc.start();
+                gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.5);
+                osc.stop(audioCtx.currentTime + 0.5);
+            }, 1000);
+        } catch(e) {}
+        createConfetti(2500);
+    }
+    
+    function playErrorSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 220;
+            gain.gain.value = 0.25;
+            osc.type = 'sawtooth';
+            osc.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.4);
+            osc.stop(audioCtx.currentTime + 0.4);
+            setTimeout(() => {
+                const osc2 = audioCtx.createOscillator();
+                const gain2 = audioCtx.createGain();
+                osc2.connect(gain2);
+                gain2.connect(audioCtx.destination);
+                osc2.frequency.value = 164.81;
+                gain2.gain.value = 0.2;
+                osc2.type = 'sawtooth';
+                osc2.start();
+                gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                osc2.stop(audioCtx.currentTime + 0.3);
+            }, 150);
+        } catch(e) {}
+        document.body.classList.add('shake');
+        setTimeout(() => document.body.classList.remove('shake'), 500);
+    }
+
+    // ========== FLASHCARDS ==========
+    const flashcards = [
+        { emoji: "🗣️🚫", title: "Phép thuật 1: Nói KHÔNG!", desc: "Dùng giọng to, rõ, mạnh mẽ: 'KHÔNG! Đừng chạm vào con!'" },
+        { emoji: "🏃‍♀️💨", title: "Phép thuật 2: Bỏ chạy", desc: "Chạy thật nhanh về phía đông người hoặc nhà của người tin cậy." },
+        { emoji: "🗣️👪", title: "Phép thuật 3: Kể lại", desc: "Tìm bố, mẹ, cô giáo, người lớn tin cậy và kể lại sự việc." },
+        { emoji: "🏠✅", title: "Chạy đến đâu?", desc: "Điểm an toàn: Nhà bà, nhà hàng xóm thân, trường học, nơi đông người." },
+        { emoji: "🏚️❌", title: "Không chạy vào", desc: "Nơi nguy hiểm: Chỗ vắng vẻ, ngõ cụt, nhà bỏ hoang." },
+        { emoji: "🍬🚫", title: "Tình huống: Người lạ cho kẹo", desc: "Nói KHÔNG → Chạy về phía bố mẹ → Kể lại. Không nhận, không ăn!" },
+        { emoji: "🚗🚫", title: "Tình huống: Rủ đi chơi", desc: "Nói KHÔNG → Chạy vào nhà hoặc đến chỗ đông người → Kể lại." },
+        { emoji: "🐿️🛡️✨", title: "Sóc nhắn nhủ", desc: "3 phép thuật là 3 bước thoát hiểm thần kỳ. Hãy luyện tập mỗi ngày!" }
+    ];
+    
+    function renderFlashcards() {
+        const grid = document.getElementById('flashcardGrid');
+        grid.innerHTML = flashcards.map((card, idx) => `
+            <div class="flashcard" data-idx="${idx}">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                        <div class="flashcard-emoji">${card.emoji}</div>
+                        <div class="flashcard-title">${card.title}</div>
+                    </div>
+                    <div class="flashcard-back">
+                        <div class="flashcard-emoji">📖</div>
+                        <div class="flashcard-desc">${card.desc}</div>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+        
+        document.querySelectorAll('.flashcard').forEach(card => {
+            card.addEventListener('click', () => {
+                playClickSound();
+                card.classList.toggle('flipped');
+            });
+        });
+    }
+    
+    // ========== PARENT GUIDE ACCORDION ==========
+    const parentGuideData = [
+        { title: "🎯 Mục tiêu của chương", content: "• Bé biết 3 bước phản xạ khi gặp nguy hiểm: Nói KHÔNG – Bỏ chạy – Kể lại.<br>• Bé nhận biết được đâu là điểm an toàn, đâu là nơi nguy hiểm.<br>• Bé thực hành được các tình huống giả định qua trò chơi đóng vai." },
+        { title: "💬 Câu hỏi thảo luận cùng con", content: "1. 3 phép thuật bảo vệ là gì? → Nói KHÔNG, Bỏ chạy, Kể lại.<br>2. Khi có người lạ cho kẹo, con làm gì? → Nói KHÔNG, chạy về phía bố mẹ, kể lại.<br>3. Con nên chạy đến đâu khi bị người lạ bám theo? → Nhà bà, nhà hàng xóm thân, nơi đông người.<br>4. Con không nên chạy vào đâu? → Chỗ vắng vẻ, ngõ cụt, nhà bỏ hoang." },
+        { title: "🎭 Kịch bản đóng vai (Role-play)", content: "Tình huống 1 – Người lạ cho kẹo: Bố/mẹ đóng vai người lạ. Bé thực hành 3 bước.<br>Tình huống 2 – Bị bám theo: Bé đang đi chơi, có người lạ đi sau. Bé phải chạy vào nhà hàng xóm quen.<br>Tình huống 3 – Kể lại: Sau khi thoát hiểm, bé tìm bố mẹ và kể lại chi tiết." },
+        { title: "✂️ Hoạt động tại nhà", content: "📌 Hoạt động 1: 'Vẽ bản đồ an toàn' – Bé vẽ con đường từ nhà đến trường, đánh dấu các điểm an toàn.<br>🎲 Hoạt động 2: 'Trò chơi đóng vai' – Cả nhà cùng đóng vai các tình huống nguy hiểm.<br>🎨 Hoạt động 3: 'Vẽ áp phích 3 phép thuật' – Bé vẽ 3 bức tranh minh họa 3 bước." },
+        { title: "📚 Bảng từ khóa (Glossary)", content: "• Nói KHÔNG: Dùng giọng to, rõ, mạnh mẽ để từ chối.<br>• Bỏ chạy: Chạy thật nhanh về nơi an toàn, không ngoái lại.<br>• Kể lại: Tìm người lớn tin cậy và kể lại sự việc.<br>• Điểm an toàn: Nhà bà, nhà hàng xóm thân, trường học, nơi đông người." },
+        { title: "❤️ Lưu ý dành cho ba mẹ", content: "✔️ Thực hành thường xuyên: Mỗi tuần dành 10 phút để đóng vai các tình huống.<br>✔️ Không dọa nạt: Tránh gây sợ hãi quá mức cho trẻ.<br>✔️ Khen thưởng: Mỗi khi bé thực hành đúng, hãy ôm và khen con.<br>✔️ Làm gương: Chính bố mẹ cũng cần thực hành để bé noi theo." }
+    ];
+    
+    function renderParentGuide() {
+        const container = document.getElementById('parentGuideAccordion');
+        container.innerHTML = parentGuideData.map((item, idx) => `
+            <div class="accordion-item" data-idx="${idx}">
+                <div class="accordion-header">
+                    <span>${item.title}</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="accordion-content">${item.content}</div>
+            </div>
+        `).join('');
+        
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                playClickSound();
+                const item = header.parentElement;
+                item.classList.toggle('active');
+            });
+        });
+    }
+    
+    // ========== QUIZ ==========
+    const quizQuestions = [
+        { text: "🛡️ 3 phép thuật bảo vệ là gì?", options: ["Hát, múa, nhảy", "Nói KHÔNG, Bỏ chạy, Kể lại", "Khóc, la hét, đánh nhau", "Đi theo, nhận quà, giữ bí mật"], correct: 1 },
+        { text: "🛡️ Khi người lạ cho kẹo, con nên làm gì?", options: ["Nhận kẹo và ăn ngay", "Nói KHÔNG, chạy về phía bố mẹ, kể lại", "Đi theo người lạ", "Cất kẹo vào túi"], correct: 1 },
+        { text: "🛡️ Con nên chạy đến đâu khi bị người lạ bám theo?", options: ["Chỗ vắng vẻ", "Ngõ cụt", "Nhà bà, nhà hàng xóm thân, nơi đông người", "Nhà bỏ hoang"], correct: 2 },
+        { text: "🛡️ Sau khi thoát hiểm, con cần làm gì?", options: ["Giữ bí mật", "Kể lại cho bố mẹ hoặc người lớn tin cậy", "Tự mình xử lý", "Quên đi không nhắc lại"], correct: 1 },
+        { text: "🛡️ Khi nói KHÔNG, con cần nói như thế nào?", options: ["Nói nhỏ, lí nhí", "Nói to, rõ, mạnh mẽ", "Nói bằng mắt", "Không nói gì cả"], correct: 1 }
+    ];
+    
+    let currentQuizIndex = 0;
+    let quizAnswers = new Array(quizQuestions.length).fill(null);
+    
+    function renderQuiz() {
+        const container = document.getElementById('quizContainer');
+        if (currentQuizIndex >= quizQuestions.length) {
+            let correct = 0;
+            for (let i = 0; i < quizQuestions.length; i++) if (quizAnswers[i] === quizQuestions[i].correct) correct++;
+            let msg = correct === quizQuestions.length ? '🎉 XUẤT SẮC! Con đã thuộc 3 phép thuật bảo vệ rồi!' : `👍 Con đã trả lời đúng ${correct}/${quizQuestions.length} câu. Hãy xem lại nhé!`;
+            if (correct === quizQuestions.length) playCompleteSound();
+            else playSuccessSound();
+            container.innerHTML = `<div style="background: #f0f0f0; border-radius: 24px; padding: 30px; text-align: center;">
+                <div style="font-size: 48px;">🏆</div>
+                <div style="font-size: 24px; font-weight: bold; color: #d98f5a;">${correct}/${quizQuestions.length}</div>
+                <div style="margin: 15px 0;">${msg}</div>
+                <button class="btn-next" id="resetQuizBtn">🔄 Làm lại bài tập</button>
+            </div>`;
+            document.getElementById('resetQuizBtn')?.addEventListener('click', () => {
+                currentQuizIndex = 0;
+                quizAnswers.fill(null);
+                renderQuiz();
+            });
+            return;
+        }
+        
+        const q = quizQuestions[currentQuizIndex];
+        const savedAnswer = quizAnswers[currentQuizIndex];
+        let html = `<div style="background: #fff5ea; border-radius: 24px; padding: 20px; margin-bottom: 20px;">
+            <div style="font-weight: bold; margin-bottom: 15px;">Câu ${currentQuizIndex + 1}/${quizQuestions.length}</div>
+            <div style="font-size: 18px; margin-bottom: 20px;">${q.text}</div>
+            <div class="quiz-options" id="quizOptions"></div>
+            <div id="quizFeedback" class="quiz-feedback">${savedAnswer !== null ? (savedAnswer === q.correct ? '✅ Đúng rồi!' : '❌ Chưa đúng, hãy xem lại bài học nhé!') : '💡 Hãy chọn đáp án đúng!'}</div>
+            <button class="btn-next" id="nextQuizBtn">${currentQuizIndex === quizQuestions.length - 1 ? '🏁 HOÀN THÀNH' : '➡️ CÂU TIẾP THEO'}</button>
+        </div>`;
+        container.innerHTML = html;
+        
+        const optionsDiv = document.getElementById('quizOptions');
+        q.options.forEach((opt, idx) => {
+            const optDiv = document.createElement('div');
+            optDiv.className = 'quiz-option';
+            if (savedAnswer !== null) {
+                if (savedAnswer === idx && idx === q.correct) optDiv.style.borderColor = '#2ecc71';
+                else if (savedAnswer === idx && idx !== q.correct) optDiv.style.borderColor = '#e74c3c';
+            }
+            optDiv.innerHTML = `<span>${idx === 0 ? '🅰️' : idx === 1 ? '🅱️' : idx === 2 ? '🅲️' : '🅳️'}</span><span>${opt}</span>`;
+            optDiv.onclick = () => {
+                if (quizAnswers[currentQuizIndex] !== null) return;
+                playClickSound();
+                quizAnswers[currentQuizIndex] = idx;
+                const feedback = document.getElementById('quizFeedback');
+                if (idx === q.correct) {
+                    feedback.innerHTML = '✅ Đúng rồi!';
+                    feedback.className = 'quiz-feedback correct';
+                    playSuccessSound();
+                } else {
+                    feedback.innerHTML = `❌ Chưa đúng. Đáp án đúng là: ${q.options[q.correct]}`;
+                    feedback.className = 'quiz-feedback wrong';
+                    playErrorSound();
+                }
+                renderQuiz();
+            };
+            optionsDiv.appendChild(optDiv);
+        });
+        
+        document.getElementById('nextQuizBtn').onclick = () => {
+            if (quizAnswers[currentQuizIndex] === null) {
+                document.getElementById('quizFeedback').innerHTML = '⚠️ Hãy chọn đáp án trước khi tiếp tục!';
+                playErrorSound();
+                return;
+            }
+            playClickSound();
+            currentQuizIndex++;
+            renderQuiz();
+        };
+    }
+    
+    // Hoàn thành bài học
+    let completed = localStorage.getItem('sexed_chuong4_completed') === 'true';
+    const completeBtn = document.getElementById('completeBtn');
+    if (completed) {
+        completeBtn.innerHTML = '✅ Bạn đã hoàn thành chương này';
+        completeBtn.disabled = true;
+        completeBtn.style.opacity = '0.7';
+    }
+    completeBtn.addEventListener('click', () => {
+        if (!completed) {
+            completed = true;
+            localStorage.setItem('sexed_chuong4_completed', 'true');
+            completeBtn.innerHTML = '✅ Bạn đã hoàn thành chương này';
+            completeBtn.disabled = true;
+            completeBtn.style.opacity = '0.7';
+            playCompleteSound();
+        }
+    });
+    
+    renderFlashcards();
+    renderParentGuide();
+    renderQuiz();
+    resizeCanvas();
+</script>
+</body>
+</html>
