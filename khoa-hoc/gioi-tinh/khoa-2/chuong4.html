@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Khóa 2 - Chương 4: Bé là sự kết hợp hoàn hảo | Sophia Nguyen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #F0E8F0;
+            font-family: 'Segoe UI', 'Quicksand', 'Comic Neue', 'Nunito', 'Poppins', cursive;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 32px;
+            padding: 20px;
+            margin-bottom: 25px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            width: 70px;
+            margin: 0 auto 10px auto;
+        }
+
+        .logo img {
+            width: 100%;
+            height: auto;
+        }
+
+        .course-badge {
+            background: #E0D0E8;
+            display: inline-block;
+            padding: 5px 18px;
+            border-radius: 40px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #6B4A80;
+            margin-bottom: 12px;
+        }
+
+        .chapter-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #8B5EA0;
+            text-align: center;
+            background: #F8F4FC;
+            display: inline-block;
+            padding: 8px 30px;
+            border-radius: 60px;
+            margin-top: 5px;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 32px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .video-label {
+            background: #F8F4FC;
+            padding: 12px 20px;
+            font-weight: bold;
+            color: #9B6EB0;
+            font-size: 18px;
+            text-align: center;
+            border-top: 2px solid #E0D0E8;
+        }
+
+        .exercise {
+            background: white;
+            border-radius: 32px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .ex-title {
+            font-size: 26px;
+            font-weight: bold;
+            color: #9B6EB0;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 6px solid #C8A8E0;
+            padding-left: 16px;
+        }
+
+        .ex-desc {
+            color: #8A6A9E;
+            margin-bottom: 20px;
+            font-size: 15px;
+            padding-left: 22px;
+        }
+
+        .question-item {
+            background: #FDFCFE;
+            border-radius: 24px;
+            padding: 16px 20px;
+            margin-bottom: 16px;
+            border: 1px solid #E0D0E8;
+        }
+
+        .question-text {
+            font-weight: 700;
+            color: #5A4A6E;
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 10px 0;
+            padding: 8px 12px;
+            background: #F8F4FC;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .option:hover {
+            background: #F0E8F8;
+            border-color: #C8A8E0;
+        }
+
+        input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #9B6EB0;
+            cursor: pointer;
+        }
+
+        .trait-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .trait-btn {
+            background: #F8F4FC;
+            border: 2px solid #E0D0E8;
+            border-radius: 60px;
+            padding: 15px 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+            min-width: 130px;
+        }
+
+        .trait-btn.selected {
+            background: #C8A8E0;
+            border-color: #9B6EB0;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .trait-emoji {
+            font-size: 40px;
+            display: block;
+        }
+
+        .trait-label {
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .check-btn {
+            background: #9B6EB0;
+            border: none;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 12px 28px;
+            border-radius: 60px;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 100%;
+            transition: 0.2s;
+        }
+
+        .check-btn:hover {
+            background: #8B5EA0;
+        }
+
+        .result-area {
+            margin-top: 18px;
+            background: #F4ECF8;
+            border-radius: 24px;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+            color: #8B5EA0;
+        }
+
+        .sticker-row {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+
+        .sticker {
+            background: #F8F4FC;
+            border-radius: 60px;
+            padding: 8px 18px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+            color: #8B5EA0;
+        }
+
+        @media (max-width: 600px) {
+            .exercise {
+                padding: 18px;
+            }
+            .chapter-title {
+                font-size: 24px;
+                padding: 6px 20px;
+            }
+            .trait-btn {
+                padding: 10px 15px;
+                min-width: 100px;
+            }
+            .trait-emoji {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="logo">
+            <img src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Sophia Nguyen Logo">
+        </div>
+        <div class="course-badge">🌸 Khóa 2 - Dành cho bé 3-5 tuổi</div>
+        <div>
+            <span class="chapter-title">👨‍👩‍👧 Bé là sự kết hợp hoàn hảo</span>
+        </div>
+    </div>
+
+    <!-- Sticker -->
+    <div class="sticker-row">
+        <div class="sticker">🌟 Ngôi sao xanh từ ba</div>
+        <div class="sticker">🌸 Bông hoa hồng từ mẹ</div>
+        <div class="sticker">✨ Bản thiết kế độc nhất</div>
+        <div class="sticker">💖 Báu vật vô giá</div>
+    </div>
+
+    <div class="video-card">
+        <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/AsGUA_go2SU" title="Bài giảng Khóa 2 Chương 4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="video-label">
+            🎬 Bài học: Bé là sự kết hợp hoàn hảo – Ngôi sao xanh từ ba, bông hoa hồng từ mẹ!
+        </div>
+    </div>
+
+    <!-- BÀI TẬP 1: Ai tặng cho con? -->
+    <div class="exercise" id="ex1">
+        <div class="ex-title">🌟 Bài tập 1: Ai đã tặng cho con?</div>
+        <div class="ex-desc">🌸 Mỗi đặc điểm dưới đây là từ ba hay từ mẹ? Hãy chọn nhé!</div>
+        <div id="traitQuiz"></div>
+        <button class="check-btn" id="checkTraitBtn">✅ Kiểm tra bài tập 1</button>
+        <div id="traitResult" class="result-area" style="display: none;"></div>
+    </div>
+
+    <!-- BÀI TẬP 2: Những điều làm nên con -->
+    <div class="exercise" id="ex2">
+        <div class="ex-title">💖 Bài tập 2: Điều gì làm nên con?</div>
+        <div class="ex-desc">🎯 Con có những điều đặc biệt nào? Hãy chọn tất cả những điều đúng nhé!</div>
+        <div id="specialQuiz"></div>
+        <button class="check-btn" id="checkSpecialBtn">✨ Kiểm tra bài tập 2</button>
+        <div id="specialResult" class="result-area" style="display: none;"></div>
+    </div>
+
+    <!-- BÀI TẬP 3: Đúng hay sai -->
+    <div class="exercise" id="ex3">
+        <div class="ex-title">✅❌ Bài tập 3: Đúng hay sai?</div>
+        <div class="ex-desc">🐣 Đọc câu và chọn Đúng (Đ) hoặc Sai (S) nhé.</div>
+        <div id="tfQuestions"></div>
+        <button class="check-btn" id="checkTfBtn">📋 Kiểm tra Đúng/Sai</button>
+        <div id="tfResult" class="result-area" style="display: none;"></div>
+    </div>
+</div>
+
+<script>
+    // ---------------------- BÀI TẬP 1: AI TẶNG? ----------------------
+    const traitData = [
+        { text: "🌟 Vóc dáng cao lớn", correct: "ba" },
+        { text: "🌸 Làn da mịn màng", correct: "me" },
+        { text: "💪 Sự mạnh mẽ", correct: "ba" },
+        { text: "😊 Nụ cười dịu dàng", correct: "me" }
+    ];
+
+    let traitAnswers = [null, null, null, null];
+
+    function renderTraitQuiz() {
+        const container = document.getElementById('traitQuiz');
+        container.innerHTML = '';
+        traitData.forEach((item, idx) => {
+            const qDiv = document.createElement('div');
+            qDiv.className = 'question-item';
+            qDiv.innerHTML = `<div class="question-text">${idx+1}. ${item.text}</div>`;
+            const btnWrapper = document.createElement('div');
+            btnWrapper.style.display = 'flex';
+            btnWrapper.style.gap = '20px';
+            btnWrapper.style.marginTop = '8px';
+            
+            const baBtn = document.createElement('button');
+            baBtn.innerText = '👨 Ba tặng';
+            baBtn.style.background = '#F8F4FC';
+            baBtn.style.border = '2px solid #E0D0E8';
+            baBtn.style.padding = '8px 20px';
+            baBtn.style.borderRadius = '40px';
+            baBtn.style.fontWeight = 'bold';
+            baBtn.style.cursor = 'pointer';
+            baBtn.style.fontSize = '14px';
+            if (traitAnswers[idx] === 'ba') {
+                baBtn.style.background = '#C8A8E0';
+                baBtn.style.color = 'white';
+                baBtn.style.borderColor = '#9B6EB0';
+            }
+            
+            const meBtn = document.createElement('button');
+            meBtn.innerText = '👩 Mẹ tặng';
+            meBtn.style.background = '#F8F4FC';
+            meBtn.style.border = '2px solid #E0D0E8';
+            meBtn.style.padding = '8px 20px';
+            meBtn.style.borderRadius = '40px';
+            meBtn.style.fontWeight = 'bold';
+            meBtn.style.cursor = 'pointer';
+            meBtn.style.fontSize = '14px';
+            if (traitAnswers[idx] === 'me') {
+                meBtn.style.background = '#C8A8E0';
+                meBtn.style.color = 'white';
+                meBtn.style.borderColor = '#9B6EB0';
+            }
+
+            baBtn.onclick = () => {
+                traitAnswers[idx] = 'ba';
+                renderTraitQuiz();
+            };
+            meBtn.onclick = () => {
+                traitAnswers[idx] = 'me';
+                renderTraitQuiz();
+            };
+            btnWrapper.appendChild(baBtn);
+            btnWrapper.appendChild(meBtn);
+            qDiv.appendChild(btnWrapper);
+            container.appendChild(qDiv);
+        });
+    }
+
+    function checkTraitQuiz() {
+        let correctCount = 0;
+        traitData.forEach((item, idx) => {
+            if (traitAnswers[idx] === item.correct) correctCount++;
+        });
+        const resultDiv = document.getElementById('traitResult');
+        resultDiv.style.display = 'block';
+        if (correctCount === traitData.length) {
+            resultDiv.innerHTML = '🎉🎉🎉 Tuyệt vời! Bé biết rõ những món quà từ ba và mẹ rồi! 🎉🎉🎉';
+            resultDiv.style.background = "#DFF0DF";
+        } else {
+            resultDiv.innerHTML = `🌻 Bé trả lời đúng ${correctCount}/${traitData.length} câu. Hãy xem lại bài và thử lại nha con yêu! 💪`;
+            resultDiv.style.background = "#FFEFE0";
+        }
+    }
+
+    // ---------------------- BÀI TẬP 2: ĐIỀU LÀM NÊN CON ----------------------
+    const specialItems = [
+        { text: "🌟 Con có ngoại hình riêng của mình", isCorrect: true },
+        { text: "💖 Con có tấm lòng nhân hậu", isCorrect: true },
+        { text: "🎨 Con giống y hệt người khác (không có gì khác biệt)", isCorrect: false },
+        { text: "🏠 Con là báu vật của cả nhà", isCorrect: true },
+        { text: "😢 Con không có gì đặc biệt", isCorrect: false }
+    ];
+
+    let specialAnswers = [false, false, false, false, false];
+
+    function renderSpecialQuiz() {
+        const container = document.getElementById('specialQuiz');
+        container.innerHTML = '';
+        specialItems.forEach((item, idx) => {
+            const qDiv = document.createElement('div');
+            qDiv.className = 'question-item';
+            qDiv.innerHTML = `
+                <div class="question-text">${idx+1}. ${item.text}</div>
+                <div class="option" style="justify-content: flex-start;">
+                    <input type="checkbox" id="special${idx}" ${specialAnswers[idx] ? 'checked' : ''}>
+                    <label for="special${idx}" style="cursor: pointer;">✅ Đây là điều đúng về con</label>
+                </div>
+            `;
+            const checkbox = qDiv.querySelector('input');
+            checkbox.addEventListener('change', (e) => {
+                specialAnswers[idx] = e.target.checked;
+            });
+            container.appendChild(qDiv);
+        });
+    }
+
+    function checkSpecialQuiz() {
+        let correctCount = 0;
+        specialItems.forEach((item, idx) => {
+            if (specialAnswers[idx] === item.isCorrect) correctCount++;
+        });
+        const resultDiv = document.getElementById('specialResult');
+        resultDiv.style.display = 'block';
+        if (correctCount === specialItems.length) {
+            resultDiv.innerHTML = '🎉🎉🎉 Đúng rồi! Con là báu vật đặc biệt nhất, có ngoại hình riêng, tấm lòng nhân hậu và được cả nhà yêu thương! 🎉🎉🎉';
+            resultDiv.style.background = "#DFF0DF";
+        } else {
+            resultDiv.innerHTML = `🌻 Bé chọn đúng ${correctCount}/${specialItems.length} điều. Hãy suy nghĩ lại: con có những điều gì đặc biệt? Cố lên con yêu! 💪`;
+            resultDiv.style.background = "#FFEFE0";
+        }
+    }
+
+    // ---------------------- BÀI TẬP 3: ĐÚNG/SAI ----------------------
+    const tfData = [
+        { text: "Con là sự kết hợp của ba và mẹ. 👨‍👩‍👧", correct: true },
+        { text: "Mỗi người đều có bản thiết kế giống hệt nhau. 📋", correct: false },
+        { text: "Ba mẹ yêu con vì con giống ai đó. 💕", correct: false },
+        { text: "Con là báu vật vô giá của cả nhà. 💎", correct: true }
+    ];
+
+    let tfAnswers = [null, null, null, null];
+
+    function renderTF() {
+        const container = document.getElementById('tfQuestions');
+        container.innerHTML = '';
+        tfData.forEach((item, idx) => {
+            const qDiv = document.createElement('div');
+            qDiv.className = 'question-item';
+            qDiv.innerHTML = `<div class="question-text">${idx+1}. ${item.text}</div>`;
+            const btnWrapper = document.createElement('div');
+            btnWrapper.style.display = 'flex';
+            btnWrapper.style.gap = '20px';
+            btnWrapper.style.marginTop = '8px';
+            
+            const trueBtn = document.createElement('button');
+            trueBtn.innerText = '✅ Đúng';
+            trueBtn.style.background = '#F8F4FC';
+            trueBtn.style.border = '2px solid #E0D0E8';
+            trueBtn.style.padding = '8px 24px';
+            trueBtn.style.borderRadius = '40px';
+            trueBtn.style.fontWeight = 'bold';
+            trueBtn.style.cursor = 'pointer';
+            trueBtn.style.fontSize = '16px';
+            if (tfAnswers[idx] === true) {
+                trueBtn.style.background = '#C8A8E0';
+                trueBtn.style.color = 'white';
+                trueBtn.style.borderColor = '#9B6EB0';
+            }
+            
+            const falseBtn = document.createElement('button');
+            falseBtn.innerText = '❌ Sai';
+            falseBtn.style.background = '#F8F4FC';
+            falseBtn.style.border = '2px solid #E0D0E8';
+            falseBtn.style.padding = '8px 24px';
+            falseBtn.style.borderRadius = '40px';
+            falseBtn.style.fontWeight = 'bold';
+            falseBtn.style.cursor = 'pointer';
+            falseBtn.style.fontSize = '16px';
+            if (tfAnswers[idx] === false) {
+                falseBtn.style.background = '#C8A8E0';
+                falseBtn.style.color = 'white';
+                falseBtn.style.borderColor = '#9B6EB0';
+            }
+
+            trueBtn.onclick = () => {
+                tfAnswers[idx] = true;
+                renderTF();
+            };
+            falseBtn.onclick = () => {
+                tfAnswers[idx] = false;
+                renderTF();
+            };
+            btnWrapper.appendChild(trueBtn);
+            btnWrapper.appendChild(falseBtn);
+            qDiv.appendChild(btnWrapper);
+            container.appendChild(qDiv);
+        });
+    }
+
+    function checkTF() {
+        let correctCount = 0;
+        tfData.forEach((item, idx) => {
+            if (tfAnswers[idx] === item.correct) correctCount++;
+        });
+        const resultDiv = document.getElementById('tfResult');
+        resultDiv.style.display = 'block';
+        if (correctCount === tfData.length) {
+            resultDiv.innerHTML = '🎉🎉🎉 Xuất sắc! Bé hiểu rõ mình là sự kết hợp hoàn hảo từ ba và mẹ! 🎉🎉🎉';
+            resultDiv.style.background = "#DFF0DF";
+        } else {
+            resultDiv.innerHTML = `💪 Bé trả lời đúng ${correctCount}/${tfData.length} câu. Cùng xem lại bài và chọn lại nha con yêu! 🧸💕`;
+            resultDiv.style.background = "#FFEFE0";
+        }
+    }
+
+    function init() {
+        renderTraitQuiz();
+        renderSpecialQuiz();
+        renderTF();
+        document.getElementById('checkTraitBtn').addEventListener('click', checkTraitQuiz);
+        document.getElementById('checkSpecialBtn').addEventListener('click', checkSpecialQuiz);
+        document.getElementById('checkTfBtn').addEventListener('click', checkTF);
+    }
+    init();
+</script>
+</body>
+</html>
