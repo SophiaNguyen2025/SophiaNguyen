@@ -97,7 +97,6 @@
             border-top: 2px solid #C8D8E8;
         }
 
-        /* Màu sắc 3 bài tập - tông xanh công nghệ */
         .exercise-1 {
             background: white;
             border-radius: 32px;
@@ -319,7 +318,7 @@
         </div>
     </div>
 
-    <!-- BÀI TẬP 1: TRẮC NGHIỆM KIẾN THỨC (màu xanh dương nhạt) -->
+    <!-- BÀI TẬP 1: TRẮC NGHIỆM KIẾN THỨC -->
     <div class="exercise-1">
         <div class="ex-title-1">📝 Bài tập 1: Kiến thức an toàn mạng</div>
         <div class="ex-desc">🧠 Chọn đáp án đúng cho mỗi câu hỏi dưới đây.</div>
@@ -328,7 +327,7 @@
         <div id="quizResult" class="result-area" style="display: none;"></div>
     </div>
 
-    <!-- BÀI TẬP 2: SẮP XẾP THỨ TỰ XỬ LÝ (màu xanh dương trung bình) -->
+    <!-- BÀI TẬP 2: SẮP XẾP THỨ TỰ XỬ LÝ (ĐẢO TÙM LUM) -->
     <div class="exercise-2">
         <div class="ex-title-2">🔢 Bài tập 2: Sắp xếp các bước xử lý</div>
         <div class="ex-desc">🎯 Kéo thả để sắp xếp các bước xử lý khi gặp tình huống nguy hiểm trên mạng theo đúng trình tự.</div>
@@ -337,7 +336,7 @@
         <div id="seqResult" class="result-area" style="display: none;"></div>
     </div>
 
-    <!-- BÀI TẬP 3: XỬ LÝ TÌNH HUỐNG (màu xanh dương đậm) -->
+    <!-- BÀI TẬP 3: XỬ LÝ TÌNH HUỐNG -->
     <div class="exercise-3">
         <div class="ex-title-3">💬 Bài tập 3: Bạn sẽ làm gì?</div>
         <div class="ex-desc">🤔 Đọc tình huống và chọn cách xử lý đúng nhất.</div>
@@ -348,6 +347,53 @@
 </div>
 
 <script>
+    // Audio system
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    
+    function playSound(type) {
+        const now = audioContext.currentTime;
+        const gainNode = audioContext.createGain();
+        gainNode.connect(audioContext.destination);
+        gainNode.gain.value = 0.3;
+
+        const oscillator = audioContext.createOscillator();
+        oscillator.connect(gainNode);
+
+        if (type === 'tick') {
+            oscillator.frequency.value = 880;
+            oscillator.type = 'sine';
+            gainNode.gain.value = 0.15;
+            oscillator.start();
+            oscillator.stop(now + 0.1);
+        } else if (type === 'plop') {
+            oscillator.frequency.value = 440;
+            oscillator.type = 'sine';
+            gainNode.gain.value = 0.2;
+            oscillator.start();
+            oscillator.stop(now + 0.15);
+        } else if (type === 'correct') {
+            oscillator.frequency.value = 880;
+            oscillator.type = 'sine';
+            gainNode.gain.value = 0.2;
+            oscillator.start();
+            oscillator.stop(now + 0.1);
+            setTimeout(() => {
+                const osc2 = audioContext.createOscillator();
+                osc2.connect(gainNode);
+                osc2.frequency.value = 1100;
+                osc2.type = 'sine';
+                osc2.start();
+                osc2.stop(now + 0.2);
+            }, 100);
+        } else if (type === 'wrong') {
+            oscillator.frequency.value = 440;
+            oscillator.type = 'sine';
+            gainNode.gain.value = 0.15;
+            oscillator.start();
+            oscillator.stop(now + 0.2);
+        }
+    }
+
     // ---------------------- BÀI TẬP 1: TRẮC NGHIỆM ----------------------
     const quizData = [
         {
@@ -396,6 +442,7 @@
                 if (quizAnswers[idx] === optIdx) radio.checked = true;
                 radio.addEventListener('change', (e) => {
                     quizAnswers[idx] = parseInt(e.target.value);
+                    playSound('tick');
                 });
                 optDiv.appendChild(radio);
                 optDiv.appendChild(document.createTextNode(opt));
@@ -415,13 +462,15 @@
         if (correct === quizData.length) {
             resultDiv.innerHTML = '🎉🎉🎉 Tuyệt vời! Bé nắm vững kiến thức an toàn mạng! 🎉🎉🎉';
             resultDiv.style.background = "#DFF0DF";
+            playSound('correct');
         } else {
             resultDiv.innerHTML = `📚 Bé trả lời đúng ${correct}/${quizData.length} câu. Hãy xem lại video và thử lại nhé! 💪`;
             resultDiv.style.background = "#FFEFE0";
+            playSound('wrong');
         }
     }
 
-    // ---------------------- BÀI TẬP 2: SẮP XẾP THỨ TỰ ----------------------
+    // ---------------------- BÀI TẬP 2: SẮP XẾP THỨ TỰ (ĐẢO TÙM LUM) ----------------------
     const sequenceItems = [
         { text: "🛑 Dừng lại ngay, không tương tác thêm", order: 1 },
         { text: "🚫 Từ chối yêu cầu / không nhấp vào link lạ", order: 2 },
@@ -430,7 +479,6 @@
         { text: "📞 Nếu cần, báo cáo với cơ quan chức năng (công an, tổng đài 111)", order: 5 }
     ];
 
-    // ĐẢO LỘN THỨ TỰ NGẪU NHIÊN
     let currentSequence = [...sequenceItems].sort(() => Math.random() - 0.5);
     let dragIndex = null;
 
@@ -469,6 +517,7 @@
                     newSeq.splice(idx, 0, dragged);
                     currentSequence = newSeq;
                     renderSequence();
+                    playSound('plop');
                 }
             };
             container.appendChild(row);
@@ -485,9 +534,11 @@
         if (correct === sequenceItems.length) {
             resultDiv.innerHTML = '🎉🎉🎉 Xuất sắc! Bé sắp xếp đúng các bước xử lý khi gặp nguy hiểm trên mạng! 🎉🎉🎉';
             resultDiv.style.background = "#DFF0DF";
+            playSound('correct');
         } else {
             resultDiv.innerHTML = `🌐 Bé sắp xếp đúng ${correct}/${sequenceItems.length} bước. Hãy kéo thả để sắp xếp lại đúng thứ tự nhé! 💪`;
             resultDiv.style.background = "#FFEFE0";
+            playSound('wrong');
         }
     }
 
@@ -558,6 +609,7 @@
                 radio.addEventListener('change', (e) => {
                     sitAnswers[idx] = parseInt(e.target.value);
                     renderSituations();
+                    playSound('tick');
                 });
                 const label = document.createElement('label');
                 label.textContent = opt;
@@ -582,20 +634,28 @@
         if (correct === situations.length) {
             resultDiv.innerHTML = '🎉🎉🎉 Tuyệt vời! Bé biết cách xử lý các tình huống nguy hiểm trên mạng! 🎉🎉🎉';
             resultDiv.style.background = "#DFF0DF";
+            playSound('correct');
         } else {
             resultDiv.innerHTML = `💪 Bé xử lý đúng ${correct}/${situations.length} tình huống. Hãy xem lại và chọn lại nhé! 🌐`;
             resultDiv.style.background = "#FFEFE0";
+            playSound('wrong');
         }
     }
 
-    // Khởi tạo
-    renderQuiz();
-    renderSequence();
-    renderSituations();
-
-    document.getElementById('checkQuizBtn').addEventListener('click', checkQuiz);
-    document.getElementById('checkSeqBtn').addEventListener('click', checkSequence);
-    document.getElementById('checkSitBtn').addEventListener('click', checkSituations);
+    function init() {
+        renderQuiz();
+        renderSequence();
+        renderSituations();
+        
+        document.getElementById('checkQuizBtn').addEventListener('click', checkQuiz);
+        document.getElementById('checkSeqBtn').addEventListener('click', checkSequence);
+        document.getElementById('checkSitBtn').addEventListener('click', checkSituations);
+        
+        document.body.addEventListener('click', () => {
+            if (audioContext.state === 'suspended') audioContext.resume();
+        }, { once: true });
+    }
+    init();
 </script>
 </body>
 </html>
