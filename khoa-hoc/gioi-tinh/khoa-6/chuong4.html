@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Khóa 6 - Chương 4: Lá chắn an toàn | Sophia Nguyen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #E8E0F0 0%, #D8D0E8 100%);
+            font-family: 'Segoe UI', 'Quicksand', 'Nunito', 'Poppins', sans-serif;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 32px;
+            padding: 20px;
+            margin-bottom: 25px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            width: 70px;
+            margin: 0 auto 10px auto;
+        }
+
+        .logo img {
+            width: 100%;
+            height: auto;
+        }
+
+        .course-badge {
+            background: linear-gradient(135deg, #9B6EB0, #6A4A8A);
+            display: inline-block;
+            padding: 5px 18px;
+            border-radius: 40px;
+            font-size: 13px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 12px;
+        }
+
+        .chapter-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #6A4A8A;
+            text-align: center;
+            background: #F8F4FC;
+            display: inline-block;
+            padding: 8px 30px;
+            border-radius: 60px;
+            margin-top: 5px;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 32px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .video-label {
+            background: #F8F4FC;
+            padding: 12px 20px;
+            font-weight: bold;
+            color: #6A4A8A;
+            font-size: 18px;
+            text-align: center;
+            border-top: 2px solid #E0D0E8;
+        }
+
+        .exercise-1 {
+            background: white;
+            border-radius: 32px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border-top: 6px solid #A87BC2;
+        }
+
+        .exercise-2 {
+            background: white;
+            border-radius: 32px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border-top: 6px solid #C87BA8;
+        }
+
+        .exercise-3 {
+            background: white;
+            border-radius: 32px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border-top: 6px solid #7A4A9A;
+        }
+
+        .ex-title-1 { font-size: 26px; font-weight: bold; color: #A87BC2; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+        .ex-title-2 { font-size: 26px; font-weight: bold; color: #C87BA8; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+        .ex-title-3 { font-size: 26px; font-weight: bold; color: #7A4A9A; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+
+        .ex-desc {
+            color: #8A6AAA;
+            margin-bottom: 20px;
+            font-size: 15px;
+            padding-left: 22px;
+        }
+
+        /* Bài tập 1: Nhận diện nguy cơ */
+        .question-item {
+            background: #F8F4FC;
+            border-radius: 24px;
+            padding: 16px 20px;
+            margin-bottom: 16px;
+            border: 1px solid #E0D0E8;
+        }
+        .question-text {
+            font-weight: 700;
+            color: #6A4A8A;
+            margin-bottom: 12px;
+            font-size: 17px;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 10px 0;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid #E0D0E8;
+        }
+        .option:hover {
+            background: #F0E8F8;
+        }
+        .option.selected-true { background: #A87BC2; color: white; border-color: #A87BC2; }
+        .option.selected-false { background: #E8A070; color: white; border-color: #E8A070; }
+        input[type="radio"] { width: 18px; height: 18px; cursor: pointer; accent-color: #A87BC2; }
+
+        /* Bài tập 2: Đối thoại an toàn */
+        .practice-card {
+            background: #F8F4FC;
+            border-radius: 24px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #E0D0E8;
+        }
+        .practice-question {
+            font-weight: bold;
+            color: #6A4A8A;
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+        .answer-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #E0D0E8;
+            border-radius: 20px;
+            font-family: inherit;
+            resize: vertical;
+            background: white;
+            margin-top: 10px;
+        }
+
+        /* Bài tập 3: Phân loại biện pháp bảo vệ */
+        .classify-item {
+            background: #F8F4FC;
+            border-radius: 60px;
+            padding: 12px 20px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .classify-text { font-weight: bold; color: #5A4A6A; flex: 1; }
+        .classify-buttons { display: flex; gap: 10px; }
+        .protect-btn { padding: 6px 18px; border-radius: 40px; border: none; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        .protect-sti { background: #E8F8EC; color: #4CAF50; }
+        .protect-sti.selected { background: #4CAF50; color: white; }
+        .protect-preg { background: #FFF8E8; color: #FF9800; }
+        .protect-preg.selected { background: #FF9800; color: white; }
+        .protect-both { background: #E8E0F8; color: #9B6EB0; }
+        .protect-both.selected { background: #9B6EB0; color: white; }
+
+        .check-btn {
+            border: none;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 12px 28px;
+            border-radius: 60px;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 100%;
+            transition: 0.2s;
+        }
+
+        .btn-1 { background: #A87BC2; }
+        .btn-1:hover { background: #986BB2; }
+        .btn-2 { background: #C87BA8; }
+        .btn-2:hover { background: #B86B98; }
+        .btn-3 { background: #7A4A9A; }
+        .btn-3:hover { background: #6A3A8A; }
+
+        .result-area {
+            margin-top: 18px;
+            border-radius: 24px;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .classify-item { flex-direction: column; align-items: stretch; }
+            .classify-buttons { justify-content: center; }
+            .exercise-1, .exercise-2, .exercise-3 { padding: 18px; }
+            .chapter-title { font-size: 24px; padding: 6px 20px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="logo"><img src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Sophia Nguyen Logo"></div>
+        <div class="course-badge">🛡️ Khóa 6 - Dành cho tuổi teen 15+</div>
+        <div><span class="chapter-title">🛡️ Lá chắn an toàn - Yêu là bảo vệ</span></div>
+    </div>
+
+    <div class="video-card">
+        <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/SDy21URooDI" title="Bài giảng Khóa 6 Chương 4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="video-label">🎬 Bài học: Lá chắn an toàn – Yêu là bảo vệ, không phải mạo hiểm!</div>
+    </div>
+
+    <!-- BÀI TẬP 1: NHẬN DIỆN NGUY CƠ -->
+    <div class="exercise-1">
+        <div class="ex-title-1">⚠️ Bài tập 1: Nhận diện nguy cơ & biện pháp bảo vệ</div>
+        <div class="ex-desc">🧠 Chọn ĐÚNG hoặc SAI cho mỗi nhận định dưới đây.</div>
+        <div id="quizArea"></div>
+        <button class="check-btn btn-1" id="checkQuizBtn">✅ Kiểm tra bài tập 1</button>
+        <div id="quizResult" class="result-area" style="display: none;"></div>
+    </div>
+
+    <!-- BÀI TẬP 2: THỰC HÀNH ĐỐI THOẠI AN TOÀN -->
+    <div class="exercise-2">
+        <div class="ex-title-2">💬 Bài tập 2: Thực hành đối thoại an toàn</div>
+        <div class="ex-desc">🗣️ Hãy viết câu trả lời của con trong tình huống cần nói về sự an toàn.</div>
+        <div id="practiceArea"></div>
+        <button class="check-btn btn-2" id="checkPracticeBtn">📝 Lưu câu trả lời & xem gợi ý</button>
+        <div id="practiceResult" class="result-area" style="display: none;"></div>
+    </div>
+
+    <!-- BÀI TẬP 3: PHÂN LOẠI BIỆN PHÁP BẢO VỆ -->
+    <div class="exercise-3">
+        <div class="ex-title-3">🔬 Bài tập 3: Phân loại biện pháp bảo vệ</div>
+        <div class="ex-desc">🛡️ Click chọn biện pháp nào bảo vệ khỏi STI, ngừa thai, hoặc cả hai.</div>
+        <div id="classifyArea"></div>
+        <button class="check-btn btn-3" id="checkClassifyBtn">✅ Kiểm tra bài tập 3</button>
+        <div id="classifyResult" class="result-area" style="display: none;"></div>
+    </div>
+</div>
+
+<script>
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    function playSound(type) {
+        const now = audioContext.currentTime;
+        const gainNode = audioContext.createGain();
+        gainNode.connect(audioContext.destination);
+        gainNode.gain.value = 0.3;
+        const oscillator = audioContext.createOscillator();
+        oscillator.connect(gainNode);
+        if (type === 'tick') {
+            oscillator.frequency.value = 880; oscillator.type = 'sine'; gainNode.gain.value = 0.15;
+            oscillator.start(); oscillator.stop(now + 0.1);
+        } else if (type === 'correct') {
+            oscillator.frequency.value = 880; oscillator.type = 'sine'; gainNode.gain.value = 0.2;
+            oscillator.start(); oscillator.stop(now + 0.1);
+            setTimeout(() => {
+                const osc2 = audioContext.createOscillator();
+                osc2.connect(gainNode);
+                osc2.frequency.value = 1100; osc2.type = 'sine';
+                osc2.start(); osc2.stop(now + 0.2);
+            }, 100);
+        } else if (type === 'wrong') {
+            oscillator.frequency.value = 440; oscillator.type = 'sine'; gainNode.gain.value = 0.15;
+            oscillator.start(); oscillator.stop(now + 0.2);
+        }
+    }
+
+    // ---------------------- BÀI TẬP 1: TRẮC NGHIỆM ----------------------
+    const quizData = [
+        { text: "🛡️ Bao cao su là biện pháp DUY NHẤT vừa ngừa thai vừa ngừa STI khi quan hệ tình dục.", correct: true },
+        { text: "🦠 STI (bệnh lây qua đường tình dục) chỉ có thể lây nhiễm sau nhiều lần quan hệ, không thể lây ngay lần đầu.", correct: false },
+        { text: "💊 Thuốc tránh thai giúp ngăn ngừa thai ngoài ý muốn nhưng KHÔNG bảo vệ khỏi STI.", correct: true },
+        { text: "🔴 Nếu đối phương từ chối dùng bao cao su, con nên đồng ý để tránh mất lòng.", correct: false },
+        { text: "🏥 Sau khi quan hệ không an toàn, con nên đi khám bác sĩ để được tư vấn và xét nghiệm.", correct: true }
+    ];
+    let quizAnswers = new Array(quizData.length).fill(null);
+
+    function renderQuiz() {
+        const container = document.getElementById('quizArea');
+        container.innerHTML = '';
+        quizData.forEach((q, idx) => {
+            const qDiv = document.createElement('div'); qDiv.className = 'question-item';
+            qDiv.innerHTML = `<div class="question-text">${idx+1}. ${q.text}</div>`;
+            const btnWrapper = document.createElement('div'); btnWrapper.style.display = 'flex'; btnWrapper.style.gap = '20px'; btnWrapper.style.marginTop = '8px';
+            const trueBtn = document.createElement('button'); trueBtn.innerText = '✅ Đúng'; trueBtn.style.background = '#F0E8F8'; trueBtn.style.border = '2px solid #E0D0E8'; trueBtn.style.padding = '8px 24px'; trueBtn.style.borderRadius = '40px'; trueBtn.style.fontWeight = 'bold'; trueBtn.style.cursor = 'pointer';
+            const falseBtn = document.createElement('button'); falseBtn.innerText = '❌ Sai'; falseBtn.style.background = '#F0E8F8'; falseBtn.style.border = '2px solid #E0D0E8'; falseBtn.style.padding = '8px 24px'; falseBtn.style.borderRadius = '40px'; falseBtn.style.fontWeight = 'bold'; falseBtn.style.cursor = 'pointer';
+            if (quizAnswers[idx] === true) { trueBtn.style.background = '#A87BC2'; trueBtn.style.color = 'white'; }
+            if (quizAnswers[idx] === false) { falseBtn.style.background = '#E8A070'; falseBtn.style.color = 'white'; }
+            trueBtn.onclick = () => { quizAnswers[idx] = true; renderQuiz(); playSound('tick'); };
+            falseBtn.onclick = () => { quizAnswers[idx] = false; renderQuiz(); playSound('tick'); };
+            btnWrapper.appendChild(trueBtn); btnWrapper.appendChild(falseBtn);
+            qDiv.appendChild(btnWrapper); container.appendChild(qDiv);
+        });
+    }
+
+    function checkQuiz() {
+        let correct = 0;
+        quizData.forEach((q, idx) => { if (quizAnswers[idx] === q.correct) correct++; });
+        const resultDiv = document.getElementById('quizResult');
+        resultDiv.style.display = 'block';
+        if (correct === quizData.length) {
+            resultDiv.innerHTML = '🎉🎉🎉 Tuyệt vời! Con đã hiểu rõ về các biện pháp bảo vệ an toàn! 🎉🎉🎉';
+            resultDiv.style.background = "#DFF0DF"; playSound('correct');
+        } else {
+            resultDiv.innerHTML = `🛡️ Con trả lời đúng ${correct}/${quizData.length} câu. Hãy xem lại bài học và thử lại nhé! 💪`;
+            resultDiv.style.background = "#FFEFE0"; playSound('wrong');
+        }
+    }
+
+    // ---------------------- BÀI TẬP 2: ĐỐI THOẠI AN TOÀN ----------------------
+    const practiceSituations = [
+        { text: "🗣️ Tình huống: Bạn trai/gái của con muốn quan hệ tình dục nhưng từ chối dùng bao cao su vì 'không thích' hoặc 'tin tưởng nhau thì không cần'. Hãy viết câu trả lời của con:",
+          placeholder: "Ví dụ: 'Mình sẽ không đồng ý nếu không có bao cao su. Đó là ranh giới của mình để bảo vệ cả hai.'" }
+    ];
+    let practiceAnswers = [""];
+
+    function renderPractice() {
+        const container = document.getElementById('practiceArea');
+        container.innerHTML = '';
+        practiceSituations.forEach((sit, idx) => {
+            const pDiv = document.createElement('div'); pDiv.className = 'practice-card';
+            pDiv.innerHTML = `
+                <div class="practice-question">${sit.text}</div>
+                <textarea class="answer-input" id="practiceInput${idx}" rows="4" placeholder="${sit.placeholder}">${practiceAnswers[idx]}</textarea>
+            `;
+            const ta = pDiv.querySelector(`#practiceInput${idx}`);
+            ta.addEventListener('input', (e) => { practiceAnswers[idx] = e.target.value; playSound('tick'); });
+            container.appendChild(pDiv);
+        });
+    }
+
+    function checkPractice() {
+        const resultDiv = document.getElementById('practiceResult');
+        resultDiv.style.display = 'block';
+        if (practiceAnswers[0].trim().length > 0) {
+            resultDiv.innerHTML = '🎉🎉🎉 Tuyệt vời! Con đã thực hành kỹ năng đối thoại an toàn. Hãy nhớ: Yêu là bảo vệ, không phải mạo hiểm! 🎉🎉🎉';
+            resultDiv.style.background = "#DFF0DF"; playSound('correct');
+        } else {
+            resultDiv.innerHTML = '💬 Hãy viết câu trả lời của con vào ô trên để thực hành kỹ năng đối thoại an toàn nhé!';
+            resultDiv.style.background = "#FFEFE0"; playSound('wrong');
+        }
+    }
+
+    // ---------------------- BÀI TẬP 3: PHÂN LOẠI BIỆN PHÁP ----------------------
+    const protectItems = [
+        { text: "🛡️ Bao cao su", correct: "both" },
+        { text: "💊 Thuốc tránh thai", correct: "preg" },
+        { text: "🚫 Không quan hệ tình dục", correct: "both" },
+        { text: "🩺 Xét nghiệm STI định kỳ", correct: "sti" }
+    ];
+    let userProtect = protectItems.map(() => null);
+
+    function renderProtect() {
+        const container = document.getElementById('classifyArea');
+        container.innerHTML = '';
+        protectItems.forEach((item, idx) => {
+            const itemDiv = document.createElement('div'); itemDiv.className = 'classify-item';
+            itemDiv.innerHTML = `
+                <div class="classify-text">${item.text}</div>
+                <div class="classify-buttons">
+                    <button class="protect-btn protect-sti ${userProtect[idx] === 'sti' ? 'selected' : ''}" data-idx="${idx}" data-type="sti">🦠 Chống STI</button>
+                    <button class="protect-btn protect-preg ${userProtect[idx] === 'preg' ? 'selected' : ''}" data-idx="${idx}" data-type="preg">🤰 Ngừa thai</button>
+                    <button class="protect-btn protect-both ${userProtect[idx] === 'both' ? 'selected' : ''}" data-idx="${idx}" data-type="both">🛡️ Cả hai</button>
+                </div>
+            `;
+            const stiBtn = itemDiv.querySelector('.protect-sti');
+            const pregBtn = itemDiv.querySelector('.protect-preg');
+            const bothBtn = itemDiv.querySelector('.protect-both');
+            stiBtn.onclick = () => { userProtect[idx] = 'sti'; renderProtect(); playSound('tick'); };
+            pregBtn.onclick = () => { userProtect[idx] = 'preg'; renderProtect(); playSound('tick'); };
+            bothBtn.onclick = () => { userProtect[idx] = 'both'; renderProtect(); playSound('tick'); };
+            container.appendChild(itemDiv);
+        });
+    }
+
+    function checkProtect() {
+        let correct = 0;
+        protectItems.forEach((item, idx) => {
+            if (userProtect[idx] === item.correct) correct++;
+        });
+        const resultDiv = document.getElementById('classifyResult');
+        resultDiv.style.display = 'block';
+        if (correct === protectItems.length) {
+            resultDiv.innerHTML = '🎉🎉🎉 Xuất sắc! Con đã phân biệt được các biện pháp bảo vệ! 🎉🎉🎉';
+            resultDiv.style.background = "#DFF0DF"; playSound('correct');
+        } else {
+            resultDiv.innerHTML = `🔬 Con phân loại đúng ${correct}/${protectItems.length} biện pháp. Hãy xem lại bài học và thử lại nhé! 💪`;
+            resultDiv.style.background = "#FFEFE0"; playSound('wrong');
+        }
+    }
+
+    function init() {
+        renderQuiz();
+        renderPractice();
+        renderProtect();
+        document.getElementById('checkQuizBtn').addEventListener('click', checkQuiz);
+        document.getElementById('checkPracticeBtn').addEventListener('click', checkPractice);
+        document.getElementById('checkClassifyBtn').addEventListener('click', checkProtect);
+        document.body.addEventListener('click', () => { if (audioContext.state === 'suspended') audioContext.resume(); }, { once: true });
+    }
+    init();
+</script>
+</body>
+</html>
