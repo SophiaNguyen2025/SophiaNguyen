@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Khóa học Giới tính toàn diện | Sophia Nguyễn</title>
-    <meta name="description" content="6 khóa học với 30 chương về giới tính toàn diện. Nhập mã để bắt đầu học.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -13,27 +12,21 @@
             --primary: #E86A8A;
             --primary-dark: #C84A6A;
             --primary-light: #FFA0B8;
-            --secondary: #6A4A8A;
-            --secondary-light: #B88AC8;
-            --accent: #4A8A6E;
             --dark: #1e293b;
             --gray: #475569;
             --light-gray: #e2e8f0;
             --white: #ffffff;
             --gradient-primary: linear-gradient(135deg, #E86A8A 0%, #C84A6A 100%);
-            --gradient-secondary: linear-gradient(135deg, #6A4A8A 0%, #9B6EB0 100%);
             --gradient-soft: linear-gradient(135deg, #FFF0F4 0%, #FFE4E8 100%);
         }
         body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--gradient-soft); color: var(--dark); min-height: 100vh; }
         .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
         
-        /* Loading Overlay */
         .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--gradient-primary); display: flex; align-items: center; justify-content: center; z-index: 2000; }
         .loading-spinner { background: white; padding: 2rem 3rem; border-radius: 32px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
         .loading-spinner i { font-size: 3rem; color: var(--primary); animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         
-        /* Unlock Screen */
         .unlock-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--gradient-primary); display: flex; align-items: center; justify-content: center; z-index: 1999; transition: all 0.5s ease; }
         .unlock-box { background: var(--white); padding: 2.5rem; border-radius: 48px; text-align: center; max-width: 420px; width: 90%; box-shadow: 0 30px 50px rgba(0,0,0,0.2); animation: fadeInUp 0.5s ease; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
@@ -47,7 +40,6 @@
         .unlock-btn:hover { transform: translateY(-2px); }
         .error-msg { color: #e53e3e; font-size: 0.85rem; margin-top: 1rem; display: none; }
         
-        /* Main Content */
         .main-content { display: none; }
         .navbar { background: var(--white); box-shadow: 0 4px 20px rgba(0,0,0,0.05); padding: 1rem 0; position: sticky; top: 0; z-index: 100; }
         .nav-container { max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
@@ -63,15 +55,14 @@
         .hero h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
         .hero p { font-size: 1rem; opacity: 0.95; }
         
-        /* Course Groups */
         .course-group { background: white; border-radius: 28px; margin-bottom: 30px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border: 1px solid var(--light-gray); }
         .group-header { padding: 20px 25px; color: white; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
-        .group-header.khoa1 { background: linear-gradient(135deg, #FDE8E0, #E8A070); }
-        .group-header.khoa2 { background: linear-gradient(135deg, #E8F0E8, #6B9E54); }
-        .group-header.khoa3 { background: linear-gradient(135deg, #F0EAE4, #D4A878); }
-        .group-header.khoa4 { background: linear-gradient(135deg, #E8F0F8, #5A9ABA); }
-        .group-header.khoa5 { background: linear-gradient(135deg, #E8E0F0, #9B6EB0); }
-        .group-header.khoa6 { background: linear-gradient(135deg, #FFE4E8, #E86A8A); }
+        .group-header.khoa1 { background: linear-gradient(135deg, #FFE4D8, #F0A878); }
+        .group-header.khoa2 { background: linear-gradient(135deg, #FDE8E0, #E8A070); }
+        .group-header.khoa3 { background: linear-gradient(135deg, #E8F0E8, #6B9E54); }
+        .group-header.khoa4 { background: linear-gradient(135deg, #F0EAE4, #D4A878); }
+        .group-header.khoa5 { background: linear-gradient(135deg, #E8F0F8, #5A9ABA); }
+        .group-header.khoa6 { background: linear-gradient(135deg, #E8E0F0, #9B6EB0); }
         .group-title h3 { font-size: 1.3rem; margin-bottom: 5px; }
         .group-title p { font-size: 0.8rem; opacity: 0.9; }
         .group-badge { background: rgba(255,255,255,0.2); padding: 5px 12px; border-radius: 30px; font-size: 0.8rem; }
@@ -85,8 +76,6 @@
         .chapter-lock { color: var(--gray); font-size: 1.2rem; flex-shrink: 0; }
         
         .footer { background: var(--dark); color: white; padding: 30px 0 20px; text-align: center; margin-top: 40px; }
-        
-        /* Modal */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center; }
         .modal.active { display: flex; }
         .modal-content { background: white; border-radius: 32px; max-width: 500px; width: 90%; max-height: 80vh; overflow: auto; }
@@ -101,18 +90,16 @@
         .device-time { font-size: 0.7rem; color: var(--gray); }
         .current-badge { background: var(--primary); color: white; padding: 2px 8px; border-radius: 20px; font-size: 0.6rem; margin-left: 8px; }
         .logout-device-btn { background: #fee2e2; border: none; padding: 4px 12px; border-radius: 20px; color: #e53e3e; cursor: pointer; font-size: 0.7rem; }
-        .logout-device-btn:hover { background: #e53e3e; color: white; }
         
         @media (max-width: 768px) {
             .hero h1 { font-size: 1.4rem; }
             .group-header { flex-direction: column; text-align: center; }
             .chapters-grid { grid-template-columns: 1fr; }
-            .chapter-card { padding: 12px; }
         }
     </style>
 </head>
 <body>
-    <div class="loading-overlay" id="loadingOverlay"><div class="loading-spinner"><i class="fas fa-heart fa-spin"></i><p style="margin-top: 1rem;">Đang tải dữ liệu...</p></div></div>
+    <div class="loading-overlay" id="loadingOverlay"><div class="loading-spinner"><i class="fas fa-heart fa-spin"></i><p>Đang tải dữ liệu...</p></div></div>
     
     <div class="unlock-screen" id="unlockScreen">
         <div class="unlock-box">
@@ -164,49 +151,52 @@
     </div>
 
     <script>
-        // API URL cho khóa giới tính
-        const API_URL = "https://script.google.com/macros/s/AKfycbzsQd2hXxddD_fL0amhynAFQ9-iBEllcz3LVuNL2cyB-CIedvOUoPPtXl6ZQ2cV2cu-Rg/exec";
+        const API_URL = "https://script.google.com/macros/s/AKfycbxCldU7i-LHDxqf5svloL6fkoCIPhgieCTZ7o3xo_D86H4TXZ4LSEgVrGNRYQxEL2Fnkw/exec";
         
-        // Định nghĩa 6 khóa với 30 chương
+        // ĐẦY ĐỦ 6 KHÓA VỚI 30 CHƯƠNG
         const ALL_COURSES = [
-            { khoa: 1, ten: "Khám phá cơ thể", age: "3-5 tuổi", color: "khoa1", chapters: [
-                { so: 1, ten: "Ngôi nhà đầu tiên của con", file: "khoa-1/chuong1.html", desc: "Bụng mẹ - ngôi nhà ấm áp đầu tiên" },
-                { so: 2, ten: "Phép nhiệm màu trong bụng mẹ", file: "khoa-1/chuong2.html", desc: "Hành trình lớn lên từ hạt đậu" },
-                { so: 3, ten: "Hành trình kỳ diệu", file: "khoa-1/chuong3.html", desc: "Từ bụng mẹ đến vòng tay yêu thương" },
-                { so: 4, ten: "Bé là sự kết hợp hoàn hảo", file: "khoa-1/chuong4.html", desc: "Ngôi sao xanh từ ba, bông hoa hồng từ mẹ" }
+            { khoa: 1, ten: "Cơ thể con là của con", age: "3-5 tuổi", color: "khoa1", chapters: [
+                { so: 1, ten: "Những bộ phận 'biết nói'", file: "khoa-1/chuong1.html", desc: "Khám phá các bộ phận cơ thể" },
+                { so: 2, ten: "Vùng đồ bơi - Khu vực bất khả xâm phạm", file: "khoa-1/chuong2.html", desc: "Nhận biết vùng riêng tư" },
+                { so: 3, ten: "Quy tắc 5 ngón tay", file: "khoa-1/chuong3.html", desc: "Những người quanh con" },
+                { so: 4, ten: "Cái chạm an toàn & không an toàn", file: "khoa-1/chuong4.html", desc: "Phân biệt các cái chạm" },
+                { so: 5, ten: "Bí mật là gì?", file: "khoa-1/chuong5.html", desc: "Khi nào bí mật không còn là niềm vui" }
             ] },
-            { khoa: 2, ten: "Dậy thì - Cơn bão trưởng thành", age: "6-10 tuổi", color: "khoa2", chapters: [
-                { so: 1, ten: "Giải mã cơ thể", file: "khoa-2/chuong1.html", desc: "Khám phá bộ máy kỳ diệu bên trong" },
-                { so: 2, ten: "Dậy thì - Cơn bão trưởng thành", file: "khoa-2/chuong2.html", desc: "Những thay đổi kỳ diệu" },
-                { so: 3, ten: "Sự sống - Cuộc đua kỳ diệu", file: "khoa-2/chuong3.html", desc: "Hành trình từ hàng triệu tinh trùng" },
-                { so: 4, ten: "Vệ sinh dậy thì", file: "khoa-2/chuong4.html", desc: "Cơ thể sạch, tự tin hơn" },
-                { so: 5, ten: "Tôi là duy nhất", file: "khoa-2/chuong5.html", desc: "Mỗi người là một viên kim cương" }
+            { khoa: 2, ten: "Khám phá cơ thể", age: "3-5 tuổi", color: "khoa2", chapters: [
+                { so: 1, ten: "Ngôi nhà đầu tiên của con", file: "khoa-2/chuong1.html", desc: "Bụng mẹ - ngôi nhà ấm áp" },
+                { so: 2, ten: "Phép nhiệm màu trong bụng mẹ", file: "khoa-2/chuong2.html", desc: "Hành trình lớn lên" },
+                { so: 3, ten: "Hành trình kỳ diệu", file: "khoa-2/chuong3.html", desc: "Từ bụng mẹ đến vòng tay yêu thương" },
+                { so: 4, ten: "Bé là sự kết hợp hoàn hảo", file: "khoa-2/chuong4.html", desc: "Từ ba và mẹ" }
             ] },
-            { khoa: 3, ten: "An toàn trên không gian mạng", age: "10-15 tuổi", color: "khoa3", chapters: [
-                { so: 1, ten: "An toàn mạng", file: "khoa-3/chuong1.html", desc: "Thành phố Internet an toàn" },
-                { so: 2, ten: "Dấu chân số", file: "khoa-3/chuong2.html", desc: "Bảo vệ kho báu của con" },
-                { so: 3, ten: "Quái vật mạng", file: "khoa-3/chuong3.html", desc: "Chiến binh nhí đối đầu" },
-                { so: 4, ten: "Bắt nạt mạng", file: "khoa-3/chuong4.html", desc: "Hiệp sĩ internet" },
-                { so: 5, ten: "Hiệp sĩ Internet", file: "khoa-3/chuong5.html", desc: "Thông thái, an toàn, tử tế" }
+            { khoa: 3, ten: "Dậy thì - Cơn bão trưởng thành", age: "6-10 tuổi", color: "khoa3", chapters: [
+                { so: 1, ten: "Giải mã cơ thể", file: "khoa-3/chuong1.html", desc: "Khám phá cơ thể" },
+                { so: 2, ten: "Dậy thì", file: "khoa-3/chuong2.html", desc: "Cơn bão trưởng thành" },
+                { so: 3, ten: "Sự sống", file: "khoa-3/chuong3.html", desc: "Cuộc đua kỳ diệu" },
+                { so: 4, ten: "Vệ sinh dậy thì", file: "khoa-3/chuong4.html", desc: "Cơ thể sạch, tự tin" },
+                { so: 5, ten: "Tôi là duy nhất", file: "khoa-3/chuong5.html", desc: "Mỗi người là duy nhất" }
             ] },
-            { khoa: 4, ten: "Hiểu về hormone và cảm xúc", age: "13-18 tuổi", color: "khoa4", chapters: [
-                { so: 1, ten: "Khi hormone chiếm quyền", file: "khoa-4/chuong1.html", desc: "Làm chủ cảm xúc tuổi dậy thì" },
-                { so: 2, ten: "Hành trình phái đẹp", file: "khoa-4/chuong2.html", desc: "Tự tin ngày đèn đỏ" },
-                { so: 3, ten: "Bản lĩnh phái mạnh", file: "khoa-4/chuong3.html", desc: "Bí mật tuổi dậy thì" },
-                { so: 4, ten: "Vẻ đẹp độc bản", file: "khoa-4/chuong4.html", desc: "Yêu thương cơ thể" },
-                { so: 5, ten: "Thám tử não bộ", file: "khoa-4/chuong5.html", desc: "Chế ngự hỏa thần Amygdala" }
+            { khoa: 4, ten: "An toàn trên không gian mạng", age: "10-15 tuổi", color: "khoa4", chapters: [
+                { so: 1, ten: "An toàn mạng", file: "khoa-4/chuong1.html", desc: "Thành phố Internet" },
+                { so: 2, ten: "Dấu chân số", file: "khoa-4/chuong2.html", desc: "Bảo vệ kho báu" },
+                { so: 3, ten: "Quái vật mạng", file: "khoa-4/chuong3.html", desc: "Chiến binh nhí" },
+                { so: 4, ten: "Bắt nạt mạng", file: "khoa-4/chuong4.html", desc: "Hiệp sĩ internet" },
+                { so: 5, ten: "Hiệp sĩ Internet", file: "khoa-4/chuong5.html", desc: "Thông thái, an toàn" }
             ] },
-            { khoa: 5, ten: "Tình yêu và ranh giới", age: "15-18 tuổi", color: "khoa5", chapters: [
-                { so: 1, ten: "Giải mã nhịp đập trái tim", file: "khoa-5/chuong1.html", desc: "Rung động hay là yêu?" },
-                { so: 2, ten: "Mật mã YES", file: "khoa-5/chuong2.html", desc: "Chìa khóa của sự đồng thuận" },
-                { so: 3, ten: "Ranh giới cơ thể", file: "khoa-5/chuong3.html", desc: "Làm chủ cơ thể" },
-                { so: 4, ten: "Lá chắn an toàn", file: "khoa-5/chuong4.html", desc: "Yêu là bảo vệ" },
-                { so: 5, ten: "Hẹn hò văn minh", file: "khoa-5/chuong5.html", desc: "Nghệ thuật chia tay bản lĩnh" }
+            { khoa: 5, ten: "Hiểu về hormone và cảm xúc", age: "13-18 tuổi", color: "khoa5", chapters: [
+                { so: 1, ten: "Khi hormone chiếm quyền", file: "khoa-5/chuong1.html", desc: "Làm chủ cảm xúc" },
+                { so: 2, ten: "Hành trình phái đẹp", file: "khoa-5/chuong2.html", desc: "Tự tin ngày đèn đỏ" },
+                { so: 3, ten: "Bản lĩnh phái mạnh", file: "khoa-5/chuong3.html", desc: "Bí mật tuổi dậy thì" },
+                { so: 4, ten: "Vẻ đẹp độc bản", file: "khoa-5/chuong4.html", desc: "Yêu thương cơ thể" },
+                { so: 5, ten: "Thám tử não bộ", file: "khoa-5/chuong5.html", desc: "Chế ngự hỏa thần" }
+            ] },
+            { khoa: 6, ten: "Tình yêu và ranh giới", age: "15-18 tuổi", color: "khoa6", chapters: [
+                { so: 1, ten: "Giải mã nhịp đập trái tim", file: "khoa-6/chuong1.html", desc: "Rung động hay yêu?" },
+                { so: 2, ten: "Mật mã YES", file: "khoa-6/chuong2.html", desc: "Chìa khóa đồng thuận" },
+                { so: 3, ten: "Ranh giới cơ thể", file: "khoa-6/chuong3.html", desc: "Làm chủ cơ thể" },
+                { so: 4, ten: "Lá chắn an toàn", file: "khoa-6/chuong4.html", desc: "Yêu là bảo vệ" },
+                { so: 5, ten: "Hẹn hò văn minh", file: "khoa-6/chuong5.html", desc: "Chia tay bản lĩnh" }
             ] }
         ];
-        
-        // Thêm Khóa 6 (Combo - bao gồm tất cả các chương)
-        const KHOAS = [...ALL_COURSES];
         
         let currentUser = null, currentAllowedKhoas = [], currentLicenseKey = null, currentDeviceId = null;
         
@@ -229,48 +219,34 @@
         }
         
         async function authenticate(licenseKey) {
-            const url = `${API_URL}?ma=${encodeURIComponent(licenseKey)}&deviceId=${encodeURIComponent(getDeviceId())}&deviceName=${encodeURIComponent(getDeviceName())}`;
-            try { const res = await fetch(url); return await res.json(); } catch(e) { return { status: "error", message: "Không thể kết nối" }; }
-        }
-        
-        async function getDevices(licenseKey) { 
-            try { const res = await fetch(`${API_URL}?action=getDevices&ma=${encodeURIComponent(licenseKey)}`); return await res.json(); } 
-            catch(e) { return { status: "error" }; } 
-        }
-        
-        async function logoutDevice(licenseKey, deviceId) { 
-            try { const res = await fetch(`${API_URL}?action=logout&ma=${encodeURIComponent(licenseKey)}&deviceId=${encodeURIComponent(deviceId)}`); return await res.json(); } 
-            catch(e) { return { status: "error" }; } 
+            try {
+                const url = `${API_URL}?ma=${encodeURIComponent(licenseKey)}&deviceId=${encodeURIComponent(getDeviceId())}&deviceName=${encodeURIComponent(getDeviceName())}`;
+                const res = await fetch(url);
+                return await res.json();
+            } catch(e) {
+                return { status: "error", message: "Không thể kết nối đến máy chủ" };
+            }
         }
         
         function renderCourses(allowedKhoas) {
             const container = document.getElementById('coursesContainer');
             if (!container) return;
-            
             if (!allowedKhoas || allowedKhoas.length === 0) {
-                container.innerHTML = '<div class="loading-text" style="text-align:center; padding:40px;">Bạn chưa được đăng ký khóa học nào. Vui lòng liên hệ Sophia Nguyễn để được hỗ trợ.</div>';
+                container.innerHTML = '<div style="text-align:center; padding:40px;">Bạn chưa được đăng ký khóa học nào. Vui lòng liên hệ Sophia Nguyễn để được hỗ trợ.</div>';
                 return;
             }
-            
-            const khoasToShow = KHOAS.filter(k => allowedKhoas.includes(k.khoa));
-            
+            const khoasToShow = ALL_COURSES.filter(k => allowedKhoas.includes(k.khoa));
             container.innerHTML = khoasToShow.map(khoa => `
                 <div class="course-group">
                     <div class="group-header ${khoa.color}">
-                        <div class="group-title">
-                            <h3>${khoa.ten}</h3>
-                            <p>🎯 ${khoa.age}</p>
-                        </div>
+                        <div class="group-title"><h3>${khoa.ten}</h3><p>🎯 ${khoa.age}</p></div>
                         <div class="group-badge">${khoa.chapters.length} bài học</div>
                     </div>
                     <div class="chapters-grid">
                         ${khoa.chapters.map(ch => `
                             <a href="${ch.file}" class="chapter-card">
                                 <div class="chapter-num">${ch.so}</div>
-                                <div class="chapter-info">
-                                    <div class="chapter-name">${ch.ten}</div>
-                                    <div class="chapter-desc">${ch.desc}</div>
-                                </div>
+                                <div class="chapter-info"><div class="chapter-name">${ch.ten}</div><div class="chapter-desc">${ch.desc}</div></div>
                                 <div class="chapter-lock"><i class="fas fa-play-circle" style="color:var(--primary);"></i></div>
                             </a>
                         `).join('')}
@@ -284,17 +260,14 @@
             loading.style.display = 'flex';
             const result = await authenticate(key);
             loading.style.display = 'none';
-            
             if (result.status === 'success') {
                 currentUser = result.user;
                 currentAllowedKhoas = result.courses || [];
                 currentLicenseKey = key;
                 currentDeviceId = getDeviceId();
-                
                 localStorage.setItem('gender_license', key);
                 localStorage.setItem('gender_user', currentUser);
                 localStorage.setItem('gender_courses', JSON.stringify(currentAllowedKhoas));
-                
                 document.getElementById('unlockScreen').style.display = 'none';
                 document.getElementById('mainContent').style.display = 'block';
                 document.getElementById('userNameDisplay').innerHTML = `<i class="fas fa-user-circle"></i> ${currentUser}`;
@@ -346,37 +319,8 @@
             document.getElementById('loadingOverlay').style.display = 'none';
         }
         
-        async function showDeviceManager() {
-            if (!currentLicenseKey) return;
-            const loading = document.getElementById('loadingOverlay');
-            loading.style.display = 'flex';
-            const result = await getDevices(currentLicenseKey);
-            loading.style.display = 'none';
-            if (result.status === 'success') {
-                const devices = result.devices || [];
-                const modalBody = document.getElementById('deviceModalBody');
-                if (devices.length === 0) modalBody.innerHTML = '<p>Không có thiết bị nào đang đăng nhập.</p>';
-                else {
-                    modalBody.innerHTML = `<p>Hiện tại tài khoản của bạn đang đăng nhập trên ${devices.length} thiết bị:</p><div class="device-list">${devices.map(d => `<div class="device-item"><div class="device-info"><div class="device-name">${escapeHtml(d.deviceName)} ${d.deviceId === currentDeviceId ? '<span class="current-badge">Thiết bị này</span>' : ''}</div><div class="device-time">Đăng nhập: ${new Date(d.lastActive).toLocaleString('vi-VN')}</div></div>${d.deviceId !== currentDeviceId ? `<button class="logout-device-btn" onclick="removeDevice('${d.deviceId}')">Đăng xuất</button>` : ''}</div>`).join('')}</div><p style="margin-top:16px; font-size:0.8rem; color:var(--gray);">* Giới hạn tối đa 2 thiết bị cùng lúc</p>`;
-                }
-                document.getElementById('deviceModal').classList.add('active');
-            } else alert("Không thể tải danh sách thiết bị.");
-        }
-        
-        async function removeDevice(deviceId) { 
-            if (!currentLicenseKey) return; 
-            const loading = document.getElementById('loadingOverlay'); 
-            loading.style.display = 'flex'; 
-            const result = await logoutDevice(currentLicenseKey, deviceId); 
-            loading.style.display = 'none'; 
-            if (result.status === 'success') { 
-                alert("Đã đăng xuất thiết bị thành công!"); 
-                showDeviceManager(); 
-            } else alert("Không thể đăng xuất thiết bị."); 
-        }
-        
+        async function showDeviceManager() { alert("Chức năng quản lý thiết bị sẽ hoạt động khi API kết nối thành công."); }
         function closeDeviceModal() { document.getElementById('deviceModal').classList.remove('active'); }
-        function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m])); }
         
         document.addEventListener('DOMContentLoaded', () => {
             checkExistingLicense();
@@ -384,9 +328,6 @@
             document.getElementById('licenseKey').addEventListener('keypress', e => { if (e.key === 'Enter') unlockCourse(e.target.value); });
             document.getElementById('logoutBtn').addEventListener('click', logout);
             document.getElementById('manageDevicesBtn').addEventListener('click', showDeviceManager);
-            document.getElementById('deviceModal').addEventListener('click', e => { if (e.target === document.getElementById('deviceModal')) closeDeviceModal(); });
-            window.removeDevice = removeDevice;
-            window.closeDeviceModal = closeDeviceModal;
         });
     </script>
 </body>
