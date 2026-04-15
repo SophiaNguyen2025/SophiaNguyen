@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Giới tính toàn diện - Khóa học cho trẻ 3-18 tuổi | Sophia Nguyễn</title>
     <meta name="description" content="6 khóa học với 30 chương về giới tính toàn diện, phù hợp từ 3-18 tuổi. Trang bị kiến thức về cơ thể, dậy thì, tình yêu, an toàn mạng, ranh giới cá nhân.">
-    <meta name="keywords" content="giáo dục giới tính, dậy thì, an toàn mạng, tình yêu tuổi học trò, ranh giới cơ thể, đồng thuận">
-    <meta name="author" content="Sophia Nguyễn">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -23,13 +21,11 @@
             --light-gray: #e2e8f0;
             --white: #ffffff;
             --gradient-primary: linear-gradient(135deg, #E86A8A 0%, #C84A6A 100%);
-            --gradient-secondary: linear-gradient(135deg, #6A4A8A 0%, #9B6EB0 100%);
             --gradient-soft: linear-gradient(135deg, #FFF0F4 0%, #FFE4E8 100%);
         }
         body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--gradient-soft); color: var(--dark); }
         .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
         
-        /* Header & Navbar */
         .header { background: white; padding: 15px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .header-container { display: flex; justify-content: space-between; align-items: center; }
         .logo img { height: 60px; width: auto; }
@@ -38,27 +34,23 @@
         .nav-links a:hover, .nav-links a.active { color: var(--primary); }
         .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; }
         
-        /* Hero */
         .hero { background: var(--gradient-primary); padding: 60px 0 50px; text-align: center; color: white; border-radius: 0 0 40px 40px; }
         .hero h1 { font-size: 2.2rem; margin-bottom: 1rem; }
         .hero p { font-size: 1.1rem; max-width: 700px; margin: 0 auto; opacity: 0.95; }
         
-        /* Section */
         .section { padding: 50px 0; }
         .section-title { text-align: center; font-size: 2rem; color: var(--primary); margin-bottom: 16px; }
-        .section-sub { text-align: center; color: var(--gray); margin-bottom: 40px; max-width: 700px; margin-left: auto; margin-right: auto; }
         
-        /* Course Cards - 6 khóa */
         .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 30px; margin: 40px 0; }
         .course-card { background: white; border-radius: 28px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: all 0.3s; border: 1px solid var(--light-gray); }
         .course-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
         .course-header { padding: 24px; color: white; text-align: center; }
-        .course-header.khoa1 { background: linear-gradient(135deg, #FDE8E0, #E8A070); }
-        .course-header.khoa2 { background: linear-gradient(135deg, #E8F0E8, #6B9E54); }
-        .course-header.khoa3 { background: linear-gradient(135deg, #F0EAE4, #D4A878); }
-        .course-header.khoa4 { background: linear-gradient(135deg, #E8F0F8, #5A9ABA); }
-        .course-header.khoa5 { background: linear-gradient(135deg, #E8E0F0, #9B6EB0); }
-        .course-header.khoa6 { background: linear-gradient(135deg, #FFE4E8, #E86A8A); }
+        .course-header.khoa1 { background: linear-gradient(135deg, #FFE4D8, #F0A878); }
+        .course-header.khoa2 { background: linear-gradient(135deg, #FDE8E0, #E8A070); }
+        .course-header.khoa3 { background: linear-gradient(135deg, #E8F0E8, #6B9E54); }
+        .course-header.khoa4 { background: linear-gradient(135deg, #F0EAE4, #D4A878); }
+        .course-header.khoa5 { background: linear-gradient(135deg, #E8F0F8, #5A9ABA); }
+        .course-header.khoa6 { background: linear-gradient(135deg, #E8E0F0, #9B6EB0); }
         .course-icon { font-size: 3rem; margin-bottom: 8px; }
         .course-header h3 { font-size: 1.3rem; margin-bottom: 4px; }
         .course-age { font-size: 0.8rem; opacity: 0.9; }
@@ -74,58 +66,32 @@
         .btn-buy { background: var(--gradient-primary); color: white; border: none; padding: 8px 20px; border-radius: 40px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.2s; font-size: 0.9rem; }
         .btn-buy:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(232,106,138,0.4); }
         
-        /* Combo Badge */
-        .combo-badge {
-            background: linear-gradient(135deg, #ffd700, #ff8c00);
-            border-radius: 60px;
-            padding: 20px 30px;
-            margin: 30px auto 20px;
-            text-align: center;
-            max-width: 500px;
-            animation: pulse 1.5s infinite;
-            cursor: pointer;
-            transition: 0.2s;
-        }
+        .combo-badge { background: linear-gradient(135deg, #ffd700, #ff8c00); border-radius: 60px; padding: 20px 30px; margin: 30px auto 20px; text-align: center; max-width: 500px; animation: pulse 1.5s infinite; cursor: pointer; transition: 0.2s; }
         .combo-badge:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(255,215,0,0.5); }
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,215,0,0.4); }
-            70% { transform: scale(1.02); box-shadow: 0 0 0 15px rgba(255,215,0,0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,215,0,0); }
-        }
+        @keyframes pulse { 0% { transform: scale(1); } 70% { transform: scale(1.02); } 100% { transform: scale(1); } }
         .combo-badge h3 { color: #1a1a2e; font-size: 1.5rem; margin-bottom: 8px; }
-        .combo-badge p { color: #1a1a2e; font-size: 0.9rem; margin-bottom: 12px; }
         .combo-price { font-size: 1.8rem; font-weight: 800; color: #1a1a2e; }
         .combo-old-price { font-size: 1rem; text-decoration: line-through; color: #555; margin-left: 10px; }
         .btn-combo { background: #1a1a2e; color: #ffd700; border: none; padding: 10px 24px; border-radius: 40px; font-weight: 700; cursor: pointer; margin-top: 10px; }
-        .btn-combo:hover { background: #2a2a3e; transform: translateY(-2px); }
         
-        /* Try Section */
         .try-section { background: white; border-radius: 32px; padding: 40px; margin: 40px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid var(--light-gray); }
         .try-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
         .try-box { text-align: center; display: flex; flex-direction: column; height: 100%; }
         .try-box h3 { font-size: 1.4rem; color: var(--primary); margin-bottom: 16px; }
-        .try-box p { color: var(--gray); margin-bottom: 20px; line-height: 1.5; }
         .try-video { position: relative; padding-bottom: 56.25%; height: 0; margin: 20px 0; background: #000; border-radius: 20px; overflow: hidden; }
         .try-video iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-        .btn-try { background: var(--gradient-primary); color: white; border: none; padding: 12px 28px; border-radius: 40px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; align-self: center; margin-top: auto; }
-        .btn-try:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(232,106,138,0.4); }
+        .btn-try { background: var(--gradient-primary); color: white; border: none; padding: 12px 28px; border-radius: 40px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; align-self: center; margin-top: auto; }
         
-        /* CTA Section */
         .cta-section { text-align: center; padding: 50px 40px; background: var(--gradient-primary); color: white; border-radius: 32px; margin: 40px 0; }
-        .btn-cta { background: white; color: var(--primary); padding: 14px 32px; border-radius: 50px; font-weight: 700; text-decoration: none; display: inline-block; margin: 0 8px; transition: all 0.2s; }
-        .btn-cta:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-        .btn-cta-outline { background: transparent; border: 2px solid white; color: white; padding: 12px 28px; border-radius: 50px; font-weight: 600; text-decoration: none; display: inline-block; margin: 0 8px; transition: all 0.2s; }
-        .btn-cta-outline:hover { background: white; color: var(--primary); transform: translateY(-2px); }
+        .btn-cta { background: white; color: var(--primary); padding: 14px 32px; border-radius: 50px; font-weight: 700; text-decoration: none; display: inline-block; margin: 0 8px; }
+        .btn-cta-outline { background: transparent; border: 2px solid white; color: white; padding: 12px 28px; border-radius: 50px; font-weight: 600; text-decoration: none; display: inline-block; margin: 0 8px; }
         
-        /* Footer */
         .footer { background: var(--dark); color: white; padding: 40px 0 20px; text-align: center; margin-top: 60px; }
         
-        /* Responsive */
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .menu-toggle { display: block; }
             .hero h1 { font-size: 1.6rem; }
-            .section-title { font-size: 1.5rem; }
             .courses-grid { grid-template-columns: 1fr; }
             .course-footer { flex-direction: column; align-items: flex-start; }
             .btn-cta, .btn-cta-outline { display: block; margin: 12px auto; width: fit-content; }
@@ -159,19 +125,15 @@
 </section>
 
 <div class="container">
-    <!-- Danh sách 6 khóa học -->
     <div class="courses-grid" id="coursesGrid"></div>
 
-    <!-- Combo Badge -->
     <div class="combo-badge" onclick="window.open('https://zalo.me/0977092182', '_blank')">
         <h3>⚡ SIÊU TIẾT KIỆM ⚡</h3>
-        <p>Mua 2 khóa bất kỳ hoặc trọn bộ 6 khóa</p>
-        <div><span class="combo-price">299.000đ</span> <span class="combo-old-price">398.000đ</span> <span style="margin-left: 10px;">(2 khóa)</span></div>
-        <div style="margin-top: 8px;"><span class="combo-price">499.000đ</span> <span class="combo-old-price">1.194.000đ</span> <span style="margin-left: 10px;">(6 khóa)</span></div>
+        <p>Mua 2 khóa bất kỳ chỉ <span class="combo-price">299.000đ</span> <span class="combo-old-price">398.000đ</span></p>
+        <p>Combo 6 khóa chỉ <span class="combo-price">499.000đ</span> <span class="combo-old-price">1.194.000đ</span></p>
         <button class="btn-combo">🎯 CHỌN NGAY</button>
     </div>
 
-    <!-- Phần Học thử miễn phí -->
     <div class="try-section">
         <div class="try-grid">
             <div class="try-box">
@@ -192,7 +154,6 @@
         </div>
     </div>
 
-    <!-- CTA Section -->
     <div class="cta-section">
         <h2>🚀 Sẵn sàng trang bị kiến thức giới tính cho con?</h2>
         <p style="margin-bottom: 24px;">Đăng ký ngay để nhận tư vấn và được hỗ trợ mã khóa học</p>
@@ -209,20 +170,18 @@
 </footer>
 
 <script>
-    // Dữ liệu 6 khóa học
     const courses = [
-        { id: 1, name: "Khám phá cơ thể", age: "3-5 tuổi", icon: "🧸", desc: "Những bài học đầu tiên về cơ thể, ngôi nhà đầu tiên trong bụng mẹ, phép nhiệm màu lớn lên.", chapters: ["Ngôi nhà đầu tiên của con", "Phép nhiệm màu trong bụng mẹ", "Hành trình kỳ diệu", "Bé là sự kết hợp hoàn hảo"], color: "khoa1", price: 199000, originalPrice: 399000 },
-        { id: 2, name: "Dậy thì - Cơn bão trưởng thành", age: "6-10 tuổi", icon: "🌊", desc: "Giải mã cơ thể, hiểu về hormone, vệ sinh dậy thì và hành trình yêu thương bản thân.", chapters: ["Giải mã cơ thể", "Dậy thì - Cơn bão trưởng thành", "Sự sống - Cuộc đua kỳ diệu", "Vệ sinh dậy thì", "Tôi là duy nhất"], color: "khoa2", price: 199000, originalPrice: 399000 },
-        { id: 3, name: "An toàn trên không gian mạng", age: "10-15 tuổi", icon: "🌐", desc: "Bảo vệ bản thân trên mạng, nhận diện quái vật mạng, chống bắt nạt, trở thành hiệp sĩ internet.", chapters: ["An toàn mạng", "Dấu chân số", "Quái vật mạng", "Bắt nạt mạng", "Hiệp sĩ Internet"], color: "khoa3", price: 199000, originalPrice: 399000 },
-        { id: 4, name: "Hiểu về hormone và cảm xúc", age: "13-18 tuổi", icon: "🧠", desc: "Khi hormone chiếm quyền, hành trình phái đẹp, bản lĩnh phái mạnh, vẻ đẹp độc bản.", chapters: ["Khi hormone chiếm quyền", "Hành trình phái đẹp", "Bản lĩnh phái mạnh", "Vẻ đẹp độc bản", "Thám tử não bộ"], color: "khoa4", price: 199000, originalPrice: 399000 },
-        { id: 5, name: "Tình yêu và ranh giới", age: "15-18 tuổi", icon: "💓", desc: "Rung động hay là yêu, mật mã đồng thuận, ranh giới cơ thể, lá chắn an toàn.", chapters: ["Giải mã nhịp đập trái tim", "Mật mã YES", "Ranh giới cơ thể", "Lá chắn an toàn", "Hẹn hò văn minh"], color: "khoa5", price: 199000, originalPrice: 399000 },
-        { id: 6, name: "Combo 6 khóa - Trọn bộ", age: "3-18 tuổi", icon: "🎓", desc: "Trọn bộ 6 khóa với 30 chương, tiết kiệm tối đa, phù hợp cho con phát triển toàn diện.", chapters: ["30 chương học từ 3-18 tuổi"], color: "khoa6", price: 499000, originalPrice: 1194000, isCombo: true }
+        { id: 1, name: "Cơ thể con là của con", age: "3-5 tuổi", icon: "🧸", desc: "Những bài học đầu tiên về cơ thể, vùng riêng tư, quy tắc an toàn và cái chạm.", chapters: ["Những bộ phận 'biết nói'", "Vùng đồ bơi - Khu vực bất khả xâm phạm", "Quy tắc 5 ngón tay", "Cái chạm an toàn & không an toàn", "Bí mật là gì?"], color: "khoa1", price: 199000, originalPrice: 399000 },
+        { id: 2, name: "Khám phá cơ thể", age: "3-5 tuổi", icon: "🔍", desc: "Những bài học về ngôi nhà đầu tiên trong bụng mẹ, phép nhiệm màu lớn lên.", chapters: ["Ngôi nhà đầu tiên của con", "Phép nhiệm màu trong bụng mẹ", "Hành trình kỳ diệu", "Bé là sự kết hợp hoàn hảo"], color: "khoa2", price: 199000, originalPrice: 399000 },
+        { id: 3, name: "Dậy thì - Cơn bão trưởng thành", age: "6-10 tuổi", icon: "🌊", desc: "Giải mã cơ thể, hiểu về hormone, vệ sinh dậy thì.", chapters: ["Giải mã cơ thể", "Dậy thì", "Sự sống", "Vệ sinh dậy thì", "Tôi là duy nhất"], color: "khoa3", price: 199000, originalPrice: 399000 },
+        { id: 4, name: "An toàn trên không gian mạng", age: "10-15 tuổi", icon: "🌐", desc: "Bảo vệ bản thân trên mạng, chống bắt nạt, trở thành hiệp sĩ internet.", chapters: ["An toàn mạng", "Dấu chân số", "Quái vật mạng", "Bắt nạt mạng", "Hiệp sĩ Internet"], color: "khoa4", price: 199000, originalPrice: 399000 },
+        { id: 5, name: "Hiểu về hormone và cảm xúc", age: "13-18 tuổi", icon: "🧠", desc: "Khi hormone chiếm quyền, hành trình phái đẹp, bản lĩnh phái mạnh.", chapters: ["Khi hormone chiếm quyền", "Hành trình phái đẹp", "Bản lĩnh phái mạnh", "Vẻ đẹp độc bản", "Thám tử não bộ"], color: "khoa5", price: 199000, originalPrice: 399000 },
+        { id: 6, name: "Tình yêu và ranh giới", age: "15-18 tuổi", icon: "💓", desc: "Rung động hay là yêu, mật mã đồng thuận, ranh giới cơ thể.", chapters: ["Giải mã nhịp đập", "Mật mã YES", "Ranh giới cơ thể", "Lá chắn an toàn", "Hẹn hò văn minh"], color: "khoa6", price: 199000, originalPrice: 399000 }
     ];
 
     function renderCourses() {
         const grid = document.getElementById('coursesGrid');
         if (!grid) return;
-        
         grid.innerHTML = courses.map(c => `
             <div class="course-card">
                 <div class="course-header ${c.color}">
@@ -232,21 +191,15 @@
                 </div>
                 <div class="course-content">
                     <p class="course-desc">${c.desc}</p>
-                    <ul class="chapters-list">
-                        ${c.chapters.map(ch => `<li><i class="fas fa-circle"></i> ${ch}</li>`).join('')}
-                    </ul>
+                    <ul class="chapters-list">${c.chapters.map(ch => `<li><i class="fas fa-circle"></i> ${ch}</li>`).join('')}</ul>
                     <div class="course-footer">
-                        <div class="course-price">
-                            <span class="price-old">${c.originalPrice.toLocaleString('vi-VN')}đ</span>
-                            <span class="price-new">${c.price.toLocaleString('vi-VN')}đ</span>
-                        </div>
+                        <div class="course-price"><span class="price-old">${c.originalPrice.toLocaleString('vi-VN')}đ</span><span class="price-new">${c.price.toLocaleString('vi-VN')}đ</span></div>
                         <a href="https://zalo.me/0977092182" class="btn-buy" target="_blank">🛒 Mua ngay</a>
                     </div>
                 </div>
             </div>
         `).join('');
     }
-    
     renderCourses();
 </script>
 </body>
