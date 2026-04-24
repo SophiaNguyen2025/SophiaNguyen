@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Làm thế nào để nói "KHÔNG" mà không cảm thấy có lỗi? - Sophia Nguyễn</title>
+  <meta name="description" content="Nghệ thuật từ chối – Kỹ năng bảo vệ ranh giới cá nhân và sức khỏe tinh thần. Học cách nói không một cách văn minh và quyết liệt để bảo vệ chính mình.">
+  <meta name="keywords" content="nghệ thuật từ chối, nói không, ranh giới cá nhân, sức khỏe tinh thần, kỹ năng sống, bảo vệ bản thân, stop bullying">
+  <meta name="author" content="Sophia Nguyễn">
+  <link rel="stylesheet" href="../main.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Be Vietnam Pro', sans-serif;
+      background: linear-gradient(145deg, #fff5f0 0%, #ffe8e0 100%);
+      color: #2c3e2f;
+      line-height: 1.7;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header */
+    .header {
+      background: white;
+      padding: 15px 0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .header-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo img {
+      height: 60px;
+      width: auto;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    .navbar ul {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: #4a5568;
+      font-weight: 500;
+      transition: 0.2s;
+    }
+
+    .navbar a:hover {
+      color: #e83e8c;
+    }
+
+    .banner {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .banner-img {
+      width: 100%;
+      max-height: 250px;
+      object-fit: cover;
+      border-radius: 28px;
+    }
+.menu-toggle { display: none; font-size: 28px; cursor: pointer; }
+    .navbar ul { display: flex; gap: 2rem; list-style: none; }
+    .navbar a { text-decoration: none; color: #000000 !important; font-weight: 500; transition: 0.2s; }
+    .navbar a:hover { color: #e83e8c; }
+    .banner { margin-top: 20px; text-align: center; }
+    .banner-img { width: 100%; max-height: 250px; object-fit: cover; border-radius: 28px; }
+
+    /* Bài viết */
+    .blog-post {
+      max-width: 800px;
+      margin: 60px auto;
+      background: white;
+      border-radius: 32px;
+      padding: 48px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+
+    .blog-post h1 {
+      font-size: 2rem;
+      color: #e83e8c;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+
+    .blog-meta {
+      color: #999;
+      font-size: 0.85rem;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .blog-post h2 {
+      font-size: 1.5rem;
+      color: #e83e8c;
+      margin: 35px 0 15px;
+    }
+
+    .blog-post h3 {
+      font-size: 1.2rem;
+      color: #2c3e2f;
+      margin: 25px 0 10px;
+    }
+
+    .blog-post p {
+      margin-bottom: 20px;
+      color: #4a5568;
+    }
+
+    .blog-post ul, .blog-post ol {
+      margin: 20px 0 20px 24px;
+      color: #4a5568;
+    }
+
+    .blog-post li {
+      margin-bottom: 10px;
+    }
+
+    .blog-post strong {
+      color: #e83e8c;
+    }
+
+    .blog-post blockquote {
+      background: #fff5f0;
+      border-left: 4px solid #e83e8c;
+      padding: 24px 28px;
+      margin: 28px 0;
+      border-radius: 20px;
+      font-style: italic;
+      color: #2c3e2f;
+      font-size: 1rem;
+    }
+
+    .hashtags {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid #f0f0f0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .hashtags span {
+      display: inline-block;
+      background: #fce4ec;
+      color: #e83e8c;
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .author-note {
+      background: linear-gradient(135deg, #fce4ec, #fff0f5);
+      border-radius: 24px;
+      padding: 24px 28px;
+      margin: 30px 0;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    .related-post {
+      background: linear-gradient(135deg, #e0f2fe, #f0f9ff);
+      border-radius: 24px;
+      padding: 30px;
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .related-post a {
+      color: #e83e8c;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 1.1rem;
+    }
+
+    .related-post a:hover {
+      text-decoration: underline;
+    }
+
+    .cta-section {
+      text-align: center;
+      padding: 40px 20px;
+      margin: 40px auto;
+    }
+
+    .cta-datlich {
+      display: inline-block;
+      background: linear-gradient(135deg, #e83e8c, #f06292);
+      color: white;
+      padding: 12px 28px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      margin: 0 10px;
+      transition: all 0.3s ease;
+    }
+
+    /* Footer */
+    .footer {
+      background: #1a2a3a;
+      color: white;
+      padding: 50px 0 20px;
+      margin-top: 60px;
+    }
+
+    .footer-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+    }
+
+    .footer-logo img {
+      width: 120px;
+      margin-bottom: 16px;
+    }
+
+    .footer-logo p {
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: #cbd5e0;
+    }
+
+    .footer-links h4, .footer-map h4, .footer-contact h4 {
+      margin-bottom: 16px;
+      font-size: 1.1rem;
+      color: white;
+    }
+
+    .footer-links ul {
+      list-style: none;
+    }
+
+    .footer-links ul li {
+      margin-bottom: 8px;
+    }
+
+    .footer-links ul li a {
+      color: #cbd5e0;
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links ul li a:hover {
+      color: #e83e8c;
+    }
+
+    .map-wrapper {
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .map-wrapper iframe {
+      width: 100%;
+      height: 180px;
+      border: none;
+      display: block;
+    }
+
+    .footer-map p {
+      font-size: 0.75rem;
+      color: #fbbf24;
+      margin-top: 8px;
+    }
+
+    .footer-contact p {
+      font-size: 0.85rem;
+      margin-bottom: 10px;
+      color: #cbd5e0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .social-icons img {
+      width: 32px;
+      height: 32px;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 30px;
+      margin-top: 30px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.75rem;
+      color: #94a3b8;
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+      .navbar ul {
+        display: none;
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+      .navbar.show-menu ul {
+        display: flex;
+      }
+      .blog-post {
+        padding: 24px;
+        margin: 30px 16px;
+      }
+      .blog-post h1 {
+        font-size: 1.5rem;
+      }
+      .footer-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        text-align: center;
+      }
+      .footer-contact p {
+        justify-content: center;
+      }
+      .social-icons {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-container">
+    <a href="../index.html" class="logo">
+      <img src="../images/hinhremovenen.png" alt="Sophia Logo" />
+    </a>
+    <div class="menu-toggle" onclick="document.querySelector('.navbar').classList.toggle('show-menu')">☰</div>
+    <nav class="navbar">
+      <ul>
+        <li><a href="../index.html">Trang chủ</a></li>
+        <li><a href="../about.html">Giới thiệu</a></li>
+        <li><a href="../services.html">Dịch vụ</a></li>
+        <li><a href="../blog.html">Blog</a></li>
+        <li><a href="../contact.html">Liên hệ</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="banner">
+    <img src="../images/rs1.png" alt="Sophia Nguyễn – Đồng hành & Sẻ chia" class="banner-img" />
+  </div>
+</header>
+
+<!-- NỘI DUNG BÀI VIẾT -->
+<article class="blog-post">
+  <h1>💬 Làm thế nào để nói "KHÔNG" mà không cảm thấy có lỗi?</h1>
+  <div class="blog-meta">📅 24/04/2026 | ⏱️ 7 phút đọc | 👤 Sophia Nguyễn</div>
+
+  <p><strong>Nghệ thuật từ chối – Kỹ năng bảo vệ ranh giới cá nhân và sức khỏe tinh thần.</strong></p>
+
+  <p>Câu chuyện về một bé gái lớp 5 tại Quận Tân Phú (cũ) bị nhóm bạn 8 người tấn công tinh thần bằng những lời lẽ toxic vừa qua không chỉ là một vụ bạo lực học đường đơn thuần. Nó còn là hồi chuông cảnh tỉnh về việc: <strong>Chúng ta đang thiếu hụt kỹ năng thiết lập ranh giới cá nhân từ khi còn rất nhỏ.</strong></p>
+
+  <p>Trong một xã hội trọng sự hòa đồng, việc nói "KHÔNG" thường bị đánh đồng với sự ích kỷ hoặc thiếu hợp tác. Nhưng thực tế, <strong>biết cách từ chối đúng lúc chính là hình thức cao nhất của việc tự trân trọng bản thân.</strong></p>
+
+  <h2>1. ❓ Tại sao chúng ta lại thấy "có lỗi" khi từ chối?</h2>
+  <p>Nỗi sợ này thường đến từ:</p>
+  <ul>
+    <li><strong>Nhu cầu được chấp nhận:</strong> Sợ bị cô lập khỏi đám đông (giống như nỗi sợ của những đứa trẻ trong trường học).</li>
+    <li><strong>Tâm lý "người làm hài lòng":</strong> Luôn đặt cảm xúc của người khác lên trên nhu cầu của chính mình.</li>
+    <li><strong>Sự nhầm lẫn về lòng tốt:</strong> Nghĩ rằng tử tế nghĩa là phải đồng ý với mọi yêu cầu, kể cả những yêu cầu độc hại.</li>
+  </ul>
+
+  <h2>2. ⚠️ Sự nguy hiểm của việc "Không biết cách nói KHÔNG"</h2>
+  <p>Nhìn từ sự việc ở Tân Phú, nếu một đứa trẻ không được dạy cách nói "Không" với những lời nhục mạ, hoặc những đứa trẻ khác không dám nói "Không" khi bị lôi kéo vào nhóm bắt nạt, hậu quả sẽ là:</p>
+  <ul>
+    <li>Sức khỏe tinh thần bị bào mòn bởi sự toxic.</li>
+    <li>Ranh giới cá nhân bị xâm phạm nghiêm trọng.</li>
+    <li>Tạo môi trường cho những hành vi xấu xí tiếp diễn.</li>
+  </ul>
+
+  <h2>3. 🎨 "Nghệ thuật" từ chối để bảo vệ bản thân</h2>
+  <p>Để nói "Không" một cách văn minh và quyết liệt, bạn cần ghi nhớ:</p>
+  <ul>
+    <li><strong>Lời từ chối là một câu hoàn chỉnh:</strong> Bạn không cần phải đưa ra hàng tá lý do hay lời xin lỗi để được phép bảo vệ bản thân.</li>
+    <li><strong>Tập trung vào cảm xúc của chính mình:</strong> Thay vì công kích lại, hãy khẳng định: <em>"Tôi không thoải mái với cách giao tiếp này và tôi chọn dừng cuộc đối thoại ở đây."</em></li>
+    <li><strong>Phân biệt giữa "Tử tế" và "Dễ dãi":</strong> Người tử tế có ranh giới. Người dễ dãi thì không.</li>
+  </ul>
+
+  <h2>4. 🌱 Dạy con và dạy chính mình về "Ranh giới"</h2>
+  <p>Dù là người lớn hay trẻ nhỏ, việc thiết lập ranh giới cần được thực hiện ngay khi nhận thấy những dấu hiệu toxic đầu tiên.</p>
+  <ul>
+    <li><strong>Với trẻ em:</strong> Hãy dạy con rằng xinh xắn hay đáng yêu không phải là cái tội, và con có quyền "block" những sự độc hại ra khỏi cuộc đời mình.</li>
+    <li><strong>Với chúng ta:</strong> Học cách từ chối những mối quan hệ không lành mạnh chính là cách bảo vệ năng lượng để dành cho những điều xứng đáng hơn.</li>
+  </ul>
+
+  <blockquote>
+    <strong>💬 Lời kết của Sophia dành cho mọi người:</strong><br>
+    Nói "Không" với người khác chính là nói "Có" với chính mình. Đừng để sự cả nể biến bạn (hoặc con cái bạn) trở thành nạn nhân của những lời lẽ xấu xí. Bảo vệ sức khỏe tinh thần bắt đầu từ việc can đảm vạch ra một đường kẻ: <strong>Đến đây thôi, bạn không được phép bước qua!</strong>
+  </blockquote>
+
+ 
+ <!-- BÀI VIẾT LIÊN QUAN -->
+<div class="related-post">
+  <p>📖 <strong>Bài viết liên quan:</strong></p>
+  <a href="blog-bao-luc-hoc-duong.html">💔 Bạo lực học đường ở trẻ em: Vấn nạn cần lên tiếng</a>
+  <p style="margin-top: 12px; font-size: 0.85rem;">👉 Đọc tiếp để hiểu rõ hơn về thực trạng bạo lực học đường và cách phòng tránh.</p>
+</div>
+</article>
+
+<!-- CTA -->
+<section class="cta-section">
+  <a href="https://zalo.me/0977092182" class="cta-datlich">📅 Đặt lịch tư vấn</a>
+  <a href="../contact.html" class="cta-datlich">📩 Gửi tin nhắn cho Sophia</a>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-logo">
+      <img src="../images/hinhremovenen.png" alt="Logo Sophia">
+      <p>Đồng hành & Sẻ chia cùng bạn trên hành trình tâm lý – phát triển – yêu thương.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Dịch vụ</h4>
+      <ul>
+        <li><a href="#">Tham vấn tâm lý</a></li>
+        <li><a href="#">Định hướng nghề nghiệp</a></li>
+        <li><a href="#">Đào tạo kỹ năng</a></li>
+        <li><a href="#">Sinh trắc vân tay</a></li>
+      </ul>
+    </div>
+    <div class="footer-map">
+      <h4>📍 Sophia Nguyễn</h4>
+      <div class="map-wrapper">
+        <iframe title="Bản đồ văn phòng Sophia Nguyễn" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2011370.49063534!2d105.62948206017298!3d10.061508194634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2538aa37322d867b%3A0xa6ab3c950d893f03!2zU29waGlhTmd1eWVuIC0gxJDhu5NuZyBow6BuaCAmIFPhursgY2hpYQ!5e0!3m2!1svi!2s!4v1775469816647!5m2!1svi!2s" width="100%" height="180" style="border:0; border-radius: 16px;" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+      <p>⭐ 5.0 - Đánh giá từ học viên</p>
+    </div>
+    <div class="footer-contact">
+      <h4>Liên hệ</h4>
+      <p>📧 sophianguyen2891@gmail.com</p>
+      <p>📞 0977092182</p>
+      <p>🏠 Tân Bình - TPHCM</p>
+      <div class="social-icons">
+        <a href="https://www.facebook.com/Sophiadiemhang1982"><img src="../images/fb.png" alt="FB" /></a>
+        <a href="https://www.tiktok.com/@sophia.nguyen2014"><img src="../images/tiktok.png" alt="TikTok" /></a>
+        <a href="https://www.youtube.com/@sophianguyen1982-dh"><img src="../images/youtube.png" alt="YouTube" /></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>Copyright ©2024 Sophia Nguyễn. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({ once: true, duration: 1000, easing: 'ease-out-cubic' });
+  function toggleMenu() {
+    document.querySelector(".navbar").classList.toggle("show-menu");
+  }
+</script>
+</body>
+</html>
