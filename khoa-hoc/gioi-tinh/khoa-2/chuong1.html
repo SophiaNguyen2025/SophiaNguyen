@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Khóa 2 - Chương 2: Phép nhiệm màu trong bụng mẹ | Sophia Nguyen</title>
+    <title>Khóa 2 - Chương 1: Ngôi nhà đầu tiên của con | Sophia Nguyen</title>
     <style>
         * {
             margin: 0;
@@ -12,7 +12,7 @@
         }
 
         body {
-            background: #E8F0E8;
+            background: #FCE9E0;
             font-family: 'Segoe UI', 'Quicksand', 'Comic Neue', 'Nunito', 'Poppins', cursive;
             padding: 20px;
         }
@@ -42,22 +42,22 @@
         }
 
         .course-badge {
-            background: #D4E8CC;
+            background: #FFD5C0;
             display: inline-block;
             padding: 5px 18px;
             border-radius: 40px;
             font-size: 13px;
             font-weight: bold;
-            color: #4A6E3C;
+            color: #B85C2E;
             margin-bottom: 12px;
         }
 
         .chapter-title {
             font-size: 32px;
             font-weight: bold;
-            color: #5A8A48;
+            color: #C27E55;
             text-align: center;
-            background: #F8FFF5;
+            background: #FFF5F0;
             display: inline-block;
             padding: 8px 30px;
             border-radius: 60px;
@@ -88,13 +88,13 @@
         }
 
         .video-label {
-            background: #F4FCF0;
+            background: #FFF2EB;
             padding: 12px 20px;
             font-weight: bold;
-            color: #6B9E54;
+            color: #C66E46;
             font-size: 18px;
             text-align: center;
-            border-top: 2px solid #D8E8D0;
+            border-top: 2px solid #FFDECC;
         }
 
         .exercise {
@@ -108,33 +108,33 @@
         .ex-title {
             font-size: 26px;
             font-weight: bold;
-            color: #6B9E54;
+            color: #D98654;
             margin-bottom: 8px;
             display: flex;
             align-items: center;
             gap: 10px;
-            border-left: 6px solid #A8D0A0;
+            border-left: 6px solid #F4B183;
             padding-left: 16px;
         }
 
         .ex-desc {
-            color: #7A9E68;
+            color: #B67B58;
             margin-bottom: 20px;
             font-size: 15px;
             padding-left: 22px;
         }
 
         .question-item {
-            background: #FDFFFC;
+            background: #FFFBF8;
             border-radius: 24px;
             padding: 16px 20px;
             margin-bottom: 16px;
-            border: 1px solid #D8E8D0;
+            border: 1px solid #FFE4D4;
         }
 
         .question-text {
             font-weight: 700;
-            color: #4A6E3C;
+            color: #784B2E;
             margin-bottom: 12px;
             font-size: 18px;
         }
@@ -145,7 +145,7 @@
             gap: 12px;
             margin: 10px 0;
             padding: 8px 12px;
-            background: #F8FFF5;
+            background: #FFF5EF;
             border-radius: 60px;
             cursor: pointer;
             transition: 0.2s;
@@ -153,53 +153,80 @@
         }
 
         .option:hover {
-            background: #ECF8E8;
-            border-color: #A8D0A0;
+            background: #FFEDE2;
+            border-color: #F7BC8C;
         }
 
         input[type="radio"] {
             width: 20px;
             height: 20px;
-            accent-color: #6B9E54;
+            accent-color: #E58E62;
             cursor: pointer;
         }
 
-        .fruit-row {
+        .truefalse-btns {
             display: flex;
-            justify-content: center;
             gap: 20px;
-            flex-wrap: wrap;
-            margin: 20px 0;
+            margin-top: 8px;
         }
 
-        .fruit-item {
+        .tf-btn {
+            background: #F0E1D8;
+            border: none;
+            padding: 8px 24px;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.2s;
+        }
+
+        .tf-btn.selected-true {
+            background: #9BC4A0;
+            color: white;
+        }
+
+        .tf-btn.selected-false {
+            background: #E6A28C;
+            color: white;
+        }
+
+        .match-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 15px 0;
+            align-items: center;
+        }
+
+        .match-term {
+            background: #FFE4D0;
+            padding: 10px 16px;
+            border-radius: 60px;
+            font-weight: bold;
+            min-width: 140px;
             text-align: center;
-            background: #F8FFF5;
-            padding: 12px;
+            color: #7A4D2E;
+        }
+
+        .match-def {
+            flex: 1;
+            background: #FFF3EC;
+            padding: 10px 16px;
             border-radius: 60px;
             cursor: pointer;
             transition: 0.2s;
-            border: 2px solid transparent;
+            border: 1px solid #FFDCC8;
         }
 
-        .fruit-item.selected {
-            border-color: #6B9E54;
-            background: #ECF8E8;
-            transform: scale(1.05);
-        }
-
-        .fruit-emoji {
-            font-size: 48px;
-            display: block;
-        }
-
-        .fruit-name {
-            font-size: 14px;
-            color: #5A8A48;
+        .match-def.selected {
+            background: #F7BC8C;
+            color: white;
+            border-color: #D97A48;
         }
 
         .check-btn {
-            background: #6B9E54;
+            background: #D98654;
             border: none;
             color: white;
             font-weight: bold;
@@ -213,17 +240,18 @@
         }
 
         .check-btn:hover {
-            background: #5A8A48;
+            background: #C06E42;
         }
 
         .result-area {
             margin-top: 18px;
+            background: #F6F0E8;
             border-radius: 24px;
             padding: 15px;
             text-align: center;
             font-weight: bold;
             font-size: 18px;
-            color: #5A8A48;
+            color: #A56642;
         }
 
         .sticker-row {
@@ -235,14 +263,14 @@
         }
 
         .sticker {
-            background: #F8FFF5;
+            background: #FFF5EE;
             border-radius: 60px;
             padding: 8px 18px;
             display: inline-flex;
             align-items: center;
             gap: 8px;
             font-size: 16px;
-            color: #5A8A48;
+            color: #B85C2E;
         }
 
         @media (max-width: 600px) {
@@ -253,8 +281,9 @@
                 font-size: 24px;
                 padding: 6px 20px;
             }
-            .fruit-emoji {
-                font-size: 36px;
+            .match-term {
+                min-width: 100px;
+                font-size: 14px;
             }
         }
     </style>
@@ -267,225 +296,80 @@
         </div>
         <div class="course-badge">🌸 Khóa 2 - Dành cho bé 3-5 tuổi</div>
         <div>
-            <span class="chapter-title">🌱 Phép nhiệm màu trong bụng mẹ</span>
+            <span class="chapter-title">🏠 Ngôi nhà đầu tiên của con</span>
         </div>
     </div>
 
-    <!-- Sticker hành trình lớn lên -->
+    <!-- Sticker dễ thương -->
     <div class="sticker-row">
-        <div class="sticker">🫘 Hạt đậu tí hon</div>
-        <div class="sticker">🍋 Quả chanh xinh</div>
-        <div class="sticker">🥭 Quả xoài vàng</div>
-        <div class="sticker">🍉 Quả dưa hấu to</div>
+        <div class="sticker">🤰 Mẹ yêu thương</div>
+        <div class="sticker">👶 Bé lớn lên mỗi ngày</div>
+        <div class="sticker">🔴 Sợi dây thần kỳ</div>
+        <div class="sticker">⭐ Huy chương rốn xinh</div>
     </div>
 
     <div class="video-card">
         <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/Uki64YScdoU" title="Bài giảng Khóa 2 Chương 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/k246_Ad8oDU" title="Bài giảng Khóa 2 Chương 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
         <div class="video-label">
-            🎬 Bài học: Phép nhiệm màu trong bụng mẹ – Hành trình từ hạt đậu thành em bé!
+            🎬 Bài học: Ngôi nhà đầu tiên của con – Cùng bạn Sóc khám phá bụng mẹ nhé!
         </div>
     </div>
 
-    <!-- BÀI TẬP 1: Sắp xếp hành trình -->
     <div class="exercise" id="ex1">
-        <div class="ex-title">🥭 Bài tập 1: Hành trình lớn lên của con</div>
-        <div class="ex-desc">🌸 Hãy chọn đúng thứ tự từ lúc con còn nhỏ nhất đến lúc sắp chào đời nhé!</div>
-        <div id="orderingArea"></div>
-        <button class="check-btn" id="checkOrderBtn">✅ Kiểm tra bài tập 1</button>
-        <div id="orderResult" class="result-area" style="display: none;"></div>
-    </div>
-
-    <!-- BÀI TẬP 2: Ai đúng? (Chọn câu đúng) -->
-    <div class="exercise" id="ex2">
-        <div class="ex-title">🐟 Bài tập 2: Bé có nhớ không?</div>
-        <div class="ex-desc">🎯 Chọn câu trả lời đúng nhất.</div>
-        <div id="quizQuestions"></div>
-        <button class="check-btn" id="checkQuizBtn">🔍 Kiểm tra bài tập 2</button>
+        <div class="ex-title">📝 Bài tập 1: Bé nhớ bài học không?</div>
+        <div class="ex-desc">🌸 Chọn câu trả lời đúng nhất.</div>
+        <div id="quiz-questions"></div>
+        <button class="check-btn" id="checkQuizBtn">✅ Kiểm tra bài tập 1</button>
         <div id="quizResult" class="result-area" style="display: none;"></div>
     </div>
 
-    <!-- BÀI TẬP 3: Đúng hay sai -->
+    <div class="exercise" id="ex2">
+        <div class="ex-title">🔗 Bài tập 2: Ghép đôi thông minh</div>
+        <div class="ex-desc">🎯 Nhấn vào ô nghĩa bên phải để ghép với từ bên trái nhé!</div>
+        <div id="matchingArea"></div>
+        <button class="check-btn" id="checkMatchBtn">🔍 Kiểm tra ghép đôi</button>
+        <div id="matchResult" class="result-area" style="display: none;"></div>
+    </div>
+
     <div class="exercise" id="ex3">
         <div class="ex-title">✅❌ Bài tập 3: Đúng hay sai?</div>
         <div class="ex-desc">🐣 Đọc câu và chọn Đúng (Đ) hoặc Sai (S) nhé.</div>
-        <div id="tfQuestions"></div>
+        <div id="tf-questions"></div>
         <button class="check-btn" id="checkTfBtn">📋 Kiểm tra Đúng/Sai</button>
         <div id="tfResult" class="result-area" style="display: none;"></div>
     </div>
 </div>
 
 <script>
-    // Audio system
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    
-    function playSound(type, isCorrect = null) {
-        const now = audioContext.currentTime;
-        const gainNode = audioContext.createGain();
-        gainNode.connect(audioContext.destination);
-        gainNode.gain.value = 0.3;
-
-        const oscillator = audioContext.createOscillator();
-        oscillator.connect(gainNode);
-
-        if (type === 'tick') {
-            oscillator.frequency.value = 880;
-            oscillator.type = 'sine';
-            gainNode.gain.value = 0.15;
-            oscillator.start();
-            oscillator.stop(now + 0.1);
-        } else if (type === 'plop') {
-            oscillator.frequency.value = 440;
-            oscillator.type = 'sine';
-            gainNode.gain.value = 0.2;
-            oscillator.start();
-            oscillator.stop(now + 0.15);
-        } else if (type === 'correct') {
-            oscillator.frequency.value = 880;
-            oscillator.type = 'sine';
-            gainNode.gain.value = 0.2;
-            oscillator.start();
-            oscillator.stop(now + 0.1);
-            setTimeout(() => {
-                const osc2 = audioContext.createOscillator();
-                osc2.connect(gainNode);
-                osc2.frequency.value = 1100;
-                osc2.type = 'sine';
-                osc2.start();
-                osc2.stop(now + 0.2);
-            }, 100);
-        } else if (type === 'wrong') {
-            oscillator.frequency.value = 440;
-            oscillator.type = 'sine';
-            gainNode.gain.value = 0.15;
-            oscillator.start();
-            oscillator.stop(now + 0.2);
-        } else if (type === 'click') {
-            oscillator.frequency.value = 660;
-            oscillator.type = 'sine';
-            gainNode.gain.value = 0.1;
-            oscillator.start();
-            oscillator.stop(now + 0.05);
-        }
-    }
-
-    // ---------------------- BÀI TẬP 1: SẮP XẾP THỨ TỰ ----------------------
-    const fruits = [
-        { name: "🫘 Hạt đậu", order: 1 },
-        { name: "🍋 Quả chanh", order: 2 },
-        { name: "🥭 Quả xoài", order: 3 },
-        { name: "🍉 Quả dưa hấu", order: 4 }
-    ];
-    
- let userOrder = [0, 1, 2, 3];
-for (let i = userOrder.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [userOrder[i], userOrder[j]] = [userOrder[j], userOrder[i]];
-}
-    let draggingIndex = null;
-
-    function renderOrdering() {
-        const container = document.getElementById('orderingArea');
-        container.innerHTML = '';
-        
-        const grid = document.createElement('div');
-        grid.style.display = 'flex';
-        grid.style.flexDirection = 'column';
-        grid.style.gap = '10px';
-        
-        userOrder.forEach((fruitIdx, pos) => {
-            const item = document.createElement('div');
-            item.style.display = 'flex';
-            item.style.alignItems = 'center';
-            item.style.gap = '15px';
-            item.style.background = '#F8FFF5';
-            item.style.padding = '12px 20px';
-            item.style.borderRadius = '60px';
-            item.style.cursor = 'move';
-            item.style.border = '1px solid #D8E8D0';
-            item.draggable = true;
-            
-            item.innerHTML = `
-                <div style="font-size: 28px;">${fruits[fruitIdx].name.split(' ')[0]}</div>
-                <div style="flex:1; font-weight:bold;">${fruits[fruitIdx].name}</div>
-                <div style="color:#A8D0A0;">⋮⋮</div>
-            `;
-            
-            item.ondragstart = (e) => {
-                draggingIndex = pos;
-                e.dataTransfer.effectAllowed = 'move';
-            };
-            item.ondragover = (e) => {
-                e.preventDefault();
-                e.dataTransfer.dropEffect = 'move';
-            };
-            item.ondrop = (e) => {
-                e.preventDefault();
-                if (draggingIndex !== null && draggingIndex !== pos) {
-                    const newOrder = [...userOrder];
-                    const draggedItem = newOrder[draggingIndex];
-                    newOrder.splice(draggingIndex, 1);
-                    newOrder.splice(pos, 0, draggedItem);
-                    userOrder = newOrder;
-                    renderOrdering();
-                    playSound('plop');
-                }
-                draggingIndex = null;
-            };
-            
-            grid.appendChild(item);
-        });
-        container.appendChild(grid);
-    }
-
-    function checkOrdering() {
-        let correct = 0;
-        userOrder.forEach((fruitIdx, pos) => {
-            if (fruits[fruitIdx].order === pos + 1) correct++;
-        });
-        
-        const resultDiv = document.getElementById('orderResult');
-        resultDiv.style.display = 'block';
-        if (correct === 4) {
-            resultDiv.innerHTML = '🎉🎉🎉 Tuyệt vời! Bé đã sắp xếp đúng hành trình lớn lên từ hạt đậu đến dưa hấu! 🎉🎉🎉';
-            resultDiv.style.background = "#DFF0DF";
-            playSound('correct');
-        } else {
-            resultDiv.innerHTML = `🌻 Bé sắp xếp đúng ${correct}/4. Hãy kéo thả để sắp xếp lại thứ tự: từ nhỏ nhất → lớn nhất nhé! Cố lên con yêu! 💪`;
-            resultDiv.style.background = "#FFEFE0";
-            playSound('wrong');
-        }
-    }
-
-    // ---------------------- BÀI TẬP 2: TRẮC NGHIỆM ----------------------
     const quizData = [
         {
-            text: "🌱 Lúc đầu trong bụng mẹ, con nhỏ bằng gì?",
-            options: ["🍉 Quả dưa hấu", "🫘 Hạt đậu", "🥭 Quả xoài", "🍋 Quả chanh"],
-            correct: 1
-        },
-        {
-            text: "🐟 Con đã làm gì trong bụng mẹ?",
-            options: ["Bơi như cá nhỏ 🏊", "Ngủ cả ngày 😴", "Ăn cơm 🍚", "Xem tivi 📺"],
+            text: "🏠 Ngôi nhà đầu tiên của con là ở đâu?",
+            options: ["Trong bụng mẹ 🤰", "Ở bãi rác 🗑️", "Trong tổ chim 🪹", "Trên mặt trăng 🌙"],
             correct: 0
         },
         {
-            text: "💧 Nước bao quanh con trong bụng mẹ gọi là gì?",
-            options: ["Nước suối", "Nước biển", "Nước ối", "Nước mưa"],
-            correct: 2
+            text: "🔗 Sợi dây thần kỳ nối con với mẹ gọi là gì?",
+            options: ["Dây giày 👟", "Dây rốn 🔴", "Dây chun 🎀", "Dây điện ⚡"],
+            correct: 1
         },
         {
-            text: "🍉 Trước khi chào đời, con lớn bằng quả gì?",
-            options: ["🍓 Quả dâu", "🍌 Quả chuối", "🍊 Quả cam", "🍉 Quả dưa hấu"],
-            correct: 3
+            text: "🏅 Sau khi con chào đời, dây rốn rụng đi để lại dấu tích gì trên bụng con?",
+            options: ["Cái rốn ⭐", "Cái sẹo to 😢", "Hình trái tim 💖", "Không có gì ❌"],
+            correct: 0
+        },
+        {
+            text: "💓 Khi còn trong bụng mẹ, con đã nghe thấy âm thanh gì quen thuộc?",
+            options: ["Tiếng mưa rơi 🌧️", "Nhịp tim của mẹ 💗", "Tiếng ô tô 🚗", "Tiếng mèo kêu 🐱"],
+            correct: 1
         }
     ];
 
     let userAnswers = [null, null, null, null];
 
     function renderQuiz() {
-        const container = document.getElementById('quizQuestions');
+        const container = document.getElementById('quiz-questions');
         container.innerHTML = '';
         quizData.forEach((q, idx) => {
             const qDiv = document.createElement('div');
@@ -501,7 +385,6 @@ for (let i = userOrder.length - 1; i > 0; i--) {
                 if (userAnswers[idx] === optIdx) radio.checked = true;
                 radio.addEventListener('change', (e) => {
                     userAnswers[idx] = parseInt(e.target.value);
-                    playSound('tick');
                 });
                 optDiv.appendChild(radio);
                 optDiv.appendChild(document.createTextNode(opt));
@@ -519,75 +402,115 @@ for (let i = userOrder.length - 1; i > 0; i--) {
         const resultDiv = document.getElementById('quizResult');
         resultDiv.style.display = 'block';
         if (correctCount === quizData.length) {
-            resultDiv.innerHTML = '🎉🎉🎉 Bé giỏi quá! Nhớ bài rất rõ. Con thật thông minh! 🎉🎉🎉';
+            resultDiv.innerHTML = '🎉🎉🎉 Tuyệt vời! Bé trả lời đúng cả 4 câu. Giỏi quá! 🎉🎉🎉';
             resultDiv.style.background = "#DFF0DF";
-            playSound('correct');
         } else {
-            resultDiv.innerHTML = `🌻 Bé trả lời đúng ${correctCount}/${quizData.length} câu. Xem lại video và thử lại nha con yêu! 💪`;
+            resultDiv.innerHTML = `🌻 Bé trả lời đúng ${correctCount}/4 câu. Hãy xem lại video và làm lại bài nhé! Cố lên con yêu! 💪💖`;
             resultDiv.style.background = "#FFEFE0";
-            playSound('wrong');
         }
     }
 
-    // ---------------------- BÀI TẬP 3: ĐÚNG/SAI ----------------------
+    const matchTerms = [
+        { term: "🏠 Bụng mẹ", defIdx: null },
+        { term: "🔴 Dây rốn", defIdx: null },
+        { term: "⭐ Chiếc rốn", defIdx: null },
+        { term: "💗 Nhịp tim mẹ", defIdx: null }
+    ];
+
+    const defsList = [
+        "Ngôi nhà đầu tiên ấm áp của con 🏡",
+        "Sợi dây thần kỳ mang thức ăn & oxy ✨",
+        "Huy chương tình yêu còn lại sau khi dây rốn rụng 🏅",
+        "Âm thanh thình thịch con nghe khi trong bụng 💓"
+    ];
+
+    let currentMatches = [null, null, null, null];
+
+    function renderMatching() {
+        const container = document.getElementById('matchingArea');
+        container.innerHTML = '';
+        matchTerms.forEach((termObj, tIdx) => {
+            const row = document.createElement('div');
+            row.className = 'match-row';
+            const termSpan = document.createElement('div');
+            termSpan.className = 'match-term';
+            termSpan.innerText = termObj.term;
+            row.appendChild(termSpan);
+
+            const defContainer = document.createElement('div');
+            defContainer.style.flex = '1';
+            defContainer.style.display = 'flex';
+            defContainer.style.flexWrap = 'wrap';
+            defContainer.style.gap = '10px';
+
+            defsList.forEach((def, dIdx) => {
+                const defBtn = document.createElement('div');
+                defBtn.className = 'match-def';
+                defBtn.innerText = def;
+                if (currentMatches[tIdx] === dIdx) {
+                    defBtn.classList.add('selected');
+                }
+                defBtn.addEventListener('click', () => {
+                    currentMatches[tIdx] = dIdx;
+                    renderMatching();
+                });
+                defContainer.appendChild(defBtn);
+            });
+            row.appendChild(defContainer);
+            container.appendChild(row);
+        });
+    }
+
+    function checkMatching() {
+        let correct = 0;
+        for (let i = 0; i < currentMatches.length; i++) {
+            if (currentMatches[i] === i) correct++;
+        }
+        const resultDiv = document.getElementById('matchResult');
+        resultDiv.style.display = 'block';
+        if (correct === matchTerms.length) {
+            resultDiv.innerHTML = '🎉🎉🎉 Xuất sắc! Bé ghép đúng hết 4 cặp. Bé hiểu bài quá! 🎉🎉🎉';
+            resultDiv.style.background = "#DFF0DF";
+        } else {
+            resultDiv.innerHTML = `🌱 Bé ghép đúng ${correct}/4 cặp. Thử lại lần nữa xem nào, con làm tốt lắm! 💖`;
+            resultDiv.style.background = "#FFEFE0";
+        }
+    }
+
     const tfData = [
-        { text: "Lúc đầu trong bụng mẹ, con to bằng quả dưa hấu. 🍉", correct: false },
-        { text: "Con đã bơi lội trong túi nước ối ấm áp. 🏊", correct: true },
-        { text: "Tay chân con nhú ra như những mầm lá xinh xắn. 🌱", correct: true },
-        { text: "Con không nghe thấy gì khi ở trong bụng mẹ. 🙉", correct: false }
+        { text: "Ngôi nhà đầu tiên của con là ở bãi rác. 🗑️", correct: false },
+        { text: "Dây rốn giúp mang thức ăn và oxy từ mẹ nuôi con. 🥗💨", correct: true },
+        { text: "Chiếc rốn là dấu tích còn lại sau khi dây rốn rụng, ai cũng có một chiếc rốn. ⭐", correct: true },
+        { text: "Khi còn trong bụng mẹ, con không thể nghe thấy gì cả. 🙉", correct: false }
     ];
 
     let tfAnswers = [null, null, null, null];
 
     function renderTF() {
-        const container = document.getElementById('tfQuestions');
+        const container = document.getElementById('tf-questions');
         container.innerHTML = '';
         tfData.forEach((item, idx) => {
             const qDiv = document.createElement('div');
             qDiv.className = 'question-item';
             qDiv.innerHTML = `<div class="question-text">${idx+1}. ${item.text}</div>`;
             const btnWrapper = document.createElement('div');
-            btnWrapper.style.display = 'flex';
-            btnWrapper.style.gap = '20px';
-            btnWrapper.style.marginTop = '8px';
-            
+            btnWrapper.className = 'truefalse-btns';
             const trueBtn = document.createElement('button');
             trueBtn.innerText = '✅ Đúng';
-            trueBtn.style.background = '#F0E1D8';
-            trueBtn.style.border = 'none';
-            trueBtn.style.padding = '8px 24px';
-            trueBtn.style.borderRadius = '40px';
-            trueBtn.style.fontWeight = 'bold';
-            trueBtn.style.cursor = 'pointer';
-            trueBtn.style.fontSize = '16px';
-            if (tfAnswers[idx] === true) {
-                trueBtn.style.background = '#9BC4A0';
-                trueBtn.style.color = 'white';
-            }
-            
+            trueBtn.className = 'tf-btn';
+            if (tfAnswers[idx] === true) trueBtn.classList.add('selected-true');
             const falseBtn = document.createElement('button');
             falseBtn.innerText = '❌ Sai';
-            falseBtn.style.background = '#F0E1D8';
-            falseBtn.style.border = 'none';
-            falseBtn.style.padding = '8px 24px';
-            falseBtn.style.borderRadius = '40px';
-            falseBtn.style.fontWeight = 'bold';
-            falseBtn.style.cursor = 'pointer';
-            falseBtn.style.fontSize = '16px';
-            if (tfAnswers[idx] === false) {
-                falseBtn.style.background = '#E6A28C';
-                falseBtn.style.color = 'white';
-            }
+            falseBtn.className = 'tf-btn';
+            if (tfAnswers[idx] === false) falseBtn.classList.add('selected-false');
 
             trueBtn.onclick = () => {
                 tfAnswers[idx] = true;
                 renderTF();
-                playSound('tick');
             };
             falseBtn.onclick = () => {
                 tfAnswers[idx] = false;
                 renderTF();
-                playSound('tick');
             };
             btnWrapper.appendChild(trueBtn);
             btnWrapper.appendChild(falseBtn);
@@ -604,31 +527,21 @@ for (let i = userOrder.length - 1; i > 0; i--) {
         const resultDiv = document.getElementById('tfResult');
         resultDiv.style.display = 'block';
         if (correctCount === tfData.length) {
-            resultDiv.innerHTML = '🎉🎉🎉 Xuất sắc! Bé hiểu rõ hành trình lớn lên của mình rồi! 🎉🎉🎉';
+            resultDiv.innerHTML = '🎉🎉🎉 Bé giỏi quá! Đúng hết 4 câu. Con hiểu rất rõ về ngôi nhà đầu tiên của mình! 🎉🎉🎉';
             resultDiv.style.background = "#DFF0DF";
-            playSound('correct');
         } else {
-            resultDiv.innerHTML = `💪 Bé trả lời đúng ${correctCount}/${tfData.length} câu. Cùng xem lại bài và chọn lại nha con yêu! 🧸💕`;
+            resultDiv.innerHTML = `💪 Bé trả lời đúng ${correctCount}/4 câu. Cùng xem lại bài và chọn lại nha con yêu! 🧸💕`;
             resultDiv.style.background = "#FFEFE0";
-            playSound('wrong');
         }
     }
 
-    // Khởi tạo và resume audio context
     function init() {
-        renderOrdering();
         renderQuiz();
+        renderMatching();
         renderTF();
-        document.getElementById('checkOrderBtn').addEventListener('click', checkOrdering);
         document.getElementById('checkQuizBtn').addEventListener('click', checkQuiz);
+        document.getElementById('checkMatchBtn').addEventListener('click', checkMatching);
         document.getElementById('checkTfBtn').addEventListener('click', checkTF);
-        
-        // Resume audio context on first user interaction
-        document.body.addEventListener('click', () => {
-            if (audioContext.state === 'suspended') {
-                audioContext.resume();
-            }
-        }, { once: true });
     }
     init();
 </script>
