@@ -82,14 +82,33 @@
         .try-video iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
         .btn-try { background: var(--gradient-primary); color: white; border: none; padding: 12px 28px; border-radius: 40px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; align-self: center; margin-top: auto; }
         
-        /* Bài tập mẫu */
+        /* Bài tập mẫu - thêm vào cuối */
+        .sample-exercise-section {
+            background: white;
+            border-radius: 32px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid var(--light-gray);
+        }
+        .sample-exercise-section h3 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .sample-exercise-section > p {
+            text-align: center;
+            color: var(--gray);
+            margin-bottom: 24px;
+        }
         .sample-exercise {
             background: #FFF8F5;
             border-radius: 24px;
             padding: 24px;
-            text-align: left;
+            max-width: 600px;
+            margin: 0 auto;
             border: 1px solid #FFE4D4;
-            margin-top: 20px;
         }
         .sample-question {
             background: #FFFBF8;
@@ -214,39 +233,48 @@
                 <a href="#" class="btn-try"><i class="fas fa-play"></i> Khám phá khóa học</a>
             </div>
             <div class="try-box">
-                <h3>📝 Làm thử bài tập mẫu</h3>
-                <p>Trải nghiệm bài tập tương tác trong khóa học</p>
-                <div class="sample-exercise" id="sampleExercise">
-                    <div class="sample-question" id="sampleQ1">
-                        <div class="sample-question-text">🏠 Ngôi nhà đầu tiên của con là ở đâu?</div>
-                        <div class="sample-option" onclick="selectAnswer(0, 0)">
-                            <input type="radio" name="sampleQuiz" value="0" id="opt0"> <label for="opt0">Trong bụng mẹ 🤰</label>
-                        </div>
-                        <div class="sample-option" onclick="selectAnswer(0, 1)">
-                            <input type="radio" name="sampleQuiz" value="1" id="opt1"> <label for="opt1">Ở bãi rác 🗑️</label>
-                        </div>
-                        <div class="sample-option" onclick="selectAnswer(0, 2)">
-                            <input type="radio" name="sampleQuiz" value="2" id="opt2"> <label for="opt2">Trên mặt trăng 🌙</label>
-                        </div>
-                    </div>
-                    <div class="sample-question" id="sampleQ2">
-                        <div class="sample-question-text">🔗 Sợi dây thần kỳ nối con với mẹ gọi là gì?</div>
-                        <div class="sample-option" onclick="selectAnswer(1, 0)">
-                            <input type="radio" name="sampleQuiz2" value="0" id="opt2_0"> <label for="opt2_0">Dây giày 👟</label>
-                        </div>
-                        <div class="sample-option" onclick="selectAnswer(1, 1)">
-                            <input type="radio" name="sampleQuiz2" value="1" id="opt2_1"> <label for="opt2_1">Dây rốn 🔴</label>
-                        </div>
-                        <div class="sample-option" onclick="selectAnswer(1, 2)">
-                            <input type="radio" name="sampleQuiz2" value="2" id="opt2_2"> <label for="opt2_2">Dây điện ⚡</label>
-                        </div>
-                    </div>
-                    <button class="sample-check-btn" onclick="checkSampleQuiz()">✅ Kiểm tra bài tập mẫu</button>
-                    <div id="sampleResult" class="sample-result"></div>
-                    <div style="text-align: center; margin-top: 16px;">
-                        <a href="https://zalo.me/0977092182" class="cta-register">🎓 Đăng ký khóa học để làm đầy đủ 3-5 bài tập mỗi chương 🎓</a>
-                    </div>
+                <h3>📘 Hướng dẫn sử dụng</h3>
+                <p>Cách đăng nhập, quản lý thiết bị và học tập hiệu quả</p>
+                <div class="try-video">
+                    <iframe src="https://www.youtube.com/embed/aL9psAdU-AE" frameborder="0" allowfullscreen></iframe>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BÀI TẬP MẪU - ĐẶT Ở DƯỚI CÙNG, GIỮ NGUYÊN MỌI THỨ PHÍA TRÊN -->
+    <div class="sample-exercise-section">
+        <h3>📝 Làm thử bài tập mẫu</h3>
+        <p>Trải nghiệm bài tập tương tác trong khóa học (trích từ Khóa 2 - Chương 1)</p>
+        <div class="sample-exercise" id="sampleExercise">
+            <div class="sample-question" id="sampleQ1">
+                <div class="sample-question-text">🏠 Ngôi nhà đầu tiên của con là ở đâu?</div>
+                <div class="sample-option" onclick="selectAnswer(0, 0)">
+                    <input type="radio" name="sampleQuiz" value="0" id="opt0"> <label for="opt0">Trong bụng mẹ 🤰</label>
+                </div>
+                <div class="sample-option" onclick="selectAnswer(0, 1)">
+                    <input type="radio" name="sampleQuiz" value="1" id="opt1"> <label for="opt1">Ở bãi rác 🗑️</label>
+                </div>
+                <div class="sample-option" onclick="selectAnswer(0, 2)">
+                    <input type="radio" name="sampleQuiz" value="2" id="opt2"> <label for="opt2">Trên mặt trăng 🌙</label>
+                </div>
+            </div>
+            <div class="sample-question" id="sampleQ2">
+                <div class="sample-question-text">🔗 Sợi dây thần kỳ nối con với mẹ gọi là gì?</div>
+                <div class="sample-option" onclick="selectAnswer(1, 0)">
+                    <input type="radio" name="sampleQuiz2" value="0" id="opt2_0"> <label for="opt2_0">Dây giày 👟</label>
+                </div>
+                <div class="sample-option" onclick="selectAnswer(1, 1)">
+                    <input type="radio" name="sampleQuiz2" value="1" id="opt2_1"> <label for="opt2_1">Dây rốn 🔴</label>
+                </div>
+                <div class="sample-option" onclick="selectAnswer(1, 2)">
+                    <input type="radio" name="sampleQuiz2" value="2" id="opt2_2"> <label for="opt2_2">Dây điện ⚡</label>
+                </div>
+            </div>
+            <button class="sample-check-btn" onclick="checkSampleQuiz()">✅ Kiểm tra bài tập mẫu</button>
+            <div id="sampleResult" class="sample-result"></div>
+            <div style="text-align: center; margin-top: 16px;">
+                <a href="https://zalo.me/0977092182" class="cta-register">🎓 Đăng ký khóa học để làm đầy đủ 3-5 bài tập mỗi chương 🎓</a>
             </div>
         </div>
     </div>
@@ -300,13 +328,12 @@
     }
     renderCourses();
 
-    // Bài tập mẫu
+    // Bài tập mẫu - giữ nguyên code cũ, chỉ thêm này
     let sampleAnswers = [null, null];
-    const correctAnswers = [0, 1]; // Câu 1: đáp án 0, Câu 2: đáp án 1
+    const correctAnswers = [0, 1];
 
     function selectAnswer(qIdx, aIdx) {
         sampleAnswers[qIdx] = aIdx;
-        // Cập nhật giao diện radio
         if (qIdx === 0) {
             for (let i = 0; i < 3; i++) {
                 const radio = document.getElementById(`opt${i}`);
