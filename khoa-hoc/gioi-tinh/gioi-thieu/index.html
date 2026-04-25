@@ -80,95 +80,32 @@
         .try-box h3 { font-size: 1.4rem; color: var(--primary); margin-bottom: 16px; }
         .try-video { position: relative; padding-bottom: 56.25%; height: 0; margin: 20px 0; background: #000; border-radius: 20px; overflow: hidden; }
         .try-video iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-        .btn-try { background: var(--gradient-primary); color: white; border: none; padding: 12px 28px; border-radius: 40px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; align-self: center; margin-top: auto; }
         
-        /* Bài tập mẫu - thêm vào cuối */
-        .sample-exercise-section {
+        /* Popup */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .popup-content {
             background: white;
             border-radius: 32px;
             padding: 40px;
-            margin: 40px 0;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            border: 1px solid var(--light-gray);
-        }
-        .sample-exercise-section h3 {
-            font-size: 1.4rem;
-            color: var(--primary);
-            margin-bottom: 16px;
             text-align: center;
+            max-width: 400px;
+            margin: 20px;
+            border: 1px solid var(--primary);
         }
-        .sample-exercise-section > p {
-            text-align: center;
-            color: var(--gray);
-            margin-bottom: 24px;
-        }
-        .sample-exercise {
-            background: #FFF8F5;
-            border-radius: 24px;
-            padding: 24px;
-            max-width: 600px;
-            margin: 0 auto;
-            border: 1px solid #FFE4D4;
-        }
-        .sample-question {
-            background: #FFFBF8;
-            border-radius: 20px;
-            padding: 16px;
-            margin-bottom: 16px;
-            border: 1px solid #FFE4D4;
-        }
-        .sample-question-text {
-            font-weight: 700;
-            color: #784B2E;
-            margin-bottom: 12px;
-            font-size: 1rem;
-        }
-        .sample-option {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin: 8px 0;
-            padding: 8px 12px;
-            background: #FFF5EF;
-            border-radius: 60px;
-            cursor: pointer;
-            transition: 0.2s;
-            font-size: 0.9rem;
-        }
-        .sample-option:hover { background: #FFEDE2; }
-        .sample-option input { width: 18px; height: 18px; accent-color: #E58E62; cursor: pointer; }
-        .sample-check-btn {
-            background: #D98654;
-            border: none;
-            color: white;
-            font-weight: bold;
-            padding: 10px 20px;
-            border-radius: 40px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 1rem;
-            margin-top: 12px;
-        }
-        .sample-result {
-            margin-top: 12px;
-            padding: 12px;
-            border-radius: 16px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 0.9rem;
-            display: none;
-        }
-        .cta-register {
-            display: inline-block;
-            background: linear-gradient(135deg, #ffd700, #ff8c00);
-            color: #1a1a2e;
-            padding: 10px 20px;
-            border-radius: 40px;
-            font-weight: bold;
-            text-decoration: none;
-            margin-top: 16px;
-            font-size: 0.9rem;
-        }
+        .popup-content h3 { color: var(--primary); margin-bottom: 16px; }
+        .popup-content p { color: var(--gray); margin-bottom: 24px; }
+        .popup-content button { background: var(--primary); color: white; border: none; padding: 10px 24px; border-radius: 40px; cursor: pointer; margin-top: 10px; }
         
         .cta-section { text-align: center; padding: 50px 40px; background: var(--gradient-primary); color: white; border-radius: 32px; margin: 40px 0; }
         .btn-cta { background: white; color: var(--primary); padding: 14px 32px; border-radius: 50px; font-weight: 700; text-decoration: none; display: inline-block; margin: 0 8px; }
@@ -228,9 +165,8 @@
                 <h3>🎬 Học thử miễn phí</h3>
                 <p>Xem ngay bài học mẫu để trải nghiệm thực tế</p>
                 <div class="try-video">
-                    <iframe src="https://www.youtube.com/embed/k246_Ad8oDU" frameborder="0" allowfullscreen></iframe>
+                    <iframe id="trialVideo" src="https://www.youtube.com/embed/k246_Ad8oDU?enablejsapi=1" frameborder="0" allowfullscreen></iframe>
                 </div>
-                <a href="#" class="btn-try"><i class="fas fa-play"></i> Khám phá khóa học</a>
             </div>
             <div class="try-box">
                 <h3>📘 Hướng dẫn sử dụng</h3>
@@ -242,43 +178,87 @@
         </div>
     </div>
 
-    <!-- BÀI TẬP MẪU - ĐẶT Ở DƯỚI CÙNG, GIỮ NGUYÊN MỌI THỨ PHÍA TRÊN -->
-    <div class="sample-exercise-section">
-        <h3>📝 Làm thử bài tập mẫu</h3>
-        <p>Trải nghiệm bài tập tương tác trong khóa học (trích từ Khóa 2 - Chương 1)</p>
-        <div class="sample-exercise" id="sampleExercise">
-            <div class="sample-question" id="sampleQ1">
-                <div class="sample-question-text">🏠 Ngôi nhà đầu tiên của con là ở đâu?</div>
-                <div class="sample-option" onclick="selectAnswer(0, 0)">
-                    <input type="radio" name="sampleQuiz" value="0" id="opt0"> <label for="opt0">Trong bụng mẹ 🤰</label>
-                </div>
-                <div class="sample-option" onclick="selectAnswer(0, 1)">
-                    <input type="radio" name="sampleQuiz" value="1" id="opt1"> <label for="opt1">Ở bãi rác 🗑️</label>
-                </div>
-                <div class="sample-option" onclick="selectAnswer(0, 2)">
-                    <input type="radio" name="sampleQuiz" value="2" id="opt2"> <label for="opt2">Trên mặt trăng 🌙</label>
-                </div>
-            </div>
-            <div class="sample-question" id="sampleQ2">
-                <div class="sample-question-text">🔗 Sợi dây thần kỳ nối con với mẹ gọi là gì?</div>
-                <div class="sample-option" onclick="selectAnswer(1, 0)">
-                    <input type="radio" name="sampleQuiz2" value="0" id="opt2_0"> <label for="opt2_0">Dây giày 👟</label>
-                </div>
-                <div class="sample-option" onclick="selectAnswer(1, 1)">
-                    <input type="radio" name="sampleQuiz2" value="1" id="opt2_1"> <label for="opt2_1">Dây rốn 🔴</label>
-                </div>
-                <div class="sample-option" onclick="selectAnswer(1, 2)">
-                    <input type="radio" name="sampleQuiz2" value="2" id="opt2_2"> <label for="opt2_2">Dây điện ⚡</label>
-                </div>
-            </div>
-            <button class="sample-check-btn" onclick="checkSampleQuiz()">✅ Kiểm tra bài tập mẫu</button>
-            <div id="sampleResult" class="sample-result"></div>
-            <div style="text-align: center; margin-top: 16px;">
-                <a href="https://zalo.me/0977092182" class="cta-register">🎓 Đăng ký khóa học để làm đầy đủ 3-5 bài tập mỗi chương 🎓</a>
-            </div>
+    <!-- Popup thông báo sau khi xem 50% video -->
+    <div id="popupOverlay" class="popup-overlay">
+        <div class="popup-content">
+            <h3>🎉 Bạn đã xem được 50% nội dung!</h3>
+            <p>Đăng ký ngay hôm nay để học tiếp những kiến thức bổ ích về giới tính toàn diện.</p>
+            <a href="https://zalo.me/0977092182" target="_blank" style="background: #E86A8A; color: white; padding: 12px 28px; border-radius: 40px; text-decoration: none; display: inline-block;">📩 Đăng ký học ngay qua Zalo</a>
+            <button onclick="closePopup()" style="background: none; color: #999; border: none; margin-top: 15px; cursor: pointer;">❌ Đóng</button>
         </div>
     </div>
 
+      <!-- BÀI TẬP MẪU - ĐẶT Ở DƯỚI CÙNG, GIỮ NGUYÊN MỌI THỨ PHÍA TRÊN -->
+
+    <div class="sample-exercise-section">
+
+        <h3>📝 Làm thử bài tập mẫu</h3>
+
+        <p>Trải nghiệm bài tập tương tác trong khóa học (trích từ Khóa 2 - Chương 1)</p>
+
+        <div class="sample-exercise" id="sampleExercise">
+
+            <div class="sample-question" id="sampleQ1">
+
+                <div class="sample-question-text">🏠 Ngôi nhà đầu tiên của con là ở đâu?</div>
+
+                <div class="sample-option" onclick="selectAnswer(0, 0)">
+
+                    <input type="radio" name="sampleQuiz" value="0" id="opt0"> <label for="opt0">Trong bụng mẹ 🤰</label>
+
+                </div>
+
+                <div class="sample-option" onclick="selectAnswer(0, 1)">
+
+                    <input type="radio" name="sampleQuiz" value="1" id="opt1"> <label for="opt1">Ở bãi rác 🗑️</label>
+
+                </div>
+
+                <div class="sample-option" onclick="selectAnswer(0, 2)">
+
+                    <input type="radio" name="sampleQuiz" value="2" id="opt2"> <label for="opt2">Trên mặt trăng 🌙</label>
+
+                </div>
+
+            </div>
+
+            <div class="sample-question" id="sampleQ2">
+
+                <div class="sample-question-text">🔗 Sợi dây thần kỳ nối con với mẹ gọi là gì?</div>
+
+                <div class="sample-option" onclick="selectAnswer(1, 0)">
+
+                    <input type="radio" name="sampleQuiz2" value="0" id="opt2_0"> <label for="opt2_0">Dây giày 👟</label>
+
+                </div>
+
+                <div class="sample-option" onclick="selectAnswer(1, 1)">
+
+                    <input type="radio" name="sampleQuiz2" value="1" id="opt2_1"> <label for="opt2_1">Dây rốn 🔴</label>
+
+                </div>
+
+                <div class="sample-option" onclick="selectAnswer(1, 2)">
+
+                    <input type="radio" name="sampleQuiz2" value="2" id="opt2_2"> <label for="opt2_2">Dây điện ⚡</label>
+
+                </div>
+
+            </div>
+
+            <button class="sample-check-btn" onclick="checkSampleQuiz()">✅ Kiểm tra bài tập mẫu</button>
+
+            <div id="sampleResult" class="sample-result"></div>
+
+            <div style="text-align: center; margin-top: 16px;">
+
+                <a href="https://zalo.me/0977092182" class="cta-register">🎓 Đăng ký khóa học để làm đầy đủ các bài tập mỗi chương 🎓</a>
+
+            </div>
+
+        </div>
+
+    </div>
     <div class="cta-section">
         <h2>🚀 Sẵn sàng trang bị kiến thức giới tính cho con?</h2>
         <p style="margin-bottom: 24px;">Đăng ký ngay để nhận tư vấn và được hỗ trợ mã khóa học</p>
@@ -328,41 +308,57 @@
     }
     renderCourses();
 
-    // Bài tập mẫu - giữ nguyên code cũ, chỉ thêm này
-    let sampleAnswers = [null, null];
-    const correctAnswers = [0, 1];
-
-    function selectAnswer(qIdx, aIdx) {
-        sampleAnswers[qIdx] = aIdx;
-        if (qIdx === 0) {
-            for (let i = 0; i < 3; i++) {
-                const radio = document.getElementById(`opt${i}`);
-                if (radio) radio.checked = (i === aIdx);
-            }
-        } else {
-            for (let i = 0; i < 3; i++) {
-                const radio = document.getElementById(`opt2_${i}`);
-                if (radio) radio.checked = (i === aIdx);
-            }
+    // ========== HỌC THỬ - POPUP SAU 50% VIDEO ==========
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    
+    var player;
+    var popupShown = false;
+    var checkInterval = null;
+    
+    function onYouTubeIframeAPIReady() {
+        var videoElement = document.getElementById('trialVideo');
+        if (videoElement) {
+            player = new YT.Player('trialVideo', {
+                events: {
+                    'onStateChange': onPlayerStateChange
+                }
+            });
         }
     }
-
-    function checkSampleQuiz() {
-        const resultDiv = document.getElementById('sampleResult');
-        let correctCount = 0;
-        if (sampleAnswers[0] === correctAnswers[0]) correctCount++;
-        if (sampleAnswers[1] === correctAnswers[1]) correctCount++;
-        
-        resultDiv.style.display = 'block';
-        if (correctCount === 2) {
-            resultDiv.innerHTML = '🎉🎉🎉 Tuyệt vời! Bé trả lời đúng cả 2 câu. Giỏi quá! Hãy đăng ký khóa học để làm thêm nhiều bài tập thú vị hơn nhé! 🎉🎉🎉';
-            resultDiv.style.background = "#DFF0DF";
-            resultDiv.style.color = "#2c5a2c";
-        } else {
-            resultDiv.innerHTML = `🌻 Bé trả lời đúng ${correctCount}/2 câu. Đáp án đúng: Câu 1 là "Trong bụng mẹ", Câu 2 là "Dây rốn". Hãy đăng ký khóa học để xem video và học thêm nhiều bài học bổ ích nhé! 💪💖`;
-            resultDiv.style.background = "#FFEFE0";
-            resultDiv.style.color = "#B85C2E";
+    
+    function onPlayerStateChange(event) {
+        if (popupShown) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                player.pauseVideo();
+            }
+            return;
         }
+        
+        if (event.data == YT.PlayerState.PLAYING) {
+            if (checkInterval) clearInterval(checkInterval);
+            
+            checkInterval = setInterval(function() {
+                if (player && player.getCurrentTime && !popupShown) {
+                    var duration = player.getDuration();
+                    var current = player.getCurrentTime();
+                    if (duration > 0 && (current / duration) >= 0.5) {
+                        clearInterval(checkInterval);
+                        checkInterval = null;
+                        popupShown = true;
+                        player.pauseVideo();
+                        player.seekTo(duration * 0.5);
+                        document.getElementById('popupOverlay').style.display = 'flex';
+                    }
+                }
+            }, 500);
+        }
+    }
+    
+    function closePopup() {
+        document.getElementById('popupOverlay').style.display = 'none';
     }
 </script>
 </body>
