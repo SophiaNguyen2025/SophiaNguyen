@@ -455,6 +455,58 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
             osc.stop(audioCtx.currentTime + 0.4);
         } catch(e) {}
     }
+      // ========== HỌC THỬ - POPUP SAU 50% VIDEO ==========
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    
+    var player;
+    var popupShown = false;
+    var checkInterval = null;
+    
+    function onYouTubeIframeAPIReady() {
+        var videoElement = document.getElementById('trialVideo');
+        if (videoElement) {
+            player = new YT.Player('trialVideo', {
+                events: {
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+    }
+    
+    function onPlayerStateChange(event) {
+        if (popupShown) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                player.pauseVideo();
+            }
+            return;
+        }
+        
+        if (event.data == YT.PlayerState.PLAYING) {
+            if (checkInterval) clearInterval(checkInterval);
+            
+            checkInterval = setInterval(function() {
+                if (player && player.getCurrentTime && !popupShown) {
+                    var duration = player.getDuration();
+                    var current = player.getCurrentTime();
+                    if (duration > 0 && (current / duration) >= 0.5) {
+                        clearInterval(checkInterval);
+                        checkInterval = null;
+                        popupShown = true;
+                        player.pauseVideo();
+                        player.seekTo(duration * 0.5);
+                        document.getElementById('popupOverlay').style.display = 'flex';
+                    }
+                }
+            }, 500);
+        }
+    }
+    
+    function closePopup() {
+        document.getElementById('popupOverlay').style.display = 'none';
+    }
 </script>
     
 </body>
