@@ -452,7 +452,7 @@
         document.getElementById('popupOverlay').style.display = 'none';
     }
 
-    // ========== API QUẢN LÝ MÃ KHÓA HỌC (GIỮ NGUYÊN CỦA CHỊ) ==========
+     // ========== API QUẢN LÝ MÃ KHÓA HỌC ==========
     const SHEET_ID = "https://script.google.com/macros/s/AKfycbzK8jBf67ru-b2ZQ8PsTq_1pbACx1yMyk7v_rEqr_EaNTs0LO3xoEujMgyNHsjMUp7Nbw/exec";
     
     function getDeviceId() {
@@ -487,13 +487,13 @@
         
         messageDiv.innerHTML = '<span style="color:#f39c12">⏳ Đang kiểm tra mã...</span>';
         
-        const apiUrl = `https://script.google.com/macros/s/AKfycbxObT4z1R3B8jvTg3M7aNYJ0UqJ2sUveCTd6q4m58NqNp5k7p3kYTivnSfJPnVQcP6p/exec?ma=${encodeURIComponent(maKhoa)}&deviceId=${encodeURIComponent(deviceId)}&deviceName=${encodeURIComponent(deviceName)}`;
+        const apiUrl = `${SHEET_ID}?ma=${encodeURIComponent(maKhoa)}&deviceId=${encodeURIComponent(deviceId)}&deviceName=${encodeURIComponent(deviceName)}`;
         
         fetch(apiUrl)
             .then(response => response.json())
             .then(data => {
                 if (data.status === "success") {
-                    messageDiv.innerHTML = `<span style="color:#27ae60">✅ Đăng nhập thành công! Mã khóa hợp lệ. Chào mừng ${data.user || "học viên"}!</span>`;
+                    messageDiv.innerHTML = `<span style="color:#27ae60">✅ Đăng nhập thành công! Chào mừng ${data.user || "học viên"}!</span>`;
                     localStorage.setItem('maKhoa', maKhoa);
                     setTimeout(() => {
                         window.location.href = "https://sophianguyen.com.vn/khoa-hoc/gioi-tinh/hoc-tap/";
