@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Bản lĩnh Teen - 9 kỹ năng an toàn dành cho giới trẻ | Sophia Nguyễn</title>
-    <meta name="description" content="9 chủ đề kỹ năng an toàn dành cho tuổi teen: An toàn giao thông, sơ cấp cứu, tự vệ xã hội, an toàn hẹn hò, sinh tồn, an toàn mạng, sức khỏe tâm thần, pháp luật, làm chủ khủng hoảng và an toàn AI.">
+    <meta name="description" content="9 chủ đề kỹ năng an toàn dành cho tuổi teen: An toàn giao thông, sơ cấp cứu, tự vệ xã hội, an toàn hẹn hò, sinh tồn, an toàn mạng, sức khỏe tâm thần, pháp luật, làm chủ khủng hoảng và an toàn AI. HOÀN TOÀN MIỄN PHÍ.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -36,6 +36,7 @@
         .hero { background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%); padding: 60px 0 50px; text-align: center; color: white; border-bottom: 3px solid var(--primary); }
         .hero h1 { font-size: 2.2rem; margin-bottom: 1rem; }
         .hero p { font-size: 1.1rem; max-width: 700px; margin: 0 auto; opacity: 0.9; }
+        .hero .free-badge { background: #ffd700; color: #1a1a2e; display: inline-block; padding: 8px 20px; border-radius: 40px; margin-top: 20px; font-weight: bold; font-size: 1rem; }
         
         .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 30px; margin: 40px 0; }
         .course-card { background: #141414; border-radius: 28px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: all 0.3s; border: 1px solid #2a2a2a; }
@@ -50,20 +51,27 @@
         .chapters-list li { font-size: 0.8rem; color: #bbb; margin: 6px 0; display: flex; align-items: center; gap: 8px; }
         .chapters-list li i { color: var(--primary); font-size: 0.6rem; }
         .course-footer { margin-top: 16px; padding-top: 16px; border-top: 1px solid #2a2a2a; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
-        .course-price { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
-        .price-old { font-size: 0.85rem; color: #888; text-decoration: line-through; }
-        .price-new { font-size: 1.3rem; font-weight: bold; color: var(--primary); }
-        .btn-buy { background: var(--gradient-primary); color: white; border: none; padding: 8px 20px; border-radius: 40px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.2s; font-size: 0.9rem; }
-        .btn-buy:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(230,57,70,0.5); }
+        .free-badge-small { background: linear-gradient(135deg, #ffd700, #ff8c00); color: #1a1a2e; padding: 6px 16px; border-radius: 40px; font-weight: bold; font-size: 0.85rem; display: inline-block; }
+        .btn-watch { background: var(--gradient-primary); color: white; border: none; padding: 8px 20px; border-radius: 40px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.2s; font-size: 0.9rem; }
+        .btn-watch:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(230,57,70,0.5); }
         
-        .combo-badge { background: linear-gradient(135deg, #e63946, #c1121f); border-radius: 60px; padding: 20px 30px; margin: 30px auto 20px; text-align: center; max-width: 500px; animation: pulse 1.5s infinite; cursor: pointer; transition: 0.2s; border: 1px solid #ff6b6b; }
-        .combo-badge:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(230,57,70,0.5); }
+        .free-combo-badge {
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            border-radius: 60px;
+            padding: 20px 30px;
+            margin: 30px auto 20px;
+            text-align: center;
+            max-width: 500px;
+            animation: pulse 1.5s infinite;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .free-combo-badge:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(255,215,0,0.5); }
         @keyframes pulse { 0% { transform: scale(1); } 70% { transform: scale(1.02); } 100% { transform: scale(1); } }
-        .combo-badge h3 { color: white; font-size: 1.5rem; margin-bottom: 8px; }
-        .combo-price { font-size: 1.8rem; font-weight: 800; color: #ffd700; }
-        .combo-old-price { font-size: 1rem; text-decoration: line-through; color: #ffb3b3; margin-left: 10px; }
-        .btn-combo { background: #1a1a2e; color: var(--primary); border: 2px solid var(--primary); padding: 10px 24px; border-radius: 40px; font-weight: 700; cursor: pointer; margin-top: 10px; transition: 0.2s; }
-        .btn-combo:hover { background: var(--primary); color: white; }
+        .free-combo-badge h3 { color: #1a1a2e; font-size: 1.5rem; margin-bottom: 8px; }
+        .free-combo-badge .free-price { font-size: 1.5rem; font-weight: 800; color: #1a1a2e; }
+        .btn-join { background: #1a1a2e; color: #ffd700; border: none; padding: 10px 24px; border-radius: 40px; font-weight: 700; cursor: pointer; margin-top: 10px; }
+        .btn-join:hover { background: #2a2a3e; transform: translateY(-2px); }
         
         .try-section { background: #141414; border-radius: 32px; padding: 40px; margin: 40px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 1px solid #2a2a2a; }
         .try-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
@@ -71,6 +79,8 @@
         .try-box h3 { font-size: 1.4rem; color: var(--primary); margin-bottom: 16px; }
         .try-video { position: relative; padding-bottom: 56.25%; height: 0; margin: 20px 0; background: #000; border-radius: 20px; overflow: hidden; border: 1px solid var(--primary); }
         .try-video iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .btn-try { background: var(--gradient-primary); color: white; border: none; padding: 12px 28px; border-radius: 40px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; align-self: center; margin-top: auto; }
+        .btn-try:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(230,57,70,0.5); }
         
         .popup-overlay {
             display: none;
@@ -96,6 +106,43 @@
         .popup-content h3 { color: #e63946; margin-bottom: 16px; }
         .popup-content p { color: #ccc; margin-bottom: 24px; }
         .popup-content button { background: none; border: none; color: #888; cursor: pointer; margin-top: 15px; }
+        
+        .code-section {
+            background: #141414;
+            border-radius: 32px;
+            padding: 30px;
+            margin: 40px 0;
+            text-align: center;
+            border: 1px solid #2a2a2a;
+        }
+        .code-section h4 { color: var(--primary); margin-bottom: 16px; }
+        .code-input-group {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+        .code-input-group input {
+            padding: 12px 20px;
+            border-radius: 60px;
+            border: 1px solid #2a2a2a;
+            background: #0a0a0a;
+            color: white;
+            font-size: 1rem;
+            width: 250px;
+            text-align: center;
+        }
+        .code-input-group button {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .code-message { font-size: 0.85rem; margin-top: 10px; }
         
         .sample-exercise-section {
             background: #141414;
@@ -206,6 +253,7 @@
             .btn-cta, .btn-cta-outline { display: block; margin: 12px auto; width: fit-content; }
             .logo img { height: 45px; }
             .try-grid { grid-template-columns: 1fr; gap: 30px; }
+            .free-combo-badge { margin: 20px; padding: 15px 20px; }
         }
     </style>
 </head>
@@ -230,26 +278,28 @@
     <div class="container">
         <h1>🛡️ Bản lĩnh Teen – 9 kỹ năng an toàn</h1>
         <p>Trang bị kỹ năng sống còn: An toàn giao thông, sơ cấp cứu, tự vệ xã hội, an toàn hẹn hò, sinh tồn, an toàn mạng, sức khỏe tâm thần, pháp luật, làm chủ khủng hoảng & an toàn AI.</p>
+        <div class="free-badge">🎁 HOÀN TOÀN MIỄN PHÍ 🎁</div>
     </div>
 </section>
 
 <div class="container">
     <div class="courses-grid" id="coursesGrid"></div>
 
-    <div class="combo-badge" onclick="window.open('https://zalo.me/0977092182', '_blank')">
-        <h3>⚡ SIÊU TIẾT KIỆM ⚡</h3>
-        <p>Mua 3 chủ đề bất kỳ chỉ <span class="combo-price">199.000đ</span> <span class="combo-old-price">597.000đ</span></p>
-        <p>Combo trọn bộ 9 chủ đề chỉ <span class="combo-price">399.000đ</span> <span class="combo-old-price">1.791.000đ</span></p>
-        <button class="btn-combo">🎯 CHỌN NGAY</button>
+    <!-- FREE COMBO BADGE -->
+    <div class="free-combo-badge" onclick="window.open('https://zalo.me/0977092182', '_blank')">
+        <h3>⭐ ƯU ĐÃI ĐẶC BIỆT ⭐</h3>
+        <p>TRỌN BỘ 9 CHỦ ĐỀ BẢN LĨNH TEEN</p>
+        <div><span class="free-price">🎯 HOÀN TOÀN MIỄN PHÍ 🎯</span></div>
+        <button class="btn-join">📝 ĐĂNG KÝ THAM GIA NHÓM NGAY</button>
     </div>
 
     <div class="try-section">
         <div class="try-grid">
             <div class="try-box">
-                <h3>🎬 Học thử miễn phí</h3>
+                <h3>🎬 Xem thử bài học</h3>
                 <p>Xem bài học về Sức khỏe tâm thần – Sơ cứu cảm xúc</p>
                 <div class="try-video">
-                <iframe id="trialVideo" src="https://www.youtube.com/embed/-RjsI0uNb5s?enablejsapi=1" frameborder="0" allowfullscreen></iframe>
+                    <iframe id="trialVideo" src="https://www.youtube.com/embed/-RjsI0uNb5s?enablejsapi=1" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
             <div class="try-box">
@@ -262,12 +312,12 @@
         </div>
     </div>
 
-    <!-- POPUP (giống hệt file giới tính) -->
+    <!-- POPUP -->
     <div id="popupOverlay" class="popup-overlay">
         <div class="popup-content">
             <h3>🎉 Bạn đã xem được 50% nội dung!</h3>
-            <p>Đăng ký ngay hôm nay để học tiếp những kiến thức bổ ích về sức khỏe tâm thần và 8 chủ đề còn lại.</p>
-            <a href="https://zalo.me/0977092182" target="_blank" style="background:#e63946; color:white; padding:12px 28px; border-radius:40px; text-decoration:none; display:inline-block;">📩 Đăng ký học ngay qua Zalo</a>
+            <p>Đăng ký thành viên nhóm với Sophia để xem thêm nhiều bài giảng hay và thú vị về sức khỏe tâm thần và 8 chủ đề còn lại.</p>
+            <a href="https://zalo.me/0977092182" target="_blank" style="background:#e63946; color:white; padding:12px 28px; border-radius:40px; text-decoration:none; display:inline-block;">📝 Đăng ký thành viên nhóm</a>
             <button onclick="closePopup()">❌ Đóng</button>
         </div>
     </div>
@@ -304,15 +354,25 @@
             <button class="sample-check-btn" onclick="checkSampleQuiz()">✅ Kiểm tra bài tập mẫu</button>
             <div id="sampleResult" class="sample-result"></div>
             <div style="text-align: center; margin-top: 16px;">
-                <a href="https://zalo.me/0977092182" class="cta-register">🎓 Đăng ký khóa học để làm đầy đủ 3 bài tập mỗi chủ đề 🎓</a>
+                <a href="https://zalo.me/0977092182" class="cta-register">🎓 Tham gia nhóm để học thêm nhiều bài tập thú vị 🎓</a>
             </div>
         </div>
     </div>
 
+    <!-- PHẦN NHẬP MÃ KHÓA HỌC (API) -->
+    <div class="code-section">
+        <h4>🔐 Đã có mã khóa học?</h4>
+        <div class="code-input-group">
+            <input type="text" id="maKhoaInput" placeholder="Nhập mã khóa học của bạn">
+            <button id="loginBtn">Xác nhận</button>
+        </div>
+        <div id="loginMessage" class="code-message"></div>
+    </div>
+
     <div class="cta-section">
         <h2>🚀 Sẵn sàng trang bị kỹ năng an toàn cho con?</h2>
-        <p style="margin-bottom: 24px;">Đăng ký ngay để nhận tư vấn và được hỗ trợ mã khóa học</p>
-        <a href="https://zalo.me/0977092182" class="btn-cta">📩 Đăng ký ngay</a>
+        <p style="margin-bottom: 24px;">Tham gia nhóm cùng Sophia để nhận thêm nhiều bài giảng hay và tài liệu bổ ích</p>
+        <a href="https://zalo.me/0977092182" class="btn-cta">📝 Tham gia nhóm ngay</a>
         <a href="/login.html" class="btn-cta-outline">🔐 Đã có mã? Đăng nhập</a>
     </div>
 </div>
@@ -325,17 +385,17 @@
 </footer>
 
 <script>
-    // Dữ liệu 9 chủ đề kỹ năng an toàn
+    // Dữ liệu 9 chủ đề kỹ năng an toàn (đã bỏ giá)
     const courses = [
-        { id: 1, name: "An toàn Giao thông & Sự cố dọc đường", icon: "🚛", desc: "Điểm mù, va chạm, xử lý sự cố khi hỏng xe giữa đường.", chapters: ["Điểm mù xe tải", "Xử lý khi hỏng xe giữa đường", "Va chạm nhẹ xử lý thế nào", "An toàn khi đi bộ qua đường", "Quy tắc bảo vệ bản thân"], price: 199000, originalPrice: 399000 },
-        { id: 2, name: "Sơ cấp cứu chuyên sâu", icon: "🩺", desc: "Cầm máu, gãy xương, CPR người lớn.", chapters: ["Cách cầm máu đúng cách", "Sơ cứu gãy xương", "Hồi sức tim phổi (CPR)", "Xử lý bỏng, điện giật", "Cấp cứu đuối nước"], price: 199000, originalPrice: 399000 },
-        { id: 3, name: "Tự vệ Xã hội & Thao túng tâm lý", icon: "🧠", desc: "Gaslighting, Peer Pressure, thoát bám đuôi.", chapters: ["Nhận diện gaslighting", "Chống áp lực bạn bè (Peer Pressure)", "Kỹ năng thoát khi bị bám đuôi", "Xử lý khi bị cô lập", "Bảo vệ ranh giới cá nhân"], price: 199000, originalPrice: 399000 },
-        { id: 4, name: "An toàn trong Hẹn hò", icon: "💕", desc: "Sự đồng thuận, Red Flags, ranh giới cá nhân.", chapters: ["Khái niệm đồng thuận (Consent)", "Nhận diện red flags", "Thiết lập ranh giới lành mạnh", "An toàn khi gặp mặt lần đầu", "Kỹ năng nói KHÔNG"], price: 199000, originalPrice: 399000 },
-        { id: 5, name: "Kỹ năng Sinh tồn & Dã ngoại", icon: "🏕️", desc: "Quy tắc S.T.O.P, tìm nguồn nước, trú ẩn, phát tín hiệu SOS.", chapters: ["Quy tắc S.T.O.P", "Tìm nguồn nước an toàn", "Dựng trú ẩn khẩn cấp", "Phát tín hiệu SOS", "Xử lý khi mất phương hướng"], price: 199000, originalPrice: 399000 },
-        { id: 6, name: "An toàn Không gian mạng & Tài chính số", icon: "💻", desc: "2FA, lừa đảo việc làm/đa cấp, bảo mật OTP.", chapters: ["Bảo mật 2 lớp (2FA)", "Nhận diện lừa đảo việc làm", "Bảo vệ OTP không bao giờ chia sẻ", "An toàn khi mua sắm online", "Xử lý khi bị hack tài khoản"], price: 199000, originalPrice: 399000 },
-        { id: 7, name: "Sức khỏe tâm thần", icon: "🧘", desc: "Sơ cứu cảm xúc, quản trị stress, trầm cảm/lo âu.", chapters: ["Nhận diện tín hiệu cầu cứu", "Kỹ thuật 5-4-3-2-1", "Quản trị stress", "Khi nào cần tìm chuyên gia", "Đồng hành cùng bạn bè"], price: 199000, originalPrice: 399000 },
-        { id: 8, name: "Hiểu biết Pháp luật & Trách nhiệm", icon: "⚖️", desc: "Độ tuổi hình sự, Luật An ninh mạng, Luật Giao thông.", chapters: ["Độ tuổi chịu trách nhiệm hình sự", "Luật An ninh mạng cần biết", "Luật Giao thông dành cho teen", "Quyền riêng tư cá nhân", "Trách nhiệm khi tham gia mạng xã hội"], price: 199000, originalPrice: 399000 },
-        { id: 9, name: "Làm chủ khủng hoảng & An toàn AI", icon: "🤖", desc: "Nhận diện Deepfake, xử lý khi bị phốt, bạo lực mạng tổ chức, lá chắn pháp luật.", chapters: ["Nhận diện Deepfake", "Xử lý khi bị phốt", "Bạo lực mạng tổ chức - Cách ứng phó", "Lá chắn pháp luật", "An toàn khi dùng AI"], price: 199000, originalPrice: 399000 }
+        { id: 1, name: "An toàn Giao thông & Sự cố dọc đường", icon: "🚛", desc: "Điểm mù, va chạm, xử lý sự cố khi hỏng xe giữa đường.", chapters: ["Điểm mù xe tải", "Xử lý khi hỏng xe giữa đường", "Va chạm nhẹ xử lý thế nào", "An toàn khi đi bộ qua đường", "Quy tắc bảo vệ bản thân"] },
+        { id: 2, name: "Sơ cấp cứu chuyên sâu", icon: "🩺", desc: "Cầm máu, gãy xương, CPR người lớn.", chapters: ["Cách cầm máu đúng cách", "Sơ cứu gãy xương", "Hồi sức tim phổi (CPR)", "Xử lý bỏng, điện giật", "Cấp cứu đuối nước"] },
+        { id: 3, name: "Tự vệ Xã hội & Thao túng tâm lý", icon: "🧠", desc: "Gaslighting, Peer Pressure, thoát bám đuôi.", chapters: ["Nhận diện gaslighting", "Chống áp lực bạn bè (Peer Pressure)", "Kỹ năng thoát khi bị bám đuôi", "Xử lý khi bị cô lập", "Bảo vệ ranh giới cá nhân"] },
+        { id: 4, name: "An toàn trong Hẹn hò", icon: "💕", desc: "Sự đồng thuận, Red Flags, ranh giới cá nhân.", chapters: ["Khái niệm đồng thuận (Consent)", "Nhận diện red flags", "Thiết lập ranh giới lành mạnh", "An toàn khi gặp mặt lần đầu", "Kỹ năng nói KHÔNG"] },
+        { id: 5, name: "Kỹ năng Sinh tồn & Dã ngoại", icon: "🏕️", desc: "Quy tắc S.T.O.P, tìm nguồn nước, trú ẩn, phát tín hiệu SOS.", chapters: ["Quy tắc S.T.O.P", "Tìm nguồn nước an toàn", "Dựng trú ẩn khẩn cấp", "Phát tín hiệu SOS", "Xử lý khi mất phương hướng"] },
+        { id: 6, name: "An toàn Không gian mạng & Tài chính số", icon: "💻", desc: "2FA, lừa đảo việc làm/đa cấp, bảo mật OTP.", chapters: ["Bảo mật 2 lớp (2FA)", "Nhận diện lừa đảo việc làm", "Bảo vệ OTP không bao giờ chia sẻ", "An toàn khi mua sắm online", "Xử lý khi bị hack tài khoản"] },
+        { id: 7, name: "Sức khỏe tâm thần", icon: "🧘", desc: "Sơ cứu cảm xúc, quản trị stress, trầm cảm/lo âu.", chapters: ["Nhận diện tín hiệu cầu cứu", "Kỹ thuật 5-4-3-2-1", "Quản trị stress", "Khi nào cần tìm chuyên gia", "Đồng hành cùng bạn bè"] },
+        { id: 8, name: "Hiểu biết Pháp luật & Trách nhiệm", icon: "⚖️", desc: "Độ tuổi hình sự, Luật An ninh mạng, Luật Giao thông.", chapters: ["Độ tuổi chịu trách nhiệm hình sự", "Luật An ninh mạng cần biết", "Luật Giao thông dành cho teen", "Quyền riêng tư cá nhân", "Trách nhiệm khi tham gia mạng xã hội"] },
+        { id: 9, name: "Làm chủ khủng hoảng & An toàn AI", icon: "🤖", desc: "Nhận diện Deepfake, xử lý khi bị phốt, bạo lực mạng tổ chức, lá chắn pháp luật.", chapters: ["Nhận diện Deepfake", "Xử lý khi bị phốt", "Bạo lực mạng tổ chức - Cách ứng phó", "Lá chắn pháp luật", "An toàn khi dùng AI"] }
     ];
 
     function renderCourses() {
@@ -352,8 +412,8 @@
                     <p class="course-desc">${c.desc}</p>
                     <ul class="chapters-list">${c.chapters.map(ch => `<li><i class="fas fa-circle"></i> ${ch}</li>`).join('')}</ul>
                     <div class="course-footer">
-                        <div class="course-price"><span class="price-old">${c.originalPrice.toLocaleString('vi-VN')}đ</span><span class="price-new">${c.price.toLocaleString('vi-VN')}đ</span></div>
-                        <a href="https://zalo.me/0977092182" class="btn-buy" target="_blank">🛒 Mua ngay</a>
+                        <span class="free-badge-small">🎁 MIỄN PHÍ</span>
+                        <a href="https://zalo.me/0977092182" class="btn-watch" target="_blank">📝 Xem ngay</a>
                     </div>
                 </div>
             </div>
@@ -361,7 +421,7 @@
     }
     renderCourses();
 
-    // ========== POPUP 50% VIDEO (GIỐNG HỆT FILE GIỚI TÍNH) ==========
+    // ========== POPUP 50% VIDEO ==========
     var tag = document.createElement('script');
     tag.src = "https://www.youtube.com/iframe_api";
     var firstScriptTag = document.getElementsByTagName('script')[0];
@@ -375,24 +435,18 @@
         var videoElement = document.getElementById('trialVideo');
         if (videoElement) {
             player = new YT.Player('trialVideo', {
-                events: {
-                    'onStateChange': onPlayerStateChange
-                }
+                events: { 'onStateChange': onPlayerStateChange }
             });
         }
     }
 
     function onPlayerStateChange(event) {
         if (popupShown) {
-            if (event.data == YT.PlayerState.PLAYING) {
-                player.pauseVideo();
-            }
+            if (event.data == YT.PlayerState.PLAYING) player.pauseVideo();
             return;
         }
-        
         if (event.data == YT.PlayerState.PLAYING) {
             if (checkInterval) clearInterval(checkInterval);
-            
             checkInterval = setInterval(function() {
                 if (player && player.getCurrentTime && !popupShown) {
                     var duration = player.getDuration();
@@ -414,6 +468,63 @@
         document.getElementById('popupOverlay').style.display = 'none';
     }
 
+    // ========== API QUẢN LÝ MÃ KHÓA HỌC (CHỊ SẼ THAY URL SAU) ==========
+  
+    const API_URL = "https://script.google.com/macros/s/AKfycbzceHMKWFhgcQBhh9C6lj97ihQnlU7c3A42Tta4fwtA46FHFeweX-QBaADiDPs-Etam/exec";
+    
+    function getDeviceId() {
+        let deviceId = localStorage.getItem('deviceId');
+        if (!deviceId) {
+            deviceId = 'device_' + Math.random().toString(36).substring(2, 15) + Date.now();
+            localStorage.setItem('deviceId', deviceId);
+        }
+        return deviceId;
+    }
+    
+    function getDeviceName() {
+        const ua = navigator.userAgent;
+        if (/iPhone/i.test(ua)) return "iPhone";
+        if (/iPad/i.test(ua)) return "iPad";
+        if (/Android/i.test(ua)) return "Android - " + (ua.match(/Mobile/i) ? "Điện thoại" : "Máy tính bảng");
+        if (/Windows/i.test(ua)) return "Windows - " + (ua.match(/Mobile/i) ? "Máy tính bảng" : "PC");
+        if (/Mac/i.test(ua)) return "Mac";
+        return "Unknown Device";
+    }
+    
+    document.getElementById('loginBtn').addEventListener('click', function() {
+        const maKhoa = document.getElementById('maKhoaInput').value.trim();
+        const deviceId = getDeviceId();
+        const deviceName = getDeviceName();
+        const messageDiv = document.getElementById('loginMessage');
+        
+        if (!maKhoa) {
+            messageDiv.innerHTML = '<span style="color:#e74c3c">⚠️ Vui lòng nhập mã khóa học!</span>';
+            return;
+        }
+        
+        messageDiv.innerHTML = '<span style="color:#f39c12">⏳ Đang kiểm tra mã...</span>';
+        
+        const apiUrl = `${API_URL}?ma=${encodeURIComponent(maKhoa)}&deviceId=${encodeURIComponent(deviceId)}&deviceName=${encodeURIComponent(deviceName)}`;
+        
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "success") {
+                    messageDiv.innerHTML = `<span style="color:#27ae60">✅ Đăng nhập thành công! Chào mừng ${data.user || "học viên"}!</span>`;
+                    localStorage.setItem('maKhoa', maKhoa);
+                    setTimeout(() => {
+                        window.location.href = "https://sophianguyen.com.vn/khoa-hoc/ky-nang-an-toan/genz/";
+                    }, 1500);
+                } else {
+                    messageDiv.innerHTML = `<span style="color:#e74c3c">❌ ${data.message || "Mã khóa không hợp lệ hoặc đã hết hạn!"}</span>`;
+                }
+            })
+            .catch(error => {
+                messageDiv.innerHTML = '<span style="color:#e74c3c">❌ Có lỗi xảy ra, vui lòng thử lại sau!</span>';
+                console.error("API Error:", error);
+            });
+    });
+
     // Bài tập mẫu
     let sampleAnswers = [null, null];
     const sampleCorrect = [1, 1];
@@ -422,9 +533,7 @@
         sampleAnswers[qIdx] = ansIdx;
         const radioName = qIdx === 0 ? 'sampleQuiz' : 'sampleQuiz2';
         const radios = document.getElementsByName(radioName);
-        radios.forEach((radio, idx) => {
-            if (idx === ansIdx) radio.checked = true;
-        });
+        radios.forEach((radio, idx) => { if (idx === ansIdx) radio.checked = true; });
     }
 
     function checkSampleQuiz() {
