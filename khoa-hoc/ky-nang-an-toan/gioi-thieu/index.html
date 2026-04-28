@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Kỹ năng an toàn cho trẻ 5-10 tuổi | Sophia Nguyễn</title>
-    <meta name="description" content="9 bài học giúp trẻ phòng tránh tai nạn thương tích, bạo lực học đường, xâm hại, đuối nước, bắt cóc và các kỹ năng an toàn khác. Có bài tập tương tác, âm thanh, hình ảnh sinh động. HOÀN TOÀN MIỄN PHÍ.">
+    <meta name="description" content="9 bài học giúp trẻ phòng tránh tai nạn thương tích, bạo lực học đường, xâm hại, đuối nước, bắt cóc và các kỹ năng an toàn khác. Có bài tập tương tác, âm thanh, hình ảnh sinh động.">
     <meta name="keywords" content="kỹ năng an toàn cho trẻ, phòng chống tai nạn, bạo lực học đường, xâm hại trẻ em, đuối nước, bắt cóc">
     <meta name="author" content="Sophia Nguyễn">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -38,9 +38,6 @@
         .hero p { font-size: 1.1rem; max-width: 700px; margin: 0 auto; }
         .hero .free-badge { background: #ffd700; color: #1a1a2e; display: inline-block; padding: 8px 20px; border-radius: 40px; margin-top: 20px; font-weight: bold; font-size: 1rem; }
         
-        .section { padding: 50px 0; }
-        .section-title { text-align: center; font-size: 2rem; color: var(--primary); margin-bottom: 16px; }
-        
         .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; margin: 40px 0; }
         .course-card { background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: all 0.3s; border: 1px solid var(--light-gray); }
         .course-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
@@ -54,16 +51,6 @@
         .btn-watch { background: var(--gradient); color: white; border: none; padding: 8px 20px; border-radius: 40px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.2s; font-size: 0.9rem; }
         .btn-watch:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(220,38,38,0.3); }
         
-        .try-section { background: white; border-radius: 32px; padding: 40px; margin: 40px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid var(--light-gray); }
-        .try-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-        .try-box { text-align: center; display: flex; flex-direction: column; height: 100%; }
-        .try-box h3 { font-size: 1.4rem; color: var(--primary); margin-bottom: 16px; }
-        .try-box p { color: var(--gray); margin-bottom: 20px; line-height: 1.5; }
-        .try-video { position: relative; padding-bottom: 56.25%; height: 0; margin: 20px 0; background: #000; border-radius: 20px; overflow: hidden; }
-        .try-video iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-        .btn-try { background: var(--gradient); color: white; border: none; padding: 12px 28px; border-radius: 40px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; align-self: center; margin-top: auto; }
-        .btn-try:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(220,38,38,0.3); }
-        
         .free-combo-badge {
             background: linear-gradient(135deg, #ffd700, #ff8c00);
             border-radius: 60px;
@@ -75,26 +62,21 @@
             cursor: pointer;
             transition: 0.2s;
         }
-        .free-combo-badge:hover {
-            transform: scale(1.02);
-            box-shadow: 0 0 20px rgba(255,215,0,0.5);
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,215,0,0.4); }
-            70% { transform: scale(1.02); box-shadow: 0 0 0 15px rgba(255,215,0,0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,215,0,0); }
-        }
+        .free-combo-badge:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(255,215,0,0.5); }
+        @keyframes pulse { 0% { transform: scale(1); } 70% { transform: scale(1.02); } 100% { transform: scale(1); } }
         .free-combo-badge h3 { color: #1a1a2e; font-size: 1.5rem; margin-bottom: 8px; }
-        .free-combo-badge p { color: #1a1a2e; font-size: 0.9rem; margin-bottom: 12px; }
-        .free-combo-badge .free-price { font-size: 1.8rem; font-weight: 800; color: #1a1a2e; }
+        .free-combo-badge .free-price { font-size: 1.5rem; font-weight: 800; color: #1a1a2e; }
         .btn-join { background: #1a1a2e; color: #ffd700; border: none; padding: 10px 24px; border-radius: 40px; font-weight: 700; cursor: pointer; margin-top: 10px; }
         .btn-join:hover { background: #2a2a3e; transform: translateY(-2px); }
         
-        .cta-section { text-align: center; padding: 50px 40px; background: var(--gradient); color: white; border-radius: 32px; margin: 40px 0; }
-        .btn-cta { background: white; color: var(--primary); padding: 14px 32px; border-radius: 50px; font-weight: 700; text-decoration: none; display: inline-block; margin: 0 8px; }
-        .btn-cta-outline { background: transparent; border: 2px solid white; color: white; padding: 12px 28px; border-radius: 50px; font-weight: 600; text-decoration: none; display: inline-block; margin: 0 8px; }
-        
-        .footer { background: var(--dark); color: white; padding: 40px 0 20px; text-align: center; margin-top: 60px; }
+        .try-section { background: white; border-radius: 32px; padding: 40px; margin: 40px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid var(--light-gray); }
+        .try-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        .try-box { text-align: center; display: flex; flex-direction: column; height: 100%; }
+        .try-box h3 { font-size: 1.4rem; color: var(--primary); margin-bottom: 16px; }
+        .try-video { position: relative; padding-bottom: 56.25%; height: 0; margin: 20px 0; background: #000; border-radius: 20px; overflow: hidden; }
+        .try-video iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .btn-try { background: var(--gradient); color: white; border: none; padding: 12px 28px; border-radius: 40px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; align-self: center; margin-top: auto; }
+        .btn-try:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(220,38,38,0.3); }
         
         .popup-overlay {
             display: none;
@@ -119,6 +101,41 @@
         .popup-content h3 { color: var(--primary); margin-bottom: 16px; }
         .popup-content p { margin-bottom: 24px; color: #333; }
         .popup-content button { background: var(--primary); color: white; border: none; padding: 10px 24px; border-radius: 40px; cursor: pointer; margin-top: 10px; }
+        
+        .code-section {
+            background: white;
+            border-radius: 32px;
+            padding: 30px;
+            margin: 40px 0;
+            text-align: center;
+            border: 1px solid var(--light-gray);
+        }
+        .code-section h4 { color: var(--primary); margin-bottom: 16px; }
+        .code-input-group {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+        .code-input-group input {
+            padding: 12px 20px;
+            border-radius: 60px;
+            border: 1px solid var(--light-gray);
+            font-size: 1rem;
+            width: 250px;
+            text-align: center;
+        }
+        .code-input-group button {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .code-message { font-size: 0.85rem; margin-top: 10px; }
         
         .sample-exercise-section {
             background: white;
@@ -230,11 +247,16 @@
             display: block;
         }
         
+        .cta-section { text-align: center; padding: 50px 40px; background: var(--gradient); color: white; border-radius: 32px; margin: 40px 0; }
+        .btn-cta { background: white; color: var(--primary); padding: 14px 32px; border-radius: 50px; font-weight: 700; text-decoration: none; display: inline-block; margin: 0 8px; }
+        .btn-cta-outline { background: transparent; border: 2px solid white; color: white; padding: 12px 28px; border-radius: 50px; font-weight: 600; text-decoration: none; display: inline-block; margin: 0 8px; }
+        
+        .footer { background: var(--dark); color: white; padding: 40px 0 20px; text-align: center; margin-top: 60px; }
+        
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .menu-toggle { display: block; }
             .hero h1 { font-size: 1.6rem; }
-            .section-title { font-size: 1.5rem; }
             .courses-grid { grid-template-columns: 1fr; }
             .course-footer { flex-direction: column; align-items: flex-start; }
             .btn-cta, .btn-cta-outline { display: block; margin: 12px auto; width: fit-content; }
@@ -278,15 +300,13 @@
     <div class="container">
         <div class="courses-grid" id="coursesGrid"></div>
         
-        <!-- FREE COMBO BADGE -->
         <div class="free-combo-badge" onclick="window.open('https://zalo.me/0977092182', '_blank')">
             <h3>⭐ ƯU ĐÃI ĐẶC BIỆT ⭐</h3>
-            <p>TRỌN BỘ 9 BÀI HỌC</p>
+            <p>TRỌN BỘ 9 BÀI HỌC KỸ NĂNG AN TOÀN</p>
             <div><span class="free-price">🎯 HOÀN TOÀN MIỄN PHÍ 🎯</span></div>
             <button class="btn-join">📝 ĐĂNG KÝ THAM GIA NHÓM NGAY</button>
         </div>
 
-        <!-- Phần Học thử miễn phí -->
         <div class="try-section">
             <div class="try-grid">
                 <div class="try-box">
@@ -307,17 +327,15 @@
             </div>
         </div>
 
-        <!-- Popup thông báo sau khi xem 50% video -->
         <div id="popupOverlay" class="popup-overlay">
             <div class="popup-content">
                 <h3>🎉 Bạn đã xem được 50% nội dung!</h3>
                 <p>Đăng ký thành viên nhóm với Sophia để xem thêm nhiều bài giảng hay và thú vị nhé!</p>
                 <a href="https://zalo.me/0977092182" target="_blank" style="background: #dc2626; color: white; padding: 12px 28px; border-radius: 40px; text-decoration: none; display: inline-block;">📝 Đăng ký thành viên nhóm</a>
-                <button onclick="closePopup()" style="background: none; color: #999; border: none; margin-top: 15px; cursor: pointer;">❌ Đóng</button>
+                <button onclick="closePopup()">❌ Đóng</button>
             </div>
         </div>
 
-        <!-- BÀI TẬP MẪU -->
         <div class="sample-exercise-section">
             <h3>📝 Làm thử bài tập mẫu</h3>
             <p>Trải nghiệm bài tập tương tác trong khóa học (trích từ bài: Sơ cấp cứu)</p>
@@ -354,6 +372,16 @@
             </div>
         </div>
 
+        <!-- PHẦN NHẬP MÃ KHÓA HỌC (API GIỐNG KHÓA GIỚI TÍNH) -->
+        <div class="code-section">
+            <h4>🔐 Đã có mã khóa học?</h4>
+            <div class="code-input-group">
+                <input type="text" id="maKhoaInput" placeholder="Nhập mã khóa học của bạn">
+                <button id="loginBtn">Xác nhận</button>
+            </div>
+            <div id="loginMessage" class="code-message"></div>
+        </div>
+
         <div class="cta-section">
             <h2>🚀 Đừng bỏ lỡ kho tài liệu miễn phí cho con!</h2>
             <p style="margin-bottom: 24px;">Tham gia nhóm cùng Sophia để nhận thêm nhiều bài giảng hay và tài liệu bổ ích</p>
@@ -370,6 +398,7 @@
     </footer>
 
     <script>
+        // Dữ liệu 9 khóa học (đã bỏ giá, thêm free badge)
         const courses = [
             { id: 1, name: "Phòng chống tai nạn thương tích", icon: "🩹", desc: "Nhận biết nguy cơ tai nạn trong nhà, trường học. Trẻ sẽ học cách phòng tránh và xử lý các tình huống nguy hiểm hàng ngày." },
             { id: 2, name: "Phòng tránh bạo lực học đường", icon: "🤝", desc: "Nhận diện bạo lực và cách ứng phó. Trẻ được trang bị kỹ năng bảo vệ bản thân trước các hành vi xấu ở trường học." },
@@ -417,24 +446,18 @@
             var videoElement = document.getElementById('trialVideo');
             if (videoElement) {
                 player = new YT.Player('trialVideo', {
-                    events: {
-                        'onStateChange': onPlayerStateChange
-                    }
+                    events: { 'onStateChange': onPlayerStateChange }
                 });
             }
         }
         
         function onPlayerStateChange(event) {
             if (popupShown) {
-                if (event.data == YT.PlayerState.PLAYING) {
-                    player.pauseVideo();
-                }
+                if (event.data == YT.PlayerState.PLAYING) player.pauseVideo();
                 return;
             }
-            
             if (event.data == YT.PlayerState.PLAYING) {
                 if (checkInterval) clearInterval(checkInterval);
-                
                 checkInterval = setInterval(function() {
                     if (player && player.getCurrentTime && !popupShown) {
                         var duration = player.getDuration();
@@ -456,6 +479,63 @@
             document.getElementById('popupOverlay').style.display = 'none';
         }
 
+        // ========== API QUẢN LÝ MÃ KHÓA HỌC (CHỊ SẼ THAY URL SAU) ==========
+
+        const API_URL = "https://script.google.com/macros/s/AKfycbyCAJT1KGlHtJryxUj22C-XcmX3mr71rogv5HmRicoHaTcL-Ud7uDVSh4jRryF4Cuq08Q/exec";
+        
+        function getDeviceId() {
+            let deviceId = localStorage.getItem('deviceId');
+            if (!deviceId) {
+                deviceId = 'device_' + Math.random().toString(36).substring(2, 15) + Date.now();
+                localStorage.setItem('deviceId', deviceId);
+            }
+            return deviceId;
+        }
+        
+        function getDeviceName() {
+            const ua = navigator.userAgent;
+            if (/iPhone/i.test(ua)) return "iPhone";
+            if (/iPad/i.test(ua)) return "iPad";
+            if (/Android/i.test(ua)) return "Android - " + (ua.match(/Mobile/i) ? "Điện thoại" : "Máy tính bảng");
+            if (/Windows/i.test(ua)) return "Windows - " + (ua.match(/Mobile/i) ? "Máy tính bảng" : "PC");
+            if (/Mac/i.test(ua)) return "Mac";
+            return "Unknown Device";
+        }
+        
+        document.getElementById('loginBtn').addEventListener('click', function() {
+            const maKhoa = document.getElementById('maKhoaInput').value.trim();
+            const deviceId = getDeviceId();
+            const deviceName = getDeviceName();
+            const messageDiv = document.getElementById('loginMessage');
+            
+            if (!maKhoa) {
+                messageDiv.innerHTML = '<span style="color:#e74c3c">⚠️ Vui lòng nhập mã khóa học!</span>';
+                return;
+            }
+            
+            messageDiv.innerHTML = '<span style="color:#f39c12">⏳ Đang kiểm tra mã...</span>';
+            
+            const apiUrl = `${API_URL}?ma=${encodeURIComponent(maKhoa)}&deviceId=${encodeURIComponent(deviceId)}&deviceName=${encodeURIComponent(deviceName)}`;
+            
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === "success") {
+                        messageDiv.innerHTML = `<span style="color:#27ae60">✅ Đăng nhập thành công! Chào mừng ${data.user || "học viên"}!</span>`;
+                        localStorage.setItem('maKhoa', maKhoa);
+                        setTimeout(() => {
+                            window.location.href = "https://sophianguyen.com.vn/khoa-hoc/ky-nang-an-toan/";
+                        }, 1500);
+                    } else {
+                        messageDiv.innerHTML = `<span style="color:#e74c3c">❌ ${data.message || "Mã khóa không hợp lệ hoặc đã hết hạn!"}</span>`;
+                    }
+                })
+                .catch(error => {
+                    messageDiv.innerHTML = '<span style="color:#e74c3c">❌ Có lỗi xảy ra, vui lòng thử lại sau!</span>';
+                    console.error("API Error:", error);
+                });
+        });
+
         // Bài tập mẫu
         let sampleAnswers = [null, null];
         const sampleCorrect = [1, 1];
@@ -464,9 +544,7 @@
             sampleAnswers[qIdx] = ansIdx;
             const radioName = qIdx === 0 ? 'sampleQuiz' : 'sampleQuiz2';
             const radios = document.getElementsByName(radioName);
-            radios.forEach((radio, idx) => {
-                if (idx === ansIdx) radio.checked = true;
-            });
+            radios.forEach((radio, idx) => { if (idx === ansIdx) radio.checked = true; });
         }
 
         function checkSampleQuiz() {
