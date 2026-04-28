@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Giới tính toàn diện - Khóa học cho trẻ 3-18 tuổi | Sophia Nguyễn</title>
-    <meta name="description" content="6 khóa học với 30 chương về giới tính toàn diện, phù hợp từ 3-18 tuổi. Trang bị kiến thức về cơ thể, dậy thì, tình yêu, an toàn mạng, ranh giới cá nhân.">
+    <meta name="description" content="6 khóa học với 30 chương về giới tính toàn diện, phù hợp từ 3-18 tuổi. Trang bị kiến thức về cơ thể, dậy thì, tình yêu, an toàn mạng, ranh giới cá nhân. HOÀN TOÀN MIỄN PHÍ.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -37,6 +37,7 @@
         .hero { background: var(--gradient-primary); padding: 60px 0 50px; text-align: center; color: white; border-radius: 0 0 40px 40px; }
         .hero h1 { font-size: 2.2rem; margin-bottom: 1rem; }
         .hero p { font-size: 1.1rem; max-width: 700px; margin: 0 auto; opacity: 0.95; }
+        .hero .free-badge { background: #ffd700; color: #1a1a2e; display: inline-block; padding: 8px 20px; border-radius: 40px; margin-top: 20px; font-weight: bold; font-size: 1rem; }
         
         .section { padding: 50px 0; }
         .section-title { text-align: center; font-size: 2rem; color: var(--primary); margin-bottom: 16px; }
@@ -59,20 +60,28 @@
         .chapters-list { margin: 16px 0; padding-left: 20px; }
         .chapters-list li { font-size: 0.85rem; color: var(--dark); margin: 6px 0; display: flex; align-items: center; gap: 8px; }
         .chapters-list li i { color: var(--primary); font-size: 0.7rem; }
-        .course-footer { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--light-gray); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
-        .course-price { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
-        .price-old { font-size: 0.85rem; color: #999; text-decoration: line-through; }
-        .price-new { font-size: 1.3rem; font-weight: bold; color: var(--primary); }
-        .btn-buy { background: var(--gradient-primary); color: white; border: none; padding: 8px 20px; border-radius: 40px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.2s; font-size: 0.9rem; }
-        .btn-buy:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(232,106,138,0.4); }
+        .course-footer { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--light-gray); display: flex; justify-content: flex-end; align-items: center; flex-wrap: wrap; gap: 12px; }
+        .free-badge-small { background: linear-gradient(135deg, #ffd700, #ff8c00); color: #1a1a2e; padding: 6px 16px; border-radius: 40px; font-weight: bold; font-size: 0.85rem; display: inline-block; }
+        .btn-watch { background: var(--gradient-primary); color: white; border: none; padding: 8px 20px; border-radius: 40px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.2s; font-size: 0.9rem; }
+        .btn-watch:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(232,106,138,0.4); }
         
-        .combo-badge { background: linear-gradient(135deg, #ffd700, #ff8c00); border-radius: 60px; padding: 20px 30px; margin: 30px auto 20px; text-align: center; max-width: 500px; animation: pulse 1.5s infinite; cursor: pointer; transition: 0.2s; }
-        .combo-badge:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(255,215,0,0.5); }
+        .free-combo-badge {
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            border-radius: 60px;
+            padding: 20px 30px;
+            margin: 30px auto 20px;
+            text-align: center;
+            max-width: 500px;
+            animation: pulse 1.5s infinite;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .free-combo-badge:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(255,215,0,0.5); }
         @keyframes pulse { 0% { transform: scale(1); } 70% { transform: scale(1.02); } 100% { transform: scale(1); } }
-        .combo-badge h3 { color: #1a1a2e; font-size: 1.5rem; margin-bottom: 8px; }
-        .combo-price { font-size: 1.8rem; font-weight: 800; color: #1a1a2e; }
-        .combo-old-price { font-size: 1rem; text-decoration: line-through; color: #555; margin-left: 10px; }
-        .btn-combo { background: #1a1a2e; color: #ffd700; border: none; padding: 10px 24px; border-radius: 40px; font-weight: 700; cursor: pointer; margin-top: 10px; }
+        .free-combo-badge h3 { color: #1a1a2e; font-size: 1.5rem; margin-bottom: 8px; }
+        .free-combo-badge .free-price { font-size: 1.5rem; font-weight: 800; color: #1a1a2e; }
+        .btn-join { background: #1a1a2e; color: #ffd700; border: none; padding: 10px 24px; border-radius: 40px; font-weight: 700; cursor: pointer; margin-top: 10px; }
+        .btn-join:hover { background: #2a2a3e; transform: translateY(-2px); }
         
         .try-section { background: white; border-radius: 32px; padding: 40px; margin: 40px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid var(--light-gray); }
         .try-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
@@ -81,7 +90,6 @@
         .try-video { position: relative; padding-bottom: 56.25%; height: 0; margin: 20px 0; background: #000; border-radius: 20px; overflow: hidden; }
         .try-video iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
         
-        /* Popup */
         .popup-overlay {
             display: none;
             position: fixed;
@@ -111,6 +119,42 @@
         .btn-cta { background: white; color: var(--primary); padding: 14px 32px; border-radius: 50px; font-weight: 700; text-decoration: none; display: inline-block; margin: 0 8px; }
         .btn-cta-outline { background: transparent; border: 2px solid white; color: white; padding: 12px 28px; border-radius: 50px; font-weight: 600; text-decoration: none; display: inline-block; margin: 0 8px; }
         
+        /* Code section - GIỮ NGUYÊN NHƯ FILE CŨ CỦA CHỊ */
+        .code-section {
+            background: white;
+            border-radius: 32px;
+            padding: 30px;
+            margin: 40px 0;
+            text-align: center;
+            border: 1px solid var(--light-gray);
+        }
+        .code-section h4 { color: var(--primary); margin-bottom: 16px; }
+        .code-input-group {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+        .code-input-group input {
+            padding: 12px 20px;
+            border-radius: 60px;
+            border: 1px solid var(--light-gray);
+            font-size: 1rem;
+            width: 250px;
+            text-align: center;
+        }
+        .code-input-group button {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .code-message { font-size: 0.85rem; margin-top: 10px; }
+        
         .footer { background: var(--dark); color: white; padding: 40px 0 20px; text-align: center; margin-top: 60px; }
         
         @media (max-width: 768px) {
@@ -123,7 +167,7 @@
             .logo img { height: 45px; }
             .try-grid { grid-template-columns: 1fr; gap: 30px; }
         }
- /* Bài tập mẫu - thêm vào cuối */
+        
         .sample-exercise-section {
             background: white;
             border-radius: 32px;
@@ -233,23 +277,24 @@
     <div class="container">
         <h1>🧠 Giới tính toàn diện – Hành trình khám phá bản thân</h1>
         <p>6 khóa học với 30 chương, phù hợp từ 3-18 tuổi. Trang bị kiến thức về cơ thể, dậy thì, tình yêu, an toàn mạng và ranh giới cá nhân.</p>
+        <div class="free-badge">🎁 HOÀN TOÀN MIỄN PHÍ 🎁</div>
     </div>
 </section>
 
 <div class="container">
     <div class="courses-grid" id="coursesGrid"></div>
 
-    <div class="combo-badge" onclick="window.open('https://zalo.me/0977092182', '_blank')">
-        <h3>⚡ SIÊU TIẾT KIỆM ⚡</h3>
-        <p>Mua 2 khóa bất kỳ chỉ <span class="combo-price">299.000đ</span> <span class="combo-old-price">398.000đ</span></p>
-        <p>Combo 6 khóa chỉ <span class="combo-price">499.000đ</span> <span class="combo-old-price">1.194.000đ</span></p>
-        <button class="btn-combo">🎯 CHỌN NGAY</button>
+    <div class="free-combo-badge" onclick="window.open('https://zalo.me/0977092182', '_blank')">
+        <h3>⭐ ƯU ĐÃI ĐẶC BIỆT ⭐</h3>
+        <p>TRỌN BỘ 6 KHÓA GIỚI TÍNH</p>
+        <div><span class="free-price">🎯 HOÀN TOÀN MIỄN PHÍ 🎯</span></div>
+        <button class="btn-join">📝 ĐĂNG KÝ THAM GIA NHÓM NGAY</button>
     </div>
 
     <div class="try-section">
         <div class="try-grid">
             <div class="try-box">
-                <h3>🎬 Học thử miễn phí</h3>
+                <h3>🎬 Xem thử bài học</h3>
                 <p>Xem ngay bài học mẫu để trải nghiệm thực tế</p>
                 <div class="try-video">
                     <iframe id="trialVideo" src="https://www.youtube.com/embed/k246_Ad8oDU?enablejsapi=1" frameborder="0" allowfullscreen></iframe>
@@ -269,88 +314,64 @@
     <div id="popupOverlay" class="popup-overlay">
         <div class="popup-content">
             <h3>🎉 Bạn đã xem được 50% nội dung!</h3>
-            <p>Đăng ký ngay hôm nay để học tiếp những kiến thức bổ ích về giới tính toàn diện.</p>
-            <a href="https://zalo.me/0977092182" target="_blank" style="background: #E86A8A; color: white; padding: 12px 28px; border-radius: 40px; text-decoration: none; display: inline-block;">📩 Đăng ký học ngay qua Zalo</a>
+            <p>Đăng ký thành viên nhóm với Sophia để xem thêm nhiều bài giảng hay và thú vị về giới tính toàn diện nhé!</p>
+            <a href="https://zalo.me/0977092182" target="_blank" style="background: #E86A8A; color: white; padding: 12px 28px; border-radius: 40px; text-decoration: none; display: inline-block;">📝 Đăng ký thành viên nhóm</a>
             <button onclick="closePopup()" style="background: none; color: #999; border: none; margin-top: 15px; cursor: pointer;">❌ Đóng</button>
         </div>
     </div>
 
-      <!-- BÀI TẬP MẪU - ĐẶT Ở DƯỚI CÙNG, GIỮ NGUYÊN MỌI THỨ PHÍA TRÊN -->
-
+    <!-- BÀI TẬP MẪU -->
     <div class="sample-exercise-section">
-
         <h3>📝 Làm thử bài tập mẫu</h3>
-
         <p>Trải nghiệm bài tập tương tác trong khóa học (trích từ Khóa 2 - Chương 1)</p>
-
         <div class="sample-exercise" id="sampleExercise">
-
             <div class="sample-question" id="sampleQ1">
-
                 <div class="sample-question-text">🏠 Ngôi nhà đầu tiên của con là ở đâu?</div>
-
                 <div class="sample-option" onclick="selectAnswer(0, 0)">
-
                     <input type="radio" name="sampleQuiz" value="0" id="opt0"> <label for="opt0">Trong bụng mẹ 🤰</label>
-
                 </div>
-
                 <div class="sample-option" onclick="selectAnswer(0, 1)">
-
                     <input type="radio" name="sampleQuiz" value="1" id="opt1"> <label for="opt1">Ở bãi rác 🗑️</label>
-
                 </div>
-
                 <div class="sample-option" onclick="selectAnswer(0, 2)">
-
                     <input type="radio" name="sampleQuiz" value="2" id="opt2"> <label for="opt2">Trên mặt trăng 🌙</label>
-
                 </div>
-
             </div>
-
             <div class="sample-question" id="sampleQ2">
-
                 <div class="sample-question-text">🔗 Sợi dây thần kỳ nối con với mẹ gọi là gì?</div>
-
                 <div class="sample-option" onclick="selectAnswer(1, 0)">
-
                     <input type="radio" name="sampleQuiz2" value="0" id="opt2_0"> <label for="opt2_0">Dây giày 👟</label>
-
                 </div>
-
                 <div class="sample-option" onclick="selectAnswer(1, 1)">
-
                     <input type="radio" name="sampleQuiz2" value="1" id="opt2_1"> <label for="opt2_1">Dây rốn 🔴</label>
-
                 </div>
-
                 <div class="sample-option" onclick="selectAnswer(1, 2)">
-
                     <input type="radio" name="sampleQuiz2" value="2" id="opt2_2"> <label for="opt2_2">Dây điện ⚡</label>
-
                 </div>
-
             </div>
-
             <button class="sample-check-btn" onclick="checkSampleQuiz()">✅ Kiểm tra bài tập mẫu</button>
-
             <div id="sampleResult" class="sample-result"></div>
-
             <div style="text-align: center; margin-top: 16px;">
-
-                <a href="https://zalo.me/0977092182" class="cta-register">🎓 Đăng ký khóa học để làm đầy đủ các bài tập mỗi chương 🎓</a>
-
+                <a href="https://zalo.me/0977092182" class="cta-register">🎓 Tham gia nhóm để học thêm nhiều bài tập thú vị 🎓</a>
             </div>
-
         </div>
-
     </div>
+
+    <!-- PHẦN NHẬP MÃ KHÓA HỌC - GIỮ NGUYÊN NHƯ FILE CŨ (CHỊ TỰ QUẢN LÝ API) -->
+    <div class="code-section">
+        <h4>🔐 Đã có mã khóa học?</h4>
+        <div class="code-input-group">
+            <input type="text" id="accessCode" placeholder="Nhập mã khóa học của bạn">
+            <button onclick="checkAccessCode()">Xác nhận</button>
+        </div>
+        <div id="codeMessage" class="code-message"></div>
+    </div>
+
     <div class="cta-section">
-        <h2>🚀 Sẵn sàng trang bị kiến thức giới tính cho con?</h2>
-        <p style="margin-bottom: 24px;">Đăng ký ngay để nhận tư vấn và được hỗ trợ mã khóa học</p>
-        <a href="https://zalo.me/0977092182" class="btn-cta">📩 Đăng ký ngay</a>
-        <a href="../index.html" class="btn-cta-outline">🔐 Đã có mã? Đăng nhập</a>
+        <h2>🚀 Đừng bỏ lỡ kho tài liệu miễn phí về giới tính cho con!</h2>
+        <p style="margin-bottom: 24px;">Tham gia nhóm cùng Sophia để nhận thêm nhiều bài giảng hay và tài liệu bổ ích</p>
+        <a href="https://zalo.me/0977092182" class="btn-cta">📝 Tham gia nhóm ngay</a>
+        <a href="../index.html" class="btn-cta-outline">🌐 Về trang chủ</a>
     </div>
 </div>
 
@@ -362,14 +383,14 @@
 </footer>
 
 <script>
-    // Dữ liệu khóa học
+    // Dữ liệu khóa học (đã bỏ giá tiền)
     const courses = [
-        { id: 1, name: "Cơ thể con là của con", age: "3-5 tuổi", icon: "🧸", desc: "Những bài học đầu tiên về cơ thể, vùng riêng tư, quy tắc an toàn và cái chạm.", chapters: ["Những bộ phận 'biết nói'", "Vùng đồ bơi - Khu vực bất khả xâm phạm", "Quy tắc 5 ngón tay", "Cái chạm an toàn & không an toàn", "Bí mật là gì?"], color: "khoa1", price: 199000, originalPrice: 399000 },
-        { id: 2, name: "Khám phá cơ thể", age: "3-5 tuổi", icon: "🔍", desc: "Những bài học về ngôi nhà đầu tiên trong bụng mẹ, phép nhiệm màu lớn lên.", chapters: ["Ngôi nhà đầu tiên của con", "Phép nhiệm màu trong bụng mẹ", "Hành trình kỳ diệu", "Bé là sự kết hợp hoàn hảo"], color: "khoa2", price: 199000, originalPrice: 399000 },
-        { id: 3, name: "Dậy thì - Cơn bão trưởng thành", age: "6-10 tuổi", icon: "🌊", desc: "Giải mã cơ thể, hiểu về hormone, vệ sinh dậy thì.", chapters: ["Giải mã cơ thể", "Dậy thì", "Sự sống", "Vệ sinh dậy thì", "Tôi là duy nhất"], color: "khoa3", price: 199000, originalPrice: 399000 },
-        { id: 4, name: "An toàn trên không gian mạng", age: "10-15 tuổi", icon: "🌐", desc: "Bảo vệ bản thân trên mạng, chống bắt nạt, trở thành hiệp sĩ internet.", chapters: ["An toàn mạng", "Dấu chân số", "Quái vật mạng", "Bắt nạt mạng", "Hiệp sĩ Internet"], color: "khoa4", price: 199000, originalPrice: 399000 },
-        { id: 5, name: "Hiểu về hormone và cảm xúc", age: "13-18 tuổi", icon: "🧠", desc: "Khi hormone chiếm quyền, hành trình phái đẹp, bản lĩnh phái mạnh.", chapters: ["Khi hormone chiếm quyền", "Hành trình phái đẹp", "Bản lĩnh phái mạnh", "Vẻ đẹp độc bản", "Thám tử não bộ"], color: "khoa5", price: 199000, originalPrice: 399000 },
-        { id: 6, name: "Tình yêu và ranh giới", age: "15-18 tuổi", icon: "💓", desc: "Rung động hay là yêu, mật mã đồng thuận, ranh giới cơ thể.", chapters: ["Giải mã nhịp đập", "Mật mã YES", "Ranh giới cơ thể", "Lá chắn an toàn", "Hẹn hò văn minh"], color: "khoa6", price: 199000, originalPrice: 399000 }
+        { id: 1, name: "Cơ thể con là của con", age: "3-5 tuổi", icon: "🧸", desc: "Những bài học đầu tiên về cơ thể, vùng riêng tư, quy tắc an toàn và cái chạm.", chapters: ["Những bộ phận 'biết nói'", "Vùng đồ bơi - Khu vực bất khả xâm phạm", "Quy tắc 5 ngón tay", "Cái chạm an toàn & không an toàn", "Bí mật là gì?"], color: "khoa1" },
+        { id: 2, name: "Khám phá cơ thể", age: "3-5 tuổi", icon: "🔍", desc: "Những bài học về ngôi nhà đầu tiên trong bụng mẹ, phép nhiệm màu lớn lên.", chapters: ["Ngôi nhà đầu tiên của con", "Phép nhiệm màu trong bụng mẹ", "Hành trình kỳ diệu", "Bé là sự kết hợp hoàn hảo"], color: "khoa2" },
+        { id: 3, name: "Dậy thì - Cơn bão trưởng thành", age: "6-10 tuổi", icon: "🌊", desc: "Giải mã cơ thể, hiểu về hormone, vệ sinh dậy thì.", chapters: ["Giải mã cơ thể", "Dậy thì", "Sự sống", "Vệ sinh dậy thì", "Tôi là duy nhất"], color: "khoa3" },
+        { id: 4, name: "An toàn trên không gian mạng", age: "10-15 tuổi", icon: "🌐", desc: "Bảo vệ bản thân trên mạng, chống bắt nạt, trở thành hiệp sĩ internet.", chapters: ["An toàn mạng", "Dấu chân số", "Quái vật mạng", "Bắt nạt mạng", "Hiệp sĩ Internet"], color: "khoa4" },
+        { id: 5, name: "Hiểu về hormone và cảm xúc", age: "13-18 tuổi", icon: "🧠", desc: "Khi hormone chiếm quyền, hành trình phái đẹp, bản lĩnh phái mạnh.", chapters: ["Khi hormone chiếm quyền", "Hành trình phái đẹp", "Bản lĩnh phái mạnh", "Vẻ đẹp độc bản", "Thám tử não bộ"], color: "khoa5" },
+        { id: 6, name: "Tình yêu và ranh giới", age: "15-18 tuổi", icon: "💓", desc: "Rung động hay là yêu, mật mã đồng thuận, ranh giới cơ thể.", chapters: ["Giải mã nhịp đập", "Mật mã YES", "Ranh giới cơ thể", "Lá chắn an toàn", "Hẹn hò văn minh"], color: "khoa6" }
     ];
 
     function renderCourses() {
@@ -386,8 +407,8 @@
                     <p class="course-desc">${c.desc}</p>
                     <ul class="chapters-list">${c.chapters.map(ch => `<li><i class="fas fa-circle"></i> ${ch}</li>`).join('')}</ul>
                     <div class="course-footer">
-                        <div class="course-price"><span class="price-old">${c.originalPrice.toLocaleString('vi-VN')}đ</span><span class="price-new">${c.price.toLocaleString('vi-VN')}đ</span></div>
-                        <a href="https://zalo.me/0977092182" class="btn-buy" target="_blank">🛒 Mua ngay</a>
+                        <span class="free-badge-small">🎁 MIỄN PHÍ</span>
+                        <a href="https://zalo.me/0977092182" class="btn-watch" target="_blank">📝 Xem ngay</a>
                     </div>
                 </div>
             </div>
@@ -446,6 +467,56 @@
     
     function closePopup() {
         document.getElementById('popupOverlay').style.display = 'none';
+    }
+
+    // ========== KIỂM TRA MÃ KHÓA HỌC - GIỮ NGUYÊN NHƯ FILE CŨ (CHỊ TỰ QUẢN LÝ API) ==========
+    function checkAccessCode() {
+        // Chị giữ nguyên code xử lý mã khóa học của chị ở đây
+        // Em không sửa phần này, chị tự quản lý API nhé
+        const code = document.getElementById('accessCode').value.trim();
+        const msgDiv = document.getElementById('codeMessage');
+        
+        if (code === "") {
+            msgDiv.innerHTML = "<span style='color:#e74c3c'>⚠️ Vui lòng nhập mã khóa học!</span>";
+            return;
+        }
+        
+        // Gọi API hoặc xử lý mã theo hệ thống của chị
+        // Ví dụ hiện tại: (chị tự thay bằng API thật)
+        msgDiv.innerHTML = "<span style='color:#27ae60'>✅ Kiểm tra mã thành công! Chuyển hướng...</span>";
+        // window.location.href = "https://sophianguyen.com.vn/khoa-hoc/gioi-tinh/hoc-tap/";
+    }
+
+    // Bài tập mẫu
+    let sampleAnswers = [null, null];
+    const sampleCorrect = [0, 1];
+
+    function selectAnswer(qIdx, ansIdx) {
+        sampleAnswers[qIdx] = ansIdx;
+        const radioName = qIdx === 0 ? 'sampleQuiz' : 'sampleQuiz2';
+        const radios = document.getElementsByName(radioName);
+        radios.forEach((radio, idx) => {
+            if (idx === ansIdx) radio.checked = true;
+        });
+    }
+
+    function checkSampleQuiz() {
+        let correctCount = 0;
+        for (let i = 0; i < sampleAnswers.length; i++) {
+            if (sampleAnswers[i] === sampleCorrect[i]) correctCount++;
+        }
+        const resultDiv = document.getElementById('sampleResult');
+        if (correctCount === 2) {
+            resultDiv.innerHTML = '🎉🎉🎉 Tuyệt vời! Con đã hiểu bài rồi! 🎉🎉🎉';
+            resultDiv.style.background = '#E8F5E9';
+            resultDiv.style.color = '#2e7d32';
+            resultDiv.style.display = 'block';
+        } else {
+            resultDiv.innerHTML = `🌻 Con trả lời đúng ${correctCount}/2 câu. Hãy xem lại video và thử lại nhé! 💪`;
+            resultDiv.style.background = '#FFEBEE';
+            resultDiv.style.color = '#c62828';
+            resultDiv.style.display = 'block';
+        }
     }
 </script>
 </body>
