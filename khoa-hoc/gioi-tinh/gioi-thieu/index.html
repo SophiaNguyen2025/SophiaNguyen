@@ -89,6 +89,8 @@
         .try-box h3 { font-size: 1.4rem; color: var(--primary); margin-bottom: 16px; }
         .try-video { position: relative; padding-bottom: 56.25%; height: 0; margin: 20px 0; background: #000; border-radius: 20px; overflow: hidden; }
         .try-video iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .btn-try { background: var(--gradient-primary); color: white; border: none; padding: 12px 28px; border-radius: 40px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; align-self: center; margin-top: auto; }
+        .btn-try:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(232,106,138,0.4); }
         
         .popup-overlay {
             display: none;
@@ -119,7 +121,6 @@
         .btn-cta { background: white; color: var(--primary); padding: 14px 32px; border-radius: 50px; font-weight: 700; text-decoration: none; display: inline-block; margin: 0 8px; }
         .btn-cta-outline { background: transparent; border: 2px solid white; color: white; padding: 12px 28px; border-radius: 50px; font-weight: 600; text-decoration: none; display: inline-block; margin: 0 8px; }
         
-        /* Code section - GIỮ NGUYÊN NHƯ FILE CŨ CỦA CHỊ */
         .code-section {
             background: white;
             border-radius: 32px;
@@ -321,33 +322,21 @@
     </div>
 
     <!-- BÀI TẬP MẪU -->
-    <div class="sample-exercise-section">
+    <div class="sample-exercise-section" style="margin-bottom: 0;">
         <h3>📝 Làm thử bài tập mẫu</h3>
         <p>Trải nghiệm bài tập tương tác trong khóa học (trích từ Khóa 2 - Chương 1)</p>
         <div class="sample-exercise" id="sampleExercise">
             <div class="sample-question" id="sampleQ1">
                 <div class="sample-question-text">🏠 Ngôi nhà đầu tiên của con là ở đâu?</div>
-                <div class="sample-option" onclick="selectAnswer(0, 0)">
-                    <input type="radio" name="sampleQuiz" value="0" id="opt0"> <label for="opt0">Trong bụng mẹ 🤰</label>
-                </div>
-                <div class="sample-option" onclick="selectAnswer(0, 1)">
-                    <input type="radio" name="sampleQuiz" value="1" id="opt1"> <label for="opt1">Ở bãi rác 🗑️</label>
-                </div>
-                <div class="sample-option" onclick="selectAnswer(0, 2)">
-                    <input type="radio" name="sampleQuiz" value="2" id="opt2"> <label for="opt2">Trên mặt trăng 🌙</label>
-                </div>
+                <div class="sample-option" onclick="selectAnswer(0, 0)"><input type="radio" name="sampleQuiz" value="0" id="opt0"><label for="opt0">Trong bụng mẹ 🤰</label></div>
+                <div class="sample-option" onclick="selectAnswer(0, 1)"><input type="radio" name="sampleQuiz" value="1" id="opt1"><label for="opt1">Ở bãi rác 🗑️</label></div>
+                <div class="sample-option" onclick="selectAnswer(0, 2)"><input type="radio" name="sampleQuiz" value="2" id="opt2"><label for="opt2">Trên mặt trăng 🌙</label></div>
             </div>
             <div class="sample-question" id="sampleQ2">
                 <div class="sample-question-text">🔗 Sợi dây thần kỳ nối con với mẹ gọi là gì?</div>
-                <div class="sample-option" onclick="selectAnswer(1, 0)">
-                    <input type="radio" name="sampleQuiz2" value="0" id="opt2_0"> <label for="opt2_0">Dây giày 👟</label>
-                </div>
-                <div class="sample-option" onclick="selectAnswer(1, 1)">
-                    <input type="radio" name="sampleQuiz2" value="1" id="opt2_1"> <label for="opt2_1">Dây rốn 🔴</label>
-                </div>
-                <div class="sample-option" onclick="selectAnswer(1, 2)">
-                    <input type="radio" name="sampleQuiz2" value="2" id="opt2_2"> <label for="opt2_2">Dây điện ⚡</label>
-                </div>
+                <div class="sample-option" onclick="selectAnswer(1, 0)"><input type="radio" name="sampleQuiz2" value="0" id="opt2_0"><label for="opt2_0">Dây giày 👟</label></div>
+                <div class="sample-option" onclick="selectAnswer(1, 1)"><input type="radio" name="sampleQuiz2" value="1" id="opt2_1"><label for="opt2_1">Dây rốn 🔴</label></div>
+                <div class="sample-option" onclick="selectAnswer(1, 2)"><input type="radio" name="sampleQuiz2" value="2" id="opt2_2"><label for="opt2_2">Dây điện ⚡</label></div>
             </div>
             <button class="sample-check-btn" onclick="checkSampleQuiz()">✅ Kiểm tra bài tập mẫu</button>
             <div id="sampleResult" class="sample-result"></div>
@@ -357,14 +346,14 @@
         </div>
     </div>
 
-    <!-- PHẦN NHẬP MÃ KHÓA HỌC - GIỮ NGUYÊN NHƯ FILE CŨ (CHỊ TỰ QUẢN LÝ API) -->
+    <!-- ========== PHẦN NHẬP MÃ KHÓA HỌC - GIỮ NGUYÊN API CỦA CHỊ ========== -->
     <div class="code-section">
         <h4>🔐 Đã có mã khóa học?</h4>
         <div class="code-input-group">
-            <input type="text" id="accessCode" placeholder="Nhập mã khóa học của bạn">
-            <button onclick="checkAccessCode()">Xác nhận</button>
+            <input type="text" id="maKhoaInput" placeholder="Nhập mã khóa học của bạn">
+            <button id="loginBtn">Xác nhận</button>
         </div>
-        <div id="codeMessage" class="code-message"></div>
+        <div id="loginMessage" class="code-message"></div>
     </div>
 
     <div class="cta-section">
@@ -383,7 +372,7 @@
 </footer>
 
 <script>
-    // Dữ liệu khóa học (đã bỏ giá tiền)
+    // ========== DỮ LIỆU KHÓA HỌC (ĐÃ BỎ GIÁ TIỀN) ==========
     const courses = [
         { id: 1, name: "Cơ thể con là của con", age: "3-5 tuổi", icon: "🧸", desc: "Những bài học đầu tiên về cơ thể, vùng riêng tư, quy tắc an toàn và cái chạm.", chapters: ["Những bộ phận 'biết nói'", "Vùng đồ bơi - Khu vực bất khả xâm phạm", "Quy tắc 5 ngón tay", "Cái chạm an toàn & không an toàn", "Bí mật là gì?"], color: "khoa1" },
         { id: 2, name: "Khám phá cơ thể", age: "3-5 tuổi", icon: "🔍", desc: "Những bài học về ngôi nhà đầu tiên trong bụng mẹ, phép nhiệm màu lớn lên.", chapters: ["Ngôi nhà đầu tiên của con", "Phép nhiệm màu trong bụng mẹ", "Hành trình kỳ diệu", "Bé là sự kết hợp hoàn hảo"], color: "khoa2" },
@@ -430,24 +419,18 @@
         var videoElement = document.getElementById('trialVideo');
         if (videoElement) {
             player = new YT.Player('trialVideo', {
-                events: {
-                    'onStateChange': onPlayerStateChange
-                }
+                events: { 'onStateChange': onPlayerStateChange }
             });
         }
     }
     
     function onPlayerStateChange(event) {
         if (popupShown) {
-            if (event.data == YT.PlayerState.PLAYING) {
-                player.pauseVideo();
-            }
+            if (event.data == YT.PlayerState.PLAYING) player.pauseVideo();
             return;
         }
-        
         if (event.data == YT.PlayerState.PLAYING) {
             if (checkInterval) clearInterval(checkInterval);
-            
             checkInterval = setInterval(function() {
                 if (player && player.getCurrentTime && !popupShown) {
                     var duration = player.getDuration();
@@ -469,37 +452,73 @@
         document.getElementById('popupOverlay').style.display = 'none';
     }
 
-    // ========== KIỂM TRA MÃ KHÓA HỌC - GIỮ NGUYÊN NHƯ FILE CŨ (CHỊ TỰ QUẢN LÝ API) ==========
-    function checkAccessCode() {
-        // Chị giữ nguyên code xử lý mã khóa học của chị ở đây
-        // Em không sửa phần này, chị tự quản lý API nhé
-        const code = document.getElementById('accessCode').value.trim();
-        const msgDiv = document.getElementById('codeMessage');
+    // ========== API QUẢN LÝ MÃ KHÓA HỌC (GIỮ NGUYÊN CỦA CHỊ) ==========
+    const SHEET_ID = "1C_ELx6iCP-xH5Hn2cFW2TQjEG9u8zSwHpj32ohMcxFs";
+    
+    function getDeviceId() {
+        let deviceId = localStorage.getItem('deviceId');
+        if (!deviceId) {
+            deviceId = 'device_' + Math.random().toString(36).substring(2, 15) + Date.now();
+            localStorage.setItem('deviceId', deviceId);
+        }
+        return deviceId;
+    }
+    
+    function getDeviceName() {
+        const ua = navigator.userAgent;
+        if (/iPhone/i.test(ua)) return "iPhone";
+        if (/iPad/i.test(ua)) return "iPad";
+        if (/Android/i.test(ua)) return "Android - " + (ua.match(/Mobile/i) ? "Điện thoại" : "Máy tính bảng");
+        if (/Windows/i.test(ua)) return "Windows - " + (ua.match(/Mobile/i) ? "Máy tính bảng" : "PC");
+        if (/Mac/i.test(ua)) return "Mac";
+        return "Unknown Device";
+    }
+    
+    document.getElementById('loginBtn').addEventListener('click', function() {
+        const maKhoa = document.getElementById('maKhoaInput').value.trim();
+        const deviceId = getDeviceId();
+        const deviceName = getDeviceName();
+        const messageDiv = document.getElementById('loginMessage');
         
-        if (code === "") {
-            msgDiv.innerHTML = "<span style='color:#e74c3c'>⚠️ Vui lòng nhập mã khóa học!</span>";
+        if (!maKhoa) {
+            messageDiv.innerHTML = '<span style="color:#e74c3c">⚠️ Vui lòng nhập mã khóa học!</span>';
             return;
         }
         
-        // Gọi API hoặc xử lý mã theo hệ thống của chị
-        // Ví dụ hiện tại: (chị tự thay bằng API thật)
-        msgDiv.innerHTML = "<span style='color:#27ae60'>✅ Kiểm tra mã thành công! Chuyển hướng...</span>";
-        // window.location.href = "https://sophianguyen.com.vn/khoa-hoc/gioi-tinh/hoc-tap/";
-    }
+        messageDiv.innerHTML = '<span style="color:#f39c12">⏳ Đang kiểm tra mã...</span>';
+        
+        const apiUrl = `https://script.google.com/macros/s/AKfycbxObT4z1R3B8jvTg3M7aNYJ0UqJ2sUveCTd6q4m58NqNp5k7p3kYTivnSfJPnVQcP6p/exec?ma=${encodeURIComponent(maKhoa)}&deviceId=${encodeURIComponent(deviceId)}&deviceName=${encodeURIComponent(deviceName)}`;
+        
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "success") {
+                    messageDiv.innerHTML = `<span style="color:#27ae60">✅ Đăng nhập thành công! Mã khóa hợp lệ. Chào mừng ${data.user || "học viên"}!</span>`;
+                    localStorage.setItem('maKhoa', maKhoa);
+                    setTimeout(() => {
+                        window.location.href = "https://sophianguyen.com.vn/khoa-hoc/gioi-tinh/hoc-tap/";
+                    }, 1500);
+                } else {
+                    messageDiv.innerHTML = `<span style="color:#e74c3c">❌ ${data.message || "Mã khóa không hợp lệ hoặc đã hết hạn!"}</span>`;
+                }
+            })
+            .catch(error => {
+                messageDiv.innerHTML = '<span style="color:#e74c3c">❌ Có lỗi xảy ra, vui lòng thử lại sau!</span>';
+                console.error("API Error:", error);
+            });
+    });
 
-    // Bài tập mẫu
+    // ========== BÀI TẬP MẪU ==========
     let sampleAnswers = [null, null];
     const sampleCorrect = [0, 1];
-
+    
     function selectAnswer(qIdx, ansIdx) {
         sampleAnswers[qIdx] = ansIdx;
         const radioName = qIdx === 0 ? 'sampleQuiz' : 'sampleQuiz2';
         const radios = document.getElementsByName(radioName);
-        radios.forEach((radio, idx) => {
-            if (idx === ansIdx) radio.checked = true;
-        });
+        radios.forEach((radio, idx) => { if (idx === ansIdx) radio.checked = true; });
     }
-
+    
     function checkSampleQuiz() {
         let correctCount = 0;
         for (let i = 0; i < sampleAnswers.length; i++) {
