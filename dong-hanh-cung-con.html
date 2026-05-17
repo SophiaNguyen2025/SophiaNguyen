@@ -879,6 +879,7 @@
 const SUPABASE_URL = 'https://tmqotzjnqyndyhwicatl.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRtcW90empucXluZHlod2ljYXRsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg3OTEwNzYsImV4cCI6MjA5NDM2NzA3Nn0.wkHJcbTz7hJQ75uuXCfWDfqPHvhL6IGVCbAMPLVZoXo';
 
+const supabase = window.supabase;
 const { createClient } = supabase;
 const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -1334,8 +1335,17 @@ async function selectChild(child) {
     document.getElementById('ai-title').textContent = sug.title;
     document.getElementById('ai-text').textContent = sug.text;
     await Promise.all([loadChecklist(currentCat), loadJournal(), updateCatCounts(), loadCustomChecklist()]);
-}
 
+await loadCycleData();
+const cycleCalendar = document.getElementById('girlCycleCalendar');
+if (cycleCalendar) {
+    if (child.gender === 'female' && calcAge(child.birthday) >= 10) {
+        cycleCalendar.style.display = 'block';
+    } else {
+        cycleCalendar.style.display = 'none';
+    }
+}
+}
 async function loadCustomChecklist() {
     if (!selectedChildId) return;
     try {
@@ -1351,16 +1361,6 @@ async function loadCustomChecklist() {
     }
 }
 
-await loadCycleData();
-const cycleCalendar = document.getElementById('girlCycleCalendar');
-if (cycleCalendar) {
-    if (child.gender === 'female' && calcAge(child.birthday) >= 10) {
-        cycleCalendar.style.display = 'block';
-    } else {
-        cycleCalendar.style.display = 'none';
-    }
-}
-    }    
 function renderCustomChecklist() {
     const container = document.getElementById('customChecklistList');
     if (!container) return;
@@ -1735,9 +1735,7 @@ async function init() {
     } catch(e) {}
     finally { showLoading(false); }
 }
-// ===== QUẢN LÝ CHU KỲ KINH NGUYỆT =====
-let cycleData = [];
-
+// ===== QUẢN LÝ CHU KỲ KINH NGUYỆT ====
 async function loadCycleData() {
     if (!selectedChildId) return;
     if (!selectedChildObj || selectedChildObj.gender !== 'female') return;
@@ -1839,7 +1837,8 @@ async function saveCycle() {
         });
         if (error) throw error;
         closeCycleModal();
-        await loadCycleData();
+        
+await loadCycleData();
         showToast('Đã lưu chu kỳ ✅');
     } catch(e) {
         console.error(e);
