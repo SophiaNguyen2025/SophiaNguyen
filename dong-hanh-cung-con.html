@@ -899,7 +899,7 @@ let customChecklistItems = [];  // custom items cho con hiện tại
 let customChecklistStatus = {}; // lưu trạng thái done
 let parentMood = '😊 Vui';
 let parentJournals = [];
-
+let cycleData = []; 
 // ── SHOW/HIDE PASSWORD ──
 function togglePassword() {
     const input = document.getElementById('input-password');
@@ -1350,10 +1350,8 @@ async function loadCustomChecklist() {
         console.error('Lỗi load custom checklist:', e);
     }
 }
-// Sau dòng loadCustomChecklist()
-await loadCycleData();
 
-// Và thêm hiển thị/ẩn lịch theo giới tính và độ tuổi
+await loadCycleData();
 const cycleCalendar = document.getElementById('girlCycleCalendar');
 if (cycleCalendar) {
     if (child.gender === 'female' && calcAge(child.birthday) >= 10) {
@@ -1362,6 +1360,7 @@ if (cycleCalendar) {
         cycleCalendar.style.display = 'none';
     }
 }
+    }    
 function renderCustomChecklist() {
     const container = document.getElementById('customChecklistList');
     if (!container) return;
@@ -1740,6 +1739,7 @@ async function init() {
 let cycleData = [];
 
 async function loadCycleData() {
+    if (!selectedChildId) return;
     if (!selectedChildObj || selectedChildObj.gender !== 'female') return;
     try {
         const { data, error } = await db.from('menstrual_cycles')
