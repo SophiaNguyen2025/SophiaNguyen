@@ -253,7 +253,13 @@
         .child-card.selected { border-color: var(--sage); }
         .child-avatar { font-size: 28px; margin-bottom: 10px; }
         .child-name { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
-        .child-age { font-size: 12px; color: var(--mist); margin-bottom: 10px; }
+        card.innerHTML = `
+    <div class="child-avatar">${child.gender === 'female' ? '👧' : '👦'}</div>
+    <div class="child-name">${child.name}</div>
+    <div class="child-age">${age} tuổi · ${child.gender === 'female' ? 'Nữ' : 'Nam'}</div>
+    <div class="child-age" style="font-size: 10px; color: var(--sage-light); margin-top: 4px;">⭐ ${getZodiacSign(child.birthday)}</div>
+    <div class="child-progress-bar"><div class="child-progress-fill" style="width:0%" id="progress-${child.id}"></div></div>
+`;
         .child-progress-bar { height: 4px; background: var(--divider); border-radius: 99px; overflow: hidden; }
         .child-progress-fill { height: 100%; background: var(--sage); border-radius: 99px; transition: width 0.5s; }
         .add-child-card {
@@ -706,7 +712,24 @@
                         </div>
                         <div class="journal-entries" id="journal-entries"></div>
                     </div>
-                    
+                    <!-- Ghi chú dành cho bé gái về chu kỳ kinh nguyệt -->
+<div id="girlNote" style="display: none; background: linear-gradient(135deg, #FFE4E8, #FFF0F5); border-radius: 20px; padding: 20px; margin-top: 20px; border-left: 5px solid #E86A8A;">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+        <span style="font-size: 28px;">🌸</span>
+        <h3 style="color: #E86A8A; margin: 0;">Ghi chú dành cho bé gái tuổi dậy thì</h3>
+    </div>
+    <p style="color: #4a5568; margin-bottom: 12px; line-height: 1.6;">
+        <strong>🌙 Khi con bắt đầu có kinh nguyệt, đó là dấu hiệu cơ thể con đang trưởng thành.</strong> Đừng lo lắng, đó là điều hoàn toàn bình thường và tự nhiên!
+    </p>
+    <ul style="color: #4a5568; margin-left: 20px; line-height: 1.6;">
+        <li>📅 Chu kỳ thường kéo dài 21-35 ngày, mỗi lần hành kinh 3-7 ngày.</li>
+        <li>🩸 Sử dụng băng vệ sinh thay mỗi 4-6 tiếng để giữ vệ sinh.</li>
+        <li>💧 Uống nhiều nước ấm, nghỉ ngơi, tránh đồ lạnh.</li>
+        <li>💊 Nếu đau bụng nhiều, có thể chườm ấm hoặc hỏi ý kiến ba mẹ/bác sĩ.</li>
+        <li>💖 Hãy chia sẻ với mẹ hoặc người mà con tin tưởng nếu có bất kỳ thắc mắc nào.</li>
+    </ul>
+    <div style="margin-top: 12px; font-style: italic; color: #888;">💬 "Con gái lớn lên một cách diệu kỳ - hãy tự hào về cơ thể của mình!"</div>
+</div>
                     <!-- ===== NHẬT KÝ BA MẸ (THÊM MỚI) ===== -->
                     <div class="parent-journal-section">
                         <div class="section-title">🌿 Góc của Ba Mẹ - Nhìn lại chính mình</div>
@@ -1045,7 +1068,33 @@ function calcAge(birthday) {
     const diff = Date.now() - new Date(birthday).getTime();
     return Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
 }
+// ── TÍNH CHÒM SAO ──
+function getZodiacSign(birthday) {
+    const date = new Date(birthday);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    
+    if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) return "♈ Bạch Dương (21/3 - 19/4)";
+    if ((month === 4 && day >= 20) || (month === 5 && day <= 20)) return "♉ Kim Ngưu (20/4 - 20/5)";
+    if ((month === 5 && day >= 21) || (month === 6 && day <= 20)) return "♊ Song Tử (21/5 - 20/6)";
+    if ((month === 6 && day >= 21) || (month === 7 && day <= 22)) return "♋ Cự Giải (21/6 - 22/7)";
+    if ((month === 7 && day >= 23) || (month === 8 && day <= 22)) return "♌ Sư Tử (23/7 - 22/8)";
+    if ((month === 8 && day >= 23) || (month === 9 && day <= 22)) return "♍ Xử Nữ (23/8 - 22/9)";
+    if ((month === 9 && day >= 23) || (month === 10 && day <= 22)) return "♎ Thiên Bình (23/9 - 22/10)";
+    if ((month === 10 && day >= 23) || (month === 11 && day <= 21)) return "♏ Bọ Cạp (23/10 - 21/11)";
+    if ((month === 11 && day >= 22) || (month === 12 && day <= 21)) return "♐ Nhân Mã (22/11 - 21/12)";
+    if ((month === 12 && day >= 22) || (month === 1 && day <= 19)) return "♑ Ma Kết (22/12 - 19/1)";
+    if ((month === 1 && day >= 20) || (month === 2 && day <= 18)) return "♒ Bảo Bình (20/1 - 18/2)";
+    return "♓ Song Ngư (19/2 - 20/3)";
+}
 
+// ── KIỂM TRA SINH NHẬT ──
+function isBirthdayToday(birthday) {
+    if (!birthday) return false;
+    const today = new Date();
+    const birthDate = new Date(birthday);
+    return today.getMonth() === birthDate.getMonth() && today.getDate() === birthDate.getDate();
+}
 function showToast(msg, duration = 2500) {
     const t = document.getElementById('toast');
     t.textContent = msg; t.classList.add('show');
@@ -1211,6 +1260,22 @@ function renderChildren() {
 }
 
 async function selectChild(child) {
+    // Kiểm tra sinh nhật
+    if (isBirthdayToday(child.birthday)) {
+        const age = calcAge(child.birthday);
+        showToast(`🎂🎉 Hôm nay là sinh nhật ${child.name} tròn ${age} tuổi! Chúc mừng sinh nhật con yêu! 🎂🎉`, 5000);
+    }
+    // Hiển thị ghi chú cho bé gái từ 10 tuổi trở lên
+    const girlNote = document.getElementById('girlNote');
+    if (girlNote) {
+        const age = calcAge(child.birthday);
+        if (child.gender === 'female' && age >= 10) {
+            girlNote.style.display = 'block';
+        } else {
+            girlNote.style.display = 'none';
+        }
+    }
+    }
      aiIdx = 0; 
     selectedChildId = child.id;
     selectedChildObj = child;
