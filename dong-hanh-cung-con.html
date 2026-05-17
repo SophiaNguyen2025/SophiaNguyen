@@ -825,7 +825,7 @@ let selectedMood = '😊 Vui';
 let currentCat = 'study';
 let checklistData = {};
 let aiIdx = 0;
-
+let currentAISuggestions = []; 
 // ── STATE CHO PHẦN MỚI ──
 let customChecklistItems = [];  // custom items cho con hiện tại
 let customChecklistStatus = {}; // lưu trạng thái done
@@ -906,28 +906,53 @@ function getChecklistForAge(age, gender, cat) {
     }
     
     // An toàn & Sức khỏe
-    if (cat === 'safety') {
-        const base = [
-            { task: 'Thuộc lòng số điện thoại ba mẹ', desc: 'Dùng trong trường hợp khẩn cấp.' },
-            { task: 'Biết cách gọi 113/114/115', desc: 'Nhận biết tình huống nguy hiểm.' },
-            { task: 'Biết quy tắc "Đồ bơi"', desc: 'Vùng riêng tư không ai được chạm.' },
-            { task: 'Đánh răng 2 lần mỗi ngày', desc: 'Duy trì vệ sinh răng miệng.' },
-            { task: 'Rửa tay bằng xà phòng trước khi ăn', desc: 'Phòng tránh bệnh truyền nhiễm.' }
-        ];
-        if (age >= 11 && age <= 15) {
-            if (gender === 'female') {
-                base.push({ task: 'Hiểu về chu kỳ kinh nguyệt', desc: 'Chuẩn bị tâm lý và kiến thức cho tuổi dậy thì.' });
-            } else {
-                base.push({ task: 'Hiểu về sự thay đổi giọng nói và cơ thể', desc: 'Chuẩn bị tâm lý cho tuổi dậy thì.' });
-            }
-            base.push({ task: 'Biết cách băng bó vết thương nhỏ', desc: 'Kỹ năng sơ cứu cơ bản.' });
-            base.push({ task: 'An toàn khi sử dụng mạng xã hội', desc: 'Không chia sẻ thông tin cá nhân.' });
-        } else if (age >= 16) {
-            base.push({ task: 'Hiểu về các bệnh lây truyền qua đường tình dục', desc: 'Kiến thức quan trọng cho tuổi trưởng thành.' });
-            base.push({ task: 'Biết cách nói "không" với rượu bia, thuốc lá', desc: 'Kỹ năng từ chối trong áp lực bạn bè.' });
-            base.push({ task: 'Biết cách kiểm tra sức khỏe định kỳ', desc: 'Chủ động chăm sóc sức khỏe bản thân.' });
+     if (cat === 'safety') {
+        // Nhóm tuổi 3-6
+        if (age <= 6) {
+            return [
+                { task: 'Thuộc lòng số điện thoại ba mẹ', desc: 'Dùng trong trường hợp khẩn cấp.' },
+                { task: 'Biết quy tắc "Đồ bơi"', desc: 'Vùng riêng tư không ai được chạm.' },
+                { task: 'Đánh răng 2 lần mỗi ngày', desc: 'Duy trì vệ sinh răng miệng.' },
+                { task: 'Rửa tay bằng xà phòng trước khi ăn', desc: 'Phòng tránh bệnh truyền nhiễm.' },
+                { task: 'Không nhận đồ từ người lạ', desc: 'Thực hành qua tình huống giả định.' }
+            ];
         }
-        return base;
+        // Nhóm tuổi 7-10
+        else if (age <= 10) {
+            return [
+                { task: 'Thuộc lòng số điện thoại ba mẹ', desc: 'Dùng trong trường hợp khẩn cấp.' },
+                { task: 'Biết cách gọi 113/114/115', desc: 'Nhận biết tình huống nguy hiểm.' },
+                { task: 'Biết quy tắc "Đồ bơi"', desc: 'Vùng riêng tư không ai được chạm.' },
+                { task: 'Đánh răng 2 lần mỗi ngày', desc: 'Duy trì vệ sinh răng miệng.' },
+                { task: 'Rửa tay bằng xà phòng trước khi ăn', desc: 'Phòng tránh bệnh truyền nhiễm.' },
+                { task: 'An toàn khi dùng internet', desc: 'Không chia sẻ thông tin cá nhân.' },
+                { task: 'Biết cách băng bó vết thương nhỏ', desc: 'Kỹ năng sơ cứu cơ bản.' }
+            ];
+        }
+        // Nhóm tuổi 11-15
+        else if (age <= 15) {
+            const items = [
+                { task: 'Thuộc lòng số điện thoại ba mẹ', desc: 'Dùng trong trường hợp khẩn cấp.' },
+                { task: 'Biết cách gọi 113/114/115', desc: 'Nhận biết tình huống nguy hiểm.' },
+                { task: 'An toàn khi sử dụng mạng xã hội', desc: 'Không chia sẻ thông tin cá nhân.' },
+                { task: 'Biết cách băng bó vết thương nhỏ', desc: 'Kỹ năng sơ cứu cơ bản.' }
+            ];
+            if (gender === 'female') {
+                items.push({ task: 'Hiểu về chu kỳ kinh nguyệt', desc: 'Chuẩn bị tâm lý và kiến thức cho tuổi dậy thì.' });
+            } else {
+                items.push({ task: 'Hiểu về sự thay đổi giọng nói và cơ thể', desc: 'Chuẩn bị tâm lý cho tuổi dậy thì.' });
+            }
+            return items;
+        }
+        // Nhóm tuổi 16+
+        else {
+            return [
+                { task: 'Hiểu về các bệnh lây truyền qua đường tình dục', desc: 'Kiến thức quan trọng cho tuổi trưởng thành.' },
+                { task: 'Biết cách nói "không" với rượu bia, thuốc lá', desc: 'Kỹ năng từ chối trong áp lực bạn bè.' },
+                { task: 'Biết cách kiểm tra sức khỏe định kỳ', desc: 'Chủ động chăm sóc sức khỏe bản thân.' },
+                { task: 'An toàn khi tham gia giao thông', desc: 'Đội mũ bảo hiểm, không sử dụng điện thoại khi lái xe.' }
+            ];
+        }
     }
     
     // Giáo dục giới tính
@@ -977,12 +1002,41 @@ function getAISuggestion(child) {
     const age = child ? calcAge(child.birthday) : 0;
     const name = child ? child.name : 'con';
     
-    const suggestions = [
-        { title: `${name} ${age} tuổi — Thời điểm quan trọng`, text: age < 6 ? `Giai đoạn 0-6 tuổi là nền tảng cảm xúc của ${name}. Hãy đọc sách cùng con mỗi ngày và nói chuyện nhiều về cảm xúc.` : age < 12 ? `Bé ${name} ${age} tuổi — đây là thời điểm phù hợp để bắt đầu nói về ranh giới thân thể và an toàn cá nhân.` : `${name} đang trong giai đoạn dậy thì quan trọng. Ba mẹ hãy tạo không gian trò chuyện cởi mở về những thay đổi tâm sinh lý của con.` },
-        { title: `Gợi ý hoạt động tuần này cho ${name}`, text: age < 8 ? `Chơi trò chơi nhập vai để ${name} học cách xử lý tình huống — "Nếu có người lạ cho con kẹo thì con làm gì?"` : `Thử cùng ${name} lên kế hoạch một ngày cuối tuần — con tự chọn hoạt động, ba mẹ hỗ trợ thực hiện.` },
-        { title: 'Nhắc nhở cho ba mẹ', text: `Hãy ghi chú vào nhật ký những câu hỏi thú vị mà ${name} đặt ra hôm nay. Những khoảnh khắc tò mò là cơ hội giáo dục tốt nhất.` }
+    const allSuggestions = [
+        { title: `${name} ${age} tuổi — Thời điểm quan trọng`, text: age < 6 ? `Giai đoạn 0-6 tuổi là nền tảng cảm xúc của ${name}. Hãy đọc sách cùng con mỗi ngày và nói chuyện nhiều về cảm xúc.` : age < 12 ? `Bé ${name} ${age} tuổi — đây là thời điểm phù hợp để bắt đầu nói về ranh giới thân thể và an toàn cá nhân. Hãy tiếp cận tự nhiên qua câu chuyện hàng ngày.` : `${name} đang trong giai đoạn dậy thì quan trọng. Ba mẹ nên tạo không gian trò chuyện cởi mở, không phán xét về những thay đổi tâm sinh lý của con.` },
+        { title: `Xây dựng thói quen đọc sách cho ${name}`, text: `Đọc cùng ${name} 15-20 phút mỗi tối trước khi ngủ, không chỉ giúp con yêu sách mà còn gắn kết tình cảm gia đình. Hãy để con chọn sách mà con thích.` },
+        { title: `Dạy ${name} về cảm xúc`, text: `Thay vì nói "Đừng khóc", hãy hỏi "Con đang buồn vì điều gì?" — dạy con nhận diện và gọi tên cảm xúc. Điều này giúp con phát triển trí tuệ cảm xúc (EQ).` },
+        { title: `Giới hạn thời gian sử dụng thiết bị cho ${name}`, text: `Áp dụng quy tắc 20-20-20: Sau 20 phút nhìn màn hình, cho mắt nghỉ 20 giây bằng cách nhìn xa 20 feet (≈6 mét). Điều này giúp bảo vệ mắt và não bộ của con.` },
+        { title: `Dạy ${name} về ranh giới cơ thể`, text: `Quy tắc "Đồ bơi": Những vùng cơ thể được che bởi đồ bơi là riêng tư, không ai được chạm vào. Dạy con rằng con có quyền nói "KHÔNG" ngay cả với người thân.` },
+        { title: `Lắng nghe ${name} đúng cách`, text: `Khi con kể chuyện, hãy ngồi xuống ngang tầm mắt, gật đầu và đặt câu hỏi mở để con thoải mái chia sẻ. Đừng ngắt lời hay phán xét.` },
+        { title: `Giúp ${name} vượt qua sợ hãi`, text: `Đừng phủ nhận nỗi sợ của con. Hãy công nhận: "Mẹ hiểu con sợ bóng tối. Mẹ sẽ ở bên cạnh con." Cùng con tìm giải pháp thay vì ép con "phải dũng cảm".` },
+        { title: `Dạy ${name} kỹ năng giải quyết vấn đề`, text: `Hướng dẫn con 4 bước: 1) Nhận diện vấn đề, 2) Nghĩ ra giải pháp, 3) Chọn giải pháp tốt nhất, 4) Thực hiện. Đây là kỹ năng sống quan trọng cho tương lai.` },
+        { title: `Xây dựng lòng tự trọng cho ${name}`, text: `Khen con vì nỗ lực, không phải kết quả. "Mẹ thấy con đã cố gắng rất nhiều!" thay vì "Con giỏi quá!" — điều này giúp con không sợ thất bại và luôn muốn học hỏi.` },
+        { title: `Dạy ${name} về an toàn mạng`, text: `Không chia sẻ mật khẩu cho bất kỳ ai, kể cả bạn thân. Không nhắn tin hoặc kết bạn với người lạ. Luôn báo ba mẹ nếu thấy nội dung không phù hợp hoặc ai đó làm con khó chịu.` },
+        { title: `Thực hành thoát hiểm khi có cháy với ${name}`, text: `Dạy con: Cúi thấp người, bịt khăn ướt, gọi 114, không quay lại vào nhà đang cháy. Hãy thực hành ít nhất 2 lần mỗi năm để con ghi nhớ.` },
+        { title: `Dạy ${name} về sự đồng thuận (Consent)`, text: `"Không có nghĩa là không". Dạy con tôn trọng khi người khác nói không, và con cũng có quyền nói không. Đây là nền tảng cho các mối quan hệ lành mạnh sau này.` },
+        { title: age >= 10 ? `Dạy ${name} về tình bạn lành mạnh` : `Giúp ${name} kết bạn`, text: `Bạn tốt là người tôn trọng, không ép buộc, không chế giễu. Nếu bạn làm con buồn, con có quyền tìm bạn mới. Không có gì đáng sợ hơn việc ở trong một mối quan hệ độc hại.` },
+        { title: age >= 8 ? `Chuẩn bị cho ${name} tuổi dậy thì` : `Những điều ba mẹ cần biết về tuổi dậy thì của ${name}`, text: age >= 8 ? `Nói chuyện trước khi con bước vào dậy thì (khoảng 8-9 tuổi) để con không bỡ ngỡ với những thay đổi của cơ thể. Hãy tự nhiên và khoa học.` : `Dậy thì sẽ đến sớm hơn ba mẹ nghĩ (có thể từ 8-9 tuổi). Hãy chuẩn bị kiến thức từ bây giờ để có thể đồng hành cùng con.` },
+        { title: `Dạy ${name} về giá trị của đồng tiền`, text: `Cho con tiền tiêu vặt hàng tuần và hướng dẫn con chia thành 3 phần: 50% tiết kiệm, 30% tiêu dùng, 20% cho đi hoặc đầu tư. Điều này giúp con hình thành thói quen tài chính lành mạnh.` },
+        { title: `Kỹ năng từ chối bạn bè cho ${name}`, text: `Dạy con câu thần chú: "Cảm ơn bạn đã rủ, nhưng hôm nay mình không thể." — Từ chối mà không cần giải thích dài dòng. Điều này giúp con tự tin và không bị áp lực bởi bạn bè.` },
+        { title: age >= 6 ? `Dấu hiệu ${name} có thể đang bị bắt nạt ở trường` : `Phòng tránh bắt nạt học đường cho ${name}`, text: `Nếu con sợ đi học, thường xuyên kêu đau bụng/đau đầu, quần áo rách hoặc mất đồ, ba mẹ cần nhẹ nhàng hỏi chuyện. Đừng phán xét, hãy lắng nghe và tìm giải pháp cùng con.` },
+        { title: `Tạo không gian an toàn để ${name} chia sẻ`, text: `Đặt ra "giờ gia đình" mỗi tối 15 phút, không điện thoại, chỉ trò chuyện — con sẽ dần mở lòng hơn. Hãy bắt đầu bằng những câu hỏi nhẹ nhàng như "Hôm nay điều gì làm con vui?"` },
+        { title: `Dạy ${name} về sự khác biệt`, text: `Mỗi người có màu da, tôn giáo, sở thích khác nhau. Sự khác biệt không xấu, nó làm thế giới thú vị hơn. Dạy con tôn trọng sự khác biệt của người khác.` },
+        { title: age >= 8 ? `Kỹ năng sơ cứu cơ bản cho ${name}` : `Ba mẹ nên học kỹ năng sơ cứu cho trẻ`, text: age >= 8 ? `Dạy con cách băng bó vết thương nhỏ, cầm máu, xử lý khi bị bỏng. Những kỹ năng này có thể cứu sống người khác trong tình huống khẩn cấp.` : `Ba mẹ nên học CPR (hồi sức tim phổi) cho trẻ em — khác với người lớn, cần lực ép nhẹ hơn. Đây là kỹ năng cứu người quan trọng.` },
+        { title: `Xây dựng thói quen tập thể dục cho ${name}`, text: `Không cần phải đến phòng gym. Đi bộ sau bữa tối, leo cầu thang thay vì thang máy, chơi thể thao cùng con. Vận động không chỉ tốt cho sức khỏe mà còn giúp giải tỏa căng thẳng.` },
+        { title: `Cách giúp ${name} tập trung học bài`, text: `Quy tắc Pomodoro: Học 25 phút, nghỉ 5 phút. Không để điện thoại trong phòng học. Học vào khung giờ cố định mỗi ngày để tạo thói quen.` },
+        { title: `Dạy ${name} cách quản lý căng thẳng`, text: `Hướng dẫn con thở sâu: Hít vào 4 giây, giữ 4 giây, thở ra 4 giây. Lặp lại 5 lần khi cảm thấy lo âu. Điều này giúp hệ thần kinh của con được bình tĩnh lại.` },
+        { title: `Lợi ích của việc để ${name} tự quyết định`, text: `Để con tự chọn quần áo, tự chọn món ăn (trong giới hạn), tự quyết định chơi trò gì... Điều này giúp con phát triển kỹ năng ra quyết định và tự tin hơn.` },
+        { title: `Dạy ${name} về lòng biết ơn`, text: `Mỗi tối trước khi ngủ, hãy cùng con kể ra 3 điều con biết ơn trong ngày. Điều này giúp con hình thành tư duy tích cực và hạnh phúc hơn.` }
     ];
-    return suggestions[aiIdx % suggestions.length];
+    
+    // Lọc gợi ý theo độ tuổi
+    let filtered = allSuggestions;
+    if (age < 10) {
+        filtered = allSuggestions.filter(s => !s.title.includes('dậy thì') && !s.title.includes('STD') && !s.title.includes('tránh thai') && !s.title.includes('bệnh lây truyền'));
+    }
+    
+    return filtered[aiIdx % filtered.length];
 }
 
 // ── UTILS ──
@@ -1157,6 +1211,7 @@ function renderChildren() {
 }
 
 async function selectChild(child) {
+     aiIdx = 0; 
     selectedChildId = child.id;
     selectedChildObj = child;
     document.querySelectorAll('.child-card').forEach(c => {
