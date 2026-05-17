@@ -713,7 +713,52 @@
                         <div class="journal-entries" id="journal-entries"></div>
                     </div>
                     <!-- Ghi chú dành cho bé gái về chu kỳ kinh nguyệt -->
-<div id="girlNote" style="display: none; background: linear-gradient(135deg, #FFE4E8, #FFF0F5); border-radius: 20px; padding: 20px; margin-top: 20px; border-left: 5px solid #E86A8A;">
+<!-- Lịch theo dõi chu kỳ kinh nguyệt cho bé gái -->
+<div id="girlCycleCalendar" style="display: none; background: linear-gradient(135deg, #FFE4E8, #FFF0F5); border-radius: 20px; padding: 20px; margin-top: 20px; border-left: 5px solid #E86A8A;">
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-size: 28px;">📅</span>
+            <h3 style="color: #E86A8A; margin: 0;">Theo dõi chu kỳ của con</h3>
+        </div>
+        <button onclick="openCycleModal()" style="background: #E86A8A; color: white; border: none; padding: 6px 14px; border-radius: 40px; cursor: pointer; font-size: 12px;">➕ Thêm chu kỳ</button>
+    </div>
+    
+    <div id="cycleStats" style="background: white; border-radius: 16px; padding: 12px; margin-bottom: 16px; text-align: center;">
+        <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 10px;">
+            <div><span style="color: #E86A8A; font-weight: bold;">📆 Chu kỳ trung bình</span><br><span id="avgCycle">--</span> ngày</div>
+            <div><span style="color: #E86A8A; font-weight: bold;">🩸 Kỳ kinh gần nhất</span><br><span id="lastPeriod">--</span></div>
+            <div><span style="color: #E86A8A; font-weight: bold;">⏳ Dự kiến kỳ tiếp theo</span><br><span id="nextPeriod">--</span></div>
+        </div>
+    </div>
+    
+    <div id="cycleHistory" style="max-height: 300px; overflow-y: auto;">
+        <div class="empty-state" style="padding: 20px;">Chưa có dữ liệu chu kỳ. Nhấn "Thêm chu kỳ" để bắt đầu theo dõi.</div>
+    </div>
+</div>
+
+<!-- Modal thêm/sửa chu kỳ -->
+<div id="cycleModal" class="modal-overlay" style="display: none;">
+    <div class="modal-box" style="max-width: 350px;">
+        <div class="modal-title">📝 Thêm chu kỳ</div>
+        <div class="modal-sub">Ghi lại ngày bắt đầu và kết thúc</div>
+        <div class="form-group">
+            <label class="form-label">Ngày bắt đầu</label>
+            <input type="date" id="cycleStartDate" class="form-input">
+        </div>
+        <div class="form-group">
+            <label class="form-label">Ngày kết thúc</label>
+            <input type="date" id="cycleEndDate" class="form-input">
+        </div>
+        <div class="form-group">
+            <label class="form-label">Ghi chú (tùy chọn)</label>
+            <textarea id="cycleNote" rows="2" class="form-input" placeholder="Đau bụng, mệt mỏi, dùng thuốc..."></textarea>
+        </div>
+        <div class="modal-actions">
+            <button class="btn-cancel" onclick="closeCycleModal()">Hủy</button>
+            <button class="btn-save" onclick="saveCycle()">Lưu</button>
+        </div>
+    </div>
+</div>
     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
         <span style="font-size: 28px;">🌸</span>
         <h3 style="color: #E86A8A; margin: 0;">Ghi chú dành cho bé gái tuổi dậy thì</h3>
@@ -1305,7 +1350,18 @@ async function loadCustomChecklist() {
         console.error('Lỗi load custom checklist:', e);
     }
 }
+// Sau dòng loadCustomChecklist()
+await loadCycleData();
 
+// Và thêm hiển thị/ẩn lịch theo giới tính và độ tuổi
+const cycleCalendar = document.getElementById('girlCycleCalendar');
+if (cycleCalendar) {
+    if (child.gender === 'female' && calcAge(child.birthday) >= 10) {
+        cycleCalendar.style.display = 'block';
+    } else {
+        cycleCalendar.style.display = 'none';
+    }
+}
 function renderCustomChecklist() {
     const container = document.getElementById('customChecklistList');
     if (!container) return;
@@ -1680,7 +1736,127 @@ async function init() {
     } catch(e) {}
     finally { showLoading(false); }
 }
+// ===== QUẢN LÝ CHU KỲ KINH NGUYỆT =====
+let cycleData = [];
 
+async function loadCycleData() {
+    if (!selectedChildObj || selectedChildObj.gender !== 'female') return;
+    try {
+        const { data, error } = await db.from('menstrual_cycles')
+            .select('*')
+            .eq('child_id', selectedChildId)
+            .order('start_date', { ascending: false });
+        if (error) throw error;
+        cycleData = data || [];
+        renderCycleCalendar();
+    } catch(e) { console.error(e); }
+}
+
+function renderCycleCalendar() {
+    const container = document.getElementById('cycleHistory');
+    const statsDiv = document.getElementById('cycleStats');
+    if (!container) return;
+    
+    if (!cycleData.length) {
+        container.innerHTML = '<div class="empty-state" style="padding: 20px;">Chưa có dữ liệu chu kỳ. Nhấn "Thêm chu kỳ" để bắt đầu theo dõi.</div>';
+        if (statsDiv) statsDiv.style.display = 'none';
+        return;
+    }
+    if (statsDiv) statsDiv.style.display = 'block';
+    
+    // Tính toán thống kê
+    let totalCycle = 0;
+    for (let i = 0; i < cycleData.length - 1; i++) {
+        const start1 = new Date(cycleData[i].start_date);
+        const start2 = new Date(cycleData[i+1].start_date);
+        const diff = Math.round((start1 - start2) / (1000 * 60 * 60 * 24));
+        if (diff > 0 && diff < 60) totalCycle += diff;
+    }
+    const avgCycle = cycleData.length > 1 ? Math.round(totalCycle / (cycleData.length - 1)) : '--';
+    document.getElementById('avgCycle').innerText = avgCycle !== '--' ? avgCycle : '--';
+    
+    const lastStart = new Date(cycleData[0].start_date);
+    document.getElementById('lastPeriod').innerText = lastStart.toLocaleDateString('vi-VN');
+    
+    if (avgCycle !== '--') {
+        const next = new Date(lastStart);
+        next.setDate(next.getDate() + avgCycle);
+        document.getElementById('nextPeriod').innerText = next.toLocaleDateString('vi-VN');
+    } else {
+        document.getElementById('nextPeriod').innerText = '--';
+    }
+    
+    // Hiển thị lịch sử
+    container.innerHTML = '';
+    cycleData.forEach(cycle => {
+        const start = new Date(cycle.start_date).toLocaleDateString('vi-VN');
+        const end = cycle.end_date ? new Date(cycle.end_date).toLocaleDateString('vi-VN') : 'đang diễn ra';
+        const duration = cycle.end_date ? Math.round((new Date(cycle.end_date) - new Date(cycle.start_date)) / (1000 * 60 * 60 * 24)) + 1 : '?';
+        const el = document.createElement('div');
+        el.className = 'parent-journal-card';
+        el.style.marginBottom = '8px';
+        el.innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div><strong>📅 ${start}</strong> → ${end}</div>
+                <div><span style="background: #FFE4E8; padding: 2px 8px; border-radius: 20px;">${duration} ngày</span></div>
+            </div>
+            ${cycle.note ? `<div style="font-size: 12px; color: var(--mist); margin-top: 6px;">📝 ${escapeHtml(cycle.note)}</div>` : ''}
+            <div style="display: flex; gap: 8px; margin-top: 8px;">
+                <button onclick="deleteCycle(${cycle.id})" style="background: none; border: none; color: var(--error); cursor: pointer; font-size: 11px;">🗑️ Xóa</button>
+            </div>
+        `;
+        container.appendChild(el);
+    });
+}
+
+function openCycleModal() {
+    document.getElementById('cycleStartDate').value = '';
+    document.getElementById('cycleEndDate').value = '';
+    document.getElementById('cycleNote').value = '';
+    document.getElementById('cycleModal').style.display = 'flex';
+}
+
+function closeCycleModal() {
+    document.getElementById('cycleModal').style.display = 'none';
+}
+
+async function saveCycle() {
+    const startDate = document.getElementById('cycleStartDate').value;
+    const endDate = document.getElementById('cycleEndDate').value;
+    const note = document.getElementById('cycleNote').value.trim();
+    
+    if (!startDate) {
+        showToast('Vui lòng chọn ngày bắt đầu');
+        return;
+    }
+    
+    try {
+        const { error } = await db.from('menstrual_cycles').insert({
+            child_id: selectedChildId,
+            start_date: startDate,
+            end_date: endDate || null,
+            note: note || null
+        });
+        if (error) throw error;
+        closeCycleModal();
+        await loadCycleData();
+        showToast('Đã lưu chu kỳ ✅');
+    } catch(e) {
+        console.error(e);
+        showToast('Lỗi khi lưu');
+    }
+}
+
+async function deleteCycle(id) {
+    if (!confirm('Xóa chu kỳ này?')) return;
+    try {
+        await db.from('menstrual_cycles').delete().eq('id', id);
+        await loadCycleData();
+        showToast('Đã xóa');
+    } catch(e) {
+        showToast('Lỗi khi xóa');
+    }
+}
 init();
 </script>
 </body>
