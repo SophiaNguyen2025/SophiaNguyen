@@ -10,12 +10,11 @@
   <link rel="stylesheet" href="main.css" />
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Phần còn lại của trang giữ nguyên -->
   <style>
     body {
       font-family: 'Be Vietnam Pro', sans-serif;
     }
-        /* ==================== BANNER 2 CỘT ==================== */
+    /* ==================== BANNER 2 CỘT ==================== */
     .services-banner {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -99,6 +98,92 @@
         box-shadow: 0 8px 20px rgba(232, 62, 140, 0.4);
     }
     
+    /* BANNER NHẤP NHÁY - ĐỒNG HÀNH CÙNG CON */
+    .featured-banner {
+        background: linear-gradient(135deg, #1a2a3a 0%, #2c4a3a 100%);
+        border-radius: 28px;
+        margin: 40px 0;
+        padding: 32px 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 24px;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 2px solid #ffd700;
+        box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7);
+        animation: pulse-border 2s infinite;
+    }
+    
+    .featured-banner:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+    
+    @keyframes pulse-border {
+        0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); border-color: #ffd700; }
+        70% { box-shadow: 0 0 0 15px rgba(255, 215, 0, 0); border-color: #ffed4e; }
+        100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); border-color: #ffd700; }
+    }
+    
+    .featured-banner-left {
+        flex: 2;
+        color: white;
+    }
+    
+    .featured-banner-left .badge {
+        background: #ffd700;
+        color: #1a2a3a;
+        display: inline-block;
+        padding: 6px 16px;
+        border-radius: 40px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        margin-bottom: 16px;
+        letter-spacing: 1px;
+    }
+    
+    .featured-banner-left h2 {
+        font-size: 1.8rem;
+        margin-bottom: 12px;
+        font-weight: 700;
+    }
+    
+    .featured-banner-left p {
+        font-size: 0.95rem;
+        opacity: 0.9;
+        margin-bottom: 20px;
+        max-width: 500px;
+    }
+    
+    .featured-banner-left .btn-shine {
+        background: #ffd700;
+        color: #1a2a3a;
+        border: none;
+        padding: 12px 28px;
+        border-radius: 40px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: inline-block;
+        text-decoration: none;
+    }
+    
+    .featured-banner-left .btn-shine:hover {
+        background: #ffed4e;
+        transform: translateY(-2px);
+    }
+    
+    .featured-banner-right {
+        flex: 1;
+        text-align: center;
+        font-size: 80px;
+    }
+    
     /* Responsive */
     @media (max-width: 768px) {
         .services-banner {
@@ -124,173 +209,183 @@
             padding: 10px 22px;
             font-size: 0.85rem;
         }
+        
+        .featured-banner {
+            flex-direction: column;
+            text-align: center;
+            padding: 24px;
+        }
+        
+        .featured-banner-left p {
+            margin-left: auto;
+            margin-right: auto;
+        }
     }
+    
     /* ==================== FOOTER ==================== */
-.footer {
-    background: #1a2a3a;
-    color: white;
-    padding: 50px 0 20px;
-    margin-top: 60px;
-}
-
-.footer-container {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 24px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 40px;
-}
-
-.footer-logo img {
-    width: 120px;
-    margin-bottom: 16px;
-}
-
-.footer-logo p {
-    font-size: 0.85rem;
-    line-height: 1.6;
-    color: #cbd5e0;
-}
-
-.footer-links h4, .footer-map h4, .footer-contact h4 {
-    margin-bottom: 16px;
-    font-size: 1.1rem;
-    color: white;
-}
-
-.footer-links ul {
-    list-style: none;
-}
-
-.footer-links ul li {
-    margin-bottom: 8px;
-}
-.footer-links ul li a {
-    color: #cbd5e0;
-    text-decoration: none;
-    font-size: 0.85rem;
-    transition: color 0.2s;
-}
-
-.footer-links ul li a:hover {
-    color: #e83e8c;
-}
-
-/* Bản đồ */
-.map-wrapper {
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
-
-.map-wrapper iframe {
-    width: 100%;
-    height: 180px;
-    border: none;
-    display: block;
-    filter: grayscale(0.2);
-    transition: all 0.3s ease;
-}
-
-.map-wrapper iframe:hover {
-    filter: grayscale(0);
-}
-
-.footer-map p {
-    font-size: 0.75rem;
-    color: #fbbf24;
-    margin-top: 8px;
-}
-
-/* Liên hệ */
-.footer-contact p {
-    font-size: 0.85rem;
-    margin-bottom: 10px;
-    color: #cbd5e0;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.social-icons {
-    display: flex;
-    gap: 12px;
-    margin-top: 16px;
-}
-
-.social-icons a {
-    display: inline-block;
-    transition: transform 0.2s;
-}
-
-.social-icons a:hover {
-    transform: translateY(-3px);
-}
-
-.social-icons img {
-    width: 32px;
-    height: 32px;
-}
-
-/* Footer bottom */
-.footer-bottom {
-    text-align: center;
-    padding-top: 30px;
-    margin-top: 30px;
-    border-top: 1px solid rgba(255,255,255,0.1);
-    font-size: 0.75rem;
-    color: #94a3b8;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
+    .footer {
+        background: #1a2a3a;
+        color: white;
+        padding: 50px 0 20px;
+        margin-top: 60px;
+    }
+    
     .footer-container {
-        grid-template-columns: 1fr;
-        gap: 30px;
-        text-align: center;
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 24px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 40px;
+    }
+    
+    .footer-logo img {
+        width: 120px;
+        margin-bottom: 16px;
     }
     
     .footer-logo p {
-        max-width: 300px;
-        margin: 0 auto;
+        font-size: 0.85rem;
+        line-height: 1.6;
+        color: #cbd5e0;
     }
     
-    .footer-contact p {
-        justify-content: center;
+    .footer-links h4, .footer-map h4, .footer-contact h4 {
+        margin-bottom: 16px;
+        font-size: 1.1rem;
+        color: white;
     }
     
-    .social-icons {
-        justify-content: center;
+    .footer-links ul {
+        list-style: none;
+    }
+    
+    .footer-links ul li {
+        margin-bottom: 8px;
+    }
+    .footer-links ul li a {
+        color: #cbd5e0;
+        text-decoration: none;
+        font-size: 0.85rem;
+        transition: color 0.2s;
+    }
+    
+    .footer-links ul li a:hover {
+        color: #e83e8c;
+    }
+    
+    .map-wrapper {
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
     
     .map-wrapper iframe {
-        height: 200px;
+        width: 100%;
+        height: 180px;
+        border: none;
+        display: block;
+        filter: grayscale(0.2);
+        transition: all 0.3s ease;
     }
-}
-    .services-banner {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-    margin: 60px 20px;
-}
-
-@media (max-width: 1024px) {
-    .services-banner {
-        grid-template-columns: repeat(2, 1fr);
+    
+    .map-wrapper iframe:hover {
+        filter: grayscale(0);
     }
-}
-
-@media (max-width: 768px) {
-    .services-banner {
-        grid-template-columns: 1fr;
-        gap: 24px;
-        margin: 40px 16px;
+    
+    .footer-map p {
+        font-size: 0.75rem;
+        color: #fbbf24;
+        margin-top: 8px;
     }
-}
+    
+    .footer-contact p {
+        font-size: 0.85rem;
+        margin-bottom: 10px;
+        color: #cbd5e0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .social-icons {
+        display: flex;
+        gap: 12px;
+        margin-top: 16px;
+    }
+    
+    .social-icons a {
+        display: inline-block;
+        transition: transform 0.2s;
+    }
+    
+    .social-icons a:hover {
+        transform: translateY(-3px);
+    }
+    
+    .social-icons img {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .footer-bottom {
+        text-align: center;
+        padding-top: 30px;
+        margin-top: 30px;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        font-size: 0.75rem;
+        color: #94a3b8;
+    }
+    
+    @media (max-width: 768px) {
+        .footer-container {
+            grid-template-columns: 1fr;
+            gap: 30px;
+            text-align: center;
+        }
+        
+        .footer-logo p {
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        
+        .footer-contact p {
+            justify-content: center;
+        }
+        
+        .social-icons {
+            justify-content: center;
+        }
+        
+        .map-wrapper iframe {
+            height: 200px;
+        }
+    }
+    
+    .services-banner {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 30px;
+        margin: 60px 20px;
+    }
+    
+    @media (max-width: 1024px) {
+        .services-banner {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .services-banner {
+            grid-template-columns: 1fr;
+            gap: 24px;
+            margin: 40px 16px;
+        }
+    }
   </style>
 </head>
-<!-- ========== GÓC NHẬT KÝ CỦA CÔ SOPHIA - BẢN ĐỌC DÀI KHÔNG GIỚI HẠN ========== -->
+
+<!-- ========== GÓC NHẬT KÝ CỦA CÔ SOPHIA ========== -->
 <style>
   .sophia-journal {
     position: fixed;
@@ -346,7 +441,6 @@
     color: #b5a07e;
     font-style: italic;
   }
-  /* Nút thu gọn/mở rộng */
   .toggle-icon {
     margin-left: auto;
     font-size: 14px;
@@ -362,46 +456,28 @@
     <span class="toggle-icon" id="toggleIcon">▼</span>
   </div>
   <div class="journal-body" id="journalBody">
-    <div id="journalContent" class="journal-content loading">
-      📖 Đang tải lời nhắn...
-    </div>
-    <div class="journal-footer">
-      💛 Cập nhật thường xuyên
-    </div>
+    <div id="journalContent" class="journal-content loading">📖 Đang tải lời nhắn...</div>
+    <div class="journal-footer">💛 Cập nhật thường xuyên</div>
   </div>
 </div>
 
 <script>
   (function() {
-    // Link CSV của chị
     const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRBnTjJxVTpO-LI3vSYQZXtl647KXFWa9T3mOtA61we48PtdloSUfm3_cLkDPOLon4zqgDCJ44JvFx9/pub?gid=0&single=true&output=csv";
     
-    // Đọc nội dung dài từ Google Sheet (dùng fetch + xử lý text thuần)
     async function loadJournal() {
       const contentDiv = document.getElementById('journalContent');
       contentDiv.innerHTML = "📖 Đang tải...";
-      
       try {
         const response = await fetch(CSV_URL + "&_=" + Date.now());
         const text = await response.text();
-        
-        // Cách đọc đơn giản nhất: lấy toàn bộ text và loại bỏ dấu ngoặc kép đầu/cuối
         let content = text.trim();
-        
-        // Nếu nội dung bắt đầu bằng " và kết thúc bằng " thì bỏ chúng đi
         if (content.startsWith('"') && content.endsWith('"')) {
           content = content.substring(1, content.length - 1);
         }
-        
-        // Thay thế dấu xuống dòng trong CSV (\\n) thành thẻ <br>
         content = content.replace(/\\n/g, '<br>');
-        
-        // Nếu vẫn còn dấu xuống dòng thường thì cũng thay
         content = content.replace(/\n/g, '<br>');
-        
-        // Thay thế 2 dấu ngoặc kép liên tiếp thành 1 dấu (cách escape của CSV)
         content = content.replace(/""/g, '"');
-        
         if (content && content !== "" && content !== "Trang tính1") {
           contentDiv.innerHTML = content;
         } else {
@@ -413,7 +489,6 @@
       }
     }
     
-    // Chức năng thu gọn / mở rộng
     let isCollapsed = false;
     function toggleWidget() {
       const bodyEl = document.getElementById('journalBody');
@@ -429,18 +504,16 @@
       }
     }
     
-    // Khởi tạo
     loadJournal();
-    setInterval(loadJournal, 300000); // Cập nhật mỗi 5 phút
-    
+    setInterval(loadJournal, 300000);
     const header = document.getElementById('journalHeader');
     if (header) {
       header.addEventListener('click', toggleWidget);
     }
   })();
 </script>
-<!-- ========== KẾT THÚC GÓC NHẬT KÝ ========== -->
-  <body>
+
+<body>
   <!-- HEADER -->
   <header class="header">
     <div class="container header-container">
@@ -462,6 +535,21 @@
       <img src="images/rs1.png" alt="Sophia Nguyễn – Đồng hành & Sẻ chia" class="banner-img" />
     </div>
   </header>
+
+  <!-- ========== BANNER NHẤP NHÁY - ĐỒNG HÀNH CÙNG CON ========== -->
+  <div class="container">
+    <div class="featured-banner" onclick="window.location.href='dong-hanh-cung-con.html'">
+      <div class="featured-banner-left">
+        <div class="badge">🌟 TÍNH NĂNG MỚI 🌟</div>
+        <h2>👨‍👩‍👧‍👦 Đồng hành cùng con</h2>
+        <p>Hệ thống theo dõi phát triển toàn diện cho con — từ học tập, kỹ năng sống, giáo dục giới tính đến sức khỏe tâm lý. Miễn phí 100%!</p>
+        <div class="btn-shine">📊 BẮT ĐẦU NGAY →</div>
+      </div>
+      <div class="featured-banner-right">
+        📱✨
+      </div>
+    </div>
+  </div>
 
   <!-- TET SECTION -->
   <section class="tet-section">
@@ -507,9 +595,8 @@
     </div>
   </div>
 
- <!-- ==================== BANNER 4 CỘT ==================== -->
-<div class="services-banner" data-aos="zoom-in" data-aos-duration="1000">
-    <!-- Cột 1: Khóa học giáo dục giới tính cho trẻ (MÀU HỒNG) -->
+  <!-- BANNER 4 CỘT -->
+  <div class="services-banner" data-aos="zoom-in" data-aos-duration="1000">
     <div class="banner-card" style="background: linear-gradient(135deg, #fff0f5 0%, #ffe4ec 100%); border-color: rgba(232, 62, 140, 0.2);">
         <div class="banner-badge" style="background: linear-gradient(135deg, #e83e8c, #f06292);">🌱 Khóa học cho trẻ</div>
         <h2 class="banner-title" style="color: #e83e8c;">Giáo dục giới tính toàn diện</h2>
@@ -523,7 +610,6 @@
         <a href="/khoa-hoc/gioi-tinh/gioi-thieu/" class="banner-btn" style="background: linear-gradient(135deg, #e83e8c, #f06292);">📚 Xem chi tiết khóa học giới tính toàn diện</a>
     </div>
 
-    <!-- Cột 2: Khóa học dành cho cha mẹ (MÀU XANH DƯƠNG) -->
     <div class="banner-card" style="background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); border-color: rgba(2, 132, 199, 0.2);">
         <div class="banner-badge" style="background: linear-gradient(135deg, #0284c7, #38bdf8);">👨‍👩‍👧‍👦 Dành cho Cha Mẹ</div>
         <h2 class="banner-title" style="color: #0369a1;">Đồng hành cùng con – Cẩm nang giới tính toàn diện</h2>
@@ -536,7 +622,6 @@
         <a href="/khoa-hoc/cha-me/gioi-thieu/" class="banner-btn" style="background: linear-gradient(135deg, #0284c7, #38bdf8);">📚 Xem chi tiết khóa học cho cha mẹ</a>
     </div>
 
-    <!-- Cột 3: Khóa học kỹ năng an toàn (MÀU ĐỎ) -->
     <div class="banner-card" style="background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); border-color: rgba(220, 38, 38, 0.2);">
         <div class="banner-badge" style="background: linear-gradient(135deg, #dc2626, #ef4444);">🛡️ Biệt đội bảo vệ</div>
         <h2 class="banner-title" style="color: #b91c1c;">Kỹ năng an toàn cho trẻ 5-10 tuổi</h2>
@@ -549,7 +634,6 @@
         <a href="/khoa-hoc/ky-nang-an-toan/gioi-thieu/" class="banner-btn" style="background: linear-gradient(135deg, #dc2626, #ef4444);">📚 Xem chi tiết khóa học an toàn</a>
     </div>
 
-    <!-- Cột 4: Dịch vụ Lắng nghe tâm giao (MÀU TÍM) -->
     <div class="banner-card" style="background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%); border-color: rgba(139, 92, 246, 0.2);">
         <div class="banner-badge" style="background: linear-gradient(135deg, #8b5cf6, #a78bfa);">💬 Dịch vụ</div>
         <h2 class="banner-title" style="color: #6d28d9;">Lắng nghe tâm giao</h2>
@@ -562,9 +646,10 @@
         </div>
         <a href="/dich-vu/lang-nghe-tam-giao/" class="banner-btn" style="background: linear-gradient(135deg, #8b5cf6, #a78bfa);">💖 Tìm hiểu thêm</a>
     </div>
-</div>
-  <!-- Banner Bản lĩnh Gen Z – Phong cách tối -->
-<a href="/khoa-hoc/ky-nang-an-toan/genz/gioi-thieu/" class="genz-banner">
+  </div>
+
+  <!-- Banner Bản lĩnh Gen Z -->
+  <a href="/khoa-hoc/ky-nang-an-toan/genz/gioi-thieu/" class="genz-banner">
     <div style="background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%); border-radius: 28px; padding: 30px; margin: 30px 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; border: 1px solid #e63946; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: 0.3s;">
         <div style="flex: 2;">
             <span style="background: #e63946; padding: 4px 12px; border-radius: 30px; font-size: 12px; font-weight: bold;">🔥 DÀNH CHO TUỔI TEEN </span>
@@ -572,19 +657,18 @@
             <p style="color: #ccc;">9 bài học chốt: An toàn giao thông, sơ cấp cứu, tự vệ xã hội, an toàn mạng, sức khỏe tâm thần và pháp luật.</p>
             <div style="margin-top: 20px;"><span style="background: #e63946; padding: 8px 24px; border-radius: 40px; display: inline-block; font-weight: bold;">📖 Xem chi tiết →</span></div>
         </div>
-        <div style="flex: 1; text-align: center;">
-            <div style="font-size: 80px;">🛡️</div>
-        </div>
+        <div style="flex: 1; text-align: center;"><div style="font-size: 80px;">🛡️</div></div>
     </div>
-</a>
+  </a>
 
-<style>
+  <style>
     .genz-banner:hover div {
         transform: translateY(-5px);
         box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         border-color: #ff6b6b;
     }
-</style>
+  </style>
+
   <!-- CÁC BÀI TEST TÂM LÝ -->
   <h2 class="section-title" data-aos="flip-left" data-aos-duration="1000">Các bài test tâm lý</h2>
   <div class="grid survey-grid" data-aos="zoom-out-left" data-aos-duration="1000">
@@ -613,12 +697,13 @@
       <a href="test.html" class="cta-btn">🔍 Khám phá bài test trong này?</a>
     </div>
   </div>
-<!-- BLOG MỚI NHẤT -->
-<h2 class="section-title" data-aos="fade-down-right" data-aos-duration="1000">📝 Bài viết mới từ Góc nhỏ của Sophia</h2>
-<div class="blog-preview" data-aos="zoom-in" data-aos-duration="1000" id="blogPreview"></div>
-<a href="nhungbaiblog.html" class="cta-btn" style="display: block; width: fit-content; margin: 20px auto;">📖 Xem tất cả bài viết →</a>
 
-<script>
+  <!-- BLOG MỚI NHẤT -->
+  <h2 class="section-title" data-aos="fade-down-right" data-aos-duration="1000">📝 Bài viết mới từ Góc nhỏ của Sophia</h2>
+  <div class="blog-preview" data-aos="zoom-in" data-aos-duration="1000" id="blogPreview"></div>
+  <a href="nhungbaiblog.html" class="cta-btn" style="display: block; width: fit-content; margin: 20px auto;">📖 Xem tất cả bài viết →</a>
+
+  <script>
    const previewBlogs = [
     { title: "Dấu hiệu nhận biết trẻ bị xâm hại tình dục", excerpt: "Những thay đổi bất thường về hành vi, cảm xúc và thể chất cha mẹ cần đặc biệt lưu ý.", link: "blog/blog-xam-hai-tre-em.html", emoji: "🛡️" },
     { title: "Hướng dẫn con an toàn trên mạng xã hội", excerpt: "Cha mẹ cần đồng hành cùng con trong thời đại số: bảo mật thông tin, nhận diện người lạ.", link: "blog/blog-an-toan-mang-cho-con.html", emoji: "📱" },
@@ -640,7 +725,8 @@
       `).join('')}
     </div>`;
   }
-</script>
+  </script>
+
   <!-- CTA -->
   <section class="cta-section" data-aos="zoom-in-up" data-aos-duration="1000">
     <a href="https://zalo.me/0977092182" class="cta-datlich">📅 Đặt lịch tư vấn</a>
@@ -671,21 +757,12 @@
         </ul>
       </div>
       <div class="footer-map">
-    <h4>📍 Sophia Nguyễn</h4>
-    <div class="map-wrapper">
-        <iframe 
-    title="Bản đồ văn phòng Sophia Nguyễn"
-    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2011370.49063534!2d105.62948206017298!3d10.061508194634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2538aa37322d867b%3A0xa6ab3c950d893f03!2zU29waGlhTmd1eWVuIC0gxJDhu5NuZyBow6BuaCAmIFPhursgY2hpYQ!5e0!3m2!1svi!2s!4v1775469816647!5m2!1svi!2s" 
-    width="100%" 
-    height="250" 
-    style="border:0; border-radius: 16px;" 
-    allowfullscreen="" 
-    loading="lazy" 
-    referrerpolicy="no-referrer-when-downgrade">
-</iframe>
-    </div>
-    <p style="font-size: 0.8rem; margin-top: 8px;">⭐ 5.0 - Đánh giá từ học viên</p>
-</div>
+        <h4>📍 Sophia Nguyễn</h4>
+        <div class="map-wrapper">
+            <iframe title="Bản đồ văn phòng Sophia Nguyễn" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2011370.49063534!2d105.62948206017298!3d10.061508194634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2538aa37322d867b%3A0xa6ab3c950d893f03!2zU29waGlhTmd1eWVuIC0gxJDhu5NuZyBow6BuaCAmIFPhursgY2hpYQ!5e0!3m2!1svi!2s!4v1775469816647!5m2!1svi!2s" width="100%" height="250" style="border:0; border-radius: 16px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <p style="font-size: 0.8rem; margin-top: 8px;">⭐ 5.0 - Đánh giá từ học viên</p>
+      </div>
       <div class="footer-contact">
         <h4>Liên hệ</h4>
         <p>📧 sophianguyen2891@gmail.com</p>
@@ -706,8 +783,6 @@
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
     AOS.init({ once: true, duration: 1000, easing: 'ease-out-cubic' });
-  </script>
-  <script>
     function toggleMenu() {
       document.querySelector(".navbar").classList.toggle("active");
     }
