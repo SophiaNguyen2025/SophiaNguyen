@@ -253,13 +253,7 @@
         .child-card.selected { border-color: var(--sage); }
         .child-avatar { font-size: 28px; margin-bottom: 10px; }
         .child-name { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
-        card.innerHTML = `
-    <div class="child-avatar">${child.gender === 'female' ? '👧' : '👦'}</div>
-    <div class="child-name">${child.name}</div>
-    <div class="child-age">${age} tuổi · ${child.gender === 'female' ? 'Nữ' : 'Nam'}</div>
-    <div class="child-age" style="font-size: 10px; color: var(--sage-light); margin-top: 4px;">⭐ ${getZodiacSign(child.birthday)}</div>
-    <div class="child-progress-bar"><div class="child-progress-fill" style="width:0%" id="progress-${child.id}"></div></div>
-`;
+        .child-age { font-size: 12px; color: var(--mist); margin-bottom: 10px; }
         .child-progress-bar { height: 4px; background: var(--divider); border-radius: 99px; overflow: hidden; }
         .child-progress-fill { height: 100%; background: var(--sage); border-radius: 99px; transition: width 0.5s; }
         .add-child-card {
@@ -1294,6 +1288,7 @@ function renderChildren() {
             <div class="child-avatar">${child.gender === 'female' ? '👧' : '👦'}</div>
             <div class="child-name">${child.name}</div>
             <div class="child-age">${age} tuổi · ${child.gender === 'female' ? 'Nữ' : 'Nam'}</div>
+            <div style="font-size: 10px; color: var(--sage-light); margin-top: 4px;">⭐ ${getZodiacSign(child.birthday)}</div>
             <div class="child-progress-bar"><div class="child-progress-fill" style="width:0%" id="progress-${child.id}"></div></div>
         `;
         row.appendChild(card);
