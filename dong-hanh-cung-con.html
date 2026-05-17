@@ -5,67 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Quản lý phát triển con - Sophia Nguyễn</title>
     <meta name="description" content="Hệ thống theo dõi phát triển toàn diện cho con — từ học tập, kỹ năng sống, giáo dục giới tính đến sức khỏe tâm lý.">
-    
-    <!-- Google Fonts & CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
     <style>
-        /* Reset & Base */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            font-family: 'Be Vietnam Pro', sans-serif;
-            background: linear-gradient(145deg, #fff5f0 0%, #ffe8e0 100%);
-            color: #2c3e2f;
-            line-height: 1.6;
-            min-height: 100vh;
-        }
-        
+        body { font-family: 'Be Vietnam Pro', sans-serif; background: linear-gradient(145deg, #fff5f0 0%, #ffe8e0 100%); color: #2c3e2f; line-height: 1.6; min-height: 100vh; }
         .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
-        
-        /* Header */
-        .header {
-            background: white;
-            padding: 15px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        .header-container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        .header { background: white; padding: 15px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .header-container { max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; }
         .logo img { height: 60px; width: auto; }
         .menu-toggle { display: none; font-size: 28px; cursor: pointer; }
         .navbar ul { display: flex; gap: 2rem; list-style: none; }
         .navbar a { text-decoration: none; color: #4a5568; font-weight: 500; transition: 0.2s; }
         .navbar a:hover { color: #e83e8c; }
         .navbar a.active { color: #e83e8c; }
-        
-        /* Banner */
         .banner { margin-top: 20px; text-align: center; }
         .banner-img { width: 100%; max-height: 250px; object-fit: cover; border-radius: 28px; }
-        
-        /* Footer */
-        .footer {
-            background: #1a2a3a;
-            color: white;
-            padding: 50px 0 20px;
-            margin-top: 60px;
-        }
-        .footer-container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 24px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-        }
+        .footer { background: #1a2a3a; color: white; padding: 50px 0 20px; margin-top: 60px; }
+        .footer-container { max-width: 1280px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; }
         .footer-logo img { width: 120px; margin-bottom: 16px; }
         .footer-logo p { font-size: 0.85rem; line-height: 1.6; color: #cbd5e0; text-align: left; }
         .footer-links h4, .footer-map h4, .footer-contact h4 { margin-bottom: 16px; font-size: 1.1rem; color: white; text-align: left; }
@@ -82,7 +41,6 @@
         .social-icons a:hover { transform: translateY(-3px); }
         .social-icons img { width: 32px; height: 32px; }
         .footer-bottom { text-align: center; padding-top: 30px; margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.75rem; color: #94a3b8; }
-        
         @media (max-width: 768px) {
             .menu-toggle { display: block; }
             .navbar ul { display: none; flex-direction: column; gap: 1rem; margin-top: 1rem; }
@@ -90,167 +48,68 @@
             .footer-container { grid-template-columns: 1fr; gap: 30px; }
             .footer-logo p, .footer-links h4, .footer-map h4, .footer-contact h4, .footer-links ul, .footer-map p, .footer-contact p { text-align: center; }
             .social-icons { justify-content: center; }
-            .map-wrapper iframe { height: 200px; }
         }
-        
-        /* ===== APP STYLES (giữ nguyên từ file chị gửi, chỉ thêm class wrapper) ===== */
-        .app-wrapper {
-            background: transparent;
-            min-height: calc(100vh - 200px);
-        }
-        
-        /* Các style của app giữ nguyên */
+        .app-wrapper { background: transparent; min-height: calc(100vh - 200px); }
         :root {
-            --cream: #FAF7F2;
-            --warm: #F5EFE6;
-            --sage: #7C9E8A;
-            --sage-light: #A8C4B2;
-            --sage-dark: #4E7260;
-            --terracotta: #C4714A;
-            --gold: #C9A84C;
-            --ink: #1E2A22;
-            --ink-soft: #3D4F45;
-            --mist: #8A9E92;
-            --divider: #E2DDD6;
-            --white: #FFFFFF;
-            --shadow: 0 4px 24px rgba(30,42,34,0.08);
-            --shadow-lg: 0 12px 48px rgba(30,42,34,0.14);
-            --error: #C0392B;
+            --cream: #FAF7F2; --warm: #F5EFE6; --sage: #7C9E8A; --sage-light: #A8C4B2;
+            --sage-dark: #4E7260; --terracotta: #C4714A; --gold: #C9A84C; --ink: #1E2A22;
+            --ink-soft: #3D4F45; --mist: #8A9E92; --divider: #E2DDD6; --white: #FFFFFF;
+            --shadow: 0 4px 24px rgba(30,42,34,0.08); --shadow-lg: 0 12px 48px rgba(30,42,34,0.14); --error: #C0392B;
         }
-        
         .screen { display: none; min-height: 80vh; }
         .screen.active { display: flex; flex-direction: column; }
-        
-        #toast {
-            position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
-            background: var(--ink); color: var(--cream);
-            padding: 12px 24px; border-radius: 999px;
-            font-size: 14px; font-weight: 500;
-            z-index: 999; opacity: 0; transition: opacity 0.3s;
-            white-space: nowrap;
-        }
+        #toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--ink); color: var(--cream); padding: 12px 24px; border-radius: 999px; font-size: 14px; font-weight: 500; z-index: 999; opacity: 0; transition: opacity 0.3s; white-space: nowrap; }
         #toast.show { opacity: 1; }
-        
-        .loading-overlay {
-            display: none; position: fixed; inset: 0;
-            background: rgba(250,247,242,0.85); backdrop-filter: blur(4px);
-            z-index: 200; align-items: center; justify-content: center;
-            flex-direction: column; gap: 12px;
-        }
+        .loading-overlay { display: none; position: fixed; inset: 0; background: rgba(250,247,242,0.85); backdrop-filter: blur(4px); z-index: 200; align-items: center; justify-content: center; flex-direction: column; gap: 12px; }
         .loading-overlay.show { display: flex; }
-        .spinner {
-            width: 36px; height: 36px; border: 3px solid var(--divider);
-            border-top-color: var(--sage); border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
+        .spinner { width: 36px; height: 36px; border: 3px solid var(--divider); border-top-color: var(--sage); border-radius: 50%; animation: spin 0.8s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
-        
-        /* LANDING */
-        #screen-landing {
-            background: var(--ink); color: var(--cream);
-            align-items: center; justify-content: center;
-            text-align: center; padding: 60px 24px; position: relative; overflow: hidden;
-            border-radius: 32px;
-            margin: 40px 0;
-        }
-        .landing-badge {
-            display: inline-flex; align-items: center; gap: 6px;
-            background: rgba(124,158,138,0.2); border: 1px solid rgba(124,158,138,0.4);
-            border-radius: 999px; padding: 6px 16px; font-size: 12px;
-            letter-spacing: 0.08em; text-transform: uppercase; color: var(--sage-light);
-            margin-bottom: 32px;
-        }
-        .landing-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(38px, 8vw, 68px); font-weight: 700; line-height: 1.1;
-            margin-bottom: 20px;
-        }
+        #screen-landing { background: var(--ink); color: var(--cream); align-items: center; justify-content: center; text-align: center; padding: 60px 24px; position: relative; overflow: hidden; border-radius: 32px; margin: 40px 0; }
+        .landing-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(124,158,138,0.2); border: 1px solid rgba(124,158,138,0.4); border-radius: 999px; padding: 6px 16px; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sage-light); margin-bottom: 32px; }
+        .landing-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 8vw, 68px); font-weight: 700; line-height: 1.1; margin-bottom: 20px; }
         .landing-title span { color: var(--sage-light); }
-        .landing-sub {
-            font-size: 16px; color: rgba(250,247,242,0.65); max-width: 460px;
-            line-height: 1.7; margin: 0 auto 48px;
-        }
+        .landing-sub { font-size: 16px; color: rgba(250,247,242,0.65); max-width: 460px; line-height: 1.7; margin: 0 auto 48px; }
         .landing-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-        .btn-primary {
-            background: var(--sage); color: var(--white); border: none;
-            padding: 14px 32px; border-radius: 999px;
-            font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600;
-            cursor: pointer; transition: all 0.25s;
-        }
+        .btn-primary { background: var(--sage); color: var(--white); border: none; padding: 14px 32px; border-radius: 999px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.25s; }
         .btn-primary:hover { background: var(--sage-dark); transform: translateY(-1px); }
-        .btn-ghost {
-            background: transparent; color: var(--cream);
-            border: 1px solid rgba(250,247,242,0.3); padding: 14px 32px; border-radius: 999px;
-            font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500; cursor: pointer;
-        }
+        .btn-ghost { background: transparent; color: var(--cream); border: 1px solid rgba(250,247,242,0.3); padding: 14px 32px; border-radius: 999px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500; cursor: pointer; }
         .btn-ghost:hover { border-color: var(--cream); background: rgba(250,247,242,0.08); }
-        
-        /* AUTH */
         #screen-auth { align-items: center; justify-content: center; padding: 40px 24px; }
-        .auth-card {
-            background: var(--white); border-radius: 24px; padding: 48px 40px;
-            width: 100%; max-width: 420px; box-shadow: var(--shadow-lg);
-        }
+        .auth-card { background: var(--white); border-radius: 24px; padding: 48px 40px; width: 100%; max-width: 420px; box-shadow: var(--shadow-lg); }
         .auth-logo { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--sage-dark); margin-bottom: 8px; font-weight: 700; }
         .auth-title { font-size: 24px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
         .auth-sub { font-size: 14px; color: var(--mist); margin-bottom: 28px; }
         .tab-row { display: flex; background: var(--warm); border-radius: 12px; padding: 4px; margin-bottom: 24px; }
-        .tab-btn {
-            flex: 1; padding: 10px; border: none; background: transparent; border-radius: 9px;
-            font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500;
-            cursor: pointer; color: var(--mist); transition: all 0.2s;
-        }
+        .tab-btn { flex: 1; padding: 10px; border: none; background: transparent; border-radius: 9px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; color: var(--mist); transition: all 0.2s; }
         .tab-btn.active { background: var(--white); color: var(--ink); box-shadow: var(--shadow); font-weight: 600; }
         .form-group { margin-bottom: 16px; }
         .form-label { display: block; font-size: 13px; font-weight: 600; color: var(--ink-soft); margin-bottom: 6px; }
-        .form-input {
-            width: 100%; padding: 12px 16px; border: 1.5px solid var(--divider); border-radius: 12px;
-            font-family: 'DM Sans', sans-serif; font-size: 15px; color: var(--ink);
-            background: var(--cream); outline: none; transition: border 0.2s;
-        }
+        .form-input { width: 100%; padding: 12px 16px; border: 1.5px solid var(--divider); border-radius: 12px; font-family: 'DM Sans', sans-serif; font-size: 15px; color: var(--ink); background: var(--cream); outline: none; transition: border 0.2s; }
         .form-input:focus { border-color: var(--sage); background: var(--white); }
-        .form-error { font-size: 12px; color: var(--error); margin-top: 4px; display: none; }
+        .pwd-wrapper { position: relative; }
+        .pwd-wrapper .form-input { padding-right: 44px; }
+        .pwd-toggle { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: var(--mist); font-size: 16px; padding: 0; line-height: 1; }
+        .pwd-toggle:hover { color: var(--ink); }
+        .form-error { font-size: 12px; color: var(--error); margin-top: 6px; display: none; }
         .form-error.show { display: block; }
-        .btn-full {
-            width: 100%; padding: 14px; background: var(--sage-dark); color: var(--white); border: none;
-            border-radius: 12px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600;
-            cursor: pointer; margin-top: 8px;
-        }
+        .btn-full { width: 100%; padding: 14px; background: var(--sage-dark); color: var(--white); border: none; border-radius: 12px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 8px; }
         .btn-full:hover { background: var(--sage); }
+        .btn-full:disabled { opacity: 0.6; cursor: not-allowed; }
         .back-link { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--mist); cursor: pointer; margin-bottom: 20px; width: fit-content; }
         .back-link:hover { color: var(--ink); }
-        
-        /* DASHBOARD */
-        .topbar {
-            background: var(--white); border-bottom: 1px solid var(--divider);
-            padding: 0 24px; height: 64px;
-            display: flex; align-items: center; justify-content: space-between;
-            position: sticky; top: 0; z-index: 10; border-radius: 20px 20px 0 0;
-        }
+        .topbar { background: var(--white); border-bottom: 1px solid var(--divider); padding: 0 24px; height: 64px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10; border-radius: 20px 20px 0 0; }
         .topbar-logo { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--sage-dark); }
-        .avatar {
-            width: 36px; height: 36px; border-radius: 50%; background: var(--sage);
-            color: white; display: flex; align-items: center; justify-content: center;
-            font-size: 14px; font-weight: 700; cursor: pointer;
-        }
-        .logout-btn {
-            font-size: 13px; color: var(--mist); cursor: pointer; padding: 6px 12px;
-            border-radius: 999px; border: 1px solid var(--divider); background: transparent;
-            font-family: 'DM Sans', sans-serif;
-        }
+        .topbar-right { display: flex; align-items: center; gap: 10px; }
+        .avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--sage); color: white; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; cursor: pointer; }
+        .logout-btn { font-size: 13px; color: var(--mist); cursor: pointer; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--divider); background: transparent; font-family: 'DM Sans', sans-serif; }
         .logout-btn:hover { color: var(--error); border-color: var(--error); }
-        
         .dash-body { padding: 24px; max-width: 860px; margin: 0 auto; }
         .greeting { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
         .greeting-sub { font-size: 14px; color: var(--mist); margin-bottom: 28px; }
         .section-title { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mist); margin-bottom: 14px; }
-        
         .children-row { display: flex; gap: 14px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 32px; }
-        .child-card {
-            flex-shrink: 0; background: var(--white); border-radius: 20px; padding: 20px;
-            width: 155px; box-shadow: var(--shadow); cursor: pointer;
-            transition: all 0.25s; border: 2px solid transparent;
-        }
+        .children-row::-webkit-scrollbar { display: none; }
+        .child-card { flex-shrink: 0; background: var(--white); border-radius: 20px; padding: 20px; width: 155px; box-shadow: var(--shadow); cursor: pointer; transition: all 0.25s; border: 2px solid transparent; }
         .child-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
         .child-card.selected { border-color: var(--sage); }
         .child-avatar { font-size: 28px; margin-bottom: 10px; }
@@ -258,142 +117,81 @@
         .child-age { font-size: 12px; color: var(--mist); margin-bottom: 10px; }
         .child-progress-bar { height: 4px; background: var(--divider); border-radius: 99px; overflow: hidden; }
         .child-progress-fill { height: 100%; background: var(--sage); border-radius: 99px; transition: width 0.5s; }
-        .add-child-card {
-            flex-shrink: 0; background: transparent; border: 2px dashed var(--divider);
-            border-radius: 20px; padding: 20px; width: 130px;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            cursor: pointer; transition: all 0.2s; color: var(--mist); gap: 8px;
-        }
+        .add-child-card { flex-shrink: 0; background: transparent; border: 2px dashed var(--divider); border-radius: 20px; padding: 20px; width: 130px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; color: var(--mist); gap: 8px; }
         .add-child-card:hover { border-color: var(--sage); color: var(--sage); }
-        
-        .ai-panel {
-            background: linear-gradient(135deg, var(--sage-dark) 0%, #2D5444 100%);
-            border-radius: 20px; padding: 24px; color: var(--cream); margin-bottom: 28px;
-            position: relative; overflow: hidden;
-        }
+        .ai-panel { background: linear-gradient(135deg, var(--sage-dark) 0%, #2D5444 100%); border-radius: 20px; padding: 24px; color: var(--cream); margin-bottom: 28px; position: relative; overflow: hidden; }
         .ai-label { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sage-light); margin-bottom: 10px; }
         .ai-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--sage-light); animation: pulse 2s infinite; }
         @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
         .ai-title { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 600; margin-bottom: 8px; }
         .ai-text { font-size: 14px; color: rgba(250,247,242,0.8); line-height: 1.6; margin-bottom: 14px; }
-        .ai-btn {
-            background: rgba(255,255,255,0.15); color: var(--cream);
-            border: 1px solid rgba(255,255,255,0.3); padding: 9px 18px; border-radius: 999px;
-            font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600;
-            cursor: pointer;
-        }
+        .ai-btn { background: rgba(255,255,255,0.15); color: var(--cream); border: 1px solid rgba(255,255,255,0.3); padding: 9px 18px; border-radius: 999px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; }
         .ai-btn:hover { background: rgba(255,255,255,0.25); }
-        
         .cat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 28px; }
-        .cat-card {
-            background: var(--white); border-radius: 18px; padding: 18px;
-            cursor: pointer; transition: all 0.25s; box-shadow: var(--shadow); border: 2px solid transparent;
-        }
+        .cat-card { background: var(--white); border-radius: 18px; padding: 18px; cursor: pointer; transition: all 0.25s; box-shadow: var(--shadow); border: 2px solid transparent; }
+        .cat-card:hover { transform: translateY(-2px); }
         .cat-card.active-cat { border-color: var(--sage); }
         .cat-icon { font-size: 24px; margin-bottom: 8px; }
         .cat-name { font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 3px; }
         .cat-count { font-size: 11px; color: var(--mist); }
         .cat-mini-bar { height: 3px; background: var(--divider); border-radius: 99px; margin-top: 10px; overflow: hidden; }
         .cat-mini-fill { height: 100%; border-radius: 99px; transition: width 0.5s; }
-        
         .checklist-panel { background: var(--white); border-radius: 20px; padding: 24px; box-shadow: var(--shadow); margin-bottom: 24px; }
         .panel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
         .panel-title { font-size: 16px; font-weight: 700; color: var(--ink); }
         .panel-badge { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 999px; background: var(--warm); color: var(--mist); }
         .panel-badge.good { background: rgba(124,158,138,0.15); color: var(--sage-dark); }
-        
-        .check-item {
-            display: flex; align-items: flex-start; gap: 12px;
-            padding: 12px 0; border-bottom: 1px solid var(--divider);
-        }
+        .check-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--divider); }
         .check-item:last-child { border-bottom: none; }
-        .check-box {
-            width: 22px; height: 22px; border-radius: 6px; border: 2px solid var(--divider);
-            flex-shrink: 0; display: flex; align-items: center; justify-content: center;
-            cursor: pointer;
-        }
+        .check-box { width: 22px; height: 22px; border-radius: 6px; border: 2px solid var(--divider); flex-shrink: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; }
         .check-box.done { background: var(--sage); border-color: var(--sage); }
         .check-check { color: white; font-size: 12px; font-weight: 700; }
         .check-content { flex: 1; }
         .check-title { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 2px; }
         .check-title.done { text-decoration: line-through; color: var(--mist); }
         .check-desc { font-size: 12px; color: var(--mist); line-height: 1.5; }
-        .check-status-btn {
-            font-size: 11px; padding: 4px 10px; border-radius: 999px;
-            border: 1px solid var(--divider); background: transparent;
-            color: var(--mist); cursor: pointer;
-            font-family: 'DM Sans', sans-serif;
-        }
+        .check-status-btn { font-size: 11px; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--divider); background: transparent; color: var(--mist); cursor: pointer; font-family: 'DM Sans', sans-serif; }
         .check-status-btn:hover { border-color: var(--sage); color: var(--sage); }
-        
+        .check-status-btn.done { background: rgba(124,158,138,0.1); border-color: var(--sage-light); color: var(--sage-dark); }
         .journal-panel { background: var(--white); border-radius: 20px; padding: 24px; box-shadow: var(--shadow); margin-bottom: 32px; }
         .mood-row { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
-        .mood-btn {
-            padding: 6px 14px; border-radius: 999px; border: 1.5px solid var(--divider);
-            background: transparent; font-family: 'DM Sans', sans-serif; font-size: 13px;
-            cursor: pointer; color: var(--mist);
-        }
+        .mood-btn { padding: 6px 14px; border-radius: 999px; border: 1.5px solid var(--divider); background: transparent; font-family: 'DM Sans', sans-serif; font-size: 13px; cursor: pointer; color: var(--mist); }
         .mood-btn.selected { border-color: var(--sage); color: var(--sage-dark); background: rgba(124,158,138,0.1); }
-        .journal-input {
-            width: 100%; border: 1.5px solid var(--divider); border-radius: 12px; padding: 14px 16px;
-            font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--ink);
-            resize: none; outline: none; background: var(--cream);
-            min-height: 80px;
-        }
+        .journal-input { width: 100%; border: 1.5px solid var(--divider); border-radius: 12px; padding: 14px 16px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--ink); resize: none; outline: none; background: var(--cream); min-height: 80px; }
         .journal-input:focus { border-color: var(--sage); background: var(--white); }
-        .btn-sm {
-            padding: 8px 18px; border-radius: 999px; background: var(--sage-dark); color: var(--white); border: none;
-            font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer;
-        }
+        .journal-footer { display: flex; justify-content: flex-end; margin-top: 10px; }
+        .btn-sm { padding: 8px 18px; border-radius: 999px; background: var(--sage-dark); color: var(--white); border: none; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; }
         .btn-sm:hover { background: var(--sage); }
         .journal-entries { margin-top: 16px; display: flex; flex-direction: column; gap: 10px; }
         .journal-entry { background: var(--warm); border-radius: 12px; padding: 14px 16px; }
         .entry-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
         .entry-date { font-size: 11px; color: var(--mist); }
         .entry-text { font-size: 14px; color: var(--ink); line-height: 1.5; }
-        
-        .modal-overlay {
-            display: none; position: fixed; inset: 0;
-            background: rgba(30,42,34,0.5); backdrop-filter: blur(4px);
-            z-index: 1000; align-items: center; justify-content: center; padding: 24px;
-        }
+        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(30,42,34,0.5); backdrop-filter: blur(4px); z-index: 1000; align-items: center; justify-content: center; padding: 24px; }
         .modal-overlay.open { display: flex; }
         .modal-box { background: var(--white); border-radius: 24px; padding: 32px; width: 100%; max-width: 380px; box-shadow: var(--shadow-lg); }
         .modal-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; margin-bottom: 4px; }
         .modal-sub { font-size: 13px; color: var(--mist); margin-bottom: 24px; }
         .gender-row { display: flex; gap: 10px; margin-bottom: 16px; }
-        .gender-btn {
-            flex: 1; padding: 12px; border-radius: 12px; border: 2px solid var(--divider); background: transparent;
-            font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
-            cursor: pointer; color: var(--mist);
-            display: flex; flex-direction: column; align-items: center; gap: 4px;
-        }
+        .gender-btn { flex: 1; padding: 12px; border-radius: 12px; border: 2px solid var(--divider); background: transparent; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; color: var(--mist); display: flex; flex-direction: column; align-items: center; gap: 4px; }
         .gender-btn.selected { border-color: var(--sage); color: var(--sage-dark); background: rgba(124,158,138,0.08); }
         .gender-btn span:first-child { font-size: 22px; }
         .modal-actions { display: flex; gap: 10px; margin-top: 20px; }
-        .btn-cancel { flex: 1; padding: 12px; border-radius: 12px; border: 1.5px solid var(--divider); background: transparent; cursor: pointer; color: var(--mist); }
-        .btn-save { flex: 2; padding: 12px; border-radius: 12px; background: var(--sage-dark); color: var(--white); border: none; cursor: pointer; }
+        .btn-cancel { flex: 1; padding: 12px; border-radius: 12px; border: 1.5px solid var(--divider); background: transparent; cursor: pointer; color: var(--mist); font-family: 'DM Sans', sans-serif; }
+        .btn-save { flex: 2; padding: 12px; border-radius: 12px; background: var(--sage-dark); color: var(--white); border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 600; }
         .btn-save:hover { background: var(--sage); }
-        
+        .btn-save:disabled { opacity: 0.5; cursor: not-allowed; }
         .empty-state { text-align: center; padding: 32px 0; color: var(--mist); font-size: 14px; }
         .fade-in { animation: fadeIn 0.35s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        @media (max-width: 480px) {
-            .auth-card { padding: 28px 20px; }
-            .dash-body { padding: 16px; }
-            .cat-grid { grid-template-columns: 1fr 1fr; }
-        }
+        @media (max-width: 480px) { .auth-card { padding: 28px 20px; } .dash-body { padding: 16px; } .cat-grid { grid-template-columns: 1fr 1fr; } }
     </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header class="header">
     <div class="header-container">
-        <a href="index.html" class="logo">
-            <img src="images/hinhremovenen.png" alt="Sophia Logo" />
-        </a>
+        <a href="index.html" class="logo"><img src="images/hinhremovenen.png" alt="Sophia Logo" /></a>
         <div class="menu-toggle" onclick="document.querySelector('.navbar').classList.toggle('show-menu')">☰</div>
         <nav class="navbar">
             <ul>
@@ -411,20 +209,14 @@
     </div>
 </header>
 
-<!-- APP CONTENT -->
 <div class="container">
     <div class="app-wrapper">
-        <!-- LOADING -->
-        <div class="loading-overlay" id="loading">
-            <div class="spinner"></div>
-            <div class="loading-text">Đang tải...</div>
-        </div>
-        
+        <div class="loading-overlay" id="loading"><div class="spinner"></div><div class="loading-text">Đang tải...</div></div>
         <div id="toast"></div>
-        
+
         <!-- SCREEN 1: LANDING -->
         <div class="screen active" id="screen-landing">
-            <div class="landing-badge"><span class="feat-dot"></span>Nuôi dạy con toàn diện</div>
+            <div class="landing-badge">Nuôi dạy con toàn diện</div>
             <h1 class="landing-title">Đồng hành<br>cùng <span>con lớn khôn</span></h1>
             <p class="landing-sub">Hệ thống theo dõi phát triển toàn diện cho con — từ học tập, kỹ năng sống, giáo dục giới tính đến sức khỏe tâm lý.</p>
             <div class="landing-actions">
@@ -432,7 +224,7 @@
                 <button class="btn-ghost" onclick="gotoAuth('login')">Đăng nhập</button>
             </div>
         </div>
-        
+
         <!-- SCREEN 2: AUTH -->
         <div class="screen" id="screen-auth">
             <div class="back-link" onclick="showScreen('screen-landing')">← Quay lại</div>
@@ -445,25 +237,35 @@
                         <button class="tab-btn active" id="tab-register" onclick="switchTab('register')">Đăng ký</button>
                         <button class="tab-btn" id="tab-login" onclick="switchTab('login')">Đăng nhập</button>
                     </div>
+
+                    <!-- Chỉ hiện khi đăng ký -->
                     <div id="register-fields">
                         <div class="form-group">
                             <label class="form-label">Họ và tên</label>
                             <input class="form-input" type="text" id="input-name" placeholder="Nguyễn Thị Lan">
                         </div>
-                       <div class="form-group">
+                    </div>
+
+                    <!-- Luôn hiện cho cả đăng ký và đăng nhập -->
+                    <div class="form-group">
                         <label class="form-label">Email</label>
                         <input class="form-input" type="email" id="input-email" placeholder="email@gmail.com">
                     </div>
                     <div class="form-group">
                         <label class="form-label">Mật khẩu</label>
-                        <input class="form-input" type="password" id="input-password" placeholder="Tối thiểu 12 ký tự, gồm cả chữ và số">
+                        <div class="pwd-wrapper">
+                            <input class="form-input" type="password" id="input-password" placeholder="Tối thiểu 12 ký tự, gồm chữ và số">
+                            <button type="button" class="pwd-toggle" onclick="togglePassword()" id="toggle-pwd-btn">
+                                <i class="fa fa-eye" id="pwd-eye-icon"></i>
+                            </button>
+                        </div>
                         <div class="form-error" id="auth-error"></div>
                     </div>
                     <button class="btn-full" id="auth-btn" onclick="handleAuth()">Tạo tài khoản miễn phí</button>
                 </div>
             </div>
         </div>
-        
+
         <!-- SCREEN 3: DASHBOARD -->
         <div class="screen" id="screen-dashboard">
             <div class="topbar">
@@ -476,51 +278,24 @@
             <div class="dash-body fade-in">
                 <div class="greeting" id="greeting-name">Chào buổi sáng 🌿</div>
                 <div class="greeting-sub" id="greeting-sub">Hôm nay bạn muốn theo dõi điều gì cho con?</div>
-                
                 <div class="section-title">Hồ sơ các con</div>
                 <div class="children-row" id="children-row">
-                    <div class="add-child-card" onclick="openAddChild()">
-                        <div class="plus">＋</div>
-                        <span>Thêm con</span>
-                    </div>
+                    <div class="add-child-card" onclick="openAddChild()"><div class="plus">＋</div><span>Thêm con</span></div>
                 </div>
-                
                 <div class="ai-panel" id="ai-panel" style="display:none">
-                    <div class="ai-label"><div class="ai-dot"></div> Gợi ý từ Sophia </div>
+                    <div class="ai-label"><div class="ai-dot"></div> Gợi ý từ Sophia</div>
                     <div class="ai-title" id="ai-title">Đang phân tích...</div>
                     <div class="ai-text" id="ai-text"></div>
                     <button class="ai-btn" onclick="refreshAI()">Xem thêm gợi ý →</button>
                 </div>
-                
                 <div id="child-content" style="display:none">
                     <div class="section-title">Danh mục phát triển</div>
-                    <div class="cat-grid" id="cat-grid">
-                        <div class="cat-card active-cat" onclick="selectCat('study', this)">
-                            <div class="cat-icon">📚</div>
-                            <div class="cat-name">Học tập</div>
-                            <div class="cat-count" id="count-study">0/0 hoàn thành</div>
-                            <div class="cat-mini-bar"><div class="cat-mini-fill" id="bar-study" style="width:0%"></div></div>
-                        </div>
-                        <div class="cat-card" onclick="selectCat('skills', this)">
-                            <div class="cat-icon">🌱</div>
-                            <div class="cat-name">Kỹ năng sống</div>
-                            <div class="cat-count" id="count-skills">0/0 hoàn thành</div>
-                            <div class="cat-mini-bar"><div class="cat-mini-fill" id="bar-skills" style="width:0%"></div></div>
-                        </div>
-                        <div class="cat-card" onclick="selectCat('safety', this)">
-                            <div class="cat-icon">🛡️</div>
-                            <div class="cat-name">An toàn & Sức khỏe</div>
-                            <div class="cat-count" id="count-safety">0/0 hoàn thành</div>
-                            <div class="cat-mini-bar"><div class="cat-mini-fill" id="bar-safety" style="width:0%"></div></div>
-                        </div>
-                        <div class="cat-card" onclick="selectCat('sex-ed', this)">
-                            <div class="cat-icon">💬</div>
-                            <div class="cat-name">Giáo dục giới tính</div>
-                            <div class="cat-count" id="count-sex-ed">0/0 hoàn thành</div>
-                            <div class="cat-mini-bar"><div class="cat-mini-fill" id="bar-sex-ed" style="width:0%"></div></div>
-                        </div>
+                    <div class="cat-grid">
+                        <div class="cat-card active-cat" onclick="selectCat('study', this)"><div class="cat-icon">📚</div><div class="cat-name">Học tập</div><div class="cat-count" id="count-study">0/0 hoàn thành</div><div class="cat-mini-bar"><div class="cat-mini-fill" id="bar-study" style="width:0%;background:var(--sage)"></div></div></div>
+                        <div class="cat-card" onclick="selectCat('skills', this)"><div class="cat-icon">🌱</div><div class="cat-name">Kỹ năng sống</div><div class="cat-count" id="count-skills">0/0 hoàn thành</div><div class="cat-mini-bar"><div class="cat-mini-fill" id="bar-skills" style="width:0%;background:var(--terracotta)"></div></div></div>
+                        <div class="cat-card" onclick="selectCat('safety', this)"><div class="cat-icon">🛡️</div><div class="cat-name">An toàn & Sức khỏe</div><div class="cat-count" id="count-safety">0/0 hoàn thành</div><div class="cat-mini-bar"><div class="cat-mini-fill" id="bar-safety" style="width:0%;background:var(--gold)"></div></div></div>
+                        <div class="cat-card" onclick="selectCat('sex-ed', this)"><div class="cat-icon">💬</div><div class="cat-name">Giáo dục giới tính</div><div class="cat-count" id="count-sex-ed">0/0 hoàn thành</div><div class="cat-mini-bar"><div class="cat-mini-fill" id="bar-sex-ed" style="width:0%;background:#E8956F"></div></div></div>
                     </div>
-                    
                     <div class="checklist-panel">
                         <div class="panel-header">
                             <div class="panel-title" id="checklist-title">📚 Học tập</div>
@@ -528,25 +303,19 @@
                         </div>
                         <div id="checklist-items"><div class="empty-state">Chọn danh mục để xem checklist</div></div>
                     </div>
-                    
                     <div class="journal-panel">
-                        <div class="panel-header">
-                            <div class="panel-title">📝 Nhật ký hôm nay</div>
-                        </div>
-                        <div class="mood-row" id="mood-row">
+                        <div class="panel-header"><div class="panel-title">📝 Nhật ký hôm nay</div></div>
+                        <div class="mood-row">
                             <button class="mood-btn selected" data-mood="😊 Vui" onclick="selectMood(this)">😊 Vui</button>
                             <button class="mood-btn" data-mood="😐 Bình thường" onclick="selectMood(this)">😐 Bình thường</button>
                             <button class="mood-btn" data-mood="😔 Buồn" onclick="selectMood(this)">😔 Buồn</button>
                             <button class="mood-btn" data-mood="😤 Bực bội" onclick="selectMood(this)">😤 Bực bội</button>
                         </div>
                         <textarea class="journal-input" id="journal-input" placeholder="Ghi chú những điều con đã làm, nói hoặc học được hôm nay..."></textarea>
-                        <div class="journal-footer">
-                            <button class="btn-sm" id="save-journal-btn" onclick="saveJournal()">Lưu ghi chú</button>
-                        </div>
+                        <div class="journal-footer"><button class="btn-sm" id="save-journal-btn" onclick="saveJournal()">Lưu ghi chú</button></div>
                         <div class="journal-entries" id="journal-entries"></div>
                     </div>
                 </div>
-                
                 <div id="no-child-state" style="text-align:center;padding:48px 0;color:var(--mist)">
                     <div style="font-size:48px;margin-bottom:12px">👶</div>
                     <div style="font-size:16px;font-weight:600;color:var(--ink);margin-bottom:6px">Thêm hồ sơ con đầu tiên</div>
@@ -557,19 +326,13 @@
     </div>
 </div>
 
-<!-- MODAL: Add Child -->
+<!-- MODAL -->
 <div class="modal-overlay" id="modal-add-child">
     <div class="modal-box fade-in">
         <div class="modal-title">Thêm hồ sơ con</div>
         <div class="modal-sub">Thông tin giúp gợi ý nội dung phù hợp theo độ tuổi</div>
-        <div class="form-group">
-            <label class="form-label">Tên con</label>
-            <input class="form-input" type="text" id="new-child-name" placeholder="Ví dụ: Minh">
-        </div>
-        <div class="form-group">
-            <label class="form-label">Ngày sinh</label>
-            <input class="form-input" type="date" id="new-child-birthday">
-        </div>
+        <div class="form-group"><label class="form-label">Tên con</label><input class="form-input" type="text" id="new-child-name" placeholder="Ví dụ: Minh"></div>
+        <div class="form-group"><label class="form-label">Ngày sinh</label><input class="form-input" type="date" id="new-child-birthday"></div>
         <div class="form-group">
             <label class="form-label">Giới tính</label>
             <div class="gender-row">
@@ -585,7 +348,6 @@
     </div>
 </div>
 
-<!-- FOOTER -->
 <footer class="footer">
     <div class="footer-container">
         <div class="footer-logo">
@@ -604,7 +366,7 @@
         <div class="footer-map">
             <h4>📍 Sophia Nguyễn</h4>
             <div class="map-wrapper">
-                <iframe title="Bản đồ văn phòng Sophia Nguyễn" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2011370.49063534!2d105.62948206017298!3d10.061508194634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2538aa37322d867b%3A0xa6ab3c950d893f03!2zU29waGlhTmd1eWVuIC0gxJDhu5NuZyBow6BuaCAmIFPhursgY2hpYQ!5e0!3m2!1svi!2s!4v1775469816647!5m2!1svi!2s" width="100%" height="180" style="border:0; border-radius: 16px;" allowfullscreen="" loading="lazy"></iframe>
+                <iframe title="Bản đồ văn phòng Sophia Nguyễn" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2011370.49063534!2d105.62948206017298!3d10.061508194634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2538aa37322d867b%3A0xa6ab3c950d893f03!2zU29waGlhTmd1eWVuIC0gxJDhu5NuZyBow6BuaCAmIFPhursgY2hpYQ!5e0!3m2!1svi!2s!4v1775469816647!5m2!1svi!2s" width="100%" height="180" style="border:0;border-radius:16px;" allowfullscreen="" loading="lazy"></iframe>
             </div>
             <p>⭐ 5.0 - Đánh giá từ học viên</p>
         </div>
@@ -620,33 +382,44 @@
             </div>
         </div>
     </div>
-    <div class="footer-bottom">
-        <p>Copyright ©2024 Sophia Nguyễn. All rights reserved.</p>
-    </div>
+    <div class="footer-bottom"><p>Copyright ©2024 Sophia Nguyễn. All rights reserved.</p></div>
 </footer>
 
 <script>
-// ═══════════════════════════════════════════
-// SUPABASE CONFIG
+// ═══ SUPABASE CONFIG — điền URL và KEY của chị vào đây ═══
 const SUPABASE_URL = 'https://tmqotzjnqyndyhwicatl.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRtcW90empucXluZHlod2ljYXRsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg3OTEwNzYsImV4cCI6MjA5NDM2NzA3Nn0.wkHJcbTz7hJQ75uuXCfWDfqPHvhL6IGVCbAMPLVZoXo';
 
 const { createClient } = supabase;
 const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// ── STATE ──
-let currentUser = null;
-let currentProfile = null;
-let children = [];
-let selectedChildId = null;
-let selectedChildObj = null;
-let selectedGenderVal = 'male';
-let selectedMood = '😊 Vui';
-let currentCat = 'study';
-let checklistData = {};
-let aiIdx = 0;
+let currentUser = null, currentProfile = null, children = [];
+let selectedChildId = null, selectedChildObj = null;
+let selectedGenderVal = 'male', selectedMood = '😊 Vui';
+let currentCat = 'study', checklistData = {}, aiIdx = 0;
 
-// ── CHECKLIST CONTENT (theo độ tuổi) ──
+// ── SHOW/HIDE PASSWORD ──
+function togglePassword() {
+    const input = document.getElementById('input-password');
+    const icon = document.getElementById('pwd-eye-icon');
+    if (input.type === 'password') {
+        input.type = 'text';
+        icon.className = 'fa fa-eye-slash';
+    } else {
+        input.type = 'password';
+        icon.className = 'fa fa-eye';
+    }
+}
+
+// ── PASSWORD VALIDATION ──
+function validatePassword(pwd) {
+    if (pwd.length < 12) return 'Mật khẩu tối thiểu 12 ký tự';
+    if (!/[a-zA-Z]/.test(pwd)) return 'Mật khẩu phải có ít nhất 1 chữ cái';
+    if (!/[0-9]/.test(pwd)) return 'Mật khẩu phải có ít nhất 1 chữ số';
+    return null;
+}
+
+// ── CHECKLIST CONTENT ──
 function getChecklistForAge(age, cat) {
     const lists = {
         study: [
@@ -681,23 +454,20 @@ function getChecklistForAge(age, cat) {
     return lists[cat] || [];
 }
 
-// ── AI SUGGESTIONS ──
 function getAISuggestion(child) {
     const age = child ? calcAge(child.birthday) : 0;
     const name = child ? child.name : 'con';
     const suggestions = [
-        { title: `${name} ${age} tuổi — Thời điểm quan trọng`, text: age < 6 ? `Giai đoạn 0-6 tuổi là nền tảng cảm xúc của ${name}. Hãy đọc sách cùng con mỗi ngày và nói chuyện nhiều về cảm xúc.` : age < 12 ? `Bé ${name} ${age} tuổi — đây là thời điểm phù hợp để bắt đầu nói về ranh giới thân thể và an toàn cá nhân. Hãy tiếp cận tự nhiên qua câu chuyện hàng ngày.` : `${name} đang trong giai đoạn dậy thì quan trọng. Ba mẹ nên tạo không gian trò chuyện cởi mở, không phán xét về những thay đổi tâm sinh lý của con.` },
-        { title: `Gợi ý hoạt động tuần này cho ${name}`, text: age < 8 ? `Chơi trò chơi nhập vai để ${name} học cách xử lý tình huống — "Nếu có người lạ cho con kẹo thì con làm gì?" Đây là cách học an toàn và thú vị nhất.` : `Thử cùng ${name} lên kế hoạch một ngày cuối tuần — con tự chọn hoạt động, ba mẹ hỗ trợ thực hiện. Kỹ năng lập kế hoạch hình thành từ những việc nhỏ như vậy.` },
-        { title: 'Nhắc nhở cho ba mẹ', text: `Hãy nhớ ghi chú vào nhật ký những câu hỏi thú vị mà ${name} đặt ra hôm nay. Những khoảnh khắc tò mò của con là cơ hội giáo dục tốt nhất — đừng để chúng trôi qua.` }
+        { title: `${name} ${age} tuổi — Thời điểm quan trọng`, text: age < 6 ? `Giai đoạn 0-6 tuổi là nền tảng cảm xúc của ${name}. Hãy đọc sách cùng con mỗi ngày và nói chuyện nhiều về cảm xúc.` : age < 12 ? `Bé ${name} ${age} tuổi — đây là thời điểm phù hợp để bắt đầu nói về ranh giới thân thể và an toàn cá nhân.` : `${name} đang trong giai đoạn dậy thì. Ba mẹ hãy tạo không gian trò chuyện cởi mở về những thay đổi tâm sinh lý của con.` },
+        { title: `Gợi ý hoạt động tuần này cho ${name}`, text: age < 8 ? `Chơi trò chơi nhập vai để ${name} học cách xử lý tình huống — "Nếu có người lạ cho con kẹo thì con làm gì?"` : `Thử cùng ${name} lên kế hoạch một ngày cuối tuần — con tự chọn hoạt động, ba mẹ hỗ trợ thực hiện.` },
+        { title: 'Nhắc nhở cho ba mẹ', text: `Hãy ghi chú vào nhật ký những câu hỏi thú vị mà ${name} đặt ra hôm nay. Những khoảnh khắc tò mò là cơ hội giáo dục tốt nhất.` }
     ];
     return suggestions[aiIdx % suggestions.length];
 }
 
-// ── UTILS ──
 function calcAge(birthday) {
     if (!birthday) return 0;
-    const diff = Date.now() - new Date(birthday).getTime();
-    return Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+    return Math.floor((Date.now() - new Date(birthday).getTime()) / (1000 * 60 * 60 * 24 * 365.25));
 }
 
 function showToast(msg, duration = 2500) {
@@ -706,9 +476,7 @@ function showToast(msg, duration = 2500) {
     setTimeout(() => t.classList.remove('show'), duration);
 }
 
-function showLoading(show) {
-    document.getElementById('loading').classList.toggle('show', show);
-}
+function showLoading(show) { document.getElementById('loading').classList.toggle('show', show); }
 
 function showScreen(id) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -716,17 +484,9 @@ function showScreen(id) {
     window.scrollTo(0, 0);
 }
 
-function showError(id, msg) {
-    const el = document.getElementById(id);
-    if (el) { el.textContent = msg; el.classList.add('show'); }
-}
+function showError(id, msg) { const el = document.getElementById(id); if (el) { el.textContent = msg; el.classList.add('show'); } }
+function hideError(id) { const el = document.getElementById(id); if (el) el.classList.remove('show'); }
 
-function hideError(id) {
-    const el = document.getElementById(id);
-    if (el) el.classList.remove('show');
-}
-
-// ── NAVIGATION ──
 function gotoAuth(tab) { showScreen('screen-auth'); switchTab(tab); }
 
 function switchTab(tab) {
@@ -736,50 +496,65 @@ function switchTab(tab) {
     document.getElementById('register-fields').style.display = isReg ? 'block' : 'none';
     document.getElementById('auth-title').textContent = isReg ? 'Tạo tài khoản' : 'Chào mừng trở lại';
     document.getElementById('auth-sub').textContent = isReg ? 'Miễn phí, không cần thẻ tín dụng' : 'Đăng nhập để tiếp tục';
-    const authBtn = document.getElementById('auth-btn');
-    if (authBtn) authBtn.textContent = isReg ? 'Tạo tài khoản miễn phí' : 'Đăng nhập';
+    document.getElementById('auth-btn').textContent = isReg ? 'Tạo tài khoản miễn phí' : 'Đăng nhập';
     hideError('auth-error');
 }
 
-// ── AUTH ──
 async function handleAuth() {
     const isReg = document.getElementById('tab-register').classList.contains('active');
     const email = document.getElementById('input-email').value.trim();
     const password = document.getElementById('input-password').value;
     hideError('auth-error');
-    
+
     if (!email || !password) { showError('auth-error', 'Vui lòng nhập đầy đủ thông tin'); return; }
-    if (password.length < 6) { showError('auth-error', 'Mật khẩu tối thiểu 6 ký tự'); return; }
-    
+
+    // Validate password chỉ khi đăng ký
+    if (isReg) {
+        const pwdError = validatePassword(password);
+        if (pwdError) { showError('auth-error', pwdError); return; }
+    }
+
     const btn = document.getElementById('auth-btn');
     btn.disabled = true; btn.textContent = 'Đang xử lý...';
     showLoading(true);
-    
+
     try {
         if (isReg) {
             const { data, error } = await db.auth.signUp({ email, password });
             if (error) throw error;
-            const name = document.getElementById('input-name').value.trim() || 'Ba/Mẹ';
-            const phone = document.getElementById('input-phone').value.trim();
-            await db.from('profiles').insert({ id: data.user.id, full_name: name, phone });
+
+            if (!data.session) {
+                showError('auth-error', 'Vui lòng kiểm tra email để xác nhận tài khoản, sau đó đăng nhập lại.');
+                return;
+            }
+
             currentUser = data.user;
-            currentProfile = { full_name: name, phone };
+            const name = document.getElementById('input-name').value.trim() || 'Ba/Mẹ';
+
+            await db.from('profiles').upsert({ id: data.user.id, full_name: name }, { onConflict: 'id' });
+            currentProfile = { full_name: name };
             showToast('Tạo tài khoản thành công! 🎉');
         } else {
             const { data, error } = await db.auth.signInWithPassword({ email, password });
             if (error) throw error;
             currentUser = data.user;
-            const { data: profile } = await db.from('profiles').select('*').eq('id', currentUser.id).single();
+
+            let { data: profile } = await db.from('profiles').select('*').eq('id', currentUser.id).single();
+            if (!profile) {
+                await db.from('profiles').upsert({ id: currentUser.id, full_name: email.split('@')[0] }, { onConflict: 'id' });
+                profile = { full_name: email.split('@')[0] };
+            }
             currentProfile = profile;
             showToast('Đăng nhập thành công!');
         }
         await loadDashboard();
         showScreen('screen-dashboard');
     } catch (err) {
+        console.error('Auth error:', err);
         const msg = err.message.includes('already registered') ? 'Email này đã được đăng ký'
-            : err.message.includes('Invalid login') ? 'Email hoặc mật khẩu không đúng'
-            : err.message.includes('Email not confirmed') ? 'Vui lòng xác nhận email trước khi đăng nhập'
-            : 'Đã có lỗi xảy ra, vui lòng thử lại';
+            : err.message.includes('invalid_credentials') || err.message.includes('Invalid login') ? 'Email hoặc mật khẩu không đúng'
+            : err.message.includes('Email not confirmed') ? 'Vui lòng xác nhận email rồi đăng nhập lại'
+            : 'Lỗi: ' + err.message;
         showError('auth-error', msg);
     } finally {
         showLoading(false);
@@ -795,7 +570,6 @@ async function handleLogout() {
     showScreen('screen-landing');
 }
 
-// ── DASHBOARD ──
 async function loadDashboard() {
     const name = currentProfile?.full_name || 'Ba/Mẹ';
     const hour = new Date().getHours();
@@ -809,6 +583,10 @@ async function loadChildren() {
     if (!currentUser) return;
     showLoading(true);
     try {
+        const { data: sessionData } = await db.auth.getSession();
+        if (!sessionData?.session) { showScreen('screen-landing'); return; }
+        currentUser = sessionData.session.user;
+
         const { data, error } = await db.from('children').select('*').eq('profile_id', currentUser.id).order('created_at');
         if (error) throw error;
         children = data || [];
@@ -833,12 +611,7 @@ function renderChildren() {
         card.className = 'child-card' + (child.id === selectedChildId ? ' selected' : '');
         card.dataset.childId = child.id;
         card.onclick = () => selectChild(child);
-        card.innerHTML = `
-            <div class="child-avatar">${child.gender === 'female' ? '👧' : '👦'}</div>
-            <div class="child-name">${child.name}</div>
-            <div class="child-age">${age} tuổi · ${child.gender === 'female' ? 'Nữ' : 'Nam'}</div>
-            <div class="child-progress-bar"><div class="child-progress-fill" style="width:0%" id="progress-${child.id}"></div></div>
-        `;
+        card.innerHTML = `<div class="child-avatar">${child.gender === 'female' ? '👧' : '👦'}</div><div class="child-name">${child.name}</div><div class="child-age">${age} tuổi · ${child.gender === 'female' ? 'Nữ' : 'Nam'}</div><div class="child-progress-bar"><div class="child-progress-fill" style="width:0%" id="progress-${child.id}"></div></div>`;
         row.appendChild(card);
     });
     const addBtn = document.createElement('div');
@@ -849,22 +622,17 @@ function renderChildren() {
 }
 
 async function selectChild(child) {
-    selectedChildId = child.id;
-    selectedChildObj = child;
-    document.querySelectorAll('.child-card').forEach(c => {
-        c.classList.toggle('selected', c.dataset.childId == child.id);
-    });
+    selectedChildId = child.id; selectedChildObj = child;
+    document.querySelectorAll('.child-card').forEach(c => c.classList.toggle('selected', c.dataset.childId == child.id));
     document.getElementById('no-child-state').style.display = 'none';
     document.getElementById('child-content').style.display = 'block';
-    const aiPanel = document.getElementById('ai-panel');
-    aiPanel.style.display = 'block';
+    document.getElementById('ai-panel').style.display = 'block';
     const sug = getAISuggestion(child);
     document.getElementById('ai-title').textContent = sug.title;
     document.getElementById('ai-text').textContent = sug.text;
     await Promise.all([loadChecklist(currentCat), loadJournal(), updateCatCounts()]);
 }
 
-// ── CHECKLIST ──
 const catLabels = { study: '📚 Học tập', skills: '🌱 Kỹ năng sống', safety: '🛡️ An toàn & Sức khỏe', 'sex-ed': '💬 Giáo dục giới tính' };
 
 async function selectCat(cat, el) {
@@ -877,14 +645,11 @@ async function selectCat(cat, el) {
 async function loadChecklist(cat) {
     if (!selectedChildId) return;
     document.getElementById('checklist-title').textContent = catLabels[cat];
-    
     const { data: saved } = await db.from('checklist_items').select('task_name, status').eq('child_id', selectedChildId).eq('category', cat);
     const savedMap = {};
     if (saved) saved.forEach(s => { savedMap[s.task_name] = s.status; });
-    
     const age = calcAge(selectedChildObj?.birthday);
-    const templates = getChecklistForAge(age, cat);
-    checklistData[cat] = templates.map(t => ({ ...t, done: savedMap[t.task] === 'completed' }));
+    checklistData[cat] = getChecklistForAge(age, cat).map(t => ({ ...t, done: savedMap[t.task] === 'completed' }));
     renderChecklist(cat);
     updateCatCounts();
 }
@@ -894,10 +659,7 @@ function renderChecklist(cat) {
     const done = items.filter(i => i.done).length;
     const pct = items.length ? Math.round(done / items.length * 100) : 0;
     const badge = document.getElementById('checklist-badge');
-    if (badge) {
-        badge.textContent = pct >= 60 ? 'Tốt 👍' : pct >= 30 ? 'Đang học' : 'Cần chú ý';
-        badge.className = 'panel-badge' + (pct >= 60 ? ' good' : '');
-    }
+    if (badge) { badge.textContent = pct >= 60 ? 'Tốt 👍' : pct >= 30 ? 'Đang học' : 'Cần chú ý'; badge.className = 'panel-badge' + (pct >= 60 ? ' good' : ''); }
     const container = document.getElementById('checklist-items');
     if (!container) return;
     if (!items.length) { container.innerHTML = '<div class="empty-state">Chưa có checklist cho mục này</div>'; return; }
@@ -905,11 +667,7 @@ function renderChecklist(cat) {
     items.forEach((item, idx) => {
         const el = document.createElement('div');
         el.className = 'check-item';
-        el.innerHTML = `
-            <div class="check-box ${item.done ? 'done' : ''}" onclick="toggleItem('${cat}', ${idx})">${item.done ? '<span class="check-check">✓</span>' : ''}</div>
-            <div class="check-content"><div class="check-title ${item.done ? 'done' : ''}">${item.task}</div><div class="check-desc">${item.desc}</div></div>
-            <button class="check-status-btn ${item.done ? 'done' : ''}" onclick="toggleItem('${cat}', ${idx})">${item.done ? 'Đã xong' : 'Đánh dấu'}</button>
-        `;
+        el.innerHTML = `<div class="check-box ${item.done ? 'done' : ''}" onclick="toggleItem('${cat}', ${idx})">${item.done ? '<span class="check-check">✓</span>' : ''}</div><div class="check-content"><div class="check-title ${item.done ? 'done' : ''}">${item.task}</div><div class="check-desc">${item.desc}</div></div><button class="check-status-btn ${item.done ? 'done' : ''}" onclick="toggleItem('${cat}', ${idx})">${item.done ? 'Đã xong' : 'Đánh dấu'}</button>`;
         container.appendChild(el);
     });
 }
@@ -918,8 +676,7 @@ async function toggleItem(cat, idx) {
     if (!selectedChildId) return;
     const item = checklistData[cat][idx];
     item.done = !item.done;
-    renderChecklist(cat);
-    updateCatCounts();
+    renderChecklist(cat); updateCatCounts();
     const status = item.done ? 'completed' : 'pending';
     const { data: existing } = await db.from('checklist_items').select('id').eq('child_id', selectedChildId).eq('category', cat).eq('task_name', item.task).maybeSingle();
     if (existing) {
@@ -940,18 +697,17 @@ async function updateCatCounts() {
             const barEl = document.getElementById(`bar-${cat}`);
             if (countEl) countEl.textContent = `${done}/${items.length} hoàn thành`;
             if (barEl) barEl.style.width = pct + '%';
-            const progress = document.getElementById(`progress-${selectedChildId}`);
-            if (progress) {
-                const allItems = cats.flatMap(c => checklistData[c] || []);
-                const allDone = allItems.filter(i => i.done).length;
-                const allPct = allItems.length ? Math.round(allDone / allItems.length * 100) : 0;
-                progress.style.width = allPct + '%';
-            }
         }
+    }
+    if (selectedChildId) {
+        const allItems = ['study','skills','safety','sex-ed'].flatMap(c => checklistData[c] || []);
+        const allDone = allItems.filter(i => i.done).length;
+        const allPct = allItems.length ? Math.round(allDone / allItems.length * 100) : 0;
+        const progress = document.getElementById(`progress-${selectedChildId}`);
+        if (progress) progress.style.width = allPct + '%';
     }
 }
 
-// ── JOURNAL ──
 async function loadJournal() {
     if (!selectedChildId) return;
     const { data } = await db.from('journal_entries').select('*').eq('child_id', selectedChildId).order('created_at', { ascending: false }).limit(10);
@@ -964,7 +720,7 @@ async function loadJournal() {
         const dateStr = d.toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit' }) + ' ' + d.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
         const el = document.createElement('div');
         el.className = 'journal-entry';
-        el.innerHTML = `<div class="entry-header"><div class="entry-date">${dateStr}</div><div class="entry-mood">${entry.mood || ''}</div></div><div class="entry-text">${entry.content}</div>`;
+        el.innerHTML = `<div class="entry-header"><div class="entry-date">${dateStr}</div><div>${entry.mood || ''}</div></div><div class="entry-text">${entry.content}</div>`;
         container.appendChild(el);
     });
 }
@@ -973,7 +729,7 @@ async function saveJournal() {
     const content = document.getElementById('journal-input').value.trim();
     if (!content || !selectedChildId) return;
     const btn = document.getElementById('save-journal-btn');
-    if (btn) btn.disabled = true;
+    if (btn) { btn.disabled = true; btn.textContent = 'Đang lưu...'; }
     try {
         const { error } = await db.from('journal_entries').insert({ child_id: selectedChildId, entry_date: new Date().toISOString().split('T')[0], mood: selectedMood, content });
         if (error) throw error;
@@ -986,11 +742,9 @@ async function saveJournal() {
 
 function selectMood(el) {
     document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected'));
-    el.classList.add('selected');
-    selectedMood = el.dataset.mood;
+    el.classList.add('selected'); selectedMood = el.dataset.mood;
 }
 
-// ── ADD CHILD ──
 function openAddChild() { document.getElementById('modal-add-child').classList.add('open'); }
 function closeModal() { document.getElementById('modal-add-child').classList.remove('open'); hideError('child-error'); }
 
@@ -1006,42 +760,44 @@ async function saveChild() {
     hideError('child-error');
     if (!name) { showError('child-error', 'Vui lòng nhập tên con'); return; }
     if (!birthday) { showError('child-error', 'Vui lòng nhập ngày sinh'); return; }
+
     const btn = document.getElementById('save-child-btn');
     if (btn) btn.disabled = true;
     try {
+        // Lấy session mới nhất
+        const { data: sessionData } = await db.auth.getSession();
+        if (!sessionData?.session) { showError('child-error', 'Phiên đăng nhập hết hạn, vui lòng đăng nhập lại'); return; }
+        currentUser = sessionData.session.user;
+
         const { data, error } = await db.from('children').insert({ profile_id: currentUser.id, name, birthday, gender: selectedGenderVal }).select().single();
-        if (error) throw error;
+        if (error) { console.error('Insert child error:', error); showError('child-error', 'Lỗi: ' + error.message); return; }
         children.push(data);
         renderChildren();
         closeModal();
         showToast(`Đã thêm hồ sơ cho ${name} 🎉`);
         await selectChild(data);
-    } catch (e) { showError('child-error', 'Lỗi khi lưu, thử lại nhé'); }
+    } catch (e) { console.error(e); showError('child-error', 'Lỗi: ' + e.message); }
     finally { if (btn) { btn.disabled = false; btn.textContent = 'Thêm con ✓'; } }
 }
 
 function refreshAI() {
     aiIdx = (aiIdx + 1) % 3;
-    if (selectedChildObj) {
-        const sug = getAISuggestion(selectedChildObj);
-        document.getElementById('ai-title').textContent = sug.title;
-        document.getElementById('ai-text').textContent = sug.text;
-    }
+    if (selectedChildObj) { const sug = getAISuggestion(selectedChildObj); document.getElementById('ai-title').textContent = sug.title; document.getElementById('ai-text').textContent = sug.text; }
 }
 
-// ── AUTO LOGIN ──
 async function init() {
     showLoading(true);
     try {
         const { data: { session } } = await db.auth.getSession();
         if (session) {
             currentUser = session.user;
-            const { data: profile } = await db.from('profiles').select('*').eq('id', currentUser.id).single();
+            let { data: profile } = await db.from('profiles').select('*').eq('id', currentUser.id).single();
+            if (!profile) profile = { full_name: currentUser.email.split('@')[0] };
             currentProfile = profile;
             await loadDashboard();
             showScreen('screen-dashboard');
         }
-    } catch(e) {}
+    } catch(e) { console.error(e); }
     finally { showLoading(false); }
 }
 
