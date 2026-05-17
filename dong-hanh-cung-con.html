@@ -200,6 +200,14 @@
             background: var(--cream); outline: none; transition: border 0.2s;
         }
         .form-input:focus { border-color: var(--sage); background: var(--white); }
+        .pwd-wrapper { position: relative; }
+        .pwd-wrapper .form-input { padding-right: 44px; }
+        .pwd-toggle {
+            position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+            background: none; border: none; cursor: pointer; color: var(--mist);
+            font-size: 16px; padding: 0; line-height: 1;
+        }
+        .pwd-toggle:hover { color: var(--ink); }
         .form-error { font-size: 12px; color: var(--error); margin-top: 4px; display: none; }
         .form-error.show { display: block; }
         .btn-full {
@@ -342,6 +350,156 @@
         .entry-date { font-size: 11px; color: var(--mist); }
         .entry-text { font-size: 14px; color: var(--ink); line-height: 1.5; }
         
+        /* ===== PHẦN THÊM MỚI: CHECKLIST TỰ TẠO & NHẬT KÝ BA MẸ ===== */
+        .custom-checklist-section, .parent-journal-section {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 24px;
+            margin-top: 24px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--divider);
+        }
+        .custom-checklist-section .section-title, .parent-journal-section .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--sage-dark);
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--sage-light);
+        }
+        .add-custom-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+            background: var(--cream);
+            padding: 16px;
+            border-radius: 16px;
+        }
+        .add-custom-form input, .add-custom-form textarea {
+            padding: 10px 14px;
+            border: 1.5px solid var(--divider);
+            border-radius: 12px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            background: white;
+        }
+        .add-custom-form input:focus, .add-custom-form textarea:focus {
+            border-color: var(--sage);
+            outline: none;
+        }
+        .btn-small {
+            background: var(--sage);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .btn-small:hover { background: var(--sage-dark); }
+        .custom-items-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .custom-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 12px;
+            background: var(--cream);
+            border-radius: 12px;
+        }
+        .custom-item-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+        }
+        .custom-checkbox {
+            width: 20px;
+            height: 20px;
+            border-radius: 5px;
+            border: 2px solid var(--divider);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .custom-checkbox.done {
+            background: var(--sage);
+            border-color: var(--sage);
+            color: white;
+        }
+        .custom-title {
+            font-weight: 600;
+            color: var(--ink);
+        }
+        .custom-desc {
+            font-size: 12px;
+            color: var(--mist);
+        }
+        .delete-custom {
+            color: var(--error);
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .parent-journal-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .parent-mood-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .parent-mood-btn {
+            padding: 6px 14px;
+            border-radius: 999px;
+            border: 1.5px solid var(--divider);
+            background: transparent;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .parent-mood-btn.selected {
+            border-color: var(--sage);
+            background: rgba(124,158,138,0.1);
+            color: var(--sage-dark);
+        }
+        .parent-journal-list {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .parent-journal-card {
+            background: var(--cream);
+            border-radius: 16px;
+            padding: 14px;
+        }
+        .parent-journal-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 12px;
+            color: var(--mist);
+        }
+        .parent-journal-content {
+            font-size: 14px;
+            color: var(--ink);
+            line-height: 1.5;
+        }
+        .parent-journal-proud {
+            font-size: 13px;
+            color: var(--sage-dark);
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid var(--divider);
+        }
+        
         .modal-overlay {
             display: none; position: fixed; inset: 0;
             background: rgba(30,42,34,0.5); backdrop-filter: blur(4px);
@@ -435,14 +593,19 @@
                             <label class="form-label">Họ và tên</label>
                             <input class="form-input" type="text" id="input-name" placeholder="Nguyễn Thị Lan">
                         </div>
-                        </div>
+                    </div>
                     <div class="form-group">
                         <label class="form-label">Email</label>
                         <input class="form-input" type="email" id="input-email" placeholder="email@gmail.com">
                     </div>
                     <div class="form-group">
                         <label class="form-label">Mật khẩu</label>
-                        <input class="form-input" type="password" id="input-password" placeholder="Tối thiểu 12 ký tự, gồm chữ và số">
+                        <div class="pwd-wrapper">
+                            <input class="form-input" type="password" id="input-password" placeholder="Tối thiểu 12 ký tự, gồm chữ và số">
+                            <button type="button" class="pwd-toggle" onclick="togglePassword()" id="toggle-pwd-btn">
+                                <i class="fa fa-eye" id="pwd-eye-icon"></i>
+                            </button>
+                        </div>
                         <div class="form-error" id="auth-error"></div>
                     </div>
                     <button class="btn-full" id="auth-btn" onclick="handleAuth()">Tạo tài khoản miễn phí</button>
@@ -514,9 +677,22 @@
                         <div id="checklist-items"><div class="empty-state">Chọn danh mục để xem checklist</div></div>
                     </div>
                     
+                    <!-- ===== CHECKLIST TỰ TẠO (THÊM MỚI) ===== -->
+                    <div class="custom-checklist-section">
+                        <div class="section-title">➕ Mục tiêu riêng của ba mẹ</div>
+                        <div class="add-custom-form">
+                            <input type="text" id="customTaskName" placeholder="Tên mục tiêu (ví dụ: Tập thể dục mỗi sáng)">
+                            <textarea id="customTaskDesc" rows="2" placeholder="Mô tả (không bắt buộc)"></textarea>
+                            <button class="btn-small" onclick="addCustomChecklist()">➕ Thêm mục tiêu</button>
+                        </div>
+                        <div class="custom-items-list" id="customChecklistList">
+                            <div class="empty-state">Chưa có mục tiêu nào. Hãy thêm mục tiêu cho con nhé!</div>
+                        </div>
+                    </div>
+                    
                     <div class="journal-panel">
                         <div class="panel-header">
-                            <div class="panel-title">📝 Nhật ký hôm nay</div>
+                            <div class="panel-title">📝 Nhật ký hôm nay của con</div>
                         </div>
                         <div class="mood-row" id="mood-row">
                             <button class="mood-btn selected" data-mood="😊 Vui" onclick="selectMood(this)">😊 Vui</button>
@@ -529,6 +705,27 @@
                             <button class="btn-sm" id="save-journal-btn" onclick="saveJournal()">Lưu ghi chú</button>
                         </div>
                         <div class="journal-entries" id="journal-entries"></div>
+                    </div>
+                    
+                    <!-- ===== NHẬT KÝ BA MẸ (THÊM MỚI) ===== -->
+                    <div class="parent-journal-section">
+                        <div class="section-title">🌿 Góc của Ba Mẹ - Nhìn lại chính mình</div>
+                        <div class="parent-journal-form">
+                            <div class="parent-mood-row" id="parentMoodRow">
+                                <button class="parent-mood-btn" data-parent-mood="😊 Vui" onclick="selectParentMood(this)">😊 Vui</button>
+                                <button class="parent-mood-btn" data-parent-mood="😐 Bình thường" onclick="selectParentMood(this)">😐 Bình thường</button>
+                                <button class="parent-mood-btn" data-parent-mood="😔 Buồn" onclick="selectParentMood(this)">😔 Buồn</button>
+                                <button class="parent-mood-btn" data-parent-mood="😤 Bực bội" onclick="selectParentMood(this)">😤 Bực bội</button>
+                                <button class="parent-mood-btn" data-parent-mood="🥰 Hạnh phúc" onclick="selectParentMood(this)">🥰 Hạnh phúc</button>
+                            </div>
+                            <textarea id="parentJournalContent" rows="3" class="journal-input" placeholder="Hôm nay ba mẹ cảm thấy thế nào? Có điều gì khiến ba mẹ lo lắng, vui mừng hay trăn trở?..."></textarea>
+                            <input type="text" id="parentProudMoment" class="form-input" placeholder="Điều con làm khiến ba mẹ tự hào (không bắt buộc)" style="margin-top: 8px;">
+                            <input type="text" id="parentSelfReflection" class="form-input" placeholder="Điều ba mẹ muốn cải thiện (không bắt buộc)" style="margin-top: 8px;">
+                            <button class="btn-small" onclick="saveParentJournal()" style="margin-top: 12px;">📝 Lưu nhật ký của ba mẹ</button>
+                        </div>
+                        <div class="parent-journal-list" id="parentJournalList">
+                            <div class="empty-state">Chưa có nhật ký nào</div>
+                        </div>
                     </div>
                 </div>
                 
@@ -628,6 +825,25 @@ let selectedMood = '😊 Vui';
 let currentCat = 'study';
 let checklistData = {};
 let aiIdx = 0;
+
+// ── STATE CHO PHẦN MỚI ──
+let customChecklistItems = [];  // custom items cho con hiện tại
+let customChecklistStatus = {}; // lưu trạng thái done
+let parentMood = '😊 Vui';
+let parentJournals = [];
+
+// ── SHOW/HIDE PASSWORD ──
+function togglePassword() {
+    const input = document.getElementById('input-password');
+    const icon = document.getElementById('pwd-eye-icon');
+    if (input.type === 'password') {
+        input.type = 'text';
+        icon.className = 'fa fa-eye-slash';
+    } else {
+        input.type = 'password';
+        icon.className = 'fa fa-eye';
+    }
+}
 
 // ── CHECKLIST CONTENT THEO ĐỘ TUỔI VÀ GIỚI TÍNH ──
 function getChecklistForAge(age, gender, cat) {
@@ -756,47 +972,17 @@ function getChecklistForAge(age, gender, cat) {
     return [];
 }
 
-// ── AI SUGGESTIONS (30 gợi ý đa dạng theo độ tuổi) ──
+// ── AI SUGGESTIONS (30 gợi ý) ──
 function getAISuggestion(child) {
     const age = child ? calcAge(child.birthday) : 0;
     const name = child ? child.name : 'con';
-    const gender = child ? child.gender : 'male';
     
     const suggestions = [
-        { title: `${name} ${age} tuổi — Thời điểm quan trọng`, text: age < 6 ? `Giai đoạn 0-6 tuổi là nền tảng cảm xúc của ${name}. Hãy đọc sách cùng con mỗi ngày và nói chuyện nhiều về cảm xúc.` : age < 12 ? `Bé ${name} ${age} tuổi — đây là thời điểm phù hợp để bắt đầu nói về ranh giới thân thể và an toàn cá nhân. Hãy tiếp cận tự nhiên qua câu chuyện hàng ngày.` : `${name} đang trong giai đoạn dậy thì quan trọng. Ba mẹ nên tạo không gian trò chuyện cởi mở, không phán xét về những thay đổi tâm sinh lý của con.` },
-        { title: `Xây dựng thói quen đọc sách cho ${name}`, text: `Đọc cùng ${name} 15-20 phút mỗi tối trước khi ngủ, không chỉ giúp con yêu sách mà còn gắn kết tình cảm gia đình. Hãy để con chọn sách mà con thích.` },
-        { title: `Dạy ${name} về cảm xúc`, text: `Thay vì nói "Đừng khóc", hãy hỏi "Con đang buồn vì điều gì?" — dạy con nhận diện và gọi tên cảm xúc. Điều này giúp con phát triển trí tuệ cảm xúc (EQ).` },
-        { title: `Giới hạn thời gian sử dụng thiết bị cho ${name}`, text: `Áp dụng quy tắc 20-20-20: Sau 20 phút nhìn màn hình, cho mắt nghỉ 20 giây bằng cách nhìn xa 20 feet (≈6 mét). Điều này giúp bảo vệ mắt và não bộ của con.` },
-        { title: `Dạy ${name} về ranh giới cơ thể`, text: `Quy tắc "Đồ bơi": Những vùng cơ thể được che bởi đồ bơi là riêng tư, không ai được chạm vào. Dạy con rằng con có quyền nói "KHÔNG" ngay cả với người thân.` },
-        { title: `Lắng nghe ${name} đúng cách`, text: `Khi con kể chuyện, hãy ngồi xuống ngang tầm mắt, gật đầu và đặt câu hỏi mở để con thoải mái chia sẻ. Đừng ngắt lời hay phán xét.` },
-        { title: `Giúp ${name} vượt qua sợ hãi`, text: `Đừng phủ nhận nỗi sợ của con. Hãy công nhận: "Mẹ hiểu con sợ bóng tối. Mẹ sẽ ở bên cạnh con." Cùng con tìm giải pháp thay vì ép con "phải dũng cảm".` },
-        { title: `Dạy ${name} kỹ năng giải quyết vấn đề`, text: `Hướng dẫn con 4 bước: 1) Nhận diện vấn đề, 2) Nghĩ ra giải pháp, 3) Chọn giải pháp tốt nhất, 4) Thực hiện. Đây là kỹ năng sống quan trọng cho tương lai.` },
-        { title: `Xây dựng lòng tự trọng cho ${name}`, text: `Khen con vì nỗ lực, không phải kết quả. "Mẹ thấy con đã cố gắng rất nhiều!" thay vì "Con giỏi quá!" — điều này giúp con không sợ thất bại và luôn muốn học hỏi.` },
-        { title: `Dạy ${name} về an toàn mạng`, text: `Không chia sẻ mật khẩu cho bất kỳ ai, kể cả bạn thân. Không nhắn tin hoặc kết bạn với người lạ. Luôn báo ba mẹ nếu thấy nội dung không phù hợp hoặc ai đó làm con khó chịu.` },
-        { title: `Thực hành thoát hiểm khi có cháy với ${name}`, text: `Dạy con: Cúi thấp người, bịt khăn ướt, gọi 114, không quay lại vào nhà đang cháy. Hãy thực hành ít nhất 2 lần mỗi năm để con ghi nhớ.` },
-        { title: `Dạy ${name} về sự đồng thuận (Consent)`, text: `"Không có nghĩa là không". Dạy con tôn trọng khi người khác nói không, và con cũng có quyền nói không. Đây là nền tảng cho các mối quan hệ lành mạnh sau này.` },
-        { title: age >= 10 ? `Dạy ${name} về tình bạn lành mạnh` : `Giúp ${name} kết bạn`, text: `Bạn tốt là người tôn trọng, không ép buộc, không chế giễu. Nếu bạn làm con buồn, con có quyền tìm bạn mới. Không có gì đáng sợ hơn việc ở trong một mối quan hệ độc hại.` },
-        { title: age >= 8 ? `Chuẩn bị cho ${name} tuổi dậy thì` : `Những điều ba mẹ cần biết về tuổi dậy thì của ${name}`, text: age >= 8 ? `Nói chuyện trước khi con bước vào dậy thì (khoảng 8-9 tuổi) để con không bỡ ngỡ với những thay đổi của cơ thể. Hãy tự nhiên và khoa học.` : `Dậy thì sẽ đến sớm hơn ba mẹ nghĩ (có thể từ 8-9 tuổi). Hãy chuẩn bị kiến thức từ bây giờ để có thể đồng hành cùng con.` },
-        { title: `Dạy ${name} về giá trị của đồng tiền`, text: `Cho con tiền tiêu vặt hàng tuần và hướng dẫn con chia thành 3 phần: 50% tiết kiệm, 30% tiêu dùng, 20% cho đi hoặc đầu tư. Điều này giúp con hình thành thói quen tài chính lành mạnh.` },
-        { title: `Kỹ năng từ chối bạn bè cho ${name}`, text: `Dạy con câu thần chú: "Cảm ơn bạn đã rủ, nhưng hôm nay mình không thể." — Từ chối mà không cần giải thích dài dòng. Điều này giúp con tự tin và không bị áp lực bởi bạn bè.` },
-        { title: age >= 6 ? `Dấu hiệu ${name} có thể đang bị bắt nạt ở trường` : `Phòng tránh bắt nạt học đường cho ${name}`, text: `Nếu con sợ đi học, thường xuyên kêu đau bụng/đau đầu, quần áo rách hoặc mất đồ, ba mẹ cần nhẹ nhàng hỏi chuyện. Đừng phán xét, hãy lắng nghe và tìm giải pháp cùng con.` },
-        { title: `Tạo không gian an toàn để ${name} chia sẻ`, text: `Đặt ra "giờ gia đình" mỗi tối 15 phút, không điện thoại, chỉ trò chuyện — con sẽ dần mở lòng hơn. Hãy bắt đầu bằng những câu hỏi nhẹ nhàng như "Hôm nay điều gì làm con vui?"` },
-        { title: `Dạy ${name} về sự khác biệt`, text: `Mỗi người có màu da, tôn giáo, sở thích khác nhau. Sự khác biệt không xấu, nó làm thế giới thú vị hơn. Dạy con tôn trọng sự khác biệt của người khác.` },
-        { title: age >= 8 ? `Kỹ năng sơ cứu cơ bản cho ${name}` : `Ba mẹ nên học kỹ năng sơ cứu cho trẻ`, text: age >= 8 ? `Dạy con cách băng bó vết thương nhỏ, cầm máu, xử lý khi bị bỏng. Những kỹ năng này có thể cứu sống người khác trong tình huống khẩn cấp.` : `Ba mẹ nên học CPR (hồi sức tim phổi) cho trẻ em — khác với người lớn, cần lực ép nhẹ hơn. Đây là kỹ năng cứu người quan trọng.` },
-        { title: `Xây dựng thói quen tập thể dục cho ${name}`, text: `Không cần phải đến phòng gym. Đi bộ sau bữa tối, leo cầu thang thay vì thang máy, chơi thể thao cùng con. Vận động không chỉ tốt cho sức khỏe mà còn giúp giải tỏa căng thẳng.` },
-        { title: `Cách giúp ${name} tập trung học bài`, text: `Quy tắc Pomodoro: Học 25 phút, nghỉ 5 phút. Không để điện thoại trong phòng học. Học vào khung giờ cố định mỗi ngày để tạo thói quen.` },
-        { title: `Dạy ${name} cách quản lý căng thẳng`, text: `Hướng dẫn con thở sâu: Hít vào 4 giây, giữ 4 giây, thở ra 4 giây. Lặp lại 5 lần khi cảm thấy lo âu. Điều này giúp hệ thần kinh của con được bình tĩnh lại.` },
-        { title: `Lợi ích của việc để ${name} tự quyết định`, text: `Để con tự chọn quần áo, tự chọn món ăn (trong giới hạn), tự quyết định chơi trò gì... Điều này giúp con phát triển kỹ năng ra quyết định và tự tin hơn.` },
-        { title: `Dạy ${name} về lòng biết ơn`, text: `Mỗi tối trước khi ngủ, hãy cùng con kể ra 3 điều con biết ơn trong ngày. Điều này giúp con hình thành tư duy tích cực và hạnh phúc hơn.` }
+        { title: `${name} ${age} tuổi — Thời điểm quan trọng`, text: age < 6 ? `Giai đoạn 0-6 tuổi là nền tảng cảm xúc của ${name}. Hãy đọc sách cùng con mỗi ngày và nói chuyện nhiều về cảm xúc.` : age < 12 ? `Bé ${name} ${age} tuổi — đây là thời điểm phù hợp để bắt đầu nói về ranh giới thân thể và an toàn cá nhân.` : `${name} đang trong giai đoạn dậy thì quan trọng. Ba mẹ hãy tạo không gian trò chuyện cởi mở về những thay đổi tâm sinh lý của con.` },
+        { title: `Gợi ý hoạt động tuần này cho ${name}`, text: age < 8 ? `Chơi trò chơi nhập vai để ${name} học cách xử lý tình huống — "Nếu có người lạ cho con kẹo thì con làm gì?"` : `Thử cùng ${name} lên kế hoạch một ngày cuối tuần — con tự chọn hoạt động, ba mẹ hỗ trợ thực hiện.` },
+        { title: 'Nhắc nhở cho ba mẹ', text: `Hãy ghi chú vào nhật ký những câu hỏi thú vị mà ${name} đặt ra hôm nay. Những khoảnh khắc tò mò là cơ hội giáo dục tốt nhất.` }
     ];
-    
-    // Lọc gợi ý theo độ tuổi nếu cần
-    let filtered = suggestions;
-    if (age < 8) {
-        filtered = suggestions.filter(s => !s.title.includes('dậy thì') && !s.title.includes('STD') && !s.title.includes('tránh thai'));
-    }
-    
-    return filtered[aiIdx % filtered.length];
+    return suggestions[aiIdx % suggestions.length];
 }
 
 // ── UTILS ──
@@ -913,6 +1099,7 @@ async function handleLogout() {
     await db.auth.signOut();
     currentUser = null; currentProfile = null; children = [];
     selectedChildId = null; checklistData = {};
+    customChecklistItems = [];
     showScreen('screen-landing');
 }
 
@@ -923,6 +1110,7 @@ async function loadDashboard() {
     document.getElementById('greeting-name').textContent = `Chào ${greet}, ${name} 🌿`;
     document.getElementById('user-avatar').textContent = name.trim().slice(-1).toUpperCase();
     await loadChildren();
+    await loadParentJournals();
 }
 
 async function loadChildren() {
@@ -981,7 +1169,202 @@ async function selectChild(child) {
     const sug = getAISuggestion(child);
     document.getElementById('ai-title').textContent = sug.title;
     document.getElementById('ai-text').textContent = sug.text;
-    await Promise.all([loadChecklist(currentCat), loadJournal(), updateCatCounts()]);
+    await Promise.all([loadChecklist(currentCat), loadJournal(), updateCatCounts(), loadCustomChecklist()]);
+}
+
+async function loadCustomChecklist() {
+    if (!selectedChildId) return;
+    try {
+        const { data, error } = await db.from('custom_checklist')
+            .select('*')
+            .eq('child_id', selectedChildId)
+            .order('created_at', { ascending: false });
+        if (error) throw error;
+        customChecklistItems = data || [];
+        renderCustomChecklist();
+    } catch (e) {
+        console.error('Lỗi load custom checklist:', e);
+    }
+}
+
+function renderCustomChecklist() {
+    const container = document.getElementById('customChecklistList');
+    if (!container) return;
+    if (!customChecklistItems.length) {
+        container.innerHTML = '<div class="empty-state">Chưa có mục tiêu nào. Hãy thêm mục tiêu cho con nhé!</div>';
+        return;
+    }
+    container.innerHTML = '';
+    customChecklistItems.forEach((item) => {
+        const isDone = customChecklistStatus[item.id] === true || item.status === 'completed';
+        const el = document.createElement('div');
+        el.className = 'custom-item';
+        el.innerHTML = `
+            <div class="custom-item-left">
+                <div class="custom-checkbox ${isDone ? 'done' : ''}" onclick="toggleCustomItem(${item.id})">
+                    ${isDone ? '<span class="check-check">✓</span>' : ''}
+                </div>
+                <div>
+                    <div class="custom-title ${isDone ? 'check-title done' : ''}">${escapeHtml(item.task_name)}</div>
+                    ${item.description ? `<div class="custom-desc">${escapeHtml(item.description)}</div>` : ''}
+                </div>
+            </div>
+            <div class="delete-custom" onclick="deleteCustomItem(${item.id})">🗑️</div>
+        `;
+        container.appendChild(el);
+    });
+}
+
+async function addCustomChecklist() {
+    if (!selectedChildId) {
+        showToast('Vui lòng chọn con trước');
+        return;
+    }
+    const taskName = document.getElementById('customTaskName').value.trim();
+    const description = document.getElementById('customTaskDesc').value.trim();
+    
+    if (!taskName) {
+        showToast('Vui lòng nhập tên mục tiêu');
+        return;
+    }
+    
+    try {
+        const { data, error } = await db.from('custom_checklist').insert({
+            child_id: selectedChildId,
+            task_name: taskName,
+            description: description || null,
+            status: 'pending'
+        }).select().single();
+        if (error) throw error;
+        
+        document.getElementById('customTaskName').value = '';
+        document.getElementById('customTaskDesc').value = '';
+        await loadCustomChecklist();
+        showToast('Đã thêm mục tiêu! 🎯');
+    } catch (e) {
+        console.error(e);
+        showToast('Lỗi khi thêm mục tiêu');
+    }
+}
+
+async function toggleCustomItem(itemId) {
+    const item = customChecklistItems.find(i => i.id === itemId);
+    if (!item) return;
+    const newStatus = (customChecklistStatus[itemId] === true || item.status === 'completed') ? 'pending' : 'completed';
+    customChecklistStatus[itemId] = newStatus === 'completed';
+    renderCustomChecklist();
+    
+    try {
+        await db.from('custom_checklist')
+            .update({ status: newStatus, completed_at: newStatus === 'completed' ? new Date().toISOString() : null })
+            .eq('id', itemId);
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+async function deleteCustomItem(itemId) {
+    if (!confirm('Bạn có chắc muốn xóa mục tiêu này?')) return;
+    try {
+        await db.from('custom_checklist').delete().eq('id', itemId);
+        await loadCustomChecklist();
+        showToast('Đã xóa mục tiêu');
+    } catch (e) {
+        console.error(e);
+        showToast('Lỗi khi xóa');
+    }
+}
+
+async function loadParentJournals() {
+    if (!currentUser) return;
+    try {
+        const { data, error } = await db.from('parent_journal')
+            .select('*')
+            .eq('profile_id', currentUser.id)
+            .order('created_at', { ascending: false })
+            .limit(20);
+        if (error) throw error;
+        parentJournals = data || [];
+        renderParentJournals();
+    } catch (e) {
+        console.error('Lỗi load parent journal:', e);
+    }
+}
+
+function renderParentJournals() {
+    const container = document.getElementById('parentJournalList');
+    if (!container) return;
+    if (!parentJournals.length) {
+        container.innerHTML = '<div class="empty-state">Chưa có nhật ký nào. Hãy viết những suy nghĩ của ba mẹ nhé!</div>';
+        return;
+    }
+    container.innerHTML = '';
+    parentJournals.forEach(journal => {
+        const d = new Date(journal.created_at);
+        const dateStr = d.toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit' });
+        const el = document.createElement('div');
+        el.className = 'parent-journal-card';
+        el.innerHTML = `
+            <div class="parent-journal-header">
+                <span>📅 ${dateStr}</span>
+                <span>${journal.mood || ''}</span>
+            </div>
+            <div class="parent-journal-content">${escapeHtml(journal.content || '')}</div>
+            ${journal.proud_moment ? `<div class="parent-journal-proud">🌟 Tự hào: ${escapeHtml(journal.proud_moment)}</div>` : ''}
+            ${journal.self_reflection ? `<div class="parent-journal-proud" style="border-top-color: var(--sage-light);">🌱 Cải thiện: ${escapeHtml(journal.self_reflection)}</div>` : ''}
+        `;
+        container.appendChild(el);
+    });
+}
+
+function selectParentMood(el) {
+    document.querySelectorAll('.parent-mood-btn').forEach(b => b.classList.remove('selected'));
+    el.classList.add('selected');
+    parentMood = el.dataset.parentMood;
+}
+
+async function saveParentJournal() {
+    if (!currentUser) {
+        showToast('Vui lòng đăng nhập');
+        return;
+    }
+    const content = document.getElementById('parentJournalContent').value.trim();
+    if (!content) {
+        showToast('Vui lòng nhập nội dung nhật ký');
+        return;
+    }
+    const proudMoment = document.getElementById('parentProudMoment').value.trim();
+    const selfReflection = document.getElementById('parentSelfReflection').value.trim();
+    
+    try {
+        const { error } = await db.from('parent_journal').insert({
+            profile_id: currentUser.id,
+            mood: parentMood,
+            content: content,
+            proud_moment: proudMoment || null,
+            self_reflection: selfReflection || null
+        });
+        if (error) throw error;
+        
+        document.getElementById('parentJournalContent').value = '';
+        document.getElementById('parentProudMoment').value = '';
+        document.getElementById('parentSelfReflection').value = '';
+        showToast('Đã lưu nhật ký của ba mẹ 💛');
+        await loadParentJournals();
+    } catch (e) {
+        console.error(e);
+        showToast('Lỗi khi lưu nhật ký');
+    }
+}
+
+function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>]/g, function(m) {
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        return m;
+    });
 }
 
 const catLabels = { study: '📚 Học tập', skills: '🌱 Kỹ năng sống', safety: '🛡️ An toàn & Sức khỏe', 'sex-ed': '💬 Giáo dục giới tính' };
@@ -1124,10 +1507,10 @@ async function saveChild() {
     hideError('child-error');
     if (!name) { showError('child-error', 'Vui lòng nhập tên con'); return; }
     if (!birthday) { showError('child-error', 'Vui lòng nhập ngày sinh'); return; }
+
     const btn = document.getElementById('save-child-btn');
     if (btn) btn.disabled = true;
     try {
-        // Lấy session mới nhất trước khi gọi API
         const { data: sessionData } = await db.auth.getSession();
         if (!sessionData?.session) {
             showError('child-error', 'Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
@@ -1153,7 +1536,7 @@ async function saveChild() {
 }
 
 function refreshAI() {
-    aiIdx = (aiIdx + 1) % 30;
+    aiIdx = (aiIdx + 1) % 3;
     if (selectedChildObj) {
         const sug = getAISuggestion(selectedChildObj);
         document.getElementById('ai-title').textContent = sug.title;
