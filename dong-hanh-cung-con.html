@@ -690,7 +690,12 @@
                                 <div><span style="color:#E86A8A; font-weight:bold;">⏳ Dự kiến kỳ tiếp theo</span><br><span id="nextPeriod">--</span></div>
                             </div>
                         </div>
-                        
+                         <div>
+            <span style="color: #E86A8A; font-weight: bold;">⏳ Dự kiến kỳ tiếp theo</span><br>
+            <span id="nextPeriod" style="display: inline-block;">--</span>
+            <button id="autoAddCycleBtn" onclick="autoAddCycleFromPrediction()" style="background: #E86A8A; color: white; border: none; padding: 4px 10px; border-radius: 40px; cursor: pointer; font-size: 11px; margin-left: 8px;">➕ Thêm kỳ kinh</button>
+        </div>
+    
                         <div id="cycleHistory" style="max-height:300px; overflow-y:auto;">
                             <div class="empty-state" style="padding:20px;">Chưa có dữ liệu chu kỳ. Nhấn "Thêm chu kỳ" để bắt đầu theo dõi.</div>
                         </div>
@@ -1520,7 +1525,36 @@ async function loadCycleData() {
         renderCycleCalendar();
     } catch(e) { console.error(e); }
 }
-
+async function autoAddCycleFromPrediction() {
+    const nextPeriodText = document.getElementById('nextPeriod').innerText;
+    if (!nextPeriodText || nextPeriodText === '--') {
+        showToast('Chưa có dự kiến ngày tiếp theo');
+        return;
+    }
+    
+    // Chuyển đổi định dạng ngày (VD: "23/5/2026" -> "2026-05-23")
+    const parts = nextPeriodText.split('/');
+    const startDate = `${parts[2]}-${parts[1].padStart(2, '0')}-${parts[0].padStart(2, '0')}`;
+    
+    // Hỏi ngày kết thúc (dự kiến 5 ngày)
+    const endDate = prompt('Nhập ngày kết thúc (để trống nếu chưa kết thúc):', '');
+    
+    try {
+        const { error } = await db.from('menstrual_cycles').insert({
+            child_id: selectedChildId,
+            start_date: startDate,
+            end_date: endDate || null,
+            note: 'Tự động thêm từ dự kiến'
+        });
+        if (error) throw error;
+        showToast('✅ Đã thêm kỳ kinh!');
+        await loadCycleData();
+    } catch(e) {
+        console.error(e);
+        showToast('Lỗi khi thêm');
+    }
+}
+    
 function renderCycleCalendar() {
     const container = document.getElementById('cycleHistory');
     const statsDiv = document.getElementById('cycleStats');
@@ -1612,7 +1646,46 @@ async function init() {
     } catch(e) { console.error(e); }
     finally { showLoading(false); }
 }
+async function loadCycleData() {
+    if (!selectedChildId) return;
+    if (!selectedChildObj || selectedChildObj.gender !== 'female') return;
+    try {
+        const { data, error } = await db.from('menstrual_cycles')
+            .select('*')
+            .eq('child_id', selectedChildId)
+            .order('start_date', { ascending: false });
+        if (error) throw error;
+        cycleData = data || [];
+        renderCycleCalendar();
+        
+        // ===== KIỂM TRA NHẮC NHỞ NGÀY DỰ KIẾN =====
+        checkAndNotifyNextPeriod();
+        
+    } catch(e) { console.error(e); }
+}
 
+function checkAndNotifyNextPeriod() {
+    const nextPeriodText = document.getElementById('nextPeriod').innerText;
+    if (!nextPeriodText || nextPeriodText === '--') return;
+    
+    // Chuyển đổi ngày
+    const parts = nextPeriodText.split('/');
+    const nextDate = new Date(`${parts[2]}-${parts[1].padStart(2, '0')}-${parts[0].padStart(2, '0')}`);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    // Kiểm tra nếu hôm nay là ngày dự kiến
+    if (nextDate.getTime() === today.getTime()) {
+        showToast(`🌸 Hôm nay là ngày dự kiến bắt đầu kỳ kinh của ${selectedChildObj.name}! Nhấn "Thêm kỳ kinh" để cập nhật.`, 6000);
+    }
+    // Kiểm tra nếu sắp đến (1-2 ngày tới)
+    else {
+        const diffDays = Math.ceil((nextDate - today) / (1000 * 60 * 60 * 24));
+        if (diffDays === 1) {
+            showToast(`⏰ Ngày mai (${nextPeriodText}) là ngày dự kiến bắt đầu kỳ kinh của ${selectedChildObj.name}. Hãy chuẩn bị sẵn sàng nhé!`, 5000);
+        }
+    }
+}
 init();
 </script>
 </body>
