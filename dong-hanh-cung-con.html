@@ -350,7 +350,6 @@
         .entry-date { font-size: 11px; color: var(--mist); }
         .entry-text { font-size: 14px; color: var(--ink); line-height: 1.5; }
         
-        /* ===== PHẦN THÊM MỚI: CHECKLIST TỰ TẠO & NHẬT KÝ BA MẸ ===== */
         .custom-checklist-section, .parent-journal-section {
             background: var(--white);
             border-radius: 20px;
@@ -433,29 +432,11 @@
             border-color: var(--sage);
             color: white;
         }
-        .custom-title {
-            font-weight: 600;
-            color: var(--ink);
-        }
-        .custom-desc {
-            font-size: 12px;
-            color: var(--mist);
-        }
-        .delete-custom {
-            color: var(--error);
-            cursor: pointer;
-            font-size: 14px;
-        }
-        .parent-journal-form {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        .parent-mood-row {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
+        .custom-title { font-weight: 600; color: var(--ink); }
+        .custom-desc { font-size: 12px; color: var(--mist); }
+        .delete-custom { color: var(--error); cursor: pointer; font-size: 14px; }
+        .parent-journal-form { display: flex; flex-direction: column; gap: 12px; }
+        .parent-mood-row { display: flex; gap: 8px; flex-wrap: wrap; }
         .parent-mood-btn {
             padding: 6px 14px;
             border-radius: 999px;
@@ -469,35 +450,13 @@
             background: rgba(124,158,138,0.1);
             color: var(--sage-dark);
         }
-        .parent-journal-list {
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        .parent-journal-card {
-            background: var(--cream);
-            border-radius: 16px;
-            padding: 14px;
-        }
-        .parent-journal-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 12px;
-            color: var(--mist);
-        }
-        .parent-journal-content {
-            font-size: 14px;
-            color: var(--ink);
-            line-height: 1.5;
-        }
+        .parent-journal-list { margin-top: 20px; display: flex; flex-direction: column; gap: 12px; }
+        .parent-journal-card { background: var(--cream); border-radius: 16px; padding: 14px; }
+        .parent-journal-header { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 12px; color: var(--mist); }
+        .parent-journal-content { font-size: 14px; color: var(--ink); line-height: 1.5; }
         .parent-journal-proud {
-            font-size: 13px;
-            color: var(--sage-dark);
-            margin-top: 8px;
-            padding-top: 8px;
-            border-top: 1px solid var(--divider);
+            font-size: 13px; color: var(--sage-dark); margin-top: 8px;
+            padding-top: 8px; border-top: 1px solid var(--divider);
         }
         
         .modal-overlay {
@@ -616,7 +575,7 @@
         <div class="screen" id="screen-dashboard">
             <div class="topbar">
                 <div class="topbar-logo">sophianguyen</div>
-                <div class="topbar-right">
+                <div class="topbar-right" style="display:flex;align-items:center;gap:12px;">
                     <div class="avatar" id="user-avatar">?</div>
                     <button class="logout-btn" onclick="handleLogout()">Đăng xuất</button>
                 </div>
@@ -677,7 +636,7 @@
                         <div id="checklist-items"><div class="empty-state">Chọn danh mục để xem checklist</div></div>
                     </div>
                     
-                    <!-- ===== CHECKLIST TỰ TẠO (THÊM MỚI) ===== -->
+                    <!-- CHECKLIST TỰ TẠO -->
                     <div class="custom-checklist-section">
                         <div class="section-title">➕ Mục tiêu riêng của ba mẹ</div>
                         <div class="add-custom-form">
@@ -690,6 +649,7 @@
                         </div>
                     </div>
                     
+                    <!-- NHẬT KÝ CON -->
                     <div class="journal-panel">
                         <div class="panel-header">
                             <div class="panel-title">📝 Nhật ký hôm nay của con</div>
@@ -701,39 +661,97 @@
                             <button class="mood-btn" data-mood="😤 Bực bội" onclick="selectMood(this)">😤 Bực bội</button>
                         </div>
                         <textarea class="journal-input" id="journal-input" placeholder="Ghi chú những điều con đã làm, nói hoặc học được hôm nay..."></textarea>
-                        <div class="journal-footer">
+                        <div class="journal-footer" style="margin-top:10px;">
                             <button class="btn-sm" id="save-journal-btn" onclick="saveJournal()">Lưu ghi chú</button>
                         </div>
                         <div class="journal-entries" id="journal-entries"></div>
                     </div>
-                    <!-- Ghi chú dành cho bé gái về chu kỳ kinh nguyệt -->
-<!-- Lịch theo dõi chu kỳ kinh nguyệt cho bé gái -->
-<div id="girlCycleCalendar" style="display: none; background: linear-gradient(135deg, #FFE4E8, #FFF0F5); border-radius: 20px; padding: 20px; margin-top: 20px; border-left: 5px solid #E86A8A;">
-</div>   
-    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
-        <div style="display: flex; align-items: center; gap: 12px;">
-            <span style="font-size: 28px;">📅</span>
-            <h3 style="color: #E86A8A; margin: 0;">Theo dõi chu kỳ của con</h3>
+
+                    <!-- =====================================================
+                         PHẦN BÉ GÁI: LỊCH CHU KỲ + GHI CHÚ
+                         (FIX: tất cả nội dung nằm BÊN TRONG girlCycleCalendar)
+                    ====================================================== -->
+
+                    <!-- Lịch theo dõi chu kỳ kinh nguyệt - chỉ hiện với bé gái >= 10 tuổi -->
+                    <div id="girlCycleCalendar" style="display:none; background: linear-gradient(135deg, #FFE4E8, #FFF0F5); border-radius: 20px; padding: 20px; margin-top: 20px; border-left: 5px solid #E86A8A;">
+                        
+                        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
+                            <div style="display:flex; align-items:center; gap:12px;">
+                                <span style="font-size:28px;">📅</span>
+                                <h3 style="color:#E86A8A; margin:0;">Theo dõi chu kỳ của con</h3>
+                            </div>
+                            <button onclick="openCycleModal()" style="background:#E86A8A; color:white; border:none; padding:6px 14px; border-radius:40px; cursor:pointer; font-size:12px;">➕ Thêm chu kỳ</button>
+                        </div>
+                        
+                        <div id="cycleStats" style="background:white; border-radius:16px; padding:12px; margin-bottom:16px; text-align:center; display:none;">
+                            <div style="display:flex; justify-content:space-around; flex-wrap:wrap; gap:10px;">
+                                <div><span style="color:#E86A8A; font-weight:bold;">📆 Chu kỳ trung bình</span><br><span id="avgCycle">--</span> ngày</div>
+                                <div><span style="color:#E86A8A; font-weight:bold;">🩸 Kỳ kinh gần nhất</span><br><span id="lastPeriod">--</span></div>
+                                <div><span style="color:#E86A8A; font-weight:bold;">⏳ Dự kiến kỳ tiếp theo</span><br><span id="nextPeriod">--</span></div>
+                            </div>
+                        </div>
+                        
+                        <div id="cycleHistory" style="max-height:300px; overflow-y:auto;">
+                            <div class="empty-state" style="padding:20px;">Chưa có dữ liệu chu kỳ. Nhấn "Thêm chu kỳ" để bắt đầu theo dõi.</div>
+                        </div>
+
+                        <!-- Ghi chú dành cho bé gái tuổi dậy thì - FIX: có id="girlNote" -->
+                        <div id="girlNote" style="display:none; margin-top:20px; background:white; border-radius:16px; padding:20px;">
+                            <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+                                <span style="font-size:28px;">🌸</span>
+                                <h3 style="color:#E86A8A; margin:0;">Ghi chú dành cho bé gái tuổi dậy thì</h3>
+                            </div>
+                            <p style="color:#4a5568; margin-bottom:12px; line-height:1.6;">
+                                <strong>🌙 Khi con bắt đầu có kinh nguyệt, đó là dấu hiệu cơ thể con đang trưởng thành.</strong> Đừng lo lắng, đó là điều hoàn toàn bình thường và tự nhiên!
+                            </p>
+                            <ul style="color:#4a5568; margin-left:20px; line-height:1.6;">
+                                <li>📅 Chu kỳ thường kéo dài 21-35 ngày, mỗi lần hành kinh 3-7 ngày.</li>
+                                <li>🩸 Sử dụng băng vệ sinh thay mỗi 4-6 tiếng để giữ vệ sinh.</li>
+                                <li>💧 Uống nhiều nước ấm, nghỉ ngơi, tránh đồ lạnh.</li>
+                                <li>💊 Nếu đau bụng nhiều, có thể chườm ấm hoặc hỏi ý kiến ba mẹ/bác sĩ.</li>
+                                <li>💖 Hãy chia sẻ với mẹ hoặc người mà con tin tưởng nếu có bất kỳ thắc mắc nào.</li>
+                            </ul>
+                            <div style="margin-top:12px; font-style:italic; color:#888;">💬 "Con gái lớn lên một cách diệu kỳ - hãy tự hào về cơ thể của mình!"</div>
+                        </div>
+
+                    </div><!-- /girlCycleCalendar -->
+
+                    <!-- NHẬT KÝ BA MẸ -->
+                    <div class="parent-journal-section">
+                        <div class="section-title">🌿 Góc của Ba Mẹ - Nhìn lại chính mình</div>
+                        <div class="parent-journal-form">
+                            <div class="parent-mood-row" id="parentMoodRow">
+                                <button class="parent-mood-btn" data-parent-mood="😊 Vui" onclick="selectParentMood(this)">😊 Vui</button>
+                                <button class="parent-mood-btn" data-parent-mood="😐 Bình thường" onclick="selectParentMood(this)">😐 Bình thường</button>
+                                <button class="parent-mood-btn" data-parent-mood="😔 Buồn" onclick="selectParentMood(this)">😔 Buồn</button>
+                                <button class="parent-mood-btn" data-parent-mood="😤 Bực bội" onclick="selectParentMood(this)">😤 Bực bội</button>
+                                <button class="parent-mood-btn" data-parent-mood="🥰 Hạnh phúc" onclick="selectParentMood(this)">🥰 Hạnh phúc</button>
+                            </div>
+                            <textarea id="parentJournalContent" rows="3" class="journal-input" placeholder="Hôm nay ba mẹ cảm thấy thế nào? Có điều gì khiến ba mẹ lo lắng, vui mừng hay trăn trở?..."></textarea>
+                            <input type="text" id="parentProudMoment" class="form-input" placeholder="Điều con làm khiến ba mẹ tự hào (không bắt buộc)" style="margin-top:8px;">
+                            <input type="text" id="parentSelfReflection" class="form-input" placeholder="Điều ba mẹ muốn cải thiện (không bắt buộc)" style="margin-top:8px;">
+                            <button class="btn-small" onclick="saveParentJournal()" style="margin-top:12px;">📝 Lưu nhật ký của ba mẹ</button>
+                        </div>
+                        <div class="parent-journal-list" id="parentJournalList">
+                            <div class="empty-state">Chưa có nhật ký nào</div>
+                        </div>
+                    </div>
+
+                </div><!-- /child-content -->
+                
+                <div id="no-child-state" style="text-align:center;padding:48px 0;color:var(--mist)">
+                    <div style="font-size:48px;margin-bottom:12px">👶</div>
+                    <div style="font-size:16px;font-weight:600;color:var(--ink);margin-bottom:6px">Thêm hồ sơ con đầu tiên</div>
+                    <div style="font-size:14px">Bấm nút "＋ Thêm con" để bắt đầu theo dõi hành trình của con</div>
+                </div>
+            </div>
         </div>
-        <button onclick="openCycleModal()" style="background: #E86A8A; color: white; border: none; padding: 6px 14px; border-radius: 40px; cursor: pointer; font-size: 12px;">➕ Thêm chu kỳ</button>
-    </div>
-    
-    <div id="cycleStats" style="background: white; border-radius: 16px; padding: 12px; margin-bottom: 16px; text-align: center;">
-        <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 10px;">
-            <div><span style="color: #E86A8A; font-weight: bold;">📆 Chu kỳ trung bình</span><br><span id="avgCycle">--</span> ngày</div>
-            <div><span style="color: #E86A8A; font-weight: bold;">🩸 Kỳ kinh gần nhất</span><br><span id="lastPeriod">--</span></div>
-            <div><span style="color: #E86A8A; font-weight: bold;">⏳ Dự kiến kỳ tiếp theo</span><br><span id="nextPeriod">--</span></div>
-        </div>
-    </div>
-    
-    <div id="cycleHistory" style="max-height: 300px; overflow-y: auto;">
-        <div class="empty-state" style="padding: 20px;">Chưa có dữ liệu chu kỳ. Nhấn "Thêm chu kỳ" để bắt đầu theo dõi.</div>
     </div>
 </div>
 
 <!-- Modal thêm/sửa chu kỳ -->
-<div id="cycleModal" class="modal-overlay" style="display: none;">
-    <div class="modal-box" style="max-width: 350px;">
+<div id="cycleModal" class="modal-overlay">
+    <div class="modal-box" style="max-width:350px;">
         <div class="modal-title">📝 Thêm chu kỳ</div>
         <div class="modal-sub">Ghi lại ngày bắt đầu và kết thúc</div>
         <div class="form-group">
@@ -754,54 +772,8 @@
         </div>
     </div>
 </div>
-    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-        <span style="font-size: 28px;">🌸</span>
-        <h3 style="color: #E86A8A; margin: 0;">Ghi chú dành cho bé gái tuổi dậy thì</h3>
-    </div>
-    <p style="color: #4a5568; margin-bottom: 12px; line-height: 1.6;">
-        <strong>🌙 Khi con bắt đầu có kinh nguyệt, đó là dấu hiệu cơ thể con đang trưởng thành.</strong> Đừng lo lắng, đó là điều hoàn toàn bình thường và tự nhiên!
-    </p>
-    <ul style="color: #4a5568; margin-left: 20px; line-height: 1.6;">
-        <li>📅 Chu kỳ thường kéo dài 21-35 ngày, mỗi lần hành kinh 3-7 ngày.</li>
-        <li>🩸 Sử dụng băng vệ sinh thay mỗi 4-6 tiếng để giữ vệ sinh.</li>
-        <li>💧 Uống nhiều nước ấm, nghỉ ngơi, tránh đồ lạnh.</li>
-        <li>💊 Nếu đau bụng nhiều, có thể chườm ấm hoặc hỏi ý kiến ba mẹ/bác sĩ.</li>
-        <li>💖 Hãy chia sẻ với mẹ hoặc người mà con tin tưởng nếu có bất kỳ thắc mắc nào.</li>
-    </ul>
-    <div style="margin-top: 12px; font-style: italic; color: #888;">💬 "Con gái lớn lên một cách diệu kỳ - hãy tự hào về cơ thể của mình!"</div>
-</div>
-                    <!-- ===== NHẬT KÝ BA MẸ (THÊM MỚI) ===== -->
-                    <div class="parent-journal-section">
-                        <div class="section-title">🌿 Góc của Ba Mẹ - Nhìn lại chính mình</div>
-                        <div class="parent-journal-form">
-                            <div class="parent-mood-row" id="parentMoodRow">
-                                <button class="parent-mood-btn" data-parent-mood="😊 Vui" onclick="selectParentMood(this)">😊 Vui</button>
-                                <button class="parent-mood-btn" data-parent-mood="😐 Bình thường" onclick="selectParentMood(this)">😐 Bình thường</button>
-                                <button class="parent-mood-btn" data-parent-mood="😔 Buồn" onclick="selectParentMood(this)">😔 Buồn</button>
-                                <button class="parent-mood-btn" data-parent-mood="😤 Bực bội" onclick="selectParentMood(this)">😤 Bực bội</button>
-                                <button class="parent-mood-btn" data-parent-mood="🥰 Hạnh phúc" onclick="selectParentMood(this)">🥰 Hạnh phúc</button>
-                            </div>
-                            <textarea id="parentJournalContent" rows="3" class="journal-input" placeholder="Hôm nay ba mẹ cảm thấy thế nào? Có điều gì khiến ba mẹ lo lắng, vui mừng hay trăn trở?..."></textarea>
-                            <input type="text" id="parentProudMoment" class="form-input" placeholder="Điều con làm khiến ba mẹ tự hào (không bắt buộc)" style="margin-top: 8px;">
-                            <input type="text" id="parentSelfReflection" class="form-input" placeholder="Điều ba mẹ muốn cải thiện (không bắt buộc)" style="margin-top: 8px;">
-                            <button class="btn-small" onclick="saveParentJournal()" style="margin-top: 12px;">📝 Lưu nhật ký của ba mẹ</button>
-                        </div>
-                        <div class="parent-journal-list" id="parentJournalList">
-                            <div class="empty-state">Chưa có nhật ký nào</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div id="no-child-state" style="text-align:center;padding:48px 0;color:var(--mist)">
-                    <div style="font-size:48px;margin-bottom:12px">👶</div>
-                    <div style="font-size:16px;font-weight:600;color:var(--ink);margin-bottom:6px">Thêm hồ sơ con đầu tiên</div>
-                    <div style="font-size:14px">Bấm nút "＋ Thêm con" để bắt đầu theo dõi hành trình của con</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
+<!-- Modal thêm con -->
 <div class="modal-overlay" id="modal-add-child">
     <div class="modal-box fade-in">
         <div class="modal-title">Thêm hồ sơ con</div>
@@ -847,7 +819,7 @@
         <div class="footer-map">
             <h4>📍 Sophia Nguyễn</h4>
             <div class="map-wrapper">
-                <iframe title="Bản đồ văn phòng Sophia Nguyễn" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2011370.49063534!2d105.62948206017298!3d10.061508194634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2538aa37322d867b%3A0xa6ab3c950d893f03!2zU29waGlhTmd1eWVuIC0gxJDhu5NuZyBow6BuaCAmIFPhursgY2hpYQ!5e0!3m2!1svi!2s!4v1775469816647!5m2!1svi!2s" width="100%" height="180" style="border:0; border-radius: 16px;" allowfullscreen="" loading="lazy"></iframe>
+                <iframe title="Bản đồ văn phòng Sophia Nguyễn" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2011370.49063534!2d105.62948206017298!3d10.061508194634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2538aa37322d867b%3A0xa6ab3c950d893f03!2zU29waGlhTmd1eWVuIC0gxJDhu5NuZyBow6BuaCAmIFPhursgY2hpYQ!5e0!3m2!1svi!2s!4v1775469816647!5m2!1svi!2s" width="100%" height="180" style="border:0; border-radius:16px;" allowfullscreen="" loading="lazy"></iframe>
             </div>
             <p>⭐ 5.0 - Đánh giá từ học viên</p>
         </div>
@@ -874,8 +846,7 @@
 const SUPABASE_URL = 'https://tmqotzjnqyndyhwicatl.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRtcW90empucXluZHlod2ljYXRsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg3OTEwNzYsImV4cCI6MjA5NDM2NzA3Nn0.wkHJcbTz7hJQ75uuXCfWDfqPHvhL6IGVCbAMPLVZoXo';
 
-const supabase = window.supabase;
-const { createClient } = supabase;
+const { createClient } = window.supabase;
 const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // ── STATE ──
@@ -889,13 +860,12 @@ let selectedMood = '😊 Vui';
 let currentCat = 'study';
 let checklistData = {};
 let aiIdx = 0;
-let currentAISuggestions = []; 
-// ── STATE CHO PHẦN MỚI ──
-let customChecklistItems = [];  // custom items cho con hiện tại
-let customChecklistStatus = {}; // lưu trạng thái done
+let customChecklistItems = [];
+let customChecklistStatus = {};
 let parentMood = '😊 Vui';
 let parentJournals = [];
-let cycleData = []; 
+let cycleData = [];
+
 // ── SHOW/HIDE PASSWORD ──
 function togglePassword() {
     const input = document.getElementById('input-password');
@@ -911,161 +881,125 @@ function togglePassword() {
 
 // ── CHECKLIST CONTENT THEO ĐỘ TUỔI VÀ GIỚI TÍNH ──
 function getChecklistForAge(age, gender, cat) {
-    // Học tập
     if (cat === 'study') {
-        if (age <= 5) {
-            return [
-                { task: 'Nhận biết mặt chữ cái và số', desc: 'Làm quen với bảng chữ cái, số 1-10 qua trò chơi.' },
-                { task: 'Tập tô màu và vẽ', desc: 'Phát triển kỹ năng vận động tinh.' },
-                { task: 'Nghe kể chuyện và kể lại', desc: 'Phát triển ngôn ngữ và trí nhớ.' },
-                { task: 'Làm quen với sách tranh', desc: 'Xây dựng thói quen đọc sách từ sớm.' },
-                { task: 'Học hát và đọc thơ', desc: 'Phát triển ngôn ngữ và cảm xúc.' }
-            ];
-        } else if (age <= 10) {
-            return [
-                { task: 'Hoàn thành bài tập về nhà đúng hạn', desc: 'Rèn tính tự giác và trách nhiệm.' },
-                { task: 'Đọc sách 15 phút mỗi ngày', desc: 'Xây dựng thói quen đọc sách.' },
-                { task: 'Học thuộc bảng cửu chương', desc: 'Nền tảng cho toán học sau này.' },
-                { task: 'Luyện viết chữ đẹp', desc: 'Rèn tính kiên nhẫn và tỉ mỉ.' },
-                { task: 'Tham gia hoạt động nhóm', desc: 'Phát triển kỹ năng hợp tác.' }
-            ];
-        } else {
-            return [
-                { task: 'Lập thời gian biểu học tập', desc: 'Rèn kỹ năng quản lý thời gian.' },
-                { task: 'Ôn tập kiến thức mỗi tối 10 phút', desc: 'Thói quen nhỏ giúp ghi nhớ lâu hơn.' },
-                { task: 'Đặt mục tiêu học tập học kỳ', desc: 'Học cách lập kế hoạch dài hạn.' },
-                { task: 'Làm bài kiểm tra thử trước kỳ thi', desc: 'Làm quen áp lực phòng thi.' },
-                { task: 'Tìm kiếm tài liệu tham khảo', desc: 'Rèn kỹ năng tự học suốt đời.' }
-            ];
-        }
+        if (age <= 5) return [
+            { task: 'Nhận biết mặt chữ cái và số', desc: 'Làm quen với bảng chữ cái, số 1-10 qua trò chơi.' },
+            { task: 'Tập tô màu và vẽ', desc: 'Phát triển kỹ năng vận động tinh.' },
+            { task: 'Nghe kể chuyện và kể lại', desc: 'Phát triển ngôn ngữ và trí nhớ.' },
+            { task: 'Làm quen với sách tranh', desc: 'Xây dựng thói quen đọc sách từ sớm.' },
+            { task: 'Học hát và đọc thơ', desc: 'Phát triển ngôn ngữ và cảm xúc.' }
+        ];
+        if (age <= 10) return [
+            { task: 'Hoàn thành bài tập về nhà đúng hạn', desc: 'Rèn tính tự giác và trách nhiệm.' },
+            { task: 'Đọc sách 15 phút mỗi ngày', desc: 'Xây dựng thói quen đọc sách.' },
+            { task: 'Học thuộc bảng cửu chương', desc: 'Nền tảng cho toán học sau này.' },
+            { task: 'Luyện viết chữ đẹp', desc: 'Rèn tính kiên nhẫn và tỉ mỉ.' },
+            { task: 'Tham gia hoạt động nhóm', desc: 'Phát triển kỹ năng hợp tác.' }
+        ];
+        return [
+            { task: 'Lập thời gian biểu học tập', desc: 'Rèn kỹ năng quản lý thời gian.' },
+            { task: 'Ôn tập kiến thức mỗi tối 10 phút', desc: 'Thói quen nhỏ giúp ghi nhớ lâu hơn.' },
+            { task: 'Đặt mục tiêu học tập học kỳ', desc: 'Học cách lập kế hoạch dài hạn.' },
+            { task: 'Làm bài kiểm tra thử trước kỳ thi', desc: 'Làm quen áp lực phòng thi.' },
+            { task: 'Tìm kiếm tài liệu tham khảo', desc: 'Rèn kỹ năng tự học suốt đời.' }
+        ];
     }
-    
-    // Kỹ năng sống
     if (cat === 'skills') {
-        if (age <= 5) {
-            return [
-                { task: 'Tự cất đồ chơi sau khi chơi', desc: 'Rèn tính ngăn nắp và trách nhiệm.' },
-                { task: 'Tự xúc cơm ăn', desc: 'Phát triển kỹ năng vận động và tự lập.' },
-                { task: 'Biết nói "cảm ơn" và "xin lỗi"', desc: 'Rèn phép lịch sự cơ bản.' },
-                { task: 'Tự đi vệ sinh đúng nơi quy định', desc: 'Kỹ năng tự phục vụ cơ bản.' },
-                { task: 'Biết chào hỏi người lớn', desc: 'Rèn kỹ năng giao tiếp xã hội.' }
-            ];
-        } else if (age <= 10) {
-            return [
-                { task: 'Tự mặc quần áo, đi giày', desc: 'Rèn tính tự lập hàng ngày.' },
-                { task: 'Pha một ly nước cho ba mẹ', desc: 'Thể hiện lòng biết ơn.' },
-                { task: 'Tự chuẩn bị đồ dùng học tập', desc: 'Rèn tính tự lập và chủ động.' },
-                { task: 'Biết nhận lỗi và xin lỗi', desc: 'Dạy con về trách nhiệm.' },
-                { task: 'Giúp đỡ việc nhà nhẹ nhàng', desc: 'Rèn tinh thần trách nhiệm.' }
-            ];
-        } else {
-            return [
-                { task: 'Tự chuẩn bị bữa sáng đơn giản', desc: 'Kỹ năng nấu ăn cơ bản.' },
-                { task: 'Biết cách quản lý tiền tiêu vặt', desc: 'Hình thành thói quen tài chính.' },
-                { task: 'Biết cách từ chối khi bị rủ rê', desc: 'Rèn bản lĩnh bảo vệ bản thân.' },
-                { task: 'Tự giặt đồ, ủi đồ', desc: 'Kỹ năng sinh hoạt độc lập.' },
-                { task: 'Lên kế hoạch chi tiêu', desc: 'Quản lý tài chính cá nhân.' }
-            ];
-        }
+        if (age <= 5) return [
+            { task: 'Tự cất đồ chơi sau khi chơi', desc: 'Rèn tính ngăn nắp và trách nhiệm.' },
+            { task: 'Tự xúc cơm ăn', desc: 'Phát triển kỹ năng vận động và tự lập.' },
+            { task: 'Biết nói "cảm ơn" và "xin lỗi"', desc: 'Rèn phép lịch sự cơ bản.' },
+            { task: 'Tự đi vệ sinh đúng nơi quy định', desc: 'Kỹ năng tự phục vụ cơ bản.' },
+            { task: 'Biết chào hỏi người lớn', desc: 'Rèn kỹ năng giao tiếp xã hội.' }
+        ];
+        if (age <= 10) return [
+            { task: 'Tự mặc quần áo, đi giày', desc: 'Rèn tính tự lập hàng ngày.' },
+            { task: 'Pha một ly nước cho ba mẹ', desc: 'Thể hiện lòng biết ơn.' },
+            { task: 'Tự chuẩn bị đồ dùng học tập', desc: 'Rèn tính tự lập và chủ động.' },
+            { task: 'Biết nhận lỗi và xin lỗi', desc: 'Dạy con về trách nhiệm.' },
+            { task: 'Giúp đỡ việc nhà nhẹ nhàng', desc: 'Rèn tinh thần trách nhiệm.' }
+        ];
+        return [
+            { task: 'Tự chuẩn bị bữa sáng đơn giản', desc: 'Kỹ năng nấu ăn cơ bản.' },
+            { task: 'Biết cách quản lý tiền tiêu vặt', desc: 'Hình thành thói quen tài chính.' },
+            { task: 'Biết cách từ chối khi bị rủ rê', desc: 'Rèn bản lĩnh bảo vệ bản thân.' },
+            { task: 'Tự giặt đồ, ủi đồ', desc: 'Kỹ năng sinh hoạt độc lập.' },
+            { task: 'Lên kế hoạch chi tiêu', desc: 'Quản lý tài chính cá nhân.' }
+        ];
     }
-    
-    // An toàn & Sức khỏe
-     if (cat === 'safety') {
-        // Nhóm tuổi 3-6
-        if (age <= 6) {
-            return [
-                { task: 'Thuộc lòng số điện thoại ba mẹ', desc: 'Dùng trong trường hợp khẩn cấp.' },
-                { task: 'Biết quy tắc "Đồ bơi"', desc: 'Vùng riêng tư không ai được chạm.' },
-                { task: 'Đánh răng 2 lần mỗi ngày', desc: 'Duy trì vệ sinh răng miệng.' },
-                { task: 'Rửa tay bằng xà phòng trước khi ăn', desc: 'Phòng tránh bệnh truyền nhiễm.' },
-                { task: 'Không nhận đồ từ người lạ', desc: 'Thực hành qua tình huống giả định.' }
-            ];
-        }
-        // Nhóm tuổi 7-10
-        else if (age <= 10) {
-            return [
-                { task: 'Thuộc lòng số điện thoại ba mẹ', desc: 'Dùng trong trường hợp khẩn cấp.' },
-                { task: 'Biết cách gọi 113/114/115', desc: 'Nhận biết tình huống nguy hiểm.' },
-                { task: 'Biết quy tắc "Đồ bơi"', desc: 'Vùng riêng tư không ai được chạm.' },
-                { task: 'Đánh răng 2 lần mỗi ngày', desc: 'Duy trì vệ sinh răng miệng.' },
-                { task: 'Rửa tay bằng xà phòng trước khi ăn', desc: 'Phòng tránh bệnh truyền nhiễm.' },
-                { task: 'An toàn khi dùng internet', desc: 'Không chia sẻ thông tin cá nhân.' },
-                { task: 'Biết cách băng bó vết thương nhỏ', desc: 'Kỹ năng sơ cứu cơ bản.' }
-            ];
-        }
-        // Nhóm tuổi 11-15
-        else if (age <= 15) {
+    if (cat === 'safety') {
+        if (age <= 6) return [
+            { task: 'Thuộc lòng số điện thoại ba mẹ', desc: 'Dùng trong trường hợp khẩn cấp.' },
+            { task: 'Biết quy tắc "Đồ bơi"', desc: 'Vùng riêng tư không ai được chạm.' },
+            { task: 'Đánh răng 2 lần mỗi ngày', desc: 'Duy trì vệ sinh răng miệng.' },
+            { task: 'Rửa tay bằng xà phòng trước khi ăn', desc: 'Phòng tránh bệnh truyền nhiễm.' },
+            { task: 'Không nhận đồ từ người lạ', desc: 'Thực hành qua tình huống giả định.' }
+        ];
+        if (age <= 10) return [
+            { task: 'Thuộc lòng số điện thoại ba mẹ', desc: 'Dùng trong trường hợp khẩn cấp.' },
+            { task: 'Biết cách gọi 113/114/115', desc: 'Nhận biết tình huống nguy hiểm.' },
+            { task: 'Biết quy tắc "Đồ bơi"', desc: 'Vùng riêng tư không ai được chạm.' },
+            { task: 'Đánh răng 2 lần mỗi ngày', desc: 'Duy trì vệ sinh răng miệng.' },
+            { task: 'Rửa tay bằng xà phòng trước khi ăn', desc: 'Phòng tránh bệnh truyền nhiễm.' },
+            { task: 'An toàn khi dùng internet', desc: 'Không chia sẻ thông tin cá nhân.' },
+            { task: 'Biết cách băng bó vết thương nhỏ', desc: 'Kỹ năng sơ cứu cơ bản.' }
+        ];
+        if (age <= 15) {
             const items = [
                 { task: 'Thuộc lòng số điện thoại ba mẹ', desc: 'Dùng trong trường hợp khẩn cấp.' },
                 { task: 'Biết cách gọi 113/114/115', desc: 'Nhận biết tình huống nguy hiểm.' },
                 { task: 'An toàn khi sử dụng mạng xã hội', desc: 'Không chia sẻ thông tin cá nhân.' },
                 { task: 'Biết cách băng bó vết thương nhỏ', desc: 'Kỹ năng sơ cứu cơ bản.' }
             ];
-            if (gender === 'female') {
-                items.push({ task: 'Hiểu về chu kỳ kinh nguyệt', desc: 'Chuẩn bị tâm lý và kiến thức cho tuổi dậy thì.' });
-            } else {
-                items.push({ task: 'Hiểu về sự thay đổi giọng nói và cơ thể', desc: 'Chuẩn bị tâm lý cho tuổi dậy thì.' });
-            }
+            if (gender === 'female') items.push({ task: 'Hiểu về chu kỳ kinh nguyệt', desc: 'Chuẩn bị tâm lý và kiến thức cho tuổi dậy thì.' });
+            else items.push({ task: 'Hiểu về sự thay đổi giọng nói và cơ thể', desc: 'Chuẩn bị tâm lý cho tuổi dậy thì.' });
             return items;
         }
-        // Nhóm tuổi 16+
-        else {
-            return [
-                { task: 'Hiểu về các bệnh lây truyền qua đường tình dục', desc: 'Kiến thức quan trọng cho tuổi trưởng thành.' },
-                { task: 'Biết cách nói "không" với rượu bia, thuốc lá', desc: 'Kỹ năng từ chối trong áp lực bạn bè.' },
-                { task: 'Biết cách kiểm tra sức khỏe định kỳ', desc: 'Chủ động chăm sóc sức khỏe bản thân.' },
-                { task: 'An toàn khi tham gia giao thông', desc: 'Đội mũ bảo hiểm, không sử dụng điện thoại khi lái xe.' }
-            ];
-        }
+        return [
+            { task: 'Hiểu về các bệnh lây truyền qua đường tình dục', desc: 'Kiến thức quan trọng cho tuổi trưởng thành.' },
+            { task: 'Biết cách nói "không" với rượu bia, thuốc lá', desc: 'Kỹ năng từ chối trong áp lực bạn bè.' },
+            { task: 'Biết cách kiểm tra sức khỏe định kỳ', desc: 'Chủ động chăm sóc sức khỏe bản thân.' },
+            { task: 'An toàn khi tham gia giao thông', desc: 'Đội mũ bảo hiểm, không sử dụng điện thoại khi lái xe.' }
+        ];
     }
-    
-    // Giáo dục giới tính
     if (cat === 'sex-ed') {
-        if (age <= 5) {
-            return [
-                { task: 'Biết tên gọi đúng của các bộ phận cơ thể', desc: 'Giúp con tự tin và không xấu hổ.' },
-                { task: 'Phân biệt cái chạm an toàn và không an toàn', desc: 'Cái chạm kỳ lạ cần báo ngay.' },
-                { task: 'Hiểu rằng bí mật xấu cần được chia sẻ', desc: 'Không giữ bí mật khiến con sợ hãi.' },
-                { task: 'Biết nói "KHÔNG" khi không thoải mái', desc: 'Con có quyền từ chối ngay cả với người thân.' }
-            ];
-        } else if (age <= 10) {
-            return [
-                { task: 'Hiểu về ranh giới cơ thể', desc: '"Vùng đồ bơi" không ai được chạm.' },
-                { task: 'Biết nói "KHÔNG" khi không thoải mái', desc: 'Con có quyền từ chối bất kỳ ai.' },
-                { task: 'Hiểu sự khác biệt cơ bản nam/nữ', desc: 'Giải thích tự nhiên, khoa học.' },
-                { task: 'Biết báo với người tin cậy', desc: 'Ba mẹ, thầy cô nếu gặp vấn đề.' }
-            ];
-        } else if (age <= 15) {
+        if (age <= 5) return [
+            { task: 'Biết tên gọi đúng của các bộ phận cơ thể', desc: 'Giúp con tự tin và không xấu hổ.' },
+            { task: 'Phân biệt cái chạm an toàn và không an toàn', desc: 'Cái chạm kỳ lạ cần báo ngay.' },
+            { task: 'Hiểu rằng bí mật xấu cần được chia sẻ', desc: 'Không giữ bí mật khiến con sợ hãi.' },
+            { task: 'Biết nói "KHÔNG" khi không thoải mái', desc: 'Con có quyền từ chối ngay cả với người thân.' }
+        ];
+        if (age <= 10) return [
+            { task: 'Hiểu về ranh giới cơ thể', desc: '"Vùng đồ bơi" không ai được chạm.' },
+            { task: 'Biết nói "KHÔNG" khi không thoải mái', desc: 'Con có quyền từ chối bất kỳ ai.' },
+            { task: 'Hiểu sự khác biệt cơ bản nam/nữ', desc: 'Giải thích tự nhiên, khoa học.' },
+            { task: 'Biết báo với người tin cậy', desc: 'Ba mẹ, thầy cô nếu gặp vấn đề.' }
+        ];
+        if (age <= 15) {
             const items = [
                 { task: 'Hiểu về dậy thì và những thay đổi của cơ thể', desc: 'Chuẩn bị tâm lý trước khi bước vào dậy thì.' },
                 { task: 'Hiểu về sự đồng thuận (consent)', desc: '"Không có nghĩa là không".' },
                 { task: 'Biết tìm kiếm sự giúp đỡ khi gặp vấn đề', desc: 'Có thể nói với ba mẹ hoặc gọi 111.' },
                 { task: 'Tôn trọng sự khác biệt giới tính', desc: 'Không trêu chọc, phân biệt bạn nam/nữ.' }
             ];
-            if (gender === 'female') {
-                items.push({ task: 'Hiểu về kinh nguyệt và cách chăm sóc bản thân', desc: 'Kiến thức quan trọng cho tuổi dậy thì của bé gái.' });
-            } else {
-                items.push({ task: 'Hiểu về những thay đổi cơ thể ở tuổi dậy thì (nam)', desc: 'Thay đổi giọng nói, mộng tinh, vệ sinh cá nhân.' });
-            }
+            if (gender === 'female') items.push({ task: 'Hiểu về kinh nguyệt và cách chăm sóc bản thân', desc: 'Kiến thức quan trọng cho tuổi dậy thì của bé gái.' });
+            else items.push({ task: 'Hiểu về những thay đổi cơ thể ở tuổi dậy thì (nam)', desc: 'Thay đổi giọng nói, mộng tinh, vệ sinh cá nhân.' });
             return items;
-        } else {
-            return [
-                { task: 'Hiểu về các biện pháp tránh thai an toàn', desc: 'Kiến thức quan trọng cho sức khỏe sinh sản.' },
-                { task: 'Hiểu về các bệnh lây truyền qua đường tình dục', desc: 'Phòng tránh và bảo vệ bản thân.' },
-                { task: 'Biết cách xây dựng mối quan hệ lành mạnh', desc: 'Tôn trọng, tin tưởng và bình đẳng.' },
-                { task: 'Biết tìm kiếm sự giúp đỡ khi cần', desc: 'Từ ba mẹ, thầy cô hoặc chuyên gia tâm lý.' }
-            ];
         }
+        return [
+            { task: 'Hiểu về các biện pháp tránh thai an toàn', desc: 'Kiến thức quan trọng cho sức khỏe sinh sản.' },
+            { task: 'Hiểu về các bệnh lây truyền qua đường tình dục', desc: 'Phòng tránh và bảo vệ bản thân.' },
+            { task: 'Biết cách xây dựng mối quan hệ lành mạnh', desc: 'Tôn trọng, tin tưởng và bình đẳng.' },
+            { task: 'Biết tìm kiếm sự giúp đỡ khi cần', desc: 'Từ ba mẹ, thầy cô hoặc chuyên gia tâm lý.' }
+        ];
     }
-    
     return [];
 }
 
-// ── AI SUGGESTIONS (30 gợi ý) ──
+// ── AI SUGGESTIONS ──
 function getAISuggestion(child) {
     const age = child ? calcAge(child.birthday) : 0;
     const name = child ? child.name : 'con';
-    
     const allSuggestions = [
         { title: `${name} ${age} tuổi — Thời điểm quan trọng`, text: age < 6 ? `Giai đoạn 0-6 tuổi là nền tảng cảm xúc của ${name}. Hãy đọc sách cùng con mỗi ngày và nói chuyện nhiều về cảm xúc.` : age < 12 ? `Bé ${name} ${age} tuổi — đây là thời điểm phù hợp để bắt đầu nói về ranh giới thân thể và an toàn cá nhân. Hãy tiếp cận tự nhiên qua câu chuyện hàng ngày.` : `${name} đang trong giai đoạn dậy thì quan trọng. Ba mẹ nên tạo không gian trò chuyện cởi mở, không phán xét về những thay đổi tâm sinh lý của con.` },
         { title: `Xây dựng thói quen đọc sách cho ${name}`, text: `Đọc cùng ${name} 15-20 phút mỗi tối trước khi ngủ, không chỉ giúp con yêu sách mà còn gắn kết tình cảm gia đình. Hãy để con chọn sách mà con thích.` },
@@ -1079,89 +1013,67 @@ function getAISuggestion(child) {
         { title: `Dạy ${name} về an toàn mạng`, text: `Không chia sẻ mật khẩu cho bất kỳ ai, kể cả bạn thân. Không nhắn tin hoặc kết bạn với người lạ. Luôn báo ba mẹ nếu thấy nội dung không phù hợp hoặc ai đó làm con khó chịu.` },
         { title: `Thực hành thoát hiểm khi có cháy với ${name}`, text: `Dạy con: Cúi thấp người, bịt khăn ướt, gọi 114, không quay lại vào nhà đang cháy. Hãy thực hành ít nhất 2 lần mỗi năm để con ghi nhớ.` },
         { title: `Dạy ${name} về sự đồng thuận (Consent)`, text: `"Không có nghĩa là không". Dạy con tôn trọng khi người khác nói không, và con cũng có quyền nói không. Đây là nền tảng cho các mối quan hệ lành mạnh sau này.` },
-        { title: age >= 10 ? `Dạy ${name} về tình bạn lành mạnh` : `Giúp ${name} kết bạn`, text: `Bạn tốt là người tôn trọng, không ép buộc, không chế giễu. Nếu bạn làm con buồn, con có quyền tìm bạn mới. Không có gì đáng sợ hơn việc ở trong một mối quan hệ độc hại.` },
-        { title: age >= 8 ? `Chuẩn bị cho ${name} tuổi dậy thì` : `Những điều ba mẹ cần biết về tuổi dậy thì của ${name}`, text: age >= 8 ? `Nói chuyện trước khi con bước vào dậy thì (khoảng 8-9 tuổi) để con không bỡ ngỡ với những thay đổi của cơ thể. Hãy tự nhiên và khoa học.` : `Dậy thì sẽ đến sớm hơn ba mẹ nghĩ (có thể từ 8-9 tuổi). Hãy chuẩn bị kiến thức từ bây giờ để có thể đồng hành cùng con.` },
-        { title: `Dạy ${name} về giá trị của đồng tiền`, text: `Cho con tiền tiêu vặt hàng tuần và hướng dẫn con chia thành 3 phần: 50% tiết kiệm, 30% tiêu dùng, 20% cho đi hoặc đầu tư. Điều này giúp con hình thành thói quen tài chính lành mạnh.` },
-        { title: `Kỹ năng từ chối bạn bè cho ${name}`, text: `Dạy con câu thần chú: "Cảm ơn bạn đã rủ, nhưng hôm nay mình không thể." — Từ chối mà không cần giải thích dài dòng. Điều này giúp con tự tin và không bị áp lực bởi bạn bè.` },
-        { title: age >= 6 ? `Dấu hiệu ${name} có thể đang bị bắt nạt ở trường` : `Phòng tránh bắt nạt học đường cho ${name}`, text: `Nếu con sợ đi học, thường xuyên kêu đau bụng/đau đầu, quần áo rách hoặc mất đồ, ba mẹ cần nhẹ nhàng hỏi chuyện. Đừng phán xét, hãy lắng nghe và tìm giải pháp cùng con.` },
-        { title: `Tạo không gian an toàn để ${name} chia sẻ`, text: `Đặt ra "giờ gia đình" mỗi tối 15 phút, không điện thoại, chỉ trò chuyện — con sẽ dần mở lòng hơn. Hãy bắt đầu bằng những câu hỏi nhẹ nhàng như "Hôm nay điều gì làm con vui?"` },
+        { title: age >= 10 ? `Dạy ${name} về tình bạn lành mạnh` : `Giúp ${name} kết bạn`, text: `Bạn tốt là người tôn trọng, không ép buộc, không chế giễu. Nếu bạn làm con buồn, con có quyền tìm bạn mới.` },
+        { title: `Dạy ${name} về giá trị của đồng tiền`, text: `Cho con tiền tiêu vặt hàng tuần và hướng dẫn con chia thành 3 phần: 50% tiết kiệm, 30% tiêu dùng, 20% cho đi hoặc đầu tư.` },
+        { title: `Kỹ năng từ chối bạn bè cho ${name}`, text: `Dạy con câu thần chú: "Cảm ơn bạn đã rủ, nhưng hôm nay mình không thể." — Từ chối mà không cần giải thích dài dòng.` },
+        { title: `Tạo không gian an toàn để ${name} chia sẻ`, text: `Đặt ra "giờ gia đình" mỗi tối 15 phút, không điện thoại, chỉ trò chuyện — con sẽ dần mở lòng hơn.` },
         { title: `Dạy ${name} về sự khác biệt`, text: `Mỗi người có màu da, tôn giáo, sở thích khác nhau. Sự khác biệt không xấu, nó làm thế giới thú vị hơn. Dạy con tôn trọng sự khác biệt của người khác.` },
-        { title: age >= 8 ? `Kỹ năng sơ cứu cơ bản cho ${name}` : `Ba mẹ nên học kỹ năng sơ cứu cho trẻ`, text: age >= 8 ? `Dạy con cách băng bó vết thương nhỏ, cầm máu, xử lý khi bị bỏng. Những kỹ năng này có thể cứu sống người khác trong tình huống khẩn cấp.` : `Ba mẹ nên học CPR (hồi sức tim phổi) cho trẻ em — khác với người lớn, cần lực ép nhẹ hơn. Đây là kỹ năng cứu người quan trọng.` },
-        { title: `Xây dựng thói quen tập thể dục cho ${name}`, text: `Không cần phải đến phòng gym. Đi bộ sau bữa tối, leo cầu thang thay vì thang máy, chơi thể thao cùng con. Vận động không chỉ tốt cho sức khỏe mà còn giúp giải tỏa căng thẳng.` },
+        { title: `Xây dựng thói quen tập thể dục cho ${name}`, text: `Không cần phải đến phòng gym. Đi bộ sau bữa tối, leo cầu thang thay vì thang máy, chơi thể thao cùng con.` },
         { title: `Cách giúp ${name} tập trung học bài`, text: `Quy tắc Pomodoro: Học 25 phút, nghỉ 5 phút. Không để điện thoại trong phòng học. Học vào khung giờ cố định mỗi ngày để tạo thói quen.` },
-        { title: `Dạy ${name} cách quản lý căng thẳng`, text: `Hướng dẫn con thở sâu: Hít vào 4 giây, giữ 4 giây, thở ra 4 giây. Lặp lại 5 lần khi cảm thấy lo âu. Điều này giúp hệ thần kinh của con được bình tĩnh lại.` },
-        { title: `Lợi ích của việc để ${name} tự quyết định`, text: `Để con tự chọn quần áo, tự chọn món ăn (trong giới hạn), tự quyết định chơi trò gì... Điều này giúp con phát triển kỹ năng ra quyết định và tự tin hơn.` },
-        { title: `Dạy ${name} về lòng biết ơn`, text: `Mỗi tối trước khi ngủ, hãy cùng con kể ra 3 điều con biết ơn trong ngày. Điều này giúp con hình thành tư duy tích cực và hạnh phúc hơn.` }
+        { title: `Dạy ${name} cách quản lý căng thẳng`, text: `Hướng dẫn con thở sâu: Hít vào 4 giây, giữ 4 giây, thở ra 4 giây. Lặp lại 5 lần khi cảm thấy lo âu.` },
+        { title: `Lợi ích của việc để ${name} tự quyết định`, text: `Để con tự chọn quần áo, tự chọn món ăn (trong giới hạn)... Điều này giúp con phát triển kỹ năng ra quyết định và tự tin hơn.` },
+        { title: `Dạy ${name} về lòng biết ơn`, text: `Mỗi tối trước khi ngủ, hãy cùng con kể ra 3 điều con biết ơn trong ngày. Điều này giúp con hình thành tư duy tích cực và hạnh phúc hơn.` },
+        { title: `Dấu hiệu ${name} có thể đang bị bắt nạt ở trường`, text: `Nếu con sợ đi học, thường xuyên kêu đau bụng/đau đầu, quần áo rách hoặc mất đồ, ba mẹ cần nhẹ nhàng hỏi chuyện. Đừng phán xét, hãy lắng nghe và tìm giải pháp cùng con.` },
+        { title: `Kỹ năng sơ cứu cơ bản cho ${name}`, text: `Dạy con cách băng bó vết thương nhỏ, cầm máu, xử lý khi bị bỏng. Những kỹ năng này có thể cứu sống người khác trong tình huống khẩn cấp.` },
+        { title: `Chuẩn bị cho ${name} tuổi dậy thì`, text: `Nói chuyện trước khi con bước vào dậy thì (khoảng 8-9 tuổi) để con không bỡ ngỡ với những thay đổi của cơ thể. Hãy tự nhiên và khoa học.` }
     ];
-    
-    // Lọc gợi ý theo độ tuổi
     let filtered = allSuggestions;
-    if (age < 10) {
-        filtered = allSuggestions.filter(s => !s.title.includes('dậy thì') && !s.title.includes('STD') && !s.title.includes('tránh thai') && !s.title.includes('bệnh lây truyền'));
-    }
-    
+    if (age < 10) filtered = allSuggestions.filter(s => !s.title.includes('dậy thì') && !s.title.includes('tránh thai') && !s.title.includes('bệnh lây truyền'));
     return filtered[aiIdx % filtered.length];
 }
 
 // ── UTILS ──
 function calcAge(birthday) {
     if (!birthday) return 0;
-    const diff = Date.now() - new Date(birthday).getTime();
-    return Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
-}
-// ── TÍNH CHÒM SAO ──
-function getZodiacSign(birthday) {
-    const date = new Date(birthday);
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    
-    if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) return "♈ Bạch Dương (21/3 - 19/4)";
-    if ((month === 4 && day >= 20) || (month === 5 && day <= 20)) return "♉ Kim Ngưu (20/4 - 20/5)";
-    if ((month === 5 && day >= 21) || (month === 6 && day <= 20)) return "♊ Song Tử (21/5 - 20/6)";
-    if ((month === 6 && day >= 21) || (month === 7 && day <= 22)) return "♋ Cự Giải (21/6 - 22/7)";
-    if ((month === 7 && day >= 23) || (month === 8 && day <= 22)) return "♌ Sư Tử (23/7 - 22/8)";
-    if ((month === 8 && day >= 23) || (month === 9 && day <= 22)) return "♍ Xử Nữ (23/8 - 22/9)";
-    if ((month === 9 && day >= 23) || (month === 10 && day <= 22)) return "♎ Thiên Bình (23/9 - 22/10)";
-    if ((month === 10 && day >= 23) || (month === 11 && day <= 21)) return "♏ Bọ Cạp (23/10 - 21/11)";
-    if ((month === 11 && day >= 22) || (month === 12 && day <= 21)) return "♐ Nhân Mã (22/11 - 21/12)";
-    if ((month === 12 && day >= 22) || (month === 1 && day <= 19)) return "♑ Ma Kết (22/12 - 19/1)";
-    if ((month === 1 && day >= 20) || (month === 2 && day <= 18)) return "♒ Bảo Bình (20/1 - 18/2)";
-    return "♓ Song Ngư (19/2 - 20/3)";
+    return Math.floor((Date.now() - new Date(birthday).getTime()) / (1000 * 60 * 60 * 24 * 365.25));
 }
 
-// ── KIỂM TRA SINH NHẬT ──
+function getZodiacSign(birthday) {
+    const date = new Date(birthday);
+    const day = date.getDate(), month = date.getMonth() + 1;
+    if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) return "♈ Bạch Dương";
+    if ((month === 4 && day >= 20) || (month === 5 && day <= 20)) return "♉ Kim Ngưu";
+    if ((month === 5 && day >= 21) || (month === 6 && day <= 20)) return "♊ Song Tử";
+    if ((month === 6 && day >= 21) || (month === 7 && day <= 22)) return "♋ Cự Giải";
+    if ((month === 7 && day >= 23) || (month === 8 && day <= 22)) return "♌ Sư Tử";
+    if ((month === 8 && day >= 23) || (month === 9 && day <= 22)) return "♍ Xử Nữ";
+    if ((month === 9 && day >= 23) || (month === 10 && day <= 22)) return "♎ Thiên Bình";
+    if ((month === 10 && day >= 23) || (month === 11 && day <= 21)) return "♏ Bọ Cạp";
+    if ((month === 11 && day >= 22) || (month === 12 && day <= 21)) return "♐ Nhân Mã";
+    if ((month === 12 && day >= 22) || (month === 1 && day <= 19)) return "♑ Ma Kết";
+    if ((month === 1 && day >= 20) || (month === 2 && day <= 18)) return "♒ Bảo Bình";
+    return "♓ Song Ngư";
+}
+
 function isBirthdayToday(birthday) {
     if (!birthday) return false;
-    const today = new Date();
-    const birthDate = new Date(birthday);
-    return today.getMonth() === birthDate.getMonth() && today.getDate() === birthDate.getDate();
+    const today = new Date(), d = new Date(birthday);
+    return today.getMonth() === d.getMonth() && today.getDate() === d.getDate();
 }
+
 function showToast(msg, duration = 2500) {
     const t = document.getElementById('toast');
     t.textContent = msg; t.classList.add('show');
     setTimeout(() => t.classList.remove('show'), duration);
 }
-
-function showLoading(show) {
-    document.getElementById('loading').classList.toggle('show', show);
-}
-
+function showLoading(show) { document.getElementById('loading').classList.toggle('show', show); }
 function showScreen(id) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById(id).classList.add('active');
     window.scrollTo(0, 0);
 }
-
-function showError(id, msg) {
-    const el = document.getElementById(id);
-    if (el) { el.textContent = msg; el.classList.add('show'); }
-}
-
-function hideError(id) {
-    const el = document.getElementById(id);
-    if (el) el.classList.remove('show');
-}
-
+function showError(id, msg) { const el = document.getElementById(id); if (el) { el.textContent = msg; el.classList.add('show'); } }
+function hideError(id) { const el = document.getElementById(id); if (el) el.classList.remove('show'); }
 function gotoAuth(tab) { showScreen('screen-auth'); switchTab(tab); }
 
 function switchTab(tab) {
@@ -1181,40 +1093,25 @@ async function handleAuth() {
     const email = document.getElementById('input-email').value.trim();
     const password = document.getElementById('input-password').value;
     hideError('auth-error');
-
     if (!email || !password) { showError('auth-error', 'Vui lòng nhập đầy đủ thông tin'); return; }
     if (password.length < 6) { showError('auth-error', 'Mật khẩu tối thiểu 6 ký tự'); return; }
-
     const btn = document.getElementById('auth-btn');
     btn.disabled = true; btn.textContent = 'Đang xử lý...';
     showLoading(true);
-
     try {
         if (isReg) {
             const { data, error } = await db.auth.signUp({ email, password });
             if (error) throw error;
-
-            // Nếu Supabase vẫn yêu cầu confirm email
-            if (!data.session) {
-                showError('auth-error', 'Vui lòng kiểm tra email để xác nhận tài khoản, sau đó đăng nhập lại.');
-                return;
-            }
-
+            if (!data.session) { showError('auth-error', 'Vui lòng kiểm tra email để xác nhận tài khoản, sau đó đăng nhập lại.'); return; }
             currentUser = data.user;
             const name = document.getElementById('input-name').value.trim() || 'Ba/Mẹ';
-
-            // Dùng upsert thay insert để tránh lỗi duplicate
-            await db.from('profiles').upsert(
-                { id: data.user.id, full_name: name },
-                { onConflict: 'id' }
-            );
+            await db.from('profiles').upsert({ id: data.user.id, full_name: name }, { onConflict: 'id' });
             currentProfile = { full_name: name };
             showToast('Tạo tài khoản thành công! 🎉');
         } else {
             const { data, error } = await db.auth.signInWithPassword({ email, password });
             if (error) throw error;
             currentUser = data.user;
-
             let { data: profile } = await db.from('profiles').select('*').eq('id', currentUser.id).single();
             if (!profile) {
                 await db.from('profiles').upsert({ id: currentUser.id, full_name: email.split('@')[0] }, { onConflict: 'id' });
@@ -1226,7 +1123,6 @@ async function handleAuth() {
         await loadDashboard();
         showScreen('screen-dashboard');
     } catch (err) {
-        console.error('Auth error:', err);
         const msg = err.message.includes('already registered') ? 'Email này đã được đăng ký'
             : err.message.includes('invalid_credentials') || err.message.includes('Invalid login') ? 'Email hoặc mật khẩu không đúng'
             : err.message.includes('Email not confirmed') ? 'Vui lòng xác nhận email rồi đăng nhập lại'
@@ -1242,8 +1138,7 @@ async function handleAuth() {
 async function handleLogout() {
     await db.auth.signOut();
     currentUser = null; currentProfile = null; children = [];
-    selectedChildId = null; checklistData = {};
-    customChecklistItems = [];
+    selectedChildId = null; checklistData = {}; customChecklistItems = [];
     showScreen('screen-landing');
 }
 
@@ -1289,7 +1184,7 @@ function renderChildren() {
             <div class="child-avatar">${child.gender === 'female' ? '👧' : '👦'}</div>
             <div class="child-name">${child.name}</div>
             <div class="child-age">${age} tuổi · ${child.gender === 'female' ? 'Nữ' : 'Nam'}</div>
-            <div style="font-size: 10px; color: var(--sage-light); margin-top: 4px;">⭐ ${getZodiacSign(child.birthday)}</div>
+            <div style="font-size:10px;color:var(--sage-light);margin-top:4px;">⭐ ${getZodiacSign(child.birthday)}</div>
             <div class="child-progress-bar"><div class="child-progress-fill" style="width:0%" id="progress-${child.id}"></div></div>
         `;
         row.appendChild(card);
@@ -1302,68 +1197,45 @@ function renderChildren() {
 }
 
 async function selectChild(child) {
-    // Kiểm tra sinh nhật
     if (isBirthdayToday(child.birthday)) {
-        const age = calcAge(child.birthday);
-        showToast(`🎂🎉 Hôm nay là sinh nhật ${child.name} tròn ${age} tuổi! Chúc mừng sinh nhật con yêu! 🎂🎉`, 5000);
+        showToast(`🎂🎉 Hôm nay là sinh nhật ${child.name} tròn ${calcAge(child.birthday)} tuổi! Chúc mừng sinh nhật con yêu! 🎂🎉`, 5000);
     }
-    // Hiển thị ghi chú cho bé gái từ 10 tuổi trở lên
+
+    // FIX: girlNote nằm bên trong girlCycleCalendar nên chỉ cần show/hide girlCycleCalendar
+    const age = calcAge(child.birthday);
+    const cycleCalendar = document.getElementById('girlCycleCalendar');
     const girlNote = document.getElementById('girlNote');
-    if (girlNote) {
-        const age = calcAge(child.birthday);
-        if (child.gender === 'female' && age >= 10) {
-            girlNote.style.display = 'block';
-        } else {
-            girlNote.style.display = 'none';
-        }
-    }
-    aiIdx = 0; 
+    if (cycleCalendar) cycleCalendar.style.display = (child.gender === 'female' && age >= 10) ? 'block' : 'none';
+    if (girlNote) girlNote.style.display = (child.gender === 'female' && age >= 10) ? 'block' : 'none';
+
+    aiIdx = 0;
     selectedChildId = child.id;
     selectedChildObj = child;
-    document.querySelectorAll('.child-card').forEach(c => {
-        c.classList.toggle('selected', c.dataset.childId == child.id);
-    });
+    document.querySelectorAll('.child-card').forEach(c => c.classList.toggle('selected', c.dataset.childId == child.id));
     document.getElementById('no-child-state').style.display = 'none';
     document.getElementById('child-content').style.display = 'block';
-    const aiPanel = document.getElementById('ai-panel');
-    aiPanel.style.display = 'block';
+    document.getElementById('ai-panel').style.display = 'block';
     const sug = getAISuggestion(child);
     document.getElementById('ai-title').textContent = sug.title;
     document.getElementById('ai-text').textContent = sug.text;
     await Promise.all([loadChecklist(currentCat), loadJournal(), updateCatCounts(), loadCustomChecklist()]);
+    await loadCycleData();
+}
 
-await loadCycleData();
-const cycleCalendar = document.getElementById('girlCycleCalendar');
-if (cycleCalendar) {
-    if (child.gender === 'female' && calcAge(child.birthday) >= 10) {
-        cycleCalendar.style.display = 'block';
-    } else {
-        cycleCalendar.style.display = 'none';
-    }
-}
-}
 async function loadCustomChecklist() {
     if (!selectedChildId) return;
     try {
-        const { data, error } = await db.from('custom_checklist')
-            .select('*')
-            .eq('child_id', selectedChildId)
-            .order('created_at', { ascending: false });
+        const { data, error } = await db.from('custom_checklist').select('*').eq('child_id', selectedChildId).order('created_at', { ascending: false });
         if (error) throw error;
         customChecklistItems = data || [];
         renderCustomChecklist();
-    } catch (e) {
-        console.error('Lỗi load custom checklist:', e);
-    }
+    } catch (e) { console.error('Lỗi load custom checklist:', e); }
 }
 
 function renderCustomChecklist() {
     const container = document.getElementById('customChecklistList');
     if (!container) return;
-    if (!customChecklistItems.length) {
-        container.innerHTML = '<div class="empty-state">Chưa có mục tiêu nào. Hãy thêm mục tiêu cho con nhé!</div>';
-        return;
-    }
+    if (!customChecklistItems.length) { container.innerHTML = '<div class="empty-state">Chưa có mục tiêu nào. Hãy thêm mục tiêu cho con nhé!</div>'; return; }
     container.innerHTML = '';
     customChecklistItems.forEach((item) => {
         const isDone = customChecklistStatus[item.id] === true || item.status === 'completed';
@@ -1371,9 +1243,7 @@ function renderCustomChecklist() {
         el.className = 'custom-item';
         el.innerHTML = `
             <div class="custom-item-left">
-                <div class="custom-checkbox ${isDone ? 'done' : ''}" onclick="toggleCustomItem(${item.id})">
-                    ${isDone ? '<span class="check-check">✓</span>' : ''}
-                </div>
+                <div class="custom-checkbox ${isDone ? 'done' : ''}" onclick="toggleCustomItem(${item.id})">${isDone ? '<span class="check-check">✓</span>' : ''}</div>
                 <div>
                     <div class="custom-title ${isDone ? 'check-title done' : ''}">${escapeHtml(item.task_name)}</div>
                     ${item.description ? `<div class="custom-desc">${escapeHtml(item.description)}</div>` : ''}
@@ -1386,35 +1256,18 @@ function renderCustomChecklist() {
 }
 
 async function addCustomChecklist() {
-    if (!selectedChildId) {
-        showToast('Vui lòng chọn con trước');
-        return;
-    }
+    if (!selectedChildId) { showToast('Vui lòng chọn con trước'); return; }
     const taskName = document.getElementById('customTaskName').value.trim();
     const description = document.getElementById('customTaskDesc').value.trim();
-    
-    if (!taskName) {
-        showToast('Vui lòng nhập tên mục tiêu');
-        return;
-    }
-    
+    if (!taskName) { showToast('Vui lòng nhập tên mục tiêu'); return; }
     try {
-        const { data, error } = await db.from('custom_checklist').insert({
-            child_id: selectedChildId,
-            task_name: taskName,
-            description: description || null,
-            status: 'pending'
-        }).select().single();
+        const { error } = await db.from('custom_checklist').insert({ child_id: selectedChildId, task_name: taskName, description: description || null, status: 'pending' });
         if (error) throw error;
-        
         document.getElementById('customTaskName').value = '';
         document.getElementById('customTaskDesc').value = '';
         await loadCustomChecklist();
         showToast('Đã thêm mục tiêu! 🎯');
-    } catch (e) {
-        console.error(e);
-        showToast('Lỗi khi thêm mục tiêu');
-    }
+    } catch (e) { console.error(e); showToast('Lỗi khi thêm mục tiêu'); }
 }
 
 async function toggleCustomItem(itemId) {
@@ -1423,14 +1276,9 @@ async function toggleCustomItem(itemId) {
     const newStatus = (customChecklistStatus[itemId] === true || item.status === 'completed') ? 'pending' : 'completed';
     customChecklistStatus[itemId] = newStatus === 'completed';
     renderCustomChecklist();
-    
     try {
-        await db.from('custom_checklist')
-            .update({ status: newStatus, completed_at: newStatus === 'completed' ? new Date().toISOString() : null })
-            .eq('id', itemId);
-    } catch (e) {
-        console.error(e);
-    }
+        await db.from('custom_checklist').update({ status: newStatus, completed_at: newStatus === 'completed' ? new Date().toISOString() : null }).eq('id', itemId);
+    } catch (e) { console.error(e); }
 }
 
 async function deleteCustomItem(itemId) {
@@ -1439,35 +1287,23 @@ async function deleteCustomItem(itemId) {
         await db.from('custom_checklist').delete().eq('id', itemId);
         await loadCustomChecklist();
         showToast('Đã xóa mục tiêu');
-    } catch (e) {
-        console.error(e);
-        showToast('Lỗi khi xóa');
-    }
+    } catch (e) { showToast('Lỗi khi xóa'); }
 }
 
 async function loadParentJournals() {
     if (!currentUser) return;
     try {
-        const { data, error } = await db.from('parent_journal')
-            .select('*')
-            .eq('profile_id', currentUser.id)
-            .order('created_at', { ascending: false })
-            .limit(20);
+        const { data, error } = await db.from('parent_journal').select('*').eq('profile_id', currentUser.id).order('created_at', { ascending: false }).limit(20);
         if (error) throw error;
         parentJournals = data || [];
         renderParentJournals();
-    } catch (e) {
-        console.error('Lỗi load parent journal:', e);
-    }
+    } catch (e) { console.error('Lỗi load parent journal:', e); }
 }
 
 function renderParentJournals() {
     const container = document.getElementById('parentJournalList');
     if (!container) return;
-    if (!parentJournals.length) {
-        container.innerHTML = '<div class="empty-state">Chưa có nhật ký nào. Hãy viết những suy nghĩ của ba mẹ nhé!</div>';
-        return;
-    }
+    if (!parentJournals.length) { container.innerHTML = '<div class="empty-state">Chưa có nhật ký nào. Hãy viết những suy nghĩ của ba mẹ nhé!</div>'; return; }
     container.innerHTML = '';
     parentJournals.forEach(journal => {
         const d = new Date(journal.created_at);
@@ -1475,13 +1311,10 @@ function renderParentJournals() {
         const el = document.createElement('div');
         el.className = 'parent-journal-card';
         el.innerHTML = `
-            <div class="parent-journal-header">
-                <span>📅 ${dateStr}</span>
-                <span>${journal.mood || ''}</span>
-            </div>
+            <div class="parent-journal-header"><span>📅 ${dateStr}</span><span>${journal.mood || ''}</span></div>
             <div class="parent-journal-content">${escapeHtml(journal.content || '')}</div>
             ${journal.proud_moment ? `<div class="parent-journal-proud">🌟 Tự hào: ${escapeHtml(journal.proud_moment)}</div>` : ''}
-            ${journal.self_reflection ? `<div class="parent-journal-proud" style="border-top-color: var(--sage-light);">🌱 Cải thiện: ${escapeHtml(journal.self_reflection)}</div>` : ''}
+            ${journal.self_reflection ? `<div class="parent-journal-proud" style="border-top-color:var(--sage-light);">🌱 Cải thiện: ${escapeHtml(journal.self_reflection)}</div>` : ''}
         `;
         container.appendChild(el);
     });
@@ -1494,47 +1327,25 @@ function selectParentMood(el) {
 }
 
 async function saveParentJournal() {
-    if (!currentUser) {
-        showToast('Vui lòng đăng nhập');
-        return;
-    }
+    if (!currentUser) { showToast('Vui lòng đăng nhập'); return; }
     const content = document.getElementById('parentJournalContent').value.trim();
-    if (!content) {
-        showToast('Vui lòng nhập nội dung nhật ký');
-        return;
-    }
+    if (!content) { showToast('Vui lòng nhập nội dung nhật ký'); return; }
     const proudMoment = document.getElementById('parentProudMoment').value.trim();
     const selfReflection = document.getElementById('parentSelfReflection').value.trim();
-    
     try {
-        const { error } = await db.from('parent_journal').insert({
-            profile_id: currentUser.id,
-            mood: parentMood,
-            content: content,
-            proud_moment: proudMoment || null,
-            self_reflection: selfReflection || null
-        });
+        const { error } = await db.from('parent_journal').insert({ profile_id: currentUser.id, mood: parentMood, content, proud_moment: proudMoment || null, self_reflection: selfReflection || null });
         if (error) throw error;
-        
         document.getElementById('parentJournalContent').value = '';
         document.getElementById('parentProudMoment').value = '';
         document.getElementById('parentSelfReflection').value = '';
         showToast('Đã lưu nhật ký của ba mẹ 💛');
         await loadParentJournals();
-    } catch (e) {
-        console.error(e);
-        showToast('Lỗi khi lưu nhật ký');
-    }
+    } catch (e) { console.error(e); showToast('Lỗi khi lưu nhật ký'); }
 }
 
 function escapeHtml(str) {
     if (!str) return '';
-    return str.replace(/[&<>]/g, function(m) {
-        if (m === '&') return '&amp;';
-        if (m === '<') return '&lt;';
-        if (m === '>') return '&gt;';
-        return m;
-    });
+    return str.replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;');
 }
 
 const catLabels = { study: '📚 Học tập', skills: '🌱 Kỹ năng sống', safety: '🛡️ An toàn & Sức khỏe', 'sex-ed': '💬 Giáo dục giới tính' };
@@ -1549,11 +1360,9 @@ async function selectCat(cat, el) {
 async function loadChecklist(cat) {
     if (!selectedChildId) return;
     document.getElementById('checklist-title').textContent = catLabels[cat];
-    
     const { data: saved } = await db.from('checklist_items').select('task_name, status').eq('child_id', selectedChildId).eq('category', cat);
     const savedMap = {};
     if (saved) saved.forEach(s => { savedMap[s.task_name] = s.status; });
-    
     const age = calcAge(selectedChildObj?.birthday);
     const gender = selectedChildObj?.gender || 'male';
     const templates = getChecklistForAge(age, gender, cat);
@@ -1567,10 +1376,7 @@ function renderChecklist(cat) {
     const done = items.filter(i => i.done).length;
     const pct = items.length ? Math.round(done / items.length * 100) : 0;
     const badge = document.getElementById('checklist-badge');
-    if (badge) {
-        badge.textContent = pct >= 60 ? 'Tốt 👍' : pct >= 30 ? 'Đang học' : 'Cần chú ý';
-        badge.className = 'panel-badge' + (pct >= 60 ? ' good' : '');
-    }
+    if (badge) { badge.textContent = pct >= 60 ? 'Tốt 👍' : pct >= 30 ? 'Đang học' : 'Cần chú ý'; badge.className = 'panel-badge' + (pct >= 60 ? ' good' : ''); }
     const container = document.getElementById('checklist-items');
     if (!container) return;
     if (!items.length) { container.innerHTML = '<div class="empty-state">Chưa có checklist cho mục này</div>'; return; }
@@ -1581,7 +1387,7 @@ function renderChecklist(cat) {
         el.innerHTML = `
             <div class="check-box ${item.done ? 'done' : ''}" onclick="toggleItem('${cat}', ${idx})">${item.done ? '<span class="check-check">✓</span>' : ''}</div>
             <div class="check-content"><div class="check-title ${item.done ? 'done' : ''}">${item.task}</div><div class="check-desc">${item.desc}</div></div>
-            <button class="check-status-btn ${item.done ? 'done' : ''}" onclick="toggleItem('${cat}', ${idx})">${item.done ? 'Đã xong' : 'Đánh dấu'}</button>
+            <button class="check-status-btn" onclick="toggleItem('${cat}', ${idx})">${item.done ? 'Đã xong' : 'Đánh dấu'}</button>
         `;
         container.appendChild(el);
     });
@@ -1617,8 +1423,7 @@ async function updateCatCounts() {
             if (progress) {
                 const allItems = cats.flatMap(c => checklistData[c] || []);
                 const allDone = allItems.filter(i => i.done).length;
-                const allPct = allItems.length ? Math.round(allDone / allItems.length * 100) : 0;
-                progress.style.width = allPct + '%';
+                progress.style.width = (allItems.length ? Math.round(allDone / allItems.length * 100) : 0) + '%';
             }
         }
     }
@@ -1636,7 +1441,7 @@ async function loadJournal() {
         const dateStr = d.toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit' }) + ' ' + d.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
         const el = document.createElement('div');
         el.className = 'journal-entry';
-        el.innerHTML = `<div class="entry-header"><div class="entry-date">${dateStr}</div><div class="entry-mood">${entry.mood || ''}</div></div><div class="entry-text">${entry.content}</div>`;
+        el.innerHTML = `<div class="entry-header"><div class="entry-date">${dateStr}</div><div>${entry.mood || ''}</div></div><div class="entry-text">${entry.content}</div>`;
         container.appendChild(el);
     });
 }
@@ -1677,44 +1482,120 @@ async function saveChild() {
     hideError('child-error');
     if (!name) { showError('child-error', 'Vui lòng nhập tên con'); return; }
     if (!birthday) { showError('child-error', 'Vui lòng nhập ngày sinh'); return; }
-
     const btn = document.getElementById('save-child-btn');
     if (btn) btn.disabled = true;
     try {
         const { data: sessionData } = await db.auth.getSession();
-        if (!sessionData?.session) {
-            showError('child-error', 'Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
-            return;
-        }
+        if (!sessionData?.session) { showError('child-error', 'Phiên đăng nhập hết hạn, vui lòng đăng nhập lại'); return; }
         currentUser = sessionData.session.user;
-
-        const { data, error } = await db.from('children')
-            .insert({ profile_id: currentUser.id, name, birthday, gender: selectedGenderVal })
-            .select().single();
-        if (error) { console.error(error); showError('child-error', 'Lỗi: ' + error.message); return; }
+        const { data, error } = await db.from('children').insert({ profile_id: currentUser.id, name, birthday, gender: selectedGenderVal }).select().single();
+        if (error) { showError('child-error', 'Lỗi: ' + error.message); return; }
         children.push(data);
         renderChildren();
         closeModal();
         showToast(`Đã thêm hồ sơ cho ${name} 🎉`);
         await selectChild(data);
-    } catch (e) {
-        console.error(e);
-        showError('child-error', 'Lỗi: ' + e.message);
-    } finally {
-        if (btn) { btn.disabled = false; btn.textContent = 'Thêm con ✓'; }
-    }
+    } catch (e) { showError('child-error', 'Lỗi: ' + e.message); }
+    finally { if (btn) { btn.disabled = false; btn.textContent = 'Thêm con ✓'; } }
 }
 
-   function refreshAI() {
+function refreshAI() {
     const age = selectedChildObj ? calcAge(selectedChildObj.birthday) : 0;
-    // Lọc số lượng gợi ý theo độ tuổi
-    let maxSuggestions = age < 10 ? 20 : 30;
-    aiIdx = (aiIdx + 1) % maxSuggestions;
+    const max = age < 10 ? 20 : 25;
+    aiIdx = (aiIdx + 1) % max;
     if (selectedChildObj) {
         const sug = getAISuggestion(selectedChildObj);
         document.getElementById('ai-title').textContent = sug.title;
         document.getElementById('ai-text').textContent = sug.text;
     }
+}
+
+// ── QUẢN LÝ CHU KỲ KINH NGUYỆT ──
+async function loadCycleData() {
+    if (!selectedChildId || !selectedChildObj || selectedChildObj.gender !== 'female') return;
+    try {
+        const { data, error } = await db.from('menstrual_cycles').select('*').eq('child_id', selectedChildId).order('start_date', { ascending: false });
+        if (error) throw error;
+        cycleData = data || [];
+        renderCycleCalendar();
+    } catch(e) { console.error(e); }
+}
+
+function renderCycleCalendar() {
+    const container = document.getElementById('cycleHistory');
+    const statsDiv = document.getElementById('cycleStats');
+    if (!container) return;
+    if (!cycleData.length) {
+        container.innerHTML = '<div class="empty-state" style="padding:20px;">Chưa có dữ liệu chu kỳ. Nhấn "Thêm chu kỳ" để bắt đầu theo dõi.</div>';
+        if (statsDiv) statsDiv.style.display = 'none';
+        return;
+    }
+    if (statsDiv) statsDiv.style.display = 'block';
+    let totalCycle = 0;
+    for (let i = 0; i < cycleData.length - 1; i++) {
+        const diff = Math.round((new Date(cycleData[i].start_date) - new Date(cycleData[i+1].start_date)) / (1000*60*60*24));
+        if (diff > 0 && diff < 60) totalCycle += diff;
+    }
+    const avgCycle = cycleData.length > 1 ? Math.round(totalCycle / (cycleData.length - 1)) : '--';
+    document.getElementById('avgCycle').innerText = avgCycle !== '--' ? avgCycle : '--';
+    const lastStart = new Date(cycleData[0].start_date);
+    document.getElementById('lastPeriod').innerText = lastStart.toLocaleDateString('vi-VN');
+    if (avgCycle !== '--') {
+        const next = new Date(lastStart);
+        next.setDate(next.getDate() + avgCycle);
+        document.getElementById('nextPeriod').innerText = next.toLocaleDateString('vi-VN');
+    } else { document.getElementById('nextPeriod').innerText = '--'; }
+    container.innerHTML = '';
+    cycleData.forEach(cycle => {
+        const start = new Date(cycle.start_date).toLocaleDateString('vi-VN');
+        const end = cycle.end_date ? new Date(cycle.end_date).toLocaleDateString('vi-VN') : 'đang diễn ra';
+        const duration = cycle.end_date ? Math.round((new Date(cycle.end_date) - new Date(cycle.start_date)) / (1000*60*60*24)) + 1 : '?';
+        const el = document.createElement('div');
+        el.className = 'parent-journal-card';
+        el.style.marginBottom = '8px';
+        el.innerHTML = `
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div><strong>📅 ${start}</strong> → ${end}</div>
+                <span style="background:#FFE4E8;padding:2px 8px;border-radius:20px;">${duration} ngày</span>
+            </div>
+            ${cycle.note ? `<div style="font-size:12px;color:var(--mist);margin-top:6px;">📝 ${escapeHtml(cycle.note)}</div>` : ''}
+            <div style="margin-top:8px;">
+                <button onclick="deleteCycle(${cycle.id})" style="background:none;border:none;color:var(--error);cursor:pointer;font-size:11px;">🗑️ Xóa</button>
+            </div>
+        `;
+        container.appendChild(el);
+    });
+}
+
+function openCycleModal() {
+    document.getElementById('cycleStartDate').value = '';
+    document.getElementById('cycleEndDate').value = '';
+    document.getElementById('cycleNote').value = '';
+    document.getElementById('cycleModal').classList.add('open');
+}
+function closeCycleModal() { document.getElementById('cycleModal').classList.remove('open'); }
+
+async function saveCycle() {
+    const startDate = document.getElementById('cycleStartDate').value;
+    const endDate = document.getElementById('cycleEndDate').value;
+    const note = document.getElementById('cycleNote').value.trim();
+    if (!startDate) { showToast('Vui lòng chọn ngày bắt đầu'); return; }
+    try {
+        const { error } = await db.from('menstrual_cycles').insert({ child_id: selectedChildId, start_date: startDate, end_date: endDate || null, note: note || null });
+        if (error) throw error;
+        closeCycleModal();
+        await loadCycleData();
+        showToast('Đã lưu chu kỳ ✅');
+    } catch(e) { console.error(e); showToast('Lỗi khi lưu'); }
+}
+
+async function deleteCycle(id) {
+    if (!confirm('Xóa chu kỳ này?')) return;
+    try {
+        await db.from('menstrual_cycles').delete().eq('id', id);
+        await loadCycleData();
+        showToast('Đã xóa');
+    } catch(e) { showToast('Lỗi khi xóa'); }
 }
 
 async function init() {
@@ -1728,130 +1609,10 @@ async function init() {
             await loadDashboard();
             showScreen('screen-dashboard');
         }
-    } catch(e) {}
+    } catch(e) { console.error(e); }
     finally { showLoading(false); }
 }
-// ===== QUẢN LÝ CHU KỲ KINH NGUYỆT ====
-async function loadCycleData() {
-    if (!selectedChildId) return;
-    if (!selectedChildObj || selectedChildObj.gender !== 'female') return;
-    try {
-        const { data, error } = await db.from('menstrual_cycles')
-            .select('*')
-            .eq('child_id', selectedChildId)
-            .order('start_date', { ascending: false });
-        if (error) throw error;
-        cycleData = data || [];
-        renderCycleCalendar();
-    } catch(e) { console.error(e); }
-}
 
-function renderCycleCalendar() {
-    const container = document.getElementById('cycleHistory');
-    const statsDiv = document.getElementById('cycleStats');
-    if (!container) return;
-    
-    if (!cycleData.length) {
-        container.innerHTML = '<div class="empty-state" style="padding: 20px;">Chưa có dữ liệu chu kỳ. Nhấn "Thêm chu kỳ" để bắt đầu theo dõi.</div>';
-        if (statsDiv) statsDiv.style.display = 'none';
-        return;
-    }
-    if (statsDiv) statsDiv.style.display = 'block';
-    
-    // Tính toán thống kê
-    let totalCycle = 0;
-    for (let i = 0; i < cycleData.length - 1; i++) {
-        const start1 = new Date(cycleData[i].start_date);
-        const start2 = new Date(cycleData[i+1].start_date);
-        const diff = Math.round((start1 - start2) / (1000 * 60 * 60 * 24));
-        if (diff > 0 && diff < 60) totalCycle += diff;
-    }
-    const avgCycle = cycleData.length > 1 ? Math.round(totalCycle / (cycleData.length - 1)) : '--';
-    document.getElementById('avgCycle').innerText = avgCycle !== '--' ? avgCycle : '--';
-    
-    const lastStart = new Date(cycleData[0].start_date);
-    document.getElementById('lastPeriod').innerText = lastStart.toLocaleDateString('vi-VN');
-    
-    if (avgCycle !== '--') {
-        const next = new Date(lastStart);
-        next.setDate(next.getDate() + avgCycle);
-        document.getElementById('nextPeriod').innerText = next.toLocaleDateString('vi-VN');
-    } else {
-        document.getElementById('nextPeriod').innerText = '--';
-    }
-    
-    // Hiển thị lịch sử
-    container.innerHTML = '';
-    cycleData.forEach(cycle => {
-        const start = new Date(cycle.start_date).toLocaleDateString('vi-VN');
-        const end = cycle.end_date ? new Date(cycle.end_date).toLocaleDateString('vi-VN') : 'đang diễn ra';
-        const duration = cycle.end_date ? Math.round((new Date(cycle.end_date) - new Date(cycle.start_date)) / (1000 * 60 * 60 * 24)) + 1 : '?';
-        const el = document.createElement('div');
-        el.className = 'parent-journal-card';
-        el.style.marginBottom = '8px';
-        el.innerHTML = `
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <div><strong>📅 ${start}</strong> → ${end}</div>
-                <div><span style="background: #FFE4E8; padding: 2px 8px; border-radius: 20px;">${duration} ngày</span></div>
-            </div>
-            ${cycle.note ? `<div style="font-size: 12px; color: var(--mist); margin-top: 6px;">📝 ${escapeHtml(cycle.note)}</div>` : ''}
-            <div style="display: flex; gap: 8px; margin-top: 8px;">
-                <button onclick="deleteCycle(${cycle.id})" style="background: none; border: none; color: var(--error); cursor: pointer; font-size: 11px;">🗑️ Xóa</button>
-            </div>
-        `;
-        container.appendChild(el);
-    });
-}
-
-function openCycleModal() {
-    document.getElementById('cycleStartDate').value = '';
-    document.getElementById('cycleEndDate').value = '';
-    document.getElementById('cycleNote').value = '';
-    document.getElementById('cycleModal').style.display = 'flex';
-}
-
-function closeCycleModal() {
-    document.getElementById('cycleModal').style.display = 'none';
-}
-
-async function saveCycle() {
-    const startDate = document.getElementById('cycleStartDate').value;
-    const endDate = document.getElementById('cycleEndDate').value;
-    const note = document.getElementById('cycleNote').value.trim();
-    
-    if (!startDate) {
-        showToast('Vui lòng chọn ngày bắt đầu');
-        return;
-    }
-    
-    try {
-        const { error } = await db.from('menstrual_cycles').insert({
-            child_id: selectedChildId,
-            start_date: startDate,
-            end_date: endDate || null,
-            note: note || null
-        });
-        if (error) throw error;
-        closeCycleModal();
-        
-await loadCycleData();
-        showToast('Đã lưu chu kỳ ✅');
-    } catch(e) {
-        console.error(e);
-        showToast('Lỗi khi lưu');
-    }
-}
-
-async function deleteCycle(id) {
-    if (!confirm('Xóa chu kỳ này?')) return;
-    try {
-        await db.from('menstrual_cycles').delete().eq('id', id);
-        await loadCycleData();
-        showToast('Đã xóa');
-    } catch(e) {
-        showToast('Lỗi khi xóa');
-    }
-}
 init();
 </script>
 </body>
