@@ -282,79 +282,195 @@
         }
         .ai-btn:hover { background: rgba(255,255,255,0.25); }
         
-        .cat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 28px; }
-        .cat-card {
-            background: var(--white); border-radius: 18px; padding: 18px;
-            cursor: pointer; transition: all 0.25s; box-shadow: var(--shadow); border: 2px solid transparent;
+        /* Ẩn cat-grid cũ */
+        .cat-grid {
+            display: none;
         }
-        .cat-card.active-cat { border-color: var(--sage); }
-        .cat-icon { font-size: 24px; margin-bottom: 8px; }
-        .cat-name { font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 3px; }
-        .cat-count { font-size: 11px; color: var(--mist); }
-        .cat-mini-bar { height: 3px; background: var(--divider); border-radius: 99px; margin-top: 10px; overflow: hidden; }
-        .cat-mini-fill { height: 100%; border-radius: 99px; transition: width 0.5s; }
         
-        .checklist-panel { background: var(--white); border-radius: 20px; padding: 24px; box-shadow: var(--shadow); margin-bottom: 24px; }
-        .panel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
-        .panel-title { font-size: 16px; font-weight: 700; color: var(--ink); }
-        .panel-badge { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 999px; background: var(--warm); color: var(--mist); }
-        .panel-badge.good { background: rgba(124,158,138,0.15); color: var(--sage-dark); }
+        .checklist-panel {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+        }
+        .panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+        }
+        .panel-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--ink);
+        }
+        .panel-badge {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: var(--warm);
+            color: var(--mist);
+        }
+        .panel-badge.good {
+            background: rgba(124,158,138,0.15);
+            color: var(--sage-dark);
+        }
         
         .check-item {
-            display: flex; align-items: flex-start; gap: 12px;
-            padding: 12px 0; border-bottom: 1px solid var(--divider);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--divider);
         }
-        .check-item:last-child { border-bottom: none; }
+        .check-item:last-child {
+            border-bottom: none;
+        }
         .check-box {
-            width: 22px; height: 22px; border-radius: 6px; border: 2px solid var(--divider);
-            flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
+            border: 2px solid var(--divider);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
         }
-        .check-box.done { background: var(--sage); border-color: var(--sage); }
-        .check-check { color: white; font-size: 12px; font-weight: 700; }
-        .check-content { flex: 1; }
-        .check-title { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 2px; }
-        .check-title.done { text-decoration: line-through; color: var(--mist); }
-        .check-desc { font-size: 12px; color: var(--mist); line-height: 1.5; }
+        .check-box.done {
+            background: var(--sage);
+            border-color: var(--sage);
+        }
+        .check-check {
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .check-content {
+            flex: 1;
+        }
+        .check-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 2px;
+        }
+        .check-title.done {
+            text-decoration: line-through;
+            color: var(--mist);
+        }
+        .check-desc {
+            font-size: 12px;
+            color: var(--mist);
+            line-height: 1.5;
+        }
         .check-status-btn {
-            font-size: 11px; padding: 4px 10px; border-radius: 999px;
-            border: 1px solid var(--divider); background: transparent;
-            color: var(--mist); cursor: pointer;
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 1px solid var(--divider);
+            background: transparent;
+            color: var(--mist);
+            cursor: pointer;
             font-family: 'DM Sans', sans-serif;
         }
-        .check-status-btn:hover { border-color: var(--sage); color: var(--sage); }
-        
-        .journal-panel { background: var(--white); border-radius: 20px; padding: 24px; box-shadow: var(--shadow); margin-bottom: 32px; }
-        .mood-row { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
-        .mood-btn {
-            padding: 6px 14px; border-radius: 999px; border: 1.5px solid var(--divider);
-            background: transparent; font-family: 'DM Sans', sans-serif; font-size: 13px;
-            cursor: pointer; color: var(--mist);
+        .check-status-btn:hover {
+            border-color: var(--sage);
+            color: var(--sage);
         }
-        .mood-btn.selected { border-color: var(--sage); color: var(--sage-dark); background: rgba(124,158,138,0.1); }
+        
+        .journal-panel {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: var(--shadow);
+            margin-bottom: 32px;
+        }
+        .mood-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+        .mood-btn {
+            padding: 6px 14px;
+            border-radius: 999px;
+            border: 1.5px solid var(--divider);
+            background: transparent;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            cursor: pointer;
+            color: var(--mist);
+        }
+        .mood-btn.selected {
+            border-color: var(--sage);
+            color: var(--sage-dark);
+            background: rgba(124,158,138,0.1);
+        }
         .journal-input {
-            width: 100%; border: 1.5px solid var(--divider); border-radius: 12px; padding: 14px 16px;
-            font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--ink);
-            resize: none; outline: none; background: var(--cream);
+            width: 100%;
+            border: 1.5px solid var(--divider);
+            border-radius: 12px;
+            padding: 14px 16px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            color: var(--ink);
+            resize: none;
+            outline: none;
+            background: var(--cream);
             min-height: 80px;
         }
-        .journal-input:focus { border-color: var(--sage); background: var(--white); }
-        .btn-sm {
-            padding: 8px 18px; border-radius: 999px; background: var(--sage-dark); color: var(--white); border: none;
-            font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer;
+        .journal-input:focus {
+            border-color: var(--sage);
+            background: var(--white);
         }
-        .btn-sm:hover { background: var(--sage); }
-        .journal-entries { margin-top: 16px; display: flex; flex-direction: column; gap: 10px; }
-        .journal-entry { background: var(--warm); border-radius: 12px; padding: 14px 16px; }
-        .entry-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
-        .entry-date { font-size: 11px; color: var(--mist); }
-        .entry-text { font-size: 14px; color: var(--ink); line-height: 1.5; }
+        .btn-sm {
+            padding: 8px 18px;
+            border-radius: 999px;
+            background: var(--sage-dark);
+            color: var(--white);
+            border: none;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .btn-sm:hover {
+            background: var(--sage);
+        }
+        .journal-entries {
+            margin-top: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .journal-entry {
+            background: var(--warm);
+            border-radius: 12px;
+            padding: 14px 16px;
+        }
+        .entry-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+        .entry-date {
+            font-size: 11px;
+            color: var(--mist);
+        }
+        .entry-text {
+            font-size: 14px;
+            color: var(--ink);
+            line-height: 1.5;
+        }
         
         .custom-checklist-section, .parent-journal-section {
             background: var(--white);
             border-radius: 20px;
             padding: 24px;
-            margin-top: 24px;
             box-shadow: var(--shadow);
             border: 1px solid var(--divider);
         }
@@ -397,7 +513,9 @@
             cursor: pointer;
             font-size: 13px;
         }
-        .btn-small:hover { background: var(--sage-dark); }
+        .btn-small:hover {
+            background: var(--sage-dark);
+        }
         .custom-items-list {
             display: flex;
             flex-direction: column;
@@ -432,11 +550,29 @@
             border-color: var(--sage);
             color: white;
         }
-        .custom-title { font-weight: 600; color: var(--ink); }
-        .custom-desc { font-size: 12px; color: var(--mist); }
-        .delete-custom { color: var(--error); cursor: pointer; font-size: 14px; }
-        .parent-journal-form { display: flex; flex-direction: column; gap: 12px; }
-        .parent-mood-row { display: flex; gap: 8px; flex-wrap: wrap; }
+        .custom-title {
+            font-weight: 600;
+            color: var(--ink);
+        }
+        .custom-desc {
+            font-size: 12px;
+            color: var(--mist);
+        }
+        .delete-custom {
+            color: var(--error);
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .parent-journal-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .parent-mood-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
         .parent-mood-btn {
             padding: 6px 14px;
             border-radius: 999px;
@@ -450,114 +586,235 @@
             background: rgba(124,158,138,0.1);
             color: var(--sage-dark);
         }
-        .parent-journal-list { margin-top: 20px; display: flex; flex-direction: column; gap: 12px; }
-        .parent-journal-card { background: var(--cream); border-radius: 16px; padding: 14px; }
-        .parent-journal-header { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 12px; color: var(--mist); }
-        .parent-journal-content { font-size: 14px; color: var(--ink); line-height: 1.5; }
+        .parent-journal-list {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .parent-journal-card {
+            background: var(--cream);
+            border-radius: 16px;
+            padding: 14px;
+        }
+        .parent-journal-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 12px;
+            color: var(--mist);
+        }
+        .parent-journal-content {
+            font-size: 14px;
+            color: var(--ink);
+            line-height: 1.5;
+        }
         .parent-journal-proud {
-            font-size: 13px; color: var(--sage-dark); margin-top: 8px;
-            padding-top: 8px; border-top: 1px solid var(--divider);
+            font-size: 13px;
+            color: var(--sage-dark);
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid var(--divider);
         }
         
         .modal-overlay {
-            display: none; position: fixed; inset: 0;
-            background: rgba(30,42,34,0.5); backdrop-filter: blur(4px);
-            z-index: 1000; align-items: center; justify-content: center; padding: 24px;
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(30,42,34,0.5);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
         }
-        .modal-overlay.open { display: flex; }
-        .modal-box { background: var(--white); border-radius: 24px; padding: 32px; width: 100%; max-width: 380px; box-shadow: var(--shadow-lg); }
-        .modal-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; margin-bottom: 4px; }
-        .modal-sub { font-size: 13px; color: var(--mist); margin-bottom: 24px; }
-        .gender-row { display: flex; gap: 10px; margin-bottom: 16px; }
+        .modal-overlay.open {
+            display: flex;
+        }
+        .modal-box {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 32px;
+            width: 100%;
+            max-width: 380px;
+            box-shadow: var(--shadow-lg);
+        }
+        .modal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .modal-sub {
+            font-size: 13px;
+            color: var(--mist);
+            margin-bottom: 24px;
+        }
+        .gender-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
         .gender-btn {
-            flex: 1; padding: 12px; border-radius: 12px; border: 2px solid var(--divider); background: transparent;
-            font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
-            cursor: pointer; color: var(--mist);
-            display: flex; flex-direction: column; align-items: center; gap: 4px;
+            flex: 1;
+            padding: 12px;
+            border-radius: 12px;
+            border: 2px solid var(--divider);
+            background: transparent;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            color: var(--mist);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
         }
-        .gender-btn.selected { border-color: var(--sage); color: var(--sage-dark); background: rgba(124,158,138,0.08); }
-        .gender-btn span:first-child { font-size: 22px; }
-        .modal-actions { display: flex; gap: 10px; margin-top: 20px; }
-        .btn-cancel { flex: 1; padding: 12px; border-radius: 12px; border: 1.5px solid var(--divider); background: transparent; cursor: pointer; color: var(--mist); }
-        .btn-save { flex: 2; padding: 12px; border-radius: 12px; background: var(--sage-dark); color: var(--white); border: none; cursor: pointer; }
-        .btn-save:hover { background: var(--sage); }
+        .gender-btn.selected {
+            border-color: var(--sage);
+            color: var(--sage-dark);
+            background: rgba(124,158,138,0.08);
+        }
+        .gender-btn span:first-child {
+            font-size: 22px;
+        }
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .btn-cancel {
+            flex: 1;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1.5px solid var(--divider);
+            background: transparent;
+            cursor: pointer;
+            color: var(--mist);
+        }
+        .btn-save {
+            flex: 2;
+            padding: 12px;
+            border-radius: 12px;
+            background: var(--sage-dark);
+            color: var(--white);
+            border: none;
+            cursor: pointer;
+        }
+        .btn-save:hover {
+            background: var(--sage);
+        }
         
-        .empty-state { text-align: center; padding: 32px 0; color: var(--mist); font-size: 14px; }
-        .fade-in { animation: fadeIn 0.35s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .empty-state {
+            text-align: center;
+            padding: 32px 0;
+            color: var(--mist);
+            font-size: 14px;
+        }
+        .fade-in {
+            animation: fadeIn 0.35s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
         
         @media (max-width: 480px) {
             .auth-card { padding: 28px 20px; }
             .dash-body { padding: 16px; }
-            .cat-grid { grid-template-columns: 1fr 1fr; }
         }
-/* ===== PROGRESS DASHBOARD ===== */
-.hero-card {
-    background: linear-gradient(135deg, #1E2A22 0%, #2D5444 100%);
-    border-radius: 24px; padding: 24px;
-    display: flex; align-items: center; justify-content: space-between;
-    color: white; margin-bottom: 20px; gap: 16px;
-}
-.hero-left { flex: 1; }
-.hero-child-info { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
-.hero-avatar { font-size: 36px; }
-.hero-name { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; }
-.hero-meta { font-size: 12px; color: #A8C4B2; margin-top: 2px; }
-.hero-tagline { font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.5; margin-bottom: 12px; }
-.hero-tagline strong { color: #A8C4B2; font-size: 15px; }
-.hero-badges { display: flex; gap: 6px; flex-wrap: wrap; }
-.badge-item { background: rgba(255,255,255,0.15); border-radius: 999px; padding: 3px 10px; font-size: 11px; color: white; }
-
-/* VÒNG TRÒN PROGRESS */
-.hero-right { position: relative; width: 80px; height: 80px; flex-shrink: 0; }
-.progress-ring { width: 80px; height: 80px; transform: rotate(-90deg); }
-.ring-bg { fill: none; stroke: rgba(255,255,255,0.15); stroke-width: 7; }
-.ring-fill { fill: none; stroke: #7C9E8A; stroke-width: 7; stroke-linecap: round; transition: stroke-dashoffset 0.8s ease; }
-.ring-pct {
-    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-    font-size: 16px; font-weight: 700; color: white;
-}
-
-/* PROGRESS GRID */
-.progress-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 12px; margin-bottom: 20px;
-}
-.progress-card {
-    background: white; border-radius: 18px; padding: 16px;
-    box-shadow: 0 4px 16px rgba(30,42,34,0.08);
-    cursor: pointer; transition: all 0.2s;
-    border: 2px solid transparent;
-}
-.progress-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(30,42,34,0.12); }
-.progress-card.active-cat { border-color: #7C9E8A; }
-.pc-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
-.pc-icon { font-size: 24px; }
-.pc-badge { font-size: 16px; }
-.pc-name { font-size: 12px; font-weight: 700; color: #1E2A22; margin-bottom: 3px; }
-.pc-count { font-size: 11px; color: #8A9E92; margin-bottom: 8px; }
-.pc-bar { height: 5px; background: #E2DDD6; border-radius: 99px; overflow: hidden; }
-.pc-fill { height: 100%; border-radius: 99px; transition: width 0.6s ease; width: 0%; }
-
-/* Ẩn cat-grid cũ nếu muốn dùng grid mới */
-.cat-grid {
-    display: none;
-}
-    /* Xếp các phần thành 2 cột ngang */
-.custom-two-columns {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    margin: 20px 0;
-}
-
-/* Trên điện thoại thì xếp 1 cột */
-@media (max-width: 768px) {
-    .custom-two-columns {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-}
+        
+        /* ===== PROGRESS DASHBOARD ===== */
+        .hero-card {
+            background: linear-gradient(135deg, #1E2A22 0%, #2D5444 100%);
+            border-radius: 24px;
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: white;
+            margin-bottom: 20px;
+            gap: 16px;
+        }
+        .hero-left { flex: 1; }
+        .hero-child-info { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+        .hero-avatar { font-size: 36px; }
+        .hero-name { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; }
+        .hero-meta { font-size: 12px; color: #A8C4B2; margin-top: 2px; }
+        .hero-tagline { font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.5; margin-bottom: 12px; }
+        .hero-tagline strong { color: #A8C4B2; font-size: 15px; }
+        .hero-badges { display: flex; gap: 6px; flex-wrap: wrap; }
+        .badge-item { background: rgba(255,255,255,0.15); border-radius: 999px; padding: 3px 10px; font-size: 11px; color: white; }
+        
+        .hero-right { position: relative; width: 80px; height: 80px; flex-shrink: 0; }
+        .progress-ring { width: 80px; height: 80px; transform: rotate(-90deg); }
+        .ring-bg { fill: none; stroke: rgba(255,255,255,0.15); stroke-width: 7; }
+        .ring-fill { fill: none; stroke: #7C9E8A; stroke-width: 7; stroke-linecap: round; transition: stroke-dashoffset 0.8s ease; }
+        .ring-pct {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 700;
+            color: white;
+        }
+        
+        .progress-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .progress-card {
+            background: white;
+            border-radius: 18px;
+            padding: 16px;
+            box-shadow: 0 4px 16px rgba(30,42,34,0.08);
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+        .progress-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(30,42,34,0.12); }
+        .progress-card.active-cat { border-color: #7C9E8A; }
+        .pc-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+        .pc-icon { font-size: 24px; }
+        .pc-badge { font-size: 16px; }
+        .pc-name { font-size: 12px; font-weight: 700; color: #1E2A22; margin-bottom: 3px; }
+        .pc-count { font-size: 11px; color: #8A9E92; margin-bottom: 8px; }
+        .pc-bar { height: 5px; background: #E2DDD6; border-radius: 99px; overflow: hidden; }
+        .pc-fill { height: 100%; border-radius: 99px; transition: width 0.6s ease; width: 0%; }
+        
+        /* BỐ CỤC 2 CỘT CÂN ĐỐI */
+        .two-columns-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 20px;
+        }
+        
+        .left-col, .right-col {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        
+        /* Ghi chú chu kỳ */
+        #girlCycleCalendar {
+            background: linear-gradient(135deg, #FFE4E8, #FFF0F5);
+            border-radius: 20px;
+            padding: 20px;
+            border-left: 5px solid #E86A8A;
+        }
+        
+        @media (max-width: 768px) {
+            .two-columns-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -658,87 +915,72 @@
                         <span>Thêm con</span>
                     </div>
                 </div>
-                <div class="section-title">Hồ sơ các con</div>
-<div class="children-row" id="children-row">...</div>
-
-<!-- ===== PROGRESS DASHBOARD (THÊM MỚI) ===== -->
-<div id="progressDashboard" style="display: none;">
-    <!-- HERO CARD -->
-    <div class="hero-card">
-        <div class="hero-left">
-            <div class="hero-child-info">
-                <div class="hero-avatar" id="hero-avatar">👦</div>
-                <div>
-                    <div class="hero-name" id="hero-name">Minh</div>
-                    <div class="hero-meta" id="hero-meta">8 tuổi · ♌ Sư Tử</div>
+                
+                <!-- PROGRESS DASHBOARD -->
+                <div id="progressDashboard" style="display: none;">
+                    <div class="hero-card">
+                        <div class="hero-left">
+                            <div class="hero-child-info">
+                                <div class="hero-avatar" id="hero-avatar">👦</div>
+                                <div>
+                                    <div class="hero-name" id="hero-name">Minh</div>
+                                    <div class="hero-meta" id="hero-meta">8 tuổi · ♌ Sư Tử</div>
+                                </div>
+                            </div>
+                            <div class="hero-tagline" id="hero-tagline">
+                                Đã hoàn thành <strong>14/20</strong> kỹ năng phù hợp tuổi! 🎉
+                            </div>
+                            <div class="hero-badges" id="hero-badges"></div>
+                        </div>
+                        <div class="hero-right">
+                            <svg class="progress-ring" viewBox="0 0 80 80">
+                                <circle class="ring-bg" cx="40" cy="40" r="32"/>
+                                <circle class="ring-fill" id="ring-fill" cx="40" cy="40" r="32" stroke-dasharray="201" stroke-dashoffset="201"/>
+                            </svg>
+                            <div class="ring-pct" id="ring-pct">0%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-grid">
+                        <div class="progress-card" onclick="selectCat('study',this)" data-cat="study">
+                            <div class="pc-top"><span class="pc-icon">📚</span><span class="pc-badge" id="badge-study"></span></div>
+                            <div class="pc-name">Học tập</div>
+                            <div class="pc-count" id="pc-count-study">0/0</div>
+                            <div class="pc-bar"><div class="pc-fill" id="pc-fill-study" style="background:#7C9E8A"></div></div>
+                        </div>
+                        <div class="progress-card" onclick="selectCat('skills',this)" data-cat="skills">
+                            <div class="pc-top"><span class="pc-icon">🌱</span><span class="pc-badge" id="badge-skills"></span></div>
+                            <div class="pc-name">Kỹ năng sống</div>
+                            <div class="pc-count" id="pc-count-skills">0/0</div>
+                            <div class="pc-bar"><div class="pc-fill" id="pc-fill-skills" style="background:#C4714A"></div></div>
+                        </div>
+                        <div class="progress-card" onclick="selectCat('safety',this)" data-cat="safety">
+                            <div class="pc-top"><span class="pc-icon">🛡️</span><span class="pc-badge" id="badge-safety"></span></div>
+                            <div class="pc-name">An toàn</div>
+                            <div class="pc-count" id="pc-count-safety">0/0</div>
+                            <div class="pc-bar"><div class="pc-fill" id="pc-fill-safety" style="background:#C9A84C"></div></div>
+                        </div>
+                        <div class="progress-card" onclick="selectCat('sex-ed',this)" data-cat="sex-ed">
+                            <div class="pc-top"><span class="pc-icon">💬</span><span class="pc-badge" id="badge-sex-ed"></span></div>
+                            <div class="pc-name">Giáo dục GT</div>
+                            <div class="pc-count" id="pc-count-sex-ed">0/0</div>
+                            <div class="pc-bar"><div class="pc-fill" id="pc-fill-sex-ed" style="background:#E8956F"></div></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Streak + Badge -->
+                    <div style="background: white; border-radius: 20px; padding: 20px; margin-top: 16px; display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap;">
+                        <div style="display: flex; align-items: center; gap: 16px;">
+                            <div style="font-size: 48px;">🔥</div>
+                            <div>
+                                <div style="font-size: 24px; font-weight: bold; color: #E86A8A;" id="streakCount">0</div>
+                                <div style="font-size: 12px; color: var(--mist);">ngày liên tiếp ghi nhật ký</div>
+                            </div>
+                        </div>
+                        <div id="badgeContainer" style="display: flex; gap: 8px; flex-wrap: wrap;"></div>
+                    </div>
                 </div>
-            </div>
-            <div class="hero-tagline" id="hero-tagline">
-                Đã hoàn thành <strong>14/20</strong> kỹ năng phù hợp tuổi! 🎉
-            </div>
-            <div class="hero-badges" id="hero-badges"></div>
-        </div>
-        <div class="hero-right">
-            <svg class="progress-ring" viewBox="0 0 80 80">
-                <circle class="ring-bg" cx="40" cy="40" r="32"/>
-                <circle class="ring-fill" id="ring-fill" cx="40" cy="40" r="32"
-                    stroke-dasharray="201" stroke-dashoffset="201"/>
-            </svg>
-            <div class="ring-pct" id="ring-pct">0%</div>
-        </div>
-    </div>
-
-    <!-- GRID 4 DANH MỤC -->
-    <div class="progress-grid">
-        <div class="progress-card" onclick="selectCat('study',this)" data-cat="study">
-            <div class="pc-top">
-                <span class="pc-icon">📚</span>
-                <span class="pc-badge" id="badge-study"></span>
-            </div>
-            <div class="pc-name">Học tập</div>
-            <div class="pc-count" id="pc-count-study">0/0</div>
-            <div class="pc-bar"><div class="pc-fill" id="pc-fill-study" style="background:#7C9E8A"></div></div>
-        </div>
-        <div class="progress-card" onclick="selectCat('skills',this)" data-cat="skills">
-            <div class="pc-top">
-                <span class="pc-icon">🌱</span>
-                <span class="pc-badge" id="badge-skills"></span>
-            </div>
-            <div class="pc-name">Kỹ năng sống</div>
-            <div class="pc-count" id="pc-count-skills">0/0</div>
-            <div class="pc-bar"><div class="pc-fill" id="pc-fill-skills" style="background:#C4714A"></div></div>
-        </div>
-        <div class="progress-card" onclick="selectCat('safety',this)" data-cat="safety">
-            <div class="pc-top">
-                <span class="pc-icon">🛡️</span>
-                <span class="pc-badge" id="badge-safety"></span>
-            </div>
-            <div class="pc-name">An toàn</div>
-            <div class="pc-count" id="pc-count-safety">0/0</div>
-            <div class="pc-bar"><div class="pc-fill" id="pc-fill-safety" style="background:#C9A84C"></div></div>
-        </div>
-        <div class="progress-card" onclick="selectCat('sex-ed',this)" data-cat="sex-ed">
-            <div class="pc-top">
-                <span class="pc-icon">💬</span>
-                <span class="pc-badge" id="badge-sex-ed"></span>
-            </div>
-            <div class="pc-name">Giáo dục GT</div>
-            <div class="pc-count" id="pc-count-sex-ed">0/0</div>
-            <div class="pc-bar"><div class="pc-fill" id="pc-fill-sex-ed" style="background:#E8956F"></div></div>
-        </div>
-            <!-- ZONE 3: Streak + Badge -->
-    <div style="background: white; border-radius: 20px; padding: 20px; margin-top: 16px; display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap;">
-        <div style="display: flex; align-items: center; gap: 16px;">
-            <div style="font-size: 48px;">🔥</div>
-            <div>
-                <div style="font-size: 24px; font-weight: bold; color: #E86A8A;" id="streakCount">0</div>
-                <div style="font-size: 12px; color: var(--mist);">ngày liên tiếp ghi nhật ký</div>
-            </div>
-        </div>
-        <div id="badgeContainer" style="display: flex; gap: 8px; flex-wrap: wrap;"></div>
-    </div>
-</div>  <!-- Đóng progressDashboard -->
-    
+                
                 <div class="ai-panel" id="ai-panel" style="display:none">
                     <div class="ai-label"><div class="ai-dot"></div> Gợi ý từ Sophia</div>
                     <div class="ai-title" id="ai-title">Đang phân tích...</div>
@@ -747,34 +989,6 @@
                 </div>
                 
                 <div id="child-content" style="display:none">
-                    <div class="section-title">Danh mục phát triển</div>
-                    <div class="cat-grid" id="cat-grid">
-                        <div class="cat-card active-cat" onclick="selectCat('study', this)">
-                            <div class="cat-icon">📚</div>
-                            <div class="cat-name">Học tập</div>
-                            <div class="cat-count" id="count-study">0/0 hoàn thành</div>
-                            <div class="cat-mini-bar"><div class="cat-mini-fill" id="bar-study" style="width:0%"></div></div>
-                        </div>
-                        <div class="cat-card" onclick="selectCat('skills', this)">
-                            <div class="cat-icon">🌱</div>
-                            <div class="cat-name">Kỹ năng sống</div>
-                            <div class="cat-count" id="count-skills">0/0 hoàn thành</div>
-                            <div class="cat-mini-bar"><div class="cat-mini-fill" id="bar-skills" style="width:0%"></div></div>
-                        </div>
-                        <div class="cat-card" onclick="selectCat('safety', this)">
-                            <div class="cat-icon">🛡️</div>
-                            <div class="cat-name">An toàn & Sức khỏe</div>
-                            <div class="cat-count" id="count-safety">0/0 hoàn thành</div>
-                            <div class="cat-mini-bar"><div class="cat-mini-fill" id="bar-safety" style="width:0%"></div></div>
-                        </div>
-                        <div class="cat-card" onclick="selectCat('sex-ed', this)">
-                            <div class="cat-icon">💬</div>
-                            <div class="cat-name">Giáo dục giới tính</div>
-                            <div class="cat-count" id="count-sex-ed">0/0 hoàn thành</div>
-                            <div class="cat-mini-bar"><div class="cat-mini-fill" id="bar-sex-ed" style="width:0%"></div></div>
-                        </div>
-                    </div>
-                    
                     <div class="checklist-panel">
                         <div class="panel-header">
                             <div class="panel-title" id="checklist-title">📚 Học tập</div>
@@ -783,110 +997,107 @@
                         <div id="checklist-items"><div class="empty-state">Chọn danh mục để xem checklist</div></div>
                     </div>
                     
-                    <!-- CHECKLIST TỰ TẠO -->
-                    <div class="custom-two-columns">
-                    <div class="custom-checklist-section">
-                        <div class="section-title">➕ Mục tiêu riêng của ba mẹ</div>
-                        <div class="add-custom-form">
-                            <input type="text" id="customTaskName" placeholder="Tên mục tiêu (ví dụ: Tập thể dục mỗi sáng)">
-                            <textarea id="customTaskDesc" rows="2" placeholder="Mô tả (không bắt buộc)"></textarea>
-                            <button class="btn-small" onclick="addCustomChecklist()">➕ Thêm mục tiêu</button>
-                        </div>
-                        <div class="custom-items-list" id="customChecklistList">
-                            <div class="empty-state">Chưa có mục tiêu nào. Hãy thêm mục tiêu cho con nhé!</div>
-                        </div>
-                    </div>
-                    
-                    <!-- NHẬT KÝ CON -->
-                    <div class="journal-panel">
-                        <div class="panel-header">
-                            <div class="panel-title">📝 Nhật ký hôm nay của con</div>
-                        </div>
-                        <div class="mood-row" id="mood-row">
-                            <button class="mood-btn selected" data-mood="😊 Vui" onclick="selectMood(this)">😊 Vui</button>
-                            <button class="mood-btn" data-mood="😐 Bình thường" onclick="selectMood(this)">😐 Bình thường</button>
-                            <button class="mood-btn" data-mood="😔 Buồn" onclick="selectMood(this)">😔 Buồn</button>
-                            <button class="mood-btn" data-mood="😤 Bực bội" onclick="selectMood(this)">😤 Bực bội</button>
-                        </div>
-                        <textarea class="journal-input" id="journal-input" placeholder="Ghi chú những điều con đã làm, nói hoặc học được hôm nay..."></textarea>
-                        <div class="journal-footer" style="margin-top:10px;">
-                            <button class="btn-sm" id="save-journal-btn" onclick="saveJournal()">Lưu ghi chú</button>
-                        </div>
-                        <div class="journal-entries" id="journal-entries"></div>
-                    </div>
-
-                    <!-- =====================================================
-                         PHẦN BÉ GÁI: LỊCH CHU KỲ + GHI CHÚ
-                         (FIX: tất cả nội dung nằm BÊN TRONG girlCycleCalendar)
-                    ====================================================== -->
-
-                    <!-- Lịch theo dõi chu kỳ kinh nguyệt - chỉ hiện với bé gái >= 10 tuổi -->
-                    <div id="girlCycleCalendar" style="display:none; background: linear-gradient(135deg, #FFE4E8, #FFF0F5); border-radius: 20px; padding: 20px; margin-top: 20px; border-left: 5px solid #E86A8A;">
-                        
-                        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
-                            <div style="display:flex; align-items:center; gap:12px;">
-                                <span style="font-size:28px;">📅</span>
-                                <h3 style="color:#E86A8A; margin:0;">Theo dõi chu kỳ của con</h3>
+                    <!-- BỐ CỤC 2 CỘT -->
+                    <div class="two-columns-grid">
+                        <!-- CỘT TRÁI -->
+                        <div class="left-col">
+                            <!-- Custom checklist -->
+                            <div class="custom-checklist-section">
+                                <div class="section-title">➕ Mục tiêu riêng của ba mẹ</div>
+                                <div class="add-custom-form">
+                                    <input type="text" id="customTaskName" placeholder="Tên mục tiêu (ví dụ: Tập thể dục mỗi sáng)">
+                                    <textarea id="customTaskDesc" rows="2" placeholder="Mô tả (không bắt buộc)"></textarea>
+                                    <button class="btn-small" onclick="addCustomChecklist()">➕ Thêm mục tiêu</button>
+                                </div>
+                                <div class="custom-items-list" id="customChecklistList">
+                                    <div class="empty-state">Chưa có mục tiêu nào. Hãy thêm mục tiêu cho con nhé!</div>
+                                </div>
                             </div>
-                            <button onclick="openCycleModal()" style="background:#E86A8A; color:white; border:none; padding:6px 14px; border-radius:40px; cursor:pointer; font-size:12px;">➕ Thêm chu kỳ</button>
+                            
+                            <!-- Nhật ký ba mẹ -->
+                            <div class="parent-journal-section">
+                                <div class="section-title">🌿 Góc của Ba Mẹ - Nhìn lại chính mình</div>
+                                <div class="parent-journal-form">
+                                    <div class="parent-mood-row" id="parentMoodRow">
+                                        <button class="parent-mood-btn" data-parent-mood="😊 Vui" onclick="selectParentMood(this)">😊 Vui</button>
+                                        <button class="parent-mood-btn" data-parent-mood="😐 Bình thường" onclick="selectParentMood(this)">😐 Bình thường</button>
+                                        <button class="parent-mood-btn" data-parent-mood="😔 Buồn" onclick="selectParentMood(this)">😔 Buồn</button>
+                                        <button class="parent-mood-btn" data-parent-mood="😤 Bực bội" onclick="selectParentMood(this)">😤 Bực bội</button>
+                                        <button class="parent-mood-btn" data-parent-mood="🥰 Hạnh phúc" onclick="selectParentMood(this)">🥰 Hạnh phúc</button>
+                                    </div>
+                                    <textarea id="parentJournalContent" rows="3" class="journal-input" placeholder="Hôm nay ba mẹ cảm thấy thế nào? Có điều gì khiến ba mẹ lo lắng, vui mừng hay trăn trở?..."></textarea>
+                                    <input type="text" id="parentProudMoment" class="form-input" placeholder="Điều con làm khiến ba mẹ tự hào (không bắt buộc)" style="margin-top:8px;">
+                                    <input type="text" id="parentSelfReflection" class="form-input" placeholder="Điều ba mẹ muốn cải thiện (không bắt buộc)" style="margin-top:8px;">
+                                    <button class="btn-small" onclick="saveParentJournal()" style="margin-top:12px;">📝 Lưu nhật ký của ba mẹ</button>
+                                </div>
+                                <div class="parent-journal-list" id="parentJournalList">
+                                    <div class="empty-state">Chưa có nhật ký nào</div>
+                                </div>
+                            </div>
                         </div>
                         
-                        <div id="cycleStats" style="background:white; border-radius:16px; padding:12px; margin-bottom:16px; text-align:center; display:none;">
-                            <div style="display:flex; justify-content:space-around; flex-wrap:wrap; gap:10px;">
-                                <div><span style="color:#E86A8A; font-weight:bold;">📆 Chu kỳ trung bình</span><br><span id="avgCycle">--</span> ngày</div>
-                                <div><span style="color:#E86A8A; font-weight:bold;">🩸 Kỳ kinh gần nhất</span><br><span id="lastPeriod">--</span></div>
-                                <div><span style="color:#E86A8A; font-weight:bold;">⏳ Dự kiến kỳ tiếp theo</span><br><span id="nextPeriod">--</span></div>
+                        <!-- CỘT PHẢI -->
+                        <div class="right-col">
+                            <!-- Nhật ký con -->
+                            <div class="journal-panel">
+                                <div class="panel-header">
+                                    <div class="panel-title">📝 Nhật ký hôm nay của con</div>
+                                </div>
+                                <div class="mood-row" id="mood-row">
+                                    <button class="mood-btn selected" data-mood="😊 Vui" onclick="selectMood(this)">😊 Vui</button>
+                                    <button class="mood-btn" data-mood="😐 Bình thường" onclick="selectMood(this)">😐 Bình thường</button>
+                                    <button class="mood-btn" data-mood="😔 Buồn" onclick="selectMood(this)">😔 Buồn</button>
+                                    <button class="mood-btn" data-mood="😤 Bực bội" onclick="selectMood(this)">😤 Bực bội</button>
+                                </div>
+                                <textarea class="journal-input" id="journal-input" placeholder="Ghi chú những điều con đã làm, nói hoặc học được hôm nay..."></textarea>
+                                <div class="journal-footer" style="margin-top:10px;">
+                                    <button class="btn-sm" id="save-journal-btn" onclick="saveJournal()">Lưu ghi chú</button>
+                                </div>
+                                <div class="journal-entries" id="journal-entries"></div>
                             </div>
-                        </div>
-                         <div>
-            <span style="color: #E86A8A; font-weight: bold;">⏳ Dự kiến kỳ tiếp theo</span><br>
-            <span id="nextPeriod" style="display: inline-block;">--</span>
-            <button id="autoAddCycleBtn" onclick="autoAddCycleFromPrediction()" style="background: #E86A8A; color: white; border: none; padding: 4px 10px; border-radius: 40px; cursor: pointer; font-size: 11px; margin-left: 8px;">➕ Thêm kỳ kinh</button>
-        </div>
-    
-                        <div id="cycleHistory" style="max-height:300px; overflow-y:auto;">
-                            <div class="empty-state" style="padding:20px;">Chưa có dữ liệu chu kỳ. Nhấn "Thêm chu kỳ" để bắt đầu theo dõi.</div>
-                        </div>
-
-                        <!-- Ghi chú dành cho bé gái tuổi dậy thì - FIX: có id="girlNote" -->
-                        <div id="girlNote" style="display:none; margin-top:20px; background:white; border-radius:16px; padding:20px;">
-                            <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
-                                <span style="font-size:28px;">🌸</span>
-                                <h3 style="color:#E86A8A; margin:0;">Ghi chú dành cho bé gái tuổi dậy thì</h3>
+                            
+                            <!-- Lịch chu kỳ cho bé gái -->
+                            <div id="girlCycleCalendar" style="display:none;">
+                                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
+                                    <div style="display:flex; align-items:center; gap:12px;">
+                                        <span style="font-size:28px;">📅</span>
+                                        <h3 style="color:#E86A8A; margin:0;">Theo dõi chu kỳ của con</h3>
+                                    </div>
+                                    <button onclick="openCycleModal()" style="background:#E86A8A; color:white; border:none; padding:6px 14px; border-radius:40px; cursor:pointer; font-size:12px;">➕ Thêm chu kỳ</button>
+                                </div>
+                                
+                                <div id="cycleStats" style="background:white; border-radius:16px; padding:12px; margin-bottom:16px; text-align:center; display:none;">
+                                    <div style="display:flex; justify-content:space-around; flex-wrap:wrap; gap:10px;">
+                                        <div><span style="color:#E86A8A; font-weight:bold;">📆 Chu kỳ trung bình</span><br><span id="avgCycle">--</span> ngày</div>
+                                        <div><span style="color:#E86A8A; font-weight:bold;">🩸 Kỳ kinh gần nhất</span><br><span id="lastPeriod">--</span></div>
+                                        <div><span style="color:#E86A8A; font-weight:bold;">⏳ Dự kiến kỳ tiếp theo</span><br><span id="nextPeriod">--</span>
+                                        <button onclick="autoAddCycleFromPrediction()" style="background:#E86A8A; color:white; border:none; padding:4px 10px; border-radius:40px; cursor:pointer; font-size:11px; margin-left:8px;">➕ Thêm kỳ kinh</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div id="cycleHistory" style="max-height:300px; overflow-y:auto;">
+                                    <div class="empty-state" style="padding:20px;">Chưa có dữ liệu chu kỳ. Nhấn "Thêm chu kỳ" để bắt đầu theo dõi.</div>
+                                </div>
+                                
+                                <div id="girlNote" style="display:none; margin-top:20px; background:white; border-radius:16px; padding:20px;">
+                                    <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+                                        <span style="font-size:28px;">🌸</span>
+                                        <h3 style="color:#E86A8A; margin:0;">Ghi chú dành cho bé gái tuổi dậy thì</h3>
+                                    </div>
+                                    <p style="color:#4a5568; margin-bottom:12px; line-height:1.6;">
+                                        <strong>🌙 Khi con bắt đầu có kinh nguyệt, đó là dấu hiệu cơ thể con đang trưởng thành.</strong> Đừng lo lắng, đó là điều hoàn toàn bình thường và tự nhiên!
+                                    </p>
+                                    <ul style="color:#4a5568; margin-left:20px; line-height:1.6;">
+                                        <li>📅 Chu kỳ thường kéo dài 21-35 ngày, mỗi lần hành kinh 3-7 ngày.</li>
+                                        <li>🩸 Sử dụng băng vệ sinh thay mỗi 4-6 tiếng để giữ vệ sinh.</li>
+                                        <li>💧 Uống nhiều nước ấm, nghỉ ngơi, tránh đồ lạnh.</li>
+                                        <li>💊 Nếu đau bụng nhiều, có thể chườm ấm hoặc hỏi ý kiến ba mẹ/bác sĩ.</li>
+                                        <li>💖 Hãy chia sẻ với mẹ hoặc người mà con tin tưởng nếu có bất kỳ thắc mắc nào.</li>
+                                    </ul>
+                                    <div style="margin-top:12px; font-style:italic; color:#888;">💬 "Con gái lớn lên một cách diệu kỳ - hãy tự hào về cơ thể của mình!"</div>
+                                </div>
                             </div>
-                            <p style="color:#4a5568; margin-bottom:12px; line-height:1.6;">
-                                <strong>🌙 Khi con bắt đầu có kinh nguyệt, đó là dấu hiệu cơ thể con đang trưởng thành.</strong> Đừng lo lắng, đó là điều hoàn toàn bình thường và tự nhiên!
-                            </p>
-                            <ul style="color:#4a5568; margin-left:20px; line-height:1.6;">
-                                <li>📅 Chu kỳ thường kéo dài 21-35 ngày, mỗi lần hành kinh 3-7 ngày.</li>
-                                <li>🩸 Sử dụng băng vệ sinh thay mỗi 4-6 tiếng để giữ vệ sinh.</li>
-                                <li>💧 Uống nhiều nước ấm, nghỉ ngơi, tránh đồ lạnh.</li>
-                                <li>💊 Nếu đau bụng nhiều, có thể chườm ấm hoặc hỏi ý kiến ba mẹ/bác sĩ.</li>
-                                <li>💖 Hãy chia sẻ với mẹ hoặc người mà con tin tưởng nếu có bất kỳ thắc mắc nào.</li>
-                            </ul>
-                            <div style="margin-top:12px; font-style:italic; color:#888;">💬 "Con gái lớn lên một cách diệu kỳ - hãy tự hào về cơ thể của mình!"</div>
-                        </div>
-
-                    </div>
-
-                    <!-- NHẬT KÝ BA MẸ -->
-                    <div class="parent-journal-section">
-                        <div class="section-title">🌿 Góc của Ba Mẹ - Nhìn lại chính mình</div>
-                        <div class="parent-journal-form">
-                            <div class="parent-mood-row" id="parentMoodRow">
-                                <button class="parent-mood-btn" data-parent-mood="😊 Vui" onclick="selectParentMood(this)">😊 Vui</button>
-                                <button class="parent-mood-btn" data-parent-mood="😐 Bình thường" onclick="selectParentMood(this)">😐 Bình thường</button>
-                                <button class="parent-mood-btn" data-parent-mood="😔 Buồn" onclick="selectParentMood(this)">😔 Buồn</button>
-                                <button class="parent-mood-btn" data-parent-mood="😤 Bực bội" onclick="selectParentMood(this)">😤 Bực bội</button>
-                                <button class="parent-mood-btn" data-parent-mood="🥰 Hạnh phúc" onclick="selectParentMood(this)">🥰 Hạnh phúc</button>
-                            </div>
-                            <textarea id="parentJournalContent" rows="3" class="journal-input" placeholder="Hôm nay ba mẹ cảm thấy thế nào? Có điều gì khiến ba mẹ lo lắng, vui mừng hay trăn trở?..."></textarea>
-                            <input type="text" id="parentProudMoment" class="form-input" placeholder="Điều con làm khiến ba mẹ tự hào (không bắt buộc)" style="margin-top:8px;">
-                            <input type="text" id="parentSelfReflection" class="form-input" placeholder="Điều ba mẹ muốn cải thiện (không bắt buộc)" style="margin-top:8px;">
-                            <button class="btn-small" onclick="saveParentJournal()" style="margin-top:12px;">📝 Lưu nhật ký của ba mẹ</button>
-                        </div>
-                        <div class="parent-journal-list" id="parentJournalList">
-                            <div class="empty-state">Chưa có nhật ký nào</div>
                         </div>
                     </div>
                 </div>
@@ -1031,7 +1242,7 @@ function togglePassword() {
     }
 }
 
-// ── CHECKLIST CONTENT THEO ĐỘ TUỔI VÀ GIỚI TÍNH ──
+// ── CHECKLIST CONTENT (giữ nguyên từ file chị)
 function getChecklistForAge(age, gender, cat) {
     if (cat === 'study') {
         if (age <= 5) return [
@@ -1353,7 +1564,6 @@ async function selectChild(child) {
         showToast(`🎂🎉 Hôm nay là sinh nhật ${child.name} tròn ${calcAge(child.birthday)} tuổi! Chúc mừng sinh nhật con yêu! 🎂🎉`, 5000);
     }
 
-    // FIX: girlNote nằm bên trong girlCycleCalendar nên chỉ cần show/hide girlCycleCalendar
     const age = calcAge(child.birthday);
     const cycleCalendar = document.getElementById('girlCycleCalendar');
     const girlNote = document.getElementById('girlNote');
@@ -1366,7 +1576,7 @@ async function selectChild(child) {
     document.querySelectorAll('.child-card').forEach(c => c.classList.toggle('selected', c.dataset.childId == child.id));
     document.getElementById('no-child-state').style.display = 'none';
     document.getElementById('child-content').style.display = 'block';
-        const dashboard = document.getElementById('progressDashboard');
+    const dashboard = document.getElementById('progressDashboard');
     if (dashboard) dashboard.style.display = 'block';
     document.getElementById('ai-panel').style.display = 'block';
     const sug = getAISuggestion(child);
@@ -1374,30 +1584,27 @@ async function selectChild(child) {
     document.getElementById('ai-text').textContent = sug.text;
     await Promise.all([loadChecklist(currentCat), loadJournal(), updateCatCounts(), loadCustomChecklist()]);
     await loadCycleData();
-     updateHeroCard(); 
-     updateStreakAndBadges();
+    updateHeroCard(); 
+    updateStreakAndBadges();
 }
-// Gọi hàm này sau khi load checklist xong
+
 function updateHeroCard() {
   if (!selectedChildObj) return;
   const cats = ['study','skills','safety','sex-ed'];
   const age = calcAge(selectedChildObj.birthday);
 
-  // Tổng progress
   const allItems = cats.flatMap(c => checklistData[c] || []);
   const allDone = allItems.filter(i => i.done).length;
   const allTotal = allItems.length;
   const pct = allTotal ? Math.round(allDone / allTotal * 100) : 0;
 
-  // Vòng tròn SVG
-  const circumference = 2 * Math.PI * 32; // r=32
+  const circumference = 2 * Math.PI * 32;
   const offset = circumference - (pct / 100) * circumference;
   const ring = document.getElementById('ring-fill');
   if (ring) { ring.style.strokeDasharray = circumference; ring.style.strokeDashoffset = offset; }
   const pctEl = document.getElementById('ring-pct');
   if (pctEl) pctEl.textContent = pct + '%';
 
-  // Hero info
   const avatarEl = document.getElementById('hero-avatar');
   const nameEl = document.getElementById('hero-name');
   const metaEl = document.getElementById('hero-meta');
@@ -1407,14 +1614,11 @@ function updateHeroCard() {
   if (metaEl) metaEl.textContent = `${age} tuổi · ${getZodiacSign(selectedChildObj.birthday)}`;
   if (taglineEl) taglineEl.innerHTML = `Đã hoàn thành <strong>${allDone}/${allTotal}</strong> kỹ năng phù hợp tuổi ${age}! ${pct >= 80 ? '🎉' : pct >= 50 ? '💪' : '🌱'}`;
 
-  // Grid cards + huy hiệu
-  const badgeMap = { study:'📖', skills:'🌟', safety:'🛡️', 'sex-ed':'💬' };
   cats.forEach(cat => {
     const items = checklistData[cat] || [];
     const done = items.filter(i => i.done).length;
     const total = items.length;
     const p = total ? Math.round(done / total * 100) : 0;
-
     const fillEl = document.getElementById(`pc-fill-${cat}`);
     const countEl = document.getElementById(`pc-count-${cat}`);
     const badgeEl = document.getElementById(`badge-${cat}`);
@@ -1423,7 +1627,6 @@ function updateHeroCard() {
     if (badgeEl) badgeEl.textContent = p === 100 ? '🏆' : p >= 60 ? '⭐' : '';
   });
 
-  // Huy hiệu tổng
   const badges = [];
   if (pct >= 25) badges.push('🌱 Khởi đầu');
   if (pct >= 50) badges.push('💪 Đang tiến bộ');
@@ -1433,8 +1636,6 @@ function updateHeroCard() {
   if (badgesEl) badgesEl.innerHTML = badges.map(b => `<span class="badge-item">${b}</span>`).join('');
 }
 
-
-    
 async function loadCustomChecklist() {
     if (!selectedChildId) return;
     try {
@@ -1565,7 +1766,7 @@ const catLabels = { study: '📚 Học tập', skills: '🌱 Kỹ năng sống',
 
 async function selectCat(cat, el) {
     currentCat = cat;
-    document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('active-cat'));
+    document.querySelectorAll('.progress-card').forEach(c => c.classList.remove('active-cat'));
     if (el) el.classList.add('active-cat');
     await loadChecklist(cat);
 }
@@ -1619,7 +1820,7 @@ async function toggleItem(cat, idx) {
     } else {
         await db.from('checklist_items').insert({ child_id: selectedChildId, category: cat, task_name: item.task, status, completed_at: item.done ? new Date().toISOString() : null });
     }
- updateHeroCard();
+    updateHeroCard();
 }
 
 async function updateCatCounts() {
@@ -1725,7 +1926,6 @@ function refreshAI() {
     }
 }
 
-// ── QUẢN LÝ CHU KỲ KINH NGUYỆT ──
 async function loadCycleData() {
     if (!selectedChildId || !selectedChildObj || selectedChildObj.gender !== 'female') return;
     try {
@@ -1733,22 +1933,19 @@ async function loadCycleData() {
         if (error) throw error;
         cycleData = data || [];
         renderCycleCalendar();
+        checkAndNotifyNextPeriod();
     } catch(e) { console.error(e); }
 }
+
 async function autoAddCycleFromPrediction() {
     const nextPeriodText = document.getElementById('nextPeriod').innerText;
     if (!nextPeriodText || nextPeriodText === '--') {
         showToast('Chưa có dự kiến ngày tiếp theo');
         return;
     }
-    
-    // Chuyển đổi định dạng ngày (VD: "23/5/2026" -> "2026-05-23")
     const parts = nextPeriodText.split('/');
     const startDate = `${parts[2]}-${parts[1].padStart(2, '0')}-${parts[0].padStart(2, '0')}`;
-    
-    // Hỏi ngày kết thúc (dự kiến 5 ngày)
     const endDate = prompt('Nhập ngày kết thúc (để trống nếu chưa kết thúc):', '');
-    
     try {
         const { error } = await db.from('menstrual_cycles').insert({
             child_id: selectedChildId,
@@ -1759,10 +1956,7 @@ async function autoAddCycleFromPrediction() {
         if (error) throw error;
         showToast('✅ Đã thêm kỳ kinh!');
         await loadCycleData();
-    } catch(e) {
-        console.error(e);
-        showToast('Lỗi khi thêm');
-    }
+    } catch(e) { console.error(e); showToast('Lỗi khi thêm'); }
 }
     
 function renderCycleCalendar() {
@@ -1842,60 +2036,23 @@ async function deleteCycle(id) {
     } catch(e) { showToast('Lỗi khi xóa'); }
 }
 
-async function init() {
-    showLoading(true);
-    try {
-        const { data: { session } } = await db.auth.getSession();
-        if (session) {
-            currentUser = session.user;
-            const { data: profile } = await db.from('profiles').select('*').eq('id', currentUser.id).single();
-            currentProfile = profile;
-            await loadDashboard();
-            showScreen('screen-dashboard');
-        }
-    } catch(e) { console.error(e); }
-    finally { showLoading(false); }
-}
-async function loadCycleData() {
-    if (!selectedChildId) return;
-    if (!selectedChildObj || selectedChildObj.gender !== 'female') return;
-    try {
-        const { data, error } = await db.from('menstrual_cycles')
-            .select('*')
-            .eq('child_id', selectedChildId)
-            .order('start_date', { ascending: false });
-        if (error) throw error;
-        cycleData = data || [];
-        renderCycleCalendar();
-        
-        // ===== KIỂM TRA NHẮC NHỞ NGÀY DỰ KIẾN =====
-        checkAndNotifyNextPeriod();
-        
-    } catch(e) { console.error(e); }
-}
-
 function checkAndNotifyNextPeriod() {
     const nextPeriodText = document.getElementById('nextPeriod').innerText;
     if (!nextPeriodText || nextPeriodText === '--') return;
-    
-    // Chuyển đổi ngày
     const parts = nextPeriodText.split('/');
     const nextDate = new Date(`${parts[2]}-${parts[1].padStart(2, '0')}-${parts[0].padStart(2, '0')}`);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    
-    // Kiểm tra nếu hôm nay là ngày dự kiến
     if (nextDate.getTime() === today.getTime()) {
         showToast(`🌸 Hôm nay là ngày dự kiến bắt đầu kỳ kinh của ${selectedChildObj.name}! Nhấn "Thêm kỳ kinh" để cập nhật.`, 6000);
-    }
-    // Kiểm tra nếu sắp đến (1-2 ngày tới)
-    else {
+    } else {
         const diffDays = Math.ceil((nextDate - today) / (1000 * 60 * 60 * 24));
         if (diffDays === 1) {
             showToast(`⏰ Ngày mai (${nextPeriodText}) là ngày dự kiến bắt đầu kỳ kinh của ${selectedChildObj.name}. Hãy chuẩn bị sẵn sàng nhé!`, 5000);
         }
     }
 }
+
 async function updateStreakAndBadges() {
     if (!selectedChildId) return;
     const { data } = await db.from('journal_entries').select('entry_date').eq('child_id', selectedChildId).order('entry_date', { ascending: false });
@@ -1931,7 +2088,22 @@ async function updateStreakAndBadges() {
     const badgeContainer = document.getElementById('badgeContainer');
     if (badgeContainer) badgeContainer.innerHTML = badges.length ? badges.map(b => `<span class="badge-item">${b}</span>`).join('') : '<span class="badge-item">🌱 Bắt đầu hành trình</span>';
 }
-    
+
+async function init() {
+    showLoading(true);
+    try {
+        const { data: { session } } = await db.auth.getSession();
+        if (session) {
+            currentUser = session.user;
+            const { data: profile } = await db.from('profiles').select('*').eq('id', currentUser.id).single();
+            currentProfile = profile;
+            await loadDashboard();
+            showScreen('screen-dashboard');
+        }
+    } catch(e) { console.error(e); }
+    finally { showLoading(false); }
+}
+
 init();
 </script>
 </body>
