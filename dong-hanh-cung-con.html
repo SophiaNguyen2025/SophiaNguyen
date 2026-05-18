@@ -712,9 +712,19 @@
             <div class="pc-count" id="pc-count-sex-ed">0/0</div>
             <div class="pc-bar"><div class="pc-fill" id="pc-fill-sex-ed" style="background:#E8956F"></div></div>
         </div>
+            <!-- ZONE 3: Streak + Badge -->
+    <div style="background: white; border-radius: 20px; padding: 20px; margin-top: 16px; display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap;">
+        <div style="display: flex; align-items: center; gap: 16px;">
+            <div style="font-size: 48px;">🔥</div>
+            <div>
+                <div style="font-size: 24px; font-weight: bold; color: #E86A8A;" id="streakCount">0</div>
+                <div style="font-size: 12px; color: var(--mist);">ngày liên tiếp ghi nhật ký</div>
+            </div>
+        </div>
+        <div id="badgeContainer" style="display: flex; gap: 8px; flex-wrap: wrap;"></div>
     </div>
-</div>
-
+</div>  <!-- Đóng progressDashboard -->
+    
                 <div class="ai-panel" id="ai-panel" style="display:none">
                     <div class="ai-label"><div class="ai-dot"></div> Gợi ý từ Sophia</div>
                     <div class="ai-title" id="ai-title">Đang phân tích...</div>
@@ -842,7 +852,7 @@
                             <div style="margin-top:12px; font-style:italic; color:#888;">💬 "Con gái lớn lên một cách diệu kỳ - hãy tự hào về cơ thể của mình!"</div>
                         </div>
 
-                    </div><!-- /girlCycleCalendar -->
+                    </div>
 
                     <!-- NHẬT KÝ BA MẸ -->
                     <div class="parent-journal-section">
@@ -865,7 +875,7 @@
                         </div>
                     </div>
 
-                </div><!-- /child-content -->
+                </div>
                 
                 <div id="no-child-state" style="text-align:center;padding:48px 0;color:var(--mist)">
                     <div style="font-size:48px;margin-bottom:12px">👶</div>
@@ -1351,6 +1361,7 @@ async function selectChild(child) {
     await Promise.all([loadChecklist(currentCat), loadJournal(), updateCatCounts(), loadCustomChecklist()]);
     await loadCycleData();
      updateHeroCard(); 
+     updateStreakAndBadges();
 }
 // Gọi hàm này sau khi load checklist xong
 function updateHeroCard() {
@@ -1646,6 +1657,7 @@ async function saveJournal() {
         document.getElementById('journal-input').value = '';
         showToast('Đã lưu ghi chú ✓');
         await loadJournal();
+        updateStreakAndBadges();
     } catch (e) { showToast('Lỗi khi lưu, thử lại nhé'); }
     finally { if (btn) { btn.disabled = false; btn.textContent = 'Lưu ghi chú'; } }
 }
@@ -1870,6 +1882,42 @@ function checkAndNotifyNextPeriod() {
         }
     }
 }
+async function updateStreakAndBadges() {
+    if (!selectedChildId) return;
+    const { data } = await db.from('journal_entries').select('entry_date').eq('child_id', selectedChildId).order('entry_date', { ascending: false });
+    if (!data || !data.length) { document.getElementById('streakCount').innerText = '0'; return; }
+    
+    let streak = 1;
+    const today = new Date().toISOString().split('T')[0];
+    const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+    const hasToday = data.some(d => d.entry_date === today);
+    const hasYesterday = data.some(d => d.entry_date === yesterday);
+    if (!hasToday && !hasYesterday) streak = 0;
+    
+    let currentDate = new Date();
+    if (!hasToday) currentDate.setDate(currentDate.getDate() - 1);
+    for (let i = 0; i < data.length; i++) {
+        if (data[i].entry_date === currentDate.toISOString().split('T')[0]) { streak++; currentDate.setDate(currentDate.getDate() - 1); }
+        else break;
+    }
+    document.getElementById('streakCount').innerText = streak;
+    
+    const badges = [];
+    if (streak >= 7) badges.push('🏅 7 ngày');
+    if (streak >= 14) badges.push('🏅 14 ngày');
+    if (streak >= 30) badges.push('🏅 30 ngày');
+    const cats = ['study','skills','safety','sex-ed'];
+    const allItems = cats.flatMap(c => checklistData[c] || []);
+    const allDone = allItems.filter(i => i.done).length;
+    const allTotal = allItems.length;
+    const pct = allTotal ? Math.round(allDone / allTotal * 100) : 0;
+    if (pct === 100) badges.push('🏆 Hoàn thành toàn bộ');
+    else if (pct >= 75) badges.push('⭐ Gần hoàn thành');
+    
+    const badgeContainer = document.getElementById('badgeContainer');
+    if (badgeContainer) badgeContainer.innerHTML = badges.length ? badges.map(b => `<span class="badge-item">${b}</span>`).join('') : '<span class="badge-item">🌱 Bắt đầu hành trình</span>';
+}
+    
 init();
 </script>
 </body>
