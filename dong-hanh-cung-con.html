@@ -491,6 +491,59 @@
             .dash-body { padding: 16px; }
             .cat-grid { grid-template-columns: 1fr 1fr; }
         }
+/* ===== PROGRESS DASHBOARD ===== */
+.hero-card {
+    background: linear-gradient(135deg, #1E2A22 0%, #2D5444 100%);
+    border-radius: 24px; padding: 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    color: white; margin-bottom: 20px; gap: 16px;
+}
+.hero-left { flex: 1; }
+.hero-child-info { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.hero-avatar { font-size: 36px; }
+.hero-name { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; }
+.hero-meta { font-size: 12px; color: #A8C4B2; margin-top: 2px; }
+.hero-tagline { font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.5; margin-bottom: 12px; }
+.hero-tagline strong { color: #A8C4B2; font-size: 15px; }
+.hero-badges { display: flex; gap: 6px; flex-wrap: wrap; }
+.badge-item { background: rgba(255,255,255,0.15); border-radius: 999px; padding: 3px 10px; font-size: 11px; color: white; }
+
+/* VÒNG TRÒN PROGRESS */
+.hero-right { position: relative; width: 80px; height: 80px; flex-shrink: 0; }
+.progress-ring { width: 80px; height: 80px; transform: rotate(-90deg); }
+.ring-bg { fill: none; stroke: rgba(255,255,255,0.15); stroke-width: 7; }
+.ring-fill { fill: none; stroke: #7C9E8A; stroke-width: 7; stroke-linecap: round; transition: stroke-dashoffset 0.8s ease; }
+.ring-pct {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 700; color: white;
+}
+
+/* PROGRESS GRID */
+.progress-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 12px; margin-bottom: 20px;
+}
+.progress-card {
+    background: white; border-radius: 18px; padding: 16px;
+    box-shadow: 0 4px 16px rgba(30,42,34,0.08);
+    cursor: pointer; transition: all 0.2s;
+    border: 2px solid transparent;
+}
+.progress-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(30,42,34,0.12); }
+.progress-card.active-cat { border-color: #7C9E8A; }
+.pc-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.pc-icon { font-size: 24px; }
+.pc-badge { font-size: 16px; }
+.pc-name { font-size: 12px; font-weight: 700; color: #1E2A22; margin-bottom: 3px; }
+.pc-count { font-size: 11px; color: #8A9E92; margin-bottom: 8px; }
+.pc-bar { height: 5px; background: #E2DDD6; border-radius: 99px; overflow: hidden; }
+.pc-fill { height: 100%; border-radius: 99px; transition: width 0.6s ease; width: 0%; }
+
+/* Ẩn cat-grid cũ nếu muốn dùng grid mới */
+.cat-grid {
+    display: none;
+}
+    
     </style>
 </head>
 <body>
@@ -591,7 +644,77 @@
                         <span>Thêm con</span>
                     </div>
                 </div>
-                
+                <div class="section-title">Hồ sơ các con</div>
+<div class="children-row" id="children-row">...</div>
+
+<!-- ===== PROGRESS DASHBOARD (THÊM MỚI) ===== -->
+<div id="progressDashboard" style="display: none;">
+    <!-- HERO CARD -->
+    <div class="hero-card">
+        <div class="hero-left">
+            <div class="hero-child-info">
+                <div class="hero-avatar" id="hero-avatar">👦</div>
+                <div>
+                    <div class="hero-name" id="hero-name">Minh</div>
+                    <div class="hero-meta" id="hero-meta">8 tuổi · ♌ Sư Tử</div>
+                </div>
+            </div>
+            <div class="hero-tagline" id="hero-tagline">
+                Đã hoàn thành <strong>14/20</strong> kỹ năng phù hợp tuổi! 🎉
+            </div>
+            <div class="hero-badges" id="hero-badges"></div>
+        </div>
+        <div class="hero-right">
+            <svg class="progress-ring" viewBox="0 0 80 80">
+                <circle class="ring-bg" cx="40" cy="40" r="32"/>
+                <circle class="ring-fill" id="ring-fill" cx="40" cy="40" r="32"
+                    stroke-dasharray="201" stroke-dashoffset="201"/>
+            </svg>
+            <div class="ring-pct" id="ring-pct">0%</div>
+        </div>
+    </div>
+
+    <!-- GRID 4 DANH MỤC -->
+    <div class="progress-grid">
+        <div class="progress-card" onclick="selectCat('study',this)" data-cat="study">
+            <div class="pc-top">
+                <span class="pc-icon">📚</span>
+                <span class="pc-badge" id="badge-study"></span>
+            </div>
+            <div class="pc-name">Học tập</div>
+            <div class="pc-count" id="pc-count-study">0/0</div>
+            <div class="pc-bar"><div class="pc-fill" id="pc-fill-study" style="background:#7C9E8A"></div></div>
+        </div>
+        <div class="progress-card" onclick="selectCat('skills',this)" data-cat="skills">
+            <div class="pc-top">
+                <span class="pc-icon">🌱</span>
+                <span class="pc-badge" id="badge-skills"></span>
+            </div>
+            <div class="pc-name">Kỹ năng sống</div>
+            <div class="pc-count" id="pc-count-skills">0/0</div>
+            <div class="pc-bar"><div class="pc-fill" id="pc-fill-skills" style="background:#C4714A"></div></div>
+        </div>
+        <div class="progress-card" onclick="selectCat('safety',this)" data-cat="safety">
+            <div class="pc-top">
+                <span class="pc-icon">🛡️</span>
+                <span class="pc-badge" id="badge-safety"></span>
+            </div>
+            <div class="pc-name">An toàn</div>
+            <div class="pc-count" id="pc-count-safety">0/0</div>
+            <div class="pc-bar"><div class="pc-fill" id="pc-fill-safety" style="background:#C9A84C"></div></div>
+        </div>
+        <div class="progress-card" onclick="selectCat('sex-ed',this)" data-cat="sex-ed">
+            <div class="pc-top">
+                <span class="pc-icon">💬</span>
+                <span class="pc-badge" id="badge-sex-ed"></span>
+            </div>
+            <div class="pc-name">Giáo dục GT</div>
+            <div class="pc-count" id="pc-count-sex-ed">0/0</div>
+            <div class="pc-bar"><div class="pc-fill" id="pc-fill-sex-ed" style="background:#E8956F"></div></div>
+        </div>
+    </div>
+</div>
+
                 <div class="ai-panel" id="ai-panel" style="display:none">
                     <div class="ai-label"><div class="ai-dot"></div> Gợi ý từ Sophia</div>
                     <div class="ai-title" id="ai-title">Đang phân tích...</div>
@@ -1226,7 +1349,64 @@ async function selectChild(child) {
     await Promise.all([loadChecklist(currentCat), loadJournal(), updateCatCounts(), loadCustomChecklist()]);
     await loadCycleData();
 }
+// Gọi hàm này sau khi load checklist xong
+function updateHeroCard() {
+  if (!selectedChildObj) return;
+  const cats = ['study','skills','safety','sex-ed'];
+  const age = calcAge(selectedChildObj.birthday);
 
+  // Tổng progress
+  const allItems = cats.flatMap(c => checklistData[c] || []);
+  const allDone = allItems.filter(i => i.done).length;
+  const allTotal = allItems.length;
+  const pct = allTotal ? Math.round(allDone / allTotal * 100) : 0;
+
+  // Vòng tròn SVG
+  const circumference = 2 * Math.PI * 32; // r=32
+  const offset = circumference - (pct / 100) * circumference;
+  const ring = document.getElementById('ring-fill');
+  if (ring) { ring.style.strokeDasharray = circumference; ring.style.strokeDashoffset = offset; }
+  const pctEl = document.getElementById('ring-pct');
+  if (pctEl) pctEl.textContent = pct + '%';
+
+  // Hero info
+  const avatarEl = document.getElementById('hero-avatar');
+  const nameEl = document.getElementById('hero-name');
+  const metaEl = document.getElementById('hero-meta');
+  const taglineEl = document.getElementById('hero-tagline');
+  if (avatarEl) avatarEl.textContent = selectedChildObj.gender === 'female' ? '👧' : '👦';
+  if (nameEl) nameEl.textContent = selectedChildObj.name;
+  if (metaEl) metaEl.textContent = `${age} tuổi · ${getZodiacSign(selectedChildObj.birthday)}`;
+  if (taglineEl) taglineEl.innerHTML = `Đã hoàn thành <strong>${allDone}/${allTotal}</strong> kỹ năng phù hợp tuổi ${age}! ${pct >= 80 ? '🎉' : pct >= 50 ? '💪' : '🌱'}`;
+
+  // Grid cards + huy hiệu
+  const badgeMap = { study:'📖', skills:'🌟', safety:'🛡️', 'sex-ed':'💬' };
+  cats.forEach(cat => {
+    const items = checklistData[cat] || [];
+    const done = items.filter(i => i.done).length;
+    const total = items.length;
+    const p = total ? Math.round(done / total * 100) : 0;
+
+    const fillEl = document.getElementById(`pc-fill-${cat}`);
+    const countEl = document.getElementById(`pc-count-${cat}`);
+    const badgeEl = document.getElementById(`badge-${cat}`);
+    if (fillEl) fillEl.style.width = p + '%';
+    if (countEl) countEl.textContent = `${done}/${total} hoàn thành`;
+    if (badgeEl) badgeEl.textContent = p === 100 ? '🏆' : p >= 60 ? '⭐' : '';
+  });
+
+  // Huy hiệu tổng
+  const badges = [];
+  if (pct >= 25) badges.push('🌱 Khởi đầu');
+  if (pct >= 50) badges.push('💪 Đang tiến bộ');
+  if (pct >= 75) badges.push('⭐ Gần hoàn thành');
+  if (pct === 100) badges.push('🏆 Hoàn hảo!');
+  const badgesEl = document.getElementById('hero-badges');
+  if (badgesEl) badgesEl.innerHTML = badges.map(b => `<span class="badge-item">${b}</span>`).join('');
+}
+
+
+    
 async function loadCustomChecklist() {
     if (!selectedChildId) return;
     try {
