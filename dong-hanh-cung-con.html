@@ -543,7 +543,21 @@
 .cat-grid {
     display: none;
 }
-    
+    /* Xếp các phần thành 2 cột ngang */
+.custom-two-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+/* Trên điện thoại thì xếp 1 cột */
+@media (max-width: 768px) {
+    .custom-two-columns {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
     </style>
 </head>
 <body>
@@ -770,6 +784,7 @@
                     </div>
                     
                     <!-- CHECKLIST TỰ TẠO -->
+                    <div class="custom-two-columns">
                     <div class="custom-checklist-section">
                         <div class="section-title">➕ Mục tiêu riêng của ba mẹ</div>
                         <div class="add-custom-form">
@@ -874,7 +889,6 @@
                             <div class="empty-state">Chưa có nhật ký nào</div>
                         </div>
                     </div>
-
                 </div>
                 
                 <div id="no-child-state" style="text-align:center;padding:48px 0;color:var(--mist)">
