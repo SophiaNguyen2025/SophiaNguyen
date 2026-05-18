@@ -1342,12 +1342,15 @@ async function selectChild(child) {
     document.querySelectorAll('.child-card').forEach(c => c.classList.toggle('selected', c.dataset.childId == child.id));
     document.getElementById('no-child-state').style.display = 'none';
     document.getElementById('child-content').style.display = 'block';
+        const dashboard = document.getElementById('progressDashboard');
+    if (dashboard) dashboard.style.display = 'block';
     document.getElementById('ai-panel').style.display = 'block';
     const sug = getAISuggestion(child);
     document.getElementById('ai-title').textContent = sug.title;
     document.getElementById('ai-text').textContent = sug.text;
     await Promise.all([loadChecklist(currentCat), loadJournal(), updateCatCounts(), loadCustomChecklist()]);
     await loadCycleData();
+     updateHeroCard(); 
 }
 // Gọi hàm này sau khi load checklist xong
 function updateHeroCard() {
@@ -1591,6 +1594,7 @@ async function toggleItem(cat, idx) {
     } else {
         await db.from('checklist_items').insert({ child_id: selectedChildId, category: cat, task_name: item.task, status, completed_at: item.done ? new Date().toISOString() : null });
     }
+ updateHeroCard();
 }
 
 async function updateCatCounts() {
