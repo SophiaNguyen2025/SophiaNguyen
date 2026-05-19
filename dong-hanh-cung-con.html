@@ -947,7 +947,264 @@
         height: 200px !important;
     }
 }
-      
+      /* RESPONSIVE FIXES - MOBILE */
+@media (max-width: 768px) {
+    /* Đảm bảo container chính co lại */
+    .container {
+        padding: 0 16px !important;
+    }
+    
+    /* Dashboard body responsive */
+    .dash-body {
+        padding: 16px !important;
+    }
+    
+    /* Hero card responsive */
+    .hero-card {
+        flex-direction: column !important;
+        text-align: center !important;
+        padding: 20px !important;
+    }
+    
+    .hero-left {
+        text-align: center !important;
+    }
+    
+    .hero-child-info {
+        justify-content: center !important;
+    }
+    
+    .hero-badges {
+        justify-content: center !important;
+    }
+    
+    .hero-right {
+        margin-top: 10px !important;
+    }
+    
+    /* Progress grid - chuyển thành 2 cột nhưng thu nhỏ */
+    .progress-grid {
+        gap: 10px !important;
+    }
+    
+    .progress-card {
+        padding: 12px !important;
+    }
+    
+    .pc-icon {
+        font-size: 20px !important;
+    }
+    
+    .pc-name {
+        font-size: 11px !important;
+    }
+    
+    .pc-count {
+        font-size: 10px !important;
+    }
+    
+    /* Children row - scroll ngang vẫn tốt nhưng card nhỏ lại */
+    .children-row {
+        gap: 10px !important;
+    }
+    
+    .child-card {
+        width: 130px !important;
+        padding: 14px !important;
+    }
+    
+    .add-child-card {
+        width: 110px !important;
+        padding: 14px !important;
+    }
+    
+    .child-name {
+        font-size: 13px !important;
+    }
+    
+    .child-age {
+        font-size: 10px !important;
+    }
+    
+    /* Checklist panel */
+    .checklist-panel {
+        padding: 16px !important;
+    }
+    
+    .check-item {
+        flex-wrap: wrap !important;
+    }
+    
+    .check-content {
+        flex: 1 1 100% !important;
+        margin-top: 8px !important;
+        margin-left: 34px !important;
+    }
+    
+    .check-status-btn {
+        margin-left: 34px !important;
+        margin-top: 8px !important;
+    }
+    
+    /* AI panel */
+    .ai-panel {
+        padding: 18px !important;
+    }
+    
+    .ai-title {
+        font-size: 15px !important;
+    }
+    
+    .ai-text {
+        font-size: 13px !important;
+    }
+    
+    /* Journal panel */
+    .journal-panel {
+        padding: 16px !important;
+    }
+    
+    .mood-row {
+        gap: 6px !important;
+    }
+    
+    .mood-btn {
+        padding: 4px 10px !important;
+        font-size: 12px !important;
+    }
+    
+    /* Custom checklist section */
+    .custom-checklist-section {
+        padding: 16px !important;
+    }
+    
+    .add-custom-form {
+        padding: 12px !important;
+    }
+    
+    .custom-item {
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+    }
+    
+    .custom-item-left {
+        flex: 1 !important;
+    }
+    
+    /* Parent journal section */
+    .parent-journal-section {
+        padding: 16px !important;
+    }
+    
+    .parent-mood-row {
+        gap: 6px !important;
+    }
+    
+    .parent-mood-btn {
+        padding: 4px 10px !important;
+        font-size: 12px !important;
+    }
+    
+    /* Cycle calendar */
+    #girlCycleCalendar {
+        padding: 16px !important;
+    }
+    
+    .cycle-stats {
+        flex-direction: column !important;
+        gap: 8px !important;
+    }
+    
+    /* Auth card */
+    .auth-card {
+        padding: 28px 20px !important;
+        margin: 0 16px !important;
+    }
+    
+    /* Landing screen */
+    #screen-landing {
+        margin: 20px 0 !important;
+        padding: 40px 20px !important;
+    }
+    
+    .landing-actions {
+        flex-direction: column !important;
+        gap: 12px !important;
+    }
+    
+    .landing-actions button {
+        width: 100% !important;
+    }
+    
+    /* Topbar */
+    .topbar {
+        padding: 0 16px !important;
+    }
+    
+    .topbar-logo {
+        font-size: 16px !important;
+    }
+    
+    .logout-btn {
+        font-size: 11px !important;
+        padding: 4px 8px !important;
+    }
+    
+    /* Modal */
+    .modal-box {
+        margin: 0 16px !important;
+        padding: 24px !important;
+    }
+    
+    /* Two columns grid - đã có sẵn nhưng đảm bảo */
+    .two-columns-grid {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+    }
+}
+
+/* Fix cho màn hình rất nhỏ (dưới 480px) */
+@media (max-width: 480px) {
+    .progress-grid {
+        grid-template-columns: 1fr 1fr !important;
+    }
+    
+    .progress-card {
+        padding: 10px !important;
+    }
+    
+    .child-card {
+        width: 115px !important;
+        padding: 10px !important;
+    }
+    
+    .add-child-card {
+        width: 95px !important;
+        padding: 10px !important;
+    }
+    
+    .hero-name {
+        font-size: 18px !important;
+    }
+    
+    .hero-tagline {
+        font-size: 11px !important;
+    }
+    
+    .ring-pct {
+        font-size: 14px !important;
+    }
+    
+    .hero-right {
+        width: 70px !important;
+        height: 70px !important;
+    }
+    
+    .progress-ring {
+        width: 70px !important;
+        height: 70px !important;
+    }
+}
     </style>
 </head>
 <body>
