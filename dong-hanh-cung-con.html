@@ -816,29 +816,25 @@
                 gap: 20px;
             }
         }
-      /* ===== FIX HEADER + FOOTER MOBILE ===== */
+      /* ===== RESPONSIVE CHO TOÀN BỘ TRANG (ĐÃ GOM GỌN) ===== */
 @media (max-width: 768px) {
-    /* Header responsive */
+    /* ---- HEADER ---- */
     .header-container {
         flex-wrap: wrap !important;
         padding: 12px 16px !important;
     }
-    
     .logo img {
         height: 45px !important;
         width: auto !important;
     }
-    
     .menu-toggle {
         display: block !important;
         font-size: 26px !important;
         color: #4a5568 !important;
     }
-    
     .navbar {
         width: 100% !important;
     }
-    
     .navbar ul {
         display: none !important;
         flex-direction: column !important;
@@ -847,23 +843,20 @@
         padding-bottom: 8px !important;
         text-align: center !important;
     }
-    
     .navbar.show-menu ul {
         display: flex !important;
     }
-    
     .navbar ul li a {
         display: inline-block !important;
         padding: 8px 0 !important;
         font-size: 15px !important;
     }
     
-    /* Banner responsive */
+    /* ---- BANNER ---- */
     .banner {
         margin-top: 12px !important;
         padding: 0 12px !important;
     }
-    
     .banner-img {
         width: 100% !important;
         height: auto !important;
@@ -871,208 +864,148 @@
         object-fit: cover !important;
         border-radius: 20px !important;
     }
-}
-
-/* ===== FOOTER RESPONSIVE CHUẨN ===== */
-@media (max-width: 768px) {
+    
+    /* ---- FOOTER ---- */
     .footer {
         margin-top: 40px !important;
         padding: 40px 0 20px !important;
     }
-    
     .footer-container {
         grid-template-columns: 1fr !important;
         gap: 32px !important;
         text-align: center !important;
         padding: 0 20px !important;
     }
-    
     .footer-logo img {
         width: 100px !important;
         margin: 0 auto 16px auto !important;
         display: block !important;
     }
-    
     .footer-logo p {
         text-align: center !important;
         font-size: 13px !important;
     }
-    
-    .footer-links h4,
-    .footer-map h4,
-    .footer-contact h4 {
+    .footer-links h4, .footer-map h4, .footer-contact h4 {
         text-align: center !important;
         font-size: 18px !important;
         margin-bottom: 16px !important;
     }
-    
     .footer-links ul {
         text-align: center !important;
     }
-    
-    .footer-links ul li {
-        margin-bottom: 10px !important;
-    }
-    
     .footer-links ul li a {
         font-size: 14px !important;
     }
-    
     .map-wrapper {
         max-width: 300px !important;
         margin: 0 auto !important;
     }
-    
     .map-wrapper iframe {
         height: 180px !important;
     }
-    
     .footer-map p {
         text-align: center !important;
         margin-top: 10px !important;
     }
-    
     .footer-contact p {
         text-align: center !important;
         justify-content: center !important;
         font-size: 13px !important;
     }
-    
     .social-icons {
         justify-content: center !important;
     }
-    
     .social-icons img {
         width: 36px !important;
         height: 36px !important;
     }
-    
     .footer-bottom {
         padding-top: 24px !important;
         margin-top: 24px !important;
         font-size: 11px !important;
     }
-}
-
-/* Fix cho màn hình cực nhỏ (dưới 480px) */
-@media (max-width: 480px) {
-    .banner-img {
-        max-height: 120px !important;
-        border-radius: 16px !important;
-    }
     
-    .footer-container {
-        padding: 0 16px !important;
-        gap: 28px !important;
+    /* ---- DASHBOARD & NỘI DUNG CHÍNH (CHỐNG TRÀN MÀN HÌNH) ---- */
+    .container, .app-wrapper {
+        overflow-x: hidden !important;
     }
-    
-    .footer-logo img {
-        width: 85px !important;
-    }
-    
-    .footer-links h4,
-    .footer-map h4,
-    .footer-contact h4 {
-        font-size: 16px !important;
-    }
-    
-    .footer-contact p {
-        font-size: 12px !important;
-    }
-    
-    .social-icons img {
-        width: 32px !important;
-        height: 32px !important;
-    }
-}
-    
-    /* Dashboard body responsive */
     .dash-body {
         padding: 16px !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
     }
     
-    /* Hero card responsive */
+    /* Hero card */
     .hero-card {
         flex-direction: column !important;
         text-align: center !important;
         padding: 20px !important;
     }
-    
     .hero-left {
         text-align: center !important;
     }
-    
     .hero-child-info {
         justify-content: center !important;
     }
-    
     .hero-badges {
         justify-content: center !important;
     }
-    
     .hero-right {
         margin-top: 10px !important;
     }
     
-    /* Progress grid - chuyển thành 2 cột nhưng thu nhỏ */
+    /* Progress grid */
     .progress-grid {
         gap: 10px !important;
     }
-    
     .progress-card {
         padding: 12px !important;
     }
-    
     .pc-icon {
         font-size: 20px !important;
     }
-    
     .pc-name {
         font-size: 11px !important;
     }
-    
     .pc-count {
         font-size: 10px !important;
     }
     
-    /* Children row - scroll ngang vẫn tốt nhưng card nhỏ lại */
+    /* Children row - scroll ngang nhưng không tràn */
     .children-row {
         gap: 10px !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
     }
-    
     .child-card {
         width: 130px !important;
+        flex-shrink: 0 !important;
         padding: 14px !important;
     }
-    
     .add-child-card {
         width: 110px !important;
+        flex-shrink: 0 !important;
         padding: 14px !important;
     }
-    
     .child-name {
         font-size: 13px !important;
     }
-    
     .child-age {
         font-size: 10px !important;
     }
     
-    /* Checklist panel */
+    /* Checklist */
     .checklist-panel {
         padding: 16px !important;
     }
-    
     .check-item {
         flex-wrap: wrap !important;
     }
-    
     .check-content {
         flex: 1 1 100% !important;
-        margin-top: 8px !important;
         margin-left: 34px !important;
+        margin-top: 8px !important;
     }
-    
     .check-status-btn {
         margin-left: 34px !important;
         margin-top: 8px !important;
@@ -1082,56 +1015,39 @@
     .ai-panel {
         padding: 18px !important;
     }
-    
     .ai-title {
         font-size: 15px !important;
     }
-    
     .ai-text {
         font-size: 13px !important;
     }
     
-    /* Journal panel */
+    /* Journal */
     .journal-panel {
         padding: 16px !important;
     }
-    
     .mood-row {
         gap: 6px !important;
     }
-    
     .mood-btn {
         padding: 4px 10px !important;
         font-size: 12px !important;
     }
     
-    /* Custom checklist section */
-    .custom-checklist-section {
+    /* Custom checklist + Parent journal */
+    .custom-checklist-section, .parent-journal-section {
         padding: 16px !important;
     }
-    
     .add-custom-form {
         padding: 12px !important;
     }
-    
     .custom-item {
         flex-wrap: wrap !important;
         gap: 8px !important;
     }
-    
-    .custom-item-left {
-        flex: 1 !important;
-    }
-    
-    /* Parent journal section */
-    .parent-journal-section {
-        padding: 16px !important;
-    }
-    
     .parent-mood-row {
         gap: 6px !important;
     }
-    
     .parent-mood-btn {
         padding: 4px 10px !important;
         font-size: 12px !important;
@@ -1142,99 +1058,89 @@
         padding: 16px !important;
     }
     
-    .cycle-stats {
-        flex-direction: column !important;
-        gap: 8px !important;
-    }
-    
-    /* Auth card */
+    /* Auth & Landing */
     .auth-card {
         padding: 28px 20px !important;
         margin: 0 16px !important;
     }
-    
-    /* Landing screen */
     #screen-landing {
         margin: 20px 0 !important;
         padding: 40px 20px !important;
     }
-    
     .landing-actions {
         flex-direction: column !important;
         gap: 12px !important;
     }
-    
     .landing-actions button {
         width: 100% !important;
     }
     
-    /* Topbar */
+    /* Topbar & Modal */
     .topbar {
         padding: 0 16px !important;
     }
-    
     .topbar-logo {
         font-size: 16px !important;
     }
-    
     .logout-btn {
         font-size: 11px !important;
         padding: 4px 8px !important;
     }
-    
-    /* Modal */
     .modal-box {
         margin: 0 16px !important;
         padding: 24px !important;
     }
     
-    /* Two columns grid - đã có sẵn nhưng đảm bảo */
+    /* 2 cột -> 1 cột */
     .two-columns-grid {
         grid-template-columns: 1fr !important;
         gap: 20px !important;
     }
 }
 
-/* Fix cho màn hình rất nhỏ (dưới 480px) */
+/* Màn hình cực nhỏ (dưới 480px) */
 @media (max-width: 480px) {
+    .banner-img {
+        max-height: 120px !important;
+        border-radius: 16px !important;
+    }
     .progress-grid {
         grid-template-columns: 1fr 1fr !important;
     }
-    
     .progress-card {
         padding: 10px !important;
     }
-    
     .child-card {
         width: 115px !important;
         padding: 10px !important;
     }
-    
     .add-child-card {
         width: 95px !important;
         padding: 10px !important;
     }
-    
     .hero-name {
         font-size: 18px !important;
     }
-    
     .hero-tagline {
         font-size: 11px !important;
     }
-    
     .ring-pct {
         font-size: 14px !important;
     }
-    
     .hero-right {
         width: 70px !important;
         height: 70px !important;
     }
-    
     .progress-ring {
         width: 70px !important;
         height: 70px !important;
+    }
+    .footer-container {
+        padding: 0 16px !important;
+        gap: 28px !important;
+    }
+    .footer-logo img {
+        width: 85px !important;
     }
 }
     </style>
