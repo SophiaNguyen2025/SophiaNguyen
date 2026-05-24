@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bốc Thăm Dây Chuyền — Lớp 6</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #6C3CE1;
+    --primary-light: #9B6FF7;
+    --primary-dark: #4A22B8;
+    --accent: #FF6B6B;
+    --accent2: #FFD166;
+    --accent3: #06D6A0;
+    --bg: #F0EEFF;
+    --bg2: #E8E0FF;
+    --card-bg: #FFFFFF;
+    --text: #1A1040;
+    --text-muted: #7B6EA8;
+    --shadow: 0 8px 32px rgba(108,60,225,0.13);
+    --shadow-card: 0 16px 48px rgba(108,60,225,0.18);
+    --radius: 24px;
+    --radius-sm: 14px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 0 60px;
+    overflow-x: hidden;
+  }
+
+  /* ===== HEADER ===== */
+  .header {
+    width: 100%;
+    background: linear-gradient(135deg, #6C3CE1 0%, #9B6FF7 60%, #FF6B6B 100%);
+    padding: 36px 20px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='40' cy='40' r='30' fill='none' stroke='rgba(255,255,255,0.07)' stroke-width='2'/%3E%3Ccircle cx='40' cy='40' r='15' fill='none' stroke='rgba(255,255,255,0.05)' stroke-width='2'/%3E%3C/svg%3E") repeat;
+    background-size: 80px 80px;
+  }
+  .header-icon {
+    font-size: 52px; margin-bottom: 10px;
+    display: block; position: relative;
+    animation: float 3s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)}
+  }
+  .header h1 {
+    font-family: 'Baloo 2', cursive;
+    font-size: clamp(26px, 5vw, 40px);
+    font-weight: 800;
+    color: #fff;
+    position: relative;
+    letter-spacing: -0.5px;
+    line-height: 1.15;
+    margin-bottom: 8px;
+  }
+  .header p {
+    color: rgba(255,255,255,0.82);
+    font-size: 15px;
+    font-weight: 500;
+    position: relative;
+  }
+  .dots {
+    position: absolute;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+  }
+  .dots-1 { top: -30px; left: -20px; }
+  .dots-2 { bottom: -40px; right: -20px; width: 160px; height: 160px; }
+
+  /* ===== STATS BAR ===== */
+  .stats-bar {
+    display: flex;
+    gap: 12px;
+    margin-top: -24px;
+    margin-bottom: 24px;
+    z-index: 10;
+    position: relative;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0 20px;
+    width: 100%;
+    max-width: 680px;
+  }
+  .stat-chip {
+    background: #fff;
+    border-radius: 50px;
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--primary);
+    box-shadow: 0 4px 16px rgba(108,60,225,0.14);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .stat-chip .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+  }
+
+  /* ===== MAIN CONTAINER ===== */
+  .container {
+    width: 100%;
+    max-width: 640px;
+    padding: 0 20px;
+  }
+
+  /* ===== TICKET CARD ===== */
+  .ticket-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-card);
+    padding: 32px 28px 28px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .ticket-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--primary), var(--accent2), var(--accent), var(--accent3));
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
+  .ticket-card.animate-in {
+    animation: slideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes slideIn {
+    from { opacity:0; transform: translateY(20px) scale(0.96); }
+    to   { opacity:1; transform: translateY(0) scale(1); }
+  }
+
+  /* Ticket number badge */
+  .ticket-num {
+    position: absolute;
+    top: 18px; right: 20px;
+    background: var(--bg2);
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 50px;
+    letter-spacing: 0.5px;
+  }
+
+  /* Stars decoration */
+  .deco-stars {
+    position: absolute;
+    top: 14px; left: 20px;
+    display: flex; gap: 4px;
+  }
+  .deco-stars span {
+    font-size: 14px;
+    animation: twinkle 1.4s ease-in-out infinite;
+  }
+  .deco-stars span:nth-child(2) { animation-delay: 0.3s; }
+  .deco-stars span:nth-child(3) { animation-delay: 0.6s; }
+  @keyframes twinkle {
+    0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)}
+  }
+
+  /* Caller section */
+  .caller-section {
+    text-align: center;
+    margin-bottom: 16px;
+    width: 100%;
+  }
+  .caller-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .caller-name {
+    font-family: 'Baloo 2', cursive;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--primary);
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Divider */
+  .divider {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 12px 0;
+  }
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    background: var(--bg2);
+  }
+  .divider-icon { font-size: 18px; }
+
+  /* Task section */
+  .task-section {
+    text-align: center;
+    width: 100%;
+  }
+  .task-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+  .task-bubble {
+    background: linear-gradient(135deg, #F5F0FF 0%, #FFF5F5 100%);
+    border-radius: 18px;
+    padding: 18px 20px;
+    border: 1.5px solid #EDE5FF;
+  }
+  .task-text {
+    font-family: 'Baloo 2', cursive;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.55;
+  }
+  .task-text .target {
+    color: var(--accent);
+    background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 120%;
+  }
+
+  /* Next info */
+  .next-info {
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .next-info .next-name {
+    color: var(--accent3);
+    font-weight: 800;
+    font-size: 14px;
+  }
+
+  /* ===== WELCOME STATE ===== */
+  .welcome-state {
+    text-align: center;
+    padding: 12px 0;
+  }
+  .welcome-emoji { font-size: 56px; margin-bottom: 12px; display: block; }
+  .welcome-title {
+    font-family: 'Baloo 2', cursive;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .welcome-sub { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+  /* ===== DONE STATE ===== */
+  .done-state { text-align: center; padding: 12px 0; }
+  .confetti-emoji { font-size: 56px; margin-bottom: 12px; display: block; animation: pop 0.5s cubic-bezier(0.34,1.56,0.64,1); }
+  @keyframes pop { from{transform:scale(0)} to{transform:scale(1)} }
+  .done-title {
+    font-family: 'Baloo 2', cursive;
+    font-size: 24px;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+  }
+  .done-sub { font-size: 15px; color: var(--text-muted); line-height: 1.6; }
+
+  /* ===== PROGRESS BAR ===== */
+  .progress-wrap {
+    margin-bottom: 20px;
+  }
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .progress-bar-bg {
+    width: 100%;
+    height: 8px;
+    background: var(--bg2);
+    border-radius: 50px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--primary-light), var(--accent));
+    border-radius: 50px;
+    transition: width 0.5s cubic-bezier(0.34,1.56,0.64,1);
+  }
+
+  /* ===== BUTTONS ===== */
+  .btn-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    flex: 1;
+    min-width: 140px;
+    padding: 14px 20px;
+    border-radius: var(--radius-sm);
+    font-family: 'Baloo 2', cursive;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    letter-spacing: 0.2px;
+  }
+  .btn:active { transform: scale(0.97); }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: #fff;
+    box-shadow: 0 6px 24px rgba(108,60,225,0.35);
+  }
+  .btn-primary:hover {
+    box-shadow: 0 8px 32px rgba(108,60,225,0.45);
+    transform: translateY(-1px);
+  }
+
+  .btn-accent {
+    background: linear-gradient(135deg, var(--accent), #FF8E53);
+    color: #fff;
+    box-shadow: 0 6px 24px rgba(255,107,107,0.35);
+  }
+  .btn-accent:hover {
+    box-shadow: 0 8px 32px rgba(255,107,107,0.45);
+    transform: translateY(-1px);
+  }
+
+  .btn-ghost {
+    background: #fff;
+    color: var(--primary);
+    border-color: var(--bg2);
+    box-shadow: 0 3px 12px rgba(108,60,225,0.1);
+  }
+  .btn-ghost:hover {
+    background: var(--bg);
+    border-color: var(--primary-light);
+  }
+
+  /* ===== STUDENT LIST ===== */
+  .list-toggle {
+    text-align: center;
+    margin-top: 28px;
+  }
+  .list-toggle-btn {
+    background: none;
+    border: none;
+    font-family: 'Nunito', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--primary-light);
+    cursor: pointer;
+    padding: 6px 12px;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .student-list {
+    display: none;
+    margin-top: 16px;
+    background: #fff;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 20px;
+  }
+  .student-list.open { display: block; }
+  .list-title {
+    font-family: 'Baloo 2', cursive;
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .student-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 8px;
+  }
+  .student-chip {
+    background: var(--bg);
+    border-radius: 50px;
+    padding: 5px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background 0.2s;
+  }
+  .student-chip.done-chip {
+    background: #E6FAF5;
+    color: var(--accent3);
+    text-decoration: line-through;
+    opacity: 0.7;
+  }
+  .chip-num {
+    font-size: 10px;
+    color: var(--text-muted);
+    min-width: 16px;
+    font-weight: 700;
+  }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 600;
+    opacity: 0.6;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 480px) {
+    .header { padding: 28px 16px 50px; }
+    .ticket-card { padding: 28px 18px 22px; }
+    .task-text { font-size: 16px; }
+    .caller-name { font-size: 20px; }
+    .btn { font-size: 15px; padding: 13px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="dots dots-1"></div>
+  <div class="dots dots-2"></div>
+  <span class="header-icon">🎟️</span>
+  <h1>Bốc Thăm Dây Chuyền</h1>
+  <p>Lớp 6 · 45 học sinh · Trò chơi tập thể vui nhộn</p>
+</div>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-chip">
+    <span class="dot" style="background:#6C3CE1"></span>
+    45 học sinh
+  </div>
+  <div class="stat-chip">
+    <span class="dot" style="background:#FF6B6B"></span>
+    45 phiếu nhiệm vụ
+  </div>
+  <div class="stat-chip" id="statChip" style="display:none">
+    <span class="dot" style="background:#06D6A0"></span>
+    <span id="statText">Chưa bắt đầu</span>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="container">
+
+  <!-- PROGRESS (hidden initially) -->
+  <div class="progress-wrap" id="progressWrap" style="display:none">
+    <div class="progress-label">
+      <span>Tiến trình</span>
+      <span id="progressLabel">0 / 45</span>
+    </div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
+    </div>
+  </div>
+
+  <!-- TICKET CARD -->
+  <div class="ticket-card" id="ticketCard">
+    <!-- WELCOME STATE -->
+    <div class="welcome-state" id="welcomeState">
+      <span class="welcome-emoji">🎲</span>
+      <div class="welcome-title">Sẵn sàng chưa nào?</div>
+      <div class="welcome-sub">
+        Mỗi bạn bốc 1 phiếu → hoàn thành nhiệm vụ vui<br>
+        → gọi bạn tiếp theo lên bốc thăm!
+      </div>
+    </div>
+  </div>
+
+  <!-- BUTTONS -->
+  <div class="btn-row" id="btnRow">
+    <button class="btn btn-primary" id="btnStart" onclick="startGame()">
+      🎉 Bắt đầu trò chơi
+    </button>
+  </div>
+
+  <!-- STUDENT LIST TOGGLE -->
+  <div class="list-toggle">
+    <button class="list-toggle-btn" onclick="toggleList()">
+      📋 Xem danh sách 45 học sinh
+    </button>
+  </div>
+  <div class="student-list" id="studentList">
+    <div class="list-title">📋 Danh sách lớp</div>
+    <div class="student-grid" id="studentGrid"></div>
+  </div>
+
+  <div class="footer">Made with ❤️ cho lớp 6 — Chúc cả lớp vui vẻ!</div>
+</div>
+
+<script>
+const STUDENTS = [
+  "Triều An","Nam Anh","Lan Anh","Việt Bách","Gia Bảo",
+  "Bảo Châu","Linh Chi","Thành Danh","Ngọc Diệp","Tiến Đạt",
+  "Trung Đông","Gia Hân","Quang Hòa","Khánh Hoàng","Bá Huy",
+  "Gia Huy","Mai Hương","Minh Khang","Đăng Khoa","Minh Khôi",
+  "Phương Linh","Gia Long","Khải Minh","Hà My","Kim Ngân",
+  "Viết Nghĩa","Bảo Ngọc","Thảo Nguyên","Ý Nhi","Phương Như",
+  "Ngọc Phát","Hà Phương","Gia Phúc","Anh Quân","Trúc Quân",
+  "Yến Quỳnh","Tấn Thành","Phương Thảo","Đức Thịnh","Thế Tiến",
+  "Khánh Trâm","Nhật Trung","Phương Uyên","Nhật Vy","Hải Yến"
+];
+
+const TASKS = [
+  t => `Yêu cầu <span class="target">${t}</span> hát 1 câu bài hát yêu thích!`,
+  t => `Hỏi <span class="target">${t}</span> 2 điều ước và bạn ấy phải trả lời thật nhé!`,
+  t => `Yêu cầu <span class="target">${t}</span> nhảy 10 cái tại chỗ thật nhanh!`,
+  t => `<span class="target">${t}</span> hãy kể 1 điều bí mật nhỏ vui về bản thân!`,
+  t => `<span class="target">${t}</span> phải đọc 1 câu thơ hoặc ca dao bất kỳ!`,
+  t => `Yêu cầu <span class="target">${t}</span> làm mặt hài hước nhất có thể trong 5 giây!`,
+  t => `Hỏi <span class="target">${t}</span> môn học yêu thích và lý do tại sao!`,
+  t => `<span class="target">${t}</span> phải nói tên 5 loài động vật trong 5 giây!`,
+  t => `Yêu cầu <span class="target">${t}</span> miêu tả bạn thân nhất mà không nói tên!`,
+  t => `<span class="target">${t}</span> phải vẽ con vật yêu thích lên không khí bằng ngón tay!`,
+  t => `Yêu cầu <span class="target">${t}</span> thể hiện 1 điệu nhảy sáng tác trong 10 giây!`,
+  t => `<span class="target">${t}</span> phải kể tên 3 bạn ngồi gần nhất trong lớp!`,
+  t => `Yêu cầu <span class="target">${t}</span> hát "Chúc mừng sinh nhật" bằng giọng siêu trầm!`,
+  t => `<span class="target">${t}</span> phải đoán 1 bạn trong lớp qua gợi ý của cả lớp!`,
+  t => `Yêu cầu <span class="target">${t}</span> nói nhanh "Lớp mình vui vẻ, học giỏi, chăm ngoan" 3 lần!`,
+  t => `<span class="target">${t}</span> phải khen 1 bạn trong lớp bằng 1 câu thật đặc biệt!`,
+  t => `Yêu cầu <span class="target">${t}</span> diễn tả cảm xúc "siêu vui" mà không dùng lời!`,
+  t => `<span class="target">${t}</span> phải hô to khẩu hiệu tự chế của lớp thật to!`,
+  t => `Yêu cầu <span class="target">${t}</span> giả giọng nhân vật hoạt hình yêu thích!`,
+  t => `<span class="target">${t}</span> phải nói tên 3 môn học bằng tiếng Anh!`,
+  t => `Yêu cầu <span class="target">${t}</span> đứng co 1 chân trong 10 giây!`,
+  t => `<span class="target">${t}</span> phải nghĩ ra biệt danh siêu hài cho chính mình!`,
+  t => `Yêu cầu <span class="target">${t}</span> kể 1 trò chơi mình thích hồi nhỏ!`,
+  t => `<span class="target">${t}</span> phải mô tả thầy/cô yêu thích mà không nêu tên!`,
+  t => `Yêu cầu <span class="target">${t}</span> làm động tác như đang đánh trống thật sung!`,
+  t => `<span class="target">${t}</span> phải đếm ngược từ 20 đến 1 nhanh nhất có thể!`,
+  t => `Yêu cầu <span class="target">${t}</span> nói 1 câu chúc Tết thật vui và sáng tạo!`,
+  t => `<span class="target">${t}</span> ra dấu tay biểu diễn bài hát, cả lớp đoán tên bài!`,
+  t => `Yêu cầu <span class="target">${t}</span> bắt chước tiếng kêu của 3 loài động vật!`,
+  t => `<span class="target">${t}</span> phải nói điều mình thích nhất ở trường!`,
+  t => `Yêu cầu <span class="target">${t}</span> biểu diễn cảnh "đang ăn siêu ngon"!`,
+  t => `<span class="target">${t}</span> phải kể tên 5 loài cá trong 5 giây!`,
+  t => `Yêu cầu <span class="target">${t}</span> vỗ tay theo 1 nhịp điệu tự sáng tác!`,
+  t => `<span class="target">${t}</span> phải miêu tả 1 ngày lý tưởng của mình!`,
+  t => `Yêu cầu <span class="target">${t}</span> làm mặt giận rồi mặt siêu vui liên tiếp 3 lần!`,
+  t => `<span class="target">${t}</span> phải nói câu "Em yêu lớp mình" bằng 3 ngôn ngữ khác nhau!`,
+  t => `Yêu cầu <span class="target">${t}</span> giả làm cô giáo dạy cả lớp trong 20 giây!`,
+  t => `<span class="target">${t}</span> phải kể 1 câu chuyện buồn cười xảy ra trong năm học!`,
+  t => `Yêu cầu <span class="target">${t}</span> nhảy theo điệu nhạc tưởng tượng trong 10 giây!`,
+  t => `<span class="target">${t}</span> trả lời: "Nếu được ước 1 điều cho lớp, bạn ước gì?"`,
+  t => `Yêu cầu <span class="target">${t}</span> hát theo phong cách opera 1 câu bất kỳ!`,
+  t => `<span class="target">${t}</span> phải kể tên 5 đồ vật trong phòng học!`,
+  t => `Yêu cầu <span class="target">${t}</span> hô to "Cả lớp ơi, tôi yêu các bạn!" thật to!`,
+  t => `<span class="target">${t}</span> phải bắt chước điệu bộ 1 bạn trong lớp (cả lớp đoán ai)!`,
+  t => `Yêu cầu <span class="target">${t}</span> vẽ mặt cười khổng lồ lên không khí rồi "tặng" cả lớp!`,
+];
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+let chain = [], tasks = [], idx = 0, started = false;
+let listOpen = false;
+
+function buildChain() {
+  chain = shuffle(STUDENTS);
+  let t = shuffle([...TASKS]);
+  while (t.length < chain.length) t = [...t, ...shuffle([...TASKS])];
+  tasks = t.slice(0, chain.length);
+}
+
+function startGame() {
+  buildChain();
+  idx = 0;
+  started = true;
+  document.getElementById('btnRow').innerHTML = `
+    <button class="btn btn-accent" id="btnNext" onclick="nextTicket()">Phiếu tiếp theo ▶</button>
+    <button class="btn btn-ghost" id="btnReset" onclick="resetGame()">🔄 Chơi lại</button>
+  `;
+  document.getElementById('progressWrap').style.display = 'block';
+  document.getElementById('statChip').style.display = 'flex';
+  showTicket();
+  renderStudentGrid();
+}
+
+function showTicket() {
+  const target = chain[(idx + 1) % chain.length];
+  const taskFn = tasks[idx];
+  const card = document.getElementById('ticketCard');
+  const pct = Math.round(((idx + 1) / chain.length) * 100);
+
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = `${idx + 1} / ${chain.length}`;
+  document.getElementById('statText').textContent = `Phiếu ${idx + 1}/${chain.length}`;
+
+  let callerHTML = '';
+  if (idx === 0) {
+    callerHTML = `<div class="caller-label">Bạn đầu tiên lên bốc thăm</div>`;
+  } else {
+    callerHTML = `
+      <div class="caller-label">Bạn bốc thăm</div>
+      <div class="caller-name">${chain[idx]}</div>
+    `;
+  }
+
+  const isLast = idx === chain.length - 1;
+  const nextInfo = isLast
+    ? `<span>🎊 Đây là phiếu cuối cùng!</span>`
+    : `Sau đó <span class="next-name">${chain[idx + 1]}</span> lên bốc phiếu tiếp theo!`;
+
+  card.innerHTML = `
+    <div class="deco-stars"><span>✨</span><span>⭐</span><span>✨</span></div>
+    <div class="ticket-num">Phiếu #${idx + 1}</div>
+    <div class="caller-section">${callerHTML}</div>
+    <div class="divider">
+      <div class="divider-line"></div>
+      <span class="divider-icon">🎟️</span>
+      <div class="divider-line"></div>
+    </div>
+    <div class="task-section">
+      <div class="task-label">Nhiệm vụ</div>
+      <div class="task-bubble">
+        <div class="task-text">${taskFn(target)}</div>
+      </div>
+    </div>
+    <div class="next-info">${nextInfo}</div>
+  `;
+  card.classList.remove('animate-in');
+  void card.offsetWidth;
+  card.classList.add('animate-in');
+
+  const btnNext = document.getElementById('btnNext');
+  if (btnNext) btnNext.textContent = isLast ? '🎉 Kết thúc' : 'Phiếu tiếp theo ▶';
+
+  renderStudentGrid();
+}
+
+function nextTicket() {
+  idx++;
+  if (idx >= chain.length) { showDone(); return; }
+  showTicket();
+}
+
+function showDone() {
+  const card = document.getElementById('ticketCard');
+  card.innerHTML = `
+    <div class="done-state">
+      <span class="confetti-emoji">🎊</span>
+      <div class="done-title">Cả lớp đã chơi xong!</div>
+      <div class="done-sub">45 bạn đều hoàn thành nhiệm vụ rồi!<br>Lớp mình thật tuyệt vời! ❤️</div>
+    </div>
+  `;
+  card.classList.remove('animate-in');
+  void card.offsetWidth;
+  card.classList.add('animate-in');
+  document.getElementById('progressFill').style.width = '100%';
+  document.getElementById('progressLabel').textContent = '45 / 45 ✓';
+  document.getElementById('statText').textContent = 'Hoàn thành! 🎉';
+  document.getElementById('btnRow').innerHTML = `
+    <button class="btn btn-primary" onclick="resetGame()">🔄 Chơi lại từ đầu</button>
+  `;
+  renderStudentGrid(true);
+}
+
+function resetGame() {
+  idx = 0; started = false;
+  document.getElementById('ticketCard').innerHTML = `
+    <div class="welcome-state">
+      <span class="welcome-emoji">🎲</span>
+      <div class="welcome-title">Sẵn sàng chưa nào?</div>
+      <div class="welcome-sub">
+        Mỗi bạn bốc 1 phiếu → hoàn thành nhiệm vụ vui<br>
+        → gọi bạn tiếp theo lên bốc thăm!
+      </div>
+    </div>
+  `;
+  document.getElementById('btnRow').innerHTML = `
+    <button class="btn btn-primary" id="btnStart" onclick="startGame()">🎉 Bắt đầu trò chơi</button>
+  `;
+  document.getElementById('progressWrap').style.display = 'none';
+  document.getElementById('statChip').style.display = 'none';
+  renderStudentGrid();
+}
+
+function toggleList() {
+  listOpen = !listOpen;
+  document.getElementById('studentList').classList.toggle('open', listOpen);
+  renderStudentGrid();
+}
+
+function renderStudentGrid(allDone = false) {
+  const grid = document.getElementById('studentGrid');
+  if (!grid) return;
+  grid.innerHTML = STUDENTS.map((s, i) => {
+    const done = started && (allDone || i < idx + 1);
+    return `
+      <div class="student-chip ${done ? 'done-chip' : ''}">
+        <span class="chip-num">${i + 1}</span>
+        ${done ? '✓' : ''}${s}
+      </div>
+    `;
+  }).join('');
+}
+
+renderStudentGrid();
+</script>
+</body>
+</html>
