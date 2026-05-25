@@ -221,7 +221,7 @@ let timerInterval = null, timeLeft = 20, revealed = false;
 
 // Xáo trộn đáp án cho một câu hỏi
 function shuffleOptions(question) {
-  const allAswers = [question.correct, ...question.wrong];
+  const allAnswers = [question.correct, ...question.wrong];
   for (let i = allAnswers.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [allAnswers[i], allAnswers[j]] = [allAnswers[j], allAnswers[i]];
