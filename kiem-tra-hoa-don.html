@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Kiểm Tra Hóa Đơn Thiếu Đơn Giá</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #F5F3EE;
+    --surface: #FFFFFF;
+    --surface2: #F0EDE6;
+    --border: #E0D9CF;
+    --border2: #C8BFB2;
+    --text: #1A1714;
+    --text2: #6B6259;
+    --text3: #9C9189;
+    --accent: #C8490A;
+    --accent-light: #FDF0EA;
+    --accent-border: #F0C0A4;
+    --green: #2D7A4F;
+    --green-light: #EAF5EF;
+    --green-border: #A8D8BC;
+    --amber: #A05E00;
+    --amber-light: #FFF8EC;
+    --amber-border: #F5D9A0;
+    --radius: 10px;
+    --radius-lg: 16px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* Header */
+  .header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    height: 64px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header-icon {
+    width: 36px; height: 36px;
+    background: var(--accent);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .header-icon svg { width: 20px; height: 20px; color: #fff; }
+  .header-title { font-size: 16px; font-weight: 600; color: var(--text); }
+  .header-sub { font-size: 12px; color: var(--text3); margin-top: 1px; }
+  .header-badge {
+    margin-left: auto;
+    font-size: 11px; font-weight: 500;
+    background: var(--accent-light); color: var(--accent);
+    border: 1px solid var(--accent-border);
+    padding: 3px 10px; border-radius: 999px;
+  }
+
+  /* Layout */
+  .container { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  /* API Key card */
+  .api-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.25rem;
+    box-shadow: var(--shadow);
+  }
+  .api-card-header {
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 12px;
+  }
+  .api-card-header svg { width: 16px; height: 16px; color: var(--text3); flex-shrink: 0; }
+  .api-card-header span { font-size: 13px; font-weight: 600; color: var(--text); }
+  .api-card-header a {
+    margin-left: auto; font-size: 12px; color: var(--accent);
+    text-decoration: none; font-weight: 500;
+  }
+  .api-card-header a:hover { text-decoration: underline; }
+
+  .api-input-row { display: flex; gap: 8px; align-items: center; }
+  .api-input {
+    flex: 1;
+    height: 40px; padding: 0 12px;
+    border: 1px solid var(--border2); border-radius: var(--radius);
+    font-family: 'Be Vietnam Pro', monospace; font-size: 13px;
+    color: var(--text); background: var(--surface);
+    outline: none; transition: border 0.2s;
+  }
+  .api-input:focus { border-color: var(--accent); }
+  .api-input::placeholder { color: var(--text3); }
+  .toggle-btn {
+    height: 40px; padding: 0 14px;
+    border: 1px solid var(--border2); border-radius: var(--radius);
+    background: var(--surface2); cursor: pointer;
+    font-size: 12px; color: var(--text2); font-family: inherit; font-weight: 500;
+    transition: background 0.15s;
+    flex-shrink: 0;
+  }
+  .toggle-btn:hover { background: var(--border); }
+  .api-hint {
+    font-size: 11px; color: var(--text3); margin-top: 8px; line-height: 1.6;
+  }
+  .api-hint code {
+    background: var(--surface2); padding: 1px 5px; border-radius: 4px;
+    font-size: 11px; color: var(--text2);
+  }
+
+  .api-status {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px; font-weight: 500; margin-top: 8px;
+    padding: 3px 10px; border-radius: 999px;
+  }
+  .api-status.ok { background: var(--green-light); color: var(--green); }
+  .api-status.empty { background: var(--amber-light); color: var(--amber); }
+  .api-status .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+  /* Upload card */
+  .upload-card {
+    background: var(--surface);
+    border: 1.5px dashed var(--border2);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    margin-bottom: 1.25rem;
+    box-shadow: var(--shadow);
+  }
+  .upload-card:hover, .upload-card.drag { border-color: var(--accent); background: var(--accent-light); }
+  .upload-card svg { width: 40px; height: 40px; color: var(--accent); margin: 0 auto 12px; display: block; opacity: 0.8; }
+  .upload-card .ul-title { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+  .upload-card .ul-sub { font-size: 13px; color: var(--text3); }
+  .upload-card .ul-btn {
+    display: inline-block; margin-top: 14px;
+    background: var(--accent); color: #fff;
+    padding: 9px 22px; border-radius: var(--radius);
+    font-size: 13px; font-weight: 600; cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .upload-card .ul-btn:hover { opacity: 0.88; }
+  #file-input { display: none; }
+
+  /* Stats row */
+  .stats-row {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+    margin-bottom: 1.25rem;
+  }
+  @media(max-width: 600px) { .stats-row { grid-template-columns: repeat(2,1fr); } }
+  .stat-box {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 14px 16px;
+    box-shadow: var(--shadow);
+  }
+  .stat-box .s-num { font-size: 28px; font-weight: 700; line-height: 1; margin-bottom: 4px; }
+  .stat-box .s-lbl { font-size: 11px; color: var(--text3); font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; }
+  .stat-box.s-total .s-num { color: var(--text); }
+  .stat-box.s-missing .s-num { color: var(--accent); }
+  .stat-box.s-ok .s-num { color: var(--green); }
+  .stat-box.s-pending .s-num { color: var(--amber); }
+
+  /* Progress bar */
+  .progress-wrap { margin-bottom: 1.25rem; }
+  .progress-bar-bg { height: 4px; background: var(--border); border-radius: 999px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; background: var(--accent); border-radius: 999px; transition: width 0.4s ease; width: 0%; }
+  .progress-label { font-size: 12px; color: var(--text3); margin-top: 5px; text-align: right; }
+
+  /* Section title */
+  .section-hd {
+    font-size: 12px; font-weight: 600; color: var(--text3);
+    text-transform: uppercase; letter-spacing: 0.06em;
+    margin-bottom: 8px; padding-left: 2px;
+  }
+
+  /* File list */
+  .file-list { display: flex; flex-direction: column; gap: 7px; margin-bottom: 1.5rem; }
+  .file-row {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 11px 14px;
+    display: flex; align-items: flex-start; gap: 10px;
+    box-shadow: var(--shadow);
+    transition: border-color 0.2s;
+  }
+  .file-row.missing { border-color: var(--accent-border); background: var(--accent-light); }
+  .file-row.ok { border-color: var(--green-border); }
+  .file-row .f-icon { flex-shrink: 0; margin-top: 1px; }
+  .file-row .f-icon svg { width: 18px; height: 18px; }
+  .file-row.missing .f-icon svg { color: var(--accent); }
+  .file-row.ok .f-icon svg { color: var(--green); }
+  .file-row.checking .f-icon svg { color: var(--text3); }
+  .file-row.err .f-icon svg { color: var(--amber); }
+
+  .file-row .f-body { flex: 1; min-width: 0; }
+  .file-row .f-name { font-size: 13px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .file-row .f-detail { font-size: 12px; color: var(--text2); margin-top: 3px; line-height: 1.5; }
+  .file-row .f-invoice { font-size: 12px; margin-top: 4px; }
+  .f-invoice span { background: var(--surface2); border: 1px solid var(--border); padding: 1px 8px; border-radius: 5px; font-size: 11px; margin-right: 5px; color: var(--text2); }
+
+  .file-row .f-status { flex-shrink: 0; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 999px; margin-top: 1px; white-space: nowrap; }
+  .f-status.st-checking { background: var(--amber-light); color: var(--amber); }
+  .f-status.st-missing { background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent-border); }
+  .f-status.st-ok { background: var(--green-light); color: var(--green); }
+  .f-status.st-err { background: var(--amber-light); color: var(--amber); }
+
+  .spinner {
+    display: inline-block; width: 12px; height: 12px;
+    border: 2px solid var(--border2); border-top-color: var(--accent);
+    border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: -2px; margin-right: 4px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Result table */
+  .result-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); overflow: hidden;
+    box-shadow: var(--shadow); margin-bottom: 1.5rem;
+  }
+  .result-card-hd {
+    padding: 14px 18px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 8px;
+    background: var(--accent-light);
+  }
+  .result-card-hd svg { width: 18px; height: 18px; color: var(--accent); }
+  .result-card-hd .rch-title { font-size: 14px; font-weight: 700; color: var(--accent); flex: 1; }
+  .result-card-hd .rch-count {
+    font-size: 11px; font-weight: 600; color: var(--accent);
+    background: #fff; border: 1px solid var(--accent-border);
+    padding: 2px 10px; border-radius: 999px;
+  }
+
+  table { width: 100%; border-collapse: collapse; }
+  thead th {
+    padding: 10px 16px; text-align: left;
+    font-size: 11px; font-weight: 600; color: var(--text3);
+    text-transform: uppercase; letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface2);
+  }
+  tbody tr { border-bottom: 1px solid var(--border); }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: var(--bg); }
+  tbody td { padding: 10px 16px; font-size: 13px; color: var(--text); vertical-align: middle; }
+  tbody td.td-num { font-weight: 600; color: var(--accent); }
+  tbody td.td-date { color: var(--text2); }
+  tbody td.td-file { color: var(--text3); font-size: 11px; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  tbody td.td-reason { color: var(--text2); font-size: 12px; max-width: 220px; }
+
+  /* Action buttons */
+  .action-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 10px 20px; border-radius: var(--radius);
+    font-family: inherit; font-size: 13px; font-weight: 600;
+    cursor: pointer; border: none; transition: opacity 0.15s, transform 0.1s;
+  }
+  .btn:hover { opacity: 0.88; }
+  .btn:active { transform: scale(0.98); }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-outline { background: var(--surface); color: var(--text); border: 1px solid var(--border2); }
+  .btn-green { background: var(--green); color: #fff; }
+  .btn svg { width: 15px; height: 15px; }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* Empty state */
+  .empty { text-align: center; padding: 3rem 1rem; color: var(--text3); font-size: 14px; }
+
+  /* Toast */
+  .toast {
+    position: fixed; bottom: 24px; right: 24px;
+    background: var(--text); color: #fff;
+    padding: 11px 18px; border-radius: var(--radius);
+    font-size: 13px; font-weight: 500;
+    opacity: 0; transform: translateY(8px);
+    transition: all 0.3s; z-index: 999; pointer-events: none;
+  }
+  .toast.show { opacity: 1; transform: translateY(0); }
+
+  /* Hidden sections */
+  #section-progress, #section-results, #section-actions { display: none; }
+
+  /* Guide box */
+  .guide-box {
+    background: var(--amber-light); border: 1px solid var(--amber-border);
+    border-radius: var(--radius); padding: 12px 16px;
+    margin-bottom: 1.25rem;
+  }
+  .guide-box ol { padding-left: 18px; font-size: 13px; color: var(--amber); line-height: 2; }
+  .guide-box ol li { color: var(--text2); }
+  .guide-box strong { color: var(--text); }
+  .guide-title { font-size: 12px; font-weight: 700; color: var(--amber); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 7px; display: flex; align-items: center; gap: 5px; }
+  .guide-title svg { width: 14px; height: 14px; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+      <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+      <polyline points="10 9 9 9 8 9"/>
+    </svg>
+  </div>
+  <div>
+    <div class="header-title">Kiểm Tra Hóa Đơn Thiếu Đơn Giá</div>
+    <div class="header-sub">Phân tích PDF tự động bằng AI · Lọc hàng hóa thiếu đơn giá</div>
+  </div>
+  <span class="header-badge">Powered by Gemini AI</span>
+</header>
+
+<div class="container">
+
+  <!-- Hướng dẫn lấy API key -->
+  <div class="guide-box">
+    <div class="guide-title">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Hướng dẫn lấy API Key — Miễn phí 100%
+    </div>
+    <ol>
+      <li>Truy cập <strong>aistudio.google.com</strong> → Đăng nhập bằng tài khoản Google</li>
+      <li>Bấm <strong>Get API Key</strong> (góc trên trái) → <strong>Create API Key</strong> → Copy key</li>
+      <li>Dán API key vào ô bên dưới và bắt đầu dùng — <strong>hoàn toàn miễn phí, 1.500 file/ngày</strong></li>
+    </ol>
+  </div>
+
+  <!-- API Key -->
+  <div class="api-card">
+    <div class="api-card-header">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      <span>Google Gemini API Key (Miễn phí)</span>
+      <a href="https://aistudio.google.com/app/apikey" target="_blank">Lấy API Key miễn phí →</a>
+    </div>
+    <div class="api-input-row">
+      <input type="password" id="api-key" class="api-input" placeholder="AIzaSy..." oninput="updateApiStatus()" autocomplete="off"/>
+      <button class="toggle-btn" onclick="toggleKey()">Hiện</button>
+    </div>
+    <div id="api-status" class="api-status empty"><span class="dot"></span>Chưa nhập API key</div>
+    <div class="api-hint">API key Gemini miễn phí — <code>1.500 file PDF/ngày</code> không mất phí. Key không gửi đi đâu khác ngoài Google.</div>
+  </div>
+
+  <!-- Upload -->
+  <div class="upload-card" id="drop-zone"
+    ondragover="event.preventDefault(); this.classList.add('drag')"
+    ondragleave="this.classList.remove('drag')"
+    ondrop="handleDrop(event)"
+    onclick="document.getElementById('file-input').click()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/>
+      <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/>
+    </svg>
+    <div class="ul-title">Kéo thả file PDF vào đây</div>
+    <div class="ul-sub">Hỗ trợ nhiều file cùng lúc · Tối đa 30MB mỗi file · Tối đa 100 trang</div>
+    <div class="ul-btn">Chọn file PDF</div>
+    <input type="file" id="file-input" accept=".pdf" multiple onchange="handleFiles(this.files)"/>
+  </div>
+
+  <!-- Progress -->
+  <div id="section-progress">
+    <div class="stats-row">
+      <div class="stat-box s-total"><div class="s-num" id="st-total">0</div><div class="s-lbl">Tổng file</div></div>
+      <div class="stat-box s-pending"><div class="s-num" id="st-pending">0</div><div class="s-lbl">Đang xử lý</div></div>
+      <div class="stat-box s-missing"><div class="s-num" id="st-missing">0</div><div class="s-lbl">Thiếu đơn giá</div></div>
+      <div class="stat-box s-ok"><div class="s-num" id="st-ok">0</div><div class="s-lbl">Đầy đủ</div></div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="prog-fill"></div></div>
+      <div class="progress-label" id="prog-label">0 / 0 file</div>
+    </div>
+    <div class="section-hd">Chi tiết từng file</div>
+    <div class="file-list" id="file-list"></div>
+  </div>
+
+  <!-- Bảng kết quả -->
+  <div id="section-results">
+    <div class="section-hd">Danh sách hóa đơn thiếu đơn giá</div>
+    <div class="result-card">
+      <div class="result-card-hd">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span class="rch-title">Hóa đơn cần xem lại</span>
+        <span class="rch-count" id="missing-count">0 file</span>
+      </div>
+      <div id="result-table-wrap">
+        <div class="empty">Chưa có kết quả</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <div id="section-actions">
+    <div class="action-row">
+      <button class="btn btn-green" onclick="exportTxt()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Xuất danh sách (.txt)
+      </button>
+      <button class="btn btn-primary" onclick="exportCsv()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Xuất Excel (.csv)
+      </button>
+      <button class="btn btn-outline" onclick="resetAll()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        Kiểm tra lại
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let results = [];
+let stats = { total: 0, pending: 0, missing: 0, ok: 0, done: 0 };
+
+function getKey() { return document.getElementById('api-key').value.trim(); }
+
+function updateApiStatus() {
+  const k = getKey();
+  const el = document.getElementById('api-status');
+  if (k.startsWith('AIza') && k.length > 20) {
+    el.className = 'api-status ok';
+    el.innerHTML = '<span class="dot"></span>API key hợp lệ — sẵn sàng sử dụng (miễn phí)';
+  } else if (k.length > 0) {
+    el.className = 'api-status empty';
+    el.innerHTML = '<span class="dot"></span>Key không đúng định dạng (phải bắt đầu bằng AIza...)';
+  } else {
+    el.className = 'api-status empty';
+    el.innerHTML = '<span class="dot"></span>Chưa nhập API key';
+  }
+}
+
+function toggleKey() {
+  const inp = document.getElementById('api-key');
+  const btn = event.target;
+  if (inp.type === 'password') { inp.type = 'text'; btn.textContent = 'Ẩn'; }
+  else { inp.type = 'password'; btn.textContent = 'Hiện'; }
+}
+
+function handleDrop(e) {
+  e.preventDefault();
+  document.getElementById('drop-zone').classList.remove('drag');
+  handleFiles(e.dataTransfer.files);
+}
+
+function handleFiles(files) {
+  if (!getKey()) { showToast('⚠️ Vui lòng nhập API key trước!'); return; }
+  const pdfs = Array.from(files).filter(f => f.name.toLowerCase().endsWith('.pdf'));
+  if (!pdfs.length) { showToast('Không tìm thấy file PDF nào!'); return; }
+
+  results = [];
+  stats = { total: pdfs.length, pending: pdfs.length, missing: 0, ok: 0, done: 0 };
+  document.getElementById('file-list').innerHTML = '';
+  document.getElementById('section-progress').style.display = 'block';
+  document.getElementById('section-results').style.display = 'none';
+  document.getElementById('section-actions').style.display = 'none';
+  updateStats();
+
+  pdfs.forEach((f, i) => {
+    addFileRow(f.name, i);
+    processFile(f, i);
+  });
+}
+
+function addFileRow(name, idx) {
+  const list = document.getElementById('file-list');
+  const row = document.createElement('div');
+  row.className = 'file-row checking'; row.id = 'row-' + idx;
+  row.innerHTML = `
+    <div class="f-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+      </svg>
+    </div>
+    <div class="f-body">
+      <div class="f-name">${name}</div>
+      <div class="f-detail" id="detail-${idx}">Đang đọc file...</div>
+    </div>
+    <div class="f-status st-checking" id="status-${idx}"><span class="spinner"></span>Phân tích</div>
+  `;
+  list.appendChild(row);
+}
+
+async function processFile(file, idx) {
+  try {
+    const b64 = await toBase64(file);
+    document.getElementById('detail-' + idx).textContent = 'Đang gửi lên AI...';
+
+    const prompt = `Bạn là chuyên gia kế toán phân tích hóa đơn Việt Nam. Phân tích hóa đơn và trả về JSON theo đúng cấu trúc sau, KHÔNG thêm bất kỳ text nào khác:
+{"missing_unit_price": true hoặc false, "invoice_number": "số hóa đơn hoặc null", "invoice_date": "ngày DD/MM/YYYY hoặc null", "reason": "mô tả ngắn gọn dưới 15 từ"}
+
+Quy tắc:
+- missing_unit_price = true: có hàng hóa với cột SỐ LƯỢNG nhưng KHÔNG có cột ĐƠN GIÁ / unit price / giá / price
+- missing_unit_price = false: có đủ số lượng + đơn giá, HOẶC không phải hóa đơn mua hàng hóa
+- Tìm số hóa đơn trong: Số HĐ, Invoice No, Số, No., Ký hiệu+Số
+- Tìm ngày trong: Ngày, Date, Ngày lập`;
+
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${getKey()}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{
+            parts: [
+              { text: prompt },
+              { inline_data: { mime_type: 'application/pdf', data: b64 } }
+            ]
+          }],
+          generationConfig: { temperature: 0, maxOutputTokens: 600 }
+        })
+      }
+    );
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error?.message || 'Lỗi API ' + res.status);
+    }
+
+    const data = await res.json();
+    const raw = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+    const clean = raw.replace(/```json|```/g, '').trim();
+
+    let parsed;
+    try { parsed = JSON.parse(clean); }
+    catch { parsed = { missing_unit_price: false, invoice_number: null, invoice_date: null, reason: 'Không đọc được nội dung' }; }
+
+    markDone(idx, file.name, parsed);
+
+  } catch(e) {
+    markError(idx, file.name, e.message);
+  }
+}
+
+function markDone(idx, name, parsed) {
+  stats.done++;
+  stats.pending--;
+  const isMissing = parsed.missing_unit_price === true;
+  if (isMissing) stats.missing++; else stats.ok++;
+  updateStats();
+
+  const row = document.getElementById('row-' + idx);
+  const detailEl = document.getElementById('detail-' + idx);
+  const statusEl = document.getElementById('status-' + idx);
+
+  if (isMissing) {
+    row.className = 'file-row missing';
+    statusEl.className = 'f-status st-missing';
+    statusEl.textContent = '⚠ Thiếu đơn giá';
+    let info = '';
+    if (parsed.invoice_number) info += `<span>Số HĐ: ${parsed.invoice_number}</span>`;
+    if (parsed.invoice_date) info += `<span>Ngày: ${parsed.invoice_date}</span>`;
+    detailEl.innerHTML = (parsed.reason || '') + (info ? `<div class="f-invoice">${info}</div>` : '');
+    results.push({ file: name, invoice_number: parsed.invoice_number || '—', invoice_date: parsed.invoice_date || '—', reason: parsed.reason || '' });
+  } else {
+    row.className = 'file-row ok';
+    statusEl.className = 'f-status st-ok';
+    statusEl.textContent = '✓ Đầy đủ';
+    detailEl.textContent = parsed.reason || 'Hóa đơn hợp lệ, có đủ thông tin đơn giá';
+  }
+
+  if (stats.done >= stats.total) finalize();
+}
+
+function markError(idx, name, msg) {
+  stats.done++; stats.pending--;
+  updateStats();
+  const row = document.getElementById('row-' + idx);
+  document.getElementById('detail-' + idx).textContent = 'Lỗi: ' + msg;
+  document.getElementById('status-' + idx).className = 'f-status st-err';
+  document.getElementById('status-' + idx).textContent = '! Lỗi';
+  row.className = 'file-row err';
+  if (stats.done >= stats.total) finalize();
+}
+
+function updateStats() {
+  document.getElementById('st-total').textContent = stats.total;
+  document.getElementById('st-pending').textContent = stats.pending;
+  document.getElementById('st-missing').textContent = stats.missing;
+  document.getElementById('st-ok').textContent = stats.ok;
+  const pct = stats.total ? Math.round(stats.done / stats.total * 100) : 0;
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('prog-label').textContent = `${stats.done} / ${stats.total} file (${pct}%)`;
+}
+
+function finalize() {
+  document.getElementById('section-results').style.display = 'block';
+  document.getElementById('section-actions').style.display = 'block';
+  document.getElementById('missing-count').textContent = results.length + ' file';
+
+  const wrap = document.getElementById('result-table-wrap');
+  if (!results.length) {
+    wrap.innerHTML = '<div class="empty">🎉 Tất cả hóa đơn đều đầy đủ thông tin đơn giá!</div>';
+    return;
+  }
+
+  let rows = results.map((r, i) => `
+    <tr>
+      <td style="color:var(--text3);font-size:11px;text-align:center">${i+1}</td>
+      <td class="td-num">${r.invoice_number}</td>
+      <td class="td-date">${r.invoice_date}</td>
+      <td class="td-file" title="${r.file}">${r.file}</td>
+      <td class="td-reason">${r.reason}</td>
+    </tr>`).join('');
+
+  wrap.innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th style="width:36px">#</th>
+          <th>Số hóa đơn</th>
+          <th>Ngày HĐ</th>
+          <th>Tên file</th>
+          <th>Ghi chú</th>
+        </tr>
+      </thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+
+  showToast('✅ Hoàn tất! Tìm thấy ' + results.length + ' hóa đơn thiếu đơn giá.');
+  wrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function exportTxt() {
+  if (!results.length) { showToast('Không có hóa đơn nào thiếu đơn giá!'); return; }
+  const now = new Date().toLocaleDateString('vi-VN');
+  let txt = `DANH SÁCH HÓA ĐƠN THIẾU ĐƠN GIÁ\n`;
+  txt += `Ngày xuất: ${now}\n`;
+  txt += `Tổng số: ${results.length} hóa đơn\n`;
+  txt += '='.repeat(60) + '\n\n';
+  results.forEach((r, i) => {
+    txt += `${i+1}. Số HĐ  : ${r.invoice_number}\n`;
+    txt += `   Ngày HĐ: ${r.invoice_date}\n`;
+    txt += `   File   : ${r.file}\n`;
+    txt += `   Ghi chú: ${r.reason}\n\n`;
+  });
+  download('hoa_don_thieu_don_gia.txt', txt, 'text/plain;charset=utf-8');
+}
+
+function exportCsv() {
+  if (!results.length) { showToast('Không có hóa đơn nào thiếu đơn giá!'); return; }
+  let csv = '\uFEFF'; // BOM for Excel UTF-8
+  csv += 'STT,Số hóa đơn,Ngày hóa đơn,Tên file,Ghi chú\n';
+  results.forEach((r, i) => {
+    const row = [i+1, r.invoice_number, r.invoice_date, r.file, r.reason];
+    csv += row.map(v => `"${String(v).replace(/"/g,'""')}"`).join(',') + '\n';
+  });
+  download('hoa_don_thieu_don_gia.csv', csv, 'text/csv;charset=utf-8');
+}
+
+function download(filename, content, type) {
+  const blob = new Blob([content], { type });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename; a.click();
+  showToast('✅ Đã tải xuống ' + filename);
+}
+
+function resetAll() {
+  results = [];
+  stats = { total: 0, pending: 0, missing: 0, ok: 0, done: 0 };
+  document.getElementById('file-list').innerHTML = '';
+  document.getElementById('file-input').value = '';
+  document.getElementById('section-progress').style.display = 'none';
+  document.getElementById('section-results').style.display = 'none';
+  document.getElementById('section-actions').style.display = 'none';
+}
+
+function toBase64(file) {
+  return new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload = () => res(r.result.split(',')[1]);
+    r.onerror = () => rej(new Error('Lỗi đọc file'));
+    r.readAsDataURL(file);
+  });
+}
+
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+</script>
+</body>
+</html>
