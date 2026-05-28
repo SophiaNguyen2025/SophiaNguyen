@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>SophiaNguyen Studio</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+
+:root {
+  --nude: #f5ece4; --blush: #e8b4a0; --rose: #c2695a; --deep: #6b2d3e;
+  --gold: #c9a96e; --dark: #1a1014; --dark2: #261820; --dark3: #321f28;
+  --text: #f5ece4; --muted: #9e8880;
+  --glass: rgba(245,236,228,0.07); --glass2: rgba(245,236,228,0.12);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; overflow: hidden; background: var(--dark); color: var(--text); font-family: 'DM Sans', sans-serif; }
+
+#splash { position: fixed; inset: 0; z-index: 100; background: var(--dark); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; transition: opacity 0.6s ease; }
+#splash h1 { font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 300; letter-spacing: 4px; color: var(--nude); }
+#splash h1 span { color: var(--blush); font-style: italic; }
+#splash p { font-size: 12px; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; }
+.splash-line { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); animation: shimmer 2s infinite; }
+@keyframes shimmer { 0%,100%{opacity:0.4} 50%{opacity:1} }
+#splash.hide { opacity: 0; pointer-events: none; }
+
+#app { height: 100dvh; display: flex; flex-direction: column; background: var(--dark); }
+
+.app-header { padding: 16px 20px 12px; display: flex; align-items: center; justify-content: space-between; background: linear-gradient(180deg, var(--dark) 0%, transparent 100%); position: relative; z-index: 10; flex-shrink: 0; }
+.brand { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 300; letter-spacing: 2px; color: var(--nude); }
+.brand em { color: var(--blush); font-style: italic; }
+.header-actions { display: flex; gap: 10px; }
+.icon-btn { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--glass2); background: var(--glass); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; transition: all 0.2s; color: var(--text); }
+.icon-btn:active { transform: scale(0.92); background: var(--glass2); }
+
+.canvas-zone { flex: 1; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; min-height: 0; }
+#drop-zone { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; cursor: pointer; background: radial-gradient(ellipse at 30% 40%, rgba(194,105,90,0.08) 0%, transparent 60%), radial-gradient(ellipse at 70% 60%, rgba(201,169,110,0.06) 0%, transparent 60%); }
+.upload-ring { width: 110px; height: 110px; border-radius: 50%; border: 1.5px dashed var(--blush); display: flex; align-items: center; justify-content: center; font-size: 36px; animation: pulse-ring 3s ease-in-out infinite; }
+@keyframes pulse-ring { 0%,100%{ box-shadow: 0 0 0 0 rgba(232,180,160,0.3); } 50%{ box-shadow: 0 0 0 12px rgba(232,180,160,0); } }
+.upload-text { text-align: center; }
+.upload-text h3 { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; color: var(--nude); }
+.upload-text p { font-size: 12px; color: var(--muted); margin-top: 4px; }
+.upload-hint { font-size: 11px; color: var(--muted); letter-spacing: 1px; padding: 6px 16px; border: 1px solid var(--dark3); border-radius: 20px; background: var(--glass); }
+#file-input { display: none; }
+
+.canvas-wrapper { display: none; width: 100%; height: 100%; align-items: center; justify-content: center; position: relative; }
+.canvas-wrapper.active { display: flex; }
+#main-canvas { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 2px; }
+#makeup-canvas { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; border-radius: 2px; }
+
+.ai-badge { position: absolute; top: 12px; right: 12px; background: linear-gradient(135deg, var(--deep), var(--rose)); font-size: 9px; letter-spacing: 1.5px; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; font-weight: 500; box-shadow: 0 2px 12px rgba(107,45,62,0.5); display: none; }
+.ai-badge.show { display: block; }
+
+.processing-overlay { position: absolute; inset: 0; background: rgba(26,16,20,0.75); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; flex-direction: column; gap: 14px; border-radius: 2px; z-index: 20; }
+.processing-overlay.show { display: flex; }
+.spinner { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--dark3); border-top-color: var(--blush); animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.processing-overlay p { font-size: 13px; color: var(--muted); font-family: 'Cormorant Garamond', serif; font-style: italic; }
+
+.tab-bar { display: flex; background: var(--dark2); border-top: 1px solid rgba(255,255,255,0.06); flex-shrink: 0; padding-bottom: env(safe-area-inset-bottom, 0px); }
+.tab { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px 4px 8px; gap: 4px; cursor: pointer; transition: all 0.2s; border: none; background: none; color: var(--muted); font-family: 'DM Sans', sans-serif; }
+.tab.active { color: var(--blush); }
+.tab-icon { font-size: 20px; }
+.tab-label { font-size: 9px; letter-spacing: 0.5px; text-transform: uppercase; }
+
+.panel-drawer { background: var(--dark2); border-top: 1px solid rgba(255,255,255,0.06); flex-shrink: 0; max-height: 260px; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1); }
+.panel-drawer.collapsed { max-height: 0; }
+.panel { display: none; padding: 16px 16px 8px; }
+.panel.active { display: block; }
+.panel-handle { display: flex; align-items: center; justify-content: center; padding: 8px; cursor: pointer; flex-shrink: 0; background: var(--dark2); border-top: 1px solid rgba(255,255,255,0.06); }
+.handle-bar { width: 36px; height: 4px; border-radius: 2px; background: var(--dark3); }
+
+.section-title { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 400; font-style: italic; color: var(--nude); margin-bottom: 14px; letter-spacing: 0.5px; }
+.slider-group { display: flex; flex-direction: column; gap: 14px; }
+.slider-row { display: flex; flex-direction: column; gap: 6px; }
+.slider-meta { display: flex; justify-content: space-between; align-items: center; }
+.slider-meta label { font-size: 12px; color: var(--muted); }
+.slider-meta .val { font-size: 11px; color: var(--gold); font-family: 'Cormorant Garamond', serif; font-style: italic; min-width: 28px; text-align: right; }
+input[type=range] { width: 100%; height: 3px; -webkit-appearance: none; background: var(--dark3); border-radius: 2px; outline: none; cursor: pointer; }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--blush); box-shadow: 0 2px 8px rgba(232,180,160,0.4); cursor: pointer; }
+
+.swatch-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
+.swatch { width: 30px; height: 30px; border-radius: 50%; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; border: 2px solid transparent; flex-shrink: 0; }
+.swatch.active { transform: scale(1.2); box-shadow: 0 0 0 2px var(--dark2), 0 0 0 4px var(--blush); }
+
+.sub-row { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+.sub-row label { font-size: 11px; color: var(--muted); flex-shrink: 0; width: 60px; }
+.sub-row input[type=range] { flex: 1; }
+
+.custom-color-row { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+.custom-color-row label { font-size: 11px; color: var(--muted); }
+input[type=color] { width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--dark3); background: none; cursor: pointer; padding: 0; overflow: hidden; }
+input[type=color]::-webkit-color-swatch-wrapper { padding: 0; }
+input[type=color]::-webkit-color-swatch { border: none; border-radius: 50%; }
+
+.quick-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+.q-btn { font-family: 'DM Sans', sans-serif; font-size: 11px; padding: 7px 12px; border-radius: 20px; border: 1px solid var(--dark3); background: var(--glass); color: var(--text); cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+.q-btn:active { background: var(--blush); color: var(--dark); border-color: var(--blush); }
+
+.makeup-features { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 14px; }
+.makeup-feat { background: var(--glass); border: 1px solid var(--dark3); border-radius: 10px; padding: 10px 6px; text-align: center; cursor: pointer; transition: all 0.2s; }
+.makeup-feat.on { background: rgba(194,105,90,0.2); border-color: var(--rose); }
+.makeup-feat .feat-icon { font-size: 20px; margin-bottom: 4px; }
+.makeup-feat .feat-name { font-size: 10px; color: var(--muted); }
+.makeup-feat.on .feat-name { color: var(--blush); }
+
+.panel-actions { display: flex; gap: 8px; padding: 12px 0 4px; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 12px; }
+.action-btn { flex: 1; padding: 11px 8px; border-radius: 8px; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; transition: all 0.2s; }
+.action-btn.secondary { background: var(--glass); color: var(--muted); border: 1px solid var(--dark3); }
+.action-btn.primary { background: linear-gradient(135deg, var(--rose), var(--deep)); color: #fff; box-shadow: 0 4px 16px rgba(107,45,62,0.35); }
+.action-btn:active { transform: scale(0.97); }
+
+.preset-scroll { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.preset-scroll::-webkit-scrollbar { display: none; }
+.preset-chip { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; }
+.preset-thumb { width: 52px; height: 52px; border-radius: 10px; border: 2px solid var(--dark3); display: flex; align-items: center; justify-content: center; font-size: 22px; transition: all 0.15s; background: var(--glass); }
+.preset-chip.active .preset-thumb { border-color: var(--blush); box-shadow: 0 0 12px rgba(232,180,160,0.3); }
+.preset-chip span { font-size: 10px; color: var(--muted); white-space: nowrap; }
+.preset-chip.active span { color: var(--blush); }
+
+.toast { position: fixed; bottom: 140px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--dark3); color: var(--text); padding: 10px 20px; border-radius: 24px; font-size: 13px; white-space: nowrap; opacity: 0; pointer-events: none; transition: all 0.3s; z-index: 50; border: 1px solid rgba(255,255,255,0.08); }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-thumb { background: var(--dark3); border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<div id="splash">
+  <div class="splash-line"></div>
+  <h1>Glow <span>Studio</span></h1>
+  <p>Beauty · Touch-up · AI Makeup</p>
+  <div class="splash-line"></div>
+</div>
+
+<div id="app">
+  <div class="app-header">
+    <div class="brand">Glow <em>Studio</em></div>
+    <div class="header-actions">
+      <div class="icon-btn" onclick="undoStep()" title="Hoàn tác">↩</div>
+      <div class="icon-btn" onclick="downloadImage()" title="Tải xuống">⬇</div>
+    </div>
+  </div>
+
+  <div class="canvas-zone">
+    <div id="drop-zone" onclick="document.getElementById('file-input').click()">
+      <div class="upload-ring">📸</div>
+      <div class="upload-text">
+        <h3>Chọn ảnh của bạn</h3>
+        <p>Chạm để tải ảnh lên</p>
+      </div>
+      <div class="upload-hint">JPG · PNG · WEBP</div>
+    </div>
+    <input type="file" id="file-input" accept="image/*">
+
+    <div class="canvas-wrapper" id="canvas-wrapper">
+      <canvas id="main-canvas"></canvas>
+      <canvas id="makeup-canvas"></canvas>
+      <div class="ai-badge" id="ai-badge">✦ AI Makeup</div>
+      <div class="processing-overlay" id="processing">
+        <div class="spinner"></div>
+        <p>Đang phân tích khuôn mặt...</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel-handle" id="panel-handle" onclick="toggleDrawer()">
+    <div class="handle-bar"></div>
+  </div>
+
+  <div class="panel-drawer" id="panel-drawer">
+
+    <div class="panel active" id="panel-fix">
+      <div class="section-title">Chỉnh ảnh</div>
+      <div class="slider-group">
+        <div class="slider-row">
+          <div class="slider-meta"><label>Độ sáng</label><span class="val" id="v-brightness">0</span></div>
+          <input type="range" id="brightness" min="-100" max="100" value="0" oninput="applyAdjust()">
+        </div>
+        <div class="slider-row">
+          <div class="slider-meta"><label>Tương phản</label><span class="val" id="v-contrast">0</span></div>
+          <input type="range" id="contrast" min="-100" max="100" value="0" oninput="applyAdjust()">
+        </div>
+        <div class="slider-row">
+          <div class="slider-meta"><label>Bão hoà</label><span class="val" id="v-saturation">0</span></div>
+          <input type="range" id="saturation" min="-100" max="100" value="0" oninput="applyAdjust()">
+        </div>
+        <div class="slider-row">
+          <div class="slider-meta"><label>Ấm / Lạnh</label><span class="val" id="v-temperature">0</span></div>
+          <input type="range" id="temperature" min="-100" max="100" value="0" oninput="applyAdjust()">
+        </div>
+        <div class="slider-row">
+          <div class="slider-meta"><label>Làm sắc nét</label><span class="val" id="v-sharpen">0</span></div>
+          <input type="range" id="sharpen" min="0" max="10" value="0" step="0.5" oninput="applyAdjust()">
+        </div>
+      </div>
+      <div class="quick-row" style="margin-top:14px">
+        <div class="q-btn" onclick="rotateBy(-90)">↺ −90°</div>
+        <div class="q-btn" onclick="rotateBy(90)">↻ +90°</div>
+        <div class="q-btn" onclick="flipH()">⇄ Lật</div>
+        <div class="q-btn" onclick="resetAdjust()">↺ Reset</div>
+      </div>
+    </div>
+
+    <div class="panel" id="panel-preset">
+      <div class="section-title">Bộ lọc</div>
+      <div class="preset-scroll">
+        <div class="preset-chip active" onclick="selectPreset(this,'none')"><div class="preset-thumb">🌿</div><span>Gốc</span></div>
+        <div class="preset-chip" onclick="selectPreset(this,'vivid')"><div class="preset-thumb">✨</div><span>Sống động</span></div>
+        <div class="preset-chip" onclick="selectPreset(this,'warm')"><div class="preset-thumb">🌅</div><span>Ấm áp</span></div>
+        <div class="preset-chip" onclick="selectPreset(this,'cool')"><div class="preset-thumb">❄️</div><span>Mát lạnh</span></div>
+        <div class="preset-chip" onclick="selectPreset(this,'sepia')"><div class="preset-thumb">🍂</div><span>Cổ điển</span></div>
+        <div class="preset-chip" onclick="selectPreset(this,'grayscale')"><div class="preset-thumb">🖤</div><span>Đen trắng</span></div>
+        <div class="preset-chip" onclick="selectPreset(this,'fade')"><div class="preset-thumb">🌫️</div><span>Nhạt fade</span></div>
+        <div class="preset-chip" onclick="selectPreset(this,'hdr')"><div class="preset-thumb">🎆</div><span>HDR</span></div>
+        <div class="preset-chip" onclick="selectPreset(this,'golden')"><div class="preset-thumb">🌟</div><span>Golden</span></div>
+      </div>
+    </div>
+
+    <div class="panel" id="panel-makeup">
+      <div class="section-title">Trang điểm AI ✦ Gemini</div>
+      <div class="makeup-features">
+        <div class="makeup-feat" id="feat-lips" onclick="toggleFeat('lips')"><div class="feat-icon">💄</div><div class="feat-name">Son môi</div></div>
+        <div class="makeup-feat" id="feat-blush" onclick="toggleFeat('blush')"><div class="feat-icon">🌸</div><div class="feat-name">Má hồng</div></div>
+        <div class="makeup-feat" id="feat-eyebrow" onclick="toggleFeat('eyebrow')"><div class="feat-icon">〰️</div><div class="feat-name">Chân mày</div></div>
+        <div class="makeup-feat" id="feat-eyeshadow" onclick="toggleFeat('eyeshadow')"><div class="feat-icon">👁️</div><div class="feat-name">Phấn mắt</div></div>
+        <div class="makeup-feat" id="feat-eyeliner" onclick="toggleFeat('eyeliner')"><div class="feat-icon">✏️</div><div class="feat-name">Kẻ mắt</div></div>
+        <div class="makeup-feat" id="feat-highlight" onclick="toggleFeat('highlight')"><div class="feat-icon">✦</div><div class="feat-name">Highlight</div></div>
+      </div>
+
+      <div id="lips-options">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:8px;letter-spacing:0.5px">MÀU SON</div>
+        <div class="swatch-row" id="lips-swatches">
+          <div class="swatch active" style="background:#c2302a" onclick="selectColor('lips',this,'#c2302a')"></div>
+          <div class="swatch" style="background:#e8614d" onclick="selectColor('lips',this,'#e8614d')"></div>
+          <div class="swatch" style="background:#cc3f6f" onclick="selectColor('lips',this,'#cc3f6f')"></div>
+          <div class="swatch" style="background:#8b1a4a" onclick="selectColor('lips',this,'#8b1a4a')"></div>
+          <div class="swatch" style="background:#e8956d" onclick="selectColor('lips',this,'#e8956d')"></div>
+          <div class="swatch" style="background:#c97b6b" onclick="selectColor('lips',this,'#c97b6b')"></div>
+          <div class="swatch" style="background:#ff91a4" onclick="selectColor('lips',this,'#ff91a4')"></div>
+          <div class="swatch" style="background:#4a1c1c" onclick="selectColor('lips',this,'#4a1c1c')"></div>
+        </div>
+        <div class="custom-color-row">
+          <label>Tuỳ chỉnh:</label>
+          <input type="color" id="lips-custom" value="#c2302a" oninput="customColor('lips', this.value)">
+        </div>
+        <div class="sub-row"><label>Độ mờ</label><input type="range" id="lips-opacity" min="10" max="90" value="55" oninput="rerenderMakeup()"></div>
+        <div class="sub-row"><label>Bóng môi</label><input type="range" id="lips-gloss" min="0" max="100" value="30" oninput="rerenderMakeup()"></div>
+      </div>
+
+      <div id="blush-options" style="display:none;margin-top:12px">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:8px;letter-spacing:0.5px">MÀU MÁ HỒNG</div>
+        <div class="swatch-row" id="blush-swatches">
+          <div class="swatch active" style="background:#f4a0a0" onclick="selectColor('blush',this,'#f4a0a0')"></div>
+          <div class="swatch" style="background:#f4c0a0" onclick="selectColor('blush',this,'#f4c0a0')"></div>
+          <div class="swatch" style="background:#e8a0c0" onclick="selectColor('blush',this,'#e8a0c0')"></div>
+          <div class="swatch" style="background:#d4b0f0" onclick="selectColor('blush',this,'#d4b0f0')"></div>
+          <div class="swatch" style="background:#ff8080" onclick="selectColor('blush',this,'#ff8080')"></div>
+          <div class="swatch" style="background:#f0c060" onclick="selectColor('blush',this,'#f0c060')"></div>
+        </div>
+        <div class="sub-row"><label>Độ mờ</label><input type="range" id="blush-opacity" min="5" max="60" value="22" oninput="rerenderMakeup()"></div>
+      </div>
+
+      <div id="eyebrow-options" style="display:none;margin-top:12px">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:8px;letter-spacing:0.5px">MÀU CHÂN MÀY</div>
+        <div class="swatch-row" id="eyebrow-swatches">
+          <div class="swatch active" style="background:#2d1a0e" onclick="selectColor('eyebrow',this,'#2d1a0e')"></div>
+          <div class="swatch" style="background:#5c3317" onclick="selectColor('eyebrow',this,'#5c3317')"></div>
+          <div class="swatch" style="background:#8b6040" onclick="selectColor('eyebrow',this,'#8b6040')"></div>
+          <div class="swatch" style="background:#1a1a1a" onclick="selectColor('eyebrow',this,'#1a1a1a')"></div>
+          <div class="swatch" style="background:#6b4226" onclick="selectColor('eyebrow',this,'#6b4226')"></div>
+        </div>
+        <div class="sub-row"><label>Độ đậm</label><input type="range" id="eyebrow-opacity" min="20" max="90" value="60" oninput="rerenderMakeup()"></div>
+        <div class="sub-row"><label>Độ dày</label><input type="range" id="eyebrow-thickness" min="1" max="5" value="2" step="0.5" oninput="rerenderMakeup()"></div>
+      </div>
+
+      <div id="eyeshadow-options" style="display:none;margin-top:12px">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:8px;letter-spacing:0.5px">MÀU PHẤN MẮT</div>
+        <div class="swatch-row" id="eyeshadow-swatches">
+          <div class="swatch active" style="background:#b07090" onclick="selectColor('eyeshadow',this,'#b07090')"></div>
+          <div class="swatch" style="background:#806080" onclick="selectColor('eyeshadow',this,'#806080')"></div>
+          <div class="swatch" style="background:#704050" onclick="selectColor('eyeshadow',this,'#704050')"></div>
+          <div class="swatch" style="background:#c0a060" onclick="selectColor('eyeshadow',this,'#c0a060')"></div>
+          <div class="swatch" style="background:#607090" onclick="selectColor('eyeshadow',this,'#607090')"></div>
+          <div class="swatch" style="background:#303060" onclick="selectColor('eyeshadow',this,'#303060')"></div>
+          <div class="swatch" style="background:#804030" onclick="selectColor('eyeshadow',this,'#804030')"></div>
+        </div>
+        <div class="sub-row"><label>Độ mờ</label><input type="range" id="eyeshadow-opacity" min="10" max="70" value="35" oninput="rerenderMakeup()"></div>
+      </div>
+
+      <div class="panel-actions">
+        <button class="action-btn secondary" onclick="clearMakeup()">Xoá makeup</button>
+        <button class="action-btn primary" onclick="analyzeFace()">✦ Phân tích AI</button>
+      </div>
+    </div>
+
+    <div class="panel" id="panel-rotate">
+      <div class="section-title">Xoay & Chỉnh</div>
+      <div class="quick-row" style="margin-bottom:16px">
+        <div class="q-btn" onclick="rotateBy(-90)">↺ −90°</div>
+        <div class="q-btn" onclick="rotateBy(180)">↕ 180°</div>
+        <div class="q-btn" onclick="rotateBy(90)">↻ +90°</div>
+        <div class="q-btn" onclick="flipH()">⇄ Lật ngang</div>
+        <div class="q-btn" onclick="flipV()">⇅ Lật dọc</div>
+      </div>
+      <div class="slider-row">
+        <div class="slider-meta"><label>Nghiêng tinh chỉnh</label><span class="val" id="v-fine">0°</span></div>
+        <input type="range" id="fine-angle" min="-45" max="45" value="0" step="0.5" oninput="applyFineRotate()">
+      </div>
+      <div class="panel-actions">
+        <button class="action-btn secondary" onclick="resetTransform()">Reset xoay</button>
+        <button class="action-btn primary" onclick="clearImage()">✕ Ảnh mới</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="tab-bar">
+    <button class="tab active" onclick="switchTab('fix',this)"><div class="tab-icon">🔆</div><div class="tab-label">Chỉnh ảnh</div></button>
+    <button class="tab" onclick="switchTab('preset',this)"><div class="tab-icon">🎨</div><div class="tab-label">Bộ lọc</div></button>
+    <button class="tab" onclick="switchTab('makeup',this)"><div class="tab-icon">💄</div><div class="tab-label">Trang điểm</div></button>
+    <button class="tab" onclick="switchTab('rotate',this)"><div class="tab-icon">🔄</div><div class="tab-label">Xoay</div></button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════
+//  Gemini API key — miễn phí từ Google
+// ═══════════════════════════════════════
+const GEMINI_KEY = 'AIzaSyB_TjBnj-ao_iW4Cte1xCL7hCemSWBsRJM';
+const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_KEY}`;
+
+let originalImage = null;
+let rotation = 0, flipHState = false, flipVState = false;
+let presetMode = 'none';
+let drawerOpen = true;
+let history = [], historyIdx = -1;
+
+const makeupState = {
+  features: { lips:false, blush:false, eyebrow:false, eyeshadow:false, eyeliner:false, highlight:false },
+  colors: { lips:'#c2302a', blush:'#f4a0a0', eyebrow:'#2d1a0e', eyeshadow:'#b07090' },
+  faceData: null
+};
+
+const mainCanvas = document.getElementById('main-canvas');
+const mkCanvas   = document.getElementById('makeup-canvas');
+const ctx        = mainCanvas.getContext('2d');
+const mkCtx      = mkCanvas.getContext('2d');
+
+setTimeout(() => document.getElementById('splash').classList.add('hide'), 1800);
+
+document.getElementById('file-input').addEventListener('change', e => loadFile(e.target.files[0]));
+document.querySelector('.canvas-zone').addEventListener('dragover', e => e.preventDefault());
+document.querySelector('.canvas-zone').addEventListener('drop', e => {
+  e.preventDefault();
+  const f = e.dataTransfer?.files[0];
+  if (f && f.type.startsWith('image/')) loadFile(f);
+});
+
+function loadFile(file) {
+  if (!file) return;
+  const url = URL.createObjectURL(file);
+  const img = new Image();
+  img.onload = () => {
+    originalImage = img;
+    rotation = 0; flipHState = false; flipVState = false; presetMode = 'none';
+    resetSliders();
+    makeupState.faceData = null;
+    mkCtx.clearRect(0,0,mkCanvas.width,mkCanvas.height);
+    renderAll();
+    document.getElementById('drop-zone').style.display = 'none';
+    document.getElementById('canvas-wrapper').classList.add('active');
+    showToast('Ảnh đã tải xong ✓');
+    pushHistory('Mở ảnh');
+  };
+  img.src = url;
+}
+
+function renderAll() {
+  if (!originalImage) return;
+  renderPhoto();
+  mkCanvas.width  = mainCanvas.width;
+  mkCanvas.height = mainCanvas.height;
+  rerenderMakeup();
+}
+
+function renderPhoto() {
+  const rad = rotation * Math.PI / 180;
+  const c = Math.abs(Math.cos(rad)), s = Math.abs(Math.sin(rad));
+  const W = originalImage.naturalWidth, H = originalImage.naturalHeight;
+  const nW = Math.round(W*c + H*s), nH = Math.round(W*s + H*c);
+  const off = document.createElement('canvas');
+  off.width = nW; off.height = nH;
+  const oc = off.getContext('2d');
+  oc.translate(nW/2, nH/2); oc.rotate(rad);
+  if (flipHState) oc.scale(-1,1);
+  if (flipVState) oc.scale(1,-1);
+  oc.drawImage(originalImage, -W/2, -H/2);
+  const adj = applyPixelFilters(off);
+  mainCanvas.width = adj.width; mainCanvas.height = adj.height;
+  ctx.drawImage(adj, 0, 0);
+}
+
+function applyPixelFilters(src) {
+  const b  = parseInt(document.getElementById('brightness').value);
+  const co = parseInt(document.getElementById('contrast').value);
+  const sa = parseInt(document.getElementById('saturation').value);
+  const te = parseInt(document.getElementById('temperature').value);
+  const sh = parseFloat(document.getElementById('sharpen').value);
+  const canvas = document.createElement('canvas');
+  canvas.width = src.width; canvas.height = src.height;
+  const c = canvas.getContext('2d');
+  c.filter = `brightness(${1+b/100}) contrast(${1+co/100}) saturate(${1+sa/100})`;
+  c.drawImage(src, 0, 0); c.filter = 'none';
+  if (te !== 0) {
+    const id=c.getImageData(0,0,canvas.width,canvas.height), d=id.data;
+    for(let i=0;i<d.length;i+=4){
+      if(te>0){d[i]=Math.min(255,d[i]+te*.5);d[i+2]=Math.max(0,d[i+2]-te*.5);}
+      else{d[i]=Math.max(0,d[i]+te*.5);d[i+2]=Math.min(255,d[i+2]-te*.5);}
+    } c.putImageData(id,0,0);
+  }
+  if (presetMode !== 'none') applyPreset(c, canvas);
+  return sh > 0 ? sharpenCanvas(canvas, sh) : canvas;
+}
+
+function applyPreset(c, canvas) {
+  const W=canvas.width, H=canvas.height;
+  if(presetMode==='grayscale'){const id=c.getImageData(0,0,W,H),d=id.data;for(let i=0;i<d.length;i+=4){const g=d[i]*.299+d[i+1]*.587+d[i+2]*.114;d[i]=d[i+1]=d[i+2]=g;}c.putImageData(id,0,0);}
+  else if(presetMode==='sepia'){const id=c.getImageData(0,0,W,H),d=id.data;for(let i=0;i<d.length;i+=4){const r=d[i],g=d[i+1],b=d[i+2];d[i]=Math.min(255,r*.393+g*.769+b*.189);d[i+1]=Math.min(255,r*.349+g*.686+b*.168);d[i+2]=Math.min(255,r*.272+g*.534+b*.131);}c.putImageData(id,0,0);}
+  else if(presetMode==='vivid'){const id=c.getImageData(0,0,W,H),d=id.data;for(let i=0;i<d.length;i+=4){const avg=(d[i]+d[i+1]+d[i+2])/3;d[i]=Math.min(255,avg+(d[i]-avg)*1.4);d[i+1]=Math.min(255,avg+(d[i+1]-avg)*1.4);d[i+2]=Math.min(255,avg+(d[i+2]-avg)*1.4);}c.putImageData(id,0,0);}
+  else if(presetMode==='warm'){c.globalCompositeOperation='multiply';c.fillStyle='rgba(255,210,160,0.2)';c.fillRect(0,0,W,H);c.globalCompositeOperation='source-over';}
+  else if(presetMode==='cool'){c.globalCompositeOperation='multiply';c.fillStyle='rgba(180,210,255,0.18)';c.fillRect(0,0,W,H);c.globalCompositeOperation='source-over';}
+  else if(presetMode==='fade'){c.globalCompositeOperation='screen';c.fillStyle='rgba(220,210,200,0.22)';c.fillRect(0,0,W,H);c.globalCompositeOperation='source-over';}
+  else if(presetMode==='hdr'){const id=c.getImageData(0,0,W,H),d=id.data;for(let i=0;i<d.length;i+=4){d[i]=Math.min(255,((d[i]/255-.5)*1.3+.5)*255);d[i+1]=Math.min(255,((d[i+1]/255-.5)*1.3+.5)*255);d[i+2]=Math.min(255,((d[i+2]/255-.5)*1.3+.5)*255);}c.putImageData(id,0,0);}
+  else if(presetMode==='golden'){const id=c.getImageData(0,0,W,H),d=id.data;for(let i=0;i<d.length;i+=4){d[i]=Math.min(255,d[i]*1.1+20);d[i+1]=Math.min(255,d[i+1]*1.0+10);d[i+2]=Math.max(0,d[i+2]-20);}c.putImageData(id,0,0);}
+}
+
+function sharpenCanvas(canvas, amount) {
+  const W=canvas.width,H=canvas.height;
+  const src=canvas.getContext('2d').getImageData(0,0,W,H);
+  const out=document.createElement('canvas');out.width=W;out.height=H;
+  const oc=out.getContext('2d'),dst=oc.createImageData(W,H),s=src.data,d=dst.data;
+  const k=amount*.3,kernel=[0,-k,0,-k,1+4*k,-k,0,-k,0];
+  for(let y=1;y<H-1;y++){for(let x=1;x<W-1;x++){const i=(y*W+x)*4;for(let ch=0;ch<3;ch++){let v=0;v+=s[((y-1)*W+(x-1))*4+ch]*kernel[0];v+=s[((y-1)*W+x)*4+ch]*kernel[1];v+=s[((y-1)*W+x+1)*4+ch]*kernel[2];v+=s[(y*W+x-1)*4+ch]*kernel[3];v+=s[(y*W+x)*4+ch]*kernel[4];v+=s[(y*W+x+1)*4+ch]*kernel[5];v+=s[((y+1)*W+x-1)*4+ch]*kernel[6];v+=s[((y+1)*W+x)*4+ch]*kernel[7];v+=s[((y+1)*W+x+1)*4+ch]*kernel[8];d[i+ch]=Math.max(0,Math.min(255,v));}d[i+3]=s[i+3];}}
+  oc.putImageData(dst,0,0);return out;
+}
+
+// ═══════════════════════════════════════
+//  GEMINI AI FACE ANALYSIS
+// ═══════════════════════════════════════
+async function analyzeFace() {
+  if (!originalImage) { showToast('Vui lòng tải ảnh trước'); return; }
+  document.getElementById('processing').classList.add('show');
+  try {
+    const b64 = mainCanvas.toDataURL('image/jpeg', 0.85).split(',')[1];
+    const prompt = `Phân tích khuôn mặt trong ảnh và trả về tọa độ các vùng trang điểm. Ảnh có kích thước ${mainCanvas.width}x${mainCanvas.height}px.
+
+Trả về JSON duy nhất, không có markdown, không có text khác:
+{"found":true,"faceBox":{"x":0,"y":0,"w":0,"h":0},"lips":{"centerX":0,"centerY":0,"width":0,"height":0},"leftEye":{"x":0,"y":0,"w":0,"h":0},"rightEye":{"x":0,"y":0,"w":0,"h":0},"leftCheek":{"cx":0,"cy":0,"r":0},"rightCheek":{"cx":0,"cy":0,"r":0},"leftBrow":{"x1":0,"y1":0,"x2":0,"y2":0,"midX":0,"midY":0,"arch":0},"rightBrow":{"x1":0,"y1":0,"x2":0,"y2":0,"midX":0,"midY":0,"arch":0},"nose":{"tipX":0,"tipY":0},"forehead":{"cx":0,"cy":0,"w":0,"h":0}}`;
+
+    const res = await fetch(GEMINI_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{
+          parts: [
+            { inline_data: { mime_type: 'image/jpeg', data: b64 } },
+            { text: prompt }
+          ]
+        }],
+        generationConfig: { temperature: 0.1, maxOutputTokens: 1000 }
+      })
+    });
+
+    const data = await res.json();
+    let text = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+    text = text.replace(/```json|```/g, '').trim();
+
+    const fd = JSON.parse(text);
+    if (fd.found) {
+      makeupState.faceData = fd;
+      document.getElementById('ai-badge').classList.add('show');
+      rerenderMakeup();
+      showToast('Phân tích thành công ✦');
+    } else {
+      showToast('Không tìm thấy khuôn mặt');
+    }
+  } catch(e) {
+    showToast('Lỗi phân tích: ' + e.message);
+    console.error(e);
+  } finally {
+    document.getElementById('processing').classList.remove('show');
+  }
+}
+
+// ═══════════════════════════════════════
+//  MAKEUP RENDER
+// ═══════════════════════════════════════
+function rerenderMakeup() {
+  mkCtx.clearRect(0,0,mkCanvas.width,mkCanvas.height);
+  if (!makeupState.faceData) return;
+  const fd=makeupState.faceData, f=makeupState.features;
+  if(f.lips && fd.lips) drawLips(fd.lips);
+  if(f.blush){if(fd.leftCheek)drawBlush(fd.leftCheek);if(fd.rightCheek)drawBlush(fd.rightCheek);}
+  if(f.eyebrow){if(fd.leftBrow)drawEyebrow(fd.leftBrow);if(fd.rightBrow)drawEyebrow(fd.rightBrow);}
+  if(f.eyeshadow){if(fd.leftEye)drawEyeshadow(fd.leftEye);if(fd.rightEye)drawEyeshadow(fd.rightEye);}
+  if(f.eyeliner){if(fd.leftEye)drawEyeliner(fd.leftEye);if(fd.rightEye)drawEyeliner(fd.rightEye);}
+  if(f.highlight && fd.faceBox) drawHighlight(fd);
+}
+
+function hexRgb(hex){return{r:parseInt(hex.slice(1,3),16),g:parseInt(hex.slice(3,5),16),b:parseInt(hex.slice(5,7),16)};}
+
+function drawLips(lips) {
+  const op=parseInt(document.getElementById('lips-opacity').value)/100;
+  const gl=parseInt(document.getElementById('lips-gloss').value)/100;
+  const {r,g,b}=hexRgb(makeupState.colors.lips);
+  const cx=lips.centerX,cy=lips.centerY,hw=lips.width/2,hh=lips.height/2;
+  mkCtx.save();
+  mkCtx.beginPath();mkCtx.ellipse(cx,cy+hh*.3,hw*.9,hh*.65,0,0,Math.PI*2);
+  mkCtx.fillStyle=`rgba(${r},${g},${b},${op})`;mkCtx.fill();
+  mkCtx.beginPath();mkCtx.ellipse(cx,cy-hh*.2,hw*.85,hh*.5,0,0,Math.PI*2);
+  mkCtx.fillStyle=`rgba(${r},${g},${b},${op*.9})`;mkCtx.fill();
+  if(gl>0){const grd=mkCtx.createRadialGradient(cx,cy,0,cx,cy,hw*.5);grd.addColorStop(0,`rgba(255,255,255,${gl*.45})`);grd.addColorStop(1,'rgba(255,255,255,0)');mkCtx.beginPath();mkCtx.ellipse(cx,cy,hw*.5,hh*.35,0,0,Math.PI*2);mkCtx.fillStyle=grd;mkCtx.fill();}
+  mkCtx.restore();
+}
+
+function drawBlush(cheek) {
+  const op=parseInt(document.getElementById('blush-opacity').value)/100;
+  const {r,g,b}=hexRgb(makeupState.colors.blush);
+  const grd=mkCtx.createRadialGradient(cheek.cx,cheek.cy,0,cheek.cx,cheek.cy,cheek.r);
+  grd.addColorStop(0,`rgba(${r},${g},${b},${op})`);grd.addColorStop(.5,`rgba(${r},${g},${b},${op*.5})`);grd.addColorStop(1,`rgba(${r},${g},${b},0)`);
+  mkCtx.save();mkCtx.beginPath();mkCtx.ellipse(cheek.cx,cheek.cy,cheek.r*1.3,cheek.r*.75,-0.3,0,Math.PI*2);mkCtx.fillStyle=grd;mkCtx.fill();mkCtx.restore();
+}
+
+function drawEyebrow(brow) {
+  const op=parseInt(document.getElementById('eyebrow-opacity').value)/100;
+  const thick=parseFloat(document.getElementById('eyebrow-thickness').value);
+  const {r,g,b}=hexRgb(makeupState.colors.eyebrow);
+  mkCtx.save();mkCtx.strokeStyle=`rgba(${r},${g},${b},${op})`;mkCtx.lineWidth=thick*4;mkCtx.lineCap='round';mkCtx.lineJoin='round';
+  mkCtx.beginPath();mkCtx.moveTo(brow.x1,brow.y1);mkCtx.quadraticCurveTo(brow.midX,brow.midY-(brow.arch||8),brow.x2,brow.y2);mkCtx.stroke();mkCtx.restore();
+}
+
+function drawEyeshadow(eye) {
+  const op=parseInt(document.getElementById('eyeshadow-opacity').value)/100;
+  const {r,g,b}=hexRgb(makeupState.colors.eyeshadow);
+  const cx=eye.x+eye.w/2,cy=eye.y;
+  const grd=mkCtx.createRadialGradient(cx,cy,0,cx,cy+eye.h,eye.w*.7);
+  grd.addColorStop(0,`rgba(${r},${g},${b},${op})`);grd.addColorStop(1,`rgba(${r},${g},${b},0)`);
+  mkCtx.save();mkCtx.beginPath();mkCtx.ellipse(cx,cy+eye.h*.2,eye.w*.7,eye.h*1.2,0,0,Math.PI*2);mkCtx.fillStyle=grd;mkCtx.fill();mkCtx.restore();
+}
+
+function drawEyeliner(eye) {
+  const cx=eye.x+eye.w/2,cy=eye.y+eye.h*.5,hw=eye.w*.6;
+  mkCtx.save();mkCtx.strokeStyle='rgba(20,10,15,0.85)';mkCtx.lineWidth=Math.max(1.5,eye.h*.18);mkCtx.lineCap='round';
+  mkCtx.beginPath();mkCtx.moveTo(cx-hw,cy+eye.h*.1);mkCtx.quadraticCurveTo(cx,cy-eye.h*.3,cx+hw,cy+eye.h*.1);mkCtx.stroke();
+  mkCtx.beginPath();mkCtx.moveTo(cx+hw,cy+eye.h*.1);mkCtx.lineTo(cx+hw+eye.w*.15,cy-eye.h*.3);mkCtx.stroke();mkCtx.restore();
+}
+
+function drawHighlight(fd) {
+  const spot=(x,y,r,op)=>{const grd=mkCtx.createRadialGradient(x,y,0,x,y,r);grd.addColorStop(0,`rgba(255,250,230,${op})`);grd.addColorStop(1,'rgba(255,250,230,0)');mkCtx.save();mkCtx.beginPath();mkCtx.arc(x,y,r,0,Math.PI*2);mkCtx.fillStyle=grd;mkCtx.fill();mkCtx.restore();};
+  const fb=fd.faceBox;
+  if(fd.nose) spot(fd.nose.tipX,fd.nose.tipY,fb.w*.04,.25);
+  if(fd.forehead) spot(fd.forehead.cx,fd.forehead.cy,fb.w*.1,.15);
+  if(fd.leftEye&&fd.rightEye){spot(fd.leftEye.x+fd.leftEye.w/2,fd.leftEye.y+fd.leftEye.h*1.5,fb.w*.05,.12);spot(fd.rightEye.x+fd.rightEye.w/2,fd.rightEye.y+fd.rightEye.h*1.5,fb.w*.05,.12);}
+}
+
+// ═══════════════════════════════════════
+//  MAKEUP CONTROLS
+// ═══════════════════════════════════════
+const featOptions = { lips:'lips-options', blush:'blush-options', eyebrow:'eyebrow-options', eyeshadow:'eyeshadow-options' };
+
+function toggleFeat(name) {
+  makeupState.features[name] = !makeupState.features[name];
+  document.getElementById('feat-'+name).classList.toggle('on', makeupState.features[name]);
+  if (featOptions[name]) document.getElementById(featOptions[name]).style.display = makeupState.features[name] ? 'block' : 'none';
+  rerenderMakeup();
+}
+
+function selectColor(feature, el, color) {
+  makeupState.colors[feature] = color;
+  document.querySelectorAll('#'+feature+'-swatches .swatch').forEach(s=>s.classList.remove('active'));
+  el.classList.add('active'); rerenderMakeup();
+}
+
+function customColor(feature, color) { makeupState.colors[feature]=color; rerenderMakeup(); }
+
+function clearMakeup() {
+  Object.keys(makeupState.features).forEach(k=>{makeupState.features[k]=false;const el=document.getElementById('feat-'+k);if(el)el.classList.remove('on');});
+  Object.values(featOptions).forEach(id=>{ const el=document.getElementById(id); if(el)el.style.display='none'; });
+  mkCtx.clearRect(0,0,mkCanvas.width,mkCanvas.height);
+  document.getElementById('ai-badge').classList.remove('show');
+  showToast('Đã xoá trang điểm');
+}
+
+function rotateBy(deg){rotation=(rotation+deg)%360;renderAll();pushHistory('Xoay '+deg+'°');}
+function flipH(){flipHState=!flipHState;renderAll();pushHistory('Lật ngang');}
+function flipV(){flipVState=!flipVState;renderAll();pushHistory('Lật dọc');}
+function applyFineRotate(){const v=document.getElementById('fine-angle').value;document.getElementById('v-fine').textContent=v+'°';rotation=parseFloat(v);renderAll();}
+function resetTransform(){rotation=0;flipHState=false;flipVState=false;document.getElementById('fine-angle').value=0;document.getElementById('v-fine').textContent='0°';renderAll();showToast('Đã reset xoay');}
+
+function applyAdjust(){updateSliderVals();renderAll();}
+function updateSliderVals(){
+  document.getElementById('v-brightness').textContent=document.getElementById('brightness').value;
+  document.getElementById('v-contrast').textContent=document.getElementById('contrast').value;
+  document.getElementById('v-saturation').textContent=document.getElementById('saturation').value;
+  document.getElementById('v-temperature').textContent=document.getElementById('temperature').value;
+  document.getElementById('v-sharpen').textContent=document.getElementById('sharpen').value;
+}
+function resetSliders(){['brightness','contrast','saturation','temperature','sharpen'].forEach(id=>document.getElementById(id).value=0);updateSliderVals();}
+function resetAdjust(){resetSliders();renderAll();showToast('Đã reset màu sắc');}
+
+function selectPreset(el,mode){document.querySelectorAll('.preset-chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');presetMode=mode;renderAll();pushHistory('Bộ lọc: '+el.querySelector('span').textContent);}
+
+function pushHistory(label){
+  history=history.slice(0,historyIdx+1);
+  history.push({label,rotation,flipH:flipHState,flipV:flipVState,preset:presetMode,
+    brightness:document.getElementById('brightness').value,contrast:document.getElementById('contrast').value,
+    saturation:document.getElementById('saturation').value,temperature:document.getElementById('temperature').value,
+    sharpen:document.getElementById('sharpen').value});
+  historyIdx=history.length-1;
+}
+function undoStep(){
+  if(historyIdx<=0){showToast('Không có gì để hoàn tác');return;}
+  historyIdx--;const h=history[historyIdx];
+  rotation=h.rotation;flipHState=h.flipH;flipVState=h.flipV;presetMode=h.preset;
+  document.getElementById('brightness').value=h.brightness;document.getElementById('contrast').value=h.contrast;
+  document.getElementById('saturation').value=h.saturation;document.getElementById('temperature').value=h.temperature;
+  document.getElementById('sharpen').value=h.sharpen;
+  updateSliderVals();renderAll();showToast('Đã hoàn tác ↩');
+}
+
+function downloadImage(){
+  if(!originalImage){showToast('Chưa có ảnh');return;}
+  const out=document.createElement('canvas');out.width=mainCanvas.width;out.height=mainCanvas.height;
+  const oc=out.getContext('2d');oc.drawImage(mainCanvas,0,0);oc.drawImage(mkCanvas,0,0);
+  const link=document.createElement('a');link.download='glow-studio-'+Date.now()+'.png';
+  link.href=out.toDataURL('image/png');link.click();showToast('Đã lưu ảnh ⬇');
+}
+
+function clearImage(){
+  if(!confirm('Xoá ảnh và bắt đầu lại?'))return;
+  originalImage=null;mainCanvas.width=1;mainCanvas.height=1;
+  mkCtx.clearRect(0,0,mkCanvas.width,mkCanvas.height);
+  document.getElementById('drop-zone').style.display='flex';
+  document.getElementById('canvas-wrapper').classList.remove('active');
+  document.getElementById('ai-badge').classList.remove('show');
+  showToast('Đã xoá ảnh');
+}
+
+function switchTab(name,el){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+name).classList.add('active');
+  if(!drawerOpen){drawerOpen=true;document.getElementById('panel-drawer').classList.remove('collapsed');}
+}
+function toggleDrawer(){drawerOpen=!drawerOpen;document.getElementById('panel-drawer').classList.toggle('collapsed',!drawerOpen);}
+
+let toastTimer;
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2200);}
+
+window.addEventListener('resize',()=>{if(originalImage)renderAll();});
+</script>
+</body>
+</html>
+
+
+
+
