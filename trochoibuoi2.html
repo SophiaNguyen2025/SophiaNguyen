@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buổi 2 – Tôi Sẽ Nói Gì?</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Lexend:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #0e1621;
+  --sidebar:  #17212b;
+  --surface:  #1c2b3a;
+  --input-bg: #182533;
+  --border:   #2b3e50;
+  --primary:  #5eaeff;
+  --sent:     #2b5278;
+  --recv:     #1c2b3a;
+  --recv-border: #2b3e50;
+  --correct:  #49c676;
+  --correct-bg:#1a3d2b;
+  --wrong:    #ff6b6b;
+  --wrong-bg: #3d1a1a;
+  --warn:     #f0b429;
+  --text:     #e8f0f7;
+  --muted:    #6b8fa8;
+  --online:   #49c676;
+  --radius:   18px;
+  --radius-sm:10px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ── TOP BAR ── */
+.topbar {
+  background: var(--sidebar);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  z-index: 10;
+}
+.avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2b5278, #5eaeff);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  position: relative;
+}
+.avatar-dot {
+  position: absolute;
+  bottom: 1px; right: 1px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--online);
+  border: 2px solid var(--sidebar);
+}
+.topbar-info { flex: 1; min-width: 0; }
+.topbar-name {
+  font-family: 'Lexend', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.topbar-status {
+  font-size: 0.72rem;
+  color: var(--online);
+  font-weight: 500;
+  margin-top: 1px;
+}
+.progress-pill {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 5px 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--muted);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.progress-pill .pip {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+.score-pill {
+  background: #1a3050;
+  border: 1px solid #2b5278;
+  border-radius: 50px;
+  padding: 5px 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--primary);
+  white-space: nowrap;
+}
+
+/* ── PROGRESS BAR ── */
+.prog-bar {
+  height: 3px;
+  background: var(--border);
+  flex-shrink: 0;
+}
+.prog-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--correct));
+  transition: width 0.5s ease;
+  width: 0%;
+}
+
+/* ── CHAT AREA ── */
+.chat-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  scroll-behavior: smooth;
+}
+.chat-area::-webkit-scrollbar { width: 4px; }
+.chat-area::-webkit-scrollbar-track { background: transparent; }
+.chat-area::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+/* date divider */
+.date-divider {
+  text-align: center;
+  margin: 8px 0;
+}
+.date-divider span {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 3px 12px;
+  font-size: 0.7rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+/* scenario label */
+.scenario-label {
+  text-align: center;
+  margin: 14px 0 6px;
+  animation: msgIn 0.3s ease;
+}
+.scenario-label span {
+  background: linear-gradient(135deg, #1a3050, #1c2b3a);
+  border: 1px solid var(--primary);
+  border-radius: 50px;
+  padding: 5px 16px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* bubbles */
+.msg-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  animation: msgIn 0.3s ease;
+  margin-bottom: 2px;
+}
+@keyframes msgIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.msg-row.sent { flex-direction: row-reverse; }
+.msg-row.sent .msg-avatar { display: none; }
+
+.msg-avatar {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2b3e50, #3a5068);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+  margin-bottom: 2px;
+}
+.msg-avatar.hidden { visibility: hidden; }
+
+.bubble {
+  max-width: min(72%, 420px);
+  padding: 9px 13px;
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  line-height: 1.55;
+  font-weight: 400;
+  position: relative;
+  word-break: break-word;
+}
+.bubble.recv {
+  background: var(--recv);
+  border: 1px solid var(--recv-border);
+  border-bottom-left-radius: 4px;
+  color: var(--text);
+}
+.bubble.sent {
+  background: var(--sent);
+  border-bottom-right-radius: 4px;
+  color: #d6eaf5;
+}
+.bubble.sent.correct {
+  background: var(--correct-bg);
+  border: 1px solid #2a6b3f;
+  color: #a8f0c0;
+}
+.bubble.sent.wrong {
+  background: var(--wrong-bg);
+  border: 1px solid #6b2a2a;
+  color: #f0a8a8;
+}
+.bubble .ts {
+  font-size: 0.62rem;
+  color: rgba(255,255,255,0.3);
+  margin-top: 4px;
+  text-align: right;
+  display: block;
+}
+.bubble.recv .ts { text-align: left; color: var(--muted); }
+
+/* feedback bubble */
+.bubble.feedback {
+  background: #0f1e2e;
+  border: 1px solid var(--border);
+  font-size: 0.82rem;
+  line-height: 1.65;
+  color: var(--muted);
+  max-width: min(85%, 480px);
+}
+.bubble.feedback .fb-correct { color: var(--correct); font-weight: 700; font-size: 0.85rem; margin-bottom: 5px; }
+.bubble.feedback .fb-wrong   { color: var(--wrong);   font-weight: 700; font-size: 0.85rem; margin-bottom: 5px; }
+.bubble.feedback strong { color: var(--text); font-weight: 600; }
+.golden-tip {
+  margin-top: 8px;
+  padding: 7px 10px;
+  background: #1e1a0a;
+  border-left: 3px solid var(--warn);
+  border-radius: 0 6px 6px 0;
+  font-size: 0.8rem;
+  color: #f0d080;
+  font-weight: 500;
+  line-height: 1.55;
+}
+
+/* typing indicator */
+.typing-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  margin-bottom: 4px;
+  display: none;
+}
+.typing-row.show { display: flex; animation: msgIn 0.3s ease; }
+.typing-bubble {
+  background: var(--recv);
+  border: 1px solid var(--recv-border);
+  border-bottom-left-radius: 4px;
+  border-radius: var(--radius);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--muted);
+  animation: bounce 1.2s infinite;
+}
+.dot:nth-child(2) { animation-delay: 0.2s; }
+.dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes bounce {
+  0%,60%,100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-5px); opacity: 1; }
+}
+
+/* ── REPLY OPTIONS ── */
+.reply-area {
+  background: var(--sidebar);
+  border-top: 1px solid var(--border);
+  padding: 10px 12px 14px;
+  flex-shrink: 0;
+}
+.reply-hint {
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  padding: 0 2px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.reply-hint::before {
+  content: '';
+  display: inline-block;
+  width: 18px; height: 2px;
+  background: var(--border);
+  border-radius: 1px;
+}
+.reply-options {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.reply-btn {
+  background: var(--input-bg);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  text-align: left;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 1.5;
+  width: 100%;
+}
+.reply-btn:hover:not(:disabled) {
+  border-color: var(--primary);
+  background: #162030;
+  transform: translateX(3px);
+}
+.reply-btn:disabled { cursor: default; transform: none; opacity: 0.5; }
+.reply-btn .rkey {
+  background: var(--border);
+  color: var(--muted);
+  border-radius: 5px;
+  width: 22px; height: 22px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 800;
+  flex-shrink: 0;
+  margin-top: 1px;
+  font-family: 'Lexend', sans-serif;
+  transition: background 0.15s, color 0.15s;
+}
+.reply-btn:hover:not(:disabled) .rkey {
+  background: var(--primary);
+  color: #fff;
+}
+.reply-btn.picked-correct {
+  border-color: var(--correct);
+  background: var(--correct-bg);
+  color: #a8f0c0;
+}
+.reply-btn.picked-correct .rkey { background: var(--correct); color: #fff; }
+.reply-btn.picked-wrong {
+  border-color: var(--wrong);
+  background: var(--wrong-bg);
+  color: #f0a8a8;
+}
+.reply-btn.picked-wrong .rkey { background: var(--wrong); color: #fff; }
+.reply-btn.reveal {
+  border-color: #2a5e3f;
+  background: #111f17;
+  color: #6bbf8a;
+  opacity: 0.7;
+}
+.reply-btn.reveal .rkey { background: #1a3d2b; color: var(--correct); }
+
+/* next button */
+.next-wrap {
+  margin-top: 8px;
+  display: none;
+}
+.next-wrap.show { display: block; animation: msgIn 0.3s ease; }
+.next-btn-bar {
+  width: 100%;
+  padding: 11px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: 'Lexend', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: filter 0.15s, transform 0.1s;
+  letter-spacing: 0.3px;
+}
+.next-btn-bar:hover { filter: brightness(1.12); transform: translateY(-1px); }
+
+/* ── RESULT SCREEN ── */
+.result-screen {
+  display: none;
+  flex: 1;
+  overflow-y: auto;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 16px 48px;
+  gap: 18px;
+  text-align: center;
+  animation: msgIn 0.4s ease;
+}
+.result-screen.show { display: flex; }
+
+.result-trophy {
+  font-size: 4rem;
+  filter: drop-shadow(0 0 24px rgba(94,174,255,0.4));
+}
+.result-title {
+  font-family: 'Lexend', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.2;
+}
+.result-score-big {
+  font-family: 'Lexend', sans-serif;
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+.result-sub {
+  font-size: 0.9rem;
+  color: var(--muted);
+  max-width: 380px;
+  line-height: 1.75;
+}
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  width: 100%;
+  max-width: 420px;
+}
+.stat-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 8px;
+  text-align: center;
+}
+.stat-val {
+  font-family: 'Lexend', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 800;
+  display: block;
+}
+.stat-lbl { font-size: 0.7rem; font-weight: 600; color: var(--muted); margin-top: 3px; }
+.stat-box.s-ok .stat-val  { color: var(--correct); }
+.stat-box.s-no .stat-val  { color: var(--wrong); }
+.stat-box.s-pt .stat-val  { color: var(--primary); }
+
+.review-block { width: 100%; max-width: 500px; text-align: left; }
+.review-title-lbl {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  padding: 0 2px;
+}
+.review-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--wrong);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.review-item .ri-q { color: var(--text); font-weight: 600; margin-bottom: 5px; font-size: 0.88rem; }
+.review-item .ri-a { color: var(--correct); font-weight: 500; }
+.all-ok-box {
+  background: var(--correct-bg);
+  border: 1px solid #2a6b3f;
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--correct);
+  text-align: center;
+  width: 100%;
+  max-width: 500px;
+}
+.restart-btn {
+  padding: 13px 36px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: 'Lexend', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: filter 0.15s, transform 0.1s;
+}
+.restart-btn:hover { filter: brightness(1.12); transform: translateY(-2px); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 480px) {
+  .bubble { font-size: 0.85rem; padding: 8px 11px; }
+  .reply-btn { font-size: 0.82rem; padding: 9px 12px; }
+  .topbar-name { font-size: 0.88rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="avatar" id="topAvatar">👤<div class="avatar-dot"></div></div>
+  <div class="topbar-info">
+    <div class="topbar-name" id="topName">—</div>
+    <div class="topbar-status">Đang hoạt động</div>
+  </div>
+  <div class="progress-pill"><span class="pip"></span><span id="progText">0 / 8</span></div>
+  <div class="score-pill">⚡ <span id="scoreDisp">0</span></div>
+</div>
+<div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
+
+<!-- CHAT AREA -->
+<div class="chat-area" id="chatArea">
+  <div class="date-divider"><span>Buổi 2 · Tôi Sẽ Nói Gì?</span></div>
+</div>
+
+<!-- TYPING INDICATOR (inside chat, moved dynamically) -->
+
+<!-- REPLY AREA -->
+<div class="reply-area" id="replyArea">
+  <div class="reply-hint">Chọn cách trả lời</div>
+  <div class="reply-options" id="replyOptions"></div>
+  <div class="next-wrap" id="nextWrap">
+    <button class="next-btn-bar" id="nextBtn" onclick="nextScenario()">Tình huống tiếp →</button>
+  </div>
+</div>
+
+<!-- RESULT SCREEN -->
+<div class="result-screen" id="resultScreen"></div>
+
+<script>
+// ================================================================
+// DATA – 10 tình huống
+// ================================================================
+const POOL = [
+  {
+    tag: "💬 Bạn thân – ranh giới",
+    emoji: "🧑", sender: "Bạn thân Minh",
+    messages: ["ê, cho tao xem điện thoại mày đi", "tao chỉ muốn biết mày có nói xấu tao không thôi", "thân nhau mà còn giấu à? 🙄"],
+    question: "Mày trả lời sao?",
+    options: ["Tao không nói xấu cậu, nhưng điện thoại là riêng tư. Thân nhau không có nghĩa là không có ranh giới.", "Ok cầm đây xem đi, tao chẳng giấu gì.", "Thôi được rồi, chúng ta không cần làm bạn nữa."],
+    correct: 0,
+    explain: "Từ chối nhẹ nhàng nhưng rõ ràng là đúng nhất. <strong>Bạn tốt luôn tôn trọng ranh giới của nhau</strong> — nếu họ tức giận vì bạn từ chối cho xem điện thoại, đó là dấu hiệu tình bạn không lành mạnh.",
+    wrong0: "Cho xem không giải quyết gốc vấn đề — lần sau họ sẽ tiếp tục đòi hỏi thêm.",
+    wrong1: "Phản ứng thái quá — không cần cắt đứt ngay, hãy nói chuyện thẳng thắn trước.",
+    rule: "💡 Ranh giới rõ ràng = tình bạn lành mạnh. Bạn tốt tôn trọng không gian riêng của nhau."
+  },
+  {
+    tag: "💔 Người yêu – ép buộc tinh vi",
+    emoji: "🧑", sender: "Người yêu",
+    messages: ["em có yêu anh thật không?", "mình đã yêu nhau 3 tháng rồi mà em vẫn chưa tin anh à", "nếu yêu thật thì phải gửi ảnh riêng tư cho anh đi 😔"],
+    question: "Em nhận ra đây là gì và sẽ nói gì?",
+    options: ["Đây là ép buộc tinh vi. 'Yêu không có nghĩa là phải làm mọi thứ anh muốn. Anh dùng tình cảm để ép em là anh không tôn trọng em.'", "Ok anh, em gửi vì em không muốn anh nghĩ em không tin tưởng.", "Em hứa sẽ gửi sau… (rồi lờ đi)"],
+    correct: 0,
+    explain: "Nhận ra và từ chối dứt khoát là đúng. Câu 'nếu yêu thật thì phải...' là kiểu <strong>ép buộc dùng tình cảm làm vũ khí</strong> — rất phổ biến và rất nguy hiểm. Ảnh một khi đã gửi sẽ mất kiểm soát hoàn toàn.",
+    wrong0: "Một khi ảnh đã gửi, bạn không thể lấy lại — dù sau này chia tay.",
+    wrong1: "Trốn tránh không giải quyết được gì và dễ bị ép thêm lần sau.",
+    rule: "💡 'Nếu yêu thật thì phải...' = ép buộc tinh vi. Tình yêu thật không bao giờ dùng tình cảm để gây áp lực."
+  },
+  {
+    tag: "📲 Người yêu – kiểm soát",
+    emoji: "🧑", sender: "Người yêu",
+    messages: ["em đang ở đâu vậy?? 😤", "sao 10 phút không trả lời tin nhắn anh?", "bật chia sẻ vị trí 24/7 cho anh đi, anh chỉ lo cho em thôi"],
+    question: "Em nhận ra điều gì và nên nói gì?",
+    options: ["Đây là kiểm soát trong mối quan hệ. 'Anh lo cho em là tốt, nhưng theo dõi vị trí 24/7 không phải tình yêu — đó là mất tin tưởng.'", "Ok anh, em bật vị trí lên vì anh lo lắng là bình thường.", "(Tắt điện thoại để tránh bị hỏi tiếp)"],
+    correct: 0,
+    explain: "Nhận ra và nói thẳng là đúng. Theo dõi vị trí 24/7, kiểm tra điện thoại, hỏi liên tục là <strong>dấu hiệu của mối quan hệ kiểm soát</strong> — không phải tình yêu. Hành vi kiểm soát thường leo thang dần nếu không được nói thẳng.",
+    wrong0: "Lo lắng bình thường và kiểm soát là hai thứ rất khác nhau.",
+    wrong1: "Trốn tránh không giải quyết — hành vi kiểm soát sẽ leo thang nếu không được đối mặt.",
+    rule: "💡 Tình yêu lành mạnh = tin tưởng + tự do cá nhân. Kiểm soát vị trí và tin nhắn là dấu hiệu đỏ."
+  },
+  {
+    tag: "👥 Nhóm bạn – áp lực đám đông",
+    emoji: "🧑", sender: "Group chat lớp",
+    messages: ["tụi mày nghe này 👀", "tụi mình chụp ảnh nhạy cảm rồi gửi cho nhau đi", "ai không gửi là không phải bạn thật của nhóm 😤"],
+    question: "Bạn sẽ nói gì trong group?",
+    options: ["Tớ không làm vậy. Đây không phải cách chứng minh tình bạn — bạn thật không cần điều kiện như vậy.", "Ok gửi thôi cho khỏi bị loại khỏi nhóm 😅", "(Rời nhóm chat không nói gì)"],
+    correct: 0,
+    explain: "Từ chối và nêu rõ lý do là tốt nhất. <strong>Một khi ảnh nhạy cảm gửi đi, bạn mất kiểm soát hoàn toàn</strong> — có thể bị lan truyền ra ngoài nhóm. Nói thẳng còn giúp người khác trong nhóm cũng dám từ chối theo.",
+    wrong0: "Ảnh nhạy cảm không thể thu hồi và rất dễ bị lan truyền ra ngoài nhóm.",
+    wrong1: "Rời đi không giải thích bỏ lỡ cơ hội lên tiếng — bạn có thể ảnh hưởng tích cực đến người khác.",
+    rule: "💡 Bạn thật không ép bạn làm điều mình không muốn. Áp lực nhóm là dấu hiệu nhóm không lành mạnh."
+  },
+  {
+    tag: "🎁 Người quen lớn tuổi – grooming",
+    emoji: "🧒", sender: "Tình huống",
+    messages: ["Chú Minh hàng xóm hay tặng quà đắt tiền và nhắn tin riêng hỏi thăm...", "Gần đây chú hay rủ cháu đi chơi riêng, bảo 'chú thích nói chuyện với cháu hơn với người lớn'", "Tuần trước chú dặn: \"Chuyện chú tặng quà đừng kể bố mẹ nghe nha, sợ họ hiểu lầm.\""],
+    question: "Cháu nên làm gì?",
+    options: ["Kể ngay với bố mẹ về toàn bộ — việc tặng quà, rủ đi riêng, và đặc biệt là dặn giữ bí mật.", "Giữ bí mật vì chú dặn vậy, với lại cháu cũng không muốn mất quà.", "Tự xử lý: không nhận quà nữa và tránh mặt chú."],
+    correct: 0,
+    explain: "Kể với bố mẹ ngay là đúng. Đây là <strong>các giai đoạn điển hình của grooming</strong>: tặng quà tạo quan hệ → tạo sự thân thiết đặc biệt → cô lập khỏi gia đình bằng bí mật. Kẻ xấu luôn chọn trẻ em không kể với bố mẹ.",
+    wrong0: "Giữ bí mật là điều kẻ xấu muốn nhất — giúp họ tiếp tục và leo thang hành vi nguy hiểm hơn.",
+    wrong1: "Tự giải quyết không đủ — bố mẹ cần biết để bảo vệ cháu, và có thể còn trẻ khác đang bị tương tự.",
+    rule: "💡 Tặng quà + rủ đi riêng + dặn giữ bí mật = 3 dấu hiệu grooming. Bí mật xấu không cần giữ."
+  },
+  {
+    tag: "😰 Người thân trong nhà – xâm hại",
+    emoji: "🧒", sender: "Tình huống",
+    messages: ["Bố ra ngoài, người quen của bố ở lại trong nhà...", "Ông ta cố chạm vào người bạn khi không có ai...", "Ông ta nói: \"Chú thương cháu thôi, đừng nói với bố nhé.\""],
+    question: "Bạn phải làm gì ngay lập tức?",
+    options: ["Nói to rõ ràng: 'Không! Cháu không đồng ý!' — rời phòng ngay, khóa cửa và gọi bố hoặc 111.", "Giữ im lặng vì đó là khách của bố, sợ bố không tin.", "Lịch sự từ chối rồi chờ bố về mới kể."],
+    correct: 0,
+    explain: "Nói to, rõ ràng và rời đi ngay là đúng. <strong>Bạn không cần lịch sự trong tình huống này.</strong> Gọi bố ngay hoặc gọi 111. Đây không phải lỗi của bạn — bố sẽ tin bạn.",
+    wrong0: "Im lặng khiến kẻ xấu tiếp tục. Lỗi không bao giờ thuộc về nạn nhân.",
+    wrong1: "Không cần chờ — thoát khỏi tình huống và gọi bố ngay. An toàn quan trọng hơn lịch sự.",
+    rule: "💡 An toàn quan trọng hơn sự lịch sự. Nói không, rời đi, kể lại ngay — dù người đó là ai."
+  },
+  {
+    tag: "🤐 Bị xâm hại – sợ không ai tin",
+    emoji: "🧒", sender: "Tình huống",
+    messages: ["Bạn bị xâm hại bởi người thân được mọi người kính trọng...", "Người đó nói: \"Nếu mày kể, không ai tin đâu\"", "\"...và cả nhà sẽ ghét mày vì mày phá hoại gia đình.\""],
+    question: "Bạn nên làm gì?",
+    options: ["Kể với một người lớn bạn tin nhất — thầy cô, bố mẹ, hoặc gọi 111. Đây không phải lỗi của bạn.", "Giữ im lặng vì sợ không ai tin và sợ làm phiền gia đình.", "Chờ đến khi lớn hơn rồi tự giải quyết."],
+    correct: 0,
+    explain: "Hãy kể — dù sợ. Kẻ xấu dùng nỗi sợ và xấu hổ để giữ nạn nhân im lặng. <strong>Đây không bao giờ là lỗi của bạn.</strong> Gọi 111 (miễn phí, 24/7) nếu không thể kể với người thân.",
+    wrong0: "Im lặng bảo vệ kẻ xấu, không bảo vệ bạn.",
+    wrong1: "Chờ đợi kéo dài tổn thương. Bạn không cần tự giải quyết một mình.",
+    rule: "💡 Lên tiếng là dũng cảm. Đây không phải lỗi của bạn. Gọi 111 nếu cần giúp ngay."
+  },
+  {
+    tag: "😨 Bị đe dọa – tống tiền ảnh",
+    emoji: "❓", sender: "Người quen cũ",
+    messages: ["tao còn giữ ảnh mày đó 😈", "nếu mày không tiếp tục gửi ảnh", "tao sẽ đăng hết lên mạng cho cả trường xem 🙂"],
+    question: "Bạn phải làm gì?",
+    options: ["Không gửi thêm. Chụp màn hình bằng chứng đe dọa. Kể ngay với bố mẹ — đây là tống tiền, có thể báo công an.", "Tiếp tục gửi ảnh để họ không thực hiện đe dọa.", "Chặn họ và hy vọng họ không làm gì."],
+    correct: 0,
+    explain: "Không bao giờ nhượng bộ tống tiền. <strong>Gửi thêm chỉ làm tình huống tệ hơn mãi mãi</strong> — kẻ tống tiền sẽ không bao giờ dừng lại. Đây là hành vi phạm pháp. Bố mẹ cần biết để giúp bạn.",
+    wrong0: "Gửi thêm sẽ không dừng lại — kẻ tống tiền sẽ tiếp tục đòi hỏi thêm mãi.",
+    wrong1: "Chặn mà không làm gì thêm không đủ — cần người lớn hỗ trợ và lưu bằng chứng trước.",
+    rule: "💡 Tống tiền bằng ảnh là phạm pháp. Lưu bằng chứng → kể với người lớn → báo công an 113."
+  },
+  {
+    tag: "🤝 Bạn rủ làm điều sai",
+    emoji: "🧑", sender: "Bạn cùng lớp",
+    messages: ["mày ơi, tụi tao đang trốn tiết ra ngoài", "mày không đi là không phải bạn tốt đâu nha", "ai cũng đi hết rồi, chỉ có mày là không 😒"],
+    question: "Bạn sẽ nói gì?",
+    options: ["Tớ không đi. Tớ không cần phải làm theo để chứng minh tình bạn — bạn thật không dùng câu đó để ép nhau.", "Thôi ok đi cho tụi mày vui.", "(Im lặng và đi theo cho xong)"],
+    correct: 0,
+    explain: "Từ chối rõ ràng là đúng. <strong>'Ai cũng làm thế, chỉ có mày là không'</strong> là câu áp lực đám đông cổ điển — được dùng để khiến bạn cảm thấy lạc lõng nếu không làm theo. Nhận ra nó là bước đầu tiên để không bị cuốn theo.",
+    wrong0: "Làm theo để 'cho tụi mày vui' là để người khác quyết định hành động của mình.",
+    wrong1: "Im lặng và đi theo cũng là đồng ý — không khác gì nói có.",
+    rule: "💡 'Ai cũng làm thế' = áp lực đám đông. Bạn thật tôn trọng quyết định của nhau, không ép."
+  },
+  {
+    tag: "💬 Người lớn đáng ngờ tiếp cận",
+    emoji: "🧒", sender: "Tình huống",
+    messages: ["Một người lớn quen biết liên tục nhắn tin riêng cho bạn...", "'Cháu là đứa trẻ đặc biệt nhất chú từng gặp. Chú chỉ muốn nói chuyện với cháu thôi.'", "'Đừng kể với bố mẹ nha, họ sẽ không hiểu mối quan hệ đặc biệt của mình đâu.'"],
+    question: "Bạn cảm thấy có gì đó không ổn. Bạn nên làm gì?",
+    options: ["Tin vào cảm giác của mình — kể ngay với bố mẹ về toàn bộ các tin nhắn đó.", "Tiếp tục nhắn tin vì người đó rất tốt bụng và quan tâm.", "Tự mình ngừng trả lời và không kể với ai."],
+    correct: 0,
+    explain: "Tin vào cảm giác bất an của mình là đúng. <strong>'Mối quan hệ đặc biệt' + 'đừng kể bố mẹ'</strong> là hai dấu hiệu cực kỳ rõ ràng của grooming. Cảm giác 'có gì đó không ổn' của bạn là đúng — hãy tin vào nó.",
+    wrong0: "Người tốt bụng thật sự không bao giờ yêu cầu bạn giữ bí mật với bố mẹ.",
+    wrong1: "Tự xử lý không đủ — bố mẹ cần biết để có thể bảo vệ bạn.",
+    rule: "💡 Tin vào cảm giác của mình. 'Đừng kể bố mẹ' từ người lớn = dấu hiệu đỏ ngay lập tức."
+  }
+];
+
+const Q_COUNT = 8;
+let questions = [], curIdx = 0, score = 0, correctCount = 0, wrongCount = 0;
+let wrongLog = [], answered = false;
+
+function shuffle(a) {
+  let b = [...a];
+  for (let i = b.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [b[i], b[j]] = [b[j], b[i]];
+  }
+  return b;
+}
+
+function getTime() {
+  const now = new Date();
+  return now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+}
+
+function scrollBottom() {
+  const ca = document.getElementById('chatArea');
+  setTimeout(() => ca.scrollTop = ca.scrollHeight, 50);
+}
+
+function initGame() {
+  questions = shuffle(POOL).slice(0, Q_COUNT);
+  curIdx = 0; score = 0; correctCount = 0; wrongCount = 0; wrongLog = []; answered = false;
+  document.getElementById('resultScreen').classList.remove('show');
+  document.getElementById('resultScreen').style.display = '';
+  document.getElementById('replyArea').style.display = '';
+  document.getElementById('chatArea').innerHTML = '<div class="date-divider"><span>Buổi 2 · Tôi Sẽ Nói Gì?</span></div>';
+  document.getElementById('scoreDisp').textContent = '0';
+  loadScenario();
+}
+
+function addMsg(type, content, avatarEmoji, avatarHidden) {
+  const ca = document.getElementById('chatArea');
+  const row = document.createElement('div');
+  row.className = 'msg-row ' + type;
+
+  const avEl = document.createElement('div');
+  avEl.className = 'msg-avatar' + (avatarHidden ? ' hidden' : '');
+  avEl.textContent = avatarEmoji || '?';
+
+  const bub = document.createElement('div');
+  bub.className = 'bubble ' + type;
+  bub.innerHTML = content + `<span class="ts">${getTime()}</span>`;
+
+  if (type === 'sent') {
+    row.appendChild(bub);
+  } else {
+    row.appendChild(avEl);
+    row.appendChild(bub);
+  }
+  ca.appendChild(row);
+  scrollBottom();
+  return bub;
+}
+
+function addFeedback(isCorrect, q, wrongMsg) {
+  const ca = document.getElementById('chatArea');
+  const row = document.createElement('div');
+  row.className = 'msg-row recv';
+
+  const avEl = document.createElement('div');
+  avEl.className = 'msg-avatar';
+  avEl.textContent = '🤖';
+
+  const bub = document.createElement('div');
+  bub.className = 'bubble recv feedback';
+
+  const headerCls = isCorrect ? 'fb-correct' : 'fb-wrong';
+  const headerTxt = isCorrect ? '✅ Chính xác!' : '❌ Chưa đúng';
+  const bodyHtml = isCorrect
+    ? q.explain
+    : `<strong>Vì sao chưa đúng:</strong> ${wrongMsg}<br><br><strong>Cách đúng:</strong> ${q.explain}`;
+
+  bub.innerHTML = `
+    <div class="${headerCls}">${headerTxt}</div>
+    ${bodyHtml}
+    <div class="golden-tip">${q.rule}</div>
+    <span class="ts">${getTime()}</span>
+  `;
+
+  row.appendChild(avEl);
+  row.appendChild(bub);
+  ca.appendChild(row);
+  scrollBottom();
+}
+
+function showTyping(emoji) {
+  const ca = document.getElementById('chatArea');
+  const row = document.createElement('div');
+  row.className = 'typing-row show';
+  row.id = 'typingRow';
+
+  const av = document.createElement('div');
+  av.className = 'msg-avatar';
+  av.textContent = emoji;
+
+  const bub = document.createElement('div');
+  bub.className = 'typing-bubble';
+  bub.innerHTML = '<div class="dot"></div><div class="dot"></div><div class="dot"></div>';
+
+  row.appendChild(av);
+  row.appendChild(bub);
+  ca.appendChild(row);
+  scrollBottom();
+  return row;
+}
+
+function removeTyping() {
+  const t = document.getElementById('typingRow');
+  if (t) t.remove();
+}
+
+function updateHeader(q) {
+  document.getElementById('topAvatar').childNodes[0].textContent = q.emoji;
+  document.getElementById('topName').textContent = q.sender;
+  document.getElementById('progText').textContent = (curIdx + 1) + ' / ' + questions.length;
+  document.getElementById('progFill').style.width = (curIdx / questions.length * 100) + '%';
+}
+
+async function delay(ms) {
+  return new Promise(r => setTimeout(r, ms));
+}
+
+async function loadScenario() {
+  if (curIdx >= questions.length) { showResult(); return; }
+  answered = false;
+  const q = questions[curIdx];
+  updateHeader(q);
+
+  // clear reply area
+  document.getElementById('replyOptions').innerHTML = '';
+  document.getElementById('nextWrap').className = 'next-wrap';
+
+  // scenario label
+  const ca = document.getElementById('chatArea');
+  const lbl = document.createElement('div');
+  lbl.className = 'scenario-label';
+  lbl.innerHTML = `<span>${q.tag} · Tình huống ${curIdx + 1}</span>`;
+  ca.appendChild(lbl);
+
+  // messages with typing
+  for (let i = 0; i < q.messages.length; i++) {
+    const typRow = showTyping(q.emoji);
+    await delay(700 + q.messages[i].length * 18);
+    typRow.remove();
+    addMsg('recv', q.messages[i], q.emoji, i > 0);
+    if (i < q.messages.length - 1) await delay(300);
+  }
+
+  // question prompt
+  await delay(400);
+  const promptRow = showTyping(q.emoji);
+  await delay(500);
+  promptRow.remove();
+  addMsg('recv', `<em style="color:var(--warn)">👉 ${q.question}</em>`, q.emoji, true);
+
+  await delay(200);
+  buildReplyOptions(q);
+}
+
+function buildReplyOptions(q) {
+  const list = document.getElementById('replyOptions');
+  list.innerHTML = '';
+  const keys = ['A', 'B', 'C'];
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'reply-btn';
+    btn.innerHTML = `<span class="rkey">${keys[i]}</span><span>${opt}</span>`;
+    btn.addEventListener('click', () => pickOption(i, q));
+    list.appendChild(btn);
+  });
+}
+
+function pickOption(idx, q) {
+  if (answered) return;
+  answered = true;
+  const isCorrect = idx === q.correct;
+  const btns = document.querySelectorAll('.reply-btn');
+
+  btns.forEach((b, i) => {
+    b.disabled = true;
+    if (i === idx) {
+      b.classList.add(isCorrect ? 'picked-correct' : 'picked-wrong');
+    } else if (i === q.correct && !isCorrect) {
+      b.classList.add('reveal');
+    }
+  });
+
+  // send bubble
+  const sentClass = isCorrect ? 'correct' : 'wrong';
+  addMsg('sent ' + sentClass, q.options[idx]);
+
+  if (isCorrect) {
+    correctCount++;
+    score += 20;
+    document.getElementById('scoreDisp').textContent = score;
+  } else {
+    wrongCount++;
+    const wrongMsg = idx === 0 ? q.wrong0 : q.wrong1;
+    wrongLog.push({ who: q.sender, correct: q.options[q.correct] });
+    setTimeout(() => addFeedback(false, q, wrongMsg), 400);
+    setTimeout(() => buildNextBtn(), 900);
+    return;
+  }
+
+  setTimeout(() => addFeedback(true, q), 400);
+  setTimeout(() => buildNextBtn(), 900);
+}
+
+function buildNextBtn() {
+  const wrap = document.getElementById('nextWrap');
+  const btn = document.getElementById('nextBtn');
+  const isLast = curIdx === questions.length - 1;
+  btn.textContent = isLast ? '📊 Xem kết quả →' : 'Tình huống tiếp →';
+  wrap.className = 'next-wrap show';
+  scrollBottom();
+}
+
+function nextScenario() {
+  curIdx++;
+  loadScenario();
+}
+
+function showResult() {
+  document.getElementById('replyArea').style.display = 'none';
+  document.getElementById('progFill').style.width = '100%';
+  document.getElementById('progText').textContent = questions.length + ' / ' + questions.length;
+  document.getElementById('topName').textContent = 'Kết quả';
+
+  const rs = document.getElementById('resultScreen');
+  rs.innerHTML = '';
+  rs.classList.add('show');
+
+  const pct = correctCount / questions.length;
+  let trophy, title, sub;
+  if (pct === 1)      { trophy='🏆'; title='Chuyên Gia An Toàn!';  sub='Hoàn hảo! Bạn biết cách xử lý mọi tình huống. Hãy chia sẻ kiến thức này với bạn bè nhé!'; }
+  else if (pct >= .75){ trophy='🌟'; title='Rất Tốt!';             sub='Bạn hiểu rõ cách bảo vệ bản thân trong hầu hết tình huống. Xem lại câu sai để hoàn thiện hơn!'; }
+  else if (pct >= .5) { trophy='💪'; title='Đang Tiến Bộ!';        sub='Bạn đúng nhiều câu quan trọng. Đọc kỹ phần giải thích và thử lại — những kỹ năng này rất cần thiết!'; }
+  else                { trophy='📖'; title='Cần Luyện Thêm!';      sub='Đừng nản! Đọc kỹ từng giải thích, học từ tình huống và chơi lại nhé.'; }
+
+  rs.innerHTML = `
+    <div class="result-trophy">${trophy}</div>
+    <div class="result-title">${title}</div>
+    <div class="result-score-big">${score} điểm</div>
+    <div class="result-sub">${sub}</div>
+    <div class="stat-row">
+      <div class="stat-box s-ok"><span class="stat-val">${correctCount}</span><div class="stat-lbl">✅ Đúng</div></div>
+      <div class="stat-box s-no"><span class="stat-val">${wrongCount}</span><div class="stat-lbl">❌ Sai</div></div>
+      <div class="stat-box s-pt"><span class="stat-val">${score}</span><div class="stat-lbl">⚡ Điểm</div></div>
+    </div>
+    ${buildReviewHTML()}
+    <button class="restart-btn" onclick="initGame()">🔄 Chơi lại (câu hỏi mới)</button>
+  `;
+}
+
+function buildReviewHTML() {
+  if (wrongLog.length === 0) {
+    return '<div class="all-ok-box">🎉 Tất cả đều đúng — không có gì cần xem lại!</div>';
+  }
+  let html = '<div class="review-block"><div class="review-title-lbl">📌 Xem lại các câu sai</div>';
+  wrongLog.forEach(w => {
+    html += `<div class="review-item">
+      <div class="ri-q">${w.who}</div>
+      <div class="ri-a">✅ Đáp án đúng: ${w.correct}</div>
+    </div>`;
+  });
+  html += '</div>';
+  return html;
+}
+
+initGame();
+</script>
+</body>
+</html>
