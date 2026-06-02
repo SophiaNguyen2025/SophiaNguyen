@@ -18,13 +18,9 @@
     --red: #ef4444;
     --text: #f1f5f9;
     --muted: #94a3b8;
-    --cell-bg: #1e293b;
-    --cell-border: #334155;
     --radius: 16px;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
   body {
     background: var(--bg);
     font-family: 'Nunito', sans-serif;
@@ -32,211 +28,91 @@
     min-height: 100vh;
     overflow-x: hidden;
   }
-
-  /* Background stars */
   body::before {
     content: '';
-    position: fixed;
-    inset: 0;
+    position: fixed; inset: 0;
     background-image:
       radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.15) 0%, transparent 100%),
-      radial-gradient(1px 1px at 80% 10%, rgba(255,255,255,0.1) 0%, transparent 100%),
+      radial-gradient(1px 1px at 80% 10%, rgba(255,255,255,0.10) 0%, transparent 100%),
       radial-gradient(1px 1px at 50% 80%, rgba(255,255,255,0.12) 0%, transparent 100%),
       radial-gradient(2px 2px at 10% 70%, rgba(255,255,255,0.08) 0%, transparent 100%),
       radial-gradient(2px 2px at 90% 60%, rgba(255,255,255,0.08) 0%, transparent 100%);
-    pointer-events: none;
-    z-index: 0;
+    pointer-events: none; z-index: 0;
   }
-
-  .container {
-    position: relative;
-    z-index: 1;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 16px;
-  }
+  .container { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 16px; }
 
   /* HEADER */
-  .header {
-    text-align: center;
-    padding: 16px 0 10px;
-  }
+  .header { text-align: center; padding: 16px 0 10px; }
   .header h1 {
     font-family: 'Baloo 2', cursive;
     font-size: clamp(1.6rem, 4vw, 2.4rem);
     font-weight: 800;
     background: linear-gradient(135deg, var(--accent-a), var(--gold));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    letter-spacing: -0.5px;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   }
-  .header p {
-    color: var(--muted);
-    font-size: 0.85rem;
-    margin-top: 4px;
-  }
+  .header p { color: var(--muted); font-size: 0.85rem; margin-top: 4px; }
 
   /* SCOREBOARD */
-  .scoreboard {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    gap: 10px;
-    align-items: center;
-    margin: 12px 0;
-  }
+  .scoreboard { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: center; margin: 12px 0; }
   .team-card {
-    background: var(--card);
-    border: 2px solid var(--border);
-    border-radius: var(--radius);
-    padding: 12px 16px;
-    transition: all 0.3s;
+    background: var(--card); border: 2px solid var(--border); border-radius: var(--radius);
+    padding: 12px 16px; transition: all 0.3s;
   }
-  .team-card.active {
-    border-color: var(--team-color);
-    box-shadow: 0 0 20px -4px var(--team-color);
-  }
+  .team-card.active { border-color: var(--team-color); box-shadow: 0 0 20px -4px var(--team-color); }
   .team-card.team-a { --team-color: var(--accent-a); }
-  .team-card.team-b { --team-color: var(--accent-b); }
-  .team-label {
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--team-color);
-    margin-bottom: 2px;
-  }
-  .team-name {
-    font-family: 'Baloo 2', cursive;
-    font-size: 1.1rem;
-    font-weight: 800;
-    color: var(--text);
-  }
-  .team-score {
-    font-size: 2rem;
-    font-weight: 800;
-    font-family: 'Baloo 2', cursive;
-    color: var(--team-color);
-    line-height: 1;
-  }
-  .team-bingo-count {
-    font-size: 0.75rem;
-    color: var(--muted);
-    margin-top: 2px;
-  }
-  .team-card.team-b { text-align: right; }
+  .team-card.team-b { --team-color: var(--accent-b); text-align: right; }
+  .team-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--team-color); margin-bottom: 2px; }
+  .team-name { font-family: 'Baloo 2', cursive; font-size: 1.1rem; font-weight: 800; color: var(--text); }
+  .team-score { font-size: 2rem; font-weight: 800; font-family: 'Baloo 2', cursive; color: var(--team-color); line-height: 1; }
+  .team-bingo-count { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+  .vs-badge { text-align: center; }
+  .vs-badge .vs-text { font-family: 'Baloo 2', cursive; font-size: 1.5rem; font-weight: 800; color: var(--gold); }
+  .turn-indicator { font-size: 0.7rem; color: var(--muted); margin-top: 4px; }
 
-  .vs-badge {
-    text-align: center;
-  }
-  .vs-badge .vs-text {
-    font-family: 'Baloo 2', cursive;
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: var(--gold);
-  }
-  .turn-indicator {
-    font-size: 0.7rem;
-    color: var(--muted);
-    margin-top: 4px;
-  }
-
-  /* QUESTION PANEL */
+  /* QUESTION */
   .question-panel {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 14px 20px;
-    margin: 10px 0;
-    min-height: 80px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 14px 20px; margin: 10px 0; min-height: 80px; display: flex; align-items: center; gap: 14px;
   }
   .q-number {
-    background: var(--active-team-color, var(--gold));
-    color: #000;
-    font-family: 'Baloo 2', cursive;
-    font-weight: 800;
-    font-size: 1.1rem;
-    min-width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    transition: background 0.3s;
+    background: var(--gold); color: #000; font-family: 'Baloo 2', cursive; font-weight: 800;
+    font-size: 1.1rem; min-width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.3s;
   }
-  .q-text {
-    font-size: 1rem;
-    font-weight: 700;
-    line-height: 1.4;
-    color: var(--text);
-    flex: 1;
+  .q-text { font-size: 1rem; font-weight: 700; line-height: 1.4; color: var(--text); flex: 1; }
+  .q-text.placeholder { color: var(--muted); font-weight: 400; font-style: italic; }
+
+  /* HINT BADGE – hiển thị đáp án đúng sau khi kết thúc câu */
+  .q-hint {
+    display: none;
+    margin-top: 6px;
+    font-size: 0.82rem;
+    color: var(--green);
+    font-weight: 600;
+    font-style: normal;
+    padding: 4px 10px;
+    background: rgba(34,197,94,0.1);
+    border-radius: 8px;
+    border: 1px solid rgba(34,197,94,0.25);
   }
-  .q-text.placeholder {
-    color: var(--muted);
-    font-weight: 400;
-    font-style: italic;
-  }
+  .q-hint.show { display: inline-block; }
 
   /* TIMER */
-  .timer-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: 8px 0;
-  }
-  .timer-bar-wrap {
-    flex: 1;
-    height: 10px;
-    background: var(--card);
-    border-radius: 99px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-  }
-  .timer-bar {
-    height: 100%;
-    border-radius: 99px;
-    background: var(--green);
-    transition: width 1s linear, background 0.3s;
-    width: 100%;
-  }
+  .timer-row { display: flex; align-items: center; gap: 10px; margin: 8px 0; }
+  .timer-bar-wrap { flex: 1; height: 10px; background: var(--card); border-radius: 99px; overflow: hidden; border: 1px solid var(--border); }
+  .timer-bar { height: 100%; border-radius: 99px; background: var(--green); transition: width 1s linear, background 0.3s; width: 100%; }
   .timer-bar.warn { background: var(--gold); }
   .timer-bar.danger { background: var(--red); }
-  .timer-display {
-    font-family: 'Baloo 2', cursive;
-    font-size: 1.5rem;
-    font-weight: 800;
-    min-width: 48px;
-    text-align: right;
-    color: var(--text);
-    transition: color 0.3s;
-  }
+  .timer-display { font-family: 'Baloo 2', cursive; font-size: 1.5rem; font-weight: 800; min-width: 48px; text-align: right; color: var(--text); transition: color 0.3s; }
   .timer-display.warn { color: var(--gold); }
   .timer-display.danger { color: var(--red); }
 
   /* CONTROLS */
-  .controls {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin: 10px 0;
-  }
+  .controls { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0; }
   .btn {
-    font-family: 'Nunito', sans-serif;
-    font-weight: 800;
-    font-size: 0.85rem;
-    padding: 9px 18px;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.15s;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    letter-spacing: 0.3px;
+    font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.85rem;
+    padding: 9px 18px; border-radius: 10px; border: none; cursor: pointer;
+    transition: all 0.15s; display: flex; align-items: center; gap: 6px; letter-spacing: 0.3px;
   }
   .btn:hover { transform: translateY(-1px); filter: brightness(1.1); }
   .btn:active { transform: scale(0.97); }
@@ -249,233 +125,76 @@
   .btn-gold { background: var(--gold); color: #000; }
 
   /* GRID */
-  .grid-wrapper {
-    position: relative;
-  }
-  .bingo-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 8px;
-    padding: 4px;
-  }
+  .bingo-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; padding: 4px; }
   .bingo-cell {
-    background: var(--cell-bg);
-    border: 2px solid var(--cell-border);
-    border-radius: 12px;
-    padding: 10px 6px;
-    text-align: center;
-    font-weight: 700;
-    font-size: clamp(0.6rem, 1.5vw, 0.78rem);
-    cursor: pointer;
-    transition: all 0.2s;
-    color: var(--text);
-    word-break: break-word;
-    min-height: 76px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1.3;
-    user-select: none;
-    position: relative;
+    background: #1e293b; border: 2px solid #334155; border-radius: 12px;
+    padding: 10px 6px; text-align: center; font-weight: 700;
+    font-size: clamp(0.6rem, 1.5vw, 0.78rem); cursor: pointer; transition: all 0.2s;
+    color: var(--text); word-break: break-word; min-height: 76px;
+    display: flex; align-items: center; justify-content: center; line-height: 1.3;
+    user-select: none; position: relative;
   }
-  .bingo-cell:hover:not(.locked-a):not(.locked-b) {
-    border-color: var(--gold);
-    background: #1e3a5f;
-    transform: scale(1.03);
+  .bingo-cell:hover:not(.locked-a):not(.locked-b):not(.wrong-guess) {
+    border-color: var(--gold); background: #1e3a5f; transform: scale(1.03);
   }
-  .bingo-cell.selected {
-    border-color: var(--gold);
-    background: rgba(251,191,36,0.15);
-    box-shadow: 0 0 12px -4px var(--gold);
-    transform: scale(1.04);
-  }
-  .bingo-cell.locked-a {
-    background: rgba(249,115,22,0.18);
-    border-color: var(--accent-a);
-    color: #fed7aa;
-    cursor: default;
-  }
-  .bingo-cell.locked-b {
-    background: rgba(59,130,246,0.18);
-    border-color: var(--accent-b);
-    color: #bfdbfe;
-    cursor: default;
-  }
+  .bingo-cell.selected { border-color: var(--gold); background: rgba(251,191,36,0.15); box-shadow: 0 0 12px -4px var(--gold); transform: scale(1.04); }
+  .bingo-cell.locked-a { background: rgba(249,115,22,0.18); border-color: var(--accent-a); color: #fed7aa; cursor: default; }
+  .bingo-cell.locked-b { background: rgba(59,130,246,0.18); border-color: var(--accent-b); color: #bfdbfe; cursor: default; }
   .bingo-cell.locked-a::after,
-  .bingo-cell.locked-b::after {
-    content: attr(data-team);
-    position: absolute;
-    top: 3px;
-    right: 5px;
-    font-size: 0.55rem;
-    font-weight: 800;
-    letter-spacing: 1px;
-    opacity: 0.8;
-  }
-  .bingo-cell.wrong-guess {
-    background: #1a1a2e;
-    border-color: #2a2a3e;
-    color: #44445a;
-    cursor: not-allowed;
-    opacity: 0.55;
-  }
-  .bingo-cell.wrong-guess::before {
-    content: '✗';
-    position: absolute;
-    top: 3px;
-    left: 6px;
-    font-size: 0.65rem;
-    color: var(--red);
-    opacity: 0.7;
-  }
-  /* BINGO line flash */
-  .bingo-cell.bingo-flash {
-    animation: bingoFlash 0.6s ease 3;
-  }
-  @keyframes bingoFlash {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.08); filter: brightness(1.4); }
-  }
+  .bingo-cell.locked-b::after { content: attr(data-team); position: absolute; top: 3px; right: 5px; font-size: 0.55rem; font-weight: 800; letter-spacing: 1px; opacity: 0.8; }
+  .bingo-cell.wrong-guess { background: #1a1a2e; border-color: #2a2a3e; color: #44445a; cursor: not-allowed; opacity: 0.55; }
+  .bingo-cell.wrong-guess::before { content: '✗'; position: absolute; top: 3px; left: 6px; font-size: 0.65rem; color: var(--red); opacity: 0.7; }
+  /* highlight correct answer after question ends */
+  .bingo-cell.reveal-answer { border-color: var(--green); box-shadow: 0 0 14px -4px var(--green); background: rgba(34,197,94,0.1); }
+  .bingo-cell.bingo-flash { animation: bingoFlash 0.6s ease 3; }
+  @keyframes bingoFlash { 0%,100%{transform:scale(1)} 50%{transform:scale(1.08);filter:brightness(1.4)} }
 
-  /* FEEDBACK TOAST */
+  /* TOAST */
   .toast {
-    position: fixed;
-    top: 20px;
-    left: 50%;
+    position: fixed; top: 20px; left: 50%;
     transform: translateX(-50%) translateY(-80px);
-    background: var(--card);
-    border: 2px solid var(--border);
-    border-radius: 14px;
-    padding: 12px 24px;
-    font-weight: 700;
-    font-size: 1rem;
-    z-index: 100;
+    background: var(--card); border: 2px solid var(--border); border-radius: 14px;
+    padding: 12px 24px; font-weight: 700; font-size: 1rem; z-index: 100;
     transition: transform 0.35s cubic-bezier(.34,1.56,.64,1);
-    text-align: center;
-    max-width: 90vw;
-    pointer-events: none;
+    text-align: center; max-width: 90vw; pointer-events: none;
   }
   .toast.show { transform: translateX(-50%) translateY(0); }
   .toast.correct { border-color: var(--green); color: var(--green); }
   .toast.wrong { border-color: var(--red); color: var(--red); }
   .toast.timeout { border-color: var(--gold); color: var(--gold); }
+  .toast.info { border-color: var(--accent-b); color: var(--accent-b); }
 
-  /* WIN SCREEN */
+  /* WIN OVERLAY */
   .win-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.85);
-    z-index: 200;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    text-align: center;
-    padding: 20px;
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 200;
+    align-items: center; justify-content: center; flex-direction: column; text-align: center; padding: 20px;
   }
   .win-overlay.show { display: flex; }
-  .win-box {
-    background: var(--card);
-    border: 3px solid var(--gold);
-    border-radius: 24px;
-    padding: 40px 48px;
-    max-width: 480px;
-    animation: popIn 0.5s cubic-bezier(.34,1.56,.64,1);
-  }
-  @keyframes popIn {
-    from { transform: scale(0.5); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-  }
+  .win-box { background: var(--card); border: 3px solid var(--gold); border-radius: 24px; padding: 40px 48px; max-width: 480px; animation: popIn 0.5s cubic-bezier(.34,1.56,.64,1); }
+  @keyframes popIn { from{transform:scale(0.5);opacity:0} to{transform:scale(1);opacity:1} }
   .win-emoji { font-size: 4rem; margin-bottom: 12px; }
-  .win-title {
-    font-family: 'Baloo 2', cursive;
-    font-size: 2rem;
-    font-weight: 800;
-    color: var(--gold);
-    margin-bottom: 8px;
-  }
-  .win-subtitle {
-    font-size: 1rem;
-    color: var(--muted);
-    margin-bottom: 24px;
-  }
+  .win-title { font-family: 'Baloo 2', cursive; font-size: 2rem; font-weight: 800; color: var(--gold); margin-bottom: 8px; }
+  .win-subtitle { font-size: 1rem; color: var(--muted); margin-bottom: 24px; }
 
-  /* STATUS BAR */
+  /* STATUS */
   .status-bar {
-    background: var(--card2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 8px 14px;
-    font-size: 0.8rem;
-    color: var(--muted);
-    margin: 6px 0;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
+    background: var(--card2); border: 1px solid var(--border); border-radius: 10px;
+    padding: 8px 14px; font-size: 0.8rem; color: var(--muted); margin: 6px 0;
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
   }
-  .status-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--muted);
-    flex-shrink: 0;
-  }
+  .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); flex-shrink: 0; }
   .status-dot.green { background: var(--green); box-shadow: 0 0 6px var(--green); }
   .status-dot.orange { background: var(--accent-a); box-shadow: 0 0 6px var(--accent-a); }
 
   /* SETUP MODAL */
-  .modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.8);
-    z-index: 300;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-  }
+  .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 300; align-items: center; justify-content: center; padding: 20px; }
   .modal.show { display: flex; }
-  .modal-box {
-    background: var(--card);
-    border: 2px solid var(--border);
-    border-radius: 20px;
-    padding: 28px 32px;
-    max-width: 440px;
-    width: 100%;
-    animation: popIn 0.4s ease;
-  }
-  .modal-title {
-    font-family: 'Baloo 2', cursive;
-    font-size: 1.4rem;
-    font-weight: 800;
-    margin-bottom: 18px;
-    color: var(--gold);
-  }
+  .modal-box { background: var(--card); border: 2px solid var(--border); border-radius: 20px; padding: 28px 32px; max-width: 440px; width: 100%; animation: popIn 0.4s ease; }
+  .modal-title { font-family: 'Baloo 2', cursive; font-size: 1.4rem; font-weight: 800; margin-bottom: 18px; color: var(--gold); }
   .form-group { margin-bottom: 14px; }
-  .form-group label {
-    display: block;
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 5px;
-  }
-  .form-group input, .form-group select {
-    width: 100%;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 9px 12px;
-    font-family: 'Nunito', sans-serif;
-    font-size: 0.95rem;
-    color: var(--text);
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  .form-group input:focus, .form-group select:focus {
-    border-color: var(--gold);
-  }
+  .form-group label { display: block; font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; }
+  .form-group input, .form-group select { width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 9px 12px; font-family: 'Nunito', sans-serif; font-size: 0.95rem; color: var(--text); outline: none; transition: border-color 0.2s; }
+  .form-group input:focus, .form-group select:focus { border-color: var(--gold); }
   .form-group select option { background: var(--card); }
 
   @media (max-width: 600px) {
@@ -493,6 +212,7 @@
 <!-- SETUP MODAL -->
 <div class="modal show" id="setupModal">
   <div class="modal-box">
+        <img src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Sophia Nguyen">
     <div class="modal-title">🎮 Cài đặt trò chơi</div>
     <div class="form-group">
       <label>Tên Đội A 🔥</label>
@@ -521,14 +241,14 @@
       </select>
     </div>
     <div class="form-group">
-      <label>Điểm trừ / hết giờ</label>
+      <label>Điểm trừ / hết giờ hoặc sai</label>
       <select id="penaltySetting">
         <option value="5">-5 điểm</option>
         <option value="10" selected>-10 điểm</option>
         <option value="0">Không trừ</option>
       </select>
     </div>
-    <button class="btn btn-gold" style="width:100%; justify-content:center; font-size:1rem; padding:12px;" onclick="startGame()">
+    <button class="btn btn-gold" style="width:100%;justify-content:center;font-size:1rem;padding:12px;" onclick="startGame()">
       🚀 Bắt đầu chơi!
     </button>
   </div>
@@ -557,7 +277,6 @@
     <p>Buổi 3 · Tiếp sức 2 đội · Đội nào BINGO trước thắng!</p>
   </div>
 
-  <!-- SCOREBOARD -->
   <div class="scoreboard">
     <div class="team-card team-a" id="cardA">
       <div class="team-label">🔥 Đội A</div>
@@ -577,27 +296,24 @@
     </div>
   </div>
 
-  <!-- STATUS -->
   <div class="status-bar">
     <span class="status-dot" id="statusDot"></span>
     <span id="statusText">Chờ bắt đầu...</span>
   </div>
 
-  <!-- QUESTION -->
   <div class="question-panel">
     <div class="q-number" id="qNumber">?</div>
-    <div class="q-text placeholder" id="qText">Bấm "Câu hỏi mới" để bắt đầu lượt chơi...</div>
+    <div style="flex:1;">
+      <div class="q-text placeholder" id="qText">Bấm "Câu hỏi mới" để bắt đầu lượt chơi...</div>
+      <div class="q-hint" id="qHint"></div>
+    </div>
   </div>
 
-  <!-- TIMER -->
   <div class="timer-row">
-    <div class="timer-bar-wrap">
-      <div class="timer-bar" id="timerBar"></div>
-    </div>
+    <div class="timer-bar-wrap"><div class="timer-bar" id="timerBar"></div></div>
     <div class="timer-display" id="timerDisplay">—</div>
   </div>
 
-  <!-- CONTROLS -->
   <div class="controls">
     <button class="btn btn-primary" id="btnNewQ" onclick="newQuestion()">📢 Câu hỏi mới</button>
     <button class="btn btn-success" id="btnConfirm" onclick="confirmAnswer()" disabled>✅ Xác nhận đáp án</button>
@@ -606,73 +322,121 @@
     <button class="btn btn-secondary" style="margin-left:auto;" onclick="showSetup()">⚙️</button>
   </div>
 
-  <!-- BOARD -->
-  <div class="grid-wrapper">
-    <div class="bingo-grid" id="bingoGrid"></div>
-  </div>
-
+  <div class="bingo-grid" id="bingoGrid"></div>
   <div style="height:20px;"></div>
 </div>
 
 <script>
-// ========================
-// DATA
-// ========================
-const ALL_QUESTIONS = [
-  { q: "Bạn nhận được tin nhắn từ người lạ: 'Gửi ảnh riêng tư đi, tặng quà giá trị'. Bạn phải làm gì?", answers: [0, 14, 21] },
-  { q: "Một tài khoản lạ nhắn: 'Tao là bạn mày, mất điện thoại, chuyển gấp 2 triệu vào số này'. Xử lý đúng?", answers: [2, 1] },
-  { q: "Bạn bị nhóm bạn chế ảnh xấu, ghép ảnh nhạy cảm gửi vào group lớp. Hành động đầu tiên cần làm?", answers: [3, 15, 19] },
-  { q: "Đang đi bộ về nhà, một người say rượu la hét chạy về phía bạn. Cách xử lý an toàn nhất?", answers: [4, 5, 18] },
-  { q: "Bạn thân đòi mượn điện thoại xem tin nhắn với lý do 'thân thiết không nên giấu'. Cách từ chối đúng?", answers: [7, 8, 22] },
-  { q: "Trên mạng có người hứa tặng điện thoại nếu bạn gửi ảnh trong phòng ngủ. Bạn sẽ làm gì?", answers: [0, 14, 21] },
-  { q: "Phát hiện một người lớn quen biết đang grooming bạn (tặng quà, bảo giữ bí mật). Bạn làm gì?", answers: [12, 6, 11] },
-  { q: "Khi bị người lạ đi xe máy bám theo nhiều phố, bạn nên làm điều gì?", answers: [5, 20, 13] },
-  { q: "Bị bắt nạt qua mạng — việc quan trọng đầu tiên cần làm để có bằng chứng là gì?", answers: [3, 15, 1] },
-  { q: "Người yêu nói: 'Nếu yêu thật thì phải cho xem ảnh riêng tư'. Phản ứng đúng của bạn?", answers: [17, 8, 16] },
-];
+// ================================================================
+// DỮ LIỆU – 25 ô + 12 câu hỏi
+// Mỗi câu hỏi khai báo answers là MẢNG cellId (index vào ALL_CELLS)
+// ================================================================
 
+// 25 ô trên bảng BINGO
 const ALL_CELLS = [
-  "📵 Không gửi ảnh riêng tư",        // 0
-  "🚫 Chặn + báo cáo tài khoản lạ",   // 1
-  "💀 Không chuyển tiền khi chưa xác nhận", // 2
-  "🧾 Chụp màn hình bằng chứng",       // 3
-  "🍺 Tránh xa người say rượu",         // 4
-  "🏃 Vào nơi đông người khi bị theo dõi", // 5
-  "👂 Kể với người lớn tin cậy",        // 6
-  "🔒 Mật khẩu là riêng tư",           // 7
-  "📢 Nói KHÔNG rõ ràng",              // 8
-  "📞 Gọi 113 khi nguy hiểm",          // 9
-  "🔞 Không hẹn gặp riêng người lạ mạng", // 10
-  "📵 Không đăng story 'ở nhà một mình'", // 11
-  "⚠️ Nhận biết grooming – kể ngay",   // 12
-  "🚪 Không mở cửa cho người lạ",       // 13
-  "📸 Không gửi ảnh dù được hứa quà",   // 14
-  "🧠 Lưu bằng chứng trước khi xóa",   // 15
-  "👥 Bắt nạt = lặp lại + mất cân bằng", // 16
-  "🗣️ Từ chối: 'Yêu không phải làm mọi thứ'", // 17
-  "🔥 Không đối đầu người say, tránh xa", // 18
-  "🛑 Chặn & báo cáo ngay lập tức",    // 19
-  "📞 Gọi bố mẹ nếu bị theo dõi",      // 20
-  "🎭 Ảnh đã gửi mất kiểm soát vĩnh viễn", // 21
-  "📲 Không chia sẻ mật khẩu",         // 22
-  "🚨 Báo công an nếu bị khống chế",   // 23
-  "📞 Gọi 1800 1567 khi cần giúp",     // 24
+  /* 0 */ "📞 Gọi 113 khi bị nguy hiểm",
+  /* 1 */ "🚫 Chặn & báo cáo tài khoản lạ ngay",
+  /* 2 */ "💸 Chuyển tiền khi bạn bè nhắn tin nhờ",
+  /* 3 */ "📲 Gọi điện trực tiếp để xác nhận",
+  /* 4 */ "🤐 Im lặng, không làm gì thêm",
+  /* 5 */ "📸 Chụp màn hình lưu bằng chứng",
+  /* 6 */ "🏃 Chạy thật nhanh về nhà",
+  /* 7 */ "🔪 Cầm vật cứng để tự vệ",
+  /* 8 */ "🏪 Bước ngay vào nơi đông người",
+  /* 9 */ "😊 Cho mượn điện thoại để giữ hòa khí",
+  /* 10 */ "📵 Tắt điện thoại tránh xung đột",
+  /* 11 */ "🔒 Từ chối – quyền riêng tư không liên quan tình bạn",
+  /* 12 */ "🎁 Nhận quà và giữ bí mật với bố mẹ",
+  /* 13 */ "😐 Người lớn tặng quà là chuyện bình thường",
+  /* 14 */ "⚠️ Nhận ra dấu hiệu grooming – kể ngay cho người lớn",
+  /* 15 */ "📷 Chụp ảnh người đó để làm bằng chứng",
+  /* 16 */ "🚶 Đi nhanh hơn, không làm gì thêm",
+  /* 17 */ "👁️ Rẽ sang đường khác để kiểm tra & vào cửa hàng",
+  /* 18 */ "🏫 Báo cáo người lớn / nhà trường sau khi lưu bằng chứng",
+  /* 19 */ "↩️ Chặn người đó và xóa hết bằng chứng",
+  /* 20 */ "😡 Đăng bài phản công lại công khai",
+  /* 21 */ "🗣️ Từ chối dứt khoát – tình yêu không ép buộc",
+  /* 22 */ "📤 Gửi ảnh nhưng yêu cầu xóa sau",
+  /* 23 */ "🤔 Hẹn suy nghĩ thêm xem có nên gửi không",
+  /* 24 */ "⚠️ Nguy cơ: kẻ xấu biết bạn đang ở nhà một mình",
 ];
 
-// ========================
+// 12 câu hỏi – mỗi câu có thể có 1–2 đáp án đúng (cellId)
+// Lưu ý: answers là cellId (index vào ALL_CELLS), KHÔNG phải vị trí trên bảng
+const ALL_QUESTIONS = [
+  {
+    q: "Người lạ trên mạng nhắn: 'Gửi ảnh riêng tư cho tao, tao sẽ tặng quà giá trị.' Bạn phải làm gì NGAY LẬP TỨC?",
+    answers: [1],
+    hint: "→ Chặn & báo cáo tài khoản lạ ngay"
+  },
+  {
+    q: "Tài khoản bạn thân nhắn: 'Tao mất điện thoại, chuyển gấp 2 triệu vào số này.' Bước ĐẦU TIÊN cần làm để xác minh?",
+    answers: [3],
+    hint: "→ Gọi điện trực tiếp để xác nhận"
+  },
+  {
+    q: "Nhóm bạn ghép ảnh nhạy cảm của bạn rồi gửi vào group lớp. Hành động ĐẦU TIÊN và quan trọng nhất là gì?",
+    answers: [5],
+    hint: "→ Chụp màn hình lưu bằng chứng (đừng xóa!)"
+  },
+  {
+    q: "Đang đi bộ về nhà tối, một người say rượu la hét và đang chạy về phía bạn. Cách xử lý AN TOÀN NHẤT?",
+    answers: [8],
+    hint: "→ Bước ngay vào nơi đông người (cửa hàng, quán…)"
+  },
+  {
+    q: "Bạn thân đòi xem điện thoại với lý do 'thân thì không giấu'. Bạn nên xử lý thế nào?",
+    answers: [11],
+    hint: "→ Từ chối – quyền riêng tư không liên quan tình bạn"
+  },
+  {
+    q: "Một người lớn quen biết liên tục tặng quà, nhắn riêng và dặn 'đừng kể bố mẹ'. Đây là dấu hiệu gì và bạn làm gì?",
+    answers: [14],
+    hint: "→ Nhận ra dấu hiệu grooming – kể ngay cho người lớn"
+  },
+  {
+    q: "Bạn nhận ra một người lạ đi xe máy bám theo bạn qua nhiều con phố. Cách xử lý đúng nhất?",
+    answers: [17],
+    hint: "→ Rẽ sang đường khác để kiểm tra & bước vào cửa hàng"
+  },
+  {
+    q: "Bạn bị bắt nạt trực tuyến liên tục và đã lưu bằng chứng rồi. Bước TIẾP THEO quan trọng nhất là gì?",
+    answers: [18],
+    hint: "→ Báo cáo người lớn / nhà trường sau khi lưu bằng chứng"
+  },
+  {
+    q: "Người yêu nói: 'Nếu thật sự yêu tao thì phải gửi ảnh riêng tư cho tao.' Phản ứng đúng đắn nhất?",
+    answers: [21],
+    hint: "→ Từ chối dứt khoát – tình yêu không ép buộc"
+  },
+  {
+    q: "Bạn vô tình đăng story: 'Ở nhà một mình cả tuần, sướng quá!' lên mạng. Rủi ro NGUY HIỂM NHẤT là gì?",
+    answers: [24],
+    hint: "→ Kẻ xấu biết bạn đang ở nhà một mình"
+  },
+  {
+    q: "Bạn đang bị bắt nạt ở trường nhưng chưa có bằng chứng. Bước nào cần làm NGAY?",
+    answers: [5],
+    hint: "→ Chụp màn hình / ghi lại mọi bằng chứng có thể"
+  },
+  {
+    q: "Bạn phát hiện mình đang bị theo dõi khi đi đường. Điều KHÔNG NÊN làm là gì?",
+    answers: [6],
+    // Đáp án đúng là cell 6 = "Chạy thẳng về nhà" (nguy hiểm – để lộ địa chỉ)
+    hint: "→ Chạy thẳng về nhà (sai! Sẽ lộ địa chỉ cho kẻ theo dõi)"
+  },
+];
+
+// ================================================================
 // STATE
-// ========================
+// ================================================================
 let config = { timerSec: 20, scorePerQ: 10, penalty: 10 };
-let teams = {
-  A: { name: 'Đội A', score: 0, bingo: 0 },
-  B: { name: 'Đội B', score: 0, bingo: 0 },
-};
+let teams = { A: { name: 'Đội A', score: 0, bingo: 0 }, B: { name: 'Đội B', score: 0, bingo: 0 } };
 let currentTeam = 'A';
-let boardOrder = [...Array(25).keys()]; // indices into ALL_CELLS
+let boardOrder = [...Array(25).keys()]; // boardOrder[pos] = cellId
 let lockedCells = new Array(25).fill(null); // null | 'A' | 'B'
-// wrongCells[pos] = Set of teams that already guessed this pos wrong for current question
-let wrongCells = Array.from({length: 25}, () => new Set());
-let selectedCell = null;
+let wrongCellsByTeam = Array.from({length: 25}, () => new Set()); // per position, which teams guessed wrong
+let selectedCell = null; // board position (0-24)
 let questionQueue = [];
 let currentQ = null;
 let questionIndex = 0;
@@ -680,12 +444,11 @@ let timerInterval = null;
 let timerLeft = 0;
 let gameStarted = false;
 let questionActive = false;
-// true when question is handed to other team after a wrong answer (same question, other team tries)
-let contestedQuestion = false;
+let contestedQuestion = false; // true khi đội 1 sai, đội 2 đang thử cùng câu
 
-// ========================
+// ================================================================
 // SETUP
-// ========================
+// ================================================================
 function startGame() {
   teams.A.name = document.getElementById('nameA').value.trim() || 'Đội A';
   teams.B.name = document.getElementById('nameB').value.trim() || 'Đội B';
@@ -697,7 +460,7 @@ function startGame() {
   teams.B.score = 0; teams.B.bingo = 0;
   currentTeam = 'A';
   lockedCells = new Array(25).fill(null);
-  wrongCells = Array.from({length: 25}, () => new Set());
+  wrongCellsByTeam = Array.from({length: 25}, () => new Set());
   selectedCell = null;
   questionActive = false;
   contestedQuestion = false;
@@ -707,10 +470,11 @@ function startGame() {
   gameStarted = true;
 
   document.getElementById('setupModal').classList.remove('show');
+  document.getElementById('qHint').classList.remove('show');
   stopTimer();
   renderAll();
   updateStatus('green', `🎮 Game bắt đầu! Lượt đầu: ${teams[currentTeam].name}`);
-  setStatus('Bấm "Câu hỏi mới" để bắt đầu!');
+  setQText('Bấm "Câu hỏi mới" để bắt đầu!', true);
 }
 
 function showSetup() {
@@ -718,161 +482,197 @@ function showSetup() {
   document.getElementById('setupModal').classList.add('show');
 }
 
-// ========================
+// ================================================================
+// HELPER: kiểm tra câu hỏi có còn ô đáp án trống không
+// ================================================================
+function questionHasAvailableAnswer(q) {
+  for (const cellId of q.answers) {
+    const pos = boardOrder.indexOf(cellId);
+    if (pos !== -1 && lockedCells[pos] === null) return true;
+  }
+  return false;
+}
+
+// Tìm câu hỏi tiếp theo hợp lệ (còn ít nhất 1 ô đáp án chưa bị locked)
+function getNextValidQuestion() {
+  let tries = 0;
+  const total = questionQueue.length;
+  while (tries < total) {
+    if (questionIndex >= questionQueue.length) {
+      questionQueue = shuffle([...ALL_QUESTIONS]);
+      questionIndex = 0;
+    }
+    const q = questionQueue[questionIndex];
+    if (questionHasAvailableAnswer(q)) return q; // found
+    // skip this question – all its answers are locked
+    questionIndex++;
+    tries++;
+  }
+  return null; // tất cả câu hỏi đều không còn ô trống – game gần xong
+}
+
+// ================================================================
 // CORE GAME
-// ========================
+// ================================================================
 function newQuestion() {
   if (!gameStarted) return;
   if (questionActive) {
     showToast('⚠️ Hãy xác nhận đáp án câu hiện tại trước!', 'wrong'); return;
   }
-  if (questionIndex >= questionQueue.length) {
-    questionQueue = shuffle([...ALL_QUESTIONS]);
-    questionIndex = 0;
-    showToast('🔁 Câu hỏi đã được xáo trộn lại!', 'timeout');
+
+  const q = getNextValidQuestion();
+  if (!q) {
+    showToast('🎊 Hết câu hỏi! Bảng đã đầy, game kết thúc!', 'info');
+    updateStatus('green', 'Game kết thúc! Tổng kết điểm.');
+    return;
   }
-  currentQ = questionQueue[questionIndex++];
+  questionIndex++; // advance after we've confirmed it's valid
+  currentQ = q;
+
   selectedCell = null;
   questionActive = true;
   contestedQuestion = false;
-  // Reset wrongCells for new question
-  wrongCells = Array.from({length: 25}, () => new Set());
+  wrongCellsByTeam = Array.from({length: 25}, () => new Set()); // reset per question
+  revealPos = []; // reset reveal
+
+  document.getElementById('qHint').classList.remove('show');
   renderAll();
   document.getElementById('btnConfirm').disabled = false;
   startTimer();
-
-  const qEl = document.getElementById('qText');
-  qEl.classList.remove('placeholder');
-  qEl.textContent = currentQ.q;
+  setQText(currentQ.q, false);
   document.getElementById('qNumber').textContent = questionIndex;
   updateStatus('orange', `🟠 ${teams[currentTeam].name} đang trả lời...`);
+}
+
+// Lấy vị trí tất cả đáp án đúng trên board hiện tại
+function getAnswerPositions(q) {
+  return q.answers.map(cellId => boardOrder.indexOf(cellId)).filter(pos => pos !== -1);
+}
+
+let revealPos = []; // positions to highlight as correct answer after question ends
+
+function endQuestion(reason) {
+  // "reason": 'correct'|'both-wrong'|'timeout-both'
+  questionActive = false;
+  contestedQuestion = false;
+  document.getElementById('btnConfirm').disabled = true;
+  stopTimer();
+  selectedCell = null;
+
+  // Reveal correct answer positions on board
+  revealPos = getAnswerPositions(currentQ);
+  const hintEl = document.getElementById('qHint');
+  hintEl.textContent = currentQ.hint;
+  hintEl.classList.add('show');
+
+  renderAll();
+  updateStatus('green', `Câu kết thúc. Bấm "Câu hỏi mới" để tiếp tục!`);
 }
 
 function confirmAnswer() {
   if (!questionActive) return;
   stopTimer();
-  questionActive = false;
-  document.getElementById('btnConfirm').disabled = true;
 
   if (selectedCell === null) {
-    showToast(`⏰ Hết giờ / Chưa chọn ô! ${teams[currentTeam].name} bị trừ điểm.`, 'timeout');
+    // Không chọn ô nào – coi như bỏ lượt
     teams[currentTeam].score = Math.max(0, teams[currentTeam].score - config.penalty);
-    // If contested (other team already tried), question is dead — move on
+    showToast(`⏰ Chưa chọn ô! ${teams[currentTeam].name} bị trừ ${config.penalty} điểm.`, 'timeout');
+    renderScoreboard();
+
     if (contestedQuestion) {
-      contestedQuestion = false;
-      updateStatus('green', `Câu hỏi kết thúc. Bấm "Câu hỏi mới"!`);
+      endQuestion('both-wrong');
     } else {
-      // Hand off to other team — they get to try same question
-      const otherTeam = currentTeam === 'A' ? 'B' : 'A';
-      contestedQuestion = true;
-      currentTeam = otherTeam;
-      selectedCell = null;
-      questionActive = true;
-      document.getElementById('btnConfirm').disabled = false;
-      startTimer();
-      updateStatus('orange', `🔁 ${teams[currentTeam].name} được thử câu này!`);
-      renderAll();
+      // Chuyển cho đội kia
+      handOffToOtherTeam();
     }
-    renderAll();
     return;
   }
 
-  const correctAnswerIndices = currentQ.answers;
-  const actualCellId = boardOrder[selectedCell];
-  const isCorrect = correctAnswerIndices.includes(actualCellId);
+  const cellId = boardOrder[selectedCell];
+  const isCorrect = currentQ.answers.includes(cellId);
 
   if (isCorrect) {
     lockedCells[selectedCell] = currentTeam;
     teams[currentTeam].score += config.scorePerQ;
-    contestedQuestion = false;
     showToast(`✅ ĐÚNG RỒI! +${config.scorePerQ} điểm cho ${teams[currentTeam].name}!`, 'correct');
     checkBingo();
-    selectedCell = null;
-    renderAll();
+    endQuestion('correct');
   } else {
-    // Mark this cell as wrong for current team so they can't pick it again
-    wrongCells[selectedCell].add(currentTeam);
+    // Sai
+    wrongCellsByTeam[selectedCell].add(currentTeam);
     teams[currentTeam].score = Math.max(0, teams[currentTeam].score - config.penalty);
+    selectedCell = null;
 
     if (contestedQuestion) {
-      // Both teams have now tried — question is done, no point awarded
-      contestedQuestion = false;
-      showToast(`❌ SAI! Cả hai đội đều sai câu này. Câu mới!`, 'wrong');
-      selectedCell = null;
-      renderAll();
-      updateStatus('green', `Câu hỏi kết thúc. Bấm "Câu hỏi mới"!`);
+      showToast(`❌ Cả hai đội đều sai! Không ai được điểm.`, 'wrong');
+      endQuestion('both-wrong');
     } else {
-      // First wrong — hand off to other team with same question
-      const otherTeam = currentTeam === 'A' ? 'B' : 'A';
-      contestedQuestion = true;
-      currentTeam = otherTeam;
-      selectedCell = null;
-      questionActive = true;
-      document.getElementById('btnConfirm').disabled = false;
-      showToast(`❌ SAI! Câu hỏi chuyển sang ${teams[currentTeam].name}!`, 'wrong');
-      startTimer();
-      updateStatus('orange', `🔁 ${teams[currentTeam].name} được thử câu này!`);
-      renderAll();
+      showToast(`❌ SAI! Câu hỏi chuyển sang ${teams[currentTeam === 'A' ? 'B' : 'A'].name}!`, 'wrong');
+      handOffToOtherTeam();
     }
   }
 }
 
+function handOffToOtherTeam() {
+  const otherTeam = currentTeam === 'A' ? 'B' : 'A';
+  contestedQuestion = true;
+  currentTeam = otherTeam;
+  questionActive = true;
+  selectedCell = null;
+  document.getElementById('btnConfirm').disabled = false;
+  document.getElementById('qHint').classList.remove('show');
+  startTimer();
+  updateStatus('orange', `🔁 ${teams[currentTeam].name} được thử câu này!`);
+  renderAll();
+}
+
 function switchTurn() {
+  if (questionActive) {
+    showToast('⚠️ Không thể đổi lượt khi đang có câu hỏi!', 'wrong'); return;
+  }
   currentTeam = currentTeam === 'A' ? 'B' : 'A';
+  renderTurnIndicator();
+  renderScoreboard();
   setStatus(`Lượt của ${teams[currentTeam].name} — bấm "Câu hỏi mới"!`);
 }
 
-// ========================
+// ================================================================
 // TIMER
-// ========================
+// ================================================================
 function startTimer() {
   timerLeft = config.timerSec;
   renderTimer();
   timerInterval = setInterval(() => {
     timerLeft--;
     renderTimer();
-    if (timerLeft <= 0) {
-      stopTimer();
-      timeoutHandler();
-    }
+    if (timerLeft <= 0) { stopTimer(); timeoutHandler(); }
   }, 1000);
 }
 
-function stopTimer() {
-  clearInterval(timerInterval);
-  timerInterval = null;
-}
+function stopTimer() { clearInterval(timerInterval); timerInterval = null; }
 
 function timeoutHandler() {
   if (!questionActive) return;
-  questionActive = false;
-  document.getElementById('btnConfirm').disabled = true;
   teams[currentTeam].score = Math.max(0, teams[currentTeam].score - config.penalty);
   selectedCell = null;
 
   if (contestedQuestion) {
-    // Both teams failed — done
-    contestedQuestion = false;
-    showToast(`⏰ Hết giờ! Cả hai đội đều không trả lời được!`, 'timeout');
-    updateStatus('green', `Câu hỏi kết thúc. Bấm "Câu hỏi mới"!`);
-    renderAll();
+    showToast(`⏰ Hết giờ! Cả hai đội đều không trả lời được.`, 'timeout');
+    endQuestion('timeout-both');
   } else {
-    // Hand off to other team
-    const otherTeam = currentTeam === 'A' ? 'B' : 'A';
-    contestedQuestion = true;
-    currentTeam = otherTeam;
-    questionActive = true;
-    document.getElementById('btnConfirm').disabled = false;
-    showToast(`⏰ Hết giờ! Câu hỏi chuyển sang ${teams[currentTeam].name}!`, 'timeout');
-    startTimer();
-    updateStatus('orange', `🔁 ${teams[currentTeam].name} được thử câu này!`);
-    renderAll();
+    showToast(`⏰ Hết giờ! Câu hỏi chuyển sang ${teams[currentTeam === 'A' ? 'B' : 'A'].name}!`, 'timeout');
+    handOffToOtherTeam();
   }
 }
 
 function renderTimer() {
   const bar = document.getElementById('timerBar');
   const display = document.getElementById('timerDisplay');
+  if (timerLeft <= 0 || !questionActive) {
+    bar.style.width = '0%';
+    display.textContent = '0s';
+    return;
+  }
   const pct = (timerLeft / config.timerSec) * 100;
   bar.style.width = pct + '%';
   display.textContent = timerLeft + 's';
@@ -881,83 +681,83 @@ function renderTimer() {
   display.className = 'timer-display' + (cls ? ' ' + cls : '');
 }
 
-// ========================
+// ================================================================
 // BINGO CHECK
-// ========================
+// ================================================================
 function checkBingo() {
-  const size = 5;
   const lines = [];
-  // rows
-  for (let r = 0; r < 5; r++) lines.push([...Array(5)].map((_, c) => r*5+c));
-  // cols
-  for (let c = 0; c < 5; c++) lines.push([...Array(5)].map((_, r) => r*5+c));
-  // diagonals
+  for (let r = 0; r < 5; r++) lines.push([0,1,2,3,4].map(c => r*5+c));
+  for (let c = 0; c < 5; c++) lines.push([0,1,2,3,4].map(r => r*5+c));
   lines.push([0,6,12,18,24]);
   lines.push([4,8,12,16,20]);
 
   for (const line of lines) {
     if (line.every(i => lockedCells[i] === currentTeam)) {
-      // BINGO!
       teams[currentTeam].bingo++;
       highlightBingoLine(line);
-      setTimeout(() => showWin(line), 600);
+      setTimeout(() => showWin(), 700);
       return;
     }
   }
 }
 
 function highlightBingoLine(line) {
+  renderGrid(); // re-render first
   const cells = document.querySelectorAll('.bingo-cell');
   line.forEach(i => cells[i] && cells[i].classList.add('bingo-flash'));
 }
 
-function showWin(line) {
+function showWin() {
   const t = teams[currentTeam];
   document.getElementById('winEmoji').textContent = currentTeam === 'A' ? '🔥' : '💧';
   document.getElementById('winTitle').textContent = `BINGO! ${t.name} thắng!`;
-  document.getElementById('winSubtitle').textContent = `Điểm: ${t.score} | BINGO lần ${t.bingo} 🎉\nCả lớp vỗ tay nào!`;
+  document.getElementById('winSubtitle').textContent = `Điểm: ${t.score} · BINGO lần ${t.bingo} 🎉`;
   document.getElementById('winOverlay').classList.add('show');
-  stopTimer();
-  questionActive = false;
 }
 
 function continueGame() {
   document.getElementById('winOverlay').classList.remove('show');
-  switchTurn();
-  setStatus(`Tiếp tục! Lượt của ${teams[currentTeam].name}.`);
+  // Sau BINGO, đổi lượt cho đội kia
+  currentTeam = currentTeam === 'A' ? 'B' : 'A';
   renderAll();
+  setStatus(`Tiếp tục! Lượt của ${teams[currentTeam].name}.`);
 }
 
-// ========================
+// ================================================================
 // SHUFFLE BOARD
-// ========================
+// ================================================================
 function shuffleBoard() {
   if (questionActive) {
     showToast('⚠️ Không thể xáo trộn khi đang có câu hỏi!', 'wrong'); return;
   }
-  // Re-map locked cells
   const newOrder = shuffle([...Array(25).keys()]);
   const newLocked = new Array(25).fill(null);
+  const newWrong = Array.from({length: 25}, () => new Set());
   for (let newPos = 0; newPos < 25; newPos++) {
     const cellId = newOrder[newPos];
     const oldPos = boardOrder.indexOf(cellId);
-    if (oldPos !== -1) newLocked[newPos] = lockedCells[oldPos];
+    if (oldPos !== -1) {
+      newLocked[newPos] = lockedCells[oldPos];
+      newWrong[newPos] = wrongCellsByTeam[oldPos];
+    }
   }
   boardOrder = newOrder;
   lockedCells = newLocked;
+  wrongCellsByTeam = newWrong;
   selectedCell = null;
+  revealPos = [];
   renderGrid();
   showToast('🔀 Bảng đã được xáo trộn!', 'timeout');
 }
 
-// ========================
+// ================================================================
 // RENDER
-// ========================
+// ================================================================
 function renderAll() {
   renderScoreboard();
   renderGrid();
   renderTurnIndicator();
-  renderTimer();
+  if (!questionActive) renderTimer();
 }
 
 function renderScoreboard() {
@@ -967,27 +767,16 @@ function renderScoreboard() {
   document.getElementById('scoreB').textContent = teams.B.score;
   document.getElementById('bingoA').textContent = teams.A.bingo > 0 ? `🎉 BINGO x${teams.A.bingo}` : 'Chưa có BINGO';
   document.getElementById('bingoB').textContent = teams.B.bingo > 0 ? `🎉 BINGO x${teams.B.bingo}` : 'Chưa có BINGO';
-
   document.getElementById('cardA').classList.toggle('active', currentTeam === 'A');
   document.getElementById('cardB').classList.toggle('active', currentTeam === 'B');
-
-  // Q number color + contested badge
-  document.getElementById('qNumber').style.background =
-    currentTeam === 'A' ? 'var(--accent-a)' : 'var(--accent-b)';
-  const qEl = document.getElementById('qText');
-  if (contestedQuestion && questionActive) {
-    qEl.style.borderLeft = `3px solid ${currentTeam === 'A' ? 'var(--accent-a)' : 'var(--accent-b)'}`;
-    qEl.style.paddingLeft = '10px';
-  } else {
-    qEl.style.borderLeft = '';
-    qEl.style.paddingLeft = '';
-  }
+  document.getElementById('qNumber').style.background = currentTeam === 'A' ? 'var(--accent-a)' : 'var(--accent-b)';
 }
 
 function renderTurnIndicator() {
   const el = document.getElementById('turnIndicator');
   if (!gameStarted) { el.textContent = 'Chưa bắt đầu'; return; }
-  el.textContent = `Lượt: ${teams[currentTeam].name}`;
+  const prefix = contestedQuestion && questionActive ? '🔁 ' : '';
+  el.textContent = `${prefix}Lượt: ${teams[currentTeam].name}`;
 }
 
 function renderGrid() {
@@ -1001,14 +790,16 @@ function renderGrid() {
 
     if (lockedCells[pos] === 'A') {
       div.classList.add('locked-a');
-      div.dataset.team = teams.A.name.slice(0,6);
+      div.dataset.team = teams.A.name.slice(0, 6);
     } else if (lockedCells[pos] === 'B') {
       div.classList.add('locked-b');
-      div.dataset.team = teams.B.name.slice(0,6);
-    } else if (wrongCells[pos] && wrongCells[pos].has(currentTeam)) {
-      // This team already guessed this cell wrong — grey out, unclickable
+      div.dataset.team = teams.B.name.slice(0, 6);
+    } else if (!questionActive && revealPos.includes(pos)) {
+      // Sau khi câu kết thúc – highlight đáp án đúng
+      div.classList.add('reveal-answer');
+      div.addEventListener('click', () => {}); // non-interactive
+    } else if (wrongCellsByTeam[pos] && wrongCellsByTeam[pos].has(currentTeam)) {
       div.classList.add('wrong-guess');
-      div.title = 'Đã chọn sai ô này';
     } else if (pos === selectedCell) {
       div.classList.add('selected');
       div.addEventListener('click', () => onCellClick(pos));
@@ -1021,32 +812,30 @@ function renderGrid() {
 
 function onCellClick(pos) {
   if (!questionActive || lockedCells[pos] !== null) return;
-  if (wrongCells[pos] && wrongCells[pos].has(currentTeam)) return; // already guessed wrong
+  if (wrongCellsByTeam[pos] && wrongCellsByTeam[pos].has(currentTeam)) return;
   selectedCell = pos === selectedCell ? null : pos;
   renderGrid();
 }
 
-// ========================
+// ================================================================
 // UI HELPERS
-// ========================
-function setStatus(msg) {
-  document.getElementById('statusText').textContent = msg;
-}
-function updateStatus(color, msg) {
-  const dot = document.getElementById('statusDot');
-  dot.className = 'status-dot ' + color;
-  setStatus(msg);
+// ================================================================
+function setStatus(msg) { document.getElementById('statusText').textContent = msg; }
+function updateStatus(color, msg) { document.getElementById('statusDot').className = 'status-dot ' + color; setStatus(msg); }
+function setQText(msg, isPlaceholder) {
+  const el = document.getElementById('qText');
+  el.textContent = msg;
+  el.className = 'q-text' + (isPlaceholder ? ' placeholder' : '');
 }
 function showToast(msg, type) {
   const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = 'toast ' + type + ' show';
+  t.textContent = msg; t.className = 'toast ' + type + ' show';
   setTimeout(() => t.classList.remove('show'), 2800);
 }
 
-// ========================
+// ================================================================
 // UTILS
-// ========================
+// ================================================================
 function shuffle(arr) {
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -1055,7 +844,8 @@ function shuffle(arr) {
   return arr;
 }
 
-// Initial render (before setup)
+// Initial render
+revealPos = [];
 renderGrid();
 </script>
 </body>
