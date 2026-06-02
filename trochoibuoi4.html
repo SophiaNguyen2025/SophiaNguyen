@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buổi 4 – Phòng Khẩn Cấp | Sophia Nguyễn</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Lexend:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #0a0f1a;
+  --bg2:       #0e1525;
+  --surface:   #131e2e;
+  --surface2:  #1a2740;
+  --border:    #1e3050;
+  --border2:   #2a4068;
+  --primary:   #3b9eff;
+  --primary-d: #1a6fd4;
+  --green:     #2dd4a0;
+  --green-d:   #0f9e6e;
+  --green-bg:  #0a2e22;
+  --red:       #ff5c5c;
+  --red-d:     #cc2222;
+  --red-bg:    #2e0f0f;
+  --amber:     #ffb830;
+  --amber-bg:  #2e1f05;
+  --text:      #e8f0f8;
+  --text2:     #7a9ab8;
+  --text3:     #3a5a78;
+  --radius:    16px;
+  --radius-sm: 10px;
+  --radius-xs: 6px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+body {
+  font-family:'Be Vietnam Pro',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* ── HERO HEADER ── */
+.hero {
+  background: linear-gradient(160deg, #0e1a30 0%, #0a0f1a 60%);
+  border-bottom: 1px solid var(--border);
+  padding: 28px 24px 24px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.hero::before {
+  content:'';
+  position:absolute;
+  top:-80px; left:50%; transform:translateX(-50%);
+  width:500px; height:200px;
+  background: radial-gradient(ellipse, rgba(59,158,255,0.12) 0%, transparent 70%);
+  pointer-events:none;
+}
+.hero-logo {
+  height: 72px;
+  margin-bottom: 14px;
+  filter: drop-shadow(0 4px 16px rgba(59,158,255,0.3));
+}
+.hero-badge {
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius:50px;
+  padding:4px 14px;
+  font-size:12px;
+  font-weight:700;
+  color:var(--primary);
+  text-transform:uppercase;
+  letter-spacing:1px;
+  margin-bottom:12px;
+}
+.hero-title {
+  font-family:'Lexend',sans-serif;
+  font-size:clamp(1.6rem,5vw,2.4rem);
+  font-weight:900;
+  color:var(--text);
+  line-height:1.15;
+  margin-bottom:8px;
+}
+.hero-title span {color:var(--primary)}
+.hero-sub {
+  font-size:15px;
+  color:var(--text2);
+  max-width:480px;
+  margin:0 auto 20px;
+  line-height:1.7;
+}
+.hero-numbers {
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  flex-wrap:wrap;
+}
+.hero-num {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:10px 18px;
+  text-align:center;
+  min-width:90px;
+}
+.hero-num-val {
+  font-family:'Lexend',sans-serif;
+  font-size:1.4rem;
+  font-weight:800;
+  color:var(--primary);
+  display:block;
+}
+.hero-num-lbl {font-size:11px;color:var(--text2);font-weight:600;margin-top:2px}
+
+/* ── MAIN WRAPPER ── */
+.wrapper {
+  max-width:780px;
+  margin:0 auto;
+  padding:28px 16px 60px;
+}
+
+/* ── SCREENS ── */
+.screen {display:none}
+.screen.active {display:block;animation:fadeUp 0.35s ease}
+@keyframes fadeUp {
+  from{opacity:0;transform:translateY(16px)}
+  to  {opacity:1;transform:translateY(0)}
+}
+
+/* ── GLOBAL PROGRESS ── */
+.global-prog {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:16px 20px;
+  margin-bottom:20px;
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+.gp-label {font-size:13px;color:var(--text2);font-weight:600;white-space:nowrap}
+.gp-bar {flex:1;height:6px;background:var(--surface2);border-radius:99px}
+.gp-fill {height:6px;border-radius:99px;background:linear-gradient(90deg,var(--primary),var(--green));transition:width 0.5s ease}
+.gp-count {font-family:'Lexend',sans-serif;font-size:14px;font-weight:700;color:var(--primary);white-space:nowrap}
+
+/* ── MAP GRID ── */
+.map-section-title {
+  font-size:12px;
+  font-weight:700;
+  color:var(--text3);
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  margin-bottom:12px;
+}
+.map-grid {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+  margin-bottom:28px;
+}
+@media(max-width:500px){.map-grid{grid-template-columns:1fr}}
+
+.station-card {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:20px;
+  cursor:pointer;
+  transition:all 0.2s;
+  position:relative;
+  overflow:hidden;
+}
+.station-card::after {
+  content:'';
+  position:absolute;
+  inset:0;
+  border-radius:var(--radius);
+  background:linear-gradient(135deg,rgba(59,158,255,0.05),transparent);
+  opacity:0;
+  transition:opacity 0.2s;
+}
+.station-card:hover:not(.locked)::after{opacity:1}
+.station-card:hover:not(.locked){border-color:var(--border2);transform:translateY(-3px);box-shadow:0 8px 32px rgba(0,0,0,0.4)}
+.station-card.locked{opacity:0.45;cursor:not-allowed}
+.station-card.done{border-color:var(--green-d);background:linear-gradient(135deg,#0a2520,var(--surface))}
+
+.s-top {display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
+.s-icon {font-size:32px;line-height:1}
+.s-badge {
+  font-size:11px;font-weight:700;
+  padding:3px 10px;border-radius:50px;
+  letter-spacing:0.5px;text-transform:uppercase;
+}
+.badge-open  {background:rgba(59,158,255,0.15);color:var(--primary);border:1px solid rgba(59,158,255,0.3)}
+.badge-done  {background:rgba(45,212,160,0.15);color:var(--green);border:1px solid rgba(45,212,160,0.3)}
+.badge-lock  {background:var(--surface2);color:var(--text3);border:1px solid var(--border)}
+
+.s-num  {font-size:11px;color:var(--text3);font-weight:700;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:4px}
+.s-name {font-family:'Lexend',sans-serif;font-size:16px;font-weight:700;color:var(--text);margin-bottom:4px}
+.s-sub  {font-size:13px;color:var(--text2);line-height:1.5}
+.s-score {
+  margin-top:12px;
+  font-size:12px;font-weight:700;color:var(--green);
+  display:flex;align-items:center;gap:6px;
+}
+.s-score-bar {flex:1;height:3px;background:var(--surface2);border-radius:99px}
+.s-score-fill {height:3px;border-radius:99px;background:var(--green)}
+
+/* emergency numbers footer on map */
+.sos-bar {
+  background:linear-gradient(135deg,#1a1200,#0a0f1a);
+  border:1px solid rgba(255,184,48,0.25);
+  border-radius:var(--radius);
+  padding:16px 20px;
+  display:flex;
+  align-items:center;
+  gap:16px;
+  flex-wrap:wrap;
+}
+.sos-label {font-size:12px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:1px;flex-shrink:0}
+.sos-nums {display:flex;gap:10px;flex-wrap:wrap}
+.sos-pill {
+  background:rgba(255,184,48,0.1);
+  border:1px solid rgba(255,184,48,0.25);
+  border-radius:50px;
+  padding:4px 12px;
+  font-family:'Lexend',sans-serif;
+  font-size:12px;font-weight:700;
+  color:var(--amber);
+}
+
+/* ── GAME SCREEN ── */
+.game-topbar {
+  display:flex;align-items:center;gap:12px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:12px 16px;
+  margin-bottom:16px;
+}
+.back-btn {
+  background:none;border:1px solid var(--border);
+  border-radius:var(--radius-xs);
+  padding:6px 12px;font-size:13px;
+  cursor:pointer;color:var(--text2);
+  font-family:'Be Vietnam Pro',sans-serif;
+  display:flex;align-items:center;gap:5px;
+  transition:all 0.15s;
+}
+.back-btn:hover{border-color:var(--border2);color:var(--text)}
+.game-title {flex:1;font-family:'Lexend',sans-serif;font-size:15px;font-weight:700;color:var(--text)}
+.timer-wrap {
+  display:flex;align-items:center;gap:6px;
+  background:var(--surface2);
+  border:1px solid var(--border);
+  border-radius:var(--radius-xs);
+  padding:6px 12px;
+}
+.timer-icon {font-size:14px;color:var(--text2)}
+.timer-num {font-family:'Lexend',sans-serif;font-size:18px;font-weight:800;color:var(--text);min-width:32px;text-align:right}
+.timer-num.urgent {color:var(--red);animation:pulse 0.5s infinite alternate}
+@keyframes pulse{from{opacity:1}to{opacity:0.5}}
+.q-counter {
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:50px;padding:4px 12px;
+  font-size:12px;font-weight:700;color:var(--primary);white-space:nowrap;
+}
+
+/* Q BOX */
+.q-box {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:20px;
+  margin-bottom:12px;
+}
+.q-scenario {
+  background:var(--surface2);
+  border-left:3px solid var(--primary);
+  border-radius:0 var(--radius-xs) var(--radius-xs) 0;
+  padding:10px 14px;
+  font-size:13px;color:var(--text2);
+  line-height:1.65;margin-bottom:14px;
+  font-style:italic;
+}
+.q-text {font-size:16px;font-weight:600;color:var(--text);line-height:1.5}
+
+/* OPTIONS */
+.options {display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.opt-btn {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:12px 16px;
+  text-align:left;cursor:pointer;
+  font-size:14px;color:var(--text);
+  font-family:'Be Vietnam Pro',sans-serif;
+  line-height:1.5;
+  display:flex;align-items:flex-start;gap:12px;
+  transition:all 0.15s;
+}
+.opt-btn:hover:not(:disabled){border-color:var(--border2);background:var(--surface2);transform:translateX(4px)}
+.opt-btn:disabled{cursor:default;transform:none}
+.opt-btn.correct{border-color:var(--green-d)!important;background:var(--green-bg)!important;color:#7fefd0}
+.opt-btn.wrong  {border-color:var(--red-d)!important;background:var(--red-bg)!important;color:#ffaaaa}
+.opt-key {
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:6px;width:26px;height:26px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:800;flex-shrink:0;
+  color:var(--text2);font-family:'Lexend',sans-serif;
+  transition:all 0.15s;
+}
+.opt-btn.correct .opt-key{background:var(--green-d);border-color:var(--green-d);color:#fff}
+.opt-btn.wrong   .opt-key{background:var(--red-d);border-color:var(--red-d);color:#fff}
+
+/* ORDER */
+.order-pool{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.order-item {
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:11px 14px;font-size:14px;color:var(--text);
+  display:flex;align-items:center;gap:10px;
+  cursor:grab;user-select:none;transition:all 0.15s;
+}
+.order-item:hover{border-color:var(--border2);background:var(--surface2)}
+.order-item.dragging{opacity:0.4}
+.order-item.over{border-color:var(--primary);border-style:dashed}
+.order-item.correct-pos{border-color:var(--green-d);background:var(--green-bg);color:#7fefd0}
+.order-item.wrong-pos  {border-color:var(--red-d);background:var(--red-bg);color:#ffaaaa}
+.order-handle{color:var(--text3);font-size:18px;cursor:grab}
+.order-num{
+  background:var(--surface2);border:1px solid var(--border);
+  width:26px;height:26px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;color:var(--text2);flex-shrink:0;
+}
+
+/* SORT */
+.sort-pool-wrap{margin-bottom:12px}
+.sort-pool-label{font-size:12px;color:var(--text3);font-weight:600;letter-spacing:0.5px;margin-bottom:8px;text-transform:uppercase}
+.sort-pool{display:flex;flex-wrap:wrap;gap:7px}
+.sort-chip {
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:8px 14px;
+  font-size:13px;color:var(--text);cursor:pointer;
+  transition:all 0.15s;font-family:'Be Vietnam Pro',sans-serif;
+}
+.sort-chip:hover:not(.hidden-chip){border-color:var(--primary);background:var(--surface)}
+.sort-chip.hidden-chip{visibility:hidden;pointer-events:none}
+.sort-chip.placed-ok {background:var(--green-bg);border-color:var(--green-d);color:#7fefd0;cursor:default}
+.sort-chip.placed-no {background:var(--red-bg);border-color:var(--red-d);color:#ffaaaa;cursor:default}
+.sort-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.sort-col{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:14px;min-height:120px;
+}
+.sort-col-title{
+  font-size:13px;font-weight:700;color:var(--text);
+  margin-bottom:10px;display:flex;align-items:center;gap:6px;
+}
+.sort-col-title.green{color:var(--green)}
+.sort-col-title.red  {color:var(--red)}
+.sort-col-chips{display:flex;flex-wrap:wrap;gap:6px;min-height:40px}
+.picker-modal{
+  background:var(--surface2);border:1px solid var(--border2);
+  border-radius:var(--radius-sm);padding:12px;
+  margin:6px 0;display:flex;gap:8px;align-items:center;flex-wrap:wrap;
+}
+.picker-text{font-size:13px;color:var(--text2);flex:1}
+
+/* HINT */
+.hint-box{
+  background:rgba(59,158,255,0.08);
+  border:1px solid rgba(59,158,255,0.25);
+  border-radius:var(--radius-sm);
+  padding:10px 14px;font-size:13px;color:#a0ccff;
+  margin-bottom:10px;display:none;line-height:1.6;
+}
+.hint-btn{
+  background:none;border:none;
+  color:var(--text3);font-size:13px;cursor:pointer;
+  text-decoration:underline;padding:4px 0;
+  font-family:'Be Vietnam Pro',sans-serif;
+  transition:color 0.15s;
+}
+.hint-btn:hover{color:var(--text2)}
+
+/* FEEDBACK */
+.feedback-box{
+  border-radius:var(--radius-sm);padding:14px 16px;
+  margin-bottom:10px;font-size:14px;line-height:1.7;
+}
+.feedback-box.correct{background:var(--green-bg);border:1px solid var(--green-d);color:#a0f0d0}
+.feedback-box.wrong  {background:var(--red-bg);border:1px solid var(--red-d);color:#ffcccc}
+.feedback-box strong {font-weight:700}
+.tip-box{
+  background:var(--amber-bg);border:1px solid rgba(255,184,48,0.3);
+  border-radius:var(--radius-xs);
+  padding:10px 12px;font-size:13px;color:#ffd080;
+  margin-top:10px;line-height:1.6;
+}
+
+/* BUTTONS */
+.btn-row{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:10px}
+.btn-primary{
+  background:var(--primary);color:#fff;border:none;
+  border-radius:var(--radius-sm);padding:11px 22px;
+  font-size:14px;font-weight:700;cursor:pointer;
+  font-family:'Be Vietnam Pro',sans-serif;
+  transition:all 0.15s;
+}
+.btn-primary:hover{background:var(--primary-d);transform:translateY(-1px)}
+.btn-secondary{
+  background:var(--surface2);color:var(--text);
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:10px 20px;
+  font-size:14px;cursor:pointer;
+  font-family:'Be Vietnam Pro',sans-serif;
+  transition:all 0.15s;
+}
+.btn-secondary:hover{border-color:var(--border2);background:var(--surface)}
+
+/* RESULT SCREEN */
+.result-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:40px 24px;
+  text-align:center;margin-bottom:16px;
+}
+.result-icon{font-size:56px;margin-bottom:16px;display:block}
+.result-title{font-family:'Lexend',sans-serif;font-size:26px;font-weight:900;color:var(--text);margin-bottom:8px}
+.result-score{font-family:'Lexend',sans-serif;font-size:42px;font-weight:900;color:var(--primary);margin-bottom:12px}
+.result-sub{font-size:15px;color:var(--text2);max-width:400px;margin:0 auto 24px;line-height:1.75}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:380px;margin:0 auto 24px}
+.stat-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 8px;text-align:center}
+.stat-val{font-family:'Lexend',sans-serif;font-size:28px;font-weight:800;display:block}
+.stat-lbl{font-size:11px;color:var(--text2);font-weight:600;margin-top:4px;text-transform:uppercase;letter-spacing:0.5px}
+.s-ok .stat-val{color:var(--green)}
+.s-no .stat-val{color:var(--red)}
+.s-pt .stat-val{color:var(--primary)}
+
+/* FINAL */
+.final-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:440px;margin:16px auto}
+.final-item{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:12px;text-align:left;
+}
+.fi-name{font-size:13px;color:var(--text2);margin-bottom:4px}
+.fi-score{font-family:'Lexend',sans-serif;font-size:20px;font-weight:800;color:var(--text)}
+
+.sos-final{
+  background:var(--amber-bg);border:1px solid rgba(255,184,48,0.3);
+  border-radius:var(--radius-sm);padding:14px 18px;
+  font-size:14px;color:#ffd080;margin:16px 0;text-align:left;line-height:1.8;
+}
+.sos-final strong{color:var(--amber);font-weight:700}
+
+/* FOOTER */
+footer{
+  text-align:center;padding:24px 16px;
+  border-top:1px solid var(--border);
+  font-size:13px;color:var(--text3);
+  margin-top:40px;
+}
+footer a{color:var(--text2);text-decoration:none}
+footer a:hover{color:var(--primary)}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <img src="https://sophianguyen.com.vn/images/hinhremovenen.png" alt="Sophia Nguyễn" class="hero-logo">
+  <div class="hero-badge">⚡ Buổi 4 · Kỹ Năng Sinh Tồn</div>
+  <h1 class="hero-title">Phòng <span>Khẩn Cấp</span></h1>
+  <p class="hero-sub">Vượt qua 4 trạm sinh tồn — Sơ cứu, Thoát hiểm, CPR, và Bí mật an toàn.</p>
+  <div class="hero-numbers">
+    <div class="hero-num"><span class="hero-num-val">4</span><div class="hero-num-lbl">Trạm</div></div>
+    <div class="hero-num"><span class="hero-num-val">12</span><div class="hero-num-lbl">Câu hỏi</div></div>
+    <div class="hero-num"><span class="hero-num-val">300</span><div class="hero-num-lbl">Điểm tối đa</div></div>
+  </div>
+</div>
+
+<div class="wrapper">
+
+  <!-- MAP SCREEN -->
+  <div id="mapScreen" class="screen active">
+    <div class="global-prog">
+      <div class="gp-label">Tiến độ</div>
+      <div class="gp-bar"><div class="gp-fill" id="mapFill" style="width:0%"></div></div>
+      <div class="gp-count" id="mapCount">0 / 4</div>
+    </div>
+
+    <div class="map-section-title">Chọn trạm để bắt đầu</div>
+    <div class="map-grid" id="mapGrid"></div>
+
+    <div class="sos-bar">
+      <div class="sos-label">🆘 Số khẩn cấp</div>
+      <div class="sos-nums">
+        <div class="sos-pill">113 · Công An</div>
+        <div class="sos-pill">114 · Cứu Hỏa</div>
+        <div class="sos-pill">115 · Cấp Cứu</div>
+        <div class="sos-pill">1800 1567 · Trẻ Em</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GAME SCREEN -->
+  <div id="gameScreen" class="screen">
+    <div class="game-topbar">
+      <button class="back-btn" onclick="goMap()">← Bản đồ</button>
+      <div class="game-title" id="gameTitle"></div>
+      <div class="timer-wrap">
+        <span class="timer-icon">⏱</span>
+        <div class="timer-num" id="timerNum">90</div>
+      </div>
+      <div class="q-counter" id="qCounter">1/3</div>
+    </div>
+    <div id="gameContent"></div>
+  </div>
+
+  <!-- STATION RESULT -->
+  <div id="resultScreen" class="screen">
+    <div id="resultContent"></div>
+  </div>
+
+  <!-- FINAL SCREEN -->
+  <div id="finalScreen" class="screen">
+    <div id="finalContent"></div>
+  </div>
+
+</div>
+
+<footer>
+  &copy; 2025 <a href="https://sophianguyen.com.vn" target="_blank">Sophia Nguyễn</a> · Kỹ năng an toàn cho trẻ em
+</footer>
+
+<script>
+const STATIONS=[
+  {
+    id:0,icon:'🩹',name:'Sơ cứu cơ bản',sub:'Cầm máu, bỏng, hóc dị vật',
+    questions:[
+      {
+        type:'order',
+        scenario:'Bạn bị đứt tay và đang chảy máu.',
+        text:'Sắp xếp các bước cầm máu theo đúng thứ tự:',
+        items:['Rửa tay sạch','Ấn bông/gạc sạch lên vết thương 5–10 phút','Nếu máu thấm qua, đặt thêm gạc lên trên','Băng ép vừa phải','Báo người lớn'],
+        correctOrder:[0,1,2,3,4],
+        tip:'Không bao giờ nhấc gạc cũ ra xem — điều đó làm vỡ cục máu đông đang hình thành.'
+      },
+      {
+        type:'mcq',
+        scenario:'Bạn vô tình chạm vào nồi nóng và bị bỏng nhẹ ở tay.',
+        text:'Việc đầu tiên cần làm là gì?',
+        options:['Bôi kem đánh răng lên vết bỏng','Ngâm rửa dưới vòi nước lạnh 10–15 phút','Dùng đá lạnh chườm trực tiếp lên vết bỏng','Bôi dầu để giảm đau'],
+        correct:1,
+        explain:'Nước lạnh làm giảm nhiệt độ và tổn thương mô. Kem đánh răng, đá lạnh trực tiếp hoặc dầu đều làm bỏng nặng hơn.',
+        tip:'Sau khi rửa nước lạnh, báo người lớn ngay và đến viện nếu bỏng to hoặc sâu.'
+      },
+      {
+        type:'mcq',
+        scenario:'Bạn thấy bạn mình đột nhiên không nói được, hai tay ôm cổ, mặt đỏ tím.',
+        text:'Đây là dấu hiệu gì và bạn cần làm gì đầu tiên?',
+        options:['Bạn đang giả vờ, không cần làm gì','Bạn bị hóc dị vật — gọi người lớn ngay và thực hiện Heimlich nếu biết','Bạn bị ngất — đặt nằm xuống và quạt cho mát','Cho bạn uống nước để giúp thứ bị hóc trôi xuống'],
+        correct:1,
+        explain:'Hai tay ôm cổ, không nói/không thở được là dấu hiệu hóc nghẹn điển hình. Phải hành động ngay — không cho uống nước vì có thể làm dị vật tụt sâu hơn.',
+        tip:'Chỉ làm Heimlich khi nạn nhân KHÔNG thở được. Nếu họ vẫn ho được, để họ tự ho mạnh.'
+      }
+    ]
+  },
+  {
+    id:1,icon:'🔥',name:'Cháy & Rò gas',sub:'Thoát hiểm, xử lý khẩn cấp',
+    questions:[
+      {
+        type:'mcq',
+        scenario:'Bạn đang ở tầng 3, phát hiện khói đen từ tầng dưới bốc lên. Cửa phòng bạn có tay nắm kim loại.',
+        text:'Trước khi mở cửa, bạn cần kiểm tra điều gì?',
+        options:['Gọi điện thoại quay video để đăng mạng','Dùng mu bàn tay chạm vào cửa/tay nắm xem có nóng không','Mở cửa nhanh để thoát ra ngoài ngay','Đứng ở cửa sổ hét to để người bên dưới nghe'],
+        correct:1,
+        explain:'Dùng MU bàn tay (không phải lòng bàn tay) — nếu bỏng, mu tay ít ảnh hưởng hơn. Nếu cửa nóng → không mở, tìm lối thoát khác.',
+        tip:'Không bao giờ dùng thang máy khi có cháy. Luôn dùng cầu thang bộ và cúi thấp.'
+      },
+      {
+        type:'mcq',
+        scenario:'Quần áo bạn bất ngờ bốc cháy.',
+        text:'Bạn phải làm gì ngay lập tức?',
+        options:['Chạy thật nhanh để gió tắt lửa','Dừng lại — nằm xuống — lăn qua lăn lại (Stop-Drop-Roll)','Dùng tay phủi lửa đi','Nhảy xuống nước gần nhất'],
+        correct:1,
+        explain:'Stop-Drop-Roll: Dừng chạy (chạy làm lửa to hơn), nằm xuống, che mặt bằng tay, lăn cho đến khi tắt lửa.',
+        tip:'Chạy khi quần áo bốc cháy là sai lầm nguy hiểm nhất — gió sẽ làm lửa bùng to hơn.'
+      },
+      {
+        type:'sort',
+        scenario:'Bạn vào bếp và ngửi thấy mùi hôi như trứng thối rất nặng.',
+        text:'Phân loại: việc NÊN làm và KHÔNG NÊN làm khi rò rỉ gas?',
+        colA:{title:'Nên làm',col:'green'},colB:{title:'Không nên làm',col:'red'},
+        items:[
+          {text:'Khóa van gas tổng',col:'A'},{text:'Mở hết cửa sổ',col:'A'},{text:'Ra ngoài rồi gọi 114',col:'A'},
+          {text:'Bật quạt thông gió',col:'B'},{text:'Bật đèn để nhìn rõ hơn',col:'B'},{text:'Dùng điện thoại gọi trong nhà',col:'B'}
+        ],
+        tip:'Bất kỳ tia lửa điện nào — từ công tắc, điện thoại, chuông cửa — đều có thể gây nổ khi có gas.'
+      }
+    ]
+  },
+  {
+    id:2,icon:'⚡',name:'Điện giật & CPR',sub:'Xử lý khẩn cấp đúng cách',
+    questions:[
+      {
+        type:'mcq',
+        scenario:'Bạn thấy bố bị điện giật do chạm vào dây điện trần, đang bị dính vào dây.',
+        text:'Việc đầu tiên TUYỆT ĐỐI không được làm là gì?',
+        options:['Ngắt cầu dao điện ngay','Dùng tay không kéo bố ra khỏi dây điện','Dùng gậy gỗ khô đẩy dây điện ra xa','Gọi 115 ngay sau khi tách bố khỏi điện'],
+        correct:1,
+        explain:'Dùng tay không kéo nạn nhân sẽ khiến MÌNH cũng bị điện giật. Phải ngắt nguồn điện trước, hoặc dùng vật cách điện khô.',
+        tip:'Không dùng vật kim loại. Không kéo dây điện bằng tay trần. An toàn của mình trước!'
+      },
+      {
+        type:'order',
+        scenario:'Sau khi tách nạn nhân khỏi nguồn điện an toàn, bạn cần xử lý tiếp.',
+        text:'Sắp xếp các bước xử lý người bị điện giật theo đúng thứ tự:',
+        items:['Đảm bảo an toàn cho bản thân','Ngắt nguồn điện hoặc dùng vật cách điện tách nạn nhân','Gọi to, vỗ vai kiểm tra nạn nhân còn tỉnh không','Gọi 115 ngay','Nếu không thở, bắt đầu CPR'],
+        correctOrder:[0,1,2,3,4],
+        tip:'Chu kỳ CPR: 30 ép tim + 2 thổi ngạt. Ép sâu 5–6cm, nhịp 100–120 lần/phút.'
+      },
+      {
+        type:'mcq',
+        scenario:'Bạn một mình trong nhà, thấy người hàng xóm bất tỉnh ở sân, không thở.',
+        text:'Bạn chưa biết CPR thành thạo. Việc quan trọng nhất cần làm ngay là gì?',
+        options:['Không làm gì vì sợ làm sai','Gọi 115 ngay và làm theo hướng dẫn của tổng đài','Chờ người lớn khác về','Tự thực hiện CPR mà không gọi ai'],
+        correct:1,
+        explain:'Gọi 115 và làm theo hướng dẫn là tốt nhất khi chưa tự tin. Nhân viên tổng đài được đào tạo để hướng dẫn CPR qua điện thoại.',
+        tip:'Dù chỉ ép tim mà không thổi ngạt cũng có ích hơn là không làm gì. Điều tồi nhất là đứng nhìn.'
+      }
+    ]
+  },
+  {
+    id:3,icon:'🤫',name:'Bí mật & Tìm giúp đỡ',sub:'Bí mật tốt/xấu, số 1800 1567',
+    questions:[
+      {
+        type:'sort',
+        scenario:'',
+        text:'Phân loại: Đây là bí mật TỐT hay bí mật XẤU?',
+        colA:{title:'Bí mật tốt ✓',col:'green'},colB:{title:'Bí mật xấu ✗',col:'red'},
+        items:[
+          {text:'Giấu quà sinh nhật bất ngờ',col:'A'},{text:'Sắp xếp tiệc bất ngờ cho bạn',col:'A'},{text:'Bí mật bị chạm vào cơ thể',col:'B'},
+          {text:'Bí mật về ảnh riêng tư bị đe dọa',col:'B'},{text:'Người lớn dặn không kể với bố mẹ',col:'B'},{text:'Cô giáo giữ bí mật điểm thi để bất ngờ',col:'A'}
+        ],
+        tip:'Bí mật xấu làm mình sợ, xấu hổ, khó ngủ — và KHÔNG bao giờ nên giữ một mình.'
+      },
+      {
+        type:'mcq',
+        scenario:'Bạn kể chuyện bị xâm hại với người lớn nhưng họ nói "thôi bỏ đi, chuyện nhỏ".',
+        text:'Bạn nên làm gì tiếp theo?',
+        options:['Tin là chuyện nhỏ và không kể nữa','Kể với một người lớn khác — kể đến khi có người tin và giúp đỡ','Im lặng vì cảm thấy xấu hổ khi kể lần 2','Tự giải quyết một mình'],
+        correct:1,
+        explain:'Không phải người lớn nào cũng phản ứng đúng. Đó không phải lỗi của bạn. Hãy kể với người lớn khác — cô giáo, người thân, hoặc gọi 1800 1567.',
+        tip:'Gọi 1800 1567 — miễn phí, bảo mật 24/7. Các cô chú ở đầu dây lắng nghe và giúp đỡ bạn.'
+      },
+      {
+        type:'mcq',
+        scenario:'Người quen lớn tuổi nhắn tin riêng, tặng quà đắt và dặn: "Đừng kể với bố mẹ nha."',
+        text:'Đây là dấu hiệu của điều gì và bạn cần làm gì?',
+        options:['Người đó tốt bụng, tiếp tục nhận quà','Đây là dấu hiệu grooming — kể ngay với bố mẹ về toàn bộ tin nhắn và quà tặng','Tự ngừng trả lời và không kể với ai','Hỏi ý kiến bạn bè cùng tuổi'],
+        correct:1,
+        explain:'"Tặng quà + rủ đi riêng + dặn giữ bí mật" là 3 dấu hiệu grooming điển hình. Người tốt thật sự không bao giờ yêu cầu giữ bí mật với bố mẹ.',
+        tip:'Tin vào cảm giác của mình. Nếu có gì đó cảm thấy không ổn, cảm giác đó thường là đúng.'
+      }
+    ]
+  }
+];
+
+// ── STATE ──
+let stationDone=[false,false,false,false];
+let stationScores=[0,0,0,0];
+let currentStation=-1,currentQ=0,correctCount=0;
+let timer=null,timeLeft=90,answered=false,sortState={};
+let dragSrc=null;
+
+// ── MAP ──
+function renderMap(){
+  const grid=document.getElementById('mapGrid');
+  grid.innerHTML='';
+  const done=stationDone.filter(Boolean).length;
+  document.getElementById('mapFill').style.width=(done/4*100)+'%';
+  document.getElementById('mapCount').textContent=done+' / 4';
+  STATIONS.forEach((s,i)=>{
+    const locked=i>0&&!stationDone[i-1];
+    const isDone=stationDone[i];
+    const card=document.createElement('div');
+    card.className='station-card'+(locked?' locked':'')+(isDone?' done':'');
+    const badge=isDone?'<span class="s-badge badge-done">✓ Hoàn thành</span>':
+                locked?'<span class="s-badge badge-lock">🔒 Chưa mở</span>':
+                '<span class="s-badge badge-open">▶ Sẵn sàng</span>';
+    let scoreHtml='';
+    if(isDone){
+      const pct=stationScores[i]/75*100;
+      scoreHtml=`<div class="s-score">⚡ ${stationScores[i]} điểm<div class="s-score-bar"><div class="s-score-fill" style="width:${pct}%"></div></div></div>`;
+    }
+    card.innerHTML=`<div class="s-top"><div class="s-icon">${s.icon}</div>${badge}</div><div class="s-num">Trạm ${i+1}</div><div class="s-name">${s.name}</div><div class="s-sub">${s.sub}</div>${scoreHtml}`;
+    if(!locked) card.onclick=()=>startStation(i);
+    grid.appendChild(card);
+  });
+}
+
+function startStation(idx){
+  currentStation=idx;currentQ=0;correctCount=0;
+  showScreen('gameScreen');
+  document.getElementById('gameTitle').textContent=STATIONS[idx].icon+' '+STATIONS[idx].name;
+  loadQuestion();
+}
+
+function loadQuestion(){
+  answered=false;
+  const s=STATIONS[currentStation];
+  const q=s.questions[currentQ];
+  document.getElementById('qCounter').textContent=(currentQ+1)+'/'+s.questions.length;
+  startTimer(q.type==='sort'?120:q.type==='order'?100:75);
+  const c=document.getElementById('gameContent');
+  if(q.type==='mcq') renderMCQ(q,c);
+  else if(q.type==='order') renderOrder(q,c);
+  else renderSort(q,c);
+}
+
+// ── TIMER ──
+function startTimer(s){
+  clearInterval(timer);timeLeft=s;updateTimer();
+  timer=setInterval(()=>{timeLeft--;updateTimer();if(timeLeft<=0){clearInterval(timer);timeExpired();}},1000);
+}
+function updateTimer(){
+  const el=document.getElementById('timerNum');
+  el.textContent=timeLeft;
+  el.className='timer-num'+(timeLeft<=10?' urgent':'');
+}
+function timeExpired(){
+  if(answered)return;answered=true;
+  const q=STATIONS[currentStation].questions[currentQ];
+  const c=document.getElementById('gameContent');
+  c.querySelectorAll('.opt-btn,.sort-chip,.order-item').forEach(b=>b.disabled=true);
+  appendFeedback(c,false,'Hết giờ! '+q.explain,q.tip);
+  addNextBtn(c);
+}
+
+// ── MCQ ──
+function renderMCQ(q,c){
+  c.innerHTML='';
+  const box=document.createElement('div');box.className='q-box';
+  box.innerHTML=(q.scenario?`<div class="q-scenario">${q.scenario}</div>`:'')+`<div class="q-text">${q.text}</div>`;
+  c.appendChild(box);
+  const hintEl=makeHint(q.tip);c.appendChild(hintEl);
+  const opts=document.createElement('div');opts.className='options';
+  const keys=['A','B','C','D'];
+  q.options.forEach((o,i)=>{
+    const btn=document.createElement('button');btn.className='opt-btn';
+    btn.innerHTML=`<span class="opt-key">${keys[i]}</span><span>${o}</span>`;
+    btn.onclick=()=>pickMCQ(i,q,c);
+    opts.appendChild(btn);
+  });
+  c.appendChild(opts);
+  const row=document.createElement('div');row.className='btn-row';
+  row.innerHTML='<button class="hint-btn" onclick="toggleHint()">💡 Xem gợi ý</button>';
+  c.appendChild(row);
+}
+
+function pickMCQ(idx,q,c){
+  if(answered)return;answered=true;clearInterval(timer);
+  c.querySelectorAll('.opt-btn').forEach((b,i)=>{
+    b.disabled=true;
+    if(i===q.correct)b.classList.add('correct');
+    else if(i===idx)b.classList.add('wrong');
+  });
+  const ok=idx===q.correct;if(ok)correctCount++;
+  appendFeedback(c,ok,ok?'Chính xác! '+q.explain:'Chưa đúng. '+q.explain,q.tip);
+  addNextBtn(c);
+}
+
+// ── ORDER ──
+function renderOrder(q,c){
+  c.innerHTML='';
+  const box=document.createElement('div');box.className='q-box';
+  box.innerHTML=(q.scenario?`<div class="q-scenario">${q.scenario}</div>`:'')+`<div class="q-text">${q.text}</div>`;
+  c.appendChild(box);
+  const hintEl=makeHint(q.tip);c.appendChild(hintEl);
+  const shuffled=[...q.items.keys()].sort(()=>Math.random()-0.5);
+  const pool=document.createElement('div');pool.className='order-pool';pool.id='orderPool';
+  shuffled.forEach((origIdx,pos)=>{
+    const item=document.createElement('div');item.className='order-item';
+    item.draggable=true;item.dataset.origIdx=origIdx;
+    item.innerHTML=`<span class="order-handle">⠿</span><span class="order-num">${pos+1}</span><span>${q.items[origIdx]}</span>`;
+    item.addEventListener('dragstart',e=>{dragSrc=item;item.classList.add('dragging');e.dataTransfer.effectAllowed='move';});
+    item.addEventListener('dragend',()=>{dragSrc=null;item.classList.remove('dragging');document.querySelectorAll('.order-item').forEach(i=>i.classList.remove('over'));});
+    item.addEventListener('dragover',e=>{e.preventDefault();if(dragSrc&&dragSrc!==item)item.classList.add('over');});
+    item.addEventListener('dragleave',()=>item.classList.remove('over'));
+    item.addEventListener('drop',e=>{
+      e.preventDefault();item.classList.remove('over');
+      if(!dragSrc||dragSrc===item)return;
+      const items=[...pool.children];
+      const si=items.indexOf(dragSrc),ti=items.indexOf(item);
+      if(si<ti)pool.insertBefore(dragSrc,item.nextSibling);else pool.insertBefore(dragSrc,item);
+      [...pool.children].forEach((el,i)=>{el.querySelector('.order-num').textContent=i+1;});
+    });
+    pool.appendChild(item);
+  });
+  c.appendChild(pool);
+  const row=document.createElement('div');row.className='btn-row';
+  row.innerHTML='<button class="hint-btn" onclick="toggleHint()">💡 Xem gợi ý</button><button class="btn-secondary" onclick="checkOrder(this)">Kiểm tra thứ tự</button>';
+  row.querySelector('.btn-secondary').dataset.q=JSON.stringify(q);
+  c.appendChild(row);
+}
+
+function checkOrder(btn){
+  if(answered)return;answered=true;clearInterval(timer);
+  const q=JSON.parse(btn.dataset.q);
+  const pool=document.getElementById('orderPool');
+  let allOk=true;
+  [...pool.children].forEach((el,pos)=>{
+    const orig=parseInt(el.dataset.origIdx);
+    const correctPos=q.correctOrder.indexOf(orig);
+    if(correctPos===pos)el.classList.add('correct-pos');
+    else{el.classList.add('wrong-pos');allOk=false;}
+    el.draggable=false;
+  });
+  if(allOk)correctCount++;
+  const c=document.getElementById('gameContent');
+  const msg=allOk?'Thứ tự hoàn toàn đúng!':'Thứ tự chưa đúng. Thứ tự chuẩn: '+q.items.map((it,i)=>(i+1)+'. '+it).join(' → ');
+  appendFeedback(c,allOk,msg,q.tip);
+  addNextBtn(c);
+}
+
+// ── SORT ──
+let sortChipMap={};
+function renderSort(q,c){
+  c.innerHTML='';sortState={A:[],B:[]};sortChipMap={};
+  const box=document.createElement('div');box.className='q-box';
+  box.innerHTML=(q.scenario?`<div class="q-scenario">${q.scenario}</div>`:'')+`<div class="q-text">${q.text}</div>`;
+  c.appendChild(box);
+  const hintEl=makeHint(q.tip);c.appendChild(hintEl);
+  const shuffled=[...q.items].sort(()=>Math.random()-0.5);
+  const poolWrap=document.createElement('div');poolWrap.className='sort-pool-wrap';
+  const lbl=document.createElement('div');lbl.className='sort-pool-label';lbl.textContent='Nhấn thẻ để chọn cột:';
+  const pool=document.createElement('div');pool.className='sort-pool';pool.id='sortPool';
+  shuffled.forEach((item,i)=>{
+    const chip=document.createElement('div');chip.className='sort-chip';
+    chip.textContent=item.text;chip.dataset.col=item.col;chip.dataset.i=i;
+    chip.onclick=()=>openPicker(chip,item,q,c);
+    pool.appendChild(chip);sortChipMap[i]=chip;
+  });
+  poolWrap.appendChild(lbl);poolWrap.appendChild(pool);c.appendChild(poolWrap);
+  const cols=document.createElement('div');cols.className='sort-cols';
+  ['A','B'].forEach(col=>{
+    const def=col==='A'?q.colA:q.colB;
+    const colDiv=document.createElement('div');colDiv.className='sort-col';colDiv.id='sortCol'+col;
+    colDiv.innerHTML=`<div class="sort-col-title ${def.col}">${col==='A'?'✅':'❌'} ${def.title}</div><div class="sort-col-chips" id="sortChips${col}"></div>`;
+    cols.appendChild(colDiv);
+  });
+  c.appendChild(cols);
+  const row=document.createElement('div');row.className='btn-row';
+  row.innerHTML='<button class="hint-btn" onclick="toggleHint()">💡 Xem gợi ý</button><button class="btn-secondary" onclick="checkSort(this)">Kiểm tra phân loại</button>';
+  row.querySelector('.btn-secondary').dataset.q=JSON.stringify(q);
+  c.appendChild(row);
+}
+
+function openPicker(chip,item,q,c){
+  if(chip.classList.contains('hidden-chip'))return;
+  document.querySelectorAll('.picker-modal').forEach(m=>m.remove());
+  const modal=document.createElement('div');modal.className='picker-modal';
+  modal.innerHTML=`<span class="picker-text">Đặt "<strong>${item.text}</strong>" vào:</span>`;
+  const bA=document.createElement('button');bA.className='btn-secondary';bA.style.fontSize='13px';bA.textContent='✅ '+q.colA.title;
+  bA.onclick=()=>{placeChip(chip,item,'A',q);modal.remove();};
+  const bB=document.createElement('button');bB.className='btn-secondary';bB.style.fontSize='13px';bB.textContent='❌ '+q.colB.title;
+  bB.onclick=()=>{placeChip(chip,item,'B',q);modal.remove();};
+  modal.appendChild(bA);modal.appendChild(bB);
+  chip.parentNode.insertBefore(modal,chip.nextSibling);
+}
+
+function placeChip(chip,item,col,q){
+  const drop=document.getElementById('sortChips'+col);
+  const newChip=document.createElement('div');newChip.className='sort-chip';
+  newChip.textContent=item.text;newChip.dataset.origCol=item.col;newChip.dataset.placedCol=col;
+  drop.appendChild(newChip);
+  chip.classList.add('hidden-chip');
+  sortState[col].push({text:item.text,origCol:item.col});
+}
+
+function checkSort(btn){
+  if(answered)return;
+  const q=JSON.parse(btn.dataset.q);
+  const total=sortState.A.length+sortState.B.length;
+  if(total<q.items.length){alert('Hãy xếp hết tất cả các thẻ!');return;}
+  answered=true;clearInterval(timer);
+  let allOk=true;
+  document.querySelectorAll('.sort-col-chips .sort-chip').forEach(chip=>{
+    const ok=chip.dataset.origCol===chip.dataset.placedCol;
+    chip.classList.add(ok?'placed-ok':'placed-no');
+    if(!ok)allOk=false;
+  });
+  if(allOk)correctCount++;
+  const c=document.getElementById('gameContent');
+  appendFeedback(c,allOk,allOk?'Phân loại hoàn toàn đúng!':'Chưa đúng hết. Xem màu xanh/đỏ ở các thẻ.',q.tip);
+  addNextBtn(c);
+}
+
+// ── HELPERS ──
+function makeHint(tip){
+  const wrap=document.createElement('div');
+  const box=document.createElement('div');box.className='hint-box';box.id='hintBox';box.textContent='💡 '+tip;
+  wrap.appendChild(box);return wrap;
+}
+function toggleHint(){
+  const h=document.getElementById('hintBox');
+  if(h)h.style.display=h.style.display==='block'?'none':'block';
+}
+
+function appendFeedback(c,ok,msg,tip){
+  const fb=document.createElement('div');fb.className='feedback-box '+(ok?'correct':'wrong');
+  fb.innerHTML=`<strong>${ok?'✅ Chính xác!':'❌ Chưa đúng.'}</strong> ${msg}<div class="tip-box">💡 ${tip}</div>`;
+  c.appendChild(fb);c.scrollTop=c.scrollHeight;
+}
+
+function addNextBtn(c){
+  const s=STATIONS[currentStation];
+  const isLast=currentQ===s.questions.length-1;
+  const row=document.createElement('div');row.className='btn-row';
+  const btn=document.createElement('button');btn.className='btn-primary';
+  btn.textContent=isLast?'Xem kết quả trạm →':'Câu tiếp theo →';
+  btn.onclick=isLast?showStationResult:nextQ;
+  row.appendChild(btn);c.appendChild(row);
+  setTimeout(()=>c.scrollTop=c.scrollHeight,50);
+}
+
+function nextQ(){currentQ++;loadQuestion();}
+
+function showStationResult(){
+  clearInterval(timer);
+  const s=STATIONS[currentStation];
+  const pts=correctCount*25;
+  stationDone[currentStation]=true;stationScores[currentStation]=pts;
+  const pct=correctCount/s.questions.length;
+  let icon,title,sub;
+  if(pct===1){icon='🏆';title='Xuất sắc!';sub='Bạn trả lời đúng tất cả! Đây là kỹ năng sinh tồn thực sự quan trọng.';}
+  else if(pct>=0.67){icon='⭐';title='Rất tốt!';sub='Bạn nắm vững hầu hết nội dung. Xem lại câu sai để hoàn thiện hơn!';}
+  else{icon='💪';title='Cần luyện thêm!';sub='Đừng nản! Đọc kỹ phần giải thích và thử lại nhé.';}
+  showScreen('resultScreen');
+  const allDone=stationDone.every(Boolean);
+  document.getElementById('resultContent').innerHTML=`
+    <div class="result-card">
+      <span class="result-icon">${icon}</span>
+      <div class="result-title">${title}</div>
+      <div class="result-score">${pts} <span style="font-size:20px;color:var(--text2)">điểm</span></div>
+      <div class="result-sub">${sub}</div>
+      <div class="stat-row">
+        <div class="stat-box s-ok"><span class="stat-val">${correctCount}</span><div class="stat-lbl">✅ Đúng</div></div>
+        <div class="stat-box s-no"><span class="stat-val">${s.questions.length-correctCount}</span><div class="stat-lbl">❌ Sai</div></div>
+        <div class="stat-box s-pt"><span class="stat-val">${pts}</span><div class="stat-lbl">⚡ Điểm</div></div>
+      </div>
+      <div class="btn-row" style="justify-content:center;gap:10px">
+        <button class="btn-secondary" onclick="goMap()">← Bản đồ</button>
+        ${allDone?'<button class="btn-primary" onclick="showFinal()">Xem kết quả cuối 🏆</button>':'<button class="btn-primary" onclick="goMap()">Trạm tiếp →</button>'}
+      </div>
+    </div>
+  `;
+}
+
+function showFinal(){
+  const total=stationScores.reduce((a,b)=>a+b,0);
+  const max=STATIONS.length*3*25;
+  const pct=total/max;
+  let icon,title,sub;
+  if(pct===1){icon='🏆';title='Chuyên gia sinh tồn!';sub='Hoàn hảo! Bạn biết cách xử lý mọi tình huống khẩn cấp. Hãy chia sẻ với bạn bè!';}
+  else if(pct>=0.75){icon='🌟';title='Chiến binh an toàn!';sub='Rất tốt! Bạn nắm vững hầu hết kỹ năng sinh tồn quan trọng.';}
+  else if(pct>=0.5){icon='💪';title='Đang tiến bộ!';sub='Bạn đã học được nhiều điều. Ôn lại các trạm sai và thử lại!';}
+  else{icon='📖';title='Cần luyện thêm!';sub='Đừng nản! Các kỹ năng này rất quan trọng — hãy xem lại và chơi lại.';}
+  showScreen('finalScreen');
+  document.getElementById('finalContent').innerHTML=`
+    <div class="result-card">
+      <span class="result-icon">${icon}</span>
+      <div class="result-title">${title}</div>
+      <div class="result-score">${total} <span style="font-size:18px;color:var(--text2)">/ ${max} điểm</span></div>
+      <div class="result-sub">${sub}</div>
+      <div class="final-grid">
+        ${STATIONS.map((s,i)=>`<div class="final-item"><div class="fi-name">${s.icon} ${s.name}</div><div class="fi-score">${stationScores[i]} điểm</div></div>`).join('')}
+      </div>
+      <div class="sos-final">
+        <strong>🆘 Nhớ các số khẩn cấp:</strong><br>
+        📞 113 · Công An &nbsp;|&nbsp; 🔥 114 · Cứu Hỏa &nbsp;|&nbsp; 🚑 115 · Cấp Cứu &nbsp;|&nbsp; 💛 1800 1567 · Bảo Vệ Trẻ Em (miễn phí 24/7)
+      </div>
+      <div class="btn-row" style="justify-content:center">
+        <button class="btn-primary" onclick="restartAll()">🔄 Chơi lại từ đầu</button>
+      </div>
+    </div>
+  `;
+}
+
+function restartAll(){
+  stationDone=[false,false,false,false];stationScores=[0,0,0,0];
+  showScreen('mapScreen');renderMap();
+}
+function goMap(){clearInterval(timer);showScreen('mapScreen');renderMap();}
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+renderMap();
+</script>
+</body>
+</html>
