@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buổi 1 – Vùng Riêng Tư & An Toàn</title>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fff7ed;
+    --card: #ffffff;
+    --primary: #f97316;
+    --primary-dark: #c2510c;
+    --primary-light: #fff0e0;
+    --correct: #16a34a;
+    --correct-bg: #dcfce7;
+    --wrong: #dc2626;
+    --wrong-bg: #fee2e2;
+    --skip: #9ca3af;
+    --skip-bg: #f3f4f6;
+    --text: #1c1917;
+    --muted: #78716c;
+    --border: #e7e5e4;
+    --chip-dung: #15803d;
+    --chip-dung-bg: #f0fdf4;
+    --chip-sai: #dc2626;
+    --chip-sai-bg: #fff5f5;
+    --shadow: 0 4px 24px rgba(0,0,0,0.08);
+    --radius: 20px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    min-height: 100vh;
+    padding: 0;
+    background-image:
+      radial-gradient(circle at 8% 12%, #fed7aa55 0%, transparent 35%),
+      radial-gradient(circle at 92% 88%, #bbf7d044 0%, transparent 35%);
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: var(--primary);
+    padding: 22px 28px 18px;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -20px; left: 0; right: 0;
+    height: 40px;
+    background: var(--bg);
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  }
+  .header-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .header-badge {
+    background: rgba(255,255,255,0.25);
+    border-radius: 12px;
+    padding: 8px 12px;
+    font-family: 'Lilita One', cursive;
+    font-size: 1.6rem;
+    line-height: 1;
+  }
+  .header-text h1 {
+    font-family: 'Lilita One', cursive;
+    font-size: 1.3rem;
+    letter-spacing: 0.3px;
+    line-height: 1.2;
+  }
+  .header-text p {
+    font-size: 0.82rem;
+    opacity: 0.85;
+    margin-top: 2px;
+  }
+
+  /* ── MAIN WRAP ── */
+  .main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 28px 16px 40px;
+  }
+
+  /* ── TOP STATS BAR ── */
+  .stats-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+  .stat-chip {
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: 50px;
+    padding: 7px 16px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text);
+    box-shadow: var(--shadow);
+    transition: transform 0.15s;
+  }
+  .stat-chip .icon { font-size: 1rem; }
+  .stat-chip.score-chip { background: var(--primary); color: #fff; border-color: var(--primary-dark); }
+  .stat-chip.score-chip .num { font-family: 'Lilita One', cursive; font-size: 1.1rem; }
+
+  /* ── TIMER ── */
+  .timer-wrap {
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 10px 16px 12px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+  }
+  .timer-track {
+    height: 10px;
+    background: #f5f5f4;
+    border-radius: 99px;
+    overflow: hidden;
+    margin-bottom: 6px;
+  }
+  .timer-fill {
+    height: 100%;
+    border-radius: 99px;
+    background: var(--correct);
+    transition: width 1s linear, background 0.4s;
+    width: 100%;
+  }
+  .timer-fill.warn { background: #f59e0b; }
+  .timer-fill.danger { background: var(--wrong); }
+  .timer-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--muted);
+  }
+  .timer-num {
+    font-family: 'Lilita One', cursive;
+    font-size: 1.1rem;
+    color: var(--text);
+    transition: color 0.3s;
+  }
+  .timer-num.warn { color: #f59e0b; }
+  .timer-num.danger { color: var(--wrong); }
+
+  /* ── STREAK ── */
+  .streak-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .streak-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .streak-dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: #e7e5e4;
+    transition: background 0.25s, transform 0.25s;
+  }
+  .streak-dot.lit { background: #ef4444; transform: scale(1.3); }
+  .fire-badge {
+    background: #fff0e0;
+    border: 1.5px solid #f97316;
+    color: #c2510c;
+    border-radius: 50px;
+    padding: 3px 10px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    display: none;
+    animation: popIn 0.3s ease;
+  }
+  .fire-badge.show { display: inline-flex; align-items: center; gap: 4px; }
+  @keyframes popIn { from { transform: scale(0.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+  /* ── DRAG SHELF ── */
+  .drag-shelf {
+    display: flex;
+    gap: 12px;
+    padding: 14px 18px;
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 18px;
+    box-shadow: var(--shadow);
+    align-items: center;
+  }
+  .shelf-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--muted);
+    flex: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .drag-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    border-radius: 50px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 0.95rem;
+    cursor: grab;
+    transition: transform 0.15s, box-shadow 0.15s, outline 0.1s;
+    user-select: none;
+    border: 2px solid transparent;
+  }
+  .drag-chip:active { cursor: grabbing; }
+  .drag-chip.dragging { opacity: 0.45; transform: scale(0.95); }
+  .drag-chip.chip-selected { outline: 3px solid var(--text); outline-offset: 2px; }
+  .chip-dung {
+    background: var(--chip-dung-bg);
+    color: var(--chip-dung);
+    border-color: #86efac;
+    box-shadow: 0 3px 0 #86efac;
+  }
+  .chip-dung:hover:not(.dragging) { transform: translateY(-2px); box-shadow: 0 5px 0 #86efac; }
+  .chip-sai {
+    background: var(--chip-sai-bg);
+    color: var(--chip-sai);
+    border-color: #fca5a5;
+    box-shadow: 0 3px 0 #fca5a5;
+  }
+  .chip-sai:hover:not(.dragging) { transform: translateY(-2px); box-shadow: 0 5px 0 #fca5a5; }
+  .chip-icon { font-size: 1.1rem; }
+
+  /* ── QUESTIONS ── */
+  .q-list { display: flex; flex-direction: column; gap: 10px; }
+
+  .q-row {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: border-color 0.2s, background 0.2s, transform 0.15s;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+  }
+  .q-row.active {
+    border-color: var(--primary);
+    background: var(--primary-light);
+    transform: translateX(4px);
+  }
+  .q-row.active::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: var(--primary);
+    border-radius: 4px 0 0 4px;
+  }
+  .q-row.locked { cursor: default; transform: none; }
+  .q-row.drop-hover { border-color: var(--primary); background: var(--primary-light); }
+  .q-row.correct-row { border-color: #86efac; background: var(--correct-bg); }
+  .q-row.wrong-row { border-color: #fca5a5; background: var(--wrong-bg); }
+  .q-row.skip-row { border-color: var(--border); background: var(--skip-bg); opacity: 0.7; }
+
+  .q-num {
+    font-family: 'Lilita One', cursive;
+    font-size: 1.1rem;
+    color: var(--primary);
+    min-width: 26px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .q-row.locked .q-num { color: var(--muted); }
+
+  .q-text {
+    font-size: 0.97rem;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.5;
+    flex: 1;
+  }
+  .q-row.skip-row .q-text { color: var(--muted); }
+
+  .answer-badge {
+    border-radius: 50px;
+    padding: 6px 14px;
+    font-size: 0.82rem;
+    font-weight: 800;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+  .badge-empty {
+    background: #f5f5f4;
+    color: var(--muted);
+    border: 1.5px dashed #d6d3d1;
+  }
+  .badge-active {
+    background: #fff0e0;
+    color: var(--primary);
+    border: 1.5px dashed var(--primary);
+    animation: pulse 1.5s ease infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.65} }
+  .badge-lock {
+    background: var(--skip-bg);
+    color: #d6d3d1;
+    border: 1.5px dashed #d6d3d1;
+  }
+  .badge-correct {
+    background: var(--correct-bg);
+    color: var(--correct);
+    border: 1.5px solid #86efac;
+  }
+  .badge-wrong {
+    background: var(--wrong-bg);
+    color: var(--wrong);
+    border: 1.5px solid #fca5a5;
+    text-decoration: line-through;
+    animation: shake 0.35s ease;
+  }
+  .badge-skip {
+    background: var(--skip-bg);
+    color: var(--skip);
+    border: 1.5px solid #d1d5db;
+  }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
+
+  /* ── BONUS POP ── */
+  .bonus-pop {
+    position: fixed;
+    font-family: 'Lilita One', cursive;
+    font-size: 1.2rem;
+    color: var(--correct);
+    pointer-events: none;
+    z-index: 999;
+    animation: floatUp 0.8s ease forwards;
+  }
+  @keyframes floatUp { 0%{opacity:1;transform:translateY(0) scale(1)} 100%{opacity:0;transform:translateY(-40px) scale(1.2)} }
+
+  /* ── PROGRESS BAR ── */
+  .progress-wrap {
+    margin-bottom: 16px;
+  }
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .progress-track {
+    height: 7px;
+    background: var(--border);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--primary);
+    border-radius: 99px;
+    transition: width 0.4s ease;
+  }
+
+  /* ── RESULT ── */
+  .result-screen {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    animation: slideUp 0.4s ease;
+  }
+  .result-screen.show { display: flex; }
+  @keyframes slideUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+
+  .result-trophy {
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.8rem;
+    background: var(--primary-light);
+    border: 3px solid var(--primary);
+  }
+  .result-title {
+    font-family: 'Lilita One', cursive;
+    font-size: 2rem;
+    color: var(--text);
+    text-align: center;
+    line-height: 1.2;
+  }
+  .result-score {
+    font-family: 'Lilita One', cursive;
+    font-size: 3rem;
+    color: var(--primary);
+  }
+  .result-subtitle {
+    font-size: 0.92rem;
+    color: var(--muted);
+    text-align: center;
+    max-width: 380px;
+    line-height: 1.6;
+  }
+
+  .result-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    width: 100%;
+  }
+  .rstat {
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 10px;
+    text-align: center;
+    box-shadow: var(--shadow);
+  }
+  .rstat-val {
+    font-family: 'Lilita One', cursive;
+    font-size: 1.7rem;
+    display: block;
+  }
+  .rstat-lbl { font-size: 0.73rem; font-weight: 700; color: var(--muted); margin-top: 2px; }
+  .rstat.s-correct .rstat-val { color: var(--correct); }
+  .rstat.s-wrong .rstat-val { color: var(--wrong); }
+  .rstat.s-skip .rstat-val { color: var(--skip); }
+  .rstat.s-combo .rstat-val { color: var(--primary); }
+
+  .explain-section {
+    width: 100%;
+  }
+  .explain-title {
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+  .explain-item {
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-left: 4px solid var(--wrong);
+    border-radius: var(--radius);
+    padding: 12px 16px;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: var(--text);
+    margin-bottom: 8px;
+    box-shadow: var(--shadow);
+  }
+  .explain-item.skip-ex { border-left-color: var(--skip); }
+  .explain-item strong { display: block; color: var(--text); font-weight: 700; margin-bottom: 4px; }
+  .explain-item .ex-hint { color: var(--muted); font-size: 0.85rem; }
+  .all-correct-note {
+    background: var(--correct-bg);
+    border: 1.5px solid #86efac;
+    border-radius: var(--radius);
+    padding: 14px 18px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--correct);
+    text-align: center;
+    width: 100%;
+  }
+
+  .restart-btn {
+    padding: 14px 36px;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 0 var(--primary-dark);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .restart-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 0 var(--primary-dark); }
+  .restart-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--primary-dark); }
+ .logo { height: 60px; margin-bottom: 10px; }
+
+  @media (max-width: 520px) {
+    .q-row { flex-direction: column; align-items: flex-start; }
+    .answer-badge { align-self: flex-start; }
+    .result-stats { grid-template-columns: repeat(2, 1fr); }
+    .drag-shelf { flex-wrap: wrap; }
+    .shelf-label { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-badge">🛡️</div>
+    <div class="header-text">
+  <img src="https://sophianguyen.com.vn/images/hinhremovenen.png" alt="Sophia Nguyễn" class="logo">
+      <h1>Buổi 1: Vùng Riêng Tư & An Toàn</h1>
+      <p>Tap hoặc kéo thả ĐÚNG / SAI vào từng câu hỏi!</p>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- GAME PANEL -->
+  <div id="gamePanel">
+    <!-- Stats bar -->
+    <div class="stats-bar">
+      <div class="stat-chip score-chip">⚡ <span class="num" id="scoreDisp">0</span> điểm</div>
+      <div class="stat-chip">🎯 <span id="progDisp">0/8</span></div>
+    </div>
+
+    <!-- Progress -->
+    <div class="progress-wrap">
+      <div class="progress-meta">
+        <span>Tiến độ</span>
+        <span id="progPct">0%</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill" id="progFill" style="width:0%"></div></div>
+    </div>
+
+    <!-- Timer -->
+    <div class="timer-wrap">
+      <div class="timer-track"><div class="timer-fill" id="timerFill"></div></div>
+      <div class="timer-meta">
+        <span id="timerLabel">⏱ Thời gian còn lại</span>
+        <span class="timer-num" id="timerNum">15</span>
+      </div>
+    </div>
+
+    <!-- Streak -->
+    <div class="streak-row">
+      <span class="streak-label">Combo</span>
+      <span class="streak-dot" id="sd0"></span>
+      <span class="streak-dot" id="sd1"></span>
+      <span class="streak-dot" id="sd2"></span>
+      <span class="fire-badge" id="fireBadge">🔥 ON FIRE! +5</span>
+    </div>
+
+    <!-- Drag shelf -->
+    <div class="drag-shelf" id="dragShelf">
+      <span class="shelf-label">Chọn đáp án:</span>
+      <div class="drag-chip chip-dung" id="chipDung" draggable="true" data-val="ĐÚNG">
+        <span class="chip-icon">✅</span> ĐÚNG
+      </div>
+      <div class="drag-chip chip-sai" id="chipSai" draggable="true" data-val="SAI">
+        <span class="chip-icon">❌</span> SAI
+      </div>
+    </div>
+
+    <!-- Questions -->
+    <div class="q-list" id="qList"></div>
+  </div>
+
+  <!-- RESULT PANEL -->
+  <div class="result-screen" id="resultScreen">
+    <div class="result-trophy" id="resTrophy">🏆</div>
+    <div class="result-title" id="resTitle">Siêu An Toàn!</div>
+    <div class="result-score" id="resScore">0 điểm</div>
+    <div class="result-subtitle" id="resSubtitle"></div>
+
+    <div class="result-stats">
+      <div class="rstat s-correct"><span class="rstat-val" id="rsCorrect">0</span><div class="rstat-lbl">✅ Đúng</div></div>
+      <div class="rstat s-wrong"><span class="rstat-val" id="rsWrong">0</span><div class="rstat-lbl">❌ Sai</div></div>
+      <div class="rstat s-skip"><span class="rstat-val" id="rsSkip">0</span><div class="rstat-lbl">⏰ Hết giờ</div></div>
+      <div class="rstat s-combo"><span class="rstat-val" id="rsCombo">0</span><div class="rstat-lbl">🔥 Combo max</div></div>
+    </div>
+
+    <div class="explain-section" id="explainSection"></div>
+
+    <button class="restart-btn" onclick="initGame()">🔄 Chơi lại (câu hỏi mới)</button>
+  </div>
+
+</div><!-- /main -->
+
+<script>
+const POOL = [
+  { t: "Tuổi dậy thì, mỗi người thay đổi chiều cao, da mụn, kinh nguyệt theo tốc độ và cách riêng.", c: "ĐÚNG",
+    x: "Cơ thể mỗi người dậy thì theo nhịp riêng – sớm hay muộn đều bình thường, không cần so sánh với ai." },
+  { t: "Khi ở nhà một mình, có thể mở cửa cho người tự giới thiệu là 'đồng nghiệp của bố' nếu họ thân thiện.", c: "SAI",
+    x: "Tuyệt đối không mở cửa cho người lạ khi ở nhà một mình, dù họ tự giới thiệu là ai hoặc có vẻ thân thiện." },
+  { t: "Vùng riêng tư là phần được đồ bơi che: ngực, mông và vùng kín.", c: "ĐÚNG",
+    x: "Đây là 'quy tắc đồ bơi' – không ai được chạm vào những vùng này nếu không có lý do y tế hợp lệ." },
+  { t: "Nếu ngửi thấy mùi gas (mùi trứng thối), cần bật quạt điện ngay để làm thoáng phòng.", c: "SAI",
+    x: "Tuyệt đối không bật bất kỳ công tắc điện nào! Mở cửa sổ, đóng van gas chính và thoát ra ngoài ngay." },
+  { t: "Bạn thân có quyền yêu cầu bạn chia sẻ mật khẩu vì 'thân thiết không có gì giấu nhau'.", c: "SAI",
+    x: "Tình bạn thật không ép buộc. Mật khẩu là quyền riêng tư của bạn – không ai có quyền đòi hỏi, kể cả bạn thân." },
+  { t: "Bạn có quyền nói KHÔNG với bất kỳ ai chạm vào cơ thể làm bạn không thoải mái, kể cả người thân.", c: "ĐÚNG",
+    x: "Cơ thể của bạn thuộc về bạn! Bạn luôn có quyền từ chối mọi tiếp xúc thể chất mà mình không muốn." },
+  { t: "Khi nhận cuộc gọi lạ bảo 'mẹ bạn nhờ đến lấy đồ', bạn nên mở cửa và nhận giúp mẹ.", c: "SAI",
+    x: "Gọi ngay cho mẹ để xác nhận trước. Kẻ xấu thường dùng tên người thân để tạo lòng tin." },
+  { t: "Cảm thấy buồn hoặc cáu kỉnh vô cớ trong giai đoạn dậy thì là biểu hiện bất thường, cần lo lắng.", c: "SAI",
+    x: "Cảm xúc dao động mạnh khi dậy thì là hoàn toàn bình thường do thay đổi hormone – không cần lo lắng!" },
+  { t: "Nếu bị người lớn chạm vào vùng riêng tư mà nói 'đây là bí mật', bạn nên giữ im lặng.", c: "SAI",
+    x: "Bí mật xấu không cần giữ! Khi ai đó yêu cầu giữ bí mật về chuyện chạm vào cơ thể, hãy kể ngay với người lớn tin cậy." },
+  { t: "Đăng lên mạng rằng mình đang ở nhà một mình là an toàn nếu tài khoản để chế độ riêng tư.", c: "SAI",
+    x: "Danh sách bạn bè bao gồm cả người không thân thiết. Không nên đăng thông tin mình ở nhà một mình lên bất kỳ đâu." },
+  { t: "Bác sĩ có thể cần kiểm tra vùng riêng tư khi khám bệnh – điều này là bình thường nếu có bố mẹ đi cùng.", c: "ĐÚNG",
+    x: "Khám bệnh có bố mẹ đi cùng và trong phòng khám là trường hợp hợp lệ duy nhất người khác được phép chạm vào vùng riêng tư." },
+  { t: "Nếu ai đó cho quà rồi yêu cầu giữ bí mật với bố mẹ, đây là dấu hiệu bình thường của tình bạn.", c: "SAI",
+    x: "Đây là dấu hiệu nguy hiểm (grooming)! Tình bạn và tình yêu lành mạnh không bao giờ yêu cầu giữ bí mật với bố mẹ." },
+{ t: "Con trai không trải qua dậy thì vì chỉ con gái mới có kinh nguyệt và thay đổi cơ thể.", c: "SAI",
+    x: "Con trai cũng dậy thì: vỡ giọng, mọc lông, vai rộng ra, và có thể có mộng tinh – đây là hiện tượng hoàn toàn bình thường." },
+  { t: "Mộng tinh (xuất tinh khi ngủ) ở nam giới là dấu hiệu bất thường, cần đi khám bác sĩ.", c: "SAI",
+    x: "Mộng tinh là hiện tượng sinh lý bình thường khi dậy thì ở nam giới, không đáng lo ngại hay xấu hổ." },
+  { t: "Kinh nguyệt lần đầu có thể đến bất ngờ và chu kỳ ban đầu thường chưa đều – điều này là bình thường.", c: "ĐÚNG",
+    x: "Chu kỳ kinh nguyệt cần vài năm mới ổn định. Lần đầu có thể bất ngờ, nên chuẩn bị băng vệ sinh trong cặp." },
+  { t: "Mụn trứng cá khi dậy thì là do không rửa mặt sạch, bạn nào chăm rửa mặt sẽ không bị mụn.", c: "SAI",
+    x: "Mụn tuổi dậy thì chủ yếu do hormone thay đổi làm tăng tiết dầu – không phải do lười vệ sinh. Vệ sinh đúng cách giúp giảm mụn nhưng không thể ngăn hoàn toàn." },
+  { t: "Cảm thấy tự ti khi cơ thể thay đổi nhanh hơn hoặc chậm hơn bạn cùng lớp là tâm lý phổ biến ở tuổi dậy thì.", c: "ĐÚNG",
+    x: "Rất nhiều bạn cùng tuổi cảm thấy như vậy! Mỗi người có nhịp dậy thì riêng – so sánh với người khác sẽ chỉ làm mình thêm lo lắng." },
+];
+
+const Q_COUNT = 8;
+const Q_TIME  = 15;
+
+let questions=[], answers={}, locked={};
+let score=0, streak=0, bestStreak=0, wrongCount=0, skipCount=0;
+let selectedChip=null, timerInt=null, timerLeft=0, currentActive=0, gameOver=false;
+
+function shuffle(a){ let b=[...a]; for(let i=b.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];} return b; }
+
+function initGame(){
+  clearInterval(timerInt);
+  questions = shuffle(POOL).slice(0, Q_COUNT);
+  answers={}; locked={}; score=0; streak=0; bestStreak=0; wrongCount=0; skipCount=0;
+  selectedChip=null; currentActive=0; gameOver=false;
+
+  document.getElementById('resultScreen').classList.remove('show');
+  document.getElementById('gamePanel').style.display='block';
+  document.querySelectorAll('.drag-chip').forEach(c=>c.classList.remove('chip-selected'));
+
+  renderAll();
+  startTimer();
+}
+
+/* ── RENDER ── */
+function renderAll(){
+  renderScore();
+  renderProgress();
+  renderStreak();
+  renderQuestions();
+}
+
+function renderScore(){
+  document.getElementById('scoreDisp').textContent = score;
+}
+
+function renderProgress(){
+  const done = Object.keys(locked).length;
+  const total = questions.length;
+  const pct = Math.round(done/total*100);
+  document.getElementById('progDisp').textContent = done+'/'+total;
+  document.getElementById('progPct').textContent = pct+'%';
+  document.getElementById('progFill').style.width = pct+'%';
+}
+
+function renderStreak(){
+  for(let i=0;i<3;i++){
+    const d = document.getElementById('sd'+i);
+    d.className = 'streak-dot'+(streak>i?' lit':'');
+  }
+  const fb = document.getElementById('fireBadge');
+  if(streak>=3){ fb.classList.add('show'); } else { fb.classList.remove('show'); }
+}
+
+function renderTimer(){
+  const pct = timerLeft/Q_TIME;
+  const fill = document.getElementById('timerFill');
+  const num  = document.getElementById('timerNum');
+  fill.style.width = (pct*100)+'%';
+  const cls = timerLeft<=5?'danger':timerLeft<=8?'warn':'';
+  fill.className = 'timer-fill'+(cls?' '+cls:'');
+  num.className  = 'timer-num'+(cls?' '+cls:'');
+  num.textContent = timerLeft;
+}
+
+function renderQuestions(){
+  const list = document.getElementById('qList');
+  list.innerHTML = '';
+  questions.forEach((q, idx)=>{
+    const row = document.createElement('div');
+    row.setAttribute('data-idx', idx);
+
+    let rowCls = 'q-row';
+    if(locked[idx]){
+      rowCls += ' locked';
+      rowCls += answers[idx]===q.c ? ' correct-row' : ' wrong-row';
+    } else if(idx < currentActive){
+      rowCls += ' skip-row locked';
+    } else if(idx === currentActive){
+      rowCls += ' active';
+    }
+    row.className = rowCls;
+
+    // Number
+    const numEl = document.createElement('div');
+    numEl.className = 'q-num';
+    numEl.textContent = idx+1;
+
+    // Text
+    const txtEl = document.createElement('div');
+    txtEl.className = 'q-text';
+    txtEl.textContent = q.t;
+
+    // Badge
+    const badgeEl = document.createElement('div');
+    if(locked[idx]){
+      const ok = answers[idx]===q.c;
+      badgeEl.className = 'answer-badge '+(ok?'badge-correct':'badge-wrong');
+      badgeEl.innerHTML = (ok?'✅':'❌')+' '+answers[idx];
+    } else if(idx < currentActive){
+      badgeEl.className = 'answer-badge badge-skip';
+      badgeEl.textContent = '⏰ Hết giờ';
+    } else if(idx === currentActive){
+      badgeEl.className = 'answer-badge badge-active';
+      badgeEl.textContent = '← Chọn đáp án';
+    } else {
+      badgeEl.className = 'answer-badge badge-lock';
+      badgeEl.textContent = '🔒';
+    }
+
+    row.appendChild(numEl);
+    row.appendChild(txtEl);
+    row.appendChild(badgeEl);
+
+    // Events only for active row
+    if(idx === currentActive && !locked[idx]){
+      row.addEventListener('dragover', e=>{ e.preventDefault(); row.classList.add('drop-hover'); });
+      row.addEventListener('dragleave', ()=>row.classList.remove('drop-hover'));
+      row.addEventListener('drop', e=>{ e.preventDefault(); row.classList.remove('drop-hover'); const v=e.dataTransfer.getData('text/plain'); if(v) applyAnswer(idx,v); });
+      row.addEventListener('click', ()=>{ if(selectedChip) applyAnswer(idx, selectedChip); });
+    }
+
+    list.appendChild(row);
+  });
+}
+
+/* ── TIMER ── */
+function startTimer(){
+  clearInterval(timerInt);
+  if(gameOver) return;
+  timerLeft = Q_TIME;
+  renderTimer();
+  timerInt = setInterval(()=>{
+    timerLeft--;
+    renderTimer();
+    if(timerLeft<=0){ clearInterval(timerInt); timeoutQ(); }
+  }, 1000);
+}
+
+function timeoutQ(){
+  skipCount++;
+  streak=0;
+  renderStreak();
+  advanceQ();
+}
+
+/* ── ANSWER ── */
+function applyAnswer(idx, val){
+  if(locked[idx] || idx!==currentActive) return;
+  clearInterval(timerInt);
+  answers[idx] = val;
+  locked[idx]  = true;
+  const q  = questions[idx];
+  const ok = val===q.c;
+  let pts = 0;
+  if(ok){
+    pts = 10;
+    if(timerLeft>=10) pts+=5;
+    else if(timerLeft>=5) pts+=2;
+    streak++;
+    if(streak>bestStreak) bestStreak=streak;
+    if(streak>=3) pts+=5;
+    score+=pts;
+    spawnBonus('+'+pts+' pts');
+  } else {
+    wrongCount++;
+    streak=0;
+  }
+  renderStreak();
+  renderScore();
+  renderProgress();
+  renderQuestions();
+  setTimeout(advanceQ, 550);
+}
+
+function advanceQ(){
+  currentActive++;
+  if(currentActive>=questions.length){ endGame(); return; }
+  renderQuestions();
+  startTimer();
+}
+
+/* ── BONUS POP ── */
+function spawnBonus(txt){
+  const el = document.createElement('div');
+  el.className = 'bonus-pop';
+  el.textContent = txt;
+  const shelf = document.getElementById('dragShelf');
+  const rect  = shelf.getBoundingClientRect();
+  el.style.top  = (rect.top + window.scrollY - 20)+'px';
+  el.style.left = (rect.right - 80)+'px';
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(), 900);
+}
+
+/* ── END GAME ── */
+function endGame(){
+  gameOver = true;
+  clearInterval(timerInt);
+  const total = questions.length;
+  const correctCount = Object.keys(locked).filter(i=>answers[i]===questions[i].c).length;
+  const pct = correctCount/total;
+
+  document.getElementById('gamePanel').style.display='none';
+  const rs = document.getElementById('resultScreen');
+  rs.classList.add('show');
+
+  // Trophy & rank
+  const trophy = document.getElementById('resTrophy');
+  const title  = document.getElementById('resTitle');
+  const sub    = document.getElementById('resSubtitle');
+  if(pct===1){      trophy.textContent='🏆'; title.textContent='Siêu An Toàn!'; sub.textContent='Tuyệt vời! Bạn đã trả lời đúng tất cả. Bạn đã nắm vững kiến thức bảo vệ bản thân!'; }
+  else if(pct>=.75){ trophy.textContent='🌟'; title.textContent='Rất Giỏi!'; sub.textContent='Bạn hiểu rất tốt về an toàn cơ thể. Xem lại những câu sai để càng vững chắc hơn nhé!'; }
+  else if(pct>=.5){  trophy.textContent='💪'; title.textContent='Khá Tốt!'; sub.textContent='Bạn đã biết nhiều điều quan trọng. Đọc kỹ phần giải thích bên dưới và thử lại nhé!'; }
+  else {             trophy.textContent='📖'; title.textContent='Cần Ôn Thêm'; sub.textContent='Hãy ôn lại nội dung buổi 1 và chơi lại. Kiến thức này rất quan trọng để bảo vệ bản thân!'; }
+
+  document.getElementById('resScore').textContent   = score+' điểm';
+  document.getElementById('rsCorrect').textContent  = correctCount;
+  document.getElementById('rsWrong').textContent    = wrongCount;
+  document.getElementById('rsSkip').textContent     = skipCount;
+  document.getElementById('rsCombo').textContent    = bestStreak;
+
+  // Explanations
+  const sec = document.getElementById('explainSection');
+  sec.innerHTML = '';
+  let hasError = false;
+  questions.forEach((q,i)=>{
+    const skipped = !locked[i];
+    const wrong   = locked[i] && answers[i]!==q.c;
+    if(wrong||skipped){
+      hasError=true;
+      const item = document.createElement('div');
+      item.className='explain-item'+(skipped?' skip-ex':'');
+      item.innerHTML = `<strong>${i+1}. ${q.t}</strong><span class="ex-hint">${q.x}</span>`;
+      sec.appendChild(item);
+    }
+  });
+  if(!hasError){
+    sec.innerHTML='<div class="all-correct-note">🎉 Tất cả đều đúng – không có gì cần ôn thêm!</div>';
+  }
+
+  // reset chip UI
+  selectedChip=null;
+  document.querySelectorAll('.drag-chip').forEach(c=>c.classList.remove('chip-selected'));
+  document.getElementById('timerNum').textContent='—';
+  document.getElementById('timerFill').style.width='0%';
+}
+
+/* ── CHIP EVENTS ── */
+document.querySelectorAll('.drag-chip').forEach(chip=>{
+  chip.addEventListener('dragstart', e=>{
+    e.dataTransfer.setData('text/plain', chip.dataset.val);
+    e.dataTransfer.effectAllowed='copy';
+    chip.classList.add('dragging');
+  });
+  chip.addEventListener('dragend', ()=>chip.classList.remove('dragging'));
+  chip.addEventListener('click', ()=>{
+    const val = chip.dataset.val;
+    if(selectedChip===val){
+      selectedChip=null;
+      chip.classList.remove('chip-selected');
+    } else {
+      selectedChip=val;
+      document.querySelectorAll('.drag-chip').forEach(c=>c.classList.remove('chip-selected'));
+      chip.classList.add('chip-selected');
+    }
+  });
+});
+
+initGame();
+</script>
+</body>
+</html>
