@@ -329,104 +329,77 @@
 </div>
 
 <script>
-// ================================================================
-// DỮ LIỆU – 25 ô + 12 câu hỏi
-// Mỗi câu hỏi khai báo answers là MẢNG cellId (index vào ALL_CELLS)
-// ================================================================
 
 // 25 ô trên bảng BINGO
-const ALL_CELLS = [
-  /* 0 */ "📞 Gọi 113 khi bị nguy hiểm",
-  /* 1 */ "🚫 Chặn & báo cáo tài khoản lạ ngay",
-  /* 2 */ "💸 Chuyển tiền khi bạn bè nhắn tin nhờ",
-  /* 3 */ "📲 Gọi điện trực tiếp để xác nhận",
-  /* 4 */ "🤐 Im lặng, không làm gì thêm",
-  /* 5 */ "📸 Chụp màn hình lưu bằng chứng",
-  /* 6 */ "🏃 Chạy thật nhanh về nhà",
-  /* 7 */ "🔪 Cầm vật cứng để tự vệ",
-  /* 8 */ "🏪 Bước ngay vào nơi đông người",
-  /* 9 */ "😊 Cho mượn điện thoại để giữ hòa khí",
-  /* 10 */ "📵 Tắt điện thoại tránh xung đột",
-  /* 11 */ "🔒 Từ chối – quyền riêng tư không liên quan tình bạn",
-  /* 12 */ "🎁 Nhận quà và giữ bí mật với bố mẹ",
-  /* 13 */ "😐 Người lớn tặng quà là chuyện bình thường",
-  /* 14 */ "⚠️ Nhận ra dấu hiệu grooming – kể ngay cho người lớn",
-  /* 15 */ "📷 Chụp ảnh người đó để làm bằng chứng",
-  /* 16 */ "🚶 Đi nhanh hơn, không làm gì thêm",
-  /* 17 */ "👁️ Rẽ sang đường khác để kiểm tra & vào cửa hàng",
-  /* 18 */ "🏫 Báo cáo người lớn / nhà trường sau khi lưu bằng chứng",
-  /* 19 */ "↩️ Chặn người đó và xóa hết bằng chứng",
-  /* 20 */ "😡 Đăng bài phản công lại công khai",
-  /* 21 */ "🗣️ Từ chối dứt khoát – tình yêu không ép buộc",
-  /* 22 */ "📤 Gửi ảnh nhưng yêu cầu xóa sau",
-  /* 23 */ "🤔 Hẹn suy nghĩ thêm xem có nên gửi không",
-  /* 24 */ "⚠️ Nguy cơ: kẻ xấu biết bạn đang ở nhà một mình",
-];
-
-// 12 câu hỏi – mỗi câu có thể có 1–2 đáp án đúng (cellId)
-// Lưu ý: answers là cellId (index vào ALL_CELLS), KHÔNG phải vị trí trên bảng
 const ALL_QUESTIONS = [
   {
-    q: "Người lạ trên mạng nhắn: 'Gửi ảnh riêng tư cho tao, tao sẽ tặng quà giá trị.' Bạn phải làm gì NGAY LẬP TỨC?",
-    answers: [1],
-    hint: "→ Chặn & báo cáo tài khoản lạ ngay"
+    q: "Tài khoản lạ nhắn: 'Tao là Quân, mất điện thoại rồi, chuyển gấp 2 triệu vào số này giúp tao.' Bước đầu tiên cần làm?",
+    answers: [2]  // Gọi điện xác nhận trực tiếp
   },
   {
-    q: "Tài khoản bạn thân nhắn: 'Tao mất điện thoại, chuyển gấp 2 triệu vào số này.' Bước ĐẦU TIÊN cần làm để xác minh?",
-    answers: [3],
-    hint: "→ Gọi điện trực tiếp để xác nhận"
+    q: "Một nhóm bạn liên tục chế ảnh xấu của bạn rồi đăng lên group lớp mỗi ngày, dù bạn đã xin dừng lại. Đây là gì?",
+    answers: [6]  // Bắt nạt có chủ đích – lặp lại, mất cân bằng
   },
   {
-    q: "Nhóm bạn ghép ảnh nhạy cảm của bạn rồi gửi vào group lớp. Hành động ĐẦU TIÊN và quan trọng nhất là gì?",
-    answers: [5],
-    hint: "→ Chụp màn hình lưu bằng chứng (đừng xóa!)"
+    q: "Bị bắt nạt trên mạng — việc quan trọng đầu TIÊN cần làm TRƯỚC KHI làm bất cứ điều gì khác?",
+    answers: [4]  // Chụp màn hình lưu bằng chứng ngay
   },
   {
-    q: "Đang đi bộ về nhà tối, một người say rượu la hét và đang chạy về phía bạn. Cách xử lý AN TOÀN NHẤT?",
-    answers: [8],
-    hint: "→ Bước ngay vào nơi đông người (cửa hàng, quán…)"
+    q: "Người lạ trên Instagram hứa tặng iPhone nếu bạn gửi ảnh phòng ngủ. Bạn làm gì NGAY LẬP TỨC?",
+    answers: [0]  // Chặn & báo cáo tài khoản ngay, không trả lời
   },
   {
-    q: "Bạn thân đòi xem điện thoại với lý do 'thân thì không giấu'. Bạn nên xử lý thế nào?",
-    answers: [11],
-    hint: "→ Từ chối – quyền riêng tư không liên quan tình bạn"
+    q: "Đang đi bộ, bạn nhận ra một người đi xe máy bám theo mình qua 3 con phố. Bạn KHÔNG nên làm gì?",
+    answers: [14] // Về thẳng nhà (nguy hiểm – lộ địa chỉ)
   },
   {
-    q: "Một người lớn quen biết liên tục tặng quà, nhắn riêng và dặn 'đừng kể bố mẹ'. Đây là dấu hiệu gì và bạn làm gì?",
-    answers: [14],
-    hint: "→ Nhận ra dấu hiệu grooming – kể ngay cho người lớn"
+    q: "Trên đường về nhà, một người say rượu la hét và đi về phía bạn. Cách xử lý an toàn nhất?",
+    answers: [9]  // Không đối đầu – tránh xa, vào nơi đông người
   },
   {
-    q: "Bạn nhận ra một người lạ đi xe máy bám theo bạn qua nhiều con phố. Cách xử lý đúng nhất?",
-    answers: [17],
-    hint: "→ Rẽ sang đường khác để kiểm tra & bước vào cửa hàng"
+    q: "Bạn đặt xe ôm công nghệ. Tài xế đến đúng biển số nhưng bảo: 'Hủy chuyến trên app đi, anh chở rẻ hơn.' Bạn làm gì?",
+    answers: [17] // Không lên xe – hủy chuyến đúng cách, gọi bố mẹ
   },
   {
-    q: "Bạn bị bắt nạt trực tuyến liên tục và đã lưu bằng chứng rồi. Bước TIẾP THEO quan trọng nhất là gì?",
-    answers: [18],
-    hint: "→ Báo cáo người lớn / nhà trường sau khi lưu bằng chứng"
+    q: "Sau khi đã lưu bằng chứng bị bắt nạt mạng, bước tiếp theo quan trọng nhất là gì?",
+    answers: [7]  // Kể với người lớn tin cậy / báo nhà trường
   },
   {
-    q: "Người yêu nói: 'Nếu thật sự yêu tao thì phải gửi ảnh riêng tư cho tao.' Phản ứng đúng đắn nhất?",
-    answers: [21],
-    hint: "→ Từ chối dứt khoát – tình yêu không ép buộc"
+    q: "Bạn đăng story: 'Cả tuần này ở nhà một mình, thoải mái quá!' Rủi ro lớn nhất là gì?",
+    answers: [11] // Tiết lộ cho kẻ xấu biết nhà vắng người
   },
   {
-    q: "Bạn vô tình đăng story: 'Ở nhà một mình cả tuần, sướng quá!' lên mạng. Rủi ro NGUY HIỂM NHẤT là gì?",
-    answers: [24],
-    hint: "→ Kẻ xấu biết bạn đang ở nhà một mình"
+    q: "Một tài khoản mạng xã hội mới tạo, không có bạn chung, nhắn tin làm quen và hỏi bạn học trường nào, nhà ở đâu. Đây là dấu hiệu gì?",
+    answers: [20] // Dấu hiệu thu thập thông tin cá nhân – tài khoản lạ đáng ngờ
   },
-  {
-    q: "Bạn đang bị bắt nạt ở trường nhưng chưa có bằng chứng. Bước nào cần làm NGAY?",
-    answers: [5],
-    hint: "→ Chụp màn hình / ghi lại mọi bằng chứng có thể"
-  },
-  {
-    q: "Bạn phát hiện mình đang bị theo dõi khi đi đường. Điều KHÔNG NÊN làm là gì?",
-    answers: [6],
-    // Đáp án đúng là cell 6 = "Chạy thẳng về nhà" (nguy hiểm – để lộ địa chỉ)
-    hint: "→ Chạy thẳng về nhà (sai! Sẽ lộ địa chỉ cho kẻ theo dõi)"
-  },
+];
+
+const ALL_CELLS = [
+  "🚫 Chặn & báo cáo ngay, không trả lời",     // 0  – ĐÁP ÁN câu 4
+  "😤 Trả lời lại để tự bảo vệ mình",           // 1  – mồi nhử (SAI khi bị bắt nạt mạng)
+  "📲 Gọi điện xác nhận trực tiếp với bạn",     // 2  – ĐÁP ÁN câu 1
+  "💸 Chuyển tiền trước, hỏi sau",              // 3  – mồi nhử câu 1 (SAI)
+  "📸 Chụp màn hình lưu bằng chứng ngay",       // 4  – ĐÁP ÁN câu 3
+  "↩️ Xóa hết để tránh bị nhìn thấy",           // 5  – mồi nhử câu 3 (SAI – xóa bằng chứng)
+  "🔁 Bắt nạt = lặp lại + cố ý + mất cân bằng", // 6  – ĐÁP ÁN câu 2
+  "🏫 Kể với người lớn / báo nhà trường",        // 7  – ĐÁP ÁN câu 8
+  "😶 Im lặng chịu đựng cho qua",               // 8  – mồi nhử câu 8 (SAI)
+  "🏪 Không đối đầu – vào nơi đông người",       // 9  – ĐÁP ÁN câu 6
+  "😠 Quay lại cãi cho người đó tỉnh rượu",     // 10 – mồi nhử câu 6 (SAI)
+  "🔓 Tiết lộ nhà vắng người cho kẻ xấu",       // 11 – ĐÁP ÁN câu 9
+  "📵 Không đăng thông tin ở nhà một mình",     // 12 – mồi nhử câu 9 (đúng nhưng không phải rủi ro)
+  "🤝 Lên xe vì biển số đúng là an toàn",       // 13 – mồi nhử câu 7 (SAI)
+  "🏠 Về thẳng nhà thật nhanh",                 // 14 – ĐÁP ÁN câu 5 (hành động SAI cần tránh)
+  "🏃 Vào nơi đông người, gọi bố mẹ",           // 15 – mồi nhử câu 5 (đúng nhưng không phải đáp án câu hỏi)
+  "📞 Gọi 113 nếu bị đe dọa",                  // 16 – mồi nhử nhiều câu
+  "🚗 Không lên xe – hủy đúng cách, gọi bố mẹ", // 17 – ĐÁP ÁN câu 7
+  "✅ Lên xe vì tài xế nói giá rẻ hơn",         // 18 – mồi nhử câu 7 (SAI)
+  "🔍 Kiểm tra biển số trước khi lên xe",       // 19 – mồi nhử câu 7 (đúng nhưng không đủ)
+  "⚠️ Tài khoản lạ hỏi thông tin = đáng ngờ",  // 20 – ĐÁP ÁN câu 10
+  "👍 Kết bạn vì người đó rất thân thiện",      // 21 – mồi nhử câu 10 (SAI)
+  "🎁 Nhận quà rồi mới quyết định",             // 22 – mồi nhử nhiều câu (SAI)
+  "📢 Đăng công khai để cảnh báo mọi người",    // 23 – mồi nhử (SAI – tự xử lý không đúng cách)
+  "🔒 Không chia sẻ thông tin cá nhân với người lạ", // 24 – mồi nhử câu 10
 ];
 
 // ================================================================
