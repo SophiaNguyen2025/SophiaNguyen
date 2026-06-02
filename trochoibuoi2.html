@@ -526,11 +526,18 @@ body {
   .reply-btn { font-size: 0.82rem; padding: 9px 12px; }
   .topbar-name { font-size: 0.88rem; }
 }
+   .logo { height: 100px; margin-bottom: 10px; }
 </style>
 </head>
 <body>
 
 <!-- TOP BAR -->
+  <div class="container">
+  <div class="header">
+  <img src="https://sophianguyen.com.vn/images/hinhremovenen.png" alt="Sophia Nguyễn" class="logo">
+    <h1> CHATTING and CHOISING </h1>
+    <p>Buổi 2 · Lựa chọn câu trả lời phù hợp!</p>
+  </div>
 <div class="topbar">
   <div class="avatar" id="topAvatar">👤<div class="avatar-dot"></div></div>
   <div class="topbar-info">
@@ -855,48 +862,54 @@ function buildReplyOptions(q) {
   const list = document.getElementById('replyOptions');
   list.innerHTML = '';
   const keys = ['A', 'B', 'C'];
-  q.options.forEach((opt, i) => {
+
+  // Tạo mảng options kèm index gốc rồi shuffle
+  let opts = q.options.map((text, i) => ({ text, originalIdx: i }));
+  for (let i = opts.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [opts[i], opts[j]] = [opts[j], opts[i]];
+  }
+
+  opts.forEach((opt, displayIdx) => {
     const btn = document.createElement('button');
     btn.className = 'reply-btn';
-    btn.innerHTML = `<span class="rkey">${keys[i]}</span><span>${opt}</span>`;
-    btn.addEventListener('click', () => pickOption(i, q));
+   btn.dataset.originalIdx = opt.originalIdx;
+    btn.innerHTML = `<span class="rkey">${keys[displayIdx]}</span><span>${opt.text}</span>`;
+    btn.addEventListener('click', () => pickOption(opt.originalIdx, q));
     list.appendChild(btn);
   });
 }
 
-function pickOption(idx, q) {
+function pickOption(originalIdx, q) {
   if (answered) return;
   answered = true;
-  const isCorrect = idx === q.correct;
+  const isCorrect = originalIdx === q.correct;
   const btns = document.querySelectorAll('.reply-btn');
 
-  btns.forEach((b, i) => {
+  // Tìm đúng nút theo originalIdx gắn trong data attribute
+  btns.forEach(b => {
     b.disabled = true;
-    if (i === idx) {
+    const bIdx = parseInt(b.dataset.originalIdx);
+    if (bIdx === originalIdx) {
       b.classList.add(isCorrect ? 'picked-correct' : 'picked-wrong');
-    } else if (i === q.correct && !isCorrect) {
+    } else if (bIdx === q.correct && !isCorrect) {
       b.classList.add('reveal');
     }
   });
 
-  // send bubble
   const sentClass = isCorrect ? 'correct' : 'wrong';
-  addMsg('sent ' + sentClass, q.options[idx]);
+  addMsg('sent ' + sentClass, q.options[originalIdx]);
 
   if (isCorrect) {
-    correctCount++;
-    score += 20;
+    correctCount++; score += 20;
     document.getElementById('scoreDisp').textContent = score;
+    setTimeout(() => addFeedback(true, q), 400);
   } else {
     wrongCount++;
-    const wrongMsg = idx === 0 ? q.wrong0 : q.wrong1;
+    const wrongMsg = originalIdx === 0 ? q.wrong0 : q.wrong1;
     wrongLog.push({ who: q.sender, correct: q.options[q.correct] });
     setTimeout(() => addFeedback(false, q, wrongMsg), 400);
-    setTimeout(() => buildNextBtn(), 900);
-    return;
   }
-
-  setTimeout(() => addFeedback(true, q), 400);
   setTimeout(() => buildNextBtn(), 900);
 }
 
