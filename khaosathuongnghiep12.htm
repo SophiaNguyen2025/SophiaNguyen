@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trắc nghiệm Hướng nghiệp Lớp 12 — Holland Code</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy: #1B3A6B;
+  --teal: #1A7A6E;
+  --gold: #C8922A;
+  --bg: #F7F9FC;
+  --surface: #FFFFFF;
+  --text: #1A1A2E;
+  --muted: #6B7280;
+  --border: #E2E8F0;
+  --radius: 16px;
+  --shadow: 0 4px 24px rgba(27,58,107,0.10);
+}
+
+body {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ── HERO ───────────────────────────────── */
+.hero {
+  background: linear-gradient(135deg, #0f2444 0%, #1B3A6B 50%, #1A5C6E 100%);
+  color: #fff;
+  padding: 64px 24px 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 120%, rgba(26,122,110,0.35) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-block;
+  background: rgba(200,146,42,0.25);
+  border: 1px solid rgba(200,146,42,0.5);
+  color: #FFD580;
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  padding: 6px 16px; border-radius: 100px;
+  margin-bottom: 24px;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 5vw, 48px);
+  line-height: 1.2;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+.hero-sub {
+  font-size: 16px; color: rgba(255,255,255,0.75);
+  margin-bottom: 32px; font-style: italic;
+}
+.hero-meta {
+  display: flex; justify-content: center; gap: 32px; flex-wrap: wrap;
+  font-size: 13px; color: rgba(255,255,255,0.65); font-weight: 500;
+}
+.hero-meta span::before { content: '◆ '; color: var(--gold); }
+
+/* ── PROGRESS ───────────────────────────── */
+.progress-wrap {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(27,58,107,0.97); backdrop-filter: blur(8px);
+  padding: 12px 24px; border-bottom: 1px solid rgba(255,255,255,0.1);
+  display: flex; align-items: center; gap: 16px;
+}
+.progress-bar {
+  flex: 1; height: 6px; background: rgba(255,255,255,0.15); border-radius: 100px; overflow: hidden;
+}
+.progress-fill {
+  height: 100%; background: linear-gradient(90deg, var(--teal), var(--gold));
+  border-radius: 100px; transition: width 0.4s ease; width: 0%;
+}
+.progress-label { color: rgba(255,255,255,0.8); font-size: 13px; font-weight: 600; white-space: nowrap; }
+
+/* ── CONTAINER ──────────────────────────── */
+.container {
+  max-width: 860px; margin: 0 auto; padding: 0 20px 80px;
+}
+
+/* ── INTRO SECTION ──────────────────────── */
+.intro-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 40px;
+  margin: -40px auto 40px;
+  position: relative;
+  border-top: 4px solid var(--gold);
+}
+.intro-card h2 {
+  font-size: 20px; font-weight: 700; color: var(--navy);
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.intro-card p { color: #374151; font-size: 15px; line-height: 1.75; margin-bottom: 12px; }
+.intro-card p:last-child { margin-bottom: 0; }
+
+.steps-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 24px 0;
+}
+@media (max-width: 600px) { .steps-grid { grid-template-columns: 1fr; } }
+.step-item {
+  display: flex; gap: 12px; align-items: flex-start;
+  background: var(--bg); border-radius: 12px; padding: 16px;
+}
+.step-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--navy); color: #fff;
+  font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.step-text { font-size: 13px; color: #374151; line-height: 1.5; }
+.step-text strong { color: var(--navy); display: block; margin-bottom: 2px; }
+
+.scale-row {
+  display: flex; gap: 8px; justify-content: center; margin: 24px 0; flex-wrap: wrap;
+}
+.scale-item {
+  text-align: center; background: var(--bg); border-radius: 12px; padding: 12px 16px;
+  flex: 1; min-width: 80px;
+}
+.scale-num { font-size: 22px; font-weight: 800; color: var(--navy); }
+.scale-desc { font-size: 11px; color: var(--muted); line-height: 1.3; margin-top: 4px; }
+
+.note-box {
+  background: #FFFBEB; border: 1px solid #F6D860; border-radius: 12px; padding: 16px 20px;
+  margin-top: 20px; font-size: 13px; line-height: 1.7; color: #44380A;
+}
+.note-box strong { color: #B7680A; }
+
+/* ── GROUP SECTION ──────────────────────── */
+.group-section {
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 32px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  display: none;
+}
+.group-section.active { display: block; animation: fadeSlide 0.35s ease; }
+@keyframes fadeSlide { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+
+.group-header {
+  padding: 24px 32px;
+  color: #fff;
+  display: flex; align-items: center; gap: 16px;
+}
+.group-emoji { font-size: 36px; }
+.group-title-wrap { flex: 1; }
+.group-code { font-size: 32px; font-weight: 800; letter-spacing: -1px; opacity: 0.5; }
+.group-name { font-size: 20px; font-weight: 700; }
+.group-tagline { font-size: 13px; opacity: 0.8; font-style: italic; margin-top: 2px; }
+.group-progress {
+  text-align: right; font-size: 13px; opacity: 0.8;
+}
+.group-progress span { font-size: 24px; font-weight: 800; }
+
+/* question items */
+.questions-wrap { padding: 8px 24px 24px; }
+.q-item {
+  display: flex; align-items: center; gap: 16px;
+  padding: 14px 12px; border-radius: 12px; margin-bottom: 6px;
+  transition: background 0.15s;
+  border: 2px solid transparent;
+}
+.q-item:hover { background: var(--bg); }
+.q-item.answered { border-color: #E2F0EB; background: #F7FDF9; }
+.q-num { font-size: 13px; font-weight: 700; color: var(--muted); width: 28px; flex-shrink: 0; }
+.q-text { flex: 1; font-size: 14px; color: #1F2937; line-height: 1.5; }
+.q-scale { display: flex; gap: 6px; flex-shrink: 0; }
+.q-scale label {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  cursor: pointer;
+}
+.q-scale label span { font-size: 10px; color: var(--muted); font-weight: 600; }
+.q-scale input[type=radio] { display: none; }
+.q-scale .dot {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; color: var(--muted);
+  transition: all 0.15s; background: #fff;
+}
+.q-scale input[type=radio]:checked + .dot {
+  border-color: currentColor;
+  color: #fff;
+  transform: scale(1.12);
+}
+
+/* Group subtotal */
+.group-subtotal {
+  margin: 0 24px 24px;
+  background: var(--bg); border-radius: 12px; padding: 16px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  font-weight: 600;
+}
+.subtotal-label { font-size: 14px; color: var(--muted); }
+.subtotal-val { font-size: 22px; font-weight: 800; }
+
+/* Nav buttons */
+.group-nav {
+  padding: 0 24px 24px;
+  display: flex; justify-content: space-between; gap: 12px;
+}
+.btn {
+  padding: 12px 28px; border-radius: 100px; font-size: 15px;
+  font-weight: 700; cursor: pointer; transition: all 0.2s;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  border: none;
+}
+.btn-outline {
+  background: transparent; border: 2px solid var(--border); color: var(--muted);
+}
+.btn-outline:hover { border-color: var(--navy); color: var(--navy); }
+.btn-primary {
+  background: var(--navy); color: #fff;
+}
+.btn-primary:hover { background: #254e96; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(27,58,107,0.3); }
+.btn-primary:disabled { background: var(--border); color: var(--muted); cursor: not-allowed; transform: none; box-shadow: none; }
+.btn-gold { background: var(--gold); color: #fff; }
+.btn-gold:hover { background: #A87820; transform: translateY(-1px); }
+
+/* ── GROUP TABS (overview) ──────────────── */
+.section-title {
+  font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--muted); margin: 48px 0 20px; display: flex; align-items: center; gap: 12px;
+}
+.section-title::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+
+.groups-overview {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 40px;
+}
+@media (max-width: 600px) { .groups-overview { grid-template-columns: repeat(2, 1fr); } }
+.group-pill {
+  background: var(--surface); border-radius: 12px;
+  padding: 16px; text-align: center;
+  border: 2px solid var(--border);
+  cursor: pointer; transition: all 0.2s;
+  position: relative;
+}
+.group-pill:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+.group-pill.current { border-color: currentColor; }
+.group-pill .pill-code { font-size: 22px; font-weight: 800; }
+.group-pill .pill-name { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.group-pill .pill-score {
+  font-size: 13px; font-weight: 700; margin-top: 6px;
+  background: var(--bg); border-radius: 100px; padding: 2px 10px;
+  display: inline-block;
+}
+.pill-check {
+  position: absolute; top: 8px; right: 8px;
+  width: 16px; height: 16px; border-radius: 50%;
+  background: #10B981; display: none;
+  align-items: center; justify-content: center;
+  font-size: 9px; color: #fff;
+}
+.group-pill.done .pill-check { display: flex; }
+
+/* ── RESULT SECTION ─────────────────────── */
+#result-section {
+  display: none; animation: fadeSlide 0.5s ease;
+}
+
+.result-hero {
+  background: linear-gradient(135deg, #0f2444, #1B3A6B);
+  border-radius: var(--radius); padding: 40px; color: #fff;
+  text-align: center; margin-bottom: 32px;
+  box-shadow: var(--shadow);
+}
+.result-hero h2 {
+  font-family: 'Playfair Display', serif; font-size: 28px; margin-bottom: 8px;
+}
+.result-hero p { font-size: 15px; color: rgba(255,255,255,0.75); margin-bottom: 24px; }
+.code-display {
+  display: flex; gap: 12px; justify-content: center; margin-bottom: 16px;
+}
+.code-letter {
+  width: 72px; height: 72px; border-radius: 16px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  font-size: 28px; font-weight: 800; line-height: 1;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+}
+.code-letter small { font-size: 10px; font-weight: 600; opacity: 0.8; margin-top: 2px; }
+.result-moto {
+  font-style: italic; font-size: 15px; color: rgba(255,255,255,0.7);
+  border-top: 1px solid rgba(255,255,255,0.2); padding-top: 20px; margin-top: 8px;
+}
+
+/* score table */
+.score-table { margin-bottom: 40px; }
+.score-row {
+  display: flex; align-items: center; gap: 12px; padding: 12px 16px;
+  border-radius: 12px; margin-bottom: 8px; background: var(--surface);
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+}
+.score-row.top-3 { border-width: 2px; }
+.score-badge {
+  width: 40px; height: 40px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; font-weight: 800; color: #fff; flex-shrink: 0;
+}
+.score-info { flex: 1; }
+.score-name { font-size: 14px; font-weight: 600; }
+.score-bar-wrap { height: 6px; background: var(--bg); border-radius: 100px; overflow: hidden; margin-top: 4px; }
+.score-bar { height: 100%; border-radius: 100px; transition: width 1s ease; width: 0; }
+.score-pts { font-size: 18px; font-weight: 800; min-width: 48px; text-align: right; }
+.rank-badge {
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--gold); color: #fff;
+  font-size: 11px; font-weight: 800;
+  display: none; align-items: center; justify-content: center;
+}
+.score-row.top-3 .rank-badge { display: flex; }
+
+/* profiles */
+.profile-card {
+  background: var(--surface); border-radius: var(--radius);
+  overflow: hidden; margin-bottom: 24px;
+  box-shadow: var(--shadow); border: 1px solid var(--border);
+}
+.profile-header {
+  padding: 24px 28px; color: #fff;
+  display: flex; align-items: center; gap: 16px;
+}
+.profile-emoji { font-size: 40px; }
+.profile-titles h3 { font-size: 20px; font-weight: 800; }
+.profile-titles p { font-size: 13px; opacity: 0.8; font-style: italic; margin-top: 2px; }
+.profile-body { padding: 24px 28px; }
+.profile-desc { font-size: 15px; color: #374151; line-height: 1.75; margin-bottom: 20px; }
+.strengths-list { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.strength-tag {
+  background: var(--bg); border-radius: 100px; padding: 6px 14px;
+  font-size: 12px; font-weight: 600; color: var(--navy);
+  border: 1px solid var(--border);
+}
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 560px) { .two-col { grid-template-columns: 1fr; } }
+.col-card { border-radius: 12px; padding: 16px; }
+.col-card h4 { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; }
+.col-card ul { list-style: none; }
+.col-card li { font-size: 13px; padding: 5px 0; border-bottom: 1px solid rgba(0,0,0,0.06); }
+.col-card li:last-child { border: none; }
+.col-card li::before { content: '→ '; opacity: 0.5; }
+
+/* next steps */
+.next-steps { margin-bottom: 40px; }
+.step-card {
+  display: flex; gap: 16px; align-items: flex-start;
+  background: var(--surface); border-radius: 12px; padding: 20px;
+  margin-bottom: 12px; border: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.step-circle {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--navy); color: #fff;
+  font-size: 15px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.step-card h4 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+.step-card p { font-size: 13px; color: #4B5563; line-height: 1.6; }
+
+.closing-card {
+  background: linear-gradient(135deg, #0f2444, #1B3A6B);
+  border-radius: var(--radius); padding: 40px; text-align: center; color: #fff;
+}
+.closing-card p { font-size: 18px; font-style: italic; line-height: 1.7; opacity: 0.9; }
+.closing-card p strong { opacity: 1; font-style: normal; color: #FFD580; }
+
+/* restart button */
+.btn-restart {
+  display: block; margin: 32px auto 0;
+  padding: 14px 36px; border-radius: 100px;
+  background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+  color: rgba(255,255,255,0.8); font-size: 14px; font-weight: 600;
+  cursor: pointer; font-family: 'Be Vietnam Pro', sans-serif;
+  transition: all 0.2s;
+}
+.btn-restart:hover { background: rgba(255,255,255,0.25); color: #fff; }
+
+/* incomplete warning */
+.warn-box {
+  background: #FEF3C7; border: 1px solid #FCD34D; border-radius: 12px;
+  padding: 14px 18px; font-size: 13px; color: #78350F;
+  margin-bottom: 16px; display: none;
+}
+  .logo { height: 60px; margin-bottom: 10px; }
+@media (max-width: 640px) {
+  .intro-card { padding: 28px 20px; }
+  .group-header { padding: 20px; gap: 12px; }
+  .q-item { flex-wrap: wrap; gap: 10px; }
+  .q-scale { margin-left: auto; }
+  .questions-wrap { padding: 8px 16px 16px; }
+  .group-nav { padding: 0 16px 16px; }
+  .group-subtotal { margin: 0 16px 16px; }
+  .hero { padding: 48px 20px 64px; }
+}
+
+/* inline start button */
+.start-btn-wrap {
+  text-align: center; margin-top: 28px;
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">Holland Code · RIASEC · Lớp 12</div>
+  <h1>Tôi là ai khi đi làm?</h1>
+ <img src="https://sophianguyen.com.vn/images/hinhremovenen.png" alt="Sophia Nguyễn" class="logo">
+  <p class="hero-sub">Khám phá gu nghề nghiệp trước khi chọn ngành, chọn trường.</p>
+  <div class="hero-meta">
+    <span>60 câu hỏi</span>
+    <span>Khoảng 20 phút</span>
+    <span>Kết quả ngay lập tức</span>
+  </div>
+</div>
+
+<!-- sticky progress -->
+<div class="progress-wrap" id="progressWrap">
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-label" id="progressLabel">0 / 60</div>
+</div>
+
+<div class="container">
+
+<!-- ── INTRO ── -->
+<div id="intro-section">
+  <div class="intro-card">
+    <h2>📖 Trước khi bắt đầu</h2>
+    <p>Em đang đứng trước một quyết định lớn. Chọn ngành học có thể định hình 4 năm đại học, và ảnh hưởng tới những năm đầu đi làm. Bài khảo sát này không trả lời thay em câu hỏi "học trường gì" — nó trả lời câu hỏi đứng trước đó: em là kiểu người nào khi đi làm? Khi biết mình thuộc "gu" nào, danh sách ngành phù hợp tự thu hẹp lại.</p>
+
+    <div class="scale-row">
+      <div class="scale-item"><div class="scale-num">1</div><div class="scale-desc">Hoàn toàn không giống tôi</div></div><div class="scale-item"><div class="scale-num">2</div><div class="scale-desc">Hơi không giống tôi</div></div><div class="scale-item"><div class="scale-num">3</div><div class="scale-desc">Bình thường / phân vân</div></div><div class="scale-item"><div class="scale-num">4</div><div class="scale-desc">Khá giống tôi</div></div><div class="scale-item"><div class="scale-num">5</div><div class="scale-desc">Rất giống tôi</div></div>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step-item"><div class="step-num">1</div><div class="step-text"><strong>Đọc từng câu</strong>Chấm điểm 1–5 theo thang trên</div></div>
+      <div class="step-item"><div class="step-num">2</div><div class="step-text"><strong>Làm hết 6 nhóm</strong>Mỗi nhóm 10 câu, điểm tự động cộng</div></div>
+      <div class="step-item"><div class="step-num">3</div><div class="step-text"><strong>Xem kết quả</strong>3 nhóm cao nhất = mã Holland của em</div></div>
+      <div class="step-item"><div class="step-num">4</div><div class="step-text"><strong>Đọc luận giải</strong>Hiểu mình, tìm hướng phù hợp</div></div>
+    </div>
+
+    <div class="note-box">
+      <strong>Lưu ý quan trọng —</strong> Trả lời <em>nhanh</em>, cảm giác đầu tiên thường đúng hơn. Trả lời em là ai <em>bây giờ</em>, không phải em muốn trông như thế nào. Không có câu trả lời đúng hay sai.
+    </div>
+
+    <div class="start-btn-wrap">
+      <button class="btn btn-primary" onclick="startSurvey()">Bắt đầu làm bài →</button>
+    </div>
+  </div>
+
+  <div class="section-title">6 Nhóm tính cách</div>
+  <div class="groups-overview" id="groupsOverview"></div>
+</div>
+
+<!-- ── SURVEY ── -->
+<div id="survey-section" style="display:none">
+  <div class="section-title" id="surveyTitle" style="margin-top:32px">Phần A — Câu hỏi khảo sát</div>
+
+  <div id="groupsGrid" class="groups-overview" style="margin-bottom:32px"></div>
+
+  <div id="groupsContainer"></div>
+
+  <div class="warn-box" id="warnBox">⚠️ Vui lòng trả lời hết tất cả câu hỏi trước khi xem kết quả.</div>
+  <div style="text-align:center; margin-bottom:40px">
+    <button class="btn btn-gold" onclick="showResult()">Xem kết quả →</button>
+  </div>
+</div>
+
+<!-- ── RESULT ── -->
+<div id="result-section">
+  <div class="result-hero">
+    <h2>Kết quả của em</h2>
+    <p id="resultSubtitle">Mã Holland 3 chữ cái</p>
+    <div class="code-display" id="codeDisplay"></div>
+    <div class="result-moto">Chọn hướng đúng không phải là chọn hướng "hoàn hảo".<br>Là chọn hướng mà em sẵn lòng cố gắng vì nó — kể cả những hôm khó.</div>
+  </div>
+
+  <div class="section-title">Điểm chi tiết 6 nhóm</div>
+  <div class="score-table" id="scoreTable"></div>
+
+  <div class="section-title">Luận giải 3 nhóm cao nhất</div>
+  <div id="profileCards"></div>
+
+  <div class="section-title">Bước tiếp theo</div>
+  <div class="next-steps" id="nextSteps"></div>
+
+  <div class="closing-card">
+    <p>Bài khảo sát này là một <strong>gợi ý, không phải phán quyết</strong>.<br>
+    Kết quả mở ra hướng đi — em vẫn là người quyết định.</p>
+    <button class="btn-restart" onclick="restart()">↩ Làm lại từ đầu</button>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<script>
+const GROUPS = {"R": {"name": "Thực tế", "en": "Realistic", "tagline": "Người làm bằng đôi tay", "color": "#1B5E8C", "light": "#E8F4FF", "emoji": "🔧", "desc": "Em mạnh ở chỗ làm thật, không phải nói. Em thích nhìn thấy thành quả cụ thể ở cuối ngày, thích máy móc, vận động, công cụ. Em không ngại lao động, không ngại bẩn tay, miễn là ra sản phẩm thật sự dùng được.", "strengths": ["Khéo tay, học nhanh các thao tác kỹ thuật", "Bền sức, chịu được môi trường khó", "Thực dụng, đi thẳng vào vấn đề", "Tin vào việc thử rồi sai, không lý thuyết suông"], "nganh": ["Kỹ thuật cơ khí, Cơ điện tử", "Kỹ thuật điện – điện tử", "Xây dựng, Kỹ thuật công trình", "Kiến trúc", "Công nghệ ô tô", "Nông – Lâm – Ngư nghiệp", "Quân sự, Công an", "Logistics, Hàng không", "Thể dục thể thao"], "nghe": ["Kỹ sư các ngành", "Kiến trúc sư công trường", "Bác sĩ phẫu thuật, nha sĩ", "Phi công, kỹ thuật hàng không", "Vận động viên, huấn luyện viên", "Nông nghiệp công nghệ cao"]}, "I": {"name": "Nghiên cứu", "en": "Investigative", "tagline": "Người làm bằng câu hỏi", "color": "#1A7A6E", "light": "#E8F5F0", "emoji": "🔬", "desc": "Em mạnh ở chỗ đào sâu. Em không hài lòng với câu trả lời bề mặt — em muốn hiểu tận gốc. Em có thể ngồi rất lâu với một bài toán khó cho đến khi giải ra. Em sống bằng sự tò mò, và rất ổn khi làm việc một mình.", "strengths": ["Tư duy phân tích, logic mạnh", "Kiên trì với vấn đề phức tạp", "Độc lập, tự định hướng được", "Học sâu, học kỹ — không học cho qua"], "nganh": ["Y khoa, Răng – Hàm – Mặt, Dược", "Toán học, Vật lý, Hóa học, Sinh học", "Công nghệ thông tin", "Khoa học dữ liệu, Trí tuệ nhân tạo", "Công nghệ sinh học", "Tâm lý học", "Kinh tế (định hướng nghiên cứu)"], "nghe": ["Bác sĩ, dược sĩ", "Nhà khoa học, nhà nghiên cứu", "Lập trình viên, kỹ sư phần mềm", "Data scientist, kỹ sư AI", "Giảng viên đại học", "Chuyên gia phân tích tài chính"]}, "A": {"name": "Nghệ thuật", "en": "Artistic", "tagline": "Người làm bằng ý tưởng", "color": "#6B3FA0", "light": "#F3EEF9", "emoji": "🎨", "desc": "Em mạnh ở chỗ thấy thứ mà người khác chưa thấy. Em có gu, có cái nhìn riêng, có khả năng biến cảm xúc thành tác phẩm. Em ghét khuôn mẫu, ghét làm theo cho qua chuyện. Em chấp nhận đánh đổi ổn định để được làm điều mình tin.", "strengths": ["Trí tưởng tượng phong phú", "Gu thẩm mỹ tốt", "Biểu đạt cảm xúc, ý tưởng giỏi", "Dũng cảm khác biệt"], "nganh": ["Thiết kế đồ họa, Thiết kế truyền thông", "Mỹ thuật, Mỹ thuật ứng dụng", "Kiến trúc", "Báo chí, Truyền thông đa phương tiện", "Văn học, Ngôn ngữ", "Đạo diễn, Diễn viên, Quay phim", "Âm nhạc, Sân khấu điện ảnh", "Marketing (định hướng sáng tạo)"], "nghe": ["Designer (đồ họa, UI/UX, sản phẩm)", "Content creator, sáng tạo nội dung", "Nhà văn, nhà báo, biên tập viên", "Đạo diễn, nhà sản xuất phim", "Nhiếp ảnh gia, quay phim", "Copywriter, art director"]}, "S": {"name": "Xã hội", "en": "Social", "tagline": "Người làm bằng trái tim", "color": "#B7680A", "light": "#FFF5E0", "emoji": "🤝", "desc": "Em mạnh ở chỗ kết nối với người khác. Bạn bè tin em, kể cho em, tìm em khi cần. Em hạnh phúc khi giúp ai đó lớn lên, hiểu ra điều khó, hoặc vượt qua một chuyện nặng. Em quan tâm tới ý nghĩa của việc mình làm hơn là tiền nó mang lại.", "strengths": ["Lắng nghe, đồng cảm sâu", "Kiên nhẫn với người khác", "Truyền cảm hứng, dạy được", "Hiểu cảm xúc và động lực con người"], "nganh": ["Sư phạm các môn, Giáo dục mầm non/tiểu học", "Tâm lý học (ứng dụng, lâm sàng)", "Công tác xã hội", "Y khoa, Điều dưỡng, Y tế công cộng", "Quản trị nhân lực", "Du lịch, Quản trị khách sạn", "Luật"], "nghe": ["Giáo viên, giảng viên", "Chuyên gia tâm lý, tham vấn học đường", "Bác sĩ, điều dưỡng", "Nhân sự (HR), đào tạo, coaching", "Công tác xã hội, phi lợi nhuận", "Hướng dẫn viên du lịch"]}, "E": {"name": "Quản lý", "en": "Enterprising", "tagline": "Người làm bằng tham vọng", "color": "#B03030", "light": "#FFF0F0", "emoji": "🚀", "desc": "Em mạnh ở chỗ dẫn dắt. Em sinh ra để đặt mục tiêu rồi đẩy mình và người khác đạt được. Em không sợ cạnh tranh, không ngại chịu trách nhiệm khi sai. Em thích nói chuyện, thuyết phục, tạo ảnh hưởng. Tiền và quyền không phải điều cấm kỵ với em — đó là động lực thật.", "strengths": ["Lãnh đạo tự nhiên, có sức hút", "Thuyết phục, giao tiếp tốt", "Quyết đoán, dám chịu trách nhiệm", "Sẵn lòng rủi ro để có cơ hội lớn"], "nganh": ["Quản trị kinh doanh", "Marketing", "Kinh doanh quốc tế", "Tài chính – Ngân hàng", "Luật kinh tế, Luật quốc tế", "Quản trị nhân lực", "Logistics, Quản trị chuỗi cung ứng", "Truyền thông – Marketing"], "nghe": ["Doanh nhân, người sáng lập", "Sales, business development", "Marketing manager, brand manager", "Luật sư (tranh tụng, doanh nghiệp)", "Giám đốc dự án, tư vấn quản lý", "Môi giới bất động sản, chứng khoán"]}, "C": {"name": "Quy củ", "en": "Conventional", "tagline": "Người làm bằng sự kỹ lưỡng", "color": "#1A5C99", "light": "#EAF3FF", "emoji": "📋", "desc": "Em mạnh ở chỗ đáng tin. Người ta giao việc cho em vì biết em sẽ làm xong, làm đúng, không sai sót. Em thích quy trình rõ ràng, thích biết trước hôm nay phải làm gì. Em không thích bất ngờ, không thích hỗn loạn. Sự ổn định không làm em chán — nó làm em yên tâm.", "strengths": ["Cẩn thận, ít sai sót với chi tiết", "Có hệ thống, ngăn nắp", "Đáng tin, làm là làm tới nơi", "Tốt với số liệu, quy trình, tài liệu"], "nganh": ["Kế toán – Kiểm toán", "Tài chính, Ngân hàng", "Thuế, Hải quan", "Luật (định hướng tuân thủ)", "Quản trị văn phòng", "Hệ thống thông tin quản lý", "Thống kê, Toán ứng dụng", "Bảo hiểm"], "nghe": ["Kế toán, kiểm toán", "Chuyên viên thuế, ngân hàng", "Chuyên viên hành chính, văn phòng", "Quản lý dự án (hướng quy trình)", "Thư ký, trợ lý cấp cao", "Chuyên viên bảo hiểm, kiểm soát nội bộ"]}};
+const QUESTIONS = {"R": ["Tôi thích tháo lắp, sửa chữa các thiết bị, máy móc.", "Tôi thích các hoạt động thể thao, vận động ngoài trời hơn là ngồi yên một chỗ.", "Tôi thích làm việc với công cụ, máy móc hơn là với giấy tờ.", "Tôi thấy hứng thú khi tự tay làm ra một sản phẩm cụ thể (đồ gỗ, đồ điện, mô hình…).", "Tôi thích các môn học có thực hành tay chân như Công nghệ, Vật lý ứng dụng.", "Tôi không ngại làm việc trong môi trường có máy móc, công trường, xưởng.", "Tôi thích chăm sóc cây cối, vật nuôi, hoặc làm vườn.", "Tôi thích đi phượt, leo núi, cắm trại hơn là ở nhà.", "Tôi học nhanh các thao tác tay chân (lái xe, dùng dụng cụ, vận hành máy).", "Tôi thích nghề có sản phẩm cụ thể, nhìn thấy được ở cuối ngày."], "I": ["Tôi thích tìm hiểu xem mọi thứ hoạt động như thế nào.", "Tôi hay đặt câu hỏi \"tại sao\" về những điều xung quanh.", "Tôi thấy các môn Toán, Lý, Hóa, Sinh thú vị hơn các môn khác.", "Tôi có thể ngồi rất lâu để giải một bài toán khó cho ra kết quả.", "Tôi thích đọc sách, xem video về khoa học, công nghệ, vũ trụ.", "Tôi thích thí nghiệm, kiểm chứng giả thuyết, thử rồi sai rồi thử lại.", "Tôi thích phân tích dữ liệu, tìm quy luật trong các con số.", "Tôi cảm thấy thỏa mãn khi giải được một vấn đề phức tạp.", "Tôi muốn tìm ra câu trả lời \"đúng\" hơn là câu trả lời \"nhanh\".", "Tôi thích làm việc độc lập, có thời gian suy nghĩ sâu một mình."], "A": ["Tôi thích vẽ, viết, chụp ảnh, làm video, hoặc chơi nhạc cụ.", "Tôi hay nghĩ ra ý tưởng mới, cách làm khác lạ.", "Tôi không thích bị bó buộc trong khuôn mẫu, quy tắc cứng nhắc.", "Tôi thấy mình nhạy cảm với màu sắc, âm thanh, ngôn từ, hình ảnh.", "Tôi thích các môn Văn, Nghệ thuật, Thiết kế, Lịch sử văn hóa.", "Tôi thường viết nhật ký, làm thơ, vẽ vời, hoặc sáng tác gì đó cho riêng mình.", "Tôi thích trang trí, sắp xếp không gian theo gu của mình.", "Tôi mê phim ảnh, sách, triển lãm, sân khấu hơn các trận đấu thể thao.", "Tôi thấy mình có \"con mắt thẩm mỹ\" tốt hơn người xung quanh.", "Tôi sẵn lòng sống tự do, ít ổn định để được làm điều mình thích."], "S": ["Tôi thích lắng nghe và giúp bạn bè giải quyết vấn đề.", "Bạn bè hay tìm tôi để tâm sự, xin lời khuyên.", "Tôi thấy vui khi giúp ai đó hiểu một điều khó.", "Tôi muốn làm công việc có ý nghĩa cho cộng đồng, cho xã hội.", "Tôi thích tham gia các hoạt động tình nguyện, câu lạc bộ, đoàn đội.", "Tôi dễ đồng cảm với cảm xúc của người khác.", "Tôi thích dạy lại cho người khác điều tôi vừa học được.", "Tôi thấy mình kiên nhẫn với trẻ em, người lớn tuổi, hoặc người cần giúp đỡ.", "Tôi quan tâm đến các vấn đề xã hội (y tế, giáo dục, môi trường, người yếu thế).", "Tôi thà làm việc với con người hơn là với máy móc, số liệu."], "E": ["Tôi thường được bầu làm trưởng nhóm, lớp trưởng, hoặc trưởng dự án.", "Tôi tự tin khi nói chuyện, thuyết trình trước đám đông.", "Tôi thích \"cầm trịch\", lên kế hoạch và phân công cho cả nhóm.", "Tôi quan tâm đến chuyện làm kinh doanh, kiếm tiền, đầu tư.", "Tôi thích thuyết phục người khác làm theo ý mình.", "Tôi sẵn lòng đứng ra chịu trách nhiệm khi có sự cố.", "Tôi thấy hứng thú khi có cơ hội cạnh tranh, thắng cuộc.", "Tôi thường tự bắt đầu một việc gì đó mà không cần ai bảo.", "Tôi quen với việc đặt mục tiêu lớn và đẩy mình phải đạt được.", "Tôi thích các môn Kinh tế, Quản trị, Marketing, hoặc các cuộc thi khởi nghiệp."], "C": ["Tôi thích mọi thứ có trật tự, đúng quy trình.", "Tôi cẩn thận với chi tiết, ít sai sót khi làm việc với số liệu.", "Tôi thích lập danh sách, kế hoạch, sắp xếp công việc.", "Tôi thấy thoải mái khi làm việc theo hướng dẫn rõ ràng.", "Tôi không ngại các công việc cần sự kiên nhẫn, có tính lặp lại.", "Tôi thích các môn có quy tắc rõ ràng như Toán, Kế toán, Tin học văn phòng.", "Tôi giữ tài liệu, ghi chép gọn gàng, ngăn nắp.", "Tôi tin rằng \"cẩn tắc vô áy náy\" — kỹ một chút còn hơn sai một chút.", "Tôi thích môi trường làm việc ổn định, ít biến động.", "Tôi thà làm tốt việc nhỏ còn hơn làm sơ sài việc lớn."]};
+const NEXT_STEPS = [{"num": "1", "title": "Lập danh sách 5 ngành", "desc": "Từ phần luận giải của 3 nhóm cao nhất, chọn ra 5 ngành làm em thực sự tò mò. Đừng cố giới hạn lại 1 ngành ngay — ở bước này, để rộng cho mình."}, {"num": "2", "title": "Tìm người đang làm nghề đó", "desc": "Nói chuyện với ít nhất 2 người đang làm nghề mỗi ngành. Hỏi: một ngày của họ trông ra sao, điều khó nhất là gì, nếu được chọn lại có chọn ngành này không."}, {"num": "3", "title": "Kiểm tra điểm chuẩn 3 năm gần nhất", "desc": "Đối chiếu với điểm thi thử của mình. Lập danh sách: 1–2 trường tham vọng, 2–3 trường vừa sức, 1 trường an toàn."}, {"num": "4", "title": "Xem chương trình đào tạo, không chỉ tên ngành", "desc": "Cùng tên \"Marketing\" nhưng mỗi trường dạy rất khác nhau. Vào website chính thức của trường, đọc danh sách môn học, đọc xem các năm sau có thực tập gì."}, {"num": "5", "title": "Nghĩ về 4 năm tới, không chỉ tấm bằng", "desc": "Em sẽ sống ở thành phố nào, ở với ai, học phí ai trả, có đi làm thêm không. Một ngôi trường tốt mà em phải sống cực khổ 4 năm chưa chắc đã là lựa chọn đúng."}, {"num": "6", "title": "Cho phép mình thay đổi", "desc": "Hơn một nửa người đi làm hiện nay không làm đúng ngành mình học. Chọn ngành đúng là quan trọng, nhưng không phải là quyết định cả đời."}];
+const ORDER = ['R','I','A','S','E','C'];
+let answers = {};
+let currentGroup = 0;
+
+function totalAnswered() {
+  return Object.keys(answers).length;
+}
+
+function groupAnswered(code) {
+  let n = 0;
+  QUESTIONS[code].forEach((_, i) => { if (answers[code + '_' + i] !== undefined) n++; });
+  return n;
+}
+
+function groupScore(code) {
+  let s = 0;
+  QUESTIONS[code].forEach((_, i) => { s += (answers[code + '_' + i] || 0); });
+  return s;
+}
+
+function updateProgress() {
+  const done = totalAnswered();
+  const pct = Math.round(done / 60 * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = done + ' / 60';
+}
+
+function buildGroupPills(containerId, clickable) {
+  const wrap = document.getElementById(containerId);
+  wrap.innerHTML = '';
+  ORDER.forEach((code, idx) => {
+    const g = GROUPS[code];
+    const done = groupAnswered(code);
+    const score = groupScore(code);
+    const pill = document.createElement('div');
+    pill.className = 'group-pill' + (done === 10 ? ' done' : '') + (idx === currentGroup && clickable ? ' current' : '');
+    pill.style.color = g.color;
+    pill.innerHTML = `
+      <div class="pill-check">✓</div>
+      <div class="pill-code" style="color:${g.color}">${g.emoji} ${code}</div>
+      <div class="pill-name">${g.name}</div>
+      <div class="pill-score" style="color:${g.color}">${done === 10 ? score + ' đ' : done + '/10'}</div>
+    `;
+    if (clickable) {
+      pill.style.cursor = 'pointer';
+      pill.addEventListener('click', () => { jumpToGroup(idx); });
+    }
+    wrap.appendChild(pill);
+  });
+}
+
+function buildIntroOverview() {
+  const wrap = document.getElementById('groupsOverview');
+  wrap.innerHTML = '';
+  ORDER.forEach(code => {
+    const g = GROUPS[code];
+    const pill = document.createElement('div');
+    pill.className = 'group-pill';
+    pill.style.color = g.color;
+    pill.innerHTML = `
+      <div class="pill-code" style="color:${g.color}">${g.emoji} ${code}</div>
+      <div class="pill-name">${g.name}</div>
+      <div class="pill-score" style="color:${g.color};font-style:italic;background:none;font-size:11px">${g.tagline}</div>
+    `;
+    wrap.appendChild(pill);
+  });
+}
+
+function buildSurveyGroups() {
+  const container = document.getElementById('groupsContainer');
+  container.innerHTML = '';
+  ORDER.forEach((code, gi) => {
+    const g = GROUPS[code];
+    const section = document.createElement('div');
+    section.className = 'group-section' + (gi === 0 ? ' active' : '');
+    section.id = 'group-' + code;
+
+    let qHTML = '';
+    QUESTIONS[code].forEach((q, qi) => {
+      const key = code + '_' + qi;
+      const qNum = gi * 10 + qi + 1;
+      qHTML += `<div class="q-item" id="qitem-${key}">
+        <div class="q-num">${qNum}</div>
+        <div class="q-text">${q}</div>
+        <div class="q-scale">`;
+      for (let v = 1; v <= 5; v++) {
+        qHTML += `<label>
+          <span>${v}</span>
+          <input type="radio" name="${key}" value="${v}" onchange="onAnswer('${code}','${qi}',this.value)">
+          <div class="dot" style="color:${g.color}">${v}</div>
+        </label>`;
+      }
+      qHTML += `</div></div>`;
+    });
+
+    section.innerHTML = `
+      <div class="group-header" style="background:${g.color}">
+        <div class="group-emoji">${g.emoji}</div>
+        <div class="group-title-wrap">
+          <div class="group-code">${code}</div>
+          <div class="group-name">Nhóm ${g.name} · ${g.en}</div>
+          <div class="group-tagline">${g.tagline}</div>
+        </div>
+        <div class="group-progress"><span id="gscore-${code}">0</span><br>/ 50 điểm</div>
+      </div>
+      <div class="questions-wrap">${qHTML}</div>
+      <div class="group-subtotal">
+        <span class="subtotal-label">Tổng nhóm ${code}</span>
+        <span class="subtotal-val" style="color:${g.color}" id="subtotal-${code}">0 / 50</span>
+      </div>
+      <div class="group-nav">
+        ${gi > 0 ? `<button class="btn btn-outline" onclick="prevGroup()">← Nhóm trước</button>` : `<div></div>`}
+        ${gi < 5 ? `<button class="btn btn-primary" onclick="nextGroup()">Tiếp theo →</button>` : `<button class="btn btn-gold" onclick="showResult()">Xem kết quả →</button>`}
+      </div>
+    `;
+    container.appendChild(section);
+  });
+}
+
+function onAnswer(code, qi, val) {
+  const key = code + '_' + qi;
+  answers[key] = parseInt(val);
+  const qitem = document.getElementById('qitem-' + key);
+  if (qitem) qitem.classList.add('answered');
+
+  // style selected dot
+  document.querySelectorAll(`input[name="${key}"]`).forEach(inp => {
+    const dot = inp.nextElementSibling;
+    if (inp.checked) {
+      dot.style.background = GROUPS[code].color;
+      dot.style.borderColor = GROUPS[code].color;
+      dot.style.color = '#fff';
+    } else {
+      dot.style.background = '#fff';
+      dot.style.borderColor = '#E2E8F0';
+      dot.style.color = '#6B7280';
+    }
+  });
+
+  const s = groupScore(code);
+  const el1 = document.getElementById('gscore-' + code);
+  const el2 = document.getElementById('subtotal-' + code);
+  if (el1) el1.textContent = s;
+  if (el2) el2.textContent = s + ' / 50';
+  updateProgress();
+  buildGroupPills('groupsGrid', true);
+}
+
+function showGroup(idx) {
+  currentGroup = idx;
+  ORDER.forEach((code, i) => {
+    const sec = document.getElementById('group-' + code);
+    if (sec) {
+      sec.classList.toggle('active', i === idx);
+    }
+  });
+  buildGroupPills('groupsGrid', true);
+  window.scrollTo({top: document.getElementById('survey-section').offsetTop - 80, behavior: 'smooth'});
+}
+
+function jumpToGroup(idx) { showGroup(idx); }
+function nextGroup() {
+  if (currentGroup < 5) showGroup(currentGroup + 1);
+}
+function prevGroup() {
+  if (currentGroup > 0) showGroup(currentGroup - 1);
+}
+
+function startSurvey() {
+  document.getElementById('intro-section').style.display = 'none';
+  document.getElementById('survey-section').style.display = 'block';
+  buildGroupPills('groupsGrid', true);
+  buildSurveyGroups();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function showResult() {
+  if (totalAnswered() < 60) {
+    const warn = document.getElementById('warnBox');
+    warn.style.display = 'block';
+    warn.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+  document.getElementById('survey-section').style.display = 'none';
+  const rs = document.getElementById('result-section');
+  rs.style.display = 'block';
+  buildResult();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function buildResult() {
+  const scores = {};
+  ORDER.forEach(code => { scores[code] = groupScore(code); });
+  const sorted = ORDER.slice().sort((a,b) => scores[b] - scores[a]);
+  const top3 = sorted.slice(0,3);
+
+  // code display
+  const codeEl = document.getElementById('codeDisplay');
+  codeEl.innerHTML = '';
+  top3.forEach((code, i) => {
+    const g = GROUPS[code];
+    const div = document.createElement('div');
+    div.className = 'code-letter';
+    div.style.background = g.color;
+    div.innerHTML = `${code}<small>#${i+1}</small>`;
+    codeEl.appendChild(div);
+  });
+  document.getElementById('resultSubtitle').textContent = `Mã Holland của em: ${top3.join('')} — ${top3.map(c=>GROUPS[c].name).join(' · ')}`;
+
+  // score table
+  const tableEl = document.getElementById('scoreTable');
+  tableEl.innerHTML = '';
+  sorted.forEach((code, rank) => {
+    const g = GROUPS[code];
+    const s = scores[code];
+    const row = document.createElement('div');
+    row.className = 'score-row' + (rank < 3 ? ' top-3' : '');
+    row.style.borderColor = rank < 3 ? g.color : '';
+    row.innerHTML = `
+      <div class="score-badge" style="background:${g.color}">${g.emoji}</div>
+      <div class="score-info">
+        <div class="score-name" style="color:${g.color}">${code} — ${g.name}</div>
+        <div class="score-bar-wrap"><div class="score-bar" style="background:${g.color}" id="bar-${code}"></div></div>
+      </div>
+      <div class="score-pts" style="color:${g.color}">${s}</div>
+      <div class="rank-badge">${rank+1}</div>
+    `;
+    tableEl.appendChild(row);
+  });
+  // animate bars
+  setTimeout(() => {
+    ORDER.forEach(code => {
+      const bar = document.getElementById('bar-' + code);
+      if (bar) bar.style.width = (scores[code] / 50 * 100) + '%';
+    });
+  }, 200);
+
+  // profiles
+  const profEl = document.getElementById('profileCards');
+  profEl.innerHTML = '';
+  top3.forEach(code => {
+    const g = GROUPS[code];
+    const card = document.createElement('div');
+    card.className = 'profile-card';
+    const nganhItems = g.nganh.map(n => `<li>${n}</li>`).join('');
+    const ngheItems = g.nghe.map(n => `<li>${n}</li>`).join('');
+    const strengthTags = g.strengths.map(s => `<span class="strength-tag">✓ ${s}</span>`).join('');
+    card.innerHTML = `
+      <div class="profile-header" style="background:${g.color}">
+        <div class="profile-emoji">${g.emoji}</div>
+        <div class="profile-titles">
+          <h3>Nhóm ${g.name} — ${g.en}</h3>
+          <p>${g.tagline}</p>
+        </div>
+      </div>
+      <div class="profile-body">
+        <p class="profile-desc">${g.desc}</p>
+        <div class="strengths-list">${strengthTags}</div>
+        <div class="two-col">
+          <div class="col-card" style="background:${g.light}">
+            <h4 style="color:${g.color}">Hướng học phù hợp</h4>
+            <ul>${nganhItems}</ul>
+          </div>
+          <div class="col-card" style="background:${g.light}">
+            <h4 style="color:${g.color}">Nghề nghiệp gợi ý</h4>
+            <ul>${ngheItems}</ul>
+          </div>
+        </div>
+      </div>
+    `;
+    profEl.appendChild(card);
+  });
+
+  // next steps
+  const nsEl = document.getElementById('nextSteps');
+  nsEl.innerHTML = '';
+  NEXT_STEPS.forEach(step => {
+    const div = document.createElement('div');
+    div.className = 'step-card';
+    div.innerHTML = `
+      <div class="step-circle">${step.num}</div>
+      <div><h4>${step.title}</h4><p>${step.desc}</p></div>
+    `;
+    nsEl.appendChild(div);
+  });
+}
+
+function restart() {
+  answers = {};
+  currentGroup = 0;
+  document.getElementById('result-section').style.display = 'none';
+  document.getElementById('intro-section').style.display = 'block';
+  updateProgress();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// init
+buildIntroOverview();
+updateProgress();
+</script>
+</body>
+</html>
