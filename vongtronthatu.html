@@ -3,30 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lớp Học An Toàn – Game Tương Tác</title>
+<title>Lớp Học An Toàn – Game Tương Tác (Dark Mode)</title>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --purple: #6C5CE7;
-  --purple-light: #a29bfe;
-  --purple-dark: #4834d4;
+  --purple: #a29bfe;
+  --purple-light: #c3baff;
+  --purple-dark: #6c5ce7;
   --green: #00b894;
   --green-light: #55efc4;
-  --red: #d63031;
-  --red-light: #ff7675;
-  --orange: #e17055;
-  --orange-light: #fab1a0;
-  --blue: #0984e3;
-  --blue-light: #74b9ff;
+  --red: #ff7675;
+  --red-light: #ff9f9e;
+  --orange: #fab1a0;
+  --orange-light: #ffe0b5;
+  --blue: #74b9ff;
+  --blue-light: #a8d8ff;
   --yellow: #fdcb6e;
-  --bg: #f0eeff;
-  --surface: #ffffff;
-  --text: #2d3436;
-  --text-muted: #636e72;
+  --bg: #1a1a2e;
+  --surface: #16213e;
+  --surface-light: #1f2a48;
+  --text: #f0f0f0;
+  --text-muted: #b0b0b0;
+  --border: #2d3a5e;
   --radius: 16px;
   --radius-lg: 24px;
-  --shadow: 0 4px 24px rgba(108,92,231,0.12);
-  --shadow-lg: 0 8px 40px rgba(108,92,231,0.18);
+  --shadow: 0 4px 24px rgba(0,0,0,0.3);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.4);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -52,6 +54,7 @@ h1, h2, h3, .game-title { font-family: 'Baloo 2', cursive; }
   top: 0;
   z-index: 100;
   overflow-x: auto;
+  border-bottom: 1px solid var(--border);
 }
 
 .brand {
@@ -61,7 +64,7 @@ h1, h2, h3, .game-title { font-family: 'Baloo 2', cursive; }
   color: var(--purple);
   white-space: nowrap;
   padding: 1rem 1.5rem 1rem 0;
-  border-right: 2px solid var(--bg);
+  border-right: 2px solid var(--border);
   margin-right: 1rem;
 }
 
@@ -98,6 +101,8 @@ h1, h2, h3, .game-title { font-family: 'Baloo 2', cursive; }
   letter-spacing: .06em;
   text-transform: uppercase;
   margin-bottom: .75rem;
+  background: var(--surface);
+  color: var(--purple);
 }
 .game-title {
   font-size: 1.8rem;
@@ -126,15 +131,16 @@ h1, h2, h3, .game-title { font-family: 'Baloo 2', cursive; }
 }
 .btn:hover { transform: translateY(-2px); }
 .btn:active { transform: translateY(0) scale(.97); }
-.btn-purple { background: var(--purple); color: #fff; box-shadow: 0 4px 14px rgba(108,92,231,0.35); }
+.btn-purple { background: var(--purple-dark); color: #fff; box-shadow: 0 4px 14px rgba(108,92,231,0.35); }
+.btn-purple:hover { background: var(--purple); }
 .btn-green { background: var(--green); color: #fff; box-shadow: 0 4px 14px rgba(0,184,148,0.35); }
 .btn-red { background: var(--red); color: #fff; box-shadow: 0 4px 14px rgba(214,48,49,0.3); }
 .btn-blue { background: var(--blue); color: #fff; box-shadow: 0 4px 14px rgba(9,132,227,0.3); }
-.btn-ghost { background: transparent; color: var(--text-muted); border: 2px solid #dfe6e9; }
+.btn-ghost { background: transparent; color: var(--text-muted); border: 2px solid var(--border); }
 .btn-ghost:hover { border-color: var(--purple); color: var(--purple); }
 
 /* ══════════════════════════════
-   GAME 1 – WORD CLOUD
+   GAME 1 – WORD CLOUD (DARK MODE)
 ══════════════════════════════ */
 .g1-input-area {
   display: flex;
@@ -144,14 +150,17 @@ h1, h2, h3, .game-title { font-family: 'Baloo 2', cursive; }
 .g1-input-area input {
   flex: 1;
   padding: 12px 18px;
-  border: 2px solid #dfe6e9;
+  border: 2px solid var(--border);
   border-radius: 50px;
   font-family: 'Nunito', sans-serif;
   font-size: 1rem;
   outline: none;
   transition: border-color .2s;
+  background: var(--surface);
+  color: var(--text);
 }
 .g1-input-area input:focus { border-color: var(--purple); }
+.g1-input-area input::placeholder { color: var(--text-muted); }
 
 .word-cloud {
   background: var(--surface);
@@ -172,7 +181,7 @@ h1, h2, h3, .game-title { font-family: 'Baloo 2', cursive; }
   padding: 6px 20px;
   font-family: 'Baloo 2', cursive;
   font-weight: 700;
-  animation: popIn .4s cubic-bezier(.34,1.56,.64,1);
+  animation: popIn .3s cubic-bezier(.34,1.56,.64,1);
   cursor: default;
   transition: transform .2s;
 }
@@ -190,24 +199,34 @@ h1, h2, h3, .game-title { font-family: 'Baloo 2', cursive; }
   font-size: 0.85rem;
   color: var(--text-muted);
 }
-  .logo { height: 60px; margin-bottom: 10px; }
-  </style>
+
+.logo { 
+  height: 60px; 
+  margin-bottom: 10px;
+  filter: brightness(1.1);
+}
+</style>
+
+<div class="main-nav">
+  <span class="brand">🛡️ LỚP HỌC AN TOÀN</span>
+  <button class="nav-tab active" onclick="switchGame(1)">📝 Vòng tròn từ</button>
+</div>
 
 <!-- ═══════ GAME 1 ═══════ -->
 <div id="g1" class="screen active">
   <div class="game-header">
-    <div class="game-badge" style="background:#f0eeff;color:var(--purple)">Buổi 1 • Khởi động</div>
+    <div class="game-badge">Buổi 1 • Khởi động</div>
     <h2 class="game-title">Vòng tròn một từ</h2>
-   <img src="https://sophianguyen.com.vn/images/hinhremovenen.png" alt="Sophia Nguyễn" class="logo">
+    <img src="https://sophianguyen.com.vn/images/hinhremovenen.png" alt="Sophia Nguyễn" class="logo">
     <p class="game-subtitle">Gõ từ học viên nói – từ sẽ hiện lên màn hình to dần theo số lần xuất hiện</p>
   </div>
   <div class="g1-input-area">
     <input id="g1-inp" placeholder="Nhập từ học viên nói rồi nhấn Enter..." onkeydown="if(event.key==='Enter')g1Add()">
     <button class="btn btn-purple" onclick="g1Add()">Thêm ✦</button>
-    <button class="btn btn-ghost"  onclick="g1Reset()">Xóa hết</button>
+    <button class="btn btn-ghost" onclick="g1Reset()">Xóa hết</button>
   </div>
   <div class="word-cloud" id="g1-cloud">
-    <span style="color:#b2bec3;font-size:.95rem">Từ của học viên sẽ xuất hiện ở đây...</span>
+    <span style="color:var(--text-muted);font-size:.95rem">Từ của học viên sẽ xuất hiện ở đây...</span>
   </div>
   <div class="g1-stats">
     <span id="g1-total">0 từ đã thu thập</span>
@@ -216,6 +235,25 @@ h1, h2, h3, .game-title { font-family: 'Baloo 2', cursive; }
 </div>
 
 <script>
+/* ── ÂM THANH (Web Audio) ── */
+function playPopSound() {
+  try {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    const ctx = new AudioCtx();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    const now = ctx.currentTime;
+    osc.frequency.value = 880;
+    gain.gain.setValueAtTime(0.15, now);
+    gain.gain.exponentialRampToValueAtTime(0.00001, now + 0.3);
+    osc.start();
+    osc.stop(now + 0.2);
+    setTimeout(() => ctx.close(), 400);
+  } catch(e) { console.log("audio error"); }
+}
+
 /* ── NAV ── */
 function switchGame(n){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -225,40 +263,58 @@ function switchGame(n){
 }
 
 /* ══ GAME 1 ══ */
-const PALETTES=[
-  ['#f0eeff','#4834d4'],['#d4fef4','#006150'],['#ffe8e8','#8b0000'],
-  ['#e3f2fd','#0c5494'],['#fff3cd','#856404'],['#fce4ec','#880e4f'],
-  ['#e8f5e9','#1b5e20'],['#fff8e1','#6d4c00'],['#e8eaf6','#283593'],
+const PALETTES = [
+  ['#f0eeff', '#a29bfe'], ['#d4fef4', '#55efc4'], ['#ffe8e8', '#ff7675'],
+  ['#e3f2fd', '#74b9ff'], ['#fff3cd', '#fdcb6e'], ['#fce4ec', '#e84393'],
+  ['#e8f5e9', '#00b894'], ['#fff8e1', '#fab1a0'], ['#e8eaf6', '#6c5ce7']
 ];
-let g1words={};
-function g1Add(){
-  const inp=document.getElementById('g1-inp');
-  const w=inp.value.trim();
-  if(!w)return;
-  g1words[w]=(g1words[w]||0)+1;
+let g1words = {};
+
+function g1Add() {
+  const inp = document.getElementById('g1-inp');
+  const w = inp.value.trim();
+  if (!w) return;
+  
+  const wasNew = !g1words[w];
+  g1words[w] = (g1words[w] || 0) + 1;
+  
+  // Phát âm thanh mỗi lần thêm từ mới
+  playPopSound();
+  
   g1Render();
-  inp.value='';inp.focus();
+  inp.value = '';
+  inp.focus();
 }
-function g1Render(){
-  const c=document.getElementById('g1-cloud');
-  c.innerHTML='';
-  const entries=Object.entries(g1words).sort((a,b)=>b[1]-a[1]);
-  if(!entries.length){c.innerHTML='<span style="color:#b2bec3;font-size:.95rem">Từ của học viên sẽ xuất hiện ở đây...</span>';return;}
-  entries.forEach(([w,n],i)=>{
-    const sz=Math.min(14+n*7,50);
-    const pal=PALETTES[i%PALETTES.length];
-    const el=document.createElement('div');
-    el.className='word-tag';
-    el.textContent=w+(n>1?' ×'+n:'');
-    el.style.cssText=`font-size:${sz}px;background:${pal[0]};color:${pal[1]};`;
+
+function g1Render() {
+  const c = document.getElementById('g1-cloud');
+  c.innerHTML = '';
+  const entries = Object.entries(g1words).sort((a, b) => b[1] - a[1]);
+  
+  if (!entries.length) {
+    c.innerHTML = '<span style="color:var(--text-muted);font-size:.95rem">Từ của học viên sẽ xuất hiện ở đây...</span>';
+    return;
+  }
+  
+  entries.forEach(([w, n], i) => {
+    const sz = Math.min(14 + n * 7, 52);
+    const pal = PALETTES[i % PALETTES.length];
+    const el = document.createElement('div');
+    el.className = 'word-tag';
+    el.textContent = w + (n > 1 ? ' ×' + n : '');
+    el.style.cssText = `font-size:${sz}px; background:${pal[0]}; color:${pal[1]};`;
     c.appendChild(el);
   });
-  const total=Object.values(g1words).reduce((a,b)=>a+b,0);
-  document.getElementById('g1-total').textContent=total+' lượt nhập';
-  document.getElementById('g1-unique').textContent=Object.keys(g1words).length+' từ khác nhau';
+  
+  const total = Object.values(g1words).reduce((a, b) => a + b, 0);
+  document.getElementById('g1-total').textContent = total + ' lượt nhập';
+  document.getElementById('g1-unique').textContent = Object.keys(g1words).length + ' từ khác nhau';
 }
-function g1Reset(){g1words={};g1Render();}
 
+function g1Reset() {
+  g1words = {};
+  g1Render();
+}
 </script>
 </body>
 </html>
