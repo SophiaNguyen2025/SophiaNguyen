@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>💰 AI LÀ TRIỆU PHÚ - AN TOÀN CƠ THỂ & GIỚI HẠN (BUỔI 1)</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            user-select: none;
+        }
+        body {
+            background: linear-gradient(145deg, #0c1a2b, #030c17);
+            font-family: 'Segoe UI', 'Poppins', 'Montserrat', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .millionaire-container {
+            max-width: 1000px;
+            width: 100%;
+            background: #011627;
+            border-radius: 60px;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.6);
+            overflow: hidden;
+            border: 2px solid #ffcd7e;
+        }
+        .header {
+            background: #f7b32b;
+            padding: 12px 25px;
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #1e2f47;
+        }
+        .game-body {
+            display: flex;
+            gap: 15px;
+            padding: 20px;
+            flex-wrap: wrap;
+        }
+        .prize-ladder {
+            background: #0a2a3b;
+            padding: 12px;
+            border-radius: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 150px;
+            order: 2;
+        }
+        .prize-item {
+            padding: 5px 12px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            text-align: center;
+            background: #1d4e6e;
+            color: #c5e0ff;
+        }
+        .prize-current {
+            background: #ffcf4a;
+            color: #1e3a4d;
+            box-shadow: 0 0 8px gold;
+        }
+        .prize-milestone {
+            background: #2b5e6b;
+            color: #ffd966;
+        }
+        .question-panel {
+            flex: 3;
+            background: #07242e;
+            border-radius: 50px;
+            padding: 25px;
+            color: white;
+            order: 1;
+        }
+        .question-text {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 25px;
+            line-height: 1.3;
+        }
+        .options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .opt-btn {
+            background: #1d4e6e;
+            border: none;
+            padding: 12px 12px;
+            border-radius: 60px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-align: left;
+            cursor: pointer;
+            color: white;
+            transition: 0.1s;
+            font-family: inherit;
+        }
+        .opt-btn:hover:not(:disabled) {
+            background: #3a7ca5;
+            transform: scale(0.98);
+        }
+        .lifeline-bar {
+            display: flex;
+            gap: 12px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+        .lifeline-btn {
+            background: #2e5e3b;
+            border: none;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .lifeline-used {
+            background: #5a5a5a;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+        .message-area {
+            background: #00000080;
+            padding: 10px;
+            border-radius: 40px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        .restart-btn {
+            background: #e67e22;
+            border: none;
+            padding: 8px 25px;
+            border-radius: 40px;
+            font-weight: bold;
+            margin-top: 15px;
+            cursor: pointer;
+            width: 100%;
+        }
+        @media (max-width: 700px) {
+            .game-body { flex-direction: column; }
+            .prize-ladder { flex-direction: row; flex-wrap: wrap; order: 1; justify-content: center; }
+            .question-panel { order: 2; }
+            .options { grid-template-columns: 1fr; }
+            .question-text { font-size: 1.1rem; }
+        }
+  .logo { height: 60px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+<div class="millionaire-container" id="millionaireGame">
+    <div class="header">
+        <span>💰 AI LÀ TRIỆU PHÚ AN TOÀN - BUỔI 1</span>
+<img src="https://sophianguyen.com.vn/images/hinhremovenen.png" alt="Sophia Nguyễn" class="logo">
+        <span>🏆 SỐ TIỀN: <span id="currentMoney">0</span> VND</span>
+    </div>
+    <div class="game-body">
+        <div class="question-panel">
+            <div class="question-text" id="questionText">Đang tải câu hỏi...</div>
+            <div class="options" id="optionsContainer"></div>
+            <div class="lifeline-bar">
+                <button id="fiftyBtn" class="lifeline-btn">🎲 50:50</button>
+                <button id="askClassBtn" class="lifeline-btn">👥 Hỏi ý kiến lớp</button>
+                <button id="phoneBtn" class="lifeline-btn">📞 Gọi điện thoại (cô giáo)</button>
+            </div>
+            <div class="message-area" id="statusMsg">🔔 Bắt đầu! Trả lời 15 câu hỏi để trở thành triệu phú an toàn.</div>
+            <button id="resetFullGame" class="restart-btn">🔄 CHƠI LẠI TỪ ĐẦU</button>
+        </div>
+        <div class="prize-ladder" id="prizeLadder"></div>
+    </div>
+</div>
+
+<script>
+    // ==================== 15 CÂU HỎI CHO BUỔI 1 ====================
+    // NGUYÊN TẮC: Các đáp án có độ dài TƯƠNG ĐƯƠNG nhau, không còn lỗi "đáp án đúng dài nhất"
+    const questions = [
+        { q: "Tuổi dậy thì thường bắt đầu trong khoảng nào?",
+          options: ["8-14 tuổi tùy người", "18-20 tuổi mới bắt đầu", "Chỉ bắt đầu khi lên cấp 3", "Giống nhau ở tất cả mọi người"],
+          correct: 0, level: 1 },
+        { q: "Khi ở nhà một mình, có người lạ gõ cửa bảo 'sửa ống nước', bạn nên làm gì?",
+          options: ["Mở cửa mời vào vì họ có đồ nghề", "Nói qua cửa: bố mẹ dặn không mở, quay lại sau", "Ra ban công kêu cứu hàng xóm", "Mở hé cửa để xem thẻ nhân viên"],
+          correct: 1, level: 2 },
+        { q: "Vùng riêng tư trên cơ thể là những phần nào?",
+          options: ["Bàn tay và bàn chân", "Ngực, vùng kín, mông", "Cổ và cánh tay", "Mặt và tóc"],
+          correct: 1, level: 3 },
+        { q: "Thay đổi nào sau đây KHÔNG phải là dấu hiệu dậy thì ở nam?",
+          options: ["Giọng nói trầm hơn", "Có kinh nguyệt", "Mọc lông nách và vùng kín", "Chiều cao tăng nhanh"],
+          correct: 1, level: 4 },
+        { q: "Bạn thân đòi xem tin nhắn điện thoại vì 'thân thiết không có gì giấu nhau', bạn sẽ?",
+          options: ["Đưa máy ngay để khỏi mất lòng", "Từ chối: tớ cần quyền riêng tư của mình", "Lén đổi mật khẩu rồi đưa máy cũ", "Đi nói xấu bạn ấy với người khác"],
+          correct: 1, level: 5 },
+        { q: "Khi có mùi gas (trứng thối) trong bếp, việc ĐẦU TIÊN cần làm là?",
+          options: ["Bật quạt điện cho bay mùi", "Khóa van gas, mở cửa sổ, ra ngoài", "Bật đèn để kiểm tra bếp", "Gọi 114 ngay trong bếp"],
+          correct: 1, level: 6 },
+        { q: "Ai được phép chạm vào vùng riêng tư của trẻ em?",
+          options: ["Cô giáo khi kiểm tra sức khỏe", "Bác sĩ khi khám có bố mẹ đi cùng", "Họ hàng khi tắm cho bé", "Bạn thân khi chơi đùa"],
+          correct: 1, level: 7 },
+        { q: "Đăng story 'Cuối tuần bố mẹ đi vắng, ở nhà một mình sướng quá!' có nguy cơ gì?",
+          options: ["Không có nguy cơ gì cả", "Kẻ xấu biết nhà vắng người", "Chỉ nguy hiểm nếu đăng ảnh", "Bạn bè sẽ ghen tị"],
+          correct: 1, level: 8 },
+        { q: "Khi tay đang ướt, bạn có nên cắm phích điện không?",
+          options: ["Có, nếu phích khô ráo", "Không, vì có thể bị điện giật", "Có, nhưng phải lau tay nhanh", "Chỉ cắm nếu là ổ điện mới"],
+          correct: 1, level: 9 },
+        { q: "Quyền nói không của con có hiệu lực với ai?",
+          options: ["Chỉ với người lạ", "Với bất kỳ ai, kể cả bố mẹ và người yêu", "Chỉ với bạn bè cùng trang lứa", "Không có quyền nói không với người lớn"],
+          correct: 1, level: 10 },
+        { q: "Thay đổi cảm xúc ở tuổi dậy thì (dễ cáu, dễ xúc động) là do?",
+          options: ["Do con hư hoặc không ngoan", "Do thay đổi nội tiết tố trong cơ thể", "Do ảnh hưởng từ bạn bè", "Do xem quá nhiều tivi"],
+          correct: 1, level: 11 },
+        { q: "Khi bị bỏng nhẹ do chạm vào nồi nóng, cách xử lý ĐÚNG là?",
+          options: ["Bôi kem đánh răng lên vết bỏng", "Ngâm tay vào nước lạnh 15 phút", "Chọc vỡ bóng nước ngay", "Bôi dầu ăn để dịu da"],
+          correct: 1, level: 12 },
+        { q: "Số điện thoại cứu hỏa (báo cháy) là?",
+          options: ["113", "114", "115", "1800 1567"],
+          correct: 1, level: 13 },
+        { q: "Khi có người lạ gọi điện bảo 'mẹ cháu nhờ cô đến lấy đồ', bạn nên?",
+          options: ["Mở cửa ngay để nhận đồ giúp mẹ", "Nói: mẹ cháu không nhắn, cháu không mở, rồi cúp máy", "Mời họ vào nhà chờ mẹ về", "Hỏi địa chỉ rồi chạy ra ngoài gặp"],
+          correct: 1, level: 14 },
+        { q: "Con có quyền nói KHÔNG khi nào?",
+          options: ["Chỉ khi có bố mẹ ở bên cạnh", "Bất kỳ lúc nào con cảm thấy không thoải mái hoặc bị ép buộc", "Chỉ khi người đó là người lạ", "Không bao giờ vì sợ mất lòng"],
+          correct: 1, level: 15 }
+    ];
+
+    const prizeLevels = [0, 200000, 400000, 600000, 1000000, 2000000, 3000000, 6000000, 10000000, 14000000, 22000000, 30000000, 40000000, 60000000, 85000000, 150000000];
+    
+    let currentQIndex = 0;
+    let currentMoney = 0;
+    let gameActive = true;
+    let usedFifty = false;
+    let usedAskClass = false;
+    let usedPhone = false;
+    let fiftyAnswerRemoved = [];
+
+    const questionEl = document.getElementById('questionText');
+    const optionsDiv = document.getElementById('optionsContainer');
+    const moneySpan = document.getElementById('currentMoney');
+    const statusMsg = document.getElementById('statusMsg');
+    const fiftyBtn = document.getElementById('fiftyBtn');
+    const askClassBtn = document.getElementById('askClassBtn');
+    const phoneBtn = document.getElementById('phoneBtn');
+    const prizeLadderDiv = document.getElementById('prizeLadder');
+    const resetBtn = document.getElementById('resetFullGame');
+
+    function playSound(type) {
+        try {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            const ctx = new AudioCtx();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            const now = ctx.currentTime;
+            if (type === 'correct') {
+                osc.frequency.value = 880;
+                gain.gain.setValueAtTime(0.15, now);
+                gain.gain.exponentialRampToValueAtTime(0.00001, now + 0.4);
+                osc.start();
+                osc.stop(now + 0.3);
+            } else if (type === 'wrong') {
+                osc.frequency.value = 440;
+                gain.gain.setValueAtTime(0.15, now);
+                gain.gain.exponentialRampToValueAtTime(0.00001, now + 0.7);
+                osc.start();
+                osc.stop(now + 0.5);
+            } else if (type === 'win') {
+                osc.frequency.value = 1046.5;
+                gain.gain.setValueAtTime(0.15, now);
+                gain.gain.exponentialRampToValueAtTime(0.00001, now + 1.2);
+                osc.start();
+                osc.stop(now + 1);
+            }
+            setTimeout(() => ctx.close(), 1500);
+        } catch(e) {}
+    }
+
+    function renderPrizeLadder() {
+        prizeLadderDiv.innerHTML = '';
+        for (let i = prizeLevels.length-1; i >=0; i--) {
+            let itemDiv = document.createElement('div');
+            itemDiv.className = `prize-item ${(currentQIndex === i) ? 'prize-current' : ''} ${(i===5 || i===10) ? 'prize-milestone' : ''}`;
+            itemDiv.innerText = `${i}. ${prizeLevels[i].toLocaleString()} VND`;
+            prizeLadderDiv.appendChild(itemDiv);
+        }
+    }
+
+    function updateMoneyDisplay() {
+        moneySpan.innerText = currentMoney.toLocaleString();
+        renderPrizeLadder();
+    }
+
+    function disableGame(reason) {
+        gameActive = false;
+        statusMsg.innerHTML = reason + " 🎮 Nhấn 'CHƠI LẠI' để thử sức tiếp.";
+        const allOpts = document.querySelectorAll('.opt-btn');
+        allOpts.forEach(btn => btn.disabled = true);
+    }
+
+    function loadQuestion() {
+        if (!gameActive) return;
+        if (currentQIndex >= questions.length) {
+            statusMsg.innerHTML = "🏆 TUYỆT VỜI! Bạn đã trở thành TRIỆU PHÚ AN TOÀN! 🎉🎉";
+            playSound('win');
+            disableGame("CHÚC MỪNG CHIẾN THẮNG!");
+            return;
+        }
+        const qData = questions[currentQIndex];
+        questionEl.innerText = `Câu ${currentQIndex+1}: ${qData.q}`;
+        optionsDiv.innerHTML = '';
+        
+        for (let i = 0; i < qData.options.length; i++) {
+            const btn = document.createElement('button');
+            btn.innerText = `${String.fromCharCode(65+i)}. ${qData.options[i]}`;
+            btn.className = 'opt-btn';
+            if (usedFifty && fiftyAnswerRemoved.includes(i) && currentQIndex === (questions.findIndex(q => q===qData))) {
+                btn.style.display = 'none';
+            }
+            btn.onclick = (function(optIdx) {
+                return function() {
+                    if (!gameActive) return;
+                    if (optIdx === qData.correct) {
+                        playSound('correct');
+                        currentMoney = prizeLevels[currentQIndex+1];
+                        updateMoneyDisplay();
+                        statusMsg.innerHTML = `✅ ĐÚNG! Bạn đã giành ${currentMoney.toLocaleString()} VND. Tiếp tục!`;
+                        currentQIndex++;
+                        fiftyAnswerRemoved = [];
+                        if (currentQIndex === questions.length) {
+                            statusMsg.innerHTML = "🏆 SIÊU TRIỆU PHÚ AN TOÀN! Quá xuất sắc!";
+                            disableGame("THẮNG CUỘC!");
+                            playSound('win');
+                        } else {
+                            loadQuestion();
+                        }
+                    } else {
+                        playSound('wrong');
+                        let safeMoney = 0;
+                        if (currentQIndex >= 10) safeMoney = prizeLevels[10];
+                        else if (currentQIndex >= 5) safeMoney = prizeLevels[5];
+                        else safeMoney = 0;
+                        statusMsg.innerHTML = `❌ SAI RỒI! Đáp án đúng là ${String.fromCharCode(65+qData.correct)}. Bạn ra về với ${safeMoney.toLocaleString()} VND.`;
+                        currentMoney = safeMoney;
+                        updateMoneyDisplay();
+                        disableGame("KẾT THÚC TRÒ CHƠI!");
+                    }
+                };
+            })(i);
+            optionsDiv.appendChild(btn);
+        }
+        fiftyBtn.disabled = usedFifty;
+        askClassBtn.disabled = usedAskClass;
+        phoneBtn.disabled = usedPhone;
+        if (usedFifty) fiftyBtn.classList.add('lifeline-used');
+        if (usedAskClass) askClassBtn.classList.add('lifeline-used');
+        if (usedPhone) phoneBtn.classList.add('lifeline-used');
+    }
+
+    function useFifty() {
+        if (usedFifty || !gameActive) return;
+        const qData = questions[currentQIndex];
+        const correctIdx = qData.correct;
+        const wrongIndices = [];
+        for (let i=0; i<qData.options.length; i++) {
+            if (i !== correctIdx) wrongIndices.push(i);
+        }
+        for (let i=wrongIndices.length-1; i>0; i--) {
+            const j = Math.floor(Math.random()*(i+1));
+            [wrongIndices[i], wrongIndices[j]] = [wrongIndices[j], wrongIndices[i]];
+        }
+        fiftyAnswerRemoved = wrongIndices.slice(0,2);
+        usedFifty = true;
+        fiftyBtn.disabled = true;
+        fiftyBtn.classList.add('lifeline-used');
+        statusMsg.innerHTML = "🎲 50:50 đã loại 2 đáp án sai! Hãy chọn đáp án còn lại.";
+        loadQuestion();
+    }
+
+    function useAskClass() {
+        if (usedAskClass || !gameActive) return;
+        usedAskClass = true;
+        askClassBtn.disabled = true;
+        askClassBtn.classList.add('lifeline-used');
+        const qData = questions[currentQIndex];
+        const random = Math.random();
+        let suggestion = "";
+        if (random < 0.7) suggestion = `Đa số lớp nghiêng về đáp án ${String.fromCharCode(65+qData.correct)}.`;
+        else {
+            let wrongPick = (qData.correct+1) % qData.options.length;
+            suggestion = `Đa số lớp chọn ${String.fromCharCode(65+wrongPick)} nhưng không chắc chắn.`;
+        }
+        statusMsg.innerHTML = `👥 HỎI Ý KIẾN LỚP: ${suggestion} Hãy suy nghĩ thêm.`;
+    }
+
+    function usePhone() {
+        if (usedPhone || !gameActive) return;
+        usedPhone = true;
+        phoneBtn.disabled = true;
+        phoneBtn.classList.add('lifeline-used');
+        const qData = questions[currentQIndex];
+        const correctLetter = String.fromCharCode(65+qData.correct);
+        statusMsg.innerHTML = `📞 GỌI CHO CÔ GIÁO: Cô ấy tin rằng đáp án đúng là ${correctLetter}. "Hãy tin vào kiến thức đã học!"`;
+    }
+
+    function resetGame() {
+        currentQIndex = 0;
+        currentMoney = 0;
+        gameActive = true;
+        usedFifty = false;
+        usedAskClass = false;
+        usedPhone = false;
+        fiftyAnswerRemoved = [];
+        updateMoneyDisplay();
+        statusMsg.innerHTML = "🔔 Bắt đầu mới! Hãy trả lời 15 câu hỏi để trở thành triệu phú an toàn.";
+        loadQuestion();
+    }
+
+    fiftyBtn.onclick = useFifty;
+    askClassBtn.onclick = useAskClass;
+    phoneBtn.onclick = usePhone;
+    resetBtn.onclick = resetGame;
+
+    renderPrizeLadder();
+    resetGame();
+</script>
+</body>
+</html>
