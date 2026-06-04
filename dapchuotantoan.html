@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>⚡SIÊU ĐẬP CHUỘT AN TOÀN - Tốc độ ánh sáng⚡</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            user-select: none;
+        }
+        body {
+            background: linear-gradient(145deg, #0f2f1f, #051a0e);
+            font-family: 'Segoe UI', 'Poppins', 'Comic Neue', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            cursor: pointer;
+        }
+        .game-box {
+            background: #fff6e8;
+            border-radius: 70px;
+            max-width: 1200px;
+            width: 100%;
+            padding: 25px;
+            box-shadow: 0 25px 40px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2rem;
+            color: #d35400;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .rule {
+            background: #ffefcf;
+            border-radius: 50px;
+            padding: 8px 15px;
+            font-weight: bold;
+            margin: 15px 0;
+            font-size: 0.9rem;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            background: #2c4b32;
+            padding: 12px 25px;
+            border-radius: 60px;
+            color: #ffdb8e;
+            font-weight: bold;
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+        }
+        .grid-3x3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin: 25px 0;
+        }
+        .card {
+            background: #8b6946;
+            border-radius: 45px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1rem;
+            padding: 15px;
+            text-align: center;
+            transition: 0.05s linear;
+            color: #fff3e0;
+            box-shadow: inset 0 -5px 0 #4d311a;
+            border: 2px solid #bb884c;
+            word-break: break-word;
+            cursor: pointer;
+        }
+        .card.active {
+            background: #ffbc6e;
+            color: #2c1a0a;
+            transform: scale(0.97);
+            box-shadow: 0 0 0 4px #ffaa33, inset 0 0 0 2px #ffdd99;
+            font-weight: bold;
+        }
+        .timer-bar {
+            background: #e2cfb0;
+            border-radius: 30px;
+            height: 20px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+        .timer-fill {
+            background: #ff914d;
+            width: 100%;
+            height: 100%;
+            transition: width 0.1s linear;
+        }
+        button {
+            background: #ff914d;
+            border: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            padding: 12px 28px;
+            border-radius: 50px;
+            margin-top: 10px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .feedback {
+            background: #fff0cf;
+            border-radius: 40px;
+            padding: 12px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        @media (max-width: 700px) {
+            .card { height: 120px; font-size: 0.75rem; padding: 8px; }
+            .stats { font-size: 1rem; }
+        }
+        .logo { height: 60px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+<div class="game-box">
+    <h1>⚡ ĐẬP CHUỘT AN TOÀN TỐC ĐỘ ⚡</h1>
+    <img src="https://sophianguyen.com.vn/images/hinhremovenen.png" alt="Sophia Nguyễn" class="logo">
+    <div class="rule">
+        🎯 LUẬT CHƠI: Ô VÀNG SÁNG LÊN – NHANH TAY PHÁN ĐOÁN <br>
+        ✅ Nếu là HÀNH VI AN TOÀN → ĐẬP NGAY (+1 điểm) | ❌ Nếu là HÀNH VI NGUY HIỂM → KHÔNG ĐƯỢC ĐẬP (đập là -1) <br>
+        💡 Click chuột RA NGOÀI ô sáng để bỏ qua & đổi ô nhanh hơn!
+    </div>
+    <div class="stats">
+        <span>🎯 ĐIỂM: <span id="scoreDisplay">0</span></span>
+        <span>⏱️ CÒN: <span id="timerDisplay">45</span>s</span>
+    </div>
+    <div class="timer-bar"><div class="timer-fill" id="timerFill"></div></div>
+    <div class="grid-3x3" id="gameGrid"></div>
+    <button id="startResetBtn">🚀 BẮT ĐẦU CUỘC ĐUA</button>
+    <div class="feedback" id="msgArea">🔔 Bấm BẮT ĐẦU, ô vàng sáng trong 0.8s – hãy thật nhanh!</div>
+</div>
+
+<script>
+    // -------------------- KHO DỮ LIỆU PHONG PHÚ (AN TOÀN & MẤT AN TOÀN) --------------------
+    const safeActions = [
+        "🧾 Chụp màn hình bằng chứng bắt nạt",
+        "🗣️ Nói KHÔNG rõ ràng với người ép buộc",
+        "👂 Kể với bố mẹ / cô giáo khi bị dụ dỗ",
+        "🏃 Vào nơi đông người khi bị theo dõi",
+        "🚪 Khóa cửa, không mở cho người lạ khi ở nhà một mình",
+        "📞 Gọi 113 khi bị khống chế / nguy hiểm",
+        "🔒 Không chia sẻ mật khẩu cho bạn bè",
+        "🚫 Chặn và báo cáo tài khoản lạ trên mạng",
+        "📵 Không đăng story 'ở nhà một mình' lên MXH",
+        "📞 Gọi 1800 1567 khi cần tư vấn bảo vệ trẻ em",
+        "🔥 Cúi thấp, khăn ướt bịt mũi khi thoát khỏi đám cháy",
+        "💧 Rửa nước lạnh 15 phút khi bị bỏng"
+    ];
+
+    const unsafeActions = [
+        "📱 Gửi ảnh riêng tư cho người lạ hứa quà",
+        "🚪 Mở cửa cho 'nhân viên sửa ống nước' khi ở nhà một mình",
+        "🍺 Đứng cãi nhau với người say rượu ngoài đường",
+        "🔒 Chia sẻ mật khẩu facebook cho bạn thân 'vì không có gì giấu nhau'",
+        "🚫 Im lặng, không kể ai nếu bị xâm hại",
+        "⚡ Dùng tay không kéo người bị điện giật",
+        "🔌 Bật quạt / công tắc điện khi có mùi gas",
+        "💬 Cãi lại và đe dọa khi bị bắt nạt mạng",
+        "🤝 Nhận lời gặp riêng người lạ quen qua mạng",
+        "😨 Chạy thẳng về nhà khi bị người lạ bám theo",
+        "📸 Gửi ảnh nội y cho người yêu qua mạng dù chưa sẵn sàng",
+        "🧴 Bôi kem đánh răng lên vết bỏng nặng"
+    ];
+
+    // Trộn 9 ô ngẫu nhiên từ 2 mảng (đảm bảo mỗi lần chơi đa dạng)
+    function buildRandomBoard() {
+        let combined = [];
+        // lấy 5 ô an toàn + 4 ô mất an toàn (tỉ lệ cân bằng)
+        let shuffledSafe = [...safeActions];
+        let shuffledUnsafe = [...unsafeActions];
+        for (let i = shuffledSafe.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffledSafe[i], shuffledSafe[j]] = [shuffledSafe[j], shuffledSafe[i]];
+        }
+        for (let i = shuffledUnsafe.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffledUnsafe[i], shuffledUnsafe[j]] = [shuffledUnsafe[j], shuffledUnsafe[i]];
+        }
+        let selectedSafe = shuffledSafe.slice(0, 5);
+        let selectedUnsafe = shuffledUnsafe.slice(0, 4);
+        let board = [...selectedSafe, ...selectedUnsafe];
+        // trộn lên
+        for (let i = board.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [board[i], board[j]] = [board[j], board[i]];
+        }
+        return board.map(text => ({ text, isSafe: safeActions.includes(text) }));
+    }
+
+    let currentBoard = [];          // 9 phần tử {text, isSafe}
+    let activeIndex = null;         // ô đang sáng
+    let score = 0;
+    let timeLeft = 45;
+    let gameRunning = false;
+    let timerInterval = null;
+    let activeTimeout = null;        // timeout để tắt ô sáng
+
+    const gridContainer = document.getElementById('gameGrid');
+    const scoreSpan = document.getElementById('scoreDisplay');
+    const timerSpan = document.getElementById('timerDisplay');
+    const timerFill = document.getElementById('timerFill');
+    const msgDiv = document.getElementById('msgArea');
+    const startBtn = document.getElementById('startResetBtn');
+
+    // Âm thanh dùng Web Audio
+    function playTone(type) {
+        try {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            const ctx = new AudioCtx();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            const now = ctx.currentTime;
+            if (type === 'correct') {
+                osc.frequency.value = 900;
+                gain.gain.setValueAtTime(0.2, now);
+                gain.gain.exponentialRampToValueAtTime(0.00001, now + 0.3);
+                osc.start();
+                osc.stop(now + 0.25);
+            } else {
+                osc.frequency.value = 380;
+                gain.gain.setValueAtTime(0.2, now);
+                gain.gain.exponentialRampToValueAtTime(0.00001, now + 0.4);
+                osc.start();
+                osc.stop(now + 0.35);
+            }
+            setTimeout(() => ctx.close(), 500);
+        } catch(e) {}
+    }
+
+    function renderBoard() {
+        gridContainer.innerHTML = '';
+        for (let i = 0; i < currentBoard.length; i++) {
+            const card = document.createElement('div');
+            card.className = 'card';
+            if (activeIndex === i) card.classList.add('active');
+            card.innerText = currentBoard[i].text;
+            card.dataset.idx = i;
+            // Sự kiện đập chuột (click vào ô)
+            card.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (!gameRunning) return;
+                const idx = parseInt(card.dataset.idx);
+                if (activeIndex !== idx) {
+                    msgDiv.innerHTML = "⚠️ Chỉ đập vào ô ĐANG SÁNG VÀNG! Hãy quan sát kỹ.";
+                    return;
+                }
+                // Đập trúng ô active
+                const cell = currentBoard[idx];
+                if (cell.isSafe) {
+                    // ĐÚNG
+                    score++;
+                    scoreSpan.innerText = score;
+                    msgDiv.innerHTML = `✅ CHÍNH XÁC! +1 điểm (${cell.text})`;
+                    playTone('correct');
+                    clearActiveAndMoveToNext();
+                } else {
+                    // SAI
+                    score = Math.max(0, score - 1);
+                    scoreSpan.innerText = score;
+                    msgDiv.innerHTML = `❌ NGUY HIỂM! Không được đập vào " ${cell.text} " . Trừ 1 điểm.`;
+                    playTone('wrong');
+                    clearActiveAndMoveToNext();
+                }
+            });
+            gridContainer.appendChild(card);
+        }
+    }
+
+    // Xóa ô đang sáng, tạo ô mới ngay lập tức (tốc độ nhanh)
+    function clearActiveAndMoveToNext() {
+        if (activeTimeout) {
+            clearTimeout(activeTimeout);
+            activeTimeout = null;
+        }
+        if (activeIndex !== null) {
+            activeIndex = null;
+            renderBoard();  // cập nhật giao diện xóa sáng
+        }
+        if (gameRunning) {
+            // ngay lập tức sinh ô mới
+            scheduleNewActive();
+        }
+    }
+
+    function scheduleNewActive() {
+        if (!gameRunning) return;
+        // chọn ô mới khác với ô vừa mất (nếu có thể)
+        let newIdx = Math.floor(Math.random() * currentBoard.length);
+        if (activeIndex === newIdx && currentBoard.length > 1) {
+            newIdx = (newIdx + 1) % currentBoard.length;
+        }
+        activeIndex = newIdx;
+        renderBoard();
+        // Đặt thời gian siêu nhanh: 0.75 giây -> nếu không đập, tự chuyển
+        activeTimeout = setTimeout(() => {
+            if (gameRunning && activeIndex !== null) {
+                // hết giờ, không đập => tự động chuyển (không phạt)
+                clearActiveAndMoveToNext();
+            }
+        }, 750);
+    }
+
+    // Click bên ngoài (body) để bỏ qua ô hiện tại nhanh hơn
+    function handleOutsideClick(e) {
+        if (!gameRunning) return;
+        // Nếu click vào chính ô đang sáng thì không xử lý (vì đã có sự kiện riêng)
+        if (e.target.closest('.card') && e.target.closest('.card').classList.contains('active')) return;
+        // Click ra ngoài hoặc vào ô không sáng -> bỏ qua ô hiện tại, chuyển ô mới
+        if (activeIndex !== null) {
+            clearActiveAndMoveToNext();
+        }
+    }
+
+    function endGame() {
+        gameRunning = false;
+        if (timerInterval) clearInterval(timerInterval);
+        if (activeTimeout) clearTimeout(activeTimeout);
+        activeIndex = null;
+        renderBoard();
+        msgDiv.innerHTML = `⏰ KẾT THÚC! Điểm số: ${score}. Nhấn "CHƠI LẠI" để thử sức tốc độ mới. 🛡️ Hãy nhớ: chỉ đập hành vi an toàn!`;
+        startBtn.disabled = false;
+        startBtn.innerText = "🔄 CHƠI LẠI";
+    }
+
+    function startGame() {
+        if (gameRunning) return;
+        // Reset dữ liệu
+        score = 0;
+        scoreSpan.innerText = "0";
+        timeLeft = 45;
+        timerSpan.innerText = "45";
+        timerFill.style.width = "100%";
+        gameRunning = true;
+        // Tạo bảng mới ngẫu nhiên (đa dạng)
+        currentBoard = buildRandomBoard();
+        activeIndex = null;
+        renderBoard();
+        // Timer
+        if (timerInterval) clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            if (gameRunning && timeLeft > 0) {
+                timeLeft--;
+                timerSpan.innerText = timeLeft;
+                const percent = (timeLeft / 45) * 100;
+                timerFill.style.width = `${percent}%`;
+                if (timeLeft <= 0) {
+                    endGame();
+                }
+            } else if (!gameRunning) {
+                clearInterval(timerInterval);
+            }
+        }, 1000);
+        // Bắt đầu sinh ô đầu tiên
+        if (activeTimeout) clearTimeout(activeTimeout);
+        scheduleNewActive();
+        msgDiv.innerHTML = "⚡ BẮT ĐẦU! Ô vàng sáng chỉ 0.75s, đập nhanh nếu là HÀNH VI AN TOÀN, né nếu NGUY HIỂM! Click ngoài để bỏ qua nhanh.";
+        startBtn.disabled = true;
+        startBtn.innerText = "🎮 ĐANG CHƠI...";
+    }
+
+    startBtn.addEventListener('click', startGame);
+    document.body.addEventListener('click', handleOutsideClick);
+    // Tạo bảng tạm để hiển thị
+    currentBoard = buildRandomBoard();
+    renderBoard();
+</script>
+</body>
+</html>
