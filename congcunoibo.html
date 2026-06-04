@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎮 Công cụ tương tác nội bộ – Sophia Nguyễn</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: system-ui, 'Segoe UI', 'Quicksand', sans-serif;
+            background: #f4f2ef;
+            color: #1E2A22;
+            padding: 40px 24px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .header h1 {
+            font-size: 2.4rem;
+            background: linear-gradient(135deg, #4E7260, #C4714A);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+        .header p {
+            color: #5a6e5e;
+            margin-top: 8px;
+        }
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        .tool-card {
+            background: white;
+            border-radius: 28px;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid #e2ddd6;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.15);
+            border-color: #C9A84C;
+        }
+        .tool-icon {
+            font-size: 2.8rem;
+            margin-bottom: 12px;
+        }
+        .tool-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #2c4a3b;
+        }
+        .tool-desc {
+            font-size: 0.85rem;
+            color: #6f7e74;
+            line-height: 1.4;
+        }
+        .badge-internal {
+            display: inline-block;
+            background: #efe5dc;
+            color: #b45f3b;
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            border-radius: 30px;
+            margin-top: 14px;
+            font-weight: 600;
+        }
+        .footer-note {
+            margin-top: 60px;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #b1bcb2;
+            border-top: 1px solid #e0dbd3;
+            padding-top: 28px;
+        }
+        @media (max-width: 600px) {
+            body { padding: 24px 16px; }
+            .tool-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>🎯 Kho công cụ & tương tác nội bộ</h1>
+        <p>Dành cho giảng dạy, đào tạo và hoạt động nhóm — không hiển thị công khai trên menu chính</p>
+    </div>
+
+    <div class="tool-grid">
+        <!-- 1. Vòng tròn thật tử -->
+        <a href="/vongtronthatu.html" class="tool-card" target="_blank">
+            <div class="tool-icon">🔮</div>
+            <div class="tool-title">Vòng tròn thật tử</div>
+            <div class="tool-desc">Trò chơi tương tác — vòng quay / bốc thăm / thử thách nhóm</div>
+            <div class="badge-internal">🎲 Hoạt động</div>
+        </a>
+
+        <!-- 2. Vượt chướng ngại vật -->
+        <a href="/vuotchuongngaivat.html" class="tool-card" target="_blank">
+            <div class="tool-icon">🏃‍♀️</div>
+            <div class="tool-title">Vượt chướng ngại vật</div>
+            <div class="tool-desc">Trò chơi vượt thử thách theo lượt, phù hợp sinh hoạt tập thể</div>
+            <div class="badge-internal">🎲 Hoạt động</div>
+        </a>
+
+        <!-- 3. Trò chơi buổi 1 -->
+        <a href="/trochoibuoi1.html" class="tool-card" target="_blank">
+            <div class="tool-icon">📅</div>
+            <div class="tool-title">Trò chơi buổi 1</div>
+            <div class="tool-desc">Nội dung theo chủ đề buổi học số 1</div>
+            <div class="badge-internal">📘 Chuyên đề</div>
+        </a>
+
+        <!-- 4. Trò chơi buổi 2 -->
+        <a href="/trochoibuoi2.html" class="tool-card" target="_blank">
+            <div class="tool-icon">📅</div>
+            <div class="tool-title">Trò chơi buổi 2</div>
+            <div class="tool-desc">Nội dung theo chủ đề buổi học số 2</div>
+            <div class="badge-internal">📘 Chuyên đề</div>
+        </a>
+
+        <!-- 5. Trò chơi buổi 3 -->
+        <a href="/trochoibuoi3.html" class="tool-card" target="_blank">
+            <div class="tool-icon">📅</div>
+            <div class="tool-title">Trò chơi buổi 3</div>
+            <div class="tool-desc">Nội dung theo chủ đề buổi học số 3</div>
+            <div class="badge-internal">📘 Chuyên đề</div>
+        </a>
+
+        <!-- 6. Trò chơi buổi 4 -->
+        <a href="/trochoibuoi4.html" class="tool-card" target="_blank">
+            <div class="tool-icon">📅</div>
+            <div class="tool-title">Trò chơi buổi 4</div>
+            <div class="tool-desc">Nội dung theo chủ đề buổi học số 4</div>
+            <div class="badge-internal">📘 Chuyên đề</div>
+        </a>
+
+        <!-- 7. Đố vui APA – Mục 9 -->
+        <a href="/tro-choi-muc9-APA.html" class="tool-card" target="_blank">
+            <div class="tool-icon">⚖️</div>
+            <div class="tool-title">Đố vui APA – Mục 9</div>
+            <div class="tool-desc">28 câu trắc nghiệm về đánh giá tâm lý (Ethics Code). Ôn tập & kiểm tra nhanh.</div>
+            <div class="badge-internal">🔐 Nội bộ</div>
+        </a>
+
+        <!-- 8. Lớp 6 – Đố vui nhanh -->
+        <a href="/tro-choi-lien-hoan.html" class="tool-card" target="_blank">
+            <div class="tool-icon">🎒</div>
+            <div class="tool-title">Lớp 6 – Đố vui nhanh</div>
+            <div class="tool-desc">30 câu hỏi Khoa học, Địa lý, Văn học, IQ… dùng cho sinh hoạt lớp.</div>
+            <div class="badge-internal">🎓 Sinh hoạt</div>
+        </a>
+    </div>
+
+    <div class="footer-note">
+        📍 Đường dẫn này chỉ dùng trong nội bộ & giảng dạy. Không public trên menu chính.<br>
+        ✅ Tổng cộng <span id="totalGames"></span> công cụ tương tác
+    </div>
+</div>
+<script>
+    document.getElementById('totalGames').innerText = document.querySelectorAll('.tool-card').length;
+</script>
+</body>
+</html>
