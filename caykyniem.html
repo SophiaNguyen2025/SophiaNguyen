@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Cây Kỷ Niệm An Toàn - KHÓA HỌC TÍCH HỢP</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            user-select: none; /* tránh bôi đen khi chơi */
+        }
+
+        body {
+            background: linear-gradient(145deg, #c8e8ff 0%, #b0d4ee 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Comic Neue', 'Comic Neue', 'Comic Sans MS', 'Chalkboard SE', cursive, sans-serif;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .game-container {
+            max-width: 1400px;
+            width: 100%;
+            background: #fef7e0;
+            border-radius: 80px 80px 60px 60px;
+            box-shadow: 0 25px 45px rgba(0,0,0,0.2), inset 0 1px 4px rgba(255,255,200,0.8);
+            padding: 20px 25px 30px 25px;
+        }
+
+        .game-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2c5a2e;
+            text-shadow: 3px 3px 0 #ffec9f;
+            background: #fff1b5;
+            display: inline-block;
+            width: auto;
+            margin: 0 auto 20px;
+            padding: 8px 35px;
+            border-radius: 60px;
+            box-shadow: 0 5px 0 #c29b2e;
+            letter-spacing: 1px;
+        }
+
+        .tree-area {
+            background: #e5d5b0;
+            border-radius: 70px;
+            padding: 20px 20px 10px 20px;
+            margin-bottom: 25px;
+            box-shadow: inset 0 0 0 3px #f9efcf, 0 10px 15px rgba(0,0,0,0.1);
+        }
+
+        .canvas-wrapper {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            min-height: 480px;
+        }
+
+        .tree-canvas {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .tree-img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border-radius: 40px;
+            pointer-events: none;
+        }
+
+        /* lá đã treo trên cây */
+        .leaf-on-tree {
+            position: absolute;
+            width: 75px;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+            filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.2));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            pointer-events: auto;
+        }
+
+        .leaf-on-tree:hover {
+            transform: scale(1.03);
+        }
+
+        .leaf-img-bg {
+            width: 100%;
+            display: block;
+        }
+
+        .leaf-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 85%;
+            color: #1f3b1a;
+            font-size: 11px;
+            font-weight: bold;
+            text-shadow: 0 0 3px white;
+            background: rgba(255, 255, 210, 0.9);
+            padding: 3px 4px;
+            border-radius: 40px;
+            text-align: center;
+            line-height: 1.2;
+            word-break: break-word;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        /* Rổ lá xanh */
+        .leaves-basket {
+            background: #faf0cf;
+            border-radius: 70px;
+            margin-top: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: inset 0 0 0 3px #fff6e0, 0 5px 0 #b97f2e;
+        }
+
+        .basket-title {
+            font-size: 1.8rem;
+            color: #5a3a1a;
+            margin: 0 0 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .leaves-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            min-height: 170px;
+            padding: 15px;
+            background: #f8e5b0;
+            border-radius: 50px;
+        }
+
+        .leaf-card {
+            width: 85px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            filter: drop-shadow(2px 4px 5px rgba(0,0,0,0.2));
+            position: relative;
+        }
+
+        .leaf-card:hover {
+            transform: translateY(-6px) scale(1.02);
+        }
+
+        .leaf-card:active {
+            transform: scale(0.97);
+        }
+
+        .leaf-card img {
+            width: 100%;
+            display: block;
+        }
+
+        .empty-leaves {
+            color: #8b6946;
+            font-style: italic;
+            font-size: 1.2rem;
+            padding: 25px;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: #ffdb7e;
+            border: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 12px 30px;
+            border-radius: 40px;
+            font-family: inherit;
+            cursor: pointer;
+            box-shadow: 0 5px 0 #b4621a;
+            transition: 0.07s linear;
+            color: #3c280d;
+        }
+
+        .btn:active {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 #b4621a;
+        }
+
+        .memory-list {
+            background: #fffae9;
+            border-radius: 40px;
+            margin-top: 20px;
+            padding: 12px 20px;
+            max-height: 160px;
+            overflow-y: auto;
+            font-size: 0.9rem;
+            border: 2px dashed #ffc107;
+        }
+
+        .memory-title {
+            font-weight: bold;
+            color: #2a6b2f;
+            font-size: 1.2rem;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.75rem;
+            margin-top: 20px;
+            color: #5f4c2b;
+        }
+
+        @media (max-width: 750px) {
+            .leaf-on-tree { width: 55px; }
+            .leaf-text { font-size: 8px; }
+            .leaf-card { width: 70px; }
+            .btn { padding: 8px 18px; font-size: 1rem; }
+            .basket-title { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="game-container">
+    <div style="display: flex; justify-content: center;">
+        <div class="game-title">🌳 CÂY KỶ NIỆM AN TOÀN 🌿</div>
+    </div>
+    
+    <div class="tree-area">
+        <div class="canvas-wrapper" id="treeWrapper">
+            <div class="tree-canvas">
+                <img id="treeImage" class="tree-img" src="https://i.ibb.co/xtXDsGM1/Chat-GPT-Image-13-24-40-5-thg-6-2026.png" alt="cây khô">
+                <div id="leavesOnTreeContainer" style="position: absolute; top:0; left:0; width:100%; height:100%; pointer-events: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rổ lá xanh - nơi chứa những lá chưa dùng -->
+    <div class="leaves-basket">
+        <div class="basket-title">
+            <span>🍃 RỔ LÁ XANH 🍃</span>
+            <span style="font-size:1rem;">(Bấm vào lá để viết kỷ niệm)</span>
+        </div>
+        <div class="leaves-grid" id="leavesGrid">
+            <!-- Các lá xanh sẽ được Javascript tạo ra ở đây -->
+        </div>
+    </div>
+
+    <div class="action-buttons">
+        <button class="btn" id="viewMemoriesBtn">📜 Xem tất cả kỷ niệm</button>
+        <button class="btn" id="resetGameBtn">🔄 Làm mới / Chơi lại</button>
+    </div>
+
+    <div id="memoryPanel" class="memory-list" style="display: none;">
+        <div class="memory-title">🎓 Những điều tuyệt vời đã học được:</div>
+        <div id="memoriesList"></div>
+    </div>
+    <footer>🌸 Mỗi bạn nhỏ hãy bấm vào một chiếc lá, ghi điều mình đã học được và xem lá bay lên cây nhé!</footer>
+</div>
+
+<script>
+    // ---- ẢNH dùng link chị đã cung cấp ----
+    const TREE_IMG = "https://i.ibb.co/xtXDsGM1/Chat-GPT-Image-13-24-40-5-thg-6-2026.png";
+   const LEAF_IMG = "https://i.ibb.co/Gf53Y7BC/Chat-GPT-Image-13-30-36-5-thg-6-2026.png";
+    
+    // Dữ liệu game
+    let leavesOnTree = [];      // mỗi phần tử { text, xPercent, yPercent, id }
+    let nextLeafId = 1;
+    let remainingLeaves = 28;    // số lá xanh còn lại trong rổ
+    
+    // Các vị trí cành cây đẹp (theo % chiều rộng và chiều cao)
+    const branchSpots = [
+        {x: 18, y: 32}, {x: 42, y: 27}, {x: 65, y: 30}, {x: 83, y: 38},
+        {x: 12, y: 48}, {x: 30, y: 44}, {x: 55, y: 42}, {x: 77, y: 46},
+        {x: 25, y: 58}, {x: 48, y: 55}, {x: 70, y: 57}, {x: 88, y: 62},
+        {x: 15, y: 68}, {x: 37, y: 65}, {x: 60, y: 67}, {x: 80, y: 72},
+        {x: 45, y: 75}, {x: 68, y: 78}, {x: 28, y: 80}, {x: 53, y: 82},
+        {x: 74, y: 84}, {x: 20, y: 22}, {x: 50, y: 19}, {x: 78, y: 24},
+        {x: 35, y: 35}, {x: 62, y: 36}, {x: 87, y: 45}, {x: 42, y: 70},
+        {x: 58, y: 73}, {x: 33, y: 88}, {x: 69, y: 89}, {x: 45, y: 92}
+    ];
+    
+    // Lấy vị trí chưa được dùng (hoặc gần nhất)
+    function getFreePosition() {
+        const usedKeys = new Set(leavesOnTree.map(l => `${Math.round(l.xPercent)}-${Math.round(l.yPercent)}`));
+        const freeSpots = branchSpots.filter(spot => !usedKeys.has(`${Math.round(spot.x)}-${Math.round(spot.y)}`));
+        if (freeSpots.length > 0) {
+            return freeSpots[Math.floor(Math.random() * freeSpots.length)];
+        }
+        // Nếu hết chỗ, lấy random nhích nhẹ
+        const base = branchSpots[Math.floor(Math.random() * branchSpots.length)];
+        return {x: base.x + (Math.random() * 5 - 2.5), y: base.y + (Math.random() * 5 - 2.5)};
+    }
+    
+    // Hiển thị lại những lá đã treo trên cây
+    function renderTree() {
+        const container = document.getElementById('leavesOnTreeContainer');
+        container.innerHTML = '';
+        for (let leaf of leavesOnTree) {
+            const leafDiv = document.createElement('div');
+            leafDiv.className = 'leaf-on-tree';
+            leafDiv.style.position = 'absolute';
+            leafDiv.style.left = `calc(${leaf.xPercent}% - 37px)`;
+            leafDiv.style.top = `calc(${leaf.yPercent}% - 30px)`;
+            leafDiv.style.width = '75px';
+            leafDiv.setAttribute('data-id', leaf.id);
+            
+            const img = document.createElement('img');
+            img.src = LEAF_IMG;
+            img.className = 'leaf-img-bg';
+            img.style.width = '100%';
+            
+            const textSpan = document.createElement('div');
+            textSpan.className = 'leaf-text';
+            textSpan.innerText = leaf.text;
+            
+            leafDiv.appendChild(img);
+            leafDiv.appendChild(textSpan);
+            
+            // Bấm vào lá để xem lại kỷ niệm
+            leafDiv.onclick = (e) => {
+                e.stopPropagation();
+                alert(`💚 Kỷ niệm: ${leaf.text}`);
+            };
+            container.appendChild(leafDiv);
+        }
+    }
+    
+    // Hiển thị rổ lá xanh (số lá còn lại)
+    function renderLeafBasket() {
+        const grid = document.getElementById('leavesGrid');
+        grid.innerHTML = '';
+        
+        if (remainingLeaves <= 0) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'empty-leaves';
+            msgDiv.innerText = '🎉 CHÚC MỪNG! Cây đã đầy kỷ niệm 🎉\nCác bạn đã học được rất nhiều điều quan trọng!';
+            grid.appendChild(msgDiv);
+            return;
+        }
+        
+        // Số lá hiển thị trong rổ (tối đa 24 cho gọn, nhưng vẫn thể hiện đủ số lượng)
+        const displayCount = Math.min(remainingLeaves, 28);
+        for (let i = 0; i < displayCount; i++) {
+            const leafCard = document.createElement('div');
+            leafCard.className = 'leaf-card';
+            const leafImg = document.createElement('img');
+            leafImg.src = LEAF_IMG;
+            leafCard.appendChild(leafImg);
+            leafCard.onclick = () => writeMemoryOnLeaf();
+            grid.appendChild(leafCard);
+        }
+        
+        if (remainingLeaves > displayCount) {
+            const moreInfo = document.createElement('div');
+            moreInfo.className = 'empty-leaves';
+            moreInfo.innerText = `+ thêm ${remainingLeaves - displayCount} lá nữa đang chờ...`;
+            moreInfo.style.fontSize = '0.9rem';
+            grid.appendChild(moreInfo);
+        }
+    }
+    
+    // HÀNH ĐỘNG CHÍNH: bấm lá trong rổ -> nhập chữ -> treo lên cây
+    function writeMemoryOnLeaf() {
+        if (remainingLeaves <= 0) {
+            alert("Cây đã đủ lá rồi! Cảm ơn các bạn đã chia sẻ ❤️");
+            return;
+        }
+        
+        let content = prompt("✏️ Hãy viết một điều con đã học được từ khóa học (ví dụ: 'Con có quyền nói không', '1800 1567', 'Không mở cửa cho người lạ'...):");
+        if (!content || content.trim() === "") {
+            alert("Chưa có kỷ niệm nào được viết. Hãy thử lại nhé!");
+            return;
+        }
+        content = content.trim().substring(0, 70);
+        
+        const newPos = getFreePosition();
+        const newLeaf = {
+            id: nextLeafId++,
+            text: content,
+            xPercent: newPos.x,
+            yPercent: newPos.y,
+        };
+        
+        leavesOnTree.push(newLeaf);
+        remainingLeaves--;
+        
+        // Cập nhật giao diện
+        renderTree();
+        renderLeafBasket();
+        
+        // Ẩn panel ký ức sau khi thêm mới cho gọn
+        document.getElementById('memoryPanel').style.display = 'none';
+        
+        // hiệu ứng thông báo nhẹ
+        const msg = document.createElement('div');
+        msg.innerText = '🎋 Đã treo lá kỷ niệm lên cây! 🎋';
+        msg.style.position = 'fixed';
+        msg.style.bottom = '30px';
+        msg.style.left = '50%';
+        msg.style.transform = 'translateX(-50%)';
+        msg.style.backgroundColor = '#2c5a2e';
+        msg.style.color = 'white';
+        msg.style.padding = '10px 20px';
+        msg.style.borderRadius = '40px';
+        msg.style.zIndex = '999';
+        msg.style.fontWeight = 'bold';
+        document.body.appendChild(msg);
+        setTimeout(() => msg.remove(), 1800);
+    }
+    
+    // Xem danh sách kỷ niệm
+    function showMemories() {
+        const panel = document.getElementById('memoryPanel');
+        const memoriesDiv = document.getElementById('memoriesList');
+        
+        if (leavesOnTree.length === 0) {
+            memoriesDiv.innerHTML = '<i>🌱 Chưa có chiếc lá nào. Hãy cùng nhau viết lên những điều đã học được nhé!</i>';
+        } else {
+            let html = '';
+            leavesOnTree.forEach((leaf, idx) => {
+                html += `<div>🍃 ${idx+1}. ${leaf.text}</div>`;
+            });
+            memoriesDiv.innerHTML = html;
+        }
+        panel.style.display = 'block';
+    }
+    
+    // Reset toàn bộ game
+    function resetGame() {
+        if (confirm("🔄 BẮT ĐẦU LẠI? Toàn bộ lá kỷ niệm sẽ được gỡ xuống, cây trở về trạng thái ban đầu.")) {
+            leavesOnTree = [];
+            remainingLeaves = 28;
+            nextLeafId = 1;
+            renderTree();
+            renderLeafBasket();
+            document.getElementById('memoryPanel').style.display = 'none';
+        }
+    }
+    
+    // Khởi tạo
+    function init() {
+        renderTree();
+        renderLeafBasket();
+        document.getElementById('memoryPanel').style.display = 'none';
+    }
+    
+    // Gán sự kiện nút bấm
+    document.getElementById('viewMemoriesBtn').addEventListener('click', showMemories);
+    document.getElementById('resetGameBtn').addEventListener('click', resetGame);
+    
+    init();
+</script>
+</body>
+</html>
