@@ -58,19 +58,41 @@
             justify-content: center;
         }
 
+        /*
+         * FIX 1: tree-canvas phải có kích thước cố định để % tọa độ tính đúng.
+         * Bọc cây trong một div có aspect-ratio khớp với ảnh gốc.
+         * Cây chiếm toàn bộ div này → lá % sẽ khớp với vị trí cành thật.
+         */
         .tree-canvas {
             position: relative;
-            display: inline-block;
             width: 100%;
+            max-width: 680px;   /* giới hạn để cây không quá to */
+            margin: 0 auto;
+        }
+
+        /* Giữ tỉ lệ khung chứa cây – ảnh gốc xấp xỉ 1:1.15 (rộng x cao) */
+        .tree-canvas::before {
+            content: '';
+            display: block;
+            padding-top: 100%; /* aspect ratio ~ 1:1, điều chỉnh nếu ảnh khác */
+        }
+
+        .tree-img-wrap {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .tree-img {
-            max-width: 100%;
-            height: auto;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
             display: block;
-            margin: 0 auto;
-            border-radius: 40px;
-            pointer-events: none;
+            /* FIX 2: loại bỏ nền trắng của ảnh PNG removebg */
+            mix-blend-mode: multiply;
+            /* Đảm bảo background bên dưới là màu sáng để multiply hoạt động */
         }
 
         .leaves-container {
@@ -84,18 +106,22 @@
 
         .leaf-item {
             position: absolute;
-            width: 70px;
+            width: 72px;
             cursor: pointer;
-            transition: transform 0.1s;
-            filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.2));
+            filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.25));
             pointer-events: auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            transform-origin: center center;
+            animation: leafLand 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+        }
+
+        @keyframes leafLand {
+            from { transform: scale(0) rotate(-20deg); opacity: 0; }
+            to   { transform: scale(1) rotate(0deg);   opacity: 1; }
         }
 
         .leaf-item:hover {
-            transform: scale(1.05);
+            transform: scale(1.1) rotate(3deg);
+            transition: transform 0.15s;
         }
 
         .leaf-img {
@@ -105,14 +131,14 @@
 
         .leaf-text {
             position: absolute;
-            top: 50%;
+            top: 48%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 85%;
+            width: 82%;
             color: #1f3b1a;
-            font-size: 10px;
+            font-size: 9px;
             font-weight: bold;
-            background: rgba(255, 255, 210, 0.9);
+            background: rgba(255, 255, 210, 0.92);
             padding: 3px 4px;
             border-radius: 30px;
             text-align: center;
@@ -121,6 +147,7 @@
             pointer-events: none;
         }
 
+        /* ── BASKET ── */
         .basket-area {
             background: #faf0cf;
             border-radius: 60px;
@@ -150,22 +177,14 @@
         .leaf-card {
             width: 80px;
             cursor: pointer;
-            transition: 0.1s;
+            transition: transform 0.15s;
             filter: drop-shadow(2px 4px 5px rgba(0,0,0,0.2));
         }
 
-        .leaf-card:hover {
-            transform: translateY(-5px);
-        }
+        .leaf-card:hover  { transform: translateY(-6px) rotate(5deg); }
+        .leaf-card:active { transform: scale(0.92); }
 
-        .leaf-card:active {
-            transform: scale(0.95);
-        }
-
-        .leaf-card img {
-            width: 100%;
-            display: block;
-        }
+        .leaf-card img { width: 100%; display: block; }
 
         .empty-message {
             color: #8b6946;
@@ -174,6 +193,7 @@
             font-size: 1.1rem;
         }
 
+        /* ── BUTTONS ── */
         .buttons {
             display: flex;
             justify-content: center;
@@ -194,12 +214,12 @@
             box-shadow: 0 4px 0 #b4621a;
             transition: 0.05s linear;
         }
-
         .btn:active {
             transform: translateY(2px);
             box-shadow: 0 2px 0 #b4621a;
         }
 
+        /* ── MEMORY PANEL ── */
         .memory-panel {
             background: #fffae9;
             border-radius: 35px;
@@ -218,45 +238,78 @@
             margin-bottom: 8px;
         }
 
+        /* ── TOAST ── */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(60px);
+            background: #2c5a2e;
+            color: #fff;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            z-index: 999;
+            opacity: 0;
+            transition: transform 0.3s, opacity 0.3s;
+            pointer-events: none;
+        }
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .logo { height: 60px; margin-bottom: 10px; }
+
         footer {
             text-align: center;
             font-size: 0.7rem;
             margin-top: 18px;
             color: #5f4c2b;
         }
-.logo { height: 60px; margin-bottom: 10px; }
+
         @media (max-width: 700px) {
-            .leaf-item { width: 55px; }
-            .leaf-text { font-size: 8px; }
-            .leaf-card { width: 65px; }
+            .leaf-item  { width: 56px; }
+            .leaf-text  { font-size: 8px; }
+            .leaf-card  { width: 65px; }
             .basket-title { font-size: 1.3rem; }
         }
     </style>
 </head>
 <body>
+
 <div class="game-container">
     <div style="text-align: center;">
-         <img src="https://sophianguyen.com.vn/images/hinhremovenen.png" alt="Sophia Nguyễn" class="logo">
+        <img src="https://sophianguyen.com.vn/images/hinhremovenen.png" alt="Sophia Nguyễn" class="logo">
         <div class="game-title">🌳 CÂY KỶ NIỆM AN TOÀN 🌿</div>
     </div>
 
     <div class="tree-area">
         <div class="tree-wrapper">
+            <!--
+                FIX CHÍNH: tree-canvas bây giờ là khung vuông cố định,
+                cây chiếm đúng 100% khung đó.
+                Tọa độ % của lá = % theo khung này → khớp với cành cây.
+            -->
             <div class="tree-canvas" id="treeCanvas">
-                <img class="tree-img" src="https://i.ibb.co/xtXDsGM1/Chat-GPT-Image-13-24-40-5-thg-6-2026.png" alt="cây khô">
+                <div class="tree-img-wrap">
+                    <img class="tree-img"
+                         src="https://i.ibb.co/hF1qhdLs/Chat-GPT-Image-13-24-40-5-thg-6-2026-removebg-preview.png"
+                         alt="cây kỷ niệm"
+                         crossorigin="anonymous">
+                </div>
                 <div class="leaves-container" id="leavesContainer"></div>
             </div>
         </div>
     </div>
 
     <div class="basket-area">
-        <div class="basket-title">
-            🍃 RỔ LÁ XANH 🍃
+        <div class="basket-title">🍃 RỔ LÁ XANH 🍃</div>
+        <div class="leaves-basket" id="leavesBasket"></div>
+        <div style="font-size:0.8rem;margin-top:8px;">
+            👉 Bấm vào một chiếc lá, viết điều con đã học được, lá sẽ bay lên cây!
         </div>
-        <div class="leaves-basket" id="leavesBasket">
-            <!-- Lá xanh sẽ hiện ra ở đây -->
-        </div>
-        <div style="font-size: 0.8rem; margin-top: 8px;">👉 Bấm vào một chiếc lá, viết điều con đã học được, lá sẽ bay lên cây!</div>
     </div>
 
     <div class="buttons">
@@ -268,190 +321,227 @@
         <div class="memory-title">🎓 Những điều đã học được:</div>
         <div id="memoryList"></div>
     </div>
-    <footer>🌸 Mỗi chiếc lá là một kỷ niệm đẹp - Các con hãy cùng nhau làm xanh cây nhé!</footer>
+
+    <footer>🌸 Mỗi chiếc lá là một kỷ niệm đẹp – Các con hãy cùng nhau làm xanh cây nhé!</footer>
 </div>
 
+<div class="toast" id="toast">🌿 Đã treo một lá kỷ niệm lên cây! 🌿</div>
+
 <script>
-    // ẢNH (dùng đúng link chị đã cho)
-const TREE_URL = "https://i.ibb.co/hF1qhdLs/Chat-GPT-Image-13-24-40-5-thg-6-2026-removebg-preview.png";
     const LEAF_URL = "https://i.ibb.co/Gf53Y7BC/Chat-GPT-Image-13-30-36-5-thg-6-2026.png";
 
-    // Dữ liệu game
-    let leavesOnTree = [];      // các lá đã treo {id, text, left, top}
-    let nextId = 1;
-    let availableLeaves = 28;   // số lá còn lại trong rổ
+    /*
+     * ════════════════════════════════════════════════════════
+     *  FIX CHÍNH: CÁC VỊ TRÍ LÁ ĐƯỢC CĂNG CHỈNH THEO CÀNH CÂY THỰC TẾ
+     *
+     *  Cây trong ảnh (nhìn từ ảnh chị gửi):
+     *  - Thân cây: khoảng 42–58% left, 55–95% top
+     *  - Cành trái cao:  ~20–32% left,  ~15–30% top
+     *  - Cành phải cao:  ~62–78% left,  ~15–30% top
+     *  - Cành trái giữa: ~18–28% left,  ~35–48% top
+     *  - Cành phải giữa: ~68–80% left,  ~35–48% top
+     *  - Đỉnh giữa:      ~45–55% left,  ~8–18% top
+     *  - Cành giữa:      ~38–62% left,  ~28–42% top
+     *
+     *  Mỗi điểm dưới đây là tâm của một chiếc lá.
+     *  left/top tính theo % của khung .tree-canvas (hình vuông).
+     * ════════════════════════════════════════════════════════
+     */
+    const BRANCH_POSITIONS = [
+        // ── Đỉnh cây ──
+        { left: 48, top: 10 },
+        { left: 53, top: 14 },
 
-    // Các vị trí cành cây đẹp (theo % chiều rộng và chiều cao)
-    const positions = [
-        { left: 12, top: 28 }, { left: 35, top: 22 }, { left: 58, top: 25 }, { left: 80, top: 32 },
-        { left: 18, top: 42 }, { left: 40, top: 38 }, { left: 65, top: 36 }, { left: 85, top: 45 },
-        { left: 22, top: 55 }, { left: 48, top: 50 }, { left: 72, top: 52 }, { left: 88, top: 58 },
-        { left: 15, top: 65 }, { left: 38, top: 62 }, { left: 62, top: 64 }, { left: 82, top: 68 },
-        { left: 28, top: 75 }, { left: 52, top: 72 }, { left: 75, top: 76 }, { left: 90, top: 80 },
-        { left: 8, top: 50 }, { left: 45, top: 18 }, { left: 68, top: 20 }, { left: 30, top: 30 },
-        { left: 55, top: 45 }, { left: 78, top: 55 }, { left: 20, top: 85 }, { left: 60, top: 82 },
-        { left: 42, top: 88 }, { left: 70, top: 88 }, { left: 25, top: 18 }, { left: 50, top: 30 }
+        // ── Cành trái trên ──
+        { left: 20, top: 18 },
+        { left: 26, top: 22 },
+        { left: 31, top: 17 },
+
+        // ── Cành phải trên ──
+        { left: 68, top: 18 },
+        { left: 74, top: 22 },
+        { left: 70, top: 14 },
+
+        // ── Giữa trên (cành nhỏ) ──
+        { left: 40, top: 24 },
+        { left: 58, top: 24 },
+        { left: 48, top: 28 },
+
+        // ── Cành trái giữa ──
+        { left: 18, top: 36 },
+        { left: 24, top: 40 },
+        { left: 28, top: 34 },
+
+        // ── Cành phải giữa ──
+        { left: 70, top: 36 },
+        { left: 76, top: 40 },
+        { left: 72, top: 32 },
+
+        // ── Giữa cây ──
+        { left: 38, top: 38 },
+        { left: 52, top: 36 },
+        { left: 44, top: 44 },
+        { left: 56, top: 44 },
+
+        // ── Cành trái thấp ──
+        { left: 22, top: 52 },
+        { left: 30, top: 56 },
+
+        // ── Cành phải thấp ──
+        { left: 68, top: 52 },
+        { left: 76, top: 56 },
+
+        // ── Gần thân ──
+        { left: 42, top: 54 },
+        { left: 56, top: 56 },
+        { left: 48, top: 60 },
     ];
 
-    // Lấy vị trí chưa được dùng
+    let leavesOnTree   = [];
+    let nextId         = 1;
+    let availableLeaves = BRANCH_POSITIONS.length;
+    let usedPositions  = new Set();
+
+    /* Lấy vị trí cành chưa dùng */
     function getFreePosition() {
-        const usedKeys = new Set(leavesOnTree.map(l => `${Math.round(l.left)}-${Math.round(l.top)}`));
-        const free = positions.filter(p => !usedKeys.has(`${Math.round(p.left)}-${Math.round(p.top)}`));
-        if (free.length > 0) {
-            return free[Math.floor(Math.random() * free.length)];
-        }
-        // Nếu hết chỗ, random nhẹ
-        const base = positions[Math.floor(Math.random() * positions.length)];
-        return {
-            left: Math.min(92, Math.max(5, base.left + (Math.random() * 6 - 3))),
-            top: Math.min(92, Math.max(15, base.top + (Math.random() * 6 - 3)))
-        };
+        const free = BRANCH_POSITIONS.filter((_, i) => !usedPositions.has(i));
+        if (free.length === 0) return null;
+        const idx = BRANCH_POSITIONS.indexOf(free[Math.floor(Math.random() * free.length)]);
+        usedPositions.add(idx);
+        return BRANCH_POSITIONS[idx];
     }
 
-    // Hiển thị lại toàn bộ lá trên cây
+    /* Render lá trên cây */
     function renderTree() {
         const container = document.getElementById('leavesContainer');
         container.innerHTML = '';
-        for (let leaf of leavesOnTree) {
+        leavesOnTree.forEach(leaf => {
             const leafDiv = document.createElement('div');
             leafDiv.className = 'leaf-item';
-            leafDiv.style.left = `calc(${leaf.left}% - 35px)`;
-            leafDiv.style.top = `calc(${leaf.top}% - 30px)`;
-            
+            // Căn tâm lá vào tọa độ: trừ đi nửa width lá (36px = 72px/2)
+            leafDiv.style.left = `calc(${leaf.left}% - 36px)`;
+            leafDiv.style.top  = `calc(${leaf.top}%  - 36px)`;
+
             const img = document.createElement('img');
             img.src = LEAF_URL;
             img.className = 'leaf-img';
-            
+            img.alt = '';
+
             const textSpan = document.createElement('div');
             textSpan.className = 'leaf-text';
             textSpan.innerText = leaf.text;
-            
+
             leafDiv.appendChild(img);
             leafDiv.appendChild(textSpan);
-            leafDiv.onclick = (e) => {
+            leafDiv.onclick = e => {
                 e.stopPropagation();
-                alert(`💚 Kỷ niệm: ${leaf.text}`);
+                showToast(`💚 "${leaf.text}"`);
             };
             container.appendChild(leafDiv);
-        }
+        });
     }
 
-    // Hiển thị rổ lá xanh (những lá chưa dùng)
+    /* Render rổ lá */
     function renderBasket() {
         const basket = document.getElementById('leavesBasket');
         basket.innerHTML = '';
-        
-        if (availableLeaves <= 0) {
-            const msg = document.createElement('div');
-            msg.className = 'empty-message';
-            msg.innerText = '🎉 CHÚC MỪNG! Cây đã đầy kỷ niệm 🎉\nCác bạn thật tuyệt vời!';
-            basket.appendChild(msg);
+
+        const remaining = BRANCH_POSITIONS.length - leavesOnTree.length;
+
+        if (remaining <= 0) {
+            basket.innerHTML = '<div class="empty-message">🎉 CHÚC MỪNG! Cây đã đầy kỷ niệm!<br>Các bạn thật tuyệt vời! 🎉</div>';
             return;
         }
-        
-        const showCount = Math.min(availableLeaves, 24);
-        for (let i = 0; i < showCount; i++) {
-            const leafCard = document.createElement('div');
-            leafCard.className = 'leaf-card';
+
+        const show = Math.min(remaining, 24);
+        for (let i = 0; i < show; i++) {
+            const card = document.createElement('div');
+            card.className = 'leaf-card';
             const img = document.createElement('img');
             img.src = LEAF_URL;
-            leafCard.appendChild(img);
-            leafCard.onclick = () => addNewLeaf();
-            basket.appendChild(leafCard);
+            img.alt = 'lá xanh';
+            card.appendChild(img);
+            card.onclick = addNewLeaf;
+            basket.appendChild(card);
         }
-        
-        if (availableLeaves > showCount) {
+
+        if (remaining > show) {
             const more = document.createElement('div');
             more.className = 'empty-message';
-            more.innerText = `+ thêm ${availableLeaves - showCount} lá đang chờ...`;
+            more.innerText = `+${remaining - show} lá đang chờ...`;
             basket.appendChild(more);
         }
     }
 
-    // HÀNH ĐỘNG CHÍNH: thêm một lá mới (gõ chữ -> treo lên cây)
+    /* Thêm lá mới */
     function addNewLeaf() {
-        if (availableLeaves <= 0) {
-            alert("Cây đã đầy lá rồi! Cảm ơn các bạn ❤️");
-            return;
-        }
-        
-        let content = prompt("✏️ Hãy viết một điều con đã học được từ khóa học:\n(Ví dụ: 'Con có quyền nói không', '1800 1567', 'Không mở cửa cho người lạ'...)");
-        if (!content || content.trim() === "") {
-            alert("Chưa có kỷ niệm nào. Hãy thử lại nhé!");
-            return;
-        }
-        content = content.trim().substring(0, 65);
-        
         const pos = getFreePosition();
-        const newLeaf = {
+        if (!pos) {
+            showToast('🌳 Cây đã đầy lá rồi!');
+            return;
+        }
+
+        const content = prompt(
+            '✏️ Hãy viết một điều con đã học được từ khóa học:\n' +
+            '(Ví dụ: "Con có quyền nói không", "1800 1567", "Không mở cửa cho người lạ"...)'
+        );
+        if (!content || !content.trim()) {
+            // trả lại vị trí nếu người dùng hủy
+            const idxToReturn = BRANCH_POSITIONS.findIndex(p => p.left === pos.left && p.top === pos.top);
+            if (idxToReturn !== -1) usedPositions.delete(idxToReturn);
+            return;
+        }
+
+        leavesOnTree.push({
             id: nextId++,
-            text: content,
+            text: content.trim().substring(0, 60),
             left: pos.left,
             top: pos.top
-        };
-        
-        leavesOnTree.push(newLeaf);
-        availableLeaves--;
-        
-        // Cập nhật giao diện
+        });
+
         renderTree();
         renderBasket();
-        
-        // Ẩn panel ký ức (nếu đang mở)
         document.getElementById('memoryPanel').style.display = 'none';
-        
-        // Thông báo nhỏ vui vẻ
-        const notif = document.createElement('div');
-        notif.innerText = '🌿 Đã treo một lá kỷ niệm lên cây! 🌿';
-        notif.style.position = 'fixed';
-        notif.style.bottom = '20px';
-        notif.style.left = '50%';
-        notif.style.transform = 'translateX(-50%)';
-        notif.style.backgroundColor = '#2c5a2e';
-        notif.style.color = 'white';
-        notif.style.padding = '8px 20px';
-        notif.style.borderRadius = '30px';
-        notif.style.fontWeight = 'bold';
-        notif.style.zIndex = '999';
-        notif.style.fontSize = '0.9rem';
-        document.body.appendChild(notif);
-        setTimeout(() => notif.remove(), 1500);
+        showToast('🌿 Đã treo một lá kỷ niệm lên cây!');
     }
 
-    // Xem tất cả kỷ niệm
-    function showMemories() {
-        const panel = document.getElementById('memoryPanel');
+    /* Toast nhẹ nhàng */
+    let toastTimer;
+    function showToast(msg) {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => t.classList.remove('show'), 2000);
+    }
+
+    /* Xem tất cả kỷ niệm */
+    document.getElementById('viewBtn').addEventListener('click', () => {
+        const panel   = document.getElementById('memoryPanel');
         const listDiv = document.getElementById('memoryList');
-        
         if (leavesOnTree.length === 0) {
             listDiv.innerHTML = '<i>🌱 Chưa có chiếc lá nào. Hãy cùng nhau viết lên những điều đã học được nhé!</i>';
         } else {
-            let html = '';
-            leavesOnTree.forEach((leaf, idx) => {
-                html += `<div>🍃 ${idx+1}. ${leaf.text}</div>`;
-            });
-            listDiv.innerHTML = html;
+            listDiv.innerHTML = leavesOnTree
+                .map((l, i) => `<div>🍃 ${i + 1}. ${l.text}</div>`)
+                .join('');
         }
-        panel.style.display = 'block';
-    }
+        panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+    });
 
-    // Reset toàn bộ
-    function resetGame() {
-        if (confirm("🔄 BẮT ĐẦU LẠI? Toàn bộ lá sẽ được gỡ xuống, cây trở về trạng thái ban đầu.")) {
+    /* Reset */
+    document.getElementById('resetBtn').addEventListener('click', () => {
+        if (confirm('🔄 BẮT ĐẦU LẠI?\nToàn bộ lá sẽ được gỡ xuống, cây trở về trạng thái ban đầu.')) {
             leavesOnTree = [];
-            availableLeaves = 28;
-            nextId = 1;
+            nextId       = 1;
+            usedPositions.clear();
             renderTree();
             renderBasket();
             document.getElementById('memoryPanel').style.display = 'none';
         }
-    }
+    });
 
-    // Gán sự kiện nút
-    document.getElementById('viewBtn').addEventListener('click', showMemories);
-    document.getElementById('resetBtn').addEventListener('click', resetGame);
-    
-    // Khởi tạo
+    /* Khởi tạo */
     renderTree();
     renderBasket();
 </script>
