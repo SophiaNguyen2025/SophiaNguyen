@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buổi 3 – Nguy Hiểm Từ Người Lạ</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Syne:wght@700;800&display=swap');
+
+  :root {
+    --bg: #0d0d1a;
+    --card: #13131f;
+    --surface: #1c1c2e;
+    --accent: #7c3aed;
+    --accent2: #06b6d4;
+    --good: #10b981;
+    --warn: #f59e0b;
+    --bad: #ef4444;
+    --text: #f1f5f9;
+    --muted: #64748b;
+    --glow: 0 0 20px #7c3aed44;
+    --shadow: 0 8px 40px rgba(0,0,0,0.5);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--bg);
+    min-height: 100vh;
+    color: var(--text);
+    padding: 24px 16px 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image:
+      radial-gradient(ellipse at 30% 0%, #7c3aed22 0%, transparent 60%),
+      radial-gradient(ellipse at 70% 100%, #06b6d422 0%, transparent 60%);
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 28px;
+    max-width: 600px;
+    width: 100%;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1.15;
+    margin-bottom: 8px;
+  }
+  h1 .highlight { color: var(--accent2); }
+
+  .subtitle { color: var(--muted); font-size: 14px; }
+
+  /* PROGRESS */
+  .progress-strip {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .progress-dots {
+    display: flex;
+    gap: 6px;
+    flex: 1;
+  }
+  .dot-progress {
+    flex: 1;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--surface);
+    transition: background 0.3s;
+  }
+  .dot-progress.done-correct { background: var(--good); }
+  .dot-progress.done-wrong   { background: var(--bad); }
+  .dot-progress.current      { background: var(--accent); animation: pulse 1s ease infinite alternate; }
+  @keyframes pulse { from { opacity: 0.7; } to { opacity: 1; } }
+  .score-tag {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent2);
+    white-space: nowrap;
+  }
+
+  /* SCENARIO CARD */
+  .scenario-card {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 0;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    margin-bottom: 20px;
+    animation: fadeUp 0.35s ease;
+    border: 1px solid #ffffff08;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .scenario-header {
+    padding: 16px 20px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid #ffffff0a;
+    background: var(--surface);
+  }
+  .scenario-icon { font-size: 2rem; }
+  .scenario-tag {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 2px;
+  }
+  .scenario-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .scenario-body {
+    padding: 24px 20px 20px;
+  }
+
+  .situation-box {
+    background: var(--surface);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 20px;
+    border-left: 3px solid var(--accent);
+    font-size: 15px;
+    line-height: 1.6;
+    color: #cbd5e1;
+  }
+  .situation-box .who {
+    font-weight: 700;
+    color: var(--warn);
+    margin-bottom: 6px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .question-prompt {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+
+  /* OPTIONS */
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .option-btn {
+    background: var(--surface);
+    border: 2px solid transparent;
+    border-radius: 14px;
+    padding: 14px 16px;
+    color: var(--text);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    line-height: 1.5;
+  }
+  .option-btn:hover:not(:disabled) {
+    background: #ffffff0d;
+    border-color: var(--accent);
+    transform: translateX(4px);
+  }
+  .option-btn:disabled { cursor: default; }
+  .option-btn.selected-correct {
+    background: #06402033;
+    border-color: var(--good);
+    color: var(--good);
+  }
+  .option-btn.selected-wrong {
+    background: #450a0a33;
+    border-color: var(--bad);
+    color: var(--bad);
+  }
+  .option-btn.reveal-correct {
+    background: #06402022;
+    border-color: #10b98155;
+    color: #6ee7b7;
+  }
+
+  .opt-letter {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 26px; height: 26px;
+    border-radius: 8px;
+    background: #ffffff15;
+    font-weight: 700;
+    font-size: 13px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* FEEDBACK PANEL */
+  .feedback-panel {
+    display: none;
+    background: var(--surface);
+    border-radius: 14px;
+    padding: 16px;
+    margin-top: 16px;
+    border-left: 4px solid;
+    font-size: 14px;
+    line-height: 1.6;
+    animation: fadeUp 0.25s ease;
+  }
+  .feedback-panel.show { display: block; }
+  .feedback-panel.correct { border-color: var(--good); color: #6ee7b7; }
+  .feedback-panel.wrong   { border-color: var(--bad);  color: #fca5a5; }
+  .feedback-title {
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .next-btn {
+    display: none;
+    margin-top: 16px;
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: var(--glow);
+  }
+  .next-btn.show { display: block; animation: fadeUp 0.25s ease; }
+  .next-btn:hover { transform: translateY(-2px); box-shadow: 0 0 30px #7c3aed66; }
+
+  /* RESULT */
+  .result-screen {
+    display: none;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    animation: fadeUp 0.4s ease;
+  }
+  .result-screen.show { display: block; }
+
+  .result-trophy { font-size: 4.5rem; margin-bottom: 12px; }
+  .result-screen h2 { font-family: 'Syne', sans-serif; font-size: 1.9rem; font-weight: 800; margin-bottom: 8px; }
+  .result-screen h2 span { color: var(--accent2); }
+
+  .result-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 20px 0 24px;
+  }
+  .stat-box {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 16px;
+    text-align: center;
+  }
+  .stat-val {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    display: block;
+  }
+  .stat-label { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .stat-correct .stat-val { color: var(--good); }
+  .stat-wrong .stat-val   { color: var(--bad); }
+  .stat-score .stat-val   { color: var(--accent2); }
+
+  .result-msg {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 24px;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #94a3b8;
+    text-align: left;
+  }
+
+  .restart-btn {
+    padding: 14px 40px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.15s;
+  }
+  .restart-btn:hover { transform: translateY(-2px); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">🛡️ Buổi 3</div>
+  <h1>Nguy Hiểm Từ <span class="highlight">Người Lạ</span></h1>
+  <p class="subtitle">Nhận diện lừa đảo, thoát hiểm ngoài đường, ứng phó với người hung hăng</p>
+</header>
+
+<div class="progress-strip" id="progressStrip">
+  <div class="progress-dots" id="progressDots"></div>
+  <div class="score-tag" id="scoreTag">0 / 0</div>
+</div>
+
+<div class="scenario-card" id="scenarioCard">
+  <div class="scenario-header">
+    <span class="scenario-icon" id="sIcon">💬</span>
+    <div>
+      <div class="scenario-tag" id="sTag">Tình huống</div>
+      <div class="scenario-num" id="sNum">Câu 1 / 9</div>
+    </div>
+  </div>
+  <div class="scenario-body">
+    <div class="situation-box">
+      <div class="who" id="sWho">Tình huống:</div>
+      <div id="sText"></div>
+    </div>
+    <div class="question-prompt" id="sQuestion">Bạn nên làm gì?</div>
+    <div class="options" id="optionsContainer"></div>
+    <div class="feedback-panel" id="feedbackPanel">
+      <div class="feedback-title" id="fbTitle"></div>
+      <div id="fbBody"></div>
+    </div>
+    <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Câu tiếp theo →</button>
+  </div>
+</div>
+
+<div class="result-screen" id="resultScreen">
+  <div class="result-trophy" id="resultTrophy">🏆</div>
+  <h2>Hoàn thành rồi! <span>Giỏi lắm!</span></h2>
+  <div class="result-stats">
+    <div class="stat-box stat-correct">
+      <span class="stat-val" id="statCorrect">0</span>
+      <div class="stat-label">✅ Đúng</div>
+    </div>
+    <div class="stat-box stat-wrong">
+      <span class="stat-val" id="statWrong">0</span>
+      <div class="stat-label">❌ Sai</div>
+    </div>
+    <div class="stat-box stat-score">
+      <span class="stat-val" id="statPct">0%</span>
+      <div class="stat-label">📊 Tỉ lệ</div>
+    </div>
+  </div>
+  <div class="result-msg" id="resultMsg"></div>
+  <button class="restart-btn" onclick="restartGame()">🔄 Chơi lại</button>
+</div>
+
+<script>
+// ==================== CÂU HỎI THEO NỘI DUNG BUỔI 3 MỚI ====================
+const scenarios = [
+  {
+    icon: '📱', tag: 'Lừa đảo mạng', who: 'Tin nhắn từ tài khoản lạ:',
+    text: '"Chào em. Anh là [MỘT HOTBOY IDOL]. Anh dùng tài khoản phụ để nói chuyện với fan. Kết bạn với anh nhé."',
+    question: 'Bạn nên làm gì?',
+    options: [
+      { text: 'Kết bạn ngay vì người nổi tiếng thật', correct: false },
+      { text: 'Không trả lời, chặn tài khoản và báo cáo', correct: true },
+      { text: 'Nhắn lại hỏi xem có quà không', correct: false },
+      { text: 'Xin chữ ký số trước', correct: false }
+    ],
+    explain: '✅ Đúng! Người nổi tiếng thật không bao giờ nhắn tin riêng cho fan lạ bằng tài khoản phụ. Đây là chiêu trò lừa đảo điển hình. Hãy chặn và báo cáo ngay.'
+  },
+  {
+    icon: '💸', tag: 'Giả danh bạn bè', who: 'Tin nhắn Facebook:',
+    text: '"Tao là Quân đây. Tao mất điện thoại, mày chuyển cho tao 500k qua số tài khoản này nhé: 0123456789. Cần gấp lắm!"',
+    question: 'Bạn xử lý thế nào?',
+    options: [
+      { text: 'Chuyển tiền ngay vì bạn thân cần gấp', correct: false },
+      { text: 'Gọi điện cho Quân qua số điện thoại thật để xác nhận', correct: true },
+      { text: 'Hỏi thêm qua tin nhắn xem đúng không', correct: false },
+      { text: 'Chuyển một nửa trước cho an toàn', correct: false }
+    ],
+    explain: '✅ Đúng! Luôn gọi điện xác nhận qua số điện thoại thật trước khi chuyển tiền. Kẻ lừa đảo thường giả danh bạn bè để lừa tiền.'
+  },
+  {
+    icon: '📸', tag: 'Dụ gửi ảnh', who: 'Người quen trên mạng nhắn dụ dỗ:',
+    text: '"Em gửi anh ảnh riêng tư của em đi, anh sẽ gửi lại ảnh anh và tặng em AirPods. Bọn mình đang tìm hiểu nhau mà, có gì đâu! Giữ bí mật nhé!"',
+    question: 'Cách xử lý đúng nhất?',
+    options: [
+      { text: 'Đồng ý vì được tặng quà đắt tiền', correct: false },
+      { text: 'Gửi ảnh nhưng chỉ gửi ảnh thường', correct: false },
+      { text: 'Từ chối, chặn tài khoản và kể với bố mẹ', correct: true },
+      { text: 'Hỏi xem quà gì trước khi gửi', correct: false }
+    ],
+    explain: '✅ Đúng! KHÔNG BAO GIỜ gửi ảnh riêng tư cho bất kỳ ai qua mạng – dù họ hứa gì, dù họ nói yêu thương thế nào. Đã gửi là mất quyền kiểm soát.'
+  },
+  {
+    icon: '🏃', tag: 'Bị theo dõi', who: 'Tình huống ngoài đường:',
+    text: 'Hà 14 tuổi tan học đi bộ về. Một người đàn ông lạ mặt đi xe máy chậm rãi theo sau qua 3 phố. Hà băng qua đường, hắn cũng băng qua. Hà vào cửa hàng tiện lợi, hắn dựng xe chờ bên ngoài.',
+    question: 'Hà nên làm gì NGAY BÂY GIỜ?',
+    options: [
+      { text: 'Chạy nhanh ra ngoài và về nhà', correct: false },
+      { text: 'Ở lại trong cửa hàng, gọi bố mẹ, nhờ nhân viên giúp đỡ', correct: true },
+      { text: 'Quay ra hỏi xem người đó muốn gì', correct: false },
+      { text: 'Chụp ảnh biển số xe để báo công an sau', correct: false }
+    ],
+    explain: '✅ Đúng! Tuyệt đối KHÔNG về nhà (kẻ xấu sẽ biết địa chỉ). Hãy ở lại nơi đông người, gọi bố mẹ đến đón hoặc nhờ nhân viên hỗ trợ. Gọi 113 nếu cần.'
+  },
+  {
+    icon: '🚗', tag: 'Bị ép xe', who: 'Tình huống trên đường:',
+    text: 'Bạn đang đạp xe về nhà thì một chiếc xe máy áp sát, ép bạn vào lề đường. Người lạ mặt ra hiệu bảo bạn dừng lại.',
+    question: 'Bạn nên làm gì?',
+    options: [
+      { text: 'Dừng lại để xem họ muốn gì', correct: false },
+      { text: 'Đạp thật nhanh về nhà', correct: false },
+      { text: 'Đạp nhanh về phía đông người, la to: "Cứu! Có người ép xe cháu!"', correct: true },
+      { text: 'Quát lớn: "Tránh ra!" rồi đạp tiếp', correct: false }
+    ],
+    explain: '✅ Đúng! Không dừng lại, hãy đạp nhanh về nơi đông người và la thật to để thu hút sự chú ý. KHÔNG về nhà vì sẽ để lộ địa chỉ.'
+  },
+  {
+    icon: '🔪', tag: 'Bị khống chế', who: 'Tình huống nguy cấp:',
+    text: 'Bạn đang đi một mình thì bất ngờ bị một người lạ kẹp cổ từ phía sau và dí dao đe dọa, yêu cầu đưa điện thoại và ví tiền.',
+    question: 'Nguyên tắc SỐNG CÒN trong tình huống này là gì?',
+    options: [
+      { text: 'Chống trả thật mạnh để thoát thân', correct: false },
+      { text: 'La thật to để người xung quanh biết', correct: false },
+      { text: 'Làm theo yêu cầu, đưa tài sản, tìm cơ hội thoát thân an toàn', correct: true },
+      { text: 'Cắn vào tay kẻ xấu để chạy thoát', correct: false }
+    ],
+    explain: '✅ Đúng! KHÔNG tài sản nào quý hơn mạng sống. Hãy làm theo yêu cầu về tài sản, ghi nhớ đặc điểm của kẻ xấu (giọng nói, hình xăm, giày dép...), tìm cơ hội chạy vào nơi đông người, sau đó gọi 113.'
+  },
+  {
+    icon: '🍺', tag: 'Người say rượu', who: 'Trên đường đi học về:',
+    text: 'Bạn thấy một người đàn ông say rượu loạng choạng, vừa đi vừa la hét, chửi bới người qua đường. Họ nhìn thấy bạn và đi về phía bạn.',
+    question: 'Bạn xử lý thế nào?',
+    options: [
+      { text: 'Đứng lại và hỏi ông ta muốn gì', correct: false },
+      { text: 'Tránh xa, băng qua đường, vào nơi đông người, gọi 113 nếu cần', correct: true },
+      { text: 'La to để ông ta sợ và bỏ đi', correct: false },
+      { text: 'Chạy thật nhanh về nhà', correct: false }
+    ],
+    explain: '✅ Đúng! Nguyên tắc VÀNG với người say rượu/hung hăng: KHÔNG ĐỐI ĐẦU. Tránh xa, băng qua đường, vào nơi đông người. KHÔNG về nhà vì sẽ để lộ địa chỉ.'
+  },
+  {
+    icon: '📞', tag: 'Gọi số khẩn cấp', who: 'Câu hỏi ôn tập:',
+    text: 'Khi gặp nguy hiểm từ người lạ ngoài đường (bị theo dõi, bị khống chế, bị người say rượu đuổi), bạn cần gọi số điện thoại nào để được hỗ trợ khẩn cấp?',
+    question: 'Số điện thoại đúng là?',
+    options: [
+      { text: '111 (Tổng đài bảo vệ trẻ em)', correct: false },
+      { text: '112 (Tìm kiếm cứu nạn)', correct: false },
+      { text: '113 (Công an khẩn cấp)', correct: true },
+      { text: '115 (Cấp cứu y tế)', correct: false }
+    ],
+    explain: '✅ Đúng! Khi gặp nguy hiểm từ người lạ ngoài đường, hãy gọi 113 (Công an khẩn cấp). 111 dùng cho tư vấn/bảo vệ trẻ em qua điện thoại, không phải khẩn cấp tại chỗ.'
+  },
+  {
+    icon: '🛡️', tag: 'Xử lý khi bị lừa', who: 'Nếu lỡ gửi ảnh riêng tư:',
+    text: 'Lỡ em đã gửi ảnh riêng tư cho người lạ trên mạng. Bây giờ họ đe dọa sẽ gửi ảnh cho bạn bè và gia đình nếu em không gửi thêm ảnh khác.',
+    question: 'Em nên làm gì?',
+    options: [
+      { text: 'Sợ quá, gửi thêm ảnh theo yêu cầu', correct: false },
+      { text: 'Chụp màn hình tin nhắn đe dọa, chặn tài khoản, kể với bố mẹ hoặc gọi 111', correct: true },
+      { text: 'Trả lời đe dọa lại để chúng sợ', correct: false },
+      { text: 'Tự xử lý một mình, không kể ai', correct: false }
+    ],
+    explain: '✅ Đúng! KHÔNG gửi thêm. Hãy chụp màn hình (lưu bằng chứng), chặn tài khoản, và kể với bố mẹ hoặc gọi 111 (Tổng đài bảo vệ trẻ em) để được tư vấn và hỗ trợ.'
+  }
+];
+
+let currentQ = 0;
+let correct = 0;
+let wrong = 0;
+let results = [];
+
+function buildDots() {
+  const dotsEl = document.getElementById('progressDots');
+  dotsEl.innerHTML = '';
+  scenarios.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot-progress' + (i === currentQ ? ' current' : (results[i] === true ? ' done-correct' : (results[i] === false ? ' done-wrong' : '')));
+    dotsEl.appendChild(d);
+  });
+  document.getElementById('scoreTag').textContent = `${correct} / ${scenarios.length}`;
+}
+
+function loadQ() {
+  if (currentQ >= scenarios.length) { showResult(); return; }
+  const s = scenarios[currentQ];
+  document.getElementById('sIcon').textContent = s.icon;
+  document.getElementById('sTag').textContent = s.tag;
+  document.getElementById('sNum').textContent = `Câu ${currentQ + 1} / ${scenarios.length}`;
+  document.getElementById('sWho').textContent = s.who;
+  document.getElementById('sText').textContent = s.text;
+  document.getElementById('sQuestion').textContent = s.question;
+
+  const opts = document.getElementById('optionsContainer');
+  opts.innerHTML = '';
+  const letters = ['A', 'B', 'C', 'D'];
+  s.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.innerHTML = `<span class="opt-letter">${letters[i]}</span><span>${opt.text}</span>`;
+    btn.onclick = () => selectOption(i, opt.correct, s.explain);
+    opts.appendChild(btn);
+  });
+
+  document.getElementById('feedbackPanel').className = 'feedback-panel';
+  document.getElementById('nextBtn').className = 'next-btn';
+  buildDots();
+
+  document.getElementById('scenarioCard').style.animation = 'none';
+  requestAnimationFrame(() => {
+    document.getElementById('scenarioCard').style.animation = 'fadeUp 0.35s ease';
+  });
+}
+
+function selectOption(idx, isCorrect, explain) {
+  const opts = document.querySelectorAll('.option-btn');
+  opts.forEach(b => b.disabled = true);
+
+  if (isCorrect) { 
+    correct++; 
+    opts[idx].classList.add('selected-correct'); 
+  } else {
+    wrong++;
+    opts[idx].classList.add('selected-wrong');
+    opts.forEach((b, i) => {
+      if (scenarios[currentQ].options[i].correct) b.classList.add('reveal-correct');
+    });
+  }
+
+  results[currentQ] = isCorrect;
+  buildDots();
+
+  const fb = document.getElementById('feedbackPanel');
+  fb.className = 'feedback-panel show ' + (isCorrect ? 'correct' : 'wrong');
+  document.getElementById('fbTitle').textContent = isCorrect ? '✅ Chính xác!' : '❌ Chưa đúng';
+  document.getElementById('fbBody').textContent = explain;
+  document.getElementById('nextBtn').className = 'next-btn show';
+}
+
+function nextQuestion() {
+  currentQ++;
+  loadQ();
+}
+
+function showResult() {
+  document.getElementById('scenarioCard').style.display = 'none';
+  document.getElementById('progressStrip').style.display = 'none';
+  const rs = document.getElementById('resultScreen');
+  rs.classList.add('show');
+  const total = scenarios.length;
+  const pct = Math.round((correct / total) * 100);
+  document.getElementById('statCorrect').textContent = correct;
+  document.getElementById('statWrong').textContent = wrong;
+  document.getElementById('statPct').textContent = pct + '%';
+  
+  let trophy, msg;
+  if (pct === 100) { 
+    trophy = '🏆'; 
+    msg = '🎉 Hoàn hảo! Bạn là chuyên gia an toàn rồi! Bạn nhận diện được mọi chiêu trò lừa đảo trên mạng, biết cách thoát hiểm khi bị theo dõi và xử lý đúng khi gặp người hung hăng. Hãy chia sẻ kiến thức này với bạn bè nhé!'; 
+  } else if (pct >= 77) { 
+    trophy = '🌟'; 
+    msg = '✨ Xuất sắc! Bạn rất giỏi nhận diện nguy hiểm từ người lạ. Ôn lại những câu sai để được bảo vệ toàn diện nhất trên mạng và ngoài đời nhé!'; 
+  } else if (pct >= 55) { 
+    trophy = '💪'; 
+    msg = '📚 Khá tốt! Bạn đã nắm được nhiều kiến thức quan trọng. Nhớ: không gửi ảnh riêng tư, không chuyển tiền khi chưa xác nhận, bị theo dõi thì vào nơi đông người, và KHÔNG BAO GIỜ đối đầu với người say rượu/hung hăng.'; 
+  } else { 
+    trophy = '📚'; 
+    msg = '🛡️ Hãy ôn lại nội dung buổi 3 và thử lại! Những kỹ năng này rất quan trọng để bảo vệ bản thân khỏi nguy hiểm từ người lạ – cả trên mạng và ngoài đời. Cố lên!'; 
+  }
+  document.getElementById('resultTrophy').textContent = trophy;
+  document.getElementById('resultMsg').textContent = msg;
+}
+
+function restartGame() {
+  currentQ = 0; correct = 0; wrong = 0; results = [];
+  document.getElementById('scenarioCard').style.display = 'block';
+  document.getElementById('progressStrip').style.display = 'flex';
+  document.getElementById('resultScreen').classList.remove('show');
+  loadQ();
+}
+
+loadQ();
+</script>
+</body>
+</html>
