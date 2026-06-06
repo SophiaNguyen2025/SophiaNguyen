@@ -304,6 +304,11 @@
         allOpts.forEach(btn => btn.disabled = true);
     }
 
+    // Thêm đoạn này trước khi render options
+const correctText = q.options[q.correct]; // lưu text đáp án đúng
+q.options = shuffle(q.options);           // xáo trộn mảng options
+q.correct = q.options.indexOf(correctText); // tìm lại vị trí mới của đáp án đúng
+    
     function loadQuestion() {
         if (!gameActive) return;
         if (currentQIndex >= questions.length) {
