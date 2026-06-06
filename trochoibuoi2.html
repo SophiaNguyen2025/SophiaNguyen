@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Vòng quay may mắn - Ranh giới & Grooming | Bản lĩnh Gen Z</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            background: linear-gradient(145deg, #0a1a2a 0%, #061020 100%);
+            font-family: 'Segoe UI', 'Poppins', system-ui, sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .game-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            background: #0f1a2e;
+            border-radius: 48px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            border: 1px solid rgba(100, 200, 255, 0.2);
+        }
+
+        .logo-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px;
+            background: #0a1628;
+            border-bottom: 1px solid #1a2a4a;
+        }
+        .logo-area img {
+            height: 50px;
+        }
+        .badge {
+            background: #4a9eff;
+            padding: 5px 14px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: white;
+            font-size: 11px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 15px 20px;
+            background: #0f1a2e;
+        }
+        .header h1 {
+            font-size: 28px;
+            color: #4a9eff;
+        }
+        .header p {
+            color: #8aadcc;
+            font-size: 14px;
+        }
+
+        .scoreboard {
+            display: flex;
+            gap: 20px;
+            padding: 15px 25px;
+            background: #0a1628;
+        }
+        .team-card {
+            flex: 1;
+            background: #0f1a2e;
+            border-radius: 28px;
+            padding: 15px;
+            text-align: center;
+            border: 2px solid #2a4a7a;
+        }
+        .team-card.active {
+            border: 3px solid #f1c40f;
+            box-shadow: 0 0 0 3px #f1c40f33;
+        }
+        .team-card.team-blue.active { border-color: #4a9eff; box-shadow: 0 0 0 3px #4a9eff66; }
+        .team-card.team-red.active { border-color: #ff6b6b; box-shadow: 0 0 0 3px #ff6b6b66; }
+        .team-name {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        .team-blue .team-name { color: #4a9eff; }
+        .team-red .team-name { color: #ff6b6b; }
+        .team-score {
+            font-size: 42px;
+            font-weight: 800;
+            color: white;
+        }
+
+        .game-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            padding: 20px 25px;
+        }
+        .quiz-area {
+            flex: 2;
+            min-width: 280px;
+        }
+        .wheel-area {
+            flex: 1;
+            min-width: 280px;
+            background: #0a1628;
+            border-radius: 32px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .question-card {
+            background: #0a1628;
+            border-radius: 32px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 2px solid #2a4a7a;
+        }
+        .question-text {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+            line-height: 1.4;
+            margin-bottom: 20px;
+        }
+        .options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        .option-btn {
+            background: #0f1a2e;
+            border: 2px solid #2a4a7a;
+            border-radius: 60px;
+            padding: 12px 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #c4deff;
+            text-align: center;
+        }
+        .option-btn:hover:not(:disabled) {
+            background: #1a3a5a;
+            border-color: #4a9eff;
+            transform: scale(1.02);
+        }
+        .option-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .feedback {
+            background: #0a1628;
+            border-radius: 24px;
+            padding: 15px;
+            margin-top: 15px;
+            border-left: 5px solid #4a9eff;
+            color: #c4deff;
+            font-size: 14px;
+        }
+        .feedback.correct {
+            background: #1a3a2a;
+            border-left-color: #2ecc71;
+            color: #2ecc71;
+        }
+        .feedback.wrong {
+            background: #3a1a2a;
+            border-left-color: #e74c3c;
+            color: #e74c3c;
+        }
+
+        .next-btn {
+            background: #4a9eff;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 18px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            color: #0a1628;
+        }
+        .next-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .wheel-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        canvas {
+            width: 100%;
+            max-width: 280px;
+            border-radius: 50%;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            cursor: pointer;
+        }
+        .spin-btn {
+            background: #f1c40f;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 60px;
+            font-weight: 800;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 15px;
+            width: 100%;
+            color: #0a1628;
+        }
+        .spin-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .wheel-result {
+            margin-top: 15px;
+            padding: 12px;
+            background: #0f1a2e;
+            border-radius: 28px;
+            font-size: 14px;
+            color: #f1c40f;
+            font-weight: 600;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 15px;
+            background: #0a1628;
+            font-size: 11px;
+            color: #6a8aaa;
+            border-top: 1px solid #1a2a4a;
+        }
+
+        @media (max-width: 800px) {
+            .game-grid { flex-direction: column; }
+            .options { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="game-container">
+    <div class="logo-area">
+        <img src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Sophia Nguyen">
+        <div class="badge">🎮 BUỔI 2 - VÒNG QUAY MAY MẮN 🎮</div>
+    </div>
+    <div class="header">
+        <h1>🎡 VÒNG QUAY MAY MẮN – HỘP CỨU HỘ 🎡</h1>
+        <p>🔹 Chọn đáp án đúng → Quay vòng nhận thưởng! 🔹</p>
+    </div>
+
+    <div class="scoreboard">
+        <div class="team-card team-blue" id="teamBlueCard">
+            <div class="team-name">🟢 ĐỘI XANH</div>
+            <div class="team-score" id="blueScore">0</div>
+        </div>
+        <div class="team-card team-red" id="teamRedCard">
+            <div class="team-name">🔴 ĐỘI ĐỎ</div>
+            <div class="team-score" id="redScore">0</div>
+        </div>
+    </div>
+
+    <div class="game-grid">
+        <div class="quiz-area" id="quizArea"></div>
+        <div class="wheel-area" id="wheelArea"></div>
+    </div>
+    <div class="footer">💚Sophia Nguyen đồng hành cùng con</div>
+</div>
+
+<script>
+    const questions = [
+        { text: 'Câu nói nào là ÉP BUỘC TINH VI?', options: ['A. "Hôm nay bạn mặc áo đẹp quá!"', 'B. "Nếu yêu thật thì phải gửi ảnh cho anh"', 'C. "Cảm ơn bạn đã giúp mình"', 'D. "Bạn có muốn đi chơi cùng mình không?"'], correct: 1, explanation: '✅ "Nếu yêu thật thì phải gửi ảnh" – đây là câu nói quy chụp, tạo áp lực buộc nạn nhân phải làm theo.' },
+        { text: 'Dấu hiệu nguy hiểm nhất trong grooming là gì?', options: ['A. Tặng quà', 'B. Khen ngợi', 'C. "Đừng kể với bố mẹ"', 'D. Hỏi thăm sức khỏe'], correct: 2, explanation: '✅ "Đừng kể với bố mẹ" – dấu hiệu đỏ lớn nhất. Người tốt không bao giờ bảo trẻ giữ bí mật với bố mẹ.' },
+        { text: 'Câu nói nào thể hiện hành vi CÔ LẬP trong grooming?', options: ['A. "Chú thương con nhất"', 'B. "Đừng kể với bố mẹ, họ sẽ không hiểu đâu"', 'C. "Hôm nay con mặc áo đẹp quá"', 'D. "Con có muốn đi chơi không?"'], correct: 1, explanation: '✅ "Đừng kể với bố mẹ, họ sẽ không hiểu" – câu nói cô lập nạn nhân khỏi người bảo vệ.' },
+        { text: 'Khi bị người thân chạm vào vùng riêng tư, bạn nên làm gì?', options: ['A. Im lặng vì sợ làm to chuyện', 'B. Nói to "Đừng làm vậy, con không thích!" rồi kể với mẹ', 'C. Tránh mặt người đó', 'D. Nhờ bạn thân nói hộ'], correct: 1, explanation: '✅ Nói to, rõ ràng ngay lúc đó + kể với người lớn tin cậy – đúng nhất.' },
+        { text: 'Bạn thân đòi xem điện thoại và nói "Bạn thân không có gì giấu nhau". Bạn nên trả lời thế nào?', options: ['A. Đưa điện thoại cho xem', 'B. "Tớ tôn trọng cậu, nhưng tớ cũng cần quyền riêng tư. Đừng ép tớ."', 'C. Lén đổi mật khẩu', 'D. Cũng đòi xem lại điện thoại của bạn'], correct: 1, explanation: '✅ Câu trả lời đúng: vừa tôn trọng bạn, vừa bảo vệ quyền riêng tư của mình.' },
+        { text: 'Khi bị một người quen gửi tin nhắn nhạy cảm, bạn cần làm gì ĐẦU TIÊN?', options: ['A. Xóa tin nhắn', 'B. Chụp màn hình lưu bằng chứng', 'C. Trả lời chửi lại', 'D. Kể với bạn bè'], correct: 1, explanation: '✅ Bằng chứng quan trọng nhất – chụp màn hình trước khi xóa.' },
+        { text: 'Số điện thoại đường dây nóng bảo vệ trẻ em là số nào?', options: ['A. 113', 'B. 114', 'C. 115', 'D. 1800 1567'], correct: 3, explanation: '✅ 1800 1567 – Tổng đài bảo vệ trẻ em, miễn phí, bảo mật 24/7.' },
+        { text: 'Câu đáp trả đúng khi bị ép buộc là gì?', options: ['A. "Thôi được rồi, mình đồng ý"', 'B. "Yêu không có nghĩa là phải làm mọi thứ. Mình có quyền nói không."', 'C. "Mình không biết, để mình hỏi bạn khác"', 'D. "Cậu muốn gì thì cậu làm"'], correct: 1, explanation: '✅ "Yêu không có nghĩa là phải làm mọi thứ. Mình có quyền nói không" – khẳng định ranh giới, không xung đột.' },
+        { text: 'Người lớn thực sự giúp được có dấu hiệu gì?', options: ['A. Nói "Cố lên, không sao đâu"', 'B. Lắng nghe, không phán xét, có hành động cụ thể', 'C. Hứa giữ bí mật rồi kể lại cho người khác', 'D. Khuyên nên im lặng'], correct: 1, explanation: '✅ Người lớn tin cậy: lắng nghe, không phán xét, giữ bí mật và có hành động cụ thể để giúp.' },
+        { text: 'Khi bạn bè rủ trốn tiết đi chơi, bạn nên làm gì?', options: ['A. Đi theo vì sợ mất bạn', 'B. Nói: "Tớ không muốn trốn học. Bạn thật sự thì không ép tớ làm thế."', 'C. Im lặng rồi lén đi theo', 'D. Bảo bạn "để tớ suy nghĩ"'], correct: 1, explanation: '✅ Bạn thật sự tôn trọng quyết định của bạn. Hãy nói "không" và giữ vững ranh giới.' },
+        { text: 'Khi bị người yêu kiểm tra điện thoại mỗi ngày và nói "Đó là vì anh thương em", bạn nên làm gì?', options: ['A. Để anh ấy kiểm tra để khỏi cãi nhau', 'B. Nói: "Thương không có nghĩa là mất quyền riêng tư. Anh cần tôn trọng em."', 'C. Lén đổi mật khẩu nhưng không nói', 'D. Cũng kiểm tra lại điện thoại của người yêu'], correct: 1, explanation: '✅ Kiểm soát quá mức không phải là yêu thương. Hãy nói rõ ranh giới, yêu cầu tôn trọng quyền riêng tư.' },
+        { text: 'Nếu đã lỡ gửi ảnh nhạy cảm cho người quen trên mạng và bị đe dọa, bạn nên làm gì?', options: ['A. Tiếp tục gửi thêm để họ không phát tán', 'B. Chụp màn hình tin nhắn đe dọa, chặn, báo công an hoặc gọi 1800 1567', 'C. Tự xử lý một mình, không kể ai', 'D. Cầu xin họ đừng phát tán'], correct: 1, explanation: '✅ Đây là sextortion. Lưu bằng chứng, không nhượng bộ, báo công an hoặc gọi 1800 1567 ngay.' }
+    ];
+
+    let currentIndex = 0;
+    let blueScore = 0;
+    let redScore = 0;
+    let currentTeam = 'blue';
+    let answered = false;
+    let spinning = false;
+    let wheelCompleted = false; // Chưa quay xong thì không được bấm "CÂU TIẾP" (nếu đúng)
+    let needSpin = false;       // Câu trả lời đúng → cần quay mới được next
+
+    const segments = [
+        { label: '+1', value: 1, type: 'add' },
+        { label: '+2', value: 2, type: 'add' },
+        { label: '🔄 MẤT LƯỢT', value: 0, type: 'lose' },
+        { label: '⚡ CƯỚP +1', value: 1, type: 'steal' },
+        { label: '✨ NHÂN ĐÔI', value: 2, type: 'double' },
+        { label: '+1', value: 1, type: 'add' },
+        { label: '🎁 +1 ĐẶC BIỆT', value: 1, type: 'add' },
+        { label: '💀 MẤT 1 ĐIỂM', value: -1, type: 'subtract' }
+    ];
+    const segmentAngle = 360 / segments.length;
+
+    let wheelCanvas, ctx;
+    let currentRotation = 0;
+
+    const quizArea = document.getElementById('quizArea');
+    const wheelArea = document.getElementById('wheelArea');
+    const blueScoreSpan = document.getElementById('blueScore');
+    const redScoreSpan = document.getElementById('redScore');
+    const teamBlueCard = document.getElementById('teamBlueCard');
+    const teamRedCard = document.getElementById('teamRedCard');
+
+    function updateScoreboard() {
+        blueScoreSpan.innerText = blueScore;
+        redScoreSpan.innerText = redScore;
+    }
+
+    function setActiveTeam(team) {
+        if (team === 'blue') {
+            teamBlueCard.classList.add('active');
+            teamRedCard.classList.remove('active');
+        } else {
+            teamRedCard.classList.add('active');
+            teamBlueCard.classList.remove('active');
+        }
+    }
+
+    function addPoints(team, points) {
+        if (team === 'blue') blueScore += points;
+        else redScore += points;
+        if (blueScore < 0) blueScore = 0;
+        if (redScore < 0) redScore = 0;
+        updateScoreboard();
+    }
+
+    function applyWheelResult(result, team) {
+        let msg = '';
+        if (result.type === 'add') {
+            addPoints(team, result.value);
+            msg = `🎉 +${result.value} điểm!`;
+        } else if (result.type === 'lose') {
+            msg = `🔄 Mất lượt! Không được cộng điểm.`;
+        } else if (result.type === 'steal') {
+            const opponent = team === 'blue' ? 'red' : 'blue';
+            addPoints(team, 1);
+            addPoints(opponent, -1);
+            msg = `⚡ Cướp +1 điểm từ đội ${opponent === 'blue' ? 'Xanh' : 'Đỏ'}!`;
+        } else if (result.type === 'double') {
+            addPoints(team, result.value);
+            msg = `✨ Nhân đôi! +2 điểm!`;
+        } else if (result.type === 'subtract') {
+            addPoints(team, -1);
+            msg = `💀 Mất 1 điểm!`;
+        }
+        document.getElementById('wheelResult').innerHTML = msg;
+        document.getElementById('spinBtn').disabled = false;
+        wheelCompleted = true;
+        needSpin = false;
+        const nextBtn = document.getElementById('nextQuestionBtn');
+        if (nextBtn) nextBtn.disabled = false;
+    }
+
+    function drawWheel() {
+        if (!ctx) return;
+        const size = wheelCanvas.width;
+        const center = size / 2;
+        const radius = size / 2;
+        ctx.clearRect(0, 0, size, size);
+        for (let i = 0; i < segments.length; i++) {
+            const start = (i * segmentAngle + currentRotation) * Math.PI / 180;
+            const end = ((i + 1) * segmentAngle + currentRotation) * Math.PI / 180;
+            ctx.beginPath();
+            ctx.moveTo(center, center);
+            ctx.arc(center, center, radius, start, end);
+            ctx.fillStyle = i % 2 === 0 ? '#4a9eff' : '#2e86de';
+            ctx.fill();
+            ctx.save();
+            ctx.translate(center, center);
+            ctx.rotate(start + (segmentAngle / 2) * Math.PI / 180);
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.font = "bold 13px 'Segoe UI'";
+            ctx.fillStyle = "white";
+            ctx.fillText(segments[i].label, radius * 0.65, 0);
+            ctx.restore();
+        }
+        ctx.beginPath();
+        ctx.arc(center, center, 15, 0, 2 * Math.PI);
+        ctx.fillStyle = '#f1c40f';
+        ctx.fill();
+        ctx.fillStyle = '#0a1628';
+        ctx.font = 'bold 16px sans-serif';
+        ctx.fillText('🎲', center - 8, center + 6);
+    }
+
+    function spinWheel() {
+        if (spinning) return;
+        spinning = true;
+        const spinAngle = 720 + Math.random() * 720;
+        const targetRotation = currentRotation + spinAngle;
+        const startTime = performance.now();
+        const duration = 1500;
+        function animate(now) {
+            const elapsed = now - startTime;
+            const t = Math.min(1, elapsed / duration);
+            const ease = 1 - Math.pow(1 - t, 3);
+            currentRotation = currentRotation + spinAngle * ease;
+            drawWheel();
+            if (t < 1) {
+                requestAnimationFrame(animate);
+            } else {
+                currentRotation = targetRotation % 360;
+                drawWheel();
+                const finalIndex = Math.floor(((360 - (currentRotation % 360)) / segmentAngle) % segments.length);
+                const result = segments[finalIndex];
+                spinning = false;
+                applyWheelResult(result, currentTeam);
+            }
+        }
+        requestAnimationFrame(animate);
+    }
+
+    function renderWheel() {
+        wheelArea.innerHTML = `
+            <div class="wheel-container">
+                <canvas id="wheelCanvas" width="280" height="280"></canvas>
+            </div>
+            <button class="spin-btn" id="spinBtn" disabled>🎡 QUAY VÒNG MAY MẮN 🎡</button>
+            <div class="wheel-result" id="wheelResult">💡 Trả lời đúng để được quay vòng!</div>
+        `;
+        wheelCanvas = document.getElementById('wheelCanvas');
+        ctx = wheelCanvas.getContext('2d');
+        drawWheel();
+        const spinBtn = document.getElementById('spinBtn');
+        spinBtn.addEventListener('click', () => {
+            if (spinning || !needSpin) return;
+            spinWheel();
+            spinBtn.disabled = true;
+        });
+    }
+
+    function renderQuiz() {
+        if (currentIndex >= questions.length) {
+            const winner = blueScore > redScore ? 'ĐỘI XANH CHIẾN THẮNG' : (redScore > blueScore ? 'ĐỘI ĐỎ CHIẾN THẮNG' : 'HÒA');
+            quizArea.innerHTML = `
+                <div style="text-align:center; padding:40px; background:#0a1628; border-radius:32px;">
+                    <div style="font-size:48px;">🏆</div>
+                    <div style="font-size:28px; font-weight:800;">${winner}</div>
+                    <div style="margin:15px 0;">Điểm: 🟢 ${blueScore} - ${redScore} 🔴</div>
+                    <button id="restartGame" style="background:#4a9eff; border:none; padding:12px 24px; border-radius:60px; font-weight:700; cursor:pointer;">🔄 CHƠI LẠI</button>
+                </div>
+            `;
+            document.getElementById('restartGame')?.addEventListener('click', () => {
+                currentIndex = 0;
+                blueScore = 0;
+                redScore = 0;
+                currentTeam = 'blue';
+                answered = false;
+                needSpin = false;
+                wheelCompleted = false;
+                updateScoreboard();
+                setActiveTeam('blue');
+                renderQuiz();
+                renderWheel();
+            });
+            return;
+        }
+
+        const q = questions[currentIndex];
+        quizArea.innerHTML = `
+            <div class="question-card">
+                <div class="question-text">📋 CÂU HỎI ${currentIndex + 1}/${questions.length}<br><br>❓ ${q.text}</div>
+                <div class="options" id="optionsContainer"></div>
+                <div class="feedback" id="quizFeedback">💡 ${currentTeam === 'blue' ? '🟢 ĐỘI XANH' : '🔴 ĐỘI ĐỎ'} đang có cơ hội trả lời. Hãy chọn đáp án!</div>
+                <button class="next-btn" id="nextQuestionBtn" disabled>➡️ CÂU TIẾP</button>
+            </div>
+        `;
+
+        const container = document.getElementById('optionsContainer');
+        q.options.forEach((opt, idx) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = opt;
+            btn.dataset.idx = idx;
+            btn.addEventListener('click', () => {
+                if (answered) return;
+                const isCorrect = (idx === q.correct);
+                const feedbackDiv = document.getElementById('quizFeedback');
+                if (isCorrect) {
+                    feedbackDiv.innerHTML = `✅ CHÍNH XÁC! +1 điểm cơ bản. Đội ${currentTeam === 'blue' ? 'XANH' : 'ĐỎ'} được quay vòng may mắn!<br><br>📖 ${q.explanation}`;
+                    feedbackDiv.classList.add('correct');
+                    addPoints(currentTeam, 1);
+                    needSpin = true;
+                    wheelCompleted = false;
+                    document.getElementById('spinBtn').disabled = false;
+                    document.getElementById('wheelResult').innerHTML = '🎡 Hãy quay vòng may mắn để nhân thưởng!';
+                    // Khóa nút "CÂU TIẾP" cho đến khi quay xong
+                    const nextBtn = document.getElementById('nextQuestionBtn');
+                    if (nextBtn) nextBtn.disabled = true;
+                } else {
+                    feedbackDiv.innerHTML = `❌ SAI. Đáp án đúng: ${q.options[q.correct]}<br><br>📖 ${q.explanation}`;
+                    feedbackDiv.classList.add('wrong');
+                    needSpin = false;
+                    wheelCompleted = true;
+                    const nextBtn = document.getElementById('nextQuestionBtn');
+                    if (nextBtn) nextBtn.disabled = false;
+                }
+                answered = true;
+                document.querySelectorAll('.option-btn').forEach(btn => btn.disabled = true);
+            });
+            container.appendChild(btn);
+        });
+
+        const nextBtn = document.getElementById('nextQuestionBtn');
+        nextBtn.addEventListener('click', () => {
+            if (!answered) return;
+            if (needSpin && !wheelCompleted) {
+                document.getElementById('quizFeedback').innerHTML = '⚠️ Hãy quay vòng may mắn trước khi sang câu tiếp theo!';
+                return;
+            }
+            currentIndex++;
+            answered = false;
+            needSpin = false;
+            wheelCompleted = false;
+            currentTeam = (currentTeam === 'blue') ? 'red' : 'blue';
+            setActiveTeam(currentTeam);
+            renderQuiz();
+        });
+    }
+
+    setActiveTeam('blue');
+    renderQuiz();
+    renderWheel();
+    updateScoreboard();
+</script>
+</body>
+</html>
