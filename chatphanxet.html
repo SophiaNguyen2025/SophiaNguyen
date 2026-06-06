@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buổi 3 – Chat Phán Xét</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F2F0FF;
+  --surface: #FFFFFF;
+  --purple: #7B5EA7;
+  --purple-dark: #5B3F87;
+  --purple-light: #EDE8FF;
+  --blue-msg: #5B8DEF;
+  --red: #E05B5B;
+  --green: #3CB878;
+  --orange: #F5903D;
+  --ink: #1C1530;
+  --ink-soft: #6B6485;
+  --border: #E2DEFF;
+  --shadow: 0 4px 24px rgba(123,94,167,0.12);
+  --radius: 20px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  background: var(--bg);
+  min-height: 100vh;
+  color: var(--ink);
+}
+
+/* HEADER */
+.header {
+  background: var(--purple-dark);
+  padding: 1rem 1.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 50;
+}
+.header-left { display: flex; align-items: center; gap: 12px; }
+.session-chip {
+  background: rgba(255,255,255,0.18);
+  color: #fff;
+  font-size: 0.75rem; font-weight: 700;
+  padding: 3px 10px; border-radius: 50px;
+  letter-spacing: .06em;
+}
+.header h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.3rem; font-weight: 800;
+  color: #fff; letter-spacing: .02em;
+}
+.logo { height: 40px; }
+
+/* SCENARIO TABS */
+.tabs-wrap {
+  max-width: 860px; margin: 1.5rem auto 0;
+  padding: 0 1.5rem;
+  display: flex; gap: 8px; overflow-x: auto; padding-bottom: 2px;
+}
+.stab {
+  padding: 7px 16px;
+  border-radius: 50px;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  color: var(--ink-soft);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.8rem; font-weight: 600;
+  cursor: pointer; white-space: nowrap;
+  transition: all .2s;
+  flex-shrink: 0;
+}
+.stab:hover { border-color: var(--purple); color: var(--purple); }
+.stab.active { background: var(--purple); border-color: var(--purple); color: #fff; }
+.stab.done { border-color: var(--green); color: var(--green); background: #EAF9F1; }
+
+/* MAIN */
+.main {
+  max-width: 860px; margin: 1.25rem auto 3rem;
+  padding: 0 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+/* PHONE MOCKUP */
+.phone-wrap {
+  position: sticky; top: 80px;
+}
+.phone {
+  background: #1A1A2E;
+  border-radius: 28px;
+  padding: 14px 12px;
+  box-shadow: 0 16px 60px rgba(26,21,48,0.35);
+  min-height: 480px;
+  display: flex; flex-direction: column;
+}
+.phone-bar {
+  display: flex; align-items: center; gap: 10px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  margin-bottom: 12px;
+}
+.phone-avatar {
+  width: 34px; height: 34px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+.phone-name { font-size: 0.82rem; font-weight: 700; color: #E8E6FF; }
+.phone-status { font-size: 0.68rem; color: rgba(255,255,255,0.4); }
+
+.messages { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.msg {
+  max-width: 78%;
+  padding: 9px 12px;
+  border-radius: 16px;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .35s ease, transform .35s ease;
+}
+.msg.show { opacity: 1; transform: translateY(0); }
+.msg.them {
+  background: rgba(255,255,255,0.1);
+  color: #E8E6FF;
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+.msg.me {
+  background: var(--blue-msg);
+  color: #fff;
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+.msg.warning {
+  background: rgba(224,91,91,0.15);
+  border: 1px solid rgba(224,91,91,0.4);
+  color: #FFB3B3;
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+.msg-time { font-size: 0.6rem; opacity: .45; margin-top: 2px; display: block; }
+
+.typing-dots {
+  display: none; align-items: center; gap: 4px;
+  padding: 10px 14px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 16px; border-bottom-left-radius: 4px;
+  align-self: flex-start;
+  max-width: 60px;
+}
+.typing-dots.show { display: flex; }
+.dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.5); animation: bounce .9s infinite; }
+.dot:nth-child(2) { animation-delay: .15s; }
+.dot:nth-child(3) { animation-delay: .3s; }
+@keyframes bounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-5px)} }
+
+/* NEXT MSG btn */
+.next-msg-btn {
+  margin-top: 10px;
+  padding: 9px;
+  border-radius: 50px;
+  border: 1.5px solid rgba(255,255,255,0.15);
+  background: transparent;
+  color: rgba(255,255,255,0.6);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.75rem; font-weight: 600;
+  cursor: pointer; text-align: center;
+  transition: all .2s;
+}
+.next-msg-btn:hover { border-color: var(--purple-light); color: var(--purple-light); }
+.next-msg-btn:disabled { opacity: .3; cursor: default; }
+
+/* RIGHT PANEL */
+.right-panel { display: flex; flex-direction: column; gap: 1rem; }
+
+.scenario-info {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  box-shadow: var(--shadow);
+}
+.scenario-label {
+  font-size: 0.7rem; font-weight: 700; letter-spacing: .1em;
+  color: var(--purple); text-transform: uppercase; margin-bottom: 6px;
+}
+.scenario-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.15rem; font-weight: 800;
+  color: var(--ink); margin-bottom: 6px;
+}
+.scenario-desc { font-size: 0.84rem; color: var(--ink-soft); line-height: 1.5; }
+
+/* RED FLAGS */
+.flags-section {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  box-shadow: var(--shadow);
+}
+.flags-title {
+  font-size: 0.7rem; font-weight: 700; letter-spacing: .1em;
+  color: var(--red); text-transform: uppercase; margin-bottom: 10px;
+}
+.flag-item {
+  display: flex; align-items: flex-start; gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.82rem; line-height: 1.4; color: var(--ink-soft);
+  opacity: 0; transition: opacity .4s;
+}
+.flag-item.show { opacity: 1; }
+.flag-item:last-child { border-bottom: none; }
+.flag-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--red); flex-shrink: 0; margin-top: 5px; }
+
+/* DECISION */
+.decision-section {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  box-shadow: var(--shadow);
+}
+.decision-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 1rem; font-weight: 800;
+  color: var(--ink); margin-bottom: 10px;
+}
+.decision-opts { display: flex; flex-direction: column; gap: 8px; }
+.dopt {
+  padding: 11px 14px;
+  border-radius: 12px;
+  border: 1.5px solid var(--border);
+  background: transparent;
+  color: var(--ink);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.82rem; font-weight: 500;
+  cursor: pointer; text-align: left;
+  line-height: 1.4; transition: all .2s;
+}
+.dopt:hover { border-color: var(--purple); background: var(--purple-light); }
+.dopt.correct { border-color: var(--green); background: #EAF9F1; color: #1A6B3A; }
+.dopt.wrong   { border-color: var(--red); background: #FDEAEA; color: #7A1A1A; opacity: .7; }
+.dopt:disabled { cursor: default; }
+
+.decision-result {
+  margin-top: 10px; padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 0.82rem; line-height: 1.6;
+  display: none;
+}
+.decision-result.show { display: block; }
+.decision-result.good { background: #EAF9F1; color: #1A6B3A; border-left: 3px solid var(--green); }
+.decision-result.bad  { background: #FDEAEA; color: #7A1A1A; border-left: 3px solid var(--red); }
+
+/* PROGRESS */
+.prog-bar-wrap {
+  max-width: 860px; margin: 0 auto;
+  padding: 0 1.5rem 1rem;
+  display: flex; align-items: center; gap: 10px;
+}
+.prog-label { font-size: 0.78rem; font-weight: 600; color: var(--ink-soft); white-space: nowrap; }
+.bar-track { flex: 1; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+.bar-fill { height: 100%; background: linear-gradient(90deg, var(--purple), var(--blue-msg)); border-radius: 3px; transition: width .5s; }
+ .logo { height: 60px; margin-bottom: 10px; }
+@media (max-width: 650px) {
+  .main { grid-template-columns: 1fr; }
+  .phone-wrap { position: static; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <span class="session-chip">BUỔI 3</span>
+    <h1>💬 Chat Phán Xét</h1>
+  </div>
+  <img src="https://sophianguyen.com.vn/images/hinhremovenen.png" alt="Sophia Nguyễn" class="logo">
+</div>
+
+<div class="prog-bar-wrap">
+  <span class="prog-label" id="prog-label">0 / 4 tình huống hoàn thành</span>
+  <div class="bar-track"><div class="bar-fill" id="prog-fill" style="width:0%"></div></div>
+</div>
+
+<div class="tabs-wrap" id="tabs-wrap"></div>
+
+<div class="main" id="main-grid">
+  <div class="phone-wrap">
+    <div class="phone">
+      <div class="phone-bar">
+        <div class="phone-avatar" id="ph-avatar">👤</div>
+        <div>
+          <div class="phone-name" id="ph-name">—</div>
+          <div class="phone-status" id="ph-status">đang hoạt động</div>
+        </div>
+      </div>
+      <div class="messages" id="messages"></div>
+      <div class="typing-dots" id="typing"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+      <button class="next-msg-btn" id="next-btn" onclick="nextMsg()">▶ Hiện tin nhắn tiếp</button>
+    </div>
+  </div>
+
+  <div class="right-panel">
+    <div class="scenario-info">
+      <div class="scenario-label" id="sc-label">Tình huống</div>
+      <div class="scenario-title" id="sc-title">Chọn tình huống để bắt đầu</div>
+      <div class="scenario-desc" id="sc-desc">Nhấn vào tab phía trên để chọn tình huống và bắt đầu đọc cuộc trò chuyện.</div>
+    </div>
+
+    <div class="flags-section">
+      <div class="flags-title">🚩 Dấu hiệu nguy hiểm</div>
+      <div id="flags-list"><div style="font-size:.82rem;color:var(--ink-soft)">Các dấu hiệu sẽ hiện ra khi bạn đọc tin nhắn...</div></div>
+    </div>
+
+    <div class="decision-section" id="decision-wrap" style="display:none">
+      <div class="decision-title" id="dec-title">💡 Cần làm gì tiếp theo?</div>
+      <div class="decision-opts" id="dec-opts"></div>
+      <div class="decision-result" id="dec-result"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const SCENARIOS = [
+  {
+    tab: '📱 Kẻ lạ mặt',
+    avatar: '🎭', name: 'stranger_99', status: 'Không phải bạn bè',
+    title: 'Người Lạ Kết Bạn',
+    desc: 'Một tài khoản lạ gửi lời mời kết bạn và bắt đầu nhắn tin với An. Cùng đọc cuộc trò chuyện và nhận diện dấu hiệu nguy hiểm.',
+    messages: [
+      { side: 'them', text: 'Chào bạn! Mình thấy mình và bạn có nhiều bạn chung. Kết bạn nha 😊', time: '14:02', flag: null },
+      { side: 'me', text: 'Ừ, bạn là ai vậy?', time: '14:05', flag: null },
+      { side: 'them', text: 'Mình học trường ABC, biết bạn qua Huy. Bạn xinh lắm, hay like ảnh của bạn 😍', time: '14:06', flag: 'Lời khen ngoại hình từ người lạ — chiêu tiếp cận cổ điển' },
+      { side: 'me', text: 'Cảm ơn... nhưng mình không nhớ Huy nào', time: '14:08', flag: null },
+      { side: 'them', text: 'Thôi không sao, chúng mình nói chuyện là được mà. Nhà bạn ở đâu? Gần trường không?', time: '14:09', flag: 'Hỏi địa chỉ nhà — thông tin cá nhân nguy hiểm, không được cung cấp' },
+      { side: 'them', text: 'Bạn có ảnh mới chụp không? Cho mình xem với, muốn biết bạn trông thế nào ngoài đời 😉', time: '14:15', flag: 'Xin ảnh cá nhân từ người lạ — DỪNG và CHẶN ngay' },
+      { side: 'warning', text: '⚠️ Đây là điểm dừng an toàn. Không nên trả lời thêm!', time: '', flag: null }
+    ],
+    flags: [
+      'Người lạ mà biết "bạn chung" nhưng không nói rõ tên — rất đáng ngờ',
+      'Khen ngoại hình ngay từ đầu — chiêu tạo thiện cảm nhanh',
+      'Hỏi địa chỉ nhà sau vài tin — muốn biết nơi em ở',
+      'Xin ảnh cá nhân — leo thang yêu cầu rất nhanh'
+    ],
+    decision: {
+      q: 'An nên làm gì ngay bây giờ?',
+      opts: [
+        'A. Trả lời bình thường, người đó có vẻ thân thiện',
+        'B. Không reply, chặn tài khoản và kể với bố mẹ',
+        'C. Hỏi thêm xem Huy nào quen người đó',
+        'D. Gửi 1 ảnh cũ bình thường cho xong'
+      ],
+      correct: 1,
+      good: '✅ Đúng! Không reply + chặn + kể với bố mẹ là đủ 3 bước an toàn. Ảnh và địa chỉ nhà tuyệt đối không chia sẻ với người lạ trên mạng.',
+      bad: '❌ Chưa đúng. Dù người đó có vẻ thân thiện — trên mạng không ai biết ai là ai thật. Bước an toàn là: không reply, chặn, và kể với người lớn tin cậy.'
+    }
+  },
+  {
+    tab: '😢 Bắt nạt nhóm',
+    avatar: '👥', name: 'Nhóm lớp 7A2', status: '12 thành viên',
+    title: 'Bắt Nạt Trên Nhóm Chat',
+    desc: 'Bình đột nhiên bị cả nhóm chat lớp công kích. Đọc cuộc trò chuyện và thảo luận: đây có phải bắt nạt không, và phải làm gì?',
+    messages: [
+      { side: 'them', text: 'Hôm nay ai trả lời câu 5 sai vậy? 🤣', time: '15:10', flag: null },
+      { side: 'them', text: 'Bình trả lời sai rồi cả lớp bị trừ điểm 😡 sao học dốt thế', time: '15:11', flag: 'Công khai chỉ trích một người trước nhóm — có dấu hiệu bắt nạt' },
+      { side: 'them', text: 'Ừ đúng, Bình hay sai lắm. Kiểu gì cũng kéo nhóm xuống', time: '15:12', flag: null },
+      { side: 'them', text: 'Ai mà thích làm nhóm với Bình chứ 🙄', time: '15:13', flag: 'Nhiều người cùng tấn công một người = bắt nạt nhóm (group bullying)' },
+      { side: 'me', text: 'Mình... mình xin lỗi', time: '15:15', flag: null },
+      { side: 'them', text: 'Xin lỗi mà được gì đâu, đã sai rồi 😂', time: '15:16', flag: 'Không chấp nhận xin lỗi, tiếp tục tấn công — hành vi gây tổn thương cố ý' },
+      { side: 'warning', text: '⚠️ Đây là bắt nạt. Bình đang bị tổn thương và cần giúp đỡ.', time: '', flag: null }
+    ],
+    flags: [
+      'Chỉ trích công khai trước cả nhóm — làm người bị hại xấu hổ',
+      'Nhiều người cùng pile-on một người — bắt nạt nhóm',
+      'Không chấp nhận lời xin lỗi, tiếp tục chế giễu',
+      'Cô lập ("ai mà thích làm nhóm với Bình") — gây tổn thương sâu hơn'
+    ],
+    decision: {
+      q: 'Nếu bạn là người trong nhóm chat đó — bạn nên làm gì?',
+      opts: [
+        'A. Im lặng, không liên quan thì không cần can thiệp',
+        'B. Thả tim vào tin nhắn chê Bình cho vui',
+        'C. Nhắn riêng hỏi thăm Bình và nhắc ban cán sự báo cô giáo',
+        'D. Viết trong nhóm "thôi đừng nói nữa" rồi thôi'
+      ],
+      correct: 2,
+      good: '✅ Đúng! Nhắn riêng hỏi thăm nạn nhân + báo người lớn là quan trọng nhất. Im lặng hay chỉ nhắc "thôi đừng" thường không đủ để dừng bắt nạt.',
+      bad: '❌ Chưa đủ. Im lặng = đồng ý ngầm. Chứng kiến bắt nạt mà không làm gì là tiếp tay cho kẻ bắt nạt. Hành động quan trọng nhất: hỏi thăm Bình riêng + báo người lớn.'
+    }
+  },
+  {
+    tab: '🎮 Bạn game yêu cầu',
+    avatar: '🕹️', name: 'ProGamer_246', status: 'Online • Guild Leader',
+    title: 'Bạn Game Leo Thang',
+    desc: 'Linh chơi game cùng một "anh" đã 2 tuần. Hôm nay anh bắt đầu yêu cầu điều lạ. Cùng đọc và nhận diện.',
+    messages: [
+      { side: 'them', text: 'Em chơi trận đó hay lắm! Anh cho em thêm 500 xu trong game nha 🎁', time: '20:05', flag: null },
+      { side: 'me', text: 'Wow cảm ơn anh! Anh tốt quá', time: '20:06', flag: null },
+      { side: 'them', text: 'Anh thích em nhất guild á. Em khác bọn kia lắm 😊', time: '20:08', flag: 'Tâng bốc "đặc biệt hơn người khác" — chiêu tạo mối quan hệ riêng tư' },
+      { side: 'them', text: 'Ngoài đời em học đâu? Bao nhiêu tuổi? Nhà ở quận nào?', time: '20:10', flag: 'Hỏi nhiều thông tin cá nhân cùng lúc — thu thập dữ liệu về nạn nhân' },
+      { side: 'them', text: 'Mình gặp nhau ngoài đời đi, anh mời em trà sữa. Nhưng đừng kể với bố mẹ kẻo họ không cho đi', time: '20:18', flag: 'ĐỀ NGHỊ GẶP NGOÀI ĐỜI + DẶN GIỮA BÍ MẬT — đây là cờ đỏ lớn nhất' },
+      { side: 'warning', text: '⚠️ DỪNG. Đây là grooming. Không được đi gặp và phải kể ngay với bố mẹ.', time: '', flag: null }
+    ],
+    flags: [
+      '"Em đặc biệt nhất" — tách biệt nạn nhân khỏi nhóm, tạo cảm giác mắc nợ',
+      'Cho quà (xu game) — tạo cảm giác mang ơn',
+      'Hỏi trường/tuổi/địa chỉ — thu thập thông tin để tiếp cận ngoài đời',
+      '"Đừng kể với bố mẹ" — cô lập khỏi người bảo vệ. ĐÂY LÀ DẤU HIỆU ĐỎ SỐ 1'
+    ],
+    decision: {
+      q: 'Linh nên trả lời anh game thế nào?',
+      opts: [
+        'A. "Được, em gặp anh ở quán quen của em nhé"',
+        'B. "Anh tốt thật nhưng em phải hỏi bố mẹ đã" — và kể với bố mẹ ngay tối nay',
+        'C. "Em bận, hôm khác đi" — câu giờ rồi tính sau',
+        'D. "Anh cho em biết số điện thoại để em gọi kiểm tra trước"'
+      ],
+      correct: 1,
+      good: '✅ Đúng! Và khi kể với bố mẹ, hãy cho xem toàn bộ cuộc trò chuyện. Phản ứng của "anh" với việc Linh báo bố mẹ sẽ nói lên tất cả — người tốt sẽ ủng hộ, người xấu sẽ tìm cách ngăn cản.',
+      bad: '❌ Chưa đúng. Câu B là đúng nhất vì: không từ chối thẳng (tránh bị đe dọa) nhưng đặt điều kiện kể với bố mẹ. Quan trọng nhất là kể với bố mẹ NGAY — không câu giờ.'
+    }
+  },
+  {
+    tab: '📸 Ảnh bị phát tán',
+    avatar: '😰', name: 'Bạn thân Ngọc', status: 'Vừa nhắn tin',
+    title: 'Bạn Thân Bị Tống Tiền',
+    desc: 'Ngọc nhắn tin cho bạn xin giúp đỡ vì đang bị đe dọa phát tán ảnh. Cùng thảo luận xem bạn nên khuyên Ngọc làm gì.',
+    messages: [
+      { side: 'them', text: 'Bạn ơi cứu mình với... mình không biết làm gì nữa 😭', time: '21:00', flag: null },
+      { side: 'me', text: 'Sao vậy? Chuyện gì xảy ra?', time: '21:01', flag: null },
+      { side: 'them', text: 'Hồi trước mình gửi ảnh cho người quen online... giờ họ đe dọa sẽ tung ảnh nếu mình không làm theo yêu cầu', time: '21:02', flag: 'Đây là Sextortion — tống tiền bằng ảnh riêng tư. Nạn nhân KHÔNG có lỗi' },
+      { side: 'me', text: 'Trời ơi, họ yêu cầu gì?', time: '21:03', flag: null },
+      { side: 'them', text: 'Họ muốn mình gửi thêm ảnh nữa... mình đang sợ lắm. Bạn đừng kể với ai nha, xấu hổ lắm', time: '21:04', flag: 'Cảm giác xấu hổ là bình thường nhưng im lặng sẽ khiến tình huống tệ hơn' },
+      { side: 'them', text: 'Mình định làm theo yêu cầu của họ cho xong...', time: '21:05', flag: 'KHÔNG LÀM THEO — làm theo sẽ bị yêu cầu nhiều hơn, không có điểm dừng' },
+      { side: 'warning', text: '⚠️ Đây là tội phạm mạng. Ngọc cần người lớn giúp đỡ ngay.', time: '', flag: null }
+    ],
+    flags: [
+      'Nạn nhân thường cảm thấy xấu hổ và không dám kể — đây là điều kẻ tống tiền lợi dụng',
+      'Làm theo yêu cầu KHÔNG giúp giải quyết — kẻ xấu sẽ tiếp tục đòi thêm',
+      'Giữ bí mật với mọi người sẽ làm tình huống tệ hơn',
+      'Đây là hành vi vi phạm pháp luật — cảnh sát và cơ quan bảo vệ trẻ em có thể giúp'
+    ],
+    decision: {
+      q: 'Bạn nên khuyên Ngọc làm gì ngay bây giờ?',
+      opts: [
+        'A. "Làm theo yêu cầu của họ đi cho xong chuyện"',
+        'B. "Bạn phải kể với bố mẹ ngay tối nay, mình đi cùng bạn nếu bạn sợ"',
+        'C. "Thôi kệ, chắc họ nói cho vui thôi"',
+        'D. "Bạn thử nhờ người khác hack lại tài khoản kẻ đó"'
+      ],
+      correct: 1,
+      good: '✅ Đúng! Đây là điều bạn thật sự có thể làm cho Ngọc: đi cùng, hỗ trợ, không phán xét. Bố mẹ hoặc thầy cô có thể liên hệ 1800 1567 để được hỗ trợ pháp lý. Ngọc không có lỗi và không cần xấu hổ.',
+      bad: '❌ Chưa đúng. Làm theo/bỏ qua chỉ khiến Ngọc bị tổn thương thêm. Điều quan trọng nhất: kể với người lớn tin cậy và gọi 1800 1567. Ngọc không một mình trong chuyện này.'
+    }
+  }
+];
+
+let currentScenario = 0;
+let currentMsgIndex = 0;
+let scenarioDone = new Array(SCENARIOS.length).fill(false);
+let msgTimeout = null;
+
+function initTabs() {
+  const wrap = document.getElementById('tabs-wrap');
+  wrap.innerHTML = '';
+  SCENARIOS.forEach((s, i) => {
+    const b = document.createElement('button');
+    b.className = 'stab' + (i === 0 ? ' active' : '') + (scenarioDone[i] ? ' done' : '');
+    b.id = 'stab-' + i;
+    b.textContent = s.tab;
+    b.onclick = () => loadScenario(i);
+    wrap.appendChild(b);
+  });
+}
+
+function loadScenario(i) {
+  currentScenario = i;
+  currentMsgIndex = 0;
+  clearTimeout(msgTimeout);
+
+  document.querySelectorAll('.stab').forEach((t, ti) => t.classList.toggle('active', ti === i));
+
+  const s = SCENARIOS[i];
+  document.getElementById('ph-avatar').textContent = s.avatar;
+  document.getElementById('ph-name').textContent = s.name;
+  document.getElementById('ph-status').textContent = s.status;
+  document.getElementById('messages').innerHTML = '';
+  document.getElementById('typing').classList.remove('show');
+  document.getElementById('next-btn').disabled = false;
+  document.getElementById('sc-label').textContent = 'Tình huống ' + (i+1) + ' / ' + SCENARIOS.length;
+  document.getElementById('sc-title').textContent = s.title;
+  document.getElementById('sc-desc').textContent = s.desc;
+
+  // Reset flags
+  const flagsEl = document.getElementById('flags-list');
+  flagsEl.innerHTML = s.flags.map(f => `<div class="flag-item"><div class="flag-dot"></div><span>${f}</span></div>`).join('');
+
+  // Reset decision
+  document.getElementById('decision-wrap').style.display = 'none';
+  document.getElementById('dec-result').className = 'decision-result';
+  document.getElementById('dec-result').style.display = 'none';
+  document.getElementById('dec-result').textContent = '';
+
+  const decOpts = document.getElementById('dec-opts');
+  decOpts.innerHTML = s.decision.opts.map((o, oi) =>
+    `<button class="dopt" id="dopt-${i}-${oi}" onclick="pickDec(${i},${oi})">${o}</button>`
+  ).join('');
+  document.getElementById('dec-title').textContent = '💡 ' + s.decision.q;
+}
+
+function nextMsg() {
+  const s = SCENARIOS[currentScenario];
+  if (currentMsgIndex >= s.messages.length) return;
+
+  const msg = s.messages[currentMsgIndex];
+  const msgEl = document.createElement('div');
+  msgEl.className = 'msg ' + msg.side;
+  msgEl.innerHTML = msg.text + (msg.time ? `<span class="msg-time">${msg.time}</span>` : '');
+  document.getElementById('messages').appendChild(msgEl);
+  setTimeout(() => msgEl.classList.add('show'), 30);
+
+  // Scroll
+  document.getElementById('messages').scrollTop = 999999;
+
+  // Show flag
+  if (msg.flag) {
+    const flags = document.querySelectorAll('#flags-list .flag-item');
+    const shownCount = document.querySelectorAll('#flags-list .flag-item.show').length;
+    if (flags[shownCount]) flags[shownCount].classList.add('show');
+  }
+
+  currentMsgIndex++;
+
+  if (currentMsgIndex >= s.messages.length) {
+    document.getElementById('next-btn').disabled = true;
+    document.getElementById('decision-wrap').style.display = 'block';
+    // Show all flags
+    document.querySelectorAll('#flags-list .flag-item').forEach(f => f.classList.add('show'));
+  }
+}
+
+function pickDec(si, oi) {
+  const s = SCENARIOS[si];
+  const opts = document.querySelectorAll(`[id^="dopt-${si}-"]`);
+  opts.forEach((o, i) => {
+    o.disabled = true;
+    if (i === s.decision.correct) o.classList.add('correct');
+    else if (i === oi && oi !== s.decision.correct) o.classList.add('wrong');
+  });
+  const res = document.getElementById('dec-result');
+  const correct = oi === s.decision.correct;
+  res.className = 'decision-result show ' + (correct ? 'good' : 'bad');
+  res.innerHTML = correct ? s.decision.good : s.decision.bad;
+
+  if (!scenarioDone[si]) {
+    scenarioDone[si] = true;
+    document.getElementById('stab-' + si).classList.add('done');
+    updateProgress();
+  }
+}
+
+function updateProgress() {
+  const n = scenarioDone.filter(Boolean).length;
+  document.getElementById('prog-label').textContent = n + ' / ' + SCENARIOS.length + ' tình huống hoàn thành';
+  document.getElementById('prog-fill').style.width = (n / SCENARIOS.length * 100) + '%';
+}
+
+initTabs();
+loadScenario(0);
+</script>
+</body>
+</html>
