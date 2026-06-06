@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buổi 2 – Thám Tử Phá Án</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0F1923;
+  --surface: #192330;
+  --surface2: #1F2D3D;
+  --accent: #F5C842;
+  --accent2: #E87C3E;
+  --green: #3DDC97;
+  --red: #FF5252;
+  --blue: #4FA3E0;
+  --text: #E8EDF2;
+  --text-soft: #8BA0B4;
+  --border: rgba(255,255,255,0.07);
+  --shadow: 0 8px 40px rgba(0,0,0,0.4);
+  --radius: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* noise texture overlay */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 0; opacity: .4;
+}
+
+/* HEADER */
+.header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.1rem 2rem;
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(15,25,35,0.95);
+  backdrop-filter: blur(12px);
+}
+.header-left { display: flex; align-items: center; gap: 14px; }
+.badge {
+  background: var(--accent);
+  color: #1A1200;
+  font-family: 'Bangers', cursive;
+  font-size: 0.82rem;
+  letter-spacing: .08em;
+  padding: 4px 12px;
+  border-radius: 50px;
+}
+.header h1 {
+  font-family: 'Bangers', cursive;
+  font-size: 1.5rem;
+  letter-spacing: .06em;
+  color: var(--text);
+}
+.logo { height: 44px; }
+
+/* CASE SELECTOR */
+.case-nav {
+  max-width: 900px; margin: 1.5rem auto 0;
+  padding: 0 1.5rem;
+  display: flex; gap: 8px; flex-wrap: wrap;
+}
+.case-tab {
+  padding: 8px 16px;
+  border-radius: 50px;
+  border: 1.5px solid var(--border);
+  background: transparent;
+  color: var(--text-soft);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .2s;
+  white-space: nowrap;
+}
+.case-tab:hover { border-color: var(--accent); color: var(--accent); }
+.case-tab.active { background: var(--accent); border-color: var(--accent); color: #1A1200; }
+.case-tab.solved { border-color: var(--green); color: var(--green); }
+
+/* CASE BOARD */
+.case-board {
+  max-width: 900px; margin: 1.25rem auto;
+  padding: 0 1.5rem 3rem;
+}
+
+.case-panel { display: none; }
+.case-panel.active { display: block; }
+
+/* Case header */
+.case-header {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+  display: flex; align-items: flex-start; gap: 1rem;
+}
+.case-icon { font-size: 2.5rem; flex-shrink: 0; }
+.case-meta { flex: 1; }
+.case-num {
+  font-size: 0.72rem; font-weight: 700;
+  color: var(--accent); letter-spacing: .1em;
+  text-transform: uppercase; margin-bottom: 4px;
+}
+.case-title {
+  font-family: 'Bangers', cursive;
+  font-size: 1.5rem; letter-spacing: .04em;
+  color: var(--text); margin-bottom: 6px;
+}
+.case-situation {
+  font-size: 0.88rem; line-height: 1.6;
+  color: var(--text-soft);
+}
+.case-situation strong { color: var(--text); }
+
+/* CLUE CARDS */
+.clues-title {
+  font-size: 0.72rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--text-soft); margin-bottom: .75rem;
+  display: flex; align-items: center; gap: 8px;
+}
+.clues-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.clues-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 1.25rem;
+}
+.clue-card {
+  background: var(--surface2);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+  cursor: pointer;
+  transition: all .2s;
+  position: relative;
+  overflow: hidden;
+}
+.clue-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: var(--accent);
+  transform: scaleY(0);
+  transition: transform .2s;
+  transform-origin: bottom;
+}
+.clue-card:hover { border-color: rgba(245,200,66,0.4); }
+.clue-card:hover::before { transform: scaleY(1); }
+.clue-card.revealed { border-color: rgba(245,200,66,0.5); background: rgba(245,200,66,0.05); }
+.clue-card.revealed::before { transform: scaleY(1); }
+
+.clue-label {
+  font-size: 0.68rem; font-weight: 700;
+  color: var(--accent); letter-spacing: .08em;
+  text-transform: uppercase; margin-bottom: 6px;
+}
+.clue-q {
+  font-size: 0.82rem; font-weight: 600;
+  color: var(--text); line-height: 1.4;
+  margin-bottom: 8px;
+}
+.clue-answer {
+  font-size: 0.82rem; line-height: 1.5;
+  color: var(--green);
+  background: rgba(61,220,151,0.07);
+  border-radius: 8px;
+  padding: 8px 10px;
+  display: none;
+}
+.clue-answer.show { display: block; }
+.clue-btn {
+  font-size: 0.72rem; font-weight: 700;
+  color: var(--text-soft);
+  background: none; border: none;
+  cursor: pointer; padding: 0;
+  font-family: 'DM Sans', sans-serif;
+  transition: color .15s;
+}
+.clue-btn:hover { color: var(--accent); }
+
+/* VERDICT */
+.verdict-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+}
+.verdict-title {
+  font-family: 'Bangers', cursive;
+  font-size: 1.1rem; letter-spacing: .06em;
+  color: var(--accent); margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 8px;
+}
+.verdict-opts {
+  display: flex; flex-direction: column; gap: 8px;
+  margin-bottom: 1rem;
+}
+.verdict-opt {
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1.5px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  transition: all .2s;
+  line-height: 1.4;
+}
+.verdict-opt:hover { border-color: rgba(245,200,66,0.5); background: rgba(245,200,66,0.04); }
+.verdict-opt.correct { border-color: var(--green); background: rgba(61,220,151,0.08); color: var(--green); }
+.verdict-opt.wrong   { border-color: var(--red);   background: rgba(255,82,82,0.08);   color: var(--red); opacity: .7; }
+
+.verdict-explain {
+  background: rgba(61,220,151,0.06);
+  border-left: 3px solid var(--green);
+  border-radius: 0 10px 10px 0;
+  padding: 12px 14px;
+  font-size: 0.85rem; line-height: 1.6;
+  color: var(--text-soft);
+  display: none;
+}
+.verdict-explain.show { display: block; }
+.verdict-explain strong { color: var(--green); }
+
+/* SOLVED STAMP */
+.solved-stamp {
+  text-align: center; padding: 1rem;
+  font-family: 'Bangers', cursive;
+  font-size: 1.8rem; letter-spacing: .1em;
+  color: var(--green);
+  border: 3px solid var(--green);
+  border-radius: var(--radius);
+  opacity: 0;
+  transition: opacity .4s;
+  pointer-events: none;
+}
+.solved-stamp.show { opacity: 1; pointer-events: auto; }
+
+/* PROGRESS */
+.progress-row {
+  max-width: 900px; margin: 0 auto;
+  padding: 0 1.5rem 1rem;
+  display: flex; align-items: center; gap: 12px;
+}
+.progress-txt { font-size: 0.8rem; font-weight: 600; color: var(--text-soft); white-space: nowrap; }
+.bar-track { flex: 1; height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
+.bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 3px; transition: width .5s; }
+ .logo { height: 60px; margin-bottom: 10px; }
+@media (max-width: 600px) {
+  .clues-grid { grid-template-columns: 1fr; }
+  .case-nav { gap: 6px; }
+  .header h1 { font-size: 1.2rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <span class="badge">BUỔI 2</span>
+    <h1>🔍 THÁM TỬ PHÁ ÁN</h1>
+     <img src="https://sophianguyen.com.vn/images/hinhremovenen.png" alt="Sophia Nguyễn" class="logo">
+  </div>
+  <img src="https://sophianguyen.com.vn/images/hinhremovenen.png" alt="Sophia Nguyễn" class="logo">
+</div>
+
+<div class="progress-row">
+  <span class="progress-txt" id="prog-txt">0 / 4 vụ án đã giải</span>
+  <div class="bar-track"><div class="bar-fill" id="prog-bar" style="width:0%"></div></div>
+</div>
+
+<div class="case-nav" id="case-nav"></div>
+<div class="case-board" id="case-board"></div>
+
+<script>
+const CASES = [
+  {
+    icon: '🍬',
+    title: 'Vụ Kẹo Ngọt',
+    situation: `<strong>Tình huống:</strong> Chú Minh — bạn của bố — thường cho Lan kẹo, khen Lan xinh hơn các bạn, và nhắn tin hỏi "Hôm nay đi học có vui không bé?" mỗi ngày. Tuần trước chú nhờ Lan "đừng kể với bố mẹ vì sợ họ ghen tị". Lan cảm thấy vui nhưng cũng có gì đó <em>không thoải mái</em>.`,
+    clues: [
+      { q: 'Chú Minh đang ở giai đoạn nào của grooming?', a: 'Giai đoạn 1 & 2: Tiếp cận + Tạo tin tưởng. Chú dùng kẹo và lời khen để tạo mối quan hệ đặc biệt trước khi leo thang.' },
+      { q: 'Dấu hiệu cảnh báo đỏ nào xuất hiện?', a: 'Nhờ giữ bí mật với bố mẹ — đây là dấu hiệu nguy hiểm nhất. Người tốt không bao giờ nhờ trẻ em giữ bí mật với bố mẹ.' },
+      { q: 'Cảm giác "không thoải mái" của Lan có ý nghĩa gì?', a: 'Đó là tín hiệu cảnh báo từ cơ thể — hoàn toàn đúng! Khi cơ thể "báo động", hãy tin vào cảm giác đó dù chưa chắc có chuyện gì.' },
+      { q: 'Lan nên làm gì ngay bây giờ?', a: 'Kể ngay với bố mẹ hoặc người lớn tin cậy — ngay cả khi bị dặn giữ bí mật. Không cần chờ có chuyện xấu hơn mới kể.' }
+    ],
+    verdict: {
+      q: 'Lan nên phản ứng thế nào khi chú nhắn tin lần sau?',
+      opts: [
+        'A. Vẫn reply bình thường vì chú chỉ hỏi thăm thôi',
+        'B. Không reply và kể với bố mẹ ngay hôm nay',
+        'C. Nhờ bạn thân tư vấn xem có nguy hiểm không',
+        'D. Chặn chú rồi không kể với ai để tránh phức tạp'
+      ],
+      correct: 1,
+      explain: '<strong>Đúng rồi!</strong> Kể với bố mẹ ngay là hành động quan trọng nhất. Bố mẹ cần biết để bảo vệ Lan — đây không phải "mách lẻo" mà là bảo vệ bản thân.'
+    }
+  },
+  {
+    icon: '📱',
+    title: 'Vụ Tin Nhắn Lạ',
+    situation: `<strong>Tình huống:</strong> Một người lạ gửi lời mời kết bạn cho Hùng trên mạng xã hội. Người đó xưng là học sinh lớp 8 trường khác, nói biết Hùng qua "bạn chung". Sau 3 ngày chat, người đó gửi ảnh "mình" (ảnh người trẻ đẹp) và hỏi Hùng "Em có ảnh đẹp không, cho anh xem với".`,
+    clues: [
+      { q: 'Đây có thể là kiểu tấn công nào trên mạng?', a: 'Catfishing (giả danh) + Online Grooming. Kẻ xấu giả làm bạn đồng trang lứa để dễ tiếp cận, rồi dần dần yêu cầu ảnh/thông tin cá nhân.' },
+      { q: 'Dấu hiệu "bạn chung" mà không nói rõ là ai có nghĩa gì?', a: 'Đây là chiêu tạo sự tin tưởng giả. Hùng nên hỏi thẳng "Bạn chung tên gì?" — nếu người đó lảng tránh hoặc đổi chủ đề là dấu hiệu nghi ngờ lớn.' },
+      { q: 'Tại sao không được gửi ảnh cho người lạ trên mạng?', a: 'Ảnh một khi gửi đi không thể lấy lại. Kẻ xấu có thể dùng ảnh để tống tiền, phát tán, hoặc tiếp tục yêu cầu nhiều hơn (sextortion).' },
+      { q: 'Hùng chưa gửi ảnh — Hùng cần làm gì tiếp theo?', a: '1. Không reply thêm.\n2. Chụp màn hình cuộc trò chuyện.\n3. Chặn tài khoản đó.\n4. Kể với bố mẹ và cho xem màn hình đã chụp.' }
+    ],
+    verdict: {
+      q: 'Bước nào SAI khi gặp tin nhắn kiểu này?',
+      opts: [
+        'A. Hỏi lại "Bạn chung tên gì, học lớp nào?"',
+        'B. Không reply và chặn ngay',
+        'C. Kể với bố mẹ và cho xem tin nhắn',
+        'D. Thử gửi 1 ảnh bình thường xem phản ứng thế nào'
+      ],
+      correct: 3,
+      explain: '<strong>Đáp án D là SAI!</strong> Gửi bất kỳ ảnh nào cũng là sai — kể cả ảnh "bình thường". Điều đó xác nhận bạn đang tương tác và có thể dẫn đến leo thang yêu cầu.'
+    }
+  },
+  {
+    icon: '🎮',
+    title: 'Vụ Game Online',
+    situation: `<strong>Tình huống:</strong> Mai quen một "anh" trong game online. Anh chơi giỏi, hay cho đồ trong game, và nói "Anh thích em nhất guild". Sau 2 tuần, anh đề nghị: "Mình gặp ngoài đời cho vui, anh mời em trà sữa, nhưng đừng kể với ai kẻo họ không cho đi".`,
+    clues: [
+      { q: 'Người trong game có thực sự là "anh học sinh" không?', a: 'Hoàn toàn không thể biết. Trên mạng ai cũng có thể tự nhận là bất cứ ai. Kẻ xấu thường giả là người trẻ cùng độ tuổi để tạo sự gần gũi.' },
+      { q: '"Cho đồ trong game" là dấu hiệu gì?', a: 'Đây là "tặng quà" giai đoạn đầu của grooming — tạo cảm giác mang ơn, khiến nạn nhân khó từ chối các yêu cầu sau.' },
+      { q: 'Câu "đừng kể với ai" nguy hiểm như thế nào?', a: 'Đây là dấu hiệu đỏ lớn nhất. Người tốt không bao giờ cần bí mật. Câu này nhằm cô lập nạn nhân khỏi người bảo vệ.' },
+      { q: 'Gặp ngoài đời với người quen online có an toàn không?', a: 'Không an toàn nếu đi một mình. Nếu thực sự muốn gặp (trong tương lai, khi lớn hơn): phải có bố mẹ đi cùng, gặp ở nơi công cộng đông người, báo địa điểm cho người thân.' }
+    ],
+    verdict: {
+      q: 'Mai nên nói gì với "anh" trong game?',
+      opts: [
+        'A. "Anh cho địa chỉ quán trà sữa đi, em tự đến"',
+        'B. "Được, nhưng em phải kể với bố mẹ trước"',
+        'C. "Em không đi một mình, nhưng cũng không kể với ai"',
+        'D. "Em nhờ bạn thân đi cùng là được rồi"'
+      ],
+      correct: 1,
+      explain: '<strong>Đúng rồi!</strong> Câu trả lời B — và phản ứng của người kia với câu này sẽ nói lên tất cả. Người tốt sẽ ủng hộ em báo với bố mẹ. Người xấu sẽ tìm cách thuyết phục em không kể.'
+    }
+  },
+  {
+    icon: '🤐',
+    title: 'Vụ Người Thân',
+    situation: `<strong>Tình huống:</strong> Anh họ của Tú (18 tuổi, hay qua nhà chơi) thỉnh thoảng vỗ mông Tú và nói "Anh đùa thôi". Tú cảm thấy xấu hổ nhưng không dám nói gì vì sợ "làm to chuyện" và "bố mẹ sẽ buồn". Mẹ Tú thỉnh thoảng thấy và chỉ cười bỏ qua.`,
+    clues: [
+      { q: 'Hành động của anh họ có phải "đùa bình thường" không?', a: 'Không. Chạm vào vùng riêng tư (mông) mà không được đồng ý là vi phạm giới hạn cơ thể — dù là người thân. "Đùa thôi" không phải lý do hợp lệ.' },
+      { q: 'Tại sao Tú không dám nói? Điều đó có lỗi không?', a: 'Không có lỗi gì cả! Nạn nhân thường im lặng vì sợ không được tin, sợ làm phức tạp gia đình, sợ bị đổ lỗi. Đây là phản ứng rất phổ biến và hoàn toàn bình thường.' },
+      { q: 'Mẹ cười bỏ qua — điều này có nghĩa hành động đó ổn không?', a: 'Không. Mẹ có thể không nhận ra mức độ nghiêm trọng, hoặc cũng không biết cách xử lý. Tú cần kể thẳng với mẹ rằng mình không thoải mái và bị tổn thương.' },
+      { q: 'Tú nên làm gì? Nếu mẹ vẫn không phản ứng?', a: 'Bước 1: Nói thẳng với mẹ "Con không thích anh đó làm vậy, con cảm thấy xấu hổ và sợ".\nNếu mẹ không giúp: kể với người lớn tin cậy khác (cô giáo, bà ngoại...) hoặc gọi 1800 1567.' }
+    ],
+    verdict: {
+      q: 'Khi anh họ làm vậy lần nữa, Tú nên phản ứng thế nào?',
+      opts: [
+        'A. Im lặng vì người thân nên nhịn',
+        'B. Nói to: "Anh đừng làm vậy, con không thích" rồi kể với mẹ ngay',
+        'C. Tránh mặt anh, không cần kể với ai',
+        'D. Nhờ bạn thân đến nhà để anh không dám làm'
+      ],
+      correct: 1,
+      explain: '<strong>Đúng!</strong> Nói to và rõ ràng ngay lúc đó + kể với người lớn là đúng nhất. Em không cần nhịn chỉ vì là người thân. Ranh giới cơ thể áp dụng với TẤT CẢ mọi người.'
+    }
+  }
+];
+
+let solvedCases = new Array(CASES.length).fill(false);
+
+function init() {
+  const nav = document.getElementById('case-nav');
+  const board = document.getElementById('case-board');
+  nav.innerHTML = ''; board.innerHTML = '';
+
+  CASES.forEach((c, ci) => {
+    // Tab
+    const tab = document.createElement('button');
+    tab.className = 'case-tab' + (ci === 0 ? ' active' : '');
+    tab.id = 'tab-' + ci;
+    tab.textContent = c.icon + ' Vụ ' + (ci + 1);
+    tab.onclick = () => switchCase(ci);
+    nav.appendChild(tab);
+
+    // Panel
+    const panel = document.createElement('div');
+    panel.className = 'case-panel' + (ci === 0 ? ' active' : '');
+    panel.id = 'panel-' + ci;
+
+    let cluesHtml = c.clues.map((cl, ki) => `
+      <div class="clue-card" id="clue-${ci}-${ki}">
+        <div class="clue-label">🔎 Manh mối ${ki+1}</div>
+        <div class="clue-q">${cl.q}</div>
+        <button class="clue-btn" id="clue-btn-${ci}-${ki}" onclick="revealClue(${ci},${ki})">▶ Thảo luận xong → Xem đáp án</button>
+        <div class="clue-answer" id="clue-ans-${ci}-${ki}">${cl.a.replace(/\n/g,'<br>')}</div>
+      </div>`).join('');
+
+    let optsHtml = c.verdict.opts.map((o, oi) =>
+      `<button class="verdict-opt" id="vopt-${ci}-${oi}" onclick="pickVerdict(${ci},${oi})">${o}</button>`
+    ).join('');
+
+    panel.innerHTML = `
+      <div class="case-header">
+        <div class="case-icon">${c.icon}</div>
+        <div class="case-meta">
+          <div class="case-num">Vụ Án ${ci+1} / ${CASES.length}</div>
+          <div class="case-title">${c.title}</div>
+          <div class="case-situation">${c.situation}</div>
+        </div>
+      </div>
+      <div class="clues-title">Điều tra manh mối</div>
+      <div class="clues-grid">${cluesHtml}</div>
+      <div class="verdict-section">
+        <div class="verdict-title">⚖️ Phán Quyết Cuối</div>
+        <div class="verdict-opts">${optsHtml}</div>
+        <div class="verdict-explain" id="vexplain-${ci}">${c.verdict.explain}</div>
+      </div>
+      <div class="solved-stamp" id="stamp-${ci}">✅ VỤ ÁN ĐÃ GIẢI QUYẾT!</div>`;
+    board.appendChild(panel);
+  });
+}
+
+function switchCase(ci) {
+  document.querySelectorAll('.case-tab').forEach((t,i) => t.classList.toggle('active', i === ci));
+  document.querySelectorAll('.case-panel').forEach((p,i) => p.classList.toggle('active', i === ci));
+}
+
+function revealClue(ci, ki) {
+  document.getElementById('clue-ans-' + ci + '-' + ki).classList.add('show');
+  document.getElementById('clue-btn-' + ci + '-' + ki).style.display = 'none';
+  document.getElementById('clue-' + ci + '-' + ki).classList.add('revealed');
+}
+
+function pickVerdict(ci, oi) {
+  const c = CASES[ci];
+  const opts = document.querySelectorAll(`[id^="vopt-${ci}-"]`);
+  opts.forEach((o, i) => {
+    o.disabled = true;
+    if (i === c.verdict.correct) o.classList.add('correct');
+    else if (i === oi && oi !== c.verdict.correct) o.classList.add('wrong');
+  });
+  document.getElementById('vexplain-' + ci).classList.add('show');
+  if (!solvedCases[ci]) {
+    solvedCases[ci] = true;
+    document.getElementById('stamp-' + ci).classList.add('show');
+    document.getElementById('tab-' + ci).classList.add('solved');
+    updateProgress();
+  }
+}
+
+function updateProgress() {
+  const n = solvedCases.filter(Boolean).length;
+  document.getElementById('prog-txt').textContent = n + ' / ' + CASES.length + ' vụ án đã giải';
+  document.getElementById('prog-bar').style.width = (n / CASES.length * 100) + '%';
+}
+
+init();
+</script>
+</body>
+</html>
