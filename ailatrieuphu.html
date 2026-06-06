@@ -315,11 +315,12 @@
             disableGame("CHÚC MỪNG CHIẾN THẮNG!");
             return;
         }
+               const qData = questions[currentQIndex];
         const correctText = qData.options[qData.correct];
     qData.options = shuffle(qData.options);
     qData.correct = qData.options.indexOf(correctText);
         
-        const qData = questions[currentQIndex];
+ 
         questionEl.innerText = `Câu ${currentQIndex+1}: ${qData.q}`;
         optionsDiv.innerHTML = '';
         
