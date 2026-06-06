@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buổi 1 – Lật Thẻ Bí Mật</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --mint: #3ECFB2;
+  --mint-dark: #2AA896;
+  --mint-light: #C8F5EE;
+  --coral: #FF6B6B;
+  --coral-light: #FFE8E8;
+  --sun: #FFD93D;
+  --sun-light: #FFF7D0;
+  --ink: #1A2E35;
+  --ink-soft: #4A6572;
+  --cream: #F7FDFB;
+  --white: #FFFFFF;
+  --shadow-soft: 0 6px 30px rgba(62,207,178,0.15);
+  --shadow-card: 0 8px 40px rgba(26,46,53,0.12);
+  --radius: 20px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Quicksand', sans-serif;
+  background: var(--cream);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* BG decoration */
+body::before {
+  content: '';
+  position: fixed;
+  top: -120px; right: -120px;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(62,207,178,0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -80px; left: -80px;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,217,61,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* HEADER */
+.header {
+  background: var(--ink);
+  padding: 1.25rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky; top: 0; z-index: 50;
+}
+.header-left { display: flex; align-items: center; gap: 14px; }
+.session-chip {
+  background: var(--mint);
+  color: var(--white);
+  font-family: 'Fredoka One', cursive;
+  font-size: 0.82rem;
+  padding: 4px 12px;
+  border-radius: 50px;
+  letter-spacing: .04em;
+}
+.header h1 {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.4rem;
+  color: var(--white);
+  letter-spacing: .02em;
+}
+.logo { height: 44px; }
+
+/* PROGRESS */
+.progress-wrap {
+  padding: 1.25rem 2rem 0;
+  max-width: 960px; margin: 0 auto;
+}
+.progress-top {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 8px;
+}
+.progress-label { font-size: 0.82rem; font-weight: 600; color: var(--ink-soft); }
+.progress-count { font-family: 'Fredoka One', cursive; font-size: 1rem; color: var(--mint-dark); }
+.progress-bar-track {
+  height: 8px; background: #DCF5F0; border-radius: 4px; overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%; background: linear-gradient(90deg, var(--mint), var(--mint-dark));
+  border-radius: 4px;
+  transition: width .5s ease;
+}
+
+/* SCORE STRIP */
+.score-strip {
+  max-width: 960px; margin: 1rem auto 0;
+  padding: 0 2rem;
+  display: flex; gap: 10px;
+}
+.score-pill {
+  flex: 1; padding: 10px 14px;
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: space-between;
+  font-weight: 700; font-size: 0.9rem;
+}
+.score-pill.correct { background: #D4FEF4; color: #006150; }
+.score-pill.wrong   { background: #FFE8E8; color: #9B0000; }
+.score-pill.remain  { background: var(--sun-light); color: #7A5C00; }
+.score-pill span { font-family: 'Fredoka One', cursive; font-size: 1.4rem; }
+
+/* GRID */
+.grid-wrap {
+  max-width: 960px; margin: 1.5rem auto 2rem;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+/* CARD */
+.card-wrap {
+  perspective: 1000px;
+  cursor: pointer;
+  min-height: 160px;
+}
+.card-inner {
+  width: 100%;
+  min-height: 160px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform .55s cubic-bezier(.4,0,.2,1);
+  border-radius: var(--radius);
+}
+.card-wrap.flipped .card-inner { transform: rotateY(180deg); }
+
+.card-face {
+  border-radius: var(--radius);
+  backface-visibility: hidden;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 14px;
+  text-align: center;
+  box-shadow: var(--shadow-card);
+}
+.card-front {
+  position: absolute; inset: 0;
+  background: var(--ink);
+  gap: 10px;
+}
+.card-num {
+  font-family: 'Fredoka One', cursive;
+  font-size: 2.2rem;
+  color: var(--mint);
+  line-height: 1;
+}
+.card-front-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.card-front-icon { font-size: 1.8rem; }
+
+.card-back {
+  position: relative;
+  transform: rotateY(180deg);
+  padding: 14px 12px;
+  gap: 7px;
+  width: 100%;
+  min-height: 160px;
+}
+.card-back-q {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.4;
+  background: rgba(0,0,0,0.18);
+  border-radius: 10px;
+  padding: 8px 10px;
+  width: 100%;
+}
+.card-back-a {
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--ink);
+  background: var(--white);
+  border-radius: 10px;
+  padding: 10px;
+  width: 100%;
+  display: none;
+}
+.card-back-a.show { display: block; }
+.card-tap-hint {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  opacity: .65;
+  color: var(--white);
+}
+
+/* Color themes per card */
+.theme-mint  .card-back { background: linear-gradient(135deg, #2AA896, #3ECFB2); }
+.theme-coral .card-back { background: linear-gradient(135deg, #E85555, #FF6B6B); }
+.theme-sun   .card-back { background: linear-gradient(135deg, #E5B800, #FFD93D); }
+.theme-blue  .card-back { background: linear-gradient(135deg, #2979C8, #5BA4F5); }
+.theme-purple .card-back { background: linear-gradient(135deg, #7C4DFF, #B388FF); }
+.theme-green  .card-back { background: linear-gradient(135deg, #2E7D32, #66BB6A); }
+.theme-pink   .card-back { background: linear-gradient(135deg, #C2185B, #F48FB1); }
+.theme-orange .card-back { background: linear-gradient(135deg, #E64A19, #FF8A65); }
+
+/* REVEAL ANSWER btn */
+.reveal-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 6px;
+  padding: 6px 12px;
+  border-radius: 50px;
+  border: none;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  background: rgba(255,255,255,0.25);
+  color: var(--white);
+  transition: background .2s;
+  width: 100%;
+  justify-content: center;
+}
+.reveal-btn:hover { background: rgba(255,255,255,0.4); }
+.theme-sun .reveal-btn, .theme-orange .reveal-btn { color: var(--ink); }
+
+/* JUDGE ROW */
+.judge-row {
+  display: none; gap: 8px; width: 100%; margin-top: 6px;
+}
+.judge-row.show { display: flex; }
+.judge-btn {
+  flex: 1; padding: 8px 4px;
+  border-radius: 10px;
+  border: none;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .15s;
+}
+.judge-btn.j-ok   { background: #D4FEF4; color: #006150; }
+.judge-btn.j-fail { background: #FFE8E8; color: #9B0000; }
+.judge-btn:hover { transform: scale(1.05); }
+
+/* done overlay */
+.card-wrap.done-ok   .card-back { filter: brightness(.88); }
+.card-wrap.done-ok::after {
+  content: '✅'; position: absolute; top: 8px; right: 8px;
+  font-size: 1.2rem; z-index: 5;
+}
+.card-wrap.done-fail::after {
+  content: '❌'; position: absolute; top: 8px; right: 8px;
+  font-size: 1.2rem; z-index: 5;
+}
+
+/* RESET */
+.bottom-bar {
+  max-width: 960px; margin: 0 auto 3rem;
+  padding: 0 2rem;
+  display: flex; gap: 12px; justify-content: center;
+}
+.reset-btn {
+  padding: 12px 28px;
+  border-radius: 50px;
+  border: none;
+  font-family: 'Fredoka One', cursive;
+  font-size: 1rem;
+  letter-spacing: .04em;
+  cursor: pointer;
+  transition: all .2s;
+  background: var(--ink);
+  color: var(--white);
+  box-shadow: var(--shadow-soft);
+}
+.reset-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(26,46,53,0.2); }
+
+/* WIN BANNER */
+.win-banner {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(26,46,53,0.75);
+  z-index: 200;
+  align-items: center; justify-content: center;
+}
+.win-banner.show { display: flex; }
+.win-box {
+  background: var(--white);
+  border-radius: 28px;
+  padding: 3rem 3.5rem;
+  text-align: center;
+  box-shadow: 0 20px 80px rgba(0,0,0,0.3);
+  animation: popIn .4s cubic-bezier(.4,0,.2,1);
+}
+@keyframes popIn { from{transform:scale(.7);opacity:0} to{transform:scale(1);opacity:1} }
+.win-icon { font-size: 5rem; }
+.win-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: 2.2rem;
+  color: var(--ink);
+  margin: .5rem 0 .25rem;
+}
+.win-sub { font-size: 1rem; color: var(--ink-soft); font-weight: 600; margin-bottom: 1.5rem; }
+
+/* RESPONSIVE */
+@media (max-width: 700px) {
+  .grid-wrap { grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 0 1rem; }
+  .header h1 { font-size: 1.1rem; }
+  .score-strip { padding: 0 1rem; }
+  .progress-wrap { padding: 1rem 1rem 0; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <span class="session-chip">BUỔI 1</span>
+    <h1>🃏 Lật Thẻ Bí Mật</h1>
+  </div>
+  <img src="https://sophianguyen.com.vn/images/hinhremovenen.png" alt="Sophia Nguyễn" class="logo">
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-top">
+    <span class="progress-label">Tiến độ ôn bài</span>
+    <span class="progress-count" id="prog-count">0 / 8 thẻ</span>
+  </div>
+  <div class="progress-bar-track">
+    <div class="progress-bar-fill" id="prog-bar" style="width:0%"></div>
+  </div>
+</div>
+
+<div class="score-strip">
+  <div class="score-pill correct">✅ Trả lời đúng <span id="sc-ok">0</span></div>
+  <div class="score-pill wrong">❌ Cần ôn lại <span id="sc-fail">0</span></div>
+  <div class="score-pill remain">🃏 Còn lại <span id="sc-remain">8</span></div>
+</div>
+
+<div class="grid-wrap" id="grid"></div>
+
+<div class="bottom-bar">
+  <button class="reset-btn" onclick="initCards()">🔄 Chơi lại từ đầu</button>
+</div>
+
+<div class="win-banner" id="win-banner">
+  <div class="win-box">
+    <div class="win-icon">🏆</div>
+    <div class="win-title">Ôn bài xong rồi!</div>
+    <div class="win-sub" id="win-sub">Tuyệt vời!</div>
+    <button class="reset-btn" onclick="closeWin()">🔄 Làm lại</button>
+  </div>
+</div>
+
+<script>
+const CARDS = [
+  {
+    icon: '🌱',
+    q: 'Kể 2 thay đổi cơ thể ở tuổi dậy thì của NAM và NỮ?',
+    a: 'Nam: giọng vỡ (trầm hơn), bắt đầu xuất tinh (có thể xảy ra ban đêm).\nNữ: ngực phát triển, bắt đầu có kinh nguyệt.\nCả hai: tăng chiều cao, nổi mụn, mọc lông, tiết mồ hôi nhiều hơn.',
+    theme: 'theme-mint'
+  },
+  {
+    icon: '😤',
+    q: 'Cảm xúc thay đổi ở tuổi dậy thì là do đâu? Kể 2 biểu hiện.',
+    a: 'Do thay đổi nội tiết tố trong cơ thể — hoàn toàn bình thường.\nBiểu hiện: dễ cáu giận, dễ xúc động, thích ai đó, có lúc vui lúc buồn chán vô cớ.',
+    theme: 'theme-coral'
+  },
+  {
+    icon: '🩱',
+    q: '"Vùng riêng tư" là vùng nào trên cơ thể?',
+    a: 'Là những vùng được đồ bơi / quần áo lót che phủ: ngực, vùng kín phía trước và phía sau (mông).\nĐây là vùng không ai được phép chạm vào nếu không có lý do y tế chính đáng.',
+    theme: 'theme-sun'
+  },
+  {
+    icon: '🤝',
+    q: 'Ai được phép chạm vào vùng riêng tư của con? Có mấy trường hợp ngoại lệ?',
+    a: 'Chỉ có 3 trường hợp ngoại lệ duy nhất:\n1. Bố mẹ khi tắm / vệ sinh (nếu con còn nhỏ, chưa tự làm được).\n2. Bác sĩ khi khám bệnh — phải có bố hoặc mẹ ở trong phòng.\n3. Không có ai khác — kể cả cô giáo, bảo mẫu, họ hàng.',
+    theme: 'theme-blue'
+  },
+  {
+    icon: '✋',
+    q: 'Tập nói to 2 câu từ chối khi có người chạm khiến mình không thoải mái.',
+    a: '"Con không muốn đâu. Con cảm thấy không thoải mái."\n"Dừng lại. Con không đồng ý."\n→ Có thể nói với BẤT KỲ ai — kể cả người thân, người yêu, bạn thân.',
+    theme: 'theme-purple'
+  },
+  {
+    icon: '💔',
+    q: 'Bạn thân / người yêu có quyền ép mình làm những việc này không? Vì sao?',
+    a: 'KHÔNG. Bạn thật sự không bao giờ ép bạn.\nCác hành vi vi phạm ranh giới: ép chia sẻ mật khẩu, ép gửi ảnh riêng tư, ép uống rượu/hút thuốc/trốn học.\n→ "Nếu họ ép, họ không phải bạn thật sự."',
+    theme: 'theme-green'
+  },
+  {
+    icon: '🚪',
+    q: 'Đang ở nhà một mình, có người gõ cửa nhận là "nhân viên sửa ống nước" — làm gì?',
+    a: 'KHÔNG mở cửa.\nNói qua cửa: "Bố mẹ cháu đang bận. Chú quay lại khi có bố mẹ cháu ạ."\nĐóng cửa, khóa chốt lại.\nGọi báo bố mẹ ngay.',
+    theme: 'theme-pink'
+  },
+  {
+    icon: '🔥',
+    q: 'Ngửi thấy mùi gas trong bếp (mùi trứng thối) — thứ tự xử lý đúng là gì?',
+    a: '1. KHÔNG bật/tắt bất kỳ công tắc điện nào (kể cả quạt, đèn, chuông cửa).\n2. Khóa van tổng gas (nếu biết và an toàn).\n3. Mở hết cửa sổ, cửa ra vào.\n4. Ra ngoài ngay.\n5. Gọi 114.',
+    theme: 'theme-orange'
+  }
+];
+const themes = ['theme-mint','theme-coral','theme-sun','theme-blue','theme-purple','theme-green','theme-pink','theme-orange'];
+let scOk = 0, scFail = 0, done = 0;
+
+function initCards() {
+  scOk = 0; scFail = 0; done = 0;
+  updateScore();
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  document.getElementById('win-banner').classList.remove('show');
+
+  CARDS.forEach((c, i) => {
+    const wrap = document.createElement('div');
+    wrap.className = 'card-wrap ' + c.theme;
+    wrap.id = 'card-' + i;
+    wrap.innerHTML = `
+      <div class="card-inner">
+        <div class="card-face card-front">
+          <div class="card-front-icon">${c.icon}</div>
+          <div class="card-num">${i+1}</div>
+          <div class="card-front-label">Nhấn để lật</div>
+        </div>
+        <div class="card-face card-back">
+          <div class="card-back-q">${c.q}</div>
+          <button class="reveal-btn" id="rev-${i}" onclick="revealAns(event,${i})">👁 Xem đáp án</button>
+          <div class="card-back-a" id="ans-${i}">${c.a.replace(/\n/g,'<br>')}</div>
+          <div class="judge-row" id="judge-row-${i}">
+            <button class="judge-btn j-ok" onclick="judge(event,${i},'ok')">✅ Đúng rồi</button>
+            <button class="judge-btn j-fail" onclick="judge(event,${i},'fail')">🔁 Ôn lại</button>
+          </div>
+          <div class="card-tap-hint">Thẻ ${i+1}/8</div>
+        </div>
+      </div>`;
+    wrap.querySelector('.card-inner').addEventListener('click', (e) => {
+      if (e.target.closest('button')) return;
+      flip(i);
+    });
+    grid.appendChild(wrap);
+  });
+}
+
+function flip(i) {
+  const w = document.getElementById('card-' + i);
+  if (w.classList.contains('done-ok') || w.classList.contains('done-fail')) return;
+  w.classList.toggle('flipped');
+}
+
+function revealAns(e, i) {
+  e.stopPropagation();
+  document.getElementById('ans-' + i).classList.add('show');
+  document.getElementById('rev-' + i).style.display = 'none';
+  document.getElementById('judge-row-' + i).classList.add('show');
+}
+
+function judge(e, i, result) {
+  e.stopPropagation();
+  const w = document.getElementById('card-' + i);
+  if (w.classList.contains('done-ok') || w.classList.contains('done-fail')) return;
+  w.classList.add(result === 'ok' ? 'done-ok' : 'done-fail');
+  if (result === 'ok') scOk++; else scFail++;
+  done++;
+  updateScore();
+  if (done === CARDS.length) setTimeout(showWin, 600);
+}
+
+function updateScore() {
+  document.getElementById('sc-ok').textContent = scOk;
+  document.getElementById('sc-fail').textContent = scFail;
+  document.getElementById('sc-remain').textContent = CARDS.length - done;
+  document.getElementById('prog-count').textContent = done + ' / ' + CARDS.length + ' thẻ';
+  document.getElementById('prog-bar').style.width = (done / CARDS.length * 100) + '%';
+}
+
+function showWin() {
+  const pct = Math.round(scOk / CARDS.length * 100);
+  let msg = pct >= 87 ? '🌟 Xuất sắc! Nhớ bài rất tốt!' : pct >= 62 ? '👍 Khá tốt! Xem lại những thẻ đỏ nhé.' : '💪 Cần ôn thêm một chút nữa!';
+  document.getElementById('win-sub').textContent = `Đúng ${scOk}/${CARDS.length} thẻ (${pct}%) — ${msg}`;
+  document.getElementById('win-banner').classList.add('show');
+}
+
+function closeWin() {
+  document.getElementById('win-banner').classList.remove('show');
+  initCards();
+}
+
+initCards();
+</script>
+</body>
+</html>
