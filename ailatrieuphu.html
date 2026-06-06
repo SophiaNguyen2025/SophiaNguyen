@@ -36,6 +36,7 @@
             font-weight: bold;
             font-size: 1.1rem;
             color: #1e2f47;
+            align-items: center;
         }
         .game-body {
             display: flex;
@@ -153,14 +154,14 @@
             .options { grid-template-columns: 1fr; }
             .question-text { font-size: 1.1rem; }
         }
-  .logo { height: 60px; margin-bottom: 10px; }
+        .logo { height: 50px; margin-bottom: 10px; }
     </style>
 </head>
 <body>
 <div class="millionaire-container" id="millionaireGame">
     <div class="header">
         <span>💰 AI LÀ TRIỆU PHÚ AN TOÀN - BUỔI 1</span>
-<img src="https://sophianguyen.com.vn/images/hinhremovenen.png" alt="Sophia Nguyễn" class="logo">
+        <img src="https://sophianguyen.com.vn/images/hinhremovenen.png" alt="Sophia Nguyễn" class="logo" onerror="this.style.display='none'">
         <span>🏆 SỐ TIỀN: <span id="currentMoney">0</span> VND</span>
     </div>
     <div class="game-body">
@@ -181,7 +182,6 @@
 
 <script>
     // ==================== 15 CÂU HỎI CHO BUỔI 1 ====================
-    // NGUYÊN TẮC: Các đáp án có độ dài TƯƠNG ĐƯƠNG nhau, không còn lỗi "đáp án đúng dài nhất"
     const questions = [
         { q: "Tuổi dậy thì thường bắt đầu trong khoảng nào?",
           options: ["8-14 tuổi tùy người", "18-20 tuổi mới bắt đầu", "Chỉ bắt đầu khi lên cấp 3", "Giống nhau ở tất cả mọi người"],
@@ -239,6 +239,9 @@
     let usedAskClass = false;
     let usedPhone = false;
     let fiftyAnswerRemoved = [];
+    
+    // Lưu trạng thái shuffle của từng câu hỏi
+    let shuffledOptionsCache = [];
 
     const questionEl = document.getElementById('questionText');
     const optionsDiv = document.getElementById('optionsContainer');
@@ -249,6 +252,35 @@
     const phoneBtn = document.getElementById('phoneBtn');
     const prizeLadderDiv = document.getElementById('prizeLadder');
     const resetBtn = document.getElementById('resetFullGame');
+
+    // Hàm shuffle đúng cách
+    function shuffleArray(arr) {
+        const newArr = [...arr];
+        for (let i = newArr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+        }
+        return newArr;
+    }
+
+    // Chuẩn bị câu hỏi với options đã shuffle (chạy 1 lần khi khởi tạo)
+    function prepareQuestions() {
+        for (let i = 0; i < questions.length; i++) {
+            const q = questions[i];
+            const shuffledOpts = shuffleArray(q.options);
+            const newCorrectIndex = shuffledOpts.indexOf(q.options[q.correct]);
+            shuffledOptionsCache[i] = {
+                question: q.q,
+                options: shuffledOpts,
+                correct: newCorrectIndex,
+                level: q.level
+            };
+        }
+    }
+
+    function getCurrentQuestion() {
+        return shuffledOptionsCache[currentQIndex];
+    }
 
     function playSound(type) {
         try {
@@ -284,8 +316,9 @@
 
     function renderPrizeLadder() {
         prizeLadderDiv.innerHTML = '';
-        for (let i = prizeLevels.length-1; i >=0; i--) {
+        for (let i = prizeLevels.length-1; i >= 0; i--) {
             let itemDiv = document.createElement('div');
+            // Highlight câu hiện tại (currentQIndex đang ở câu chưa trả lời)
             itemDiv.className = `prize-item ${(currentQIndex === i) ? 'prize-current' : ''} ${(i===5 || i===10) ? 'prize-milestone' : ''}`;
             itemDiv.innerText = `${i}. ${prizeLevels[i].toLocaleString()} VND`;
             prizeLadderDiv.appendChild(itemDiv);
@@ -304,9 +337,6 @@
         allOpts.forEach(btn => btn.disabled = true);
     }
 
-    // Thêm đoạn này trước khi render options
-
-    
     function loadQuestion() {
         if (!gameActive) return;
         if (currentQIndex >= questions.length) {
@@ -315,22 +345,22 @@
             disableGame("CHÚC MỪNG CHIẾN THẮNG!");
             return;
         }
-               const qData = questions[currentQIndex];
-        const correctText = qData.options[qData.correct];
-    qData.options = shuffle(qData.options);
-    qData.correct = qData.options.indexOf(correctText);
         
- 
-        questionEl.innerText = `Câu ${currentQIndex+1}: ${qData.q}`;
+        const qData = getCurrentQuestion();
+        
+        questionEl.innerText = `Câu ${currentQIndex+1}: ${qData.question}`;
         optionsDiv.innerHTML = '';
         
         for (let i = 0; i < qData.options.length; i++) {
             const btn = document.createElement('button');
             btn.innerText = `${String.fromCharCode(65+i)}. ${qData.options[i]}`;
             btn.className = 'opt-btn';
-            if (usedFifty && fiftyAnswerRemoved.includes(i) && currentQIndex === (questions.findIndex(q => q===qData))) {
+            
+            // Xử lý 50:50 - ẩn đáp án đã loại
+            if (usedFifty && fiftyAnswerRemoved.includes(i)) {
                 btn.style.display = 'none';
             }
+            
             btn.onclick = (function(optIdx) {
                 return function() {
                     if (!gameActive) return;
@@ -363,30 +393,37 @@
             })(i);
             optionsDiv.appendChild(btn);
         }
+        
+        // Cập nhật trạng thái nút trợ giúp
         fiftyBtn.disabled = usedFifty;
         askClassBtn.disabled = usedAskClass;
         phoneBtn.disabled = usedPhone;
+        
         if (usedFifty) fiftyBtn.classList.add('lifeline-used');
+        else fiftyBtn.classList.remove('lifeline-used');
+        
         if (usedAskClass) askClassBtn.classList.add('lifeline-used');
+        else askClassBtn.classList.remove('lifeline-used');
+        
         if (usedPhone) phoneBtn.classList.add('lifeline-used');
+        else phoneBtn.classList.remove('lifeline-used');
     }
 
     function useFifty() {
         if (usedFifty || !gameActive) return;
-        const qData = questions[currentQIndex];
+        const qData = getCurrentQuestion();
         const correctIdx = qData.correct;
         const wrongIndices = [];
-        for (let i=0; i<qData.options.length; i++) {
+        for (let i = 0; i < qData.options.length; i++) {
             if (i !== correctIdx) wrongIndices.push(i);
         }
-        for (let i=wrongIndices.length-1; i>0; i--) {
-            const j = Math.floor(Math.random()*(i+1));
+        // Xáo trộn và chọn 2 đáp án sai để loại
+        for (let i = wrongIndices.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
             [wrongIndices[i], wrongIndices[j]] = [wrongIndices[j], wrongIndices[i]];
         }
-        fiftyAnswerRemoved = wrongIndices.slice(0,2);
+        fiftyAnswerRemoved = wrongIndices.slice(0, 2);
         usedFifty = true;
-        fiftyBtn.disabled = true;
-        fiftyBtn.classList.add('lifeline-used');
         statusMsg.innerHTML = "🎲 50:50 đã loại 2 đáp án sai! Hãy chọn đáp án còn lại.";
         loadQuestion();
     }
@@ -394,27 +431,26 @@
     function useAskClass() {
         if (usedAskClass || !gameActive) return;
         usedAskClass = true;
-        askClassBtn.disabled = true;
-        askClassBtn.classList.add('lifeline-used');
-        const qData = questions[currentQIndex];
+        const qData = getCurrentQuestion();
         const random = Math.random();
         let suggestion = "";
-        if (random < 0.7) suggestion = `Đa số lớp nghiêng về đáp án ${String.fromCharCode(65+qData.correct)}.`;
-        else {
-            let wrongPick = (qData.correct+1) % qData.options.length;
+        if (random < 0.7) {
+            suggestion = `Đa số lớp nghiêng về đáp án ${String.fromCharCode(65+qData.correct)}.`;
+        } else {
+            let wrongPick = (qData.correct + 1) % qData.options.length;
             suggestion = `Đa số lớp chọn ${String.fromCharCode(65+wrongPick)} nhưng không chắc chắn.`;
         }
         statusMsg.innerHTML = `👥 HỎI Ý KIẾN LỚP: ${suggestion} Hãy suy nghĩ thêm.`;
+        loadQuestion(); // Refresh để cập nhật trạng thái nút
     }
 
     function usePhone() {
         if (usedPhone || !gameActive) return;
         usedPhone = true;
-        phoneBtn.disabled = true;
-        phoneBtn.classList.add('lifeline-used');
-        const qData = questions[currentQIndex];
+        const qData = getCurrentQuestion();
         const correctLetter = String.fromCharCode(65+qData.correct);
         statusMsg.innerHTML = `📞 GỌI CHO CÔ GIÁO: Cô ấy tin rằng đáp án đúng là ${correctLetter}. "Hãy tin vào kiến thức đã học!"`;
+        loadQuestion(); // Refresh để cập nhật trạng thái nút
     }
 
     function resetGame() {
@@ -430,12 +466,15 @@
         loadQuestion();
     }
 
+    // Khởi tạo
+    prepareQuestions();
+    renderPrizeLadder();
+    
     fiftyBtn.onclick = useFifty;
     askClassBtn.onclick = useAskClass;
     phoneBtn.onclick = usePhone;
     resetBtn.onclick = resetGame;
-
-    renderPrizeLadder();
+    
     resetGame();
 </script>
 </body>
