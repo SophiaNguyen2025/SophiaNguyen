@@ -206,7 +206,7 @@
   .avatar.bot img { width: 100%; height: 100%; object-fit: cover; }
   .avatar.user { background: var(--gold); color: var(--ink); font-size: 16px; }
   .bubble {
-    max-width: 75%;
+    max-width: 80%;
     padding: 12px 18px;
     border-radius: 18px;
     font-size: 14px;
@@ -218,6 +218,26 @@
   .bubble .meaning { color: #a0aec0; font-size: 13px; margin-top: 4px; }
   .bubble strong { color: var(--gold); }
   .bubble em { color: #90cdf4; font-style: italic; }
+
+  .vocab-card {
+    margin: 8px 0;
+    padding: 10px 14px;
+    background: rgba(230,184,0,0.08);
+    border-radius: 14px;
+    border-left: 3px solid var(--gold);
+  }
+  .vocab-english {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .vocab-meaning {
+    font-size: 13px;
+    color: #a0aec0;
+    display: block;
+  }
 
   .typing { display: flex; gap: 12px; align-items: center; }
   .typing-dots { display: flex; gap: 6px; padding: 14px 20px; background: rgba(30,58,95,0.9); border: 1px solid rgba(230,184,0,0.2); border-radius: 6px 18px 18px 18px; }
@@ -365,7 +385,7 @@
 <script>
 // ==================== GROQ API KEY ====================
 // Free API from Groq - sign up at https://console.groq.com
-const GROQ_API_KEY = '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';
+const GROQ_API_KEY = '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';
 // ======================================================
 
 let currentLevel = 1;
@@ -385,7 +405,7 @@ const levelInfo = {
 
 function getSystemPrompt() {
   const lvl = levelInfo[currentLevel];
-  const translation = showMeaning ? 'Always provide Vietnamese translation (nghĩa tiếng Việt) after each word or sentence.' : 'Do NOT provide Vietnamese translation.';
+  const translation = showMeaning ? 'Always provide Vietnamese translation (nghĩa tiếng Việt) after each word or sentence. Format as: English - Vietnamese' : 'Do NOT provide Vietnamese translation.';
   
   const basePrompt = `You are a professional English tutor named "Ms. Emily", teaching Vietnamese students to learn English according to the CEFR international standards. The student is learning ${lvl.name} level (${lvl.desc} - ${lvl.words}).
 
@@ -396,7 +416,7 @@ TEACHING PRINCIPLES:
 - Break down knowledge into small, easy steps
 - Praise and encourage the student
 - Use emojis to make lessons fun (but not too many)
-- Vocabulary format: [Word/Sentence] - [Vietnamese meaning]
+- When presenting vocabulary, use format: "Hello - Xin chào" or "How are you? - Bạn khỏe không?"
 - Always provide simple example sentences with translation
 
 LEVEL ${lvl.name}: ${lvl.desc}`;
@@ -433,7 +453,8 @@ function setLevel(lvl, btn) {
   conversationHistory = [];
   const welcome = document.getElementById('welcomeCard');
   if (welcome) {
-    welcome.querySelector('h2').textContent = `Level ${levelInfo[lvl].name} — ${levelInfo[lvl].desc}!`;
+    const h2 = welcome.querySelector('h2');
+    if (h2) h2.textContent = `Level ${levelInfo[lvl].name} — ${levelInfo[lvl].desc}!`;
   }
 }
 
@@ -466,29 +487,51 @@ function addMessage(role, content) {
 }
 
 function formatMessage(text) {
+  // Xử lý markdown cơ bản
   text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
   text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
+  
   const lines = text.split('\n');
   const formattedLines = lines.map(line => {
-    // Detect vocabulary pattern: English - Vietnamese
-    if (line.includes(' - ') && !line.includes('```')) {
-      const parts = line.split(' - ');
-      if (parts.length >= 2) {
-        const english = parts[0].replace(/^[•\-\d\.\s]+/, '');
-        const meaning = parts.slice(1).join(' - ');
-        return `<div style="margin: 8px 0;"><span class="en">📖 ${english}</span><span class="meaning">→ ${meaning}</span></div>`;
+    const trimmedLine = line.trim();
+    if (!trimmedLine) return '<br>';
+    
+    // Phát hiện dòng có định dạng "English - Vietnamese"
+    // Tránh nhầm với dấu gạch ngang trong câu dài
+    const dashIndex = trimmedLine.indexOf(' - ');
+    if (dashIndex > 0 && dashIndex < 60 && trimmedLine.length < 120) {
+      const english = trimmedLine.substring(0, dashIndex).replace(/^[•\-\d\.\s]+/, '').trim();
+      const meaning = trimmedLine.substring(dashIndex + 3).trim();
+      if (english && meaning && english.length < 50 && meaning.length < 100) {
+        return `<div class="vocab-card">
+          <span class="vocab-english">📖 ${escapeHtml(english)}</span>
+          <span class="vocab-meaning">→ ${escapeHtml(meaning)}</span>
+        </div>`;
       }
     }
-    return line || '<br>';
+    
+    // Highlight từ/cụm từ tiếng Anh (chữ cái, không phải HTML)
+    let processedLine = escapeHtml(trimmedLine);
+    processedLine = processedLine.replace(/([A-Za-z][A-Za-z\s,\.!?'-]{2,40})/g, (match) => {
+      // Không highlight nếu đã nằm trong thẻ HTML
+      if (match.includes('&lt;') || match.includes('&gt;')) return match;
+      if (match.length < 50 && !match.includes('=')) {
+        return `<span style="color: #ffd700; font-weight: 500;">${match}</span>`;
+      }
+      return match;
+    });
+    
+    return processedLine;
   });
-  let result = formattedLines.join('\n').replace(/\n/g, '<br>');
-  result = result.replace(/([A-Za-z][A-Za-z\s,\.!?]{3,})/g, (match) => {
-    if (match.length < 40 && !match.includes('<')) {
-      return `<span style="color:#ffd700;">${match}</span>`;
-    }
-    return match;
-  });
-  return result;
+  
+  return formattedLines.join('<br>');
+}
+
+// Helper function to escape HTML special characters
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
 }
 
 function showTyping() {
@@ -517,7 +560,8 @@ async function sendMessage() {
   addMessage('user', text);
   conversationHistory.push({ role: 'user', content: text });
   isTyping = true;
-  document.getElementById('sendBtn').disabled = true;
+  const sendBtn = document.getElementById('sendBtn');
+  if (sendBtn) sendBtn.disabled = true;
   showTyping();
   try {
     const messages = [
@@ -555,18 +599,19 @@ async function sendMessage() {
     addMessage('bot', '⚠️ Connection error. Please check your internet and try again!');
   }
   isTyping = false;
-  document.getElementById('sendBtn').disabled = false;
+  if (sendBtn) sendBtn.disabled = false;
 }
 
 function sendQuick(text) {
-  document.getElementById('userInput').value = text;
+  const input = document.getElementById('userInput');
+  if (input) input.value = text;
   sendMessage();
 }
 
 function resetChat() {
   conversationHistory = [];
   const chatArea = document.getElementById('chatArea');
-  chatArea.innerHTML = '';
+  if (chatArea) chatArea.innerHTML = '';
   const info = levelInfo[currentLevel];
   const welcome = document.createElement('div');
   welcome.className = 'welcome-card';
@@ -582,7 +627,7 @@ function resetChat() {
       <button class="quick-btn" onclick="sendQuick('Give me a simple A1 English quiz')">✅ Quiz me</button>
     </div>
   `;
-  chatArea.appendChild(welcome);
+  if (chatArea) chatArea.appendChild(welcome);
 }
 
 function handleKey(e) {
@@ -599,7 +644,10 @@ function autoResize(el) {
 }
 
 initBgChars();
-document.getElementById('showMeaningToggle').addEventListener('change', (e) => showMeaning = e.target.checked);
+const meaningToggle = document.getElementById('showMeaningToggle');
+if (meaningToggle) {
+  meaningToggle.addEventListener('change', (e) => showMeaning = e.target.checked);
+}
 </script>
 </body>
 </html>
