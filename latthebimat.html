@@ -115,7 +115,7 @@ body::after {
 .score-pill.remain  { background: var(--sun-light); color: #7A5C00; }
 .score-pill span { font-family: 'Fredoka One', cursive; font-size: 1.4rem; }
 
-/* GRID */
+/* GRID - responsive 4 cột trên desktop, 2 cột trên mobile */
 .grid-wrap {
   max-width: 960px; margin: 1.5rem auto 2rem;
   padding: 0 2rem;
@@ -128,11 +128,11 @@ body::after {
 .card-wrap {
   perspective: 1000px;
   cursor: pointer;
-  min-height: 180px;
+  min-height: 190px;
 }
 .card-inner {
   width: 100%;
-  min-height: 180px;
+  min-height: 190px;
   position: relative;
   transform-style: preserve-3d;
   transition: transform .55s cubic-bezier(.4,0,.2,1);
@@ -156,51 +156,51 @@ body::after {
 }
 .card-num {
   font-family: 'Fredoka One', cursive;
-  font-size: 2.2rem;
+  font-size: 2rem;
   color: var(--mint);
   line-height: 1;
 }
 .card-front-label {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 600;
   color: rgba(255,255,255,0.45);
   letter-spacing: .08em;
   text-transform: uppercase;
 }
-.card-front-icon { font-size: 1.8rem; }
+.card-front-icon { font-size: 1.6rem; }
 
 .card-back {
   position: relative;
   transform: rotateY(180deg);
-  padding: 14px 12px;
-  gap: 7px;
+  padding: 12px 10px;
+  gap: 6px;
   width: 100%;
-  min-height: 180px;
+  min-height: 190px;
 }
 .card-back-q {
-  font-size: 0.76rem;
+  font-size: 0.72rem;
   font-weight: 700;
   color: var(--white);
-  line-height: 1.4;
+  line-height: 1.35;
   background: rgba(0,0,0,0.18);
   border-radius: 10px;
-  padding: 8px 10px;
+  padding: 8px 8px;
   width: 100%;
 }
 .card-back-a {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 600;
-  line-height: 1.45;
+  line-height: 1.4;
   color: var(--ink);
   background: var(--white);
   border-radius: 10px;
-  padding: 10px;
+  padding: 8px;
   width: 100%;
   display: none;
 }
 .card-back-a.show { display: block; }
 .card-tap-hint {
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   font-weight: 600;
   letter-spacing: .05em;
   text-transform: uppercase;
@@ -217,16 +217,23 @@ body::after {
 .theme-green  .card-back { background: linear-gradient(135deg, #2E7D32, #66BB6A); }
 .theme-pink   .card-back { background: linear-gradient(135deg, #C2185B, #F48FB1); }
 .theme-orange .card-back { background: linear-gradient(135deg, #E64A19, #FF8A65); }
+.theme-teal   .card-back { background: linear-gradient(135deg, #008080, #20B2AA); }
+.theme-indigo .card-back { background: linear-gradient(135deg, #3F51B5, #7986CB); }
+.theme-brown  .card-back { background: linear-gradient(135deg, #795548, #A1887F); }
+.theme-cyan   .card-back { background: linear-gradient(135deg, #00ACC1, #4DD0E1); }
+.theme-lime   .card-back { background: linear-gradient(135deg, #827717, #D4E157); }
+.theme-deep-purple .card-back { background: linear-gradient(135deg, #512DA8, #9575CD); }
+.theme-amber  .card-back { background: linear-gradient(135deg, #FF8F00, #FFCA28); }
 
 /* REVEAL ANSWER btn */
 .reveal-btn {
   display: inline-flex; align-items: center; gap: 6px;
   margin-top: 6px;
-  padding: 6px 12px;
+  padding: 5px 10px;
   border-radius: 50px;
   border: none;
   font-family: 'Quicksand', sans-serif;
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 700;
   cursor: pointer;
   background: rgba(255,255,255,0.25);
@@ -236,7 +243,7 @@ body::after {
   justify-content: center;
 }
 .reveal-btn:hover { background: rgba(255,255,255,0.4); }
-.theme-sun .reveal-btn, .theme-orange .reveal-btn { color: var(--ink); }
+.theme-sun .reveal-btn, .theme-orange .reveal-btn, .theme-amber .reveal-btn { color: var(--ink); }
 
 /* JUDGE ROW */
 .judge-row {
@@ -244,11 +251,11 @@ body::after {
 }
 .judge-row.show { display: flex; }
 .judge-btn {
-  flex: 1; padding: 8px 4px;
+  flex: 1; padding: 6px 4px;
   border-radius: 10px;
   border: none;
   font-family: 'Quicksand', sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 700;
   cursor: pointer;
   transition: all .15s;
@@ -261,11 +268,11 @@ body::after {
 .card-wrap.done-ok   .card-back { filter: brightness(.88); }
 .card-wrap.done-ok::after {
   content: '✅'; position: absolute; top: 8px; right: 8px;
-  font-size: 1.2rem; z-index: 5;
+  font-size: 1.1rem; z-index: 5;
 }
 .card-wrap.done-fail::after {
   content: '❌'; position: absolute; top: 8px; right: 8px;
-  font-size: 1.2rem; z-index: 5;
+  font-size: 1.1rem; z-index: 5;
 }
 
 /* RESET */
@@ -301,20 +308,20 @@ body::after {
 .win-box {
   background: var(--white);
   border-radius: 28px;
-  padding: 3rem 3.5rem;
+  padding: 2rem 2.5rem;
   text-align: center;
   box-shadow: 0 20px 80px rgba(0,0,0,0.3);
   animation: popIn .4s cubic-bezier(.4,0,.2,1);
 }
 @keyframes popIn { from{transform:scale(.7);opacity:0} to{transform:scale(1);opacity:1} }
-.win-icon { font-size: 5rem; }
+.win-icon { font-size: 4rem; }
 .win-title {
   font-family: 'Fredoka One', cursive;
-  font-size: 2.2rem;
+  font-size: 1.8rem;
   color: var(--ink);
   margin: .5rem 0 .25rem;
 }
-.win-sub { font-size: 1rem; color: var(--ink-soft); font-weight: 600; margin-bottom: 1.5rem; }
+.win-sub { font-size: 0.9rem; color: var(--ink-soft); font-weight: 600; margin-bottom: 1.2rem; }
 
 /* RESPONSIVE */
 @media (max-width: 700px) {
@@ -338,7 +345,7 @@ body::after {
 <div class="progress-wrap">
   <div class="progress-top">
     <span class="progress-label">Tiến độ ôn bài</span>
-    <span class="progress-count" id="prog-count">0 / 8 thẻ</span>
+    <span class="progress-count" id="prog-count">0 / 15 thẻ</span>
   </div>
   <div class="progress-bar-track">
     <div class="progress-bar-fill" id="prog-bar" style="width:0%"></div>
@@ -348,7 +355,7 @@ body::after {
 <div class="score-strip">
   <div class="score-pill correct">✅ Trả lời đúng <span id="sc-ok">0</span></div>
   <div class="score-pill wrong">❌ Cần ôn lại <span id="sc-fail">0</span></div>
-  <div class="score-pill remain">🃏 Còn lại <span id="sc-remain">8</span></div>
+  <div class="score-pill remain">🃏 Còn lại <span id="sc-remain">15</span></div>
 </div>
 
 <div class="grid-wrap" id="grid"></div>
@@ -367,7 +374,7 @@ body::after {
 </div>
 
 <script>
-// ==================== CÂU HỎI THEO NỘI DUNG BUỔI 1 MỚI ====================
+// ==================== 15 CÂU HỎI THEO NỘI DUNG BUỔI 1 MỚI ====================
 const CARDS = [
   {
     icon: '🌱',
@@ -416,10 +423,53 @@ const CARDS = [
     q: 'Ngửi thấy mùi gas (mùi trứng thối) trong bếp — các bước xử lý đúng là gì?',
     a: '1. KHÔNG bật/tắt bất kỳ công tắc điện nào (kể cả quạt, đèn, chuông cửa, điện thoại).\n2. Khóa van tổng gas (nếu biết và an toàn).\n3. Mở hết cửa sổ, cửa ra vào.\n4. Ra ngoài ngay.\n5. Ra ngoài rồi mới gọi 114 (số báo cháy).',
     theme: 'theme-orange'
+  },
+  {
+    icon: '❤️',
+    q: 'Phân biệt "cảm xúc thật" và "cảm xúc do hormone" bằng 2 dấu hiệu.',
+    a: 'Hormone: đến nhanh, không rõ lý do, qua đi cũng nhanh (vài giờ).\nCảm xúc thật: có nguyên nhân cụ thể, kéo dài nhiều ngày, ảnh hưởng đến sinh hoạt.',
+    theme: 'theme-teal'
+  },
+  {
+    icon: '📱',
+    q: 'Ảnh trên mạng xã hội có đáng tin về ngoại hình không? Vì sao?',
+    a: 'KHÔNG đáng tin. Hầu hết ảnh trên mạng xã hội đã qua chỉnh sửa (lọc da, kéo chân, bóp eo).\nKhông ai có cơ thể "hoàn hảo" ngoài đời thực.\n→ Đừng so sánh bản thân với ảnh mạng xã hội.',
+    theme: 'theme-indigo'
+  },
+  {
+    icon: '🗣️',
+    q: 'Khi bị bạn bè chê ngoại hình, bạn có thể phản ứng thế nào?',
+    a: '"Cơ thể mình, mình thấy ổn. Bạn đừng nhận xét về cơ thể mình nữa nhé."\nHoặc: "Mình không thích bạn nói về cơ thể mình như vậy."\n→ Đây là cách đặt ranh giới lành mạnh.',
+    theme: 'theme-brown'
+  },
+  {
+    icon: '💌',
+    q: 'Nếu được tỏ tình nhưng mình không thích, bạn nên nói gì?',
+    a: '"Cảm ơn bạn đã thích mình. Mình chỉ muốn làm bạn thôi nhé."\n→ Bạn KHÔNG bắt buộc phải đồng ý để khỏi mất lòng. Từ chối lịch sự là hoàn toàn bình thường.',
+    theme: 'theme-cyan'
+  },
+  {
+    icon: '👥',
+    q: 'Làm thế nào để nhận biết bạn bè đang ép mình làm điều không muốn?',
+    a: 'Nếu bạn bè không chấp nhận câu "không" của mình, họ cố gắng thuyết phục, chê bai, đe dọa, hoặc nói "không làm thì không phải bạn" — đó là ép buộc.\n→ Họ không phải bạn thật sự.',
+    theme: 'theme-lime'
+  },
+  {
+    icon: '🏠',
+    q: 'Nếu lỡ đưa bạn về nhà khi bố mẹ vắng, bạn nên làm gì?',
+    a: 'Lần sau đừng làm thế. Nếu bạn có ý đồ xấu, hãy bảo bạn về ngay.\nNếu cần, gọi bố mẹ hoặc 113.\n→ Nguyên tắc: KHÔNG đưa ai về nhà khi không có người lớn.',
+    theme: 'theme-deep-purple'
+  },
+  {
+    icon: '📞',
+    q: 'Nếu không liên lạc được với bố mẹ khi có người lạ gõ cửa, bạn gọi số nào?',
+    a: 'Gọi 113 (công an khẩn cấp).\nKể rõ: "Cháu đang ở [địa chỉ], có người lạ mặt gõ cửa tự xưng [chức danh], cháu nghi ngờ có ý đồ xấu."\n→ Luôn bình tĩnh và làm theo hướng dẫn của tổng đài.',
+    theme: 'theme-amber'
   }
 ];
 
 let scOk = 0, scFail = 0, done = 0;
+const THEMES = ['theme-mint','theme-coral','theme-sun','theme-blue','theme-purple','theme-green','theme-pink','theme-orange','theme-teal','theme-indigo','theme-brown','theme-cyan','theme-lime','theme-deep-purple','theme-amber'];
 
 function initCards() {
   scOk = 0; scFail = 0; done = 0;
@@ -447,7 +497,7 @@ function initCards() {
             <button class="judge-btn j-ok" onclick="judge(event,${i},'ok')">✅ Đúng rồi</button>
             <button class="judge-btn j-fail" onclick="judge(event,${i},'fail')">🔁 Ôn lại</button>
           </div>
-          <div class="card-tap-hint">Thẻ ${i+1}/8</div>
+          <div class="card-tap-hint">Thẻ ${i+1}/15</div>
         </div>
       </div>`;
     wrap.querySelector('.card-inner').addEventListener('click', (e) => {
@@ -493,7 +543,7 @@ function updateScore() {
 function showWin() {
   const pct = Math.round(scOk / CARDS.length * 100);
   let msg = pct >= 87 ? '🌟 Xuất sắc! Nhớ bài rất tốt!' : pct >= 62 ? '👍 Khá tốt! Xem lại những thẻ đỏ nhé.' : '💪 Cần ôn thêm một chút nữa!';
-  document.getElementById('win-sub').textContent = `Đúng ${scOk}/${CARDS.length} thẻ (${pct}%) — ${msg}`;
+  document.getElementById('win-sub').innerHTML = `Đúng ${scOk}/${CARDS.length} thẻ (${pct}%)<br>${msg}`;
   document.getElementById('win-banner').classList.add('show');
 }
 
