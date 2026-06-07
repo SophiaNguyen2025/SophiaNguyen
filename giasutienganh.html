@@ -3,26 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>English Learning · English Tutor with Emily</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>English Tutor · Ms. Emily · Full + Voice</title>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --ink: #0a1928;
-    --ink-light: #0f2a3f;
     --paper: #f0f4f8;
-    --paper-dark: #e2e8f0;
     --navy: #1e3a5f;
     --navy-light: #2c5282;
     --gold: #e6b800;
-    --gold-light: #ffd700;
-    --jade: #2c7a4d;
     --mist: #718096;
-    --white: #ffffff;
-    --shadow: rgba(30,58,95,0.15);
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   body {
     font-family: 'Quicksand', sans-serif;
     background: var(--ink);
@@ -30,40 +22,25 @@
     overflow: hidden;
     position: relative;
   }
-
   body::before {
     content: '';
     position: fixed;
     inset: 0;
-    background: 
-      radial-gradient(ellipse at 10% 20%, rgba(46,91,130,0.15) 0%, transparent 50%),
-      radial-gradient(ellipse at 90% 80%, rgba(230,184,0,0.06) 0%, transparent 50%),
-      radial-gradient(ellipse at 50% 50%, rgba(15,42,63,0.9) 0%, var(--ink) 100%);
+    background: radial-gradient(ellipse at 10% 20%, rgba(46,91,130,0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 90% 80%, rgba(230,184,0,0.06) 0%, transparent 50%);
     pointer-events: none;
     z-index: 0;
   }
-
-  .bg-chars {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    overflow: hidden;
-  }
+  .bg-chars { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
   .bg-char {
     position: absolute;
     font-family: 'Quicksand', sans-serif;
     font-weight: 700;
-    color: rgba(30,58,95,0.06);
+    color: rgba(30,58,95,0.05);
     animation: floatChar 20s ease-in-out infinite;
-    user-select: none;
     font-size: 60px;
   }
-  @keyframes floatChar {
-    0%, 100% { transform: translateY(0px) rotate(-5deg); }
-    50% { transform: translateY(-20px) rotate(5deg); }
-  }
-
+  @keyframes floatChar { 0%, 100% { transform: translateY(0px) rotate(-5deg); } 50% { transform: translateY(-20px) rotate(5deg); } }
   .app {
     position: relative;
     z-index: 1;
@@ -73,7 +50,6 @@
     max-width: 900px;
     margin: 0 auto;
   }
-
   .header {
     padding: 16px 24px;
     display: flex;
@@ -84,18 +60,15 @@
     backdrop-filter: blur(10px);
     flex-shrink: 0;
   }
-
   .logo { display: flex; align-items: center; gap: 12px; }
   .logo-img {
     width: 42px; height: 42px; border-radius: 50%;
-    object-fit: cover; box-shadow: 0 4px 15px rgba(30,58,95,0.5);
-    border: 2px solid var(--gold);
+    object-fit: cover; border: 2px solid var(--gold);
   }
-  .logo-text h1 { font-size: 16px; font-weight: 700; color: var(--paper); letter-spacing: 0.5px; }
-  .logo-text p { font-size: 11px; color: var(--gold); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
-
+  .logo-text h1 { font-size: 16px; font-weight: 700; color: var(--paper); }
+  .logo-text p { font-size: 11px; color: var(--gold); font-weight: 600; text-transform: uppercase; }
   .header-controls { display: flex; align-items: center; gap: 10px; }
-
+  
   .level-bar {
     padding: 12px 24px;
     display: flex;
@@ -107,7 +80,7 @@
     overflow-x: auto;
   }
   .level-bar::-webkit-scrollbar { display: none; }
-  .level-label { font-size: 11px; color: var(--mist); font-weight: 700; text-transform: uppercase; white-space: nowrap; letter-spacing: 1px; }
+  .level-label { font-size: 11px; color: var(--mist); font-weight: 700; text-transform: uppercase; white-space: nowrap; }
   .level-btn {
     padding: 6px 14px;
     border: 1.5px solid rgba(230,184,0,0.35);
@@ -118,11 +91,10 @@
     font-weight: 600;
     cursor: pointer;
     white-space: nowrap;
-    transition: all 0.2s;
   }
-  .level-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(230,184,0,0.08); }
-  .level-btn.active { background: var(--navy); border-color: var(--gold); color: var(--gold); box-shadow: 0 2px 12px rgba(30,58,95,0.5); }
-
+  .level-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .level-btn.active { background: var(--navy); border-color: var(--gold); color: var(--gold); }
+  
   .mode-bar {
     padding: 10px 24px;
     display: flex;
@@ -142,14 +114,10 @@
     font-weight: 600;
     cursor: pointer;
     white-space: nowrap;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 5px;
   }
   .mode-btn:hover { background: rgba(255,255,255,0.1); color: var(--paper); }
   .mode-btn.active { background: rgba(230,184,0,0.12); border-color: rgba(230,184,0,0.4); color: var(--gold); }
-
+  
   .chat-area {
     flex: 1;
     overflow-y: auto;
@@ -157,28 +125,17 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
-    scrollbar-width: thin;
   }
-  .chat-area::-webkit-scrollbar { width: 4px; }
-  .chat-area::-webkit-scrollbar-track { background: transparent; }
-  .chat-area::-webkit-scrollbar-thumb { background: rgba(230,184,0,0.25); border-radius: 2px; }
-
   .welcome-card {
     background: linear-gradient(135deg, rgba(30,58,95,0.85), rgba(15,42,63,0.95));
     border: 1px solid rgba(230,184,0,0.25);
     border-radius: 20px;
     padding: 32px;
     text-align: center;
-    animation: fadeUp 0.5s ease;
-  }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
   }
   .welcome-emoji { font-size: 64px; margin-bottom: 12px; }
-  .welcome-card h2 { color: var(--paper); font-size: 22px; font-weight: 700; margin-bottom: 10px; }
-  .welcome-card p { color: var(--mist); font-size: 14px; line-height: 1.6; margin-bottom: 24px; }
-
+  .welcome-card h2 { color: var(--paper); font-size: 22px; margin-bottom: 10px; }
+  .welcome-card p { color: var(--mist); font-size: 14px; margin-bottom: 24px; }
   .quick-start { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
   .quick-btn {
     padding: 8px 18px;
@@ -189,22 +146,20 @@
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s;
   }
-  .quick-btn:hover { background: rgba(230,184,0,0.2); transform: translateY(-2px); }
-
+  
   .message { display: flex; gap: 12px; max-width: 100%; animation: fadeUp 0.3s ease; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
   .message.user { flex-direction: row-reverse; }
   .avatar {
     width: 38px; height: 38px; border-radius: 12px;
     display: flex; align-items: center; justify-content: center;
     font-size: 16px; flex-shrink: 0;
-    font-weight: 700;
     overflow: hidden;
   }
-  .avatar.bot { background: linear-gradient(135deg, var(--navy), var(--navy-light)); color: white; border: 1px solid var(--gold); }
+  .avatar.bot { background: linear-gradient(135deg, var(--navy), var(--navy-light)); border: 1px solid var(--gold); }
   .avatar.bot img { width: 100%; height: 100%; object-fit: cover; }
-  .avatar.user { background: var(--gold); color: var(--ink); font-size: 16px; }
+  .avatar.user { background: var(--gold); color: var(--ink); font-weight: 700; }
   .bubble {
     max-width: 80%;
     padding: 12px 18px;
@@ -214,11 +169,6 @@
   }
   .message.bot .bubble { background: rgba(30,58,95,0.9); border: 1px solid rgba(230,184,0,0.2); color: var(--paper); border-radius: 6px 18px 18px 18px; }
   .message.user .bubble { background: var(--navy); color: white; border-radius: 18px 6px 18px 18px; }
-  .bubble .en { font-family: 'Quicksand', sans-serif; font-size: 17px; font-weight: 600; color: var(--gold); display: block; margin-bottom: 6px; }
-  .bubble .meaning { color: #a0aec0; font-size: 13px; margin-top: 4px; }
-  .bubble strong { color: var(--gold); }
-  .bubble em { color: #90cdf4; font-style: italic; }
-
   .vocab-card {
     margin: 8px 0;
     padding: 10px 14px;
@@ -226,26 +176,16 @@
     border-radius: 14px;
     border-left: 3px solid var(--gold);
   }
-  .vocab-english {
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--gold);
-    display: block;
-    margin-bottom: 4px;
-  }
-  .vocab-meaning {
-    font-size: 13px;
-    color: #a0aec0;
-    display: block;
-  }
-
+  .vocab-english { font-size: 16px; font-weight: 700; color: var(--gold); display: block; margin-bottom: 4px; }
+  .vocab-meaning { font-size: 13px; color: #a0aec0; display: block; }
+  
   .typing { display: flex; gap: 12px; align-items: center; }
-  .typing-dots { display: flex; gap: 6px; padding: 14px 20px; background: rgba(30,58,95,0.9); border: 1px solid rgba(230,184,0,0.2); border-radius: 6px 18px 18px 18px; }
+  .typing-dots { display: flex; gap: 6px; padding: 14px 20px; background: rgba(30,58,95,0.9); border-radius: 6px 18px 18px 18px; }
   .dot { width: 8px; height: 8px; background: var(--gold); border-radius: 50%; animation: bounce 1.2s infinite; }
   .dot:nth-child(2) { animation-delay: 0.15s; }
   .dot:nth-child(3) { animation-delay: 0.3s; }
   @keyframes bounce { 0%, 80%, 100% { transform: translateY(0); opacity: 0.4; } 40% { transform: translateY(-6px); opacity: 1; } }
-
+  
   .input-area {
     padding: 16px 24px;
     border-top: 1px solid rgba(230,184,0,0.12);
@@ -261,56 +201,38 @@
     border-radius: 20px;
     padding: 12px 18px;
     color: var(--paper);
-    font-family: 'Quicksand', sans-serif;
     font-size: 14px;
-    font-weight: 500;
     resize: none;
     outline: none;
     max-height: 120px;
     min-height: 48px;
   }
   .input-box:focus { border-color: var(--gold); }
-  .send-btn {
+  .voice-btn, .send-btn {
     width: 48px; height: 48px;
     background: var(--navy);
     border: 1px solid var(--gold);
     border-radius: 50%;
     color: var(--gold);
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
     font-size: 18px;
+    transition: all 0.2s;
   }
-  .send-btn:hover { background: var(--navy-light); transform: scale(1.02); border-color: var(--gold-light); color: var(--gold-light); }
-  .send-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-  .input-hint { margin-top: 10px; font-size: 11px; color: var(--mist); display: flex; justify-content: space-between; align-items: center; }
+  .voice-btn:hover, .send-btn:hover { background: var(--navy-light); transform: scale(1.02); }
+  .voice-btn.listening { background: #2c7a4d; border-color: white; color: white; animation: pulse 1.2s infinite; }
+  @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+  
+  .input-hint { margin-top: 10px; font-size: 11px; color: var(--mist); display: flex; justify-content: space-between; }
   .toggle { display: flex; align-items: center; gap: 8px; cursor: pointer; }
   .toggle input { display: none; }
-  .toggle-track { width: 34px; height: 18px; background: rgba(255,255,255,0.1); border-radius: 20px; position: relative; transition: 0.2s; }
+  .toggle-track { width: 34px; height: 18px; background: rgba(255,255,255,0.1); border-radius: 20px; position: relative; }
   .toggle-track::after { content: ''; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; background: var(--mist); border-radius: 50%; transition: 0.2s; }
   .toggle input:checked + .toggle-track { background: rgba(44,82,130,0.6); }
   .toggle input:checked + .toggle-track::after { left: 18px; background: var(--gold); }
-  .reset-btn {
-    padding: 6px 14px;
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 20px;
-    color: var(--mist);
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-  }
-  .reset-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(230,184,0,0.05); }
-  .level-info { padding: 6px 14px; background: rgba(30,58,95,0.6); border: 1px solid rgba(230,184,0,0.25); border-radius: 20px; font-size: 11px; color: var(--gold); font-weight: 600; letter-spacing: 0.5px; }
-
-  @media (max-width: 600px) {
-    .header, .level-bar, .mode-bar, .chat-area, .input-area { padding-left: 14px; padding-right: 14px; }
-    .bubble { max-width: 88%; font-size: 13px; }
-    .welcome-emoji { font-size: 48px; }
-    .welcome-card h2 { font-size: 18px; }
-  }
+  .reset-btn { padding: 6px 14px; background: transparent; border: 1px solid rgba(255,255,255,0.15); border-radius: 20px; color: var(--mist); font-size: 12px; cursor: pointer; }
+  .reset-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .level-info { padding: 6px 14px; background: rgba(30,58,95,0.6); border: 1px solid rgba(230,184,0,0.25); border-radius: 20px; font-size: 11px; color: var(--gold); font-weight: 600; }
+  @media (max-width: 600px) { .bubble { max-width: 88%; } }
 </style>
 </head>
 <body>
@@ -320,11 +242,10 @@
 <div class="app">
   <div class="header">
     <div class="logo">
-      <img class="logo-img" src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Emily Tutor" onerror="this.style.display='none'; document.getElementById('logoFallback').style.display='flex';">
-      <div class="logo-icon" id="logoFallback" style="display:none;">🇬🇧</div>
+      <img class="logo-img" src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Emily">
       <div class="logo-text">
         <h1>English Tutor</h1>
-        <p>Ms. Emily · CEFR A1–C2</p>
+        <p>Ms. Emily · CEFR A1–C2 · Voice</p>
       </div>
     </div>
     <div class="header-controls">
@@ -346,7 +267,7 @@
   <div class="mode-bar">
     <button class="mode-btn active" onclick="setMode('vocab', this)">📖 Vocabulary</button>
     <button class="mode-btn" onclick="setMode('convo', this)">🗣️ Conversation</button>
-    <button class="mode-btn" onclick="setMode('pronunciation', this)">🎵 Pronunciation</button>
+    <button class="mode-btn" onclick="setMode('pronunciation', this)">🎵 Pronunciation (Voice)</button>
     <button class="mode-btn" onclick="setMode('grammar', this)">📝 Grammar</button>
     <button class="mode-btn" onclick="setMode('quiz', this)">✅ Quiz</button>
     <button class="mode-btn" onclick="setMode('free', this)">💬 Free Chat</button>
@@ -354,22 +275,23 @@
 
   <div class="chat-area" id="chatArea">
     <div class="welcome-card" id="welcomeCard">
-      <div class="welcome-emoji">🇬🇧</div>
+      <div class="welcome-emoji">🎤🇬🇧</div>
       <h2>Hello! Welcome to English Class!</h2>
-      <p>You are at <strong>A1 Beginner level</strong> — perfect for starting from zero. I'm Ms. Emily, and I'll guide you step by step in Vietnamese.</p>
+      <p>You are at <strong>A1 Beginner level</strong>. Try the Pronunciation mode and click the 🎤 button to practice speaking!</p>
       <div class="quick-start">
-        <button class="quick-btn" onclick="sendQuick('Teach me basic greetings in English')">👋 Greetings</button>
+        <button class="quick-btn" onclick="sendQuick('Teach me basic greetings')">👋 Greetings</button>
         <button class="quick-btn" onclick="sendQuick('Teach me numbers 1 to 10')">🔢 Numbers</button>
-        <button class="quick-btn" onclick="sendQuick('Where should I start learning English?')">🗺️ Learning path</button>
-        <button class="quick-btn" onclick="sendQuick('Give me a simple A1 English quiz')">✅ Quiz me</button>
+        <button class="quick-btn" onclick="sendQuick('Teach me vocabulary about family')">👪 Family</button>
+        <button class="quick-btn" onclick="sendQuick('Give me a simple A1 quiz')">✅ Quiz</button>
       </div>
     </div>
   </div>
 
   <div class="input-area">
     <div class="input-row">
-      <textarea class="input-box" id="userInput" placeholder="Type your question... (e.g., 'teach me vocabulary about weather')" rows="1" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
-      <button class="send-btn" id="sendBtn" onclick="sendMessage()">➤</button>
+      <textarea class="input-box" id="userInput" placeholder="Type your question... or click 🎤 to speak" rows="1" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+      <button class="voice-btn" id="voiceBtn" onclick="startVoiceInput()" title="Click to speak">🎤</button>
+      <button class="send-btn" onclick="sendMessage()">➤</button>
     </div>
     <div class="input-hint">
       <label class="toggle">
@@ -377,16 +299,13 @@
         <span class="toggle-track"></span>
         Show Vietnamese translation
       </label>
-      <span>Enter to send · Shift+Enter new line</span>
+      <span>🎤 Click mic → speak → auto-send</span>
     </div>
   </div>
 </div>
 
 <script>
-// ==================== GROQ API KEY ====================
-// Free API from Groq - sign up at https://console.groq.com
-const GROQ_API_KEY = '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';
-// ======================================================
+const GROQ_API_KEY = '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';
 
 let currentLevel = 1;
 let currentMode = 'vocab';
@@ -395,52 +314,40 @@ let showMeaning = true;
 let isTyping = false;
 
 const levelInfo = {
-  1: { name: 'A1', words: '500 words', desc: 'Beginner - Start from zero' },
-  2: { name: 'A2', words: '1000 words', desc: 'Elementary - Basic phrases' },
-  3: { name: 'B1', words: '2000 words', desc: 'Intermediate - Can have conversations' },
-  4: { name: 'B2', words: '4000 words', desc: 'Upper Intermediate - Fluent' },
-  5: { name: 'C1', words: '8000 words', desc: 'Advanced - Professional' },
-  6: { name: 'C2', words: '16000+ words', desc: 'Proficient - Mastery' },
+  1: { name: 'A1', words: '500 words', desc: 'Beginner' },
+  2: { name: 'A2', words: '1000 words', desc: 'Elementary' },
+  3: { name: 'B1', words: '2000 words', desc: 'Intermediate' },
+  4: { name: 'B2', words: '4000 words', desc: 'Upper Int.' },
+  5: { name: 'C1', words: '8000 words', desc: 'Advanced' },
+  6: { name: 'C2', words: '16000+ words', desc: 'Proficient' },
 };
 
 function getSystemPrompt() {
   const lvl = levelInfo[currentLevel];
-  const translation = showMeaning ? 'Always provide Vietnamese translation (nghĩa tiếng Việt) after each word or sentence. Format as: English - Vietnamese' : 'Do NOT provide Vietnamese translation.';
+  const translation = showMeaning ? 'Always provide Vietnamese translation after each word/sentence. Format: English - Vietnamese' : 'Do NOT provide Vietnamese translation.';
+  const voiceInstruction = currentMode === 'pronunciation' ? 
+    `\nIMPORTANT: This is PRONUNCIATION PRACTICE mode. After the user speaks a word/phrase (you will see their transcribed text), provide detailed feedback on: 1) Which sounds are correct/incorrect, 2) How to improve (tongue position, mouth shape), 3) Compare with Vietnamese sounds if helpful. Be encouraging and specific.` : '';
   
-  const basePrompt = `You are a professional English tutor named "Ms. Emily", teaching Vietnamese students to learn English according to the CEFR international standards. The student is learning ${lvl.name} level (${lvl.desc} - ${lvl.words}).
+  return `You are English tutor "Ms. Emily", teaching Vietnamese students. Level: ${lvl.name} (${lvl.desc} - ${lvl.words}).
 
-TEACHING PRINCIPLES:
-- Always use Vietnamese to explain, guide, and translate
-- Present English words/sentences clearly, beautifully
+PRINCIPLES:
+- Use Vietnamese for explanations and translations
 - ${translation}
-- Break down knowledge into small, easy steps
-- Praise and encourage the student
-- Use emojis to make lessons fun (but not too many)
-- When presenting vocabulary, use format: "Hello - Xin chào" or "How are you? - Bạn khỏe không?"
-- Always provide simple example sentences with translation
+- Break down knowledge into small steps
+- Praise and encourage
 
-LEVEL ${lvl.name}: ${lvl.desc}`;
-
-  const modePrompts = {
-    vocab: `\nMODE: VOCABULARY - Teach 3-5 new words per topic, explain meanings, give examples, suggest next topic.`,
-    convo: `\nMODE: CONVERSATION - Create role-play dialogues suitable for ${lvl.name}, correct mistakes gently, encourage student to respond.`,
-    pronunciation: `\nMODE: PRONUNCIATION - Explain difficult sounds (th, r, l, ed endings, s endings), vowels, stress patterns. Use simple comparisons with Vietnamese.`,
-    grammar: `\nMODE: GRAMMAR - Explain grammar structures clearly, provide formulas, many examples, compare with Vietnamese when helpful.`,
-    quiz: `\nMODE: QUIZ - Create 5-10 questions suitable for ${lvl.name} (multiple choice, fill in blank, translation), give scores and explain answers.`,
-    free: `\nMODE: FREE CHAT - Answer any questions about English, connect answers to ${lvl.name} level, always relate to practical learning.`,
-  };
-  return basePrompt + (modePrompts[currentMode] || modePrompts.free);
+MODE: ${currentMode}${voiceInstruction}`;
 }
 
 function initBgChars() {
-  const chars = ['A','B','C','Hello','World','Learn','Speak','Write','Read','English'];
+  const chars = ['A','B','C','Hello','World','Learn','Speak'];
   const container = document.getElementById('bgChars');
   if (!container) return;
   chars.forEach((char) => {
     const el = document.createElement('div');
     el.className = 'bg-char';
     el.textContent = char;
-    el.style.cssText = `left: ${Math.random() * 100}%; top: ${Math.random() * 100}%; font-size: ${50 + Math.random() * 100}px; animation-delay: ${Math.random() * 10}s; animation-duration: ${15 + Math.random() * 15}s; opacity: 0.3;`;
+    el.style.cssText = `left: ${Math.random() * 100}%; top: ${Math.random() * 100}%; font-size: ${50 + Math.random() * 100}px; animation-delay: ${Math.random() * 10}s; opacity: 0.2;`;
     container.appendChild(el);
   });
 }
@@ -462,6 +369,19 @@ function setMode(mode, btn) {
   currentMode = mode;
   document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
+  if (mode === 'pronunciation') {
+    addMessage('bot', '🎤 Pronunciation mode activated! Click the microphone button 🎤, say any English word or sentence, and I will give you feedback on your pronunciation!');
+  } else if (mode === 'vocab') {
+    addMessage('bot', '📖 Vocabulary mode. Tell me a topic (e.g., "food", "weather", "family") and I will teach you new words!');
+  } else if (mode === 'convo') {
+    addMessage('bot', '🗣️ Conversation mode. I will create role-play dialogues for you to practice!');
+  } else if (mode === 'grammar') {
+    addMessage('bot', '📝 Grammar mode. Ask me about any grammar point (e.g., "present simple", "past tense") and I will explain with examples!');
+  } else if (mode === 'quiz') {
+    addMessage('bot', '✅ Quiz mode. I will test your knowledge with multiple-choice questions!');
+  } else if (mode === 'free') {
+    addMessage('bot', '💬 Free chat mode. Ask me anything about English!');
+  }
 }
 
 function addMessage(role, content) {
@@ -473,7 +393,7 @@ function addMessage(role, content) {
   const avatar = document.createElement('div');
   avatar.className = `avatar ${role}`;
   if (role === 'bot') {
-    avatar.innerHTML = `<img src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Emily" onerror="this.parentElement.textContent='🇬🇧'">`;
+    avatar.innerHTML = `<img src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Emily">`;
   } else {
     avatar.textContent = '👤';
   }
@@ -487,51 +407,26 @@ function addMessage(role, content) {
 }
 
 function formatMessage(text) {
-  // Xử lý markdown cơ bản
   text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-  text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
-  
   const lines = text.split('\n');
   const formattedLines = lines.map(line => {
-    const trimmedLine = line.trim();
-    if (!trimmedLine) return '<br>';
-    
-    // Phát hiện dòng có định dạng "English - Vietnamese"
-    // Tránh nhầm với dấu gạch ngang trong câu dài
-    const dashIndex = trimmedLine.indexOf(' - ');
-    if (dashIndex > 0 && dashIndex < 60 && trimmedLine.length < 120) {
-      const english = trimmedLine.substring(0, dashIndex).replace(/^[•\-\d\.\s]+/, '').trim();
-      const meaning = trimmedLine.substring(dashIndex + 3).trim();
-      if (english && meaning && english.length < 50 && meaning.length < 100) {
-        return `<div class="vocab-card">
-          <span class="vocab-english">📖 ${escapeHtml(english)}</span>
-          <span class="vocab-meaning">→ ${escapeHtml(meaning)}</span>
-        </div>`;
+    const dashIndex = line.indexOf(' - ');
+    if (dashIndex > 0 && dashIndex < 60 && line.length < 150) {
+      const eng = line.substring(0, dashIndex).replace(/^[•\-\d\.\s]+/, '').trim();
+      const vi = line.substring(dashIndex + 3).trim();
+      if (eng && vi && eng.length < 50) {
+        return `<div class="vocab-card"><span class="vocab-english">📖 ${escapeHtml(eng)}</span><span class="vocab-meaning">→ ${escapeHtml(vi)}</span></div>`;
       }
     }
-    
-    // Highlight từ/cụm từ tiếng Anh (chữ cái, không phải HTML)
-    let processedLine = escapeHtml(trimmedLine);
-    processedLine = processedLine.replace(/([A-Za-z][A-Za-z\s,\.!?'-]{2,40})/g, (match) => {
-      // Không highlight nếu đã nằm trong thẻ HTML
-      if (match.includes('&lt;') || match.includes('&gt;')) return match;
-      if (match.length < 50 && !match.includes('=')) {
-        return `<span style="color: #ffd700; font-weight: 500;">${match}</span>`;
-      }
-      return match;
-    });
-    
-    return processedLine;
+    return escapeHtml(line) || '<br>';
   });
-  
   return formattedLines.join('<br>');
 }
 
-// Helper function to escape HTML special characters
-function escapeHtml(text) {
-  const div = document.createElement('div');
-  div.textContent = text;
-  return div.innerHTML;
+function escapeHtml(text) { 
+  const div = document.createElement('div'); 
+  div.textContent = text; 
+  return div.innerHTML; 
 }
 
 function showTyping() {
@@ -539,26 +434,25 @@ function showTyping() {
   const typing = document.createElement('div');
   typing.className = 'typing';
   typing.id = 'typingIndicator';
-  typing.innerHTML = `<div class="avatar bot"><img src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Emily" onerror="this.parentElement.textContent='🇬🇧'"></div><div class="typing-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>`;
+  typing.innerHTML = `<div class="avatar bot"><img src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Emily"></div><div class="typing-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>`;
   chatArea.appendChild(typing);
   chatArea.scrollTop = chatArea.scrollHeight;
 }
 
-function removeTyping() {
-  const t = document.getElementById('typingIndicator');
-  if (t) t.remove();
+function removeTyping() { 
+  const t = document.getElementById('typingIndicator'); 
+  if (t) t.remove(); 
 }
 
-async function sendMessage() {
+async function sendMessage(text = null) {
   const input = document.getElementById('userInput');
-  const text = input.value.trim();
-  if (!text || isTyping) return;
+  const messageText = text !== null ? text : input.value.trim();
+  if (!messageText || isTyping) return;
   showMeaning = document.getElementById('showMeaningToggle').checked;
-  input.value = '';
+  if (text === null) input.value = '';
   autoResize(input);
-  input.focus();
-  addMessage('user', text);
-  conversationHistory.push({ role: 'user', content: text });
+  addMessage('user', messageText);
+  conversationHistory.push({ role: 'user', content: messageText });
   isTyping = true;
   const sendBtn = document.getElementById('sendBtn');
   if (sendBtn) sendBtn.disabled = true;
@@ -570,84 +464,86 @@ async function sendMessage() {
     ];
     const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${GROQ_API_KEY}`
-      },
-      body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',
-        messages: messages,
-        temperature: 0.7,
-        max_tokens: 1500
-      })
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${GROQ_API_KEY}` },
+      body: JSON.stringify({ model: 'llama-3.3-70b-versatile', messages, temperature: 0.7, max_tokens: 1500 })
     });
     const data = await response.json();
     removeTyping();
-    if (data.error) {
-      console.error('API Error:', data.error);
-      addMessage('bot', `⚠️ Error: ${data.error.message || 'Something went wrong'}. Please try again!`);
-    } else if (data.choices && data.choices[0]) {
+    if (data.error) throw new Error(data.error.message);
+    if (data.choices && data.choices[0]) {
       const reply = data.choices[0].message.content;
       conversationHistory.push({ role: 'assistant', content: reply });
       addMessage('bot', reply);
-    } else {
-      addMessage('bot', '⚠️ No response received. Please try again!');
-    }
+    } else throw new Error('No response');
   } catch (err) {
     removeTyping();
-    console.error('Network Error:', err);
-    addMessage('bot', '⚠️ Connection error. Please check your internet and try again!');
+    console.error(err);
+    addMessage('bot', `⚠️ Error: ${err.message}. Please try again!`);
   }
   isTyping = false;
   if (sendBtn) sendBtn.disabled = false;
 }
 
-function sendQuick(text) {
-  const input = document.getElementById('userInput');
-  if (input) input.value = text;
-  sendMessage();
+function startVoiceInput() {
+  const voiceBtn = document.getElementById('voiceBtn');
+  if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+    addMessage('bot', '⚠️ Your browser does not support voice recognition. Please use Chrome, Edge, or Safari.');
+    return;
+  }
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const recognition = new SpeechRecognition();
+  recognition.lang = 'en-US';
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+  voiceBtn.classList.add('listening');
+  voiceBtn.textContent = '⏺';
+  recognition.start();
+  recognition.onresult = (event) => {
+    const spokenText = event.results[0][0].transcript;
+    voiceBtn.classList.remove('listening');
+    voiceBtn.textContent = '🎤';
+    document.getElementById('userInput').value = spokenText;
+    sendMessage(spokenText);
+  };
+  recognition.onerror = (event) => {
+    voiceBtn.classList.remove('listening');
+    voiceBtn.textContent = '🎤';
+    addMessage('bot', `⚠️ Voice error: ${event.error}. Please try again.`);
+  };
+  recognition.onend = () => {
+    voiceBtn.classList.remove('listening');
+    voiceBtn.textContent = '🎤';
+  };
 }
+
+function sendQuick(text) { sendMessage(text); }
 
 function resetChat() {
   conversationHistory = [];
   const chatArea = document.getElementById('chatArea');
   if (chatArea) chatArea.innerHTML = '';
-  const info = levelInfo[currentLevel];
   const welcome = document.createElement('div');
   welcome.className = 'welcome-card';
   welcome.id = 'welcomeCard';
-  welcome.innerHTML = `
-    <div class="welcome-emoji">🇬🇧</div>
-    <h2>New conversation started!</h2>
-    <p>You are at <strong>${info.name}</strong> level — ${info.desc}. What would you like to learn today?</p>
-    <div class="quick-start">
-      <button class="quick-btn" onclick="sendQuick('Teach me basic greetings in English')">👋 Greetings</button>
-      <button class="quick-btn" onclick="sendQuick('Teach me numbers 1 to 10')">🔢 Numbers</button>
-      <button class="quick-btn" onclick="sendQuick('Where should I start learning English?')">🗺️ Learning path</button>
-      <button class="quick-btn" onclick="sendQuick('Give me a simple A1 English quiz')">✅ Quiz me</button>
-    </div>
-  `;
+  welcome.innerHTML = `<div class="welcome-emoji">🎤🇬🇧</div><h2>New conversation started!</h2><p>You are at <strong>A1 Beginner</strong> level. Click 🎤 to practice pronunciation!</p><div class="quick-start"><button class="quick-btn" onclick="sendQuick('Teach me basic greetings')">👋 Greetings</button><button class="quick-btn" onclick="sendQuick('Teach me numbers 1 to 10')">🔢 Numbers</button><button class="quick-btn" onclick="sendQuick('Teach me vocabulary about family')">👪 Family</button></div>`;
   if (chatArea) chatArea.appendChild(welcome);
 }
 
-function handleKey(e) {
-  if (e.key === 'Enter' && !e.shiftKey) {
-    e.preventDefault();
-    sendMessage();
-  }
+function handleKey(e) { 
+  if (e.key === 'Enter' && !e.shiftKey) { 
+    e.preventDefault(); 
+    sendMessage(); 
+  } 
 }
 
-function autoResize(el) {
-  if (!el) return;
-  el.style.height = 'auto';
-  el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+function autoResize(el) { 
+  if (!el) return; 
+  el.style.height = 'auto'; 
+  el.style.height = Math.min(el.scrollHeight, 120) + 'px'; 
 }
 
 initBgChars();
-const meaningToggle = document.getElementById('showMeaningToggle');
-if (meaningToggle) {
-  meaningToggle.addEventListener('change', (e) => showMeaning = e.target.checked);
-}
+document.getElementById('showMeaningToggle').addEventListener('change', (e) => showMeaning = e.target.checked);
 </script>
 </body>
 </html>
