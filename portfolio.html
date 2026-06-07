@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta property="og:title" content="Sophia Nguyễn — Portfolio">
+<meta property="og:description" content="Đào tạo · Coaching · Tham vấn Tâm lý · Phân tích sinh trắc Vân tay Dermatoglyphics">
+<meta property="og:image" content="https://sophianguyen.com.vn/sophia.png">
+<meta property="og:url" content="https://sophianguyen.com.vn/portfolio.html">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sophia Nguyễn — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0D1B3E;
+    --navy-mid: #162552;
+    --navy-light: #1E3370;
+    --gold: #C9973A;
+    --gold-light: #E8B95A;
+    --gold-pale: #F5DFA0;
+    --cream: #FBF7EF;
+    --text-mid: #3A4A6B;
+    --text-light: #8899BB;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--navy); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 3rem;
+    background: rgba(13,27,62,0.96);
+    backdrop-filter: blur(8px);
+    transform: translateY(-100%);
+    animation: slideDown 0.6s 0.4s cubic-bezier(0.23,1,0.32,1) forwards;
+  }
+  @keyframes slideDown { to { transform: translateY(0); } }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 600; letter-spacing: 0.05em;
+    color: var(--gold-light); text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: rgba(255,255,255,0.7); font-size: 0.85rem; letter-spacing: 0.08em;
+    text-decoration: none; text-transform: uppercase; transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold-light); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    padding: 6rem 2rem 4rem; text-align: center;
+  }
+  .hero-bg-ring {
+    position: absolute; border-radius: 50%;
+    border: 1px solid rgba(201,151,58,0.12);
+    animation: ringPulse 8s ease-in-out infinite;
+  }
+  .ring1 { width: 500px; height: 500px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation-delay: 0s; }
+  .ring2 { width: 750px; height: 750px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation-delay: 1.5s; }
+  .ring3 { width: 1000px; height: 1000px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation-delay: 3s; }
+  @keyframes ringPulse {
+    0%,100% { opacity: 0.3; transform: translate(-50%,-50%) scale(1); }
+    50% { opacity: 0.6; transform: translate(-50%,-50%) scale(1.04); }
+  }
+  .hero-tag {
+    font-size: 0.78rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); border: 1px solid rgba(201,151,58,0.4);
+    padding: 0.45rem 1.2rem; border-radius: 2rem;
+    position: relative; z-index: 1;
+    opacity: 0; transform: translateY(20px);
+    animation: fadeUp 0.7s 0.5s forwards;
+  }
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.2rem, 8vw, 6.5rem);
+    font-weight: 300; line-height: 1.05; color: #fff;
+    position: relative; z-index: 1; margin-top: 1.4rem;
+    opacity: 0; transform: translateY(30px);
+    animation: fadeUp 0.8s 0.75s forwards;
+  }
+  .hero-name em { font-style: italic; color: var(--gold-light); display: block; }
+  .hero-desc {
+    font-size: 1.05rem; color: rgba(255,255,255,0.6);
+    max-width: 480px; line-height: 1.75;
+    position: relative; z-index: 1; margin-top: 1.8rem;
+    opacity: 0; transform: translateY(20px);
+    animation: fadeUp 0.8s 1s forwards;
+  }
+  .hero-cta-row {
+    display: flex; gap: 1rem; margin-top: 2.8rem;
+    position: relative; z-index: 1;
+    opacity: 0; transform: translateY(20px);
+    animation: fadeUp 0.8s 1.25s forwards;
+    flex-wrap: wrap; justify-content: center;
+  }
+  .btn-gold {
+    background: var(--gold); color: var(--navy);
+    padding: 0.85rem 2.2rem; border-radius: 2rem;
+    font-size: 0.9rem; font-weight: 500; letter-spacing: 0.04em;
+    text-decoration: none; transition: background 0.3s, transform 0.2s;
+  }
+  .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent; color: rgba(255,255,255,0.8);
+    padding: 0.85rem 2.2rem; border-radius: 2rem;
+    font-size: 0.9rem; letter-spacing: 0.04em;
+    text-decoration: none; border: 1px solid rgba(255,255,255,0.25);
+    transition: border-color 0.3s, color 0.3s, transform 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+  .hero-scroll {
+    position: absolute; bottom: 2.5rem; left: 50%;
+    display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+    color: rgba(255,255,255,0.3); font-size: 0.7rem; letter-spacing: 0.15em;
+    text-transform: uppercase; z-index: 1;
+    opacity: 0; animation: fadeIn 1s 2.2s forwards, bounce 2.5s 3.2s ease-in-out infinite;
+  }
+  .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, rgba(201,151,58,0.6), transparent); }
+  @keyframes bounce {
+    0%,100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { to { opacity: 1; } }
+
+  /* SECTIONS */
+  section { padding: 6rem 2rem; }
+  .container { max-width: 1000px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.75rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.6rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .section-label::after {
+    content: ''; flex: 1; max-width: 60px;
+    height: 1px; background: var(--gold); display: inline-block;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 400; line-height: 1.2; color: var(--navy);
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+
+  /* ABOUT */
+  #about { background: #fff; }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: center; margin-top: 3.5rem;
+  }
+  .avatar-frame {
+    width: 100%; aspect-ratio: 3/4; max-width: 320px;
+    background: linear-gradient(135deg, var(--navy-light), var(--navy));
+    border-radius: 60% 40% 60% 40% / 50% 60% 40% 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto;
+    animation: morphShape 10s ease-in-out infinite;
+  }
+  @keyframes morphShape {
+    0%,100% { border-radius: 60% 40% 60% 40% / 50% 60% 40% 50%; }
+    25% { border-radius: 40% 60% 40% 60% / 60% 40% 60% 40%; }
+    50% { border-radius: 50% 50% 55% 45% / 45% 55% 50% 50%; }
+    75% { border-radius: 65% 35% 45% 55% / 55% 45% 65% 35%; }
+  }
+  .avatar-initial {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 5rem; font-weight: 300; color: var(--gold-light); opacity: 0.9;
+  }
+  .about-avatar { position: relative; }
+  .avatar-badge {
+    position: absolute; bottom: 1rem; right: 2rem;
+    width: 80px; height: 80px; border-radius: 50%;
+    background: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.65rem; font-weight: 500; color: var(--navy);
+    letter-spacing: 0.06em; text-align: center; line-height: 1.4;
+    text-transform: uppercase;
+  }
+  .about-text p { color: var(--text-mid); line-height: 1.85; font-size: 1rem; margin-bottom: 1.2rem; }
+  .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
+  .stat-card { border-left: 2px solid var(--gold); padding: 0.8rem 1.2rem; }
+  .stat-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem; font-weight: 600; color: var(--navy); line-height: 1;
+  }
+  .stat-label { font-size: 0.8rem; color: var(--text-light); margin-top: 0.3rem; }
+
+  /* SERVICES */
+  #services { background: var(--cream); }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem; margin-top: 3.5rem;
+  }
+  .service-card {
+    background: #fff; border: 1px solid rgba(201,151,58,0.15);
+    border-radius: 16px; padding: 2.5rem 2rem;
+    position: relative; overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .service-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-pale));
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s cubic-bezier(0.23,1,0.32,1);
+  }
+  .service-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(13,27,62,0.1); }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-icon {
+    width: 52px; height: 52px; border-radius: 12px;
+    background: linear-gradient(135deg, var(--navy), var(--navy-light));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; margin-bottom: 1.5rem;
+  }
+  .service-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 600; color: var(--navy); margin-bottom: 0.8rem;
+  }
+  .service-desc { font-size: 0.9rem; color: var(--text-mid); line-height: 1.75; }
+  .service-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.2rem; }
+  .service-tag {
+    font-size: 0.72rem; letter-spacing: 0.06em;
+    color: var(--gold); border: 1px solid rgba(201,151,58,0.3);
+    padding: 0.3rem 0.7rem; border-radius: 1rem; text-transform: uppercase;
+  }
+
+  /* EXPERIENCE */
+  #experience { background: var(--navy); }
+  #experience .section-title { color: #fff; }
+  .timeline { margin-top: 3.5rem; position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 1px; background: rgba(201,151,58,0.25);
+  }
+  .timeline-item {
+    position: relative; margin-bottom: 3rem;
+    opacity: 0; transform: translateX(-20px);
+    transition: opacity 0.6s, transform 0.6s;
+  }
+  .timeline-item.visible { opacity: 1; transform: translateX(0); }
+  .timeline-dot {
+    position: absolute; left: -2.4rem; top: 0.25rem;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--gold); border: 2px solid var(--navy);
+    box-shadow: 0 0 0 3px rgba(201,151,58,0.3);
+  }
+  .timeline-year { font-size: 0.75rem; letter-spacing: 0.12em; color: var(--gold); text-transform: uppercase; margin-bottom: 0.4rem; }
+  .timeline-role { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: #fff; font-weight: 400; margin-bottom: 0.4rem; }
+  .timeline-org { font-size: 0.88rem; color: rgba(255,255,255,0.5); }
+
+  /* PROJECTS */
+  #projects { background: #fff; }
+  .projects-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem; margin-top: 3.5rem;
+  }
+  .project-card {
+    border: 1px solid rgba(13,27,62,0.08); border-radius: 16px; overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .project-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(13,27,62,0.1); }
+  .project-thumb {
+    height: 180px; display: flex; align-items: center; justify-content: center; font-size: 3rem;
+  }
+  .thumb-1 { background: linear-gradient(135deg, #0D1B3E, #1E3370); }
+  .thumb-2 { background: linear-gradient(135deg, #1E3370, #2A4A90); }
+  .thumb-3 { background: linear-gradient(135deg, #C9973A, #E8B95A); }
+  .project-body { padding: 1.5rem; }
+  .project-name { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 600; color: var(--navy); margin-bottom: 0.5rem; }
+  .project-desc { font-size: 0.88rem; color: var(--text-mid); line-height: 1.65; }
+  .project-link {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    margin-top: 1rem; font-size: 0.82rem;
+    color: var(--gold); text-decoration: none;
+    letter-spacing: 0.06em; text-transform: uppercase; font-weight: 500;
+    transition: gap 0.3s;
+  }
+  .project-link:hover { gap: 0.7rem; }
+
+  /* CONTACT */
+  #contact { background: var(--navy); text-align: center; }
+  #contact .section-title { color: #fff; }
+  #contact .section-label { justify-content: center; }
+  #contact .section-label::after { display: none; }
+  .contact-sub {
+    color: rgba(255,255,255,0.5); font-size: 1rem; margin-top: 0.8rem;
+    line-height: 1.7; max-width: 460px; margin-left: auto; margin-right: auto;
+  }
+  .contact-links { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 2.5rem; }
+  .contact-link {
+    display: flex; align-items: center; gap: 0.5rem;
+    padding: 0.85rem 1.8rem; border-radius: 2rem;
+    text-decoration: none; font-size: 0.88rem; letter-spacing: 0.04em;
+    transition: transform 0.2s, background 0.3s;
+  }
+  .contact-link:hover { transform: translateY(-3px); }
+  .c-gold { background: var(--gold); color: var(--navy); font-weight: 500; }
+  .c-gold:hover { background: var(--gold-light); }
+  .c-ghost { color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.2); }
+  .c-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+  footer {
+    background: #070F22; color: rgba(255,255,255,0.3);
+    text-align: center; padding: 1.5rem;
+    font-size: 0.8rem; letter-spacing: 0.06em;
+  }
+  footer span { color: var(--gold); }
+
+  /* SCROLL ANIMATIONS */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s cubic-bezier(0.23,1,0.32,1), transform 0.7s cubic-bezier(0.23,1,0.32,1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .d1 { transition-delay: 0.1s; }
+  .d2 { transition-delay: 0.2s; }
+  .d3 { transition-delay: 0.3s; }
+  .d4 { transition-delay: 0.4s; }
+
+  @media (max-width: 700px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    section { padding: 4rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero" class="nav-logo">Sophia Nguyễn</a>
+  <ul class="nav-links">
+    <li><a href="#about">Về tôi</a></li>
+    <li><a href="#services">Dịch vụ</a></li>
+    <li><a href="#experience">Kinh nghiệm</a></li>
+    <li><a href="#projects">Dự án</a></li>
+    <li><a href="#contact">Liên hệ</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-ring ring1"></div>
+  <div class="hero-bg-ring ring2"></div>
+  <div class="hero-bg-ring ring3"></div>
+  <div class="hero-tag">Đào tạo · Coaching · Tham vấn Tâm lý</div>
+  <h1 class="hero-name">Sophia<br><em>Nguyễn</em></h1>
+  <p class="hero-desc">Chuyên gia đào tạo kỹ năng mềm, tư vấn hướng nghiệp và phân tích sinh trắc vân tay Dermatoglyphics. Đồng hành cùng bạn tìm ra con đường phù hợp nhất với bản thân.</p>
+  <div class="hero-cta-row">
+    <a href="#contact" class="btn-gold">Kết nối với tôi</a>
+    <a href="https://sophianguyen.com.vn" target="_blank" class="btn-outline">Xem website →</a>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Cuộn xuống</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-avatar reveal">
+        <div class="avatar-frame">
+          <span class="avatar-initial">SN</span>
+        </div>
+        <div class="avatar-badge">Từ<br>2011</div>
+      </div>
+      <div class="about-text">
+        <div class="section-label reveal">Về tôi</div>
+        <h2 class="section-title reveal d1">Người đồng hành<br><em>trong hành trình phát triển</em></h2>
+        <div style="margin-top:1.8rem;">
+          <p class="reveal d2">Tôi là <strong>Sophia Nguyễn</strong> — yêu thích ngành giáo dục và đào tạo tại Việt Nam với hơn một thập kỷ kinh nghiệm trong lĩnh vực phát triển con người.</p>
+          <p class="reveal d3"> Tôi đào tạo kỹ năng từ cá nhân đến doanh nghiệp, tôi tư vấn hướng nghiệp và phân tích sinh trắc vân tay Dermatoglyphics — tôi giúp mỗi người hiểu rõ điểm mạnh bẩm sinh và tìm được hướng đi phù hợp nhất.</p>
+          <p class="reveal d3">Song song đó, tôi chuyên sâu về đào tạo kỹ năng, đặc biệt là về giáo dục giới tính toàn diện - tôi là đã hoàn thành các khóa học chứng chỉ nghiệp vụ cần thiết, theo học ngành Tâm lý học để ngày càng phục vụ tốt hơn cho con đường đam mê của mình.</p>
+        </div>
+        <div class="about-stats">
+          <div class="stat-card reveal d2"><div class="stat-number">10+</div><div class="stat-label">Năm kinh nghiệm</div></div>
+          <div class="stat-card reveal d3"><div class="stat-number">2011</div><div class="stat-label">Bắt đầu ngành Dermatoglyphics</div></div>
+          <div class="stat-card reveal d3"><div class="stat-number">500+</div><div class="stat-label">Học viên đã đồng hành</div></div>
+          <div class="stat-card reveal d4"><div class="stat-number">4</div><div class="stat-label">Lĩnh vực chuyên sâu</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="section-label reveal">Dịch vụ</div>
+    <h2 class="section-title reveal d1">Tôi có thể<br><em>giúp bạn điều gì?</em></h2>
+    <div class="services-grid">
+      <div class="service-card reveal d1">
+        <div class="service-icon">🧠</div>
+        <div class="service-title">Đào tạo Kỹ năng mềm</div>
+        <div class="service-desc">Thiết kế chương trình đào tạo tư duy, giao tiếp, lãnh đạo và giải quyết vấn đề. Phương pháp học qua trải nghiệm thực tiễn dành cho cá nhân và doanh nghiệp.</div>
+        <div class="service-tags"><span class="service-tag">Kỹ năng mềm</span><span class="service-tag">Đào tạo</span><span class="service-tag">Doanh nghiệp</span></div>
+      </div>
+      <div class="service-card reveal d2">
+        <div class="service-icon">🧬</div>
+        <div class="service-title">Phân tích Dermatoglyphics</div>
+        <div class="service-desc">Ứng dụng khoa học phân tích sinh trắc vân tay Dermatoglyphics để khám phá năng lực bẩm sinh, thiên hướng học tập và định hướng nghề nghiệp phù hợp từ gen — thực hành từ năm 2011.</div>
+        <div class="service-tags"><span class="service-tag">Biometric</span><span class="service-tag">Vân tay</span><span class="service-tag">Hướng nghiệp</span></div>
+      </div>
+      <div class="service-card reveal d3">
+        <div class="service-icon">🎯</div>
+        <div class="service-title">Tư vấn Hướng nghiệp</div>
+        <div class="service-desc">Hỗ trợ học sinh, sinh viên và người đi làm xác định thế mạnh cá nhân, lựa chọn ngành học và xây dựng lộ trình phát triển nghề nghiệp dài hạn.</div>
+        <div class="service-tags"><span class="service-tag">Hướng nghiệp</span><span class="service-tag">Coaching</span><span class="service-tag">RIASEC</span></div>
+      </div>
+      <div class="service-card reveal d4">
+        <div class="service-icon">💛</div>
+        <div class="service-title">Lắng nghe Tâm giao</div>
+        <div class="service-desc">Không gian an toàn để bạn được nói, được lắng nghe — không phán xét, không áp lực. Đồng hành để bạn tìm lại cân bằng nội tâm.</div>
+        <div class="service-tags"><span class="service-tag">Tâm lý</span><span class="service-tag">Lắng nghe</span><span class="service-tag">Đồng hành</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="section-label reveal">Hành trình</div>
+    <h2 class="section-title reveal d1">Kinh nghiệm<br><em>& Chuyên môn</em></h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2011 — Nay</div>
+        <div class="timeline-role">Chuyên gia Tư vấn Sinh trắc Vân tay Dermatoglyphics</div>
+        <div class="timeline-org">Tư vấn hướng nghiệp & khám phá năng lực bẩm sinh</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">Hiện tại</div>
+        <div class="timeline-role">Nhà đào tạo Kỹ năng mềm</div>
+        <div class="timeline-org">Cá nhân và doanh nghiệp — Việt Nam</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">Hiện tại</div>
+        <div class="timeline-role">Tham vấn Tâm lý</div>
+        <div class="timeline-org">Những cá nhân cần hỗ trợ Tâm lý học ứng dụng</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">Xây dựng giáo trình kỹ năng sống và kỹ năng sinh tồn</div>
+        <div class="timeline-role">Quan tâm con đường phát triển của trẻ em</div>
+        <div class="timeline-org">Nội dung giáo dục tập trung về an toàn cá nhân & giáo dục giới tính cho trẻ</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-label reveal">Dự án</div>
+    <h2 class="section-title reveal d1">Một số<br><em>dự án tiêu biểu</em></h2>
+    <div class="projects-grid">
+      <div class="project-card reveal d1">
+        <div class="project-thumb thumb-1">🌱</div>
+        <div class="project-body">
+          <div class="project-name">sophianguyen.com.vn</div>
+          <div class="project-desc">Website cá nhân tổng hợp — đồng hành phát triển trẻ, tracking sự phát triển của con, tư vấn hướng nghiệp và các dịch vụ coaching.</div>
+          <a href="https://sophianguyen.com.vn" target="_blank" class="project-link">Xem website →</a>
+        </div>
+      </div>
+      <div class="project-card reveal d2">
+        <div class="project-thumb thumb-2">🧭</div>
+        <div class="project-body">
+          <div class="project-name">tamlyhoc.com.info</div>
+          <div class="project-desc">Website dự án tâm lý học giới tính - thực hiện mong muốn lan tỏa kiến thức giới tính toàn diện đến cộng đồng.</div>
+          <a href="https://sophianguyen.com.vn" target="_blank" class="project-link">Khám phá →</a>
+        </div>
+      </div>
+      <div class="project-card reveal d3">
+        <div class="project-thumb thumb-3">🛡️</div>
+        <div class="project-body">
+          <div class="project-name"> Các Khóa học giáo dục Giới tính + An toàn cá nhân</div>
+          <div class="project-desc">Chuỗi các bài học online tương tác về an toàn cá nhân và giáo dục giới tính cho trẻ em nhiều độ tuổi, thiết kế hấp dẫn và phù hợp lứa tuổi.</div>
+          <a href="https://sophianguyen.com.vn" target="_blank" class="project-link">Tìm hiểu thêm →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-label reveal">Liên hệ</div>
+    <h2 class="section-title reveal d1">Hãy cùng<br><em>bắt đầu hành trình</em></h2>
+    <p class="contact-sub reveal d2">Dù bạn là cá nhân, trường học hay tổ chức — tôi rất mong được lắng nghe và đồng hành cùng bạn.</p>
+    <div class="contact-links reveal d3">
+      <a href="https://sophianguyen.com.vn" target="_blank" class="contact-link c-gold">🌐 sophianguyen.com.vn</a>
+      <a href="https://facebook.com" target="_blank" class="contact-link c-ghost">📘 Facebook</a>
+      <a href="mailto:hello@sophianguyen.com.vn" class="contact-link c-ghost">✉️ Email</a>
+      <a href="https://tiktok.com" target="_blank" class="contact-link c-ghost">🎵 TikTok</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 <span>Sophia Nguyễn</span> · sophianguyen.com.vn · Made with ♥ in Việt Nam</p>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal, .timeline-item').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
