@@ -3,13 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>漢語學習 · Gia Sư Tiếng Trung HSK</title>
+<title>汉语学习 · Gia Sư Tiếng Trung · Full + Voice</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Quicksand:wght@400;500;600;700&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
   :root {
     --ink: #1a1a2e;
     --paper: #f5f0e8;
     --vermillion: #c0392b;
+    --vermillion-light: #e74c3c;
     --gold: #d4a843;
     --jade: #27ae60;
     --mist: #8e9aaf;
@@ -27,8 +28,7 @@
     position: fixed;
     inset: 0;
     background: radial-gradient(ellipse at 10% 20%, rgba(192,57,43,0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 90% 80%, rgba(212,168,67,0.06) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(45,45,78,0.8) 0%, var(--ink) 100%);
+                radial-gradient(ellipse at 90% 80%, rgba(212,168,67,0.06) 0%, transparent 50%);
     pointer-events: none;
     z-index: 0;
   }
@@ -38,12 +38,9 @@
     font-family: 'Ma Shan Zheng', serif;
     color: rgba(212,168,67,0.04);
     animation: floatChar 20s ease-in-out infinite;
-    user-select: none;
+    font-size: 80px;
   }
-  @keyframes floatChar {
-    0%, 100% { transform: translateY(0px) rotate(-5deg); }
-    50% { transform: translateY(-20px) rotate(5deg); }
-  }
+  @keyframes floatChar { 0%, 100% { transform: translateY(0px) rotate(-5deg); } 50% { transform: translateY(-20px) rotate(5deg); } }
   .app {
     position: relative;
     z-index: 1;
@@ -72,6 +69,7 @@
   .logo-text h1 { font-size: 16px; font-weight: 700; color: var(--paper); }
   .logo-text p { font-size: 11px; color: var(--gold); font-weight: 500; text-transform: uppercase; }
   .header-controls { display: flex; align-items: center; gap: 10px; }
+  
   .level-bar {
     padding: 12px 24px;
     display: flex;
@@ -97,6 +95,7 @@
   }
   .level-btn:hover { border-color: var(--gold); color: var(--gold); }
   .level-btn.active { background: var(--vermillion); border-color: var(--vermillion); color: white; }
+  
   .mode-bar {
     padding: 10px 24px;
     display: flex;
@@ -119,6 +118,7 @@
   }
   .mode-btn:hover { background: rgba(255,255,255,0.1); color: var(--paper); }
   .mode-btn.active { background: rgba(212,168,67,0.15); border-color: rgba(212,168,67,0.4); color: var(--gold); }
+  
   .chat-area {
     flex: 1;
     overflow-y: auto;
@@ -148,14 +148,14 @@
     font-weight: 600;
     cursor: pointer;
   }
-  .quick-btn:hover { background: rgba(212,168,67,0.2); transform: translateY(-1px); }
-  .message { display: flex; gap: 12px; max-width: 100%; }
+  
+  .message { display: flex; gap: 12px; max-width: 100%; animation: fadeUp 0.3s ease; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
   .message.user { flex-direction: row-reverse; }
   .avatar {
     width: 36px; height: 36px; border-radius: 10px;
     display: flex; align-items: center; justify-content: center;
     font-size: 16px; flex-shrink: 0;
-    font-family: 'Ma Shan Zheng', serif;
     overflow: hidden;
   }
   .avatar.bot { background: linear-gradient(135deg, var(--vermillion), var(--gold)); color: white; }
@@ -170,16 +170,23 @@
   }
   .message.bot .bubble { background: rgba(45,45,78,0.9); border: 1px solid rgba(212,168,67,0.15); color: var(--paper); border-radius: 4px 14px 14px 14px; }
   .message.user .bubble { background: var(--vermillion); color: white; border-radius: 14px 4px 14px 14px; }
-  .bubble .zh { font-family: 'Noto Serif SC', serif; font-size: 20px; color: var(--gold); display: block; margin: 6px 0 2px; }
-  .bubble .pinyin { font-style: italic; color: var(--jade); font-size: 13px; display: block; margin-bottom: 4px; }
-  .bubble .meaning { color: var(--paper); font-size: 13px; }
-  .bubble strong { color: var(--gold); }
+  .vocab-card {
+    margin: 8px 0;
+    padding: 10px 14px;
+    background: rgba(212,168,67,0.08);
+    border-radius: 12px;
+    border-left: 3px solid var(--gold);
+  }
+  .vocab-chinese { font-size: 18px; font-weight: 600; color: var(--gold); font-family: 'Noto Serif SC', serif; display: block; }
+  .vocab-meaning { font-size: 13px; color: #a0aec0; display: block; margin-top: 4px; }
+  
   .typing { display: flex; gap: 12px; align-items: center; }
-  .typing-dots { display: flex; gap: 5px; padding: 14px 18px; background: rgba(45,45,78,0.9); border: 1px solid rgba(212,168,67,0.15); border-radius: 4px 14px 14px 14px; }
-  .dot { width: 7px; height: 7px; background: var(--gold); border-radius: 50%; animation: bounce 1.2s ease-in-out infinite; }
+  .typing-dots { display: flex; gap: 5px; padding: 14px 18px; background: rgba(45,45,78,0.9); border-radius: 4px 14px 14px 14px; }
+  .dot { width: 7px; height: 7px; background: var(--gold); border-radius: 50%; animation: bounce 1.2s infinite; }
   .dot:nth-child(2) { animation-delay: 0.15s; }
   .dot:nth-child(3) { animation-delay: 0.3s; }
   @keyframes bounce { 0%, 80%, 100% { transform: translateY(0); opacity: 0.4; } 40% { transform: translateY(-6px); opacity: 1; } }
+  
   .input-area {
     padding: 16px 24px;
     border-top: 1px solid rgba(212,168,67,0.1);
@@ -195,44 +202,38 @@
     border-radius: 14px;
     padding: 12px 16px;
     color: var(--paper);
-    font-family: 'Quicksand', sans-serif;
     font-size: 14px;
-    font-weight: 500;
     resize: none;
     outline: none;
     max-height: 120px;
     min-height: 48px;
   }
-  .input-box::placeholder { color: var(--mist); }
-  .send-btn {
+  .input-box:focus { border-color: rgba(212,168,67,0.5); }
+  .voice-btn, .send-btn {
     width: 48px; height: 48px;
     background: var(--vermillion);
     border: none;
     border-radius: 12px;
     color: white;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     font-size: 18px;
+    transition: all 0.2s;
   }
-  .send-btn:hover { background: var(--vermillion-light); }
-  .send-btn:disabled { background: rgba(192,57,43,0.3); cursor: not-allowed; }
-  .input-hint { margin-top: 8px; font-size: 11px; color: var(--mist); display: flex; justify-content: space-between; align-items: center; }
-  .toggle-pinyin { display: flex; align-items: center; gap: 6px; font-size: 12px; cursor: pointer; }
-  .toggle-pinyin input { display: none; }
+  .voice-btn:hover, .send-btn:hover { background: var(--vermillion-light); transform: translateY(-1px); }
+  .voice-btn.listening { background: #27ae60; animation: pulse 1.2s infinite; }
+  @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+  
+  .input-hint { margin-top: 8px; font-size: 11px; color: var(--mist); display: flex; justify-content: space-between; }
+  .toggle { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+  .toggle input { display: none; }
   .toggle-track { width: 30px; height: 16px; background: rgba(255,255,255,0.1); border-radius: 8px; position: relative; }
-  .toggle-track::after { content: ''; position: absolute; top: 2px; left: 2px; width: 12px; height: 12px; background: var(--mist); border-radius: 50%; transition: all 0.2s; }
-  .toggle-pinyin input:checked + .toggle-track { background: rgba(39,174,96,0.4); }
-  .toggle-pinyin input:checked + .toggle-track::after { left: 16px; background: var(--jade); }
-  .reset-btn { padding: 7px 14px; background: transparent; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: var(--mist); font-size: 12px; font-weight: 600; cursor: pointer; }
+  .toggle-track::after { content: ''; position: absolute; top: 2px; left: 2px; width: 12px; height: 12px; background: var(--mist); border-radius: 50%; transition: 0.2s; }
+  .toggle input:checked + .toggle-track { background: rgba(39,174,96,0.4); }
+  .toggle input:checked + .toggle-track::after { left: 16px; background: var(--jade); }
+  .reset-btn { padding: 7px 14px; background: transparent; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: var(--mist); font-size: 12px; cursor: pointer; }
   .reset-btn:hover { border-color: var(--vermillion); color: var(--vermillion); }
   .level-info { padding: 6px 12px; background: rgba(212,168,67,0.1); border: 1px solid rgba(212,168,67,0.2); border-radius: 20px; font-size: 11px; color: var(--gold); font-weight: 600; }
-  @media (max-width: 600px) {
-    .header, .level-bar, .mode-bar, .chat-area, .input-area { padding-left: 16px; padding-right: 16px; }
-    .bubble { max-width: 88%; font-size: 13px; }
-    .welcome-char { font-size: 56px; }
-  }
+  @media (max-width: 600px) { .bubble { max-width: 88%; } }
 </style>
 </head>
 <body>
@@ -242,11 +243,10 @@
 <div class="app">
   <div class="header">
     <div class="logo">
-      <img class="logo-img" src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Sophia Nguyễn" onerror="this.style.display='none'; document.getElementById('logoFallback').style.display='flex';">
-      <div class="logo-icon" id="logoFallback" style="display:none;">學</div>
+      <img class="logo-img" src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Sophia">
       <div class="logo-text">
         <h1>Gia Sư Tiếng Trung</h1>
-        <p>Sophia Nguyễn · HSK 1–6</p>
+        <p>Sophia Nguyễn · HSK 1–6 · Voice</p>
       </div>
     </div>
     <div class="header-controls">
@@ -268,7 +268,7 @@
   <div class="mode-bar">
     <button class="mode-btn active" onclick="setMode('vocab', this)">📖 Học từ vựng</button>
     <button class="mode-btn" onclick="setMode('convo', this)">🗣️ Luyện hội thoại</button>
-    <button class="mode-btn" onclick="setMode('pronunciation', this)">🎵 Luyện phát âm</button>
+    <button class="mode-btn" onclick="setMode('pronunciation', this)">🎵 Luyện phát âm (Voice)</button>
     <button class="mode-btn" onclick="setMode('grammar', this)">📝 Ôn ngữ pháp</button>
     <button class="mode-btn" onclick="setMode('quiz', this)">✅ Kiểm tra</button>
     <button class="mode-btn" onclick="setMode('free', this)">💬 Hỏi tự do</button>
@@ -276,40 +276,37 @@
 
   <div class="chat-area" id="chatArea">
     <div class="welcome-card" id="welcomeCard">
-      <div class="welcome-char">你好</div>
-      <h2>Chào mừng bạn đến với lớp học tiếng Trung!</h2>
-      <p>Bạn đang ở cấp độ <strong>HSK 1</strong> — hoàn toàn phù hợp cho người mới bắt đầu. Cô Sophia sẽ dạy bạn từng bước một, bằng tiếng Việt.</p>
+      <div class="welcome-char">你好🎤</div>
+      <h2>Chào mừng đến với lớp học tiếng Trung!</h2>
+      <p>Bạn đang ở <strong>HSK 1</strong>. Bật chế độ Luyện phát âm, nhấn nút mic 🎤 và đọc to để được sửa lỗi phát âm nhé!</p>
       <div class="quick-start">
-        <button class="quick-btn" onclick="sendQuick('Dạy tôi chào hỏi cơ bản bằng tiếng Trung')">👋 Học chào hỏi</button>
-        <button class="quick-btn" onclick="sendQuick('Dạy tôi đếm số từ 1 đến 10')">🔢 Học đếm số</button>
-        <button class="quick-btn" onclick="sendQuick('Tôi nên bắt đầu từ đâu khi học tiếng Trung?')">🗺️ Lộ trình học</button>
-        <button class="quick-btn" onclick="sendQuick('Giải thích hệ thống thanh điệu tiếng Trung cho người mới')">🎵 Thanh điệu</button>
-        <button class="quick-btn" onclick="sendQuick('Cho tôi một bài quiz HSK 1 đơn giản')">✅ Quiz thử</button>
+        <button class="quick-btn" onclick="sendQuick('Dạy tôi chào hỏi cơ bản')">👋 Chào hỏi</button>
+        <button class="quick-btn" onclick="sendQuick('Dạy tôi đếm số 1-10')">🔢 Số đếm</button>
+        <button class="quick-btn" onclick="sendQuick('Dạy tôi từ vựng về gia đình')">👪 Gia đình</button>
+        <button class="quick-btn" onclick="sendQuick('Cho tôi quiz HSK 1')">✅ Quiz</button>
       </div>
     </div>
   </div>
 
   <div class="input-area">
     <div class="input-row">
-      <textarea class="input-box" id="userInput" placeholder="Nhập câu hỏi của bạn... (ví dụ: 'dạy tôi từ vựng về thời tiết')" rows="1" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
-      <button class="send-btn" id="sendBtn" onclick="sendMessage()">➤</button>
+      <textarea class="input-box" id="userInput" placeholder="Nhập câu hỏi... hoặc nhấn 🎤 để nói" rows="1" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+      <button class="voice-btn" id="voiceBtn" onclick="startVoiceInput()" title="Nhấn để nói">🎤</button>
+      <button class="send-btn" onclick="sendMessage()">➤</button>
     </div>
     <div class="input-hint">
-      <label class="toggle-pinyin">
+      <label class="toggle">
         <input type="checkbox" id="pinyinToggle" checked>
         <span class="toggle-track"></span>
         Hiển thị Pinyin
       </label>
-      <span>Enter để gửi · Shift+Enter xuống dòng</span>
+      <span>🎤 Bấm mic → nói → tự gửi</span>
     </div>
   </div>
 </div>
 
 <script>
-// ==================== THAY API KEY CỦA CHỊ VÀO ĐÂY ====================
-// Đăng ký tại https://console.groq.com - hoàn toàn miễn phí
 const GROQ_API_KEY = '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';
-// ====================================================================
 
 let currentLevel = 1;
 let currentMode = 'vocab';
@@ -328,42 +325,31 @@ const levelInfo = {
 
 function getSystemPrompt() {
   const lvl = levelInfo[currentLevel];
-  const pinyin = showPinyin ? 'Luôn kèm theo phiên âm pinyin đầy đủ.' : 'Không cần hiển thị pinyin.';
-  const basePrompt = `Bạn là gia sư tiếng Trung Mandarin chuyên nghiệp tên là "Cô Sophia", dạy người Việt Nam học tiếng Trung theo bộ giáo trình HSK chuẩn quốc tế. Học viên đang học ${lvl.name} (${lvl.desc} - ${lvl.words}).
+  const pinyin = showPinyin ? 'Luôn kèm pinyin đầy đủ. Format: [chữ Hán] - [pinyin] - [nghĩa]' : 'Không cần pinyin.';
+  const voiceInstruction = currentMode === 'pronunciation' ? 
+    `\nQUAN TRỌNG: Đây là chế độ LUYỆN PHÁT ÂM. Sau khi người dùng nói (bạn sẽ thấy văn bản được chuyển từ giọng nói), hãy phân tích chi tiết: 1) Âm nào đúng/sai, 2) Cách phát âm đúng (vị trí lưỡi, miệng), 3) So sánh với âm trong tiếng Việt nếu có thể. Hãy khuyến khích và hướng dẫn cụ thể.` : '';
+  
+  return `Bạn là gia sư tiếng Trung "Cô Sophia", dạy người Việt. Trình độ: ${lvl.name} (${lvl.desc} - ${lvl.words}).
 
-NGUYÊN TẮC GIẢNG DẠY:
-- Luôn dùng tiếng Việt để giải thích, dẫn dắt
-- Trình bày chữ Hán rõ ràng, đẹp mắt
+NGUYÊN TẮC:
+- Dùng tiếng Việt để giải thích
 - ${pinyin}
-- Chia nhỏ kiến thức, từng bước từng bước
-- Khen ngợi và khuyến khích học viên
-- Khi đưa ra từ vựng: format [Chữ Hán] - [Pinyin] - [Nghĩa tiếng Việt]
-- Luôn cho ví dụ câu đơn giản kèm nghĩa
+- Chia nhỏ kiến thức, khen ngợi học viên
 
-CẤP ĐỘ ${lvl.name}: ${lvl.desc}`;
-
-  const modePrompts = {
-    vocab: `\nCHẾ ĐỘ: HỌC TỪ VỰNG - Dạy 3-5 từ mới theo chủ đề, giải thích và ví dụ.`,
-    convo: `\nCHẾ ĐỘ: LUYỆN HỘI THOẠI - Tạo hội thoại phù hợp ${lvl.name}, đóng vai người bản ngữ.`,
-    pronunciation: `\nCHẾ ĐỘ: LUYỆN PHÁT ÂM - Giải thích thanh điệu, âm khó, dùng ký hiệu ā á ǎ à.`,
-    grammar: `\nCHẾ ĐỘ: ÔN NGỮ PHÁP - Giải thích cấu trúc, công thức, ví dụ minh hoạ.`,
-    quiz: `\nCHẾ ĐỘ: KIỂM TRA - Tạo 5-10 câu hỏi phù hợp ${lvl.name}, chấm điểm.`,
-    free: `\nCHẾ ĐỘ: HỎI TỰ DO - Trả lời mọi câu hỏi về tiếng Trung.`,
-  };
-  return basePrompt + (modePrompts[currentMode] || modePrompts.free);
+CHẾ ĐỘ: ${currentMode}${voiceInstruction}`;
 }
 
 function initBgChars() {
-  const chars = ['学','中','文','语','好','你','我','他','她','们','汉','字'];
+  const chars = ['学','中','文','语','好','你','我','他','她','们'];
   const container = document.getElementById('bgChars');
   if (!container) return;
-  for (let char of chars) {
+  chars.forEach((char) => {
     const el = document.createElement('div');
     el.className = 'bg-char';
     el.textContent = char;
-    el.style.cssText = `left: ${Math.random() * 100}%; top: ${Math.random() * 100}%; font-size: ${80 + Math.random() * 120}px; animation-delay: ${Math.random() * 10}s; animation-duration: ${15 + Math.random() * 15}s;`;
+    el.style.cssText = `left: ${Math.random() * 100}%; top: ${Math.random() * 100}%; font-size: ${60 + Math.random() * 100}px; animation-delay: ${Math.random() * 10}s; opacity: 0.15;`;
     container.appendChild(el);
-  }
+  });
 }
 
 function setLevel(lvl, btn) {
@@ -373,13 +359,29 @@ function setLevel(lvl, btn) {
   document.getElementById('levelInfo').textContent = `${levelInfo[lvl].name} · ${levelInfo[lvl].words}`;
   conversationHistory = [];
   const welcome = document.getElementById('welcomeCard');
-  if (welcome) welcome.querySelector('h2').textContent = `Cấp độ ${levelInfo[lvl].name} — ${levelInfo[lvl].desc}!`;
+  if (welcome) {
+    const h2 = welcome.querySelector('h2');
+    if (h2) h2.textContent = `Cấp độ ${levelInfo[lvl].name} — ${levelInfo[lvl].desc}!`;
+  }
 }
 
 function setMode(mode, btn) {
   currentMode = mode;
   document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
+  if (mode === 'pronunciation') {
+    addMessage('bot', '🎤 Chế độ luyện phát âm đã bật! Nhấn nút mic 🎤, đọc to một từ hoặc câu tiếng Trung, tôi sẽ nhận xét và hướng dẫn bạn phát âm chuẩn hơn!');
+  } else if (mode === 'vocab') {
+    addMessage('bot', '📖 Chế độ học từ vựng. Hãy cho tôi biết chủ đề bạn muốn học (ví dụ: "thời tiết", "gia đình", "công việc")!');
+  } else if (mode === 'convo') {
+    addMessage('bot', '🗣️ Chế độ luyện hội thoại. Tôi sẽ tạo đoạn hội thoại mẫu để bạn thực hành!');
+  } else if (mode === 'grammar') {
+    addMessage('bot', '📝 Chế độ ôn ngữ pháp. Hỏi tôi về bất kỳ cấu trúc ngữ pháp nào (ví dụ: "câu 是...的", "động từ năng nguyện")!');
+  } else if (mode === 'quiz') {
+    addMessage('bot', '✅ Chế độ kiểm tra. Tôi sẽ tạo câu hỏi trắc nghiệm để kiểm tra kiến thức của bạn!');
+  } else if (mode === 'free') {
+    addMessage('bot', '💬 Chế độ hỏi tự do. Hỏi tôi bất cứ điều gì về tiếng Trung!');
+  }
 }
 
 function addMessage(role, content) {
@@ -391,7 +393,7 @@ function addMessage(role, content) {
   const avatar = document.createElement('div');
   avatar.className = `avatar ${role}`;
   if (role === 'bot') {
-    avatar.innerHTML = `<img src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Sophia" onerror="this.parentElement.textContent='師'">`;
+    avatar.innerHTML = `<img src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Sophia">`;
   } else {
     avatar.textContent = 'C';
   }
@@ -406,25 +408,26 @@ function addMessage(role, content) {
 
 function formatMessage(text) {
   text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-  text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
   const lines = text.split('\n');
   const formattedLines = lines.map(line => {
-    if (/[\u4e00-\u9fff]/.test(line) && line.includes(' - ')) {
-      const parts = line.split(' - ');
-      if (parts.length >= 2) {
-        const chinese = parts[0].replace(/^[•\-\d\.\s]+/, '');
-        const rest = parts.slice(1).join(' - ');
-        const restParts = rest.split(' - ');
-        if (restParts.length >= 2 && showPinyin) {
-          return `<div class="card"><span class="zh">${chinese}</span><span class="pinyin">${restParts[0]}</span><span class="meaning">${restParts.slice(1).join(' - ')}</span></div>`;
-        }
-        return `<div class="card"><span class="zh">${chinese}</span><span class="meaning">${rest}</span></div>`;
+    const parts = line.split(' - ');
+    if (parts.length >= 2 && /[\u4e00-\u9fff]/.test(parts[0])) {
+      const chinese = parts[0].trim();
+      const rest = parts.slice(1).join(' - ');
+      if (showPinyin && parts.length >= 3) {
+        return `<div class="vocab-card"><span class="vocab-chinese">📖 ${chinese}</span><span class="vocab-meaning">${rest}</span></div>`;
       }
+      return `<div class="vocab-card"><span class="vocab-chinese">📖 ${chinese}</span><span class="vocab-meaning">→ ${rest}</span></div>`;
     }
-    line = line.replace(/([\u4e00-\u9fff]+)/g, '<span style="font-family:\'Noto Serif SC\',serif;font-size:1.15em;color:#d4a843">$1</span>');
-    return line || '<br>';
+    return escapeHtml(line) || '<br>';
   });
-  return formattedLines.join('\n').replace(/\n/g, '<br>');
+  return formattedLines.join('<br>');
+}
+
+function escapeHtml(text) { 
+  const div = document.createElement('div'); 
+  div.textContent = text; 
+  return div.innerHTML; 
 }
 
 function showTyping() {
@@ -432,28 +435,28 @@ function showTyping() {
   const typing = document.createElement('div');
   typing.className = 'typing';
   typing.id = 'typingIndicator';
-  typing.innerHTML = `<div class="avatar bot"><img src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Sophia" onerror="this.parentElement.textContent='師'"></div><div class="typing-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>`;
+  typing.innerHTML = `<div class="avatar bot"><img src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Sophia"></div><div class="typing-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>`;
   chatArea.appendChild(typing);
   chatArea.scrollTop = chatArea.scrollHeight;
 }
 
-function removeTyping() {
-  const t = document.getElementById('typingIndicator');
-  if (t) t.remove();
+function removeTyping() { 
+  const t = document.getElementById('typingIndicator'); 
+  if (t) t.remove(); 
 }
 
-async function sendMessage() {
+async function sendMessage(text = null) {
   const input = document.getElementById('userInput');
-  const text = input.value.trim();
-  if (!text || isTyping) return;
+  const messageText = text !== null ? text : input.value.trim();
+  if (!messageText || isTyping) return;
   showPinyin = document.getElementById('pinyinToggle').checked;
-  input.value = '';
+  if (text === null) input.value = '';
   autoResize(input);
-  input.focus();
-  addMessage('user', text);
-  conversationHistory.push({ role: 'user', content: text });
+  addMessage('user', messageText);
+  conversationHistory.push({ role: 'user', content: messageText });
   isTyping = true;
-  document.getElementById('sendBtn').disabled = true;
+  const sendBtn = document.getElementById('sendBtn');
+  if (sendBtn) sendBtn.disabled = true;
   showTyping();
   try {
     const messages = [
@@ -462,82 +465,82 @@ async function sendMessage() {
     ];
     const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${GROQ_API_KEY}`
-      },
-      body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',
-        messages: messages,
-        temperature: 0.7,
-        max_tokens: 1500
-      })
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${GROQ_API_KEY}` },
+      body: JSON.stringify({ model: 'llama-3.3-70b-versatile', messages, temperature: 0.7, max_tokens: 1500 })
     });
     const data = await response.json();
     removeTyping();
-    if (data.error) {
-      console.error('Groq API Error:', data.error);
-      if (data.error.message && data.error.message.includes('decommissioned')) {
-        addMessage('bot', '⚠️ Model cũ đã bị ngừng, em đã cập nhật model mới. Chị thử lại nhé!');
-      } else if (data.error.code === 'invalid_api_key' || data.error.message?.includes('API key')) {
-        addMessage('bot', '⚠️ API Key Groq không hợp lệ. Chị cần đăng ký key mới tại https://console.groq.com nhé!');
-      } else {
-        addMessage('bot', `⚠️ Lỗi: ${data.error.message || 'Không xác định'}. Chị thử lại nhé!`);
-      }
-    } else if (data.choices && data.choices[0]) {
+    if (data.error) throw new Error(data.error.message);
+    if (data.choices && data.choices[0]) {
       const reply = data.choices[0].message.content;
       conversationHistory.push({ role: 'assistant', content: reply });
       addMessage('bot', reply);
-    } else {
-      addMessage('bot', '⚠️ Không nhận được phản hồi. Chị thử lại nhé!');
-    }
+    } else throw new Error('No response');
   } catch (err) {
     removeTyping();
-    console.error('Network Error:', err);
-    addMessage('bot', '⚠️ Lỗi kết nối. Chị kiểm tra lại mạng nhé!');
+    console.error(err);
+    addMessage('bot', `⚠️ Lỗi: ${err.message}. Vui lòng thử lại!`);
   }
   isTyping = false;
-  document.getElementById('sendBtn').disabled = false;
+  if (sendBtn) sendBtn.disabled = false;
 }
 
-function sendQuick(text) {
-  document.getElementById('userInput').value = text;
-  sendMessage();
+function startVoiceInput() {
+  const voiceBtn = document.getElementById('voiceBtn');
+  if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+    addMessage('bot', '⚠️ Trình duyệt của bạn không hỗ trợ nhận diện giọng nói. Vui lòng dùng Chrome, Edge hoặc Safari.');
+    return;
+  }
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const recognition = new SpeechRecognition();
+  recognition.lang = 'zh-CN';
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+  voiceBtn.classList.add('listening');
+  voiceBtn.textContent = '⏺';
+  recognition.start();
+  recognition.onresult = (event) => {
+    const spokenText = event.results[0][0].transcript;
+    voiceBtn.classList.remove('listening');
+    voiceBtn.textContent = '🎤';
+    document.getElementById('userInput').value = spokenText;
+    sendMessage(spokenText);
+  };
+  recognition.onerror = (event) => {
+    voiceBtn.classList.remove('listening');
+    voiceBtn.textContent = '🎤';
+    addMessage('bot', `⚠️ Lỗi voice: ${event.error}. Thử lại nhé.`);
+  };
+  recognition.onend = () => {
+    voiceBtn.classList.remove('listening');
+    voiceBtn.textContent = '🎤';
+  };
 }
+
+function sendQuick(text) { sendMessage(text); }
 
 function resetChat() {
   conversationHistory = [];
   const chatArea = document.getElementById('chatArea');
-  chatArea.innerHTML = '';
-  const info = levelInfo[currentLevel];
+  if (chatArea) chatArea.innerHTML = '';
   const welcome = document.createElement('div');
   welcome.className = 'welcome-card';
   welcome.id = 'welcomeCard';
-  welcome.innerHTML = `
-    <div class="welcome-char">你好</div>
-    <h2>Bắt đầu lại từ đầu!</h2>
-    <p>Bạn đang ở cấp độ <strong>${info.name}</strong> — ${info.desc}. Chọn chủ đề muốn học nhé!</p>
-    <div class="quick-start">
-      <button class="quick-btn" onclick="sendQuick('Dạy tôi chào hỏi cơ bản bằng tiếng Trung')">👋 Học chào hỏi</button>
-      <button class="quick-btn" onclick="sendQuick('Dạy tôi đếm số từ 1 đến 10')">🔢 Học đếm số</button>
-      <button class="quick-btn" onclick="sendQuick('Tôi nên bắt đầu từ đâu khi học tiếng Trung?')">🗺️ Lộ trình học</button>
-      <button class="quick-btn" onclick="sendQuick('Giải thích hệ thống thanh điệu tiếng Trung cho người mới')">🎵 Thanh điệu</button>
-      <button class="quick-btn" onclick="sendQuick('Cho tôi một bài quiz HSK 1 đơn giản')">✅ Quiz thử</button>
-    </div>
-  `;
-  chatArea.appendChild(welcome);
+  welcome.innerHTML = `<div class="welcome-char">你好🎤</div><h2>Bắt đầu lại!</h2><p>Bạn đang ở <strong>HSK 1</strong>. Chọn chế độ Luyện phát âm và nhấn mic 🎤 để luyện nói nhé!</p><div class="quick-start"><button class="quick-btn" onclick="sendQuick('Dạy tôi chào hỏi cơ bản')">👋 Chào hỏi</button><button class="quick-btn" onclick="sendQuick('Dạy tôi đếm số 1-10')">🔢 Số đếm</button><button class="quick-btn" onclick="sendQuick('Dạy tôi từ vựng về gia đình')">👪 Gia đình</button></div>`;
+  if (chatArea) chatArea.appendChild(welcome);
 }
 
-function handleKey(e) {
-  if (e.key === 'Enter' && !e.shiftKey) {
-    e.preventDefault();
-    sendMessage();
-  }
+function handleKey(e) { 
+  if (e.key === 'Enter' && !e.shiftKey) { 
+    e.preventDefault(); 
+    sendMessage(); 
+  } 
 }
 
-function autoResize(el) {
-  el.style.height = 'auto';
-  el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+function autoResize(el) { 
+  if (!el) return; 
+  el.style.height = 'auto'; 
+  el.style.height = Math.min(el.scrollHeight, 120) + 'px'; 
 }
 
 initBgChars();
