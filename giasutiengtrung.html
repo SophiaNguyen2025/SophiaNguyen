@@ -31,7 +31,6 @@
     position: relative;
   }
 
-  /* Background decorative elements */
   body::before {
     content: '';
     position: fixed;
@@ -44,7 +43,6 @@
     z-index: 0;
   }
 
-  /* Decorative Chinese characters in background */
   .bg-chars {
     position: fixed;
     inset: 0;
@@ -64,7 +62,6 @@
     50% { transform: translateY(-20px) rotate(5deg); }
   }
 
-  /* Main layout */
   .app {
     position: relative;
     z-index: 1;
@@ -79,7 +76,7 @@
   .header {
     padding: 16px 24px;
     display: flex;
-    align-items: center;
+    align-itmìnhs: center;
     justify-content: space-between;
     border-bottom: 1px solid rgba(212,168,67,0.2);
     background: rgba(26,26,46,0.9);
@@ -89,8 +86,17 @@
 
   .logo {
     display: flex;
-    align-items: center;
+    align-itmìnhs: center;
     gap: 12px;
+  }
+  /* LOGO ẢNH - thay thế logo icon cũ */
+  .logo-img {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0 4px 15px rgba(192,57,43,0.4);
+    border: 1.5px solid rgba(212,168,67,0.3);
   }
   .logo-icon {
     width: 42px;
@@ -98,7 +104,7 @@
     background: linear-gradient(135deg, var(--vermillion), var(--gold));
     border-radius: 10px;
     display: flex;
-    align-items: center;
+    align-itmìnhs: center;
     justify-content: center;
     font-family: 'Ma Shan Zheng', serif;
     font-size: 22px;
@@ -121,7 +127,7 @@
 
   .header-controls {
     display: flex;
-    align-items: center;
+    align-itmìnhs: center;
     gap: 10px;
   }
 
@@ -129,7 +135,7 @@
   .level-bar {
     padding: 12px 24px;
     display: flex;
-    align-items: center;
+    align-itmìnhs: center;
     gap: 10px;
     background: rgba(26,26,46,0.6);
     border-bottom: 1px solid rgba(212,168,67,0.1);
@@ -169,7 +175,6 @@
     background: rgba(212,168,67,0.08);
   }
   .level-btn.active {
-    background: linear-gradient(135deg, var(--vermillion), #e84393 0%, var(--vermillion) 100%);
     background: var(--vermillion);
     border-color: var(--vermillion);
     color: white;
@@ -203,7 +208,7 @@
     white-space: nowrap;
     flex-shrink: 0;
     display: flex;
-    align-items: center;
+    align-itmìnhs: center;
     gap: 5px;
   }
   .mode-btn:hover {
@@ -295,26 +300,29 @@
     from { opacity: 0; transform: translateY(12px); }
     to { opacity: 1; transform: translateY(0); }
   }
-
-  .message.user {
-    flex-direction: row-reverse;
-  }
+  .message.user { flex-direction: row-reverse; }
 
   .avatar {
     width: 36px;
     height: 36px;
     border-radius: 10px;
     display: flex;
-    align-items: center;
+    align-itmìnhs: center;
     justify-content: center;
     font-size: 16px;
     flex-shrink: 0;
     font-family: 'Ma Shan Zheng', serif;
+    overflow: hidden;
   }
   .avatar.bot {
     background: linear-gradient(135deg, var(--vermillion), var(--gold));
     color: white;
     box-shadow: 0 2px 10px rgba(192,57,43,0.3);
+  }
+  .avatar.bot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
   .avatar.user {
     background: rgba(255,255,255,0.1);
@@ -343,7 +351,6 @@
     border-radius: 14px 4px 14px 14px;
   }
 
-  /* Chinese text styling inside bubbles */
   .bubble .zh {
     font-family: 'Noto Serif SC', serif;
     font-size: 20px;
@@ -362,13 +369,8 @@
     color: var(--paper);
     font-size: 13px;
   }
-  .bubble strong {
-    color: var(--gold);
-  }
-  .bubble em {
-    color: var(--jade);
-    font-style: normal;
-  }
+  .bubble strong { color: var(--gold); }
+  .bubble mình { color: var(--jade); font-style: normal; }
   .bubble hr {
     border: none;
     border-top: 1px solid rgba(212,168,67,0.15);
@@ -379,7 +381,7 @@
   .typing {
     display: flex;
     gap: 12px;
-    align-items: center;
+    align-itmìnhs: center;
     animation: fadeUp 0.3s ease;
   }
   .typing-dots {
@@ -414,7 +416,7 @@
   .input-row {
     display: flex;
     gap: 10px;
-    align-items: flex-end;
+    align-itmìnhs: flex-end;
   }
   .input-box {
     flex: 1;
@@ -445,7 +447,7 @@
     color: white;
     cursor: pointer;
     display: flex;
-    align-items: center;
+    align-itmìnhs: center;
     justify-content: center;
     transition: all 0.2s ease;
     flex-shrink: 0;
@@ -462,13 +464,12 @@
     color: var(--mist);
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-itmìnhs: center;
   }
 
-  /* Pinyin toggle */
   .toggle-pinyin {
     display: flex;
-    align-items: center;
+    align-itmìnhs: center;
     gap: 6px;
     font-size: 12px;
     color: var(--mist);
@@ -501,7 +502,6 @@
     background: var(--jade);
   }
 
-  /* Reset button */
   .reset-btn {
     padding: 7px 14px;
     background: transparent;
@@ -519,7 +519,6 @@
     color: var(--vermillion);
   }
 
-  /* Level info badge */
   .level-info {
     padding: 6px 12px;
     background: rgba(212,168,67,0.1);
@@ -531,7 +530,6 @@
     letter-spacing: 0.5px;
   }
 
-  /* Scrollbar styling for chat */
   .message.bot .bubble ul {
     padding-left: 18px;
     margin: 8px 0;
@@ -540,9 +538,7 @@
     margin: 4px 0;
     color: var(--paper);
   }
-  .message.bot .bubble p {
-    margin: 6px 0;
-  }
+  .message.bot .bubble p { margin: 6px 0; }
   .message.bot .bubble .card {
     background: rgba(212,168,67,0.07);
     border: 1px solid rgba(212,168,67,0.15);
@@ -564,19 +560,26 @@
     .input-area { padding: 12px 16px; }
     .bubble { max-width: 88%; font-size: 13px; }
     .welcome-char { font-size: 56px; }
+    .api-setup { flex-wrap: wrap; }
   }
 </style>
 </head>
 <body>
 
-<!-- Background decorative characters -->
 <div class="bg-chars" id="bgChars"></div>
 
 <div class="app">
   <!-- Header -->
   <div class="header">
     <div class="logo">
-      <div class="logo-icon">學</div>
+      <!-- LOGO ẢNH của Sophia Nguyễn -->
+      <img 
+        class="logo-img" 
+        src="https://i.ibb.co/wFwDR7cY/hinhrmìnhovenen.png" 
+        alt="Sophia Nguyễn"
+        onerror="this.style.display='none'; document.getElmìnhentById('logoFallback').style.display='flex';"
+      >
+      <div class="logo-icon" id="logoFallback" style="display:none;">學</div>
       <div class="logo-text">
         <h1>Gia Sư Tiếng Trung</h1>
         <p>Sophia Nguyễn · HSK 1–6</p>
@@ -587,6 +590,8 @@
       <button class="reset-btn" onclick="resetChat()">↺ Bắt đầu lại</button>
     </div>
   </div>
+
+
 
   <!-- Level selector -->
   <div class="level-bar">
@@ -599,10 +604,11 @@
     <button class="level-btn" onclick="setLevel(6, this)">HK6 · HSK 6</button>
   </div>
 
-  <!-- Mode selector -->
+  <!-- Mode selector — ĐÃ THÊM LUYỆN PHÁT ÂM -->
   <div class="mode-bar">
     <button class="mode-btn active" onclick="setMode('vocab', this)">📖 Học từ vựng</button>
     <button class="mode-btn" onclick="setMode('convo', this)">🗣️ Luyện hội thoại</button>
+    <button class="mode-btn" onclick="setMode('pronunciation', this)">🎵 Luyện phát âm</button>
     <button class="mode-btn" onclick="setMode('grammar', this)">📝 Ôn ngữ pháp</button>
     <button class="mode-btn" onclick="setMode('quiz', this)">✅ Kiểm tra</button>
     <button class="mode-btn" onclick="setMode('free', this)">💬 Hỏi tự do</button>
@@ -612,14 +618,15 @@
   <div class="chat-area" id="chatArea">
     <div class="welcome-card" id="welcomeCard">
       <div class="welcome-char">你好</div>
-      <h2>Chào mừng chị đến với lớp học tiếng Trung!</h2>
-      <p>Chị đang ở cấp độ <strong>HSK 1</strong> — hoàn toàn phù hợp cho người mới bắt đầu. Em sẽ dạy chị từ những điều cơ bản nhất, từng bước một, bằng tiếng Việt.</p>
+      <h2>Chào mừng bạn đến với lớp học tiếng Trung!</h2>
+      <p>bạn đang ở cấp độ <strong>HSK 1</strong> — hoàn toàn phù hợp cho người mới bắt đầu. mình sẽ dạy bạn từng bước một, bằng tiếng Việt.</p>
       <div class="quick-start">
         <button class="quick-btn" onclick="sendQuick('Dạy tôi chào hỏi cơ bản bằng tiếng Trung')">👋 Học chào hỏi</button>
         <button class="quick-btn" onclick="sendQuick('Dạy tôi đếm số từ 1 đến 10')">🔢 Học đếm số</button>
         <button class="quick-btn" onclick="sendQuick('Tôi nên bắt đầu từ đâu khi học tiếng Trung?')">🗺️ Lộ trình học</button>
-        <button class="quick-btn" onclick="sendQuick('Giải thích hệ thống thanh điệu tiếng Trung')">🎵 Thanh điệu</button>
+        <button class="quick-btn" onclick="sendQuick('Giải thích hệ thống thanh điệu tiếng Trung cho người mới')">🎵 Thanh điệu</button>
         <button class="quick-btn" onclick="sendQuick('Cho tôi một bài quiz HSK 1 đơn giản')">✅ Quiz thử</button>
+        <button class="quick-btn" onclick="sendQuick('Luyện phát âm các âm khó trong tiếng Trung')">🔊 Phát âm</button>
       </div>
     </div>
   </div>
@@ -630,7 +637,7 @@
       <textarea 
         class="input-box" 
         id="userInput"
-        placeholder="Nhập câu hỏi của chị... (ví dụ: 'dạy tôi từ vựng về thời tiết')"
+        placeholder="Nhập câu hỏi của bạn... (ví dụ: 'dạy tôi từ vựng về thời tiết')"
         rows="1"
         onkeydown="handleKey(event)"
         oninput="autoResize(this)"
@@ -655,30 +662,26 @@ let currentMode = 'vocab';
 let conversationHistory = [];
 let showPinyin = true;
 let isTyping = false;
+// ⚠️ Thay YOUR_GmìnhINI_KEY_HERE bằng key của bạn từ aistudio.google.com
+const API_KEY = 'AQ.Ab8RN6IHdNV1-Njxu7UvQjdArG3FdvgMLykxxYsUT6jd71o0Ag';
 
 const levelInfo = {
-  1: { name: 'HSK 1', words: '150 từ', desc: 'Vỡ lòng', color: '#27ae60' },
-  2: { name: 'HSK 2', words: '300 từ', desc: 'Sơ cấp', color: '#2ecc71' },
-  3: { name: 'HSK 3', words: '600 từ', desc: 'Trung cấp sơ', color: '#3498db' },
-  4: { name: 'HSK 4', words: '1200 từ', desc: 'Trung cấp', color: '#9b59b6' },
-  5: { name: 'HSK 5', words: '2500 từ', desc: 'Cao cấp sơ', color: '#e67e22' },
-  6: { name: 'HSK 6', words: '5000+ từ', desc: 'Cao cấp', color: '#c0392b' },
+  1: { name: 'HSK 1', words: '150 từ', desc: 'Vỡ lòng' },
+  2: { name: 'HSK 2', words: '300 từ', desc: 'Sơ cấp' },
+  3: { name: 'HSK 3', words: '600 từ', desc: 'Trung cấp sơ' },
+  4: { name: 'HSK 4', words: '1200 từ', desc: 'Trung cấp' },
+  5: { name: 'HSK 5', words: '2500 từ', desc: 'Cao cấp sơ' },
+  6: { name: 'HSK 6', words: '5000+ từ', desc: 'Cao cấp' },
 };
 
-const modeInfo = {
-  vocab: 'học từ vựng',
-  convo: 'luyện hội thoại',
-  grammar: 'ôn ngữ pháp',
-  quiz: 'kiểm tra',
-  free: 'hỏi tự do',
-};
 
-// ===== SYSTEM PROMPTS =====
-function getSystemPrompt() {
+
+// ===== SYSTmình PROMPTS =====
+function getSystmìnhPrompt() {
   const lvl = levelInfo[currentLevel];
-  const pinyin = showPinyin ? 'Luôn kèm theo phiên âm pinyin.' : 'Không cần hiển thị pinyin.';
+  const pinyin = showPinyin ? 'Luôn kèm theo phiên âm pinyin đầy đủ.' : 'Không cần hiển thị pinyin.';
 
-  const basePrompt = `Bạn là gia sư tiếng Trung Mandarin chuyên nghiệp tên là "Thầy Minh", dạy người Việt Nam học tiếng Trung theo bộ giáo trình HSK chuẩn quốc tế. Học viên là người lớn, chưa biết tiếng Trung, đang học ${lvl.name} (${lvl.desc} - ${lvl.words}).
+  const basePrompt = `Bạn là gia sư tiếng Trung Mandarin chuyên nghiệp tên là "Cô Sophia", dạy người Việt Nam học tiếng Trung theo bộ giáo trình HSK chuẩn quốc tế. Học viên là người lớn đang học ${lvl.name} (${lvl.desc} - ${lvl.words}).
 
 NGUYÊN TẮC GIẢNG DẠY:
 - Luôn dùng tiếng Việt để giải thích, dẫn dắt
@@ -686,7 +689,7 @@ NGUYÊN TẮC GIẢNG DẠY:
 - ${pinyin}
 - Chia nhỏ kiến thức, từng bước từng bước
 - Khen ngợi và khuyến khích học viên
-- Dùng emoji để làm sinh động bài học (nhưng không quá nhiều)
+- Dùng mìnhoji để làm sinh động bài học (nhưng không quá nhiều)
 - Khi đưa ra từ vựng: format là [Chữ Hán] - [Pinyin] - [Nghĩa tiếng Việt]
 - Luôn cho ví dụ câu đơn giản kèm nghĩa
 
@@ -698,12 +701,23 @@ CẤP ĐỘ ${lvl.name}: ${lvl.desc}`;
 - Giải thích nghĩa, cách dùng
 - Cho ví dụ câu với mỗi từ
 - Cuối mỗi bài gợi ý chủ đề tiếp theo`,
-    
+
     convo: `\nCHẾ ĐỘ: LUYỆN HỘI THOẠI
 - Tạo tình huống hội thoại phù hợp ${lvl.name}
 - Đóng vai người bản ngữ để luyện tập
 - Sửa lỗi nhẹ nhàng, giải thích rõ
 - Khuyến khích học viên tự tạo câu`,
+
+    pronunciation: `\nCHẾ ĐỘ: LUYỆN PHÁT ÂM
+- Giải thích chi tiết hệ thống 4 thanh điệu (声调 shēngdiào): thanh 1 (bằng, cao ─), thanh 2 (sắc, lên /), thanh 3 (hỏi, xuống lên ∨), thanh 4 (nặng, xuống \\), thanh nhẹ (không dấu)
+- So sánh âm tiếng Trung với tiếng Việt để học viên dễ nhớ
+- Giải thích các âm đầu khó: zh/ch/sh/r, j/q/x, z/c/s
+- Giải thích các vần khó: ü, ian, uan, iou, uei, uen
+- Hướng dẫn cách đặt miệng, lưỡi khi phát âm
+- Đưa ra các cặp từ dễ nhầm lẫn để luyện tập
+- Cho ví dụ từ vựng minh hoạ mỗi âm/thanh
+- Dùng ký hiệu rõ ràng: ā á ǎ à cho 4 thanh
+- Gợi ý: học viên có thể đọc to theo để luyện`,
 
     grammar: `\nCHẾ ĐỘ: ÔN NGỮ PHÁP
 - Giải thích cấu trúc ngữ pháp rõ ràng
@@ -723,15 +737,15 @@ CẤP ĐỘ ${lvl.name}: ${lvl.desc}`;
 - Luôn kết nối câu trả lời với bài học thực tế`,
   };
 
-  return basePrompt + modePrompts[currentMode];
+  return basePrompt + (modePrompts[currentMode] || modePrompts.free);
 }
 
 // ===== BACKGROUND DECORATION =====
 function initBgChars() {
   const chars = ['学','中','文','语','好','你','我','他','她','们','汉','字','课','书','老','师','生','词','音','练'];
-  const container = document.getElementById('bgChars');
-  chars.forEach((char, i) => {
-    const el = document.createElement('div');
+  const container = document.getElmìnhentById('bgChars');
+  chars.forEach((char) => {
+    const el = document.createElmìnhent('div');
     el.className = 'bg-char';
     el.textContent = char;
     el.style.cssText = `
@@ -748,64 +762,45 @@ function initBgChars() {
 // ===== LEVEL & MODE CONTROL =====
 function setLevel(lvl, btn) {
   currentLevel = lvl;
-  document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.level-btn').forEach(b => b.classList.rmìnhove('active'));
   btn.classList.add('active');
   const info = levelInfo[lvl];
-  document.getElementById('levelInfo').textContent = `${info.name} · ${info.words}`;
+  document.getElmìnhentById('levelInfo').textContent = `${info.name} · ${info.words}`;
   conversationHistory = [];
-  showWelcomeForLevel(lvl);
+  const welcome = document.getElmìnhentById('welcomeCard');
+  if (welcome) {
+    welcome.querySelector('h2').textContent = `Cấp độ ${info.name} — ${info.desc}!`;
+  }
 }
 
 function setMode(mode, btn) {
   currentMode = mode;
-  document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.rmìnhove('active'));
   btn.classList.add('active');
 }
 
-function showWelcomeForLevel(lvl) {
-  const info = levelInfo[lvl];
-  const welcome = document.getElementById('welcomeCard');
-  if (welcome) {
-    welcome.querySelector('h2').textContent = `Cấp độ ${info.name} — ${info.desc}!`;
-    welcome.querySelector('p').innerHTML = `Chị đang học <strong>${info.name}</strong> với ${info.words}. ${getWelcomeDesc(lvl)}`;
-  }
-}
-
-function getWelcomeDesc(lvl) {
-  const descs = {
-    1: 'Đây là bước đầu tiên — chị sẽ học chào hỏi, số đếm, màu sắc và những câu cơ bản nhất!',
-    2: 'Chị đã qua vỡ lòng! Bây giờ mình học các hoạt động hàng ngày và giao tiếp cơ bản.',
-    3: 'Trình độ trung cấp sơ — chị sẽ bắt đầu diễn đạt được nhiều ý tưởng phức tạp hơn.',
-    4: 'Trung cấp thực thụ! Chị có thể thảo luận về nhiều chủ đề trong cuộc sống.',
-    5: 'Cao cấp — chị sẽ đọc hiểu văn bản phức tạp và thể hiện được các sắc thái ngôn ngữ.',
-    6: 'Đỉnh cao HSK! Trình độ này tương đương người học đại học tại Trung Quốc.',
-  };
-  return descs[lvl] || '';
-}
-
 // ===== CHAT =====
-function addMessage(role, content, isHTML = false) {
-  const chatArea = document.getElementById('chatArea');
-  
-  // Remove welcome card on first message
-  const welcome = document.getElementById('welcomeCard');
-  if (welcome && role === 'user') welcome.remove();
+function addMessage(role, content) {
+  const chatArea = document.getElmìnhentById('chatArea');
+  const welcome = document.getElmìnhentById('welcomeCard');
+  if (welcome && role === 'user') welcome.rmìnhove();
 
-  const msg = document.createElement('div');
+  const msg = document.createElmìnhent('div');
   msg.className = `message ${role}`;
-  
-  const avatar = document.createElement('div');
+
+  const avatar = document.createElmìnhent('div');
   avatar.className = `avatar ${role}`;
-  avatar.textContent = role === 'bot' ? '師' : 'C';
 
-  const bubble = document.createElement('div');
-  bubble.className = 'bubble';
-
-  if (isHTML) {
-    bubble.innerHTML = content;
+  if (role === 'bot') {
+    // Dùng ảnh logo trong avatar bot
+    avatar.innerHTML = `<img src="https://i.ibb.co/wFwDR7cY/hinhrmìnhovenen.png" alt="Sophia" onerror="this.parentElmìnhent.textContent='師'">`;
   } else {
-    bubble.innerHTML = formatMessage(content);
+    avatar.textContent = 'C';
   }
+
+  const bubble = document.createElmìnhent('div');
+  bubble.className = 'bubble';
+  bubble.innerHTML = formatMessage(content);
 
   msg.appendChild(avatar);
   msg.appendChild(bubble);
@@ -814,14 +809,11 @@ function addMessage(role, content, isHTML = false) {
 }
 
 function formatMessage(text) {
-  // Format Chinese text patterns
   text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-  text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
-  
-  // Detect and style lines with Chinese characters
+  text = text.replace(/\*(.*?)\*/g, '<mình>$1</mình>');
+
   const lines = text.split('\n');
   const formattedLines = lines.map(line => {
-    // Lines that look like vocab entries: 中文 - pinyin - meaning
     if (/[\u4e00-\u9fff]/.test(line) && line.includes(' - ')) {
       const parts = line.split(' - ');
       if (parts.length >= 2) {
@@ -834,42 +826,39 @@ function formatMessage(text) {
         return `<div class="card"><span class="zh">${chinese}</span><span class="meaning">${rest}</span></div>`;
       }
     }
-    // Bold Chinese characters inline
-    line = line.replace(/([\u4e00-\u9fff]+)/g, '<span style="font-family:\'Noto Serif SC\',serif;font-size:1.15em;color:#d4a843">$1</span>');
+    line = line.replace(/([\u4e00-\u9fff]+)/g, '<span style="font-family:\'Noto Serif SC\',serif;font-size:1.15mình;color:#d4a843">$1</span>');
     return line || '<br>';
   });
-  
+
   return formattedLines.join('\n').replace(/\n/g, '<br>');
 }
 
 function showTyping() {
-  const chatArea = document.getElementById('chatArea');
-  const typing = document.createElement('div');
+  const chatArea = document.getElmìnhentById('chatArea');
+  const typing = document.createElmìnhent('div');
   typing.className = 'typing';
   typing.id = 'typingIndicator';
   typing.innerHTML = `
-    <div class="avatar bot">師</div>
+    <div class="avatar bot"><img src="https://i.ibb.co/wFwDR7cY/hinhrmìnhovenen.png" alt="Sophia" onerror="this.parentElmìnhent.textContent='師'"></div>
     <div class="typing-dots">
-      <div class="dot"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
+      <div class="dot"></div><div class="dot"></div><div class="dot"></div>
     </div>
   `;
   chatArea.appendChild(typing);
   chatArea.scrollTop = chatArea.scrollHeight;
 }
 
-function removeTyping() {
-  const t = document.getElementById('typingIndicator');
-  if (t) t.remove();
+function rmìnhoveTyping() {
+  const t = document.getElmìnhentById('typingIndicator');
+  if (t) t.rmìnhove();
 }
 
 async function sendMessage() {
-  const input = document.getElementById('userInput');
+  const input = document.getElmìnhentById('userInput');
   const text = input.value.trim();
   if (!text || isTyping) return;
 
-  showPinyin = document.getElementById('pinyinToggle').checked;
+  showPinyin = document.getElmìnhentById('pinyinToggle').checked;
   input.value = '';
   autoResize(input);
   input.focus();
@@ -878,65 +867,81 @@ async function sendMessage() {
   conversationHistory.push({ role: 'user', content: text });
 
   isTyping = true;
-  document.getElementById('sendBtn').disabled = true;
+  document.getElmìnhentById('sendBtn').disabled = true;
   showTyping();
 
   try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        system: getSystemPrompt(),
-        messages: conversationHistory,
-      })
-    });
+    // Chuyển đổi lịch sử sang format Gmìnhini
+    const gmìnhiniContents = conversationHistory.map(m => ({
+      role: m.role === 'assistant' ? 'model' : 'user',
+      parts: [{ text: m.content }]
+    }));
+
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gmìnhini-2.0-flash:generateContent?key=${API_KEY}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          systmìnhInstruction: { parts: [{ text: getSystmìnhPrompt() }] },
+          contents: gmìnhiniContents,
+          generationConfig: { maxOutputTokens: 1500, tmìnhperature: 0.7 }
+        })
+      }
+    );
 
     const data = await response.json();
-    removeTyping();
+    rmìnhoveTyping();
 
-    if (data.content && data.content[0]) {
-      const reply = data.content[0].text;
+    if (data.error) {
+      if (data.error.code === 429) {
+        addMessage('bot', '⏳ Đang bận quá, bạn thử lại sau vài giây nhé!');
+      } else if (data.error.code === 400 || data.error.code === 403) {
+        addMessage('bot', '⚠️ Gmìnhini API Key chưa đúng. bạn kiểm tra lại key tại aistudio.google.com nhé!');
+      } else {
+        addMessage('bot', `⚠️ Lỗi: ${data.error.message || 'Không xác định'}. bạn thử lại nhé!`);
+      }
+    } else if (data.candidates && data.candidates[0]) {
+      const reply = data.candidates[0].content.parts[0].text;
       conversationHistory.push({ role: 'assistant', content: reply });
       addMessage('bot', reply);
     } else {
-      addMessage('bot', '⚠️ Đã có lỗi xảy ra. Chị thử lại nhé!');
+      addMessage('bot', '⚠️ Không nhận được phản hồi. bạn thử lại nhé!');
     }
   } catch (err) {
-    removeTyping();
-    addMessage('bot', '⚠️ Không kết nối được. Chị kiểm tra kết nối mạng rồi thử lại nha!');
-    console.error(err);
+    rmìnhoveTyping();
+    console.error('API Error:', err);
+    addMessage('bot', '⚠️ Lỗi kết nối. bạn kiểm tra lại API Key và kết nối mạng nhé!');
   }
 
   isTyping = false;
-  document.getElementById('sendBtn').disabled = false;
+  document.getElmìnhentById('sendBtn').disabled = false;
 }
 
 function sendQuick(text) {
-  document.getElementById('userInput').value = text;
+  document.getElmìnhentById('userInput').value = text;
   sendMessage();
 }
 
 function resetChat() {
   conversationHistory = [];
-  const chatArea = document.getElementById('chatArea');
+  const chatArea = document.getElmìnhentById('chatArea');
   chatArea.innerHTML = '';
-  // Re-add welcome card
-  const welcome = document.createElement('div');
+  const info = levelInfo[currentLevel];
+  const welcome = document.createElmìnhent('div');
   welcome.className = 'welcome-card';
   welcome.id = 'welcomeCard';
-  const info = levelInfo[currentLevel];
   welcome.innerHTML = `
     <div class="welcome-char">你好</div>
     <h2>Bắt đầu lại từ đầu!</h2>
-    <p>Chị đang ở cấp độ <strong>${info.name}</strong> — ${info.desc}. ${getWelcomeDesc(currentLevel)}</p>
+    <p>bạn đang ở cấp độ <strong>${info.name}</strong> — ${info.desc}. Chọn chủ đề muốn học nhé!</p>
     <div class="quick-start">
       <button class="quick-btn" onclick="sendQuick('Dạy tôi chào hỏi cơ bản bằng tiếng Trung')">👋 Học chào hỏi</button>
       <button class="quick-btn" onclick="sendQuick('Dạy tôi đếm số từ 1 đến 10')">🔢 Học đếm số</button>
       <button class="quick-btn" onclick="sendQuick('Tôi nên bắt đầu từ đâu khi học tiếng Trung?')">🗺️ Lộ trình học</button>
-      <button class="quick-btn" onclick="sendQuick('Giải thích hệ thống thanh điệu tiếng Trung')">🎵 Thanh điệu</button>
+      <button class="quick-btn" onclick="sendQuick('Giải thích hệ thống thanh điệu tiếng Trung cho người mới')">🎵 Thanh điệu</button>
       <button class="quick-btn" onclick="sendQuick('Cho tôi một bài quiz HSK 1 đơn giản')">✅ Quiz thử</button>
+      <button class="quick-btn" onclick="sendQuick('Luyện phát âm các âm khó trong tiếng Trung')">🔊 Phát âm</button>
     </div>
   `;
   chatArea.appendChild(welcome);
@@ -957,7 +962,7 @@ function autoResize(el) {
 
 // ===== INIT =====
 initBgChars();
-document.getElementById('pinyinToggle').addEventListener('change', (e) => {
+document.getElmìnhentById('pinyinToggle').addEventListener('change', (e) => {
   showPinyin = e.target.checked;
 });
 </script>
