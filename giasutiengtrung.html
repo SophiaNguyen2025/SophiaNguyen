@@ -307,7 +307,7 @@
 
 <script>
 // ==================== THAY API KEY CỦA CHỊ VÀO ĐÂY ====================
-// Đăng ký tại https://console.groq.com - hoàn toàn miễn phí, không cần thẻ
+// Đăng ký tại https://console.groq.com - hoàn toàn miễn phí
 const GROQ_API_KEY = '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';
 // ====================================================================
 
@@ -345,10 +345,10 @@ CẤP ĐỘ ${lvl.name}: ${lvl.desc}`;
   const modePrompts = {
     vocab: `\nCHẾ ĐỘ: HỌC TỪ VỰNG - Dạy 3-5 từ mới theo chủ đề, giải thích và ví dụ.`,
     convo: `\nCHẾ ĐỘ: LUYỆN HỘI THOẠI - Tạo hội thoại phù hợp ${lvl.name}, đóng vai người bản ngữ.`,
-    pronunciation: `\nCHẾ ĐỘ: LUYỆN PHÁT ÂM - Giải thích thanh điệu, âm khó zh/ch/sh, j/q/x, ü, dùng ký hiệu ā á ǎ à.`,
+    pronunciation: `\nCHẾ ĐỘ: LUYỆN PHÁT ÂM - Giải thích thanh điệu, âm khó, dùng ký hiệu ā á ǎ à.`,
     grammar: `\nCHẾ ĐỘ: ÔN NGỮ PHÁP - Giải thích cấu trúc, công thức, ví dụ minh hoạ.`,
-    quiz: `\nCHẾ ĐỘ: KIỂM TRA - Tạo 5-10 câu hỏi trắc nghiệm phù hợp ${lvl.name}, chấm điểm.`,
-    free: `\nCHẾ ĐỘ: HỎI TỰ DO - Trả lời mọi câu hỏi về tiếng Trung, liên hệ với ${lvl.name}.`,
+    quiz: `\nCHẾ ĐỘ: KIỂM TRA - Tạo 5-10 câu hỏi phù hợp ${lvl.name}, chấm điểm.`,
+    free: `\nCHẾ ĐỘ: HỎI TỰ DO - Trả lời mọi câu hỏi về tiếng Trung.`,
   };
   return basePrompt + (modePrompts[currentMode] || modePrompts.free);
 }
@@ -467,7 +467,7 @@ async function sendMessage() {
         'Authorization': `Bearer ${GROQ_API_KEY}`
       },
       body: JSON.stringify({
-        model: 'mixtral-8x7b-32768',
+        model: 'llama-3.3-70b-versatile',
         messages: messages,
         temperature: 0.7,
         max_tokens: 1500
@@ -477,8 +477,10 @@ async function sendMessage() {
     removeTyping();
     if (data.error) {
       console.error('Groq API Error:', data.error);
-      if (data.error.code === 'invalid_api_key' || data.error.message?.includes('API key')) {
-        addMessage('bot', '⚠️ API Key Groq không hợp lệ. Chị cần đăng ký và lấy key mới tại https://console.groq.com nhé!');
+      if (data.error.message && data.error.message.includes('decommissioned')) {
+        addMessage('bot', '⚠️ Model cũ đã bị ngừng, em đã cập nhật model mới. Chị thử lại nhé!');
+      } else if (data.error.code === 'invalid_api_key' || data.error.message?.includes('API key')) {
+        addMessage('bot', '⚠️ API Key Groq không hợp lệ. Chị cần đăng ký key mới tại https://console.groq.com nhé!');
       } else {
         addMessage('bot', `⚠️ Lỗi: ${data.error.message || 'Không xác định'}. Chị thử lại nhé!`);
       }
@@ -492,7 +494,7 @@ async function sendMessage() {
   } catch (err) {
     removeTyping();
     console.error('Network Error:', err);
-    addMessage('bot', '⚠️ Lỗi kết nối. Chị kiểm tra lại API Key và kết nối mạng nhé!');
+    addMessage('bot', '⚠️ Lỗi kết nối. Chị kiểm tra lại mạng nhé!');
   }
   isTyping = false;
   document.getElementById('sendBtn').disabled = false;
