@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Buổi 1 – Lật Thẻ Bí Mật</title>
+<title>Buổi 1 – Lật Thẻ Bí Mật | Làm chủ cơ thể, cảm xúc & không gian sống</title>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -128,11 +128,11 @@ body::after {
 .card-wrap {
   perspective: 1000px;
   cursor: pointer;
-  min-height: 160px;
+  min-height: 180px;
 }
 .card-inner {
   width: 100%;
-  min-height: 160px;
+  min-height: 180px;
   position: relative;
   transform-style: preserve-3d;
   transition: transform .55s cubic-bezier(.4,0,.2,1);
@@ -175,7 +175,7 @@ body::after {
   padding: 14px 12px;
   gap: 7px;
   width: 100%;
-  min-height: 160px;
+  min-height: 180px;
 }
 .card-back-q {
   font-size: 0.76rem;
@@ -188,7 +188,7 @@ body::after {
   width: 100%;
 }
 .card-back-a {
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   font-weight: 600;
   line-height: 1.45;
   color: var(--ink);
@@ -367,57 +367,58 @@ body::after {
 </div>
 
 <script>
+// ==================== CÂU HỎI THEO NỘI DUNG BUỔI 1 MỚI ====================
 const CARDS = [
   {
     icon: '🌱',
-    q: 'Kể 2 thay đổi cơ thể ở tuổi dậy thì của NAM và NỮ?',
-    a: 'Nam: giọng vỡ (trầm hơn), bắt đầu xuất tinh (có thể xảy ra ban đêm).\nNữ: ngực phát triển, bắt đầu có kinh nguyệt.\nCả hai: tăng chiều cao, nổi mụn, mọc lông, tiết mồ hôi nhiều hơn.',
+    q: 'Kể 2 thay đổi cơ thể ở tuổi dậy thì của NAM và 2 của NỮ?',
+    a: 'NAM: giọng vỡ (trầm hơn), bắt đầu xuất tinh (có thể xảy ra ban đêm).\nNỮ: ngực phát triển, bắt đầu có kinh nguyệt.\nCả hai: tăng chiều cao, nổi mụn, mọc lông, tiết mồ hôi nhiều hơn.',
     theme: 'theme-mint'
   },
   {
     icon: '😤',
-    q: 'Cảm xúc thay đổi ở tuổi dậy thì là do đâu? Kể 2 biểu hiện.',
-    a: 'Do thay đổi nội tiết tố trong cơ thể — hoàn toàn bình thường.\nBiểu hiện: dễ cáu giận, dễ xúc động, thích ai đó, có lúc vui lúc buồn chán vô cớ.',
+    q: 'Tại sao ở tuổi dậy thì các bạn dễ cáu với bố mẹ nhưng lại nhịn bạn bè?',
+    a: 'Do não bộ đang tái cấu trúc — phần kiểm soát cảm xúc chưa hoàn thiện.\nCác bạn dễ "xả" cảm xúc với bố mẹ vì cảm thấy an toàn, nhưng lại kiềm nén với bạn bè vì sợ bị cô lập, bị chê.\n→ Điều này rất bình thường, nhưng có thể học cách điều chỉnh.',
     theme: 'theme-coral'
   },
   {
     icon: '🩱',
-    q: '"Vùng riêng tư" là vùng nào trên cơ thể?',
-    a: 'Là những vùng được đồ bơi / quần áo lót che phủ: ngực, vùng kín phía trước và phía sau (mông).\nĐây là vùng không ai được phép chạm vào nếu không có lý do y tế chính đáng.',
+    q: '"Vùng riêng tư" là vùng nào trên cơ thể? Kể tên 3 vùng.',
+    a: 'Là những vùng được đồ bơi / quần áo lót che phủ:\n1. Ngực\n2. Vùng kín phía trước\n3. Mông (phía sau)\n→ Đây là vùng không ai được phép chạm vào nếu không có lý do y tế chính đáng.',
     theme: 'theme-sun'
   },
   {
     icon: '🤝',
-    q: 'Ai được phép chạm vào vùng riêng tư của con? Có mấy trường hợp ngoại lệ?',
-    a: 'Chỉ có 3 trường hợp ngoại lệ duy nhất:\n1. Bố mẹ khi tắm / vệ sinh (nếu con còn nhỏ, chưa tự làm được).\n2. Bác sĩ khi khám bệnh — phải có bố hoặc mẹ ở trong phòng.\n3. Không có ai khác — kể cả cô giáo, bảo mẫu, họ hàng.',
+    q: 'Ai được phép chạm vào vùng riêng tư của con? Kể 2 trường hợp ngoại lệ.',
+    a: 'Chỉ có 2 trường hợp ngoại lệ duy nhất:\n1. Bố mẹ khi tắm / vệ sinh (nếu con còn nhỏ, chưa tự làm được).\n2. Bác sĩ khi khám bệnh — phải có bố hoặc mẹ ở trong phòng.\n→ Không có ai khác — kể cả cô giáo, bảo mẫu, họ hàng, bạn thân, người yêu.',
     theme: 'theme-blue'
   },
   {
     icon: '✋',
-    q: 'Tập nói to 2 câu từ chối khi có người chạm khiến mình không thoải mái.',
-    a: '"Con không muốn đâu. Con cảm thấy không thoải mái."\n"Dừng lại. Con không đồng ý."\n→ Có thể nói với BẤT KỲ ai — kể cả người thân, người yêu, bạn thân.',
+    q: 'Tập nói 2 câu từ chối khi có người chạm vào cơ thể khiến mình không thoải mái.',
+    a: '"Con không muốn đâu. Con cảm thấy không thoải mái."\n"Dừng lại. Con không đồng ý."\n"Đừng chạm vào con nữa."\n→ Có thể nói với BẤT KỲ ai — kể cả người thân, người yêu, bạn thân.',
     theme: 'theme-purple'
   },
   {
     icon: '💔',
-    q: 'Bạn thân / người yêu có quyền ép mình làm những việc này không? Vì sao?',
+    q: 'Bạn thân / người yêu có quyền ép mình chia sẻ mật khẩu hoặc gửi ảnh riêng tư không?',
     a: 'KHÔNG. Bạn thật sự không bao giờ ép bạn.\nCác hành vi vi phạm ranh giới: ép chia sẻ mật khẩu, ép gửi ảnh riêng tư, ép uống rượu/hút thuốc/trốn học.\n→ "Nếu họ ép, họ không phải bạn thật sự."',
     theme: 'theme-green'
   },
   {
     icon: '🚪',
-    q: 'Đang ở nhà một mình, có người gõ cửa nhận là "nhân viên sửa ống nước" — làm gì?',
-    a: 'KHÔNG mở cửa.\nNói qua cửa: "Bố mẹ cháu đang bận. Chú quay lại khi có bố mẹ cháu ạ."\nĐóng cửa, khóa chốt lại.\nGọi báo bố mẹ ngay.',
+    q: 'Đang ở nhà một mình, có người lạ gõ cửa bảo "Bác là công an, có lệnh khám nhà" — bạn làm gì?',
+    a: 'TUYỆT ĐỐI KHÔNG mở cửa.\nNói qua cửa: "Bố mẹ cháu sắp về. Chú chờ bố mẹ cháu về rồi nói chuyện nhé."\nSau đó gọi báo bố mẹ ngay và gọi 113 nếu cần.\n→ Dù họ mặc đồ gì, đưa giấy tờ gì, cũng KHÔNG MỞ CỬA.',
     theme: 'theme-pink'
   },
   {
     icon: '🔥',
-    q: 'Ngửi thấy mùi gas trong bếp (mùi trứng thối) — thứ tự xử lý đúng là gì?',
-    a: '1. KHÔNG bật/tắt bất kỳ công tắc điện nào (kể cả quạt, đèn, chuông cửa).\n2. Khóa van tổng gas (nếu biết và an toàn).\n3. Mở hết cửa sổ, cửa ra vào.\n4. Ra ngoài ngay.\n5. Gọi 114.',
+    q: 'Ngửi thấy mùi gas (mùi trứng thối) trong bếp — các bước xử lý đúng là gì?',
+    a: '1. KHÔNG bật/tắt bất kỳ công tắc điện nào (kể cả quạt, đèn, chuông cửa, điện thoại).\n2. Khóa van tổng gas (nếu biết và an toàn).\n3. Mở hết cửa sổ, cửa ra vào.\n4. Ra ngoài ngay.\n5. Ra ngoài rồi mới gọi 114 (số báo cháy).',
     theme: 'theme-orange'
   }
 ];
-const themes = ['theme-mint','theme-coral','theme-sun','theme-blue','theme-purple','theme-green','theme-pink','theme-orange'];
+
 let scOk = 0, scFail = 0, done = 0;
 
 function initCards() {
