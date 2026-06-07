@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Kéo thả siêu tốc - 2 lượt | Lớp học An Toàn</title>
+    <title>Kéo thả siêu tốc - Buổi 1 | Lớp học An Toàn</title>
     <style>
         * {
             margin: 0;
@@ -127,11 +127,11 @@
 <div class="game-container">
     <div class="logo-area">
         <img src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Sophia Nguyen">
-        <div class="badge">🎮 KÉO THẢ SIÊU TỐC 🎮</div>
+        <div class="badge">🎮 KÉO THẢ SIÊU TỐC - BUỔI 1 🎮</div>
     </div>
     <div class="header">
-        <h1>⚡ KÉO THẢ SIÊU TỐC – VÙNG RIÊNG TƯ ⚡</h1>
-        <p>🔹 Mỗi đội chơi riêng, kéo thẻ ĐÚNG/SAI vào ô bên dưới 🔹</p>
+        <h1>⚡ LÀM CHỦ CƠ THỂ, CẢM XÚC & KHÔNG GIAN SỐNG ⚡</h1>
+        <p>🔹 Mỗi đội chơi riêng, kéo thẻ ĐÚNG/SAI vào ô bên dưới trong 4 giây 🔹</p>
     </div>
 
     <div class="team-select" id="teamSelect">
@@ -145,49 +145,51 @@
     </div>
 
     <div id="gameArea"></div>
-    <div class="footer">💚 Khóa học Sophia Nguyen</div>
+    <div class="footer">💚 Khóa học An Toàn - Sophia Nguyen</div>
 </div>
 
 <script>
+    // ==================== CÂU HỎI THEO NỘI DUNG BUỔI 1 MỚI ====================
     const questions = [
-        "Tuổi dậy thì, mỗi người thay đổi chiều cao, da mụn, kinh nguyệt theo tốc độ và cách riêng.",
-        "Khi ở nhà một mình, có thể mở cửa cho người tự giới thiệu là 'đồng nghiệp của bố' nếu họ thân thiện.",
-        "Vùng riêng tư là phần được đồ bơi che: ngực, mông và vùng kín.",
-        "Nếu ngửi thấy mùi gas (mùi trứng thối), cần bật quạt điện ngay để làm thoáng phòng.",
-        "Bạn thân có quyền yêu cầu bạn chia sẻ mật khẩu vì 'thân thiết không có gì giấu nhau'.",
-        "Bạn có quyền nói KHÔNG với bất kỳ ai chạm vào cơ thể làm bạn không thoải mái, kể cả người thân.",
-        "Khi nhận cuộc gọi lạ bảo 'mẹ bạn nhờ đến lấy đồ', bạn nên mở cửa và nhận giúp mẹ.",
-        "Cảm thấy buồn hoặc cáu kỉnh vô cớ trong giai đoạn dậy thì là biểu hiện bất thường, cần lo lắng.",
-        "Nếu bị người lớn chạm vào vùng riêng tư mà nói 'đây là bí mật', bạn nên giữ im lặng.",
-        "Đăng lên mạng rằng mình đang ở nhà một mình là an toàn nếu tài khoản để chế độ riêng tư.",
-        "Bác sĩ có thể cần kiểm tra vùng riêng tư khi khám bệnh – điều này bình thường nếu có bố mẹ đi cùng.",
-        "Nếu ai đó cho quà rồi yêu cầu giữ bí mật với bố mẹ, đây là dấu hiệu bình thường của tình bạn.",
-        "Con trai không trải qua dậy thì vì chỉ con gái mới có kinh nguyệt và thay đổi cơ thể.",
-        "Mộng tinh (xuất tinh khi ngủ) ở nam giới là dấu hiệu bất thường, cần đi khám bác sĩ.",
-        "Kinh nguyệt lần đầu có thể đến bất ngờ và chu kỳ ban đầu thường chưa đều – điều này là bình thường.",
-        "Mụn trứng cá khi dậy thì là do không rửa mặt sạch, bạn nào chăm rửa mặt sẽ không bị mụn.",
-        "Cảm thấy tự ti khi cơ thể thay đổi nhanh hơn hoặc chậm hơn bạn cùng lớp là tâm lý phổ biến ở tuổi dậy thì."
+        "Mỗi người có tốc độ dậy thì khác nhau – có bạn bắt đầu sớm, có bạn bắt đầu muộn – đều bình thường.",
+        "Ở tuổi dậy thì, dễ nổi cáu với bố mẹ nhưng lại nhịn bạn bè vì sợ mất lòng – điều này rất bình thường.",
+        "Khi cảm xúc đến rất nhanh, không rõ lý do và qua đi cũng nhanh – đó là dấu hiệu của cảm xúc thật.",
+        "Nếu cảm xúc buồn kéo dài nhiều ngày, ảnh hưởng đến sinh hoạt – đó có thể là dấu hiệu cần được giúp đỡ.",
+        "Cách xử lý khi nghi bị hormone chi phối: hít thở sâu 5 lần trước khi phản ứng.",
+        "Ảnh trên mạng xã hội đều là thật, không qua chỉnh sửa, nên mình cần cố gắng đẹp giống họ.",
+        "Khi bị bạn bè chê ngoại hình, có thể nói: 'Cơ thể mình, mình thấy ổn. Bạn đừng nhận xét về cơ thể mình nữa nhé.'",
+        "Nếu không thích ai đó tỏ tình với mình, bạn bắt buộc phải đồng ý để khỏi mất lòng.",
+        "Nếu bạn bè ép làm điều mình không muốn và nói 'không làm thì không phải bạn' – đó không phải là bạn thật sự.",
+        "Khi ở nhà một mình và có người lạ gõ cửa tự xưng là công an có lệnh khám nhà – bạn nên mở cửa và hợp tác.",
+        "Khi ngửi thấy mùi gas (trứng thối) ở nhà, bạn nên bật quạt điện ngay để làm thoáng phòng.",
+        "Khi ở nhà một mình, tuyệt đối không được đưa bạn bè (kể cả bạn thân) về nhà chơi.",
+        "Khi có người gõ cửa tự xưng là 'bạn của bố' và bảo bố đang cấp cứu ở viện cần lấy thuốc – bạn nên mở cửa ngay.",
+        "Nếu không liên lạc được với bố mẹ khi có người lạ gõ cửa, bạn có thể gọi 113 để được giúp đỡ.",
+        "Tay đang ướt vẫn có thể cắm phích điện bình thường nếu cẩn thận.",
+        "Khi có cháy, bạn nên trốn dưới gầm giường hoặc trong tủ quần áo để an toàn.",
+        "Hít thở sâu, viết nhật ký cảm xúc, vận động nhẹ – là những cách giúp điều chỉnh cảm xúc ở tuổi dậy thì."
     ];
 
-    const correctAnswers = ["Đúng","Sai","Đúng","Sai","Sai","Đúng","Sai","Sai","Sai","Sai","Đúng","Sai","Sai","Sai","Đúng","Sai","Đúng"];
+    const correctAnswers = ["Đúng","Đúng","Sai","Đúng","Đúng","Sai","Đúng","Sai","Đúng","Sai","Sai","Đúng","Sai","Đúng","Sai","Sai","Đúng"];
+    
     const explanations = [
-        "✅ Cơ thể mỗi người dậy thì theo nhịp riêng – sớm hay muộn đều bình thường.",
-        "❌ Tuyệt đối không mở cửa cho người lạ khi ở nhà một mình.",
-        "✅ 'Quy tắc đồ bơi' – không ai được chạm vào vùng này nếu không có lý do y tế.",
-        "❌ Không bật bất kỳ công tắc điện nào! Mở cửa sổ, thoát ra ngoài.",
-        "❌ Tình bạn thật không ép buộc. Mật khẩu là quyền riêng tư.",
-        "✅ Cơ thể của bạn thuộc về bạn – luôn có quyền từ chối.",
-        "❌ Gọi ngay cho mẹ để xác nhận trước. Kẻ xấu thường dùng tên người thân.",
-        "❌ Cảm xúc dao động mạnh khi dậy thì là bình thường do thay đổi hormone.",
-        "❌ Bí mật xấu không cần giữ! Hãy kể ngay với người lớn tin cậy.",
-        "❌ Không nên đăng thông tin mình ở nhà một mình lên bất kỳ đâu.",
-        "✅ Khám bệnh có bố mẹ đi cùng là trường hợp hợp lệ duy nhất.",
-        "❌ Đây là dấu hiệu nguy hiểm (grooming)! Tình bạn lành mạnh không yêu cầu giữ bí mật.",
-        "❌ Con trai cũng dậy thì: vỡ giọng, mọc lông, mộng tinh – hoàn toàn bình thường.",
-        "❌ Mộng tinh là hiện tượng sinh lý bình thường khi dậy thì.",
-        "✅ Chu kỳ kinh nguyệt cần vài năm mới ổn định.",
-        "❌ Mụn tuổi dậy thì chủ yếu do hormone thay đổi.",
-        "✅ Rất nhiều bạn cùng tuổi cảm thấy như vậy! Mỗi người có nhịp dậy thì riêng."
+        "✅ Đúng! Mỗi người có tốc độ dậy thì riêng – sớm hay muộn đều bình thường.",
+        "✅ Đúng! Đây là hiện tượng bình thường do não bộ đang tái cấu trúc và nhu cầu được chấp nhận bởi bạn bè.",
+        "❌ Sai! Đó là dấu hiệu của hormone, không phải cảm xúc thật. Cảm xúc thật thường có nguyên nhân cụ thể.",
+        "✅ Đúng! Nếu cảm xúc tiêu cực kéo dài nhiều ngày, hãy tìm sự giúp đỡ từ người lớn tin cậy.",
+        "✅ Đúng! Hít thở sâu 5 lần giúp bạn bình tĩnh trước khi phản ứng.",
+        "❌ Sai! Hầu hết ảnh trên mạng xã hội đã qua chỉnh sửa. Không ai có cơ thể 'hoàn hảo' ngoài đời.",
+        "✅ Đúng! Đây là cách đặt ranh giới lành mạnh khi bị nhận xét về cơ thể.",
+        "❌ Sai! Bạn có quyền từ chối lịch sự: 'Cảm ơn bạn, mình chỉ muốn làm bạn thôi nhé.'",
+        "✅ Đúng! Nếu bạn bè ép bạn làm điều sai, họ không phải là bạn thật sự.",
+        "❌ Sai! Tuyệt đối không mở cửa. Nói: 'Bố mẹ cháu sắp về, chú chờ bố mẹ cháu ạ.' Sau đó gọi 113.",
+        "❌ Sai! Không bật bất kỳ công tắc điện nào! Mở cửa sổ, ra ngoài, gọi 114.",
+        "✅ Đúng! Nguyên tắc vàng: không đưa ai về nhà khi không có người lớn.",
+        "❌ Sai! Không mở cửa. Gọi ngay cho bố mẹ để xác nhận. Nếu không liên lạc được, gọi 113.",
+        "✅ Đúng! 113 là số công an khẩn cấp, có thể gọi khi nghi ngờ nguy hiểm.",
+        "❌ Sai! Tay ướt không được chạm vào công tắc điện hoặc phích cắm – có thể bị điện giật.",
+        "❌ Sai! Khi có cháy, cúi thấp, bò ra ngoài. Tuyệt đối không trốn trong tủ hoặc gầm giường.",
+        "✅ Đúng! Đây là những chiến thuật điều chỉnh cảm xúc rất hiệu quả ở tuổi dậy thì."
     ];
 
     let gameState = 'idle'; // idle, playing, pause
@@ -227,7 +229,7 @@
     function stopTimer() { if (timerInterval) { clearInterval(timerInterval); timerInterval = null; } }
 
     function startTimer() {
-        timeLeft = 4;
+        timeLeft = 3;
         const timerFill = document.getElementById('timerFill');
         const updateTimer = () => {
             if (gameState !== 'playing') return;
@@ -241,7 +243,7 @@
                     fb.innerHTML = `⏰ HẾT GIỜ! Đáp án đúng: ${correctAnswers[currentIndex]}. ${explanations[currentIndex]}`;
                     fb.className = 'feedback wrong';
                     playSound(false);
-                    setTimeout(() => nextQuestion(), 500);
+                    setTimeout(() => nextQuestion(), 300);
                 }
             }
             timeLeft--;
@@ -352,16 +354,6 @@
 
         canAnswer = true;
         startTimer();
-    }
-
-    function finalizeGame() {
-        gameState = 'idle';
-        let winner = '';
-        if (blueScore > redScore) winner = '🏆 ĐỘI XANH CHIẾN THẮNG! 🏆';
-        else if (redScore > blueScore) winner = '🏆 ĐỘI ĐỎ CHIẾN THẮNG! 🏆';
-        else winner = '🤝 HÒA – CẢ HAI ĐỘI ĐỀU XUẤT SẮC! 🤝';
-        gameArea.innerHTML = `<div class="result-area"><div style="font-size:48px;">${blueScore > redScore ? '🟢' : (redScore > blueScore ? '🔴' : '🤝')}</div><div style="font-size:28px; font-weight:800; margin:15px 0;">${winner}</div><div>🟢 ${blueScore} - ${redScore} 🔴</div><button class="team-btn team-blue" id="restartGame" style="margin-top:20px;">🔄 CHƠI LẠI</button></div>`;
-        document.getElementById('restartGame').addEventListener('click', () => resetGame());
     }
 
     function startGame(team) {
