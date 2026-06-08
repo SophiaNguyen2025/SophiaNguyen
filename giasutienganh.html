@@ -670,7 +670,11 @@ function speakText(text) {
     .replace(/[*_~`>#+-]/g, '')           // bỏ ký tự đặc biệt
     .replace(/\s+/g, ' ')                 // gộp khoảng trắng
     .trim();
-  
+  // Thêm dòng này sau khi đã có cleanText:
+cleanText = cleanText.replace(/[\u00C0-\u024F\u1E00-\u1EFF\u0300-\u036f]/g, '') // bỏ ký tự có dấu tiếng Việt
+                     .replace(/[^\x00-\x7F]/g, '') // chỉ giữ ASCII (tiếng Anh)
+                     .replace(/\s+/g, ' ')
+                     .trim();
   // Lấy 200 ký tự đầu tiên (tránh đọc quá dài)
   cleanText = cleanText.substring(0, 200);
   
