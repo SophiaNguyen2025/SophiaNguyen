@@ -1021,18 +1021,36 @@ function predictAdultHeight(currentHeight, age, gender) {
   const fH = child?.father_height;
   const mH = child?.mother_height;
 
-  // Ưu tiên Mid-Parental Height nếu có
+  // Bước 1: Mid-Parental Height (gen di truyền)
+  let mph = null;
   if (fH && mH) {
-    const mid = gender === 'female'
-      ? (fH + mH - 13) / 2
-      : (fH + mH + 13) / 2;
-    const lo = Math.round((mid - 8.5) * 10) / 10;
-    const hi = Math.round((mid + 8.5) * 10) / 10;
-    return { type: 'range', lo, hi, mid: Math.round(mid * 10) / 10 };
+    mph = gender === 'female' ? (fH + mH - 13) / 2 : (fH + mH + 13) / 2;
   }
 
-  // Không có chiều cao ba mẹ → không đoán
-  return { type: 'unknown' };
+  // Bước 2: Dự đoán từ chiều cao hiện tại (Percentage of Adult Height)
+  const PCT_BOYS  = {5:0.617,6:0.647,7:0.677,8:0.706,9:0.735,10:0.764,11:0.792,12:0.822,13:0.858,14:0.895,15:0.930,16:0.958,17:0.978,18:0.991};
+  const PCT_GIRLS = {5:0.672,6:0.703,7:0.733,8:0.762,9:0.793,10:0.826,11:0.862,12:0.897,13:0.929,14:0.953,15:0.968,16:0.978,17:0.986,18:0.993};
+  const table = gender === 'female' ? PCT_GIRLS : PCT_BOYS;
+  const a = Math.max(5, Math.min(18, Math.round(age)));
+  const heightBased = currentHeight / (table[a] || 0.99);
+
+  // Bước 3: Kết hợp — nếu có MPH thì weighted average (60% chiều cao hiện tại + 40% gen)
+  // Vì ở tuổi 10+ chiều cao hiện tại phản ánh chính xác hơn gen
+  let mid, lo, hi;
+  if (mph) {
+    const weight = age >= 12 ? 0.7 : age >= 9 ? 0.6 : 0.5;
+    mid = Math.round((heightBased * weight + mph * (1 - weight)) * 10) / 10;
+    lo  = Math.round((mid - 6) * 10) / 10;
+    hi  = Math.round((mid + 6) * 10) / 10;
+    return { type: 'range', lo, hi, mid };
+  }
+
+  // Không có MPH — chỉ dùng chiều cao hiện tại, sai số ±8cm
+  const limits = gender === 'female' ? {min:145,max:182} : {min:155,max:200};
+  mid = Math.round(Math.max(limits.min, Math.min(limits.max, heightBased)) * 10) / 10;
+  lo  = Math.round((mid - 8) * 10) / 10;
+  hi  = Math.round((mid + 8) * 10) / 10;
+  return { type: 'range', lo, hi, mid };
 }
 function checkEarlyPuberty(heightRecords, age, gender) {
   const warnings = [];
