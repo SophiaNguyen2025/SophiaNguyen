@@ -455,7 +455,7 @@ body { font-family:'Inter',sans-serif; background:var(--ink); color:var(--paper)
 <script>
 // ==================== ANTHROPIC API (Claude) ====================
 // 👇 CHỊ ĐIỀN API KEY CỦA CHỊ VÀO ĐÂY
-const GROQ_API_KEY = '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';
+const GROQ_API_KEY = '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';
 // ================================================================
 
 // ===== CURRICULUM (CEFR A1–C2) =====
@@ -552,7 +552,7 @@ function clearAndSend(prompt) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${GROQ_API_KEY}`
+      'Authorization': `Bearer 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`
     },
     body: JSON.stringify({
       model: 'llama-3.3-70b-versatile',
@@ -704,7 +704,7 @@ async function sendAutoMessage(prompt) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer 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`
+        'Authorization': `Bearer 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`
       },
       body: JSON.stringify({
         model: 'llama-3.3-70b-versatile',
@@ -849,7 +849,7 @@ function toggleVoiceListening() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${GROQ_API_KEY}`
+          'Authorization': `Bearer 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`
         },
         body: JSON.stringify({
           model: 'llama-3.3-70b-versatile',
