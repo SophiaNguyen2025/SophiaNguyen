@@ -830,7 +830,9 @@ body {
             </div>
           </div>
 
-          <!-- Advice section -->
+<!-- Cảnh báo dậy thì sớm -->
+<div id="earlyPubertyWarning" style="display:none; margin-bottom:16px;"></div>
+           
           <div class="advice-section">
             <div class="card-label">💡 Khuyến nghị khoa học để tối ưu chiều cao</div>
             <div class="advice-grid" id="heightAdviceGrid">
@@ -996,15 +998,70 @@ function getPercentile(height, age, gender) {
 
 // Khamis-Roche prediction (đơn giản hóa)
 function predictAdultHeight(currentHeight, age, gender) {
-  // Tốc độ tăng TB còn lại theo tuổi (cm) — dựa trên nghiên cứu
-  const remaining = gender === 'female'
-    ? {5:62,6:57,7:52,8:47,9:40,10:32,11:22,12:14,13:8,14:4,15:2,16:1,17:0.5,18:0}
-    : {5:70,6:65,7:60,8:55,9:50,10:44,11:37,12:29,13:21,14:13,15:7,16:4,17:2,18:0};
-  const a = Math.max(5, Math.min(18, Math.round(age)));
-  const rem = remaining[a] || 0;
-  return Math.round((currentHeight + rem) * 10) / 10;
-}
+  // Bảng % chiều cao trưởng thành đã đạt theo tuổi (Bayley-Pinneau / WHO)
+const PCT_ADULT_BOYS = {
+  5:0.617, 6:0.647, 7:0.677, 8:0.706, 9:0.735,
+  10:0.764, 11:0.792, 12:0.822, 13:0.858, 14:0.895,
+  15:0.930, 16:0.958, 17:0.978, 18:0.991
+};
+const PCT_ADULT_GIRLS = {
+  5:0.672, 6:0.703, 7:0.733, 8:0.762, 9:0.793,
+  10:0.826, 11:0.862, 12:0.897, 13:0.929, 14:0.953,
+  15:0.968, 16:0.978, 17:0.986, 18:0.993
+};
 
+function predictAdultHeight(currentHeight, age, gender) {
+  const table = gender === 'female' ? PCT_ADULT_GIRLS : PCT_ADULT_BOYS;
+  // Giới hạn kết quả trong khoảng thực tế
+  const limits = gender === 'female'
+    ? { min: 145, max: 182 }
+    : { min: 155, max: 200 };
+  const a = Math.max(5, Math.min(18, Math.round(age)));
+  const pct = table[a] || 0.99;
+  const predicted = currentHeight / pct;
+  return Math.round(Math.max(limits.min, Math.min(limits.max, predicted)) * 10) / 10;
+}
+function checkEarlyPuberty(heightRecords, age, gender) {
+  const warnings = [];
+
+  // Ngưỡng tuổi cần cảnh báo
+  const earlyAge = gender === 'female' ? 8 : 9;
+
+  // Cảnh báo 1: Tốc độ tăng bất thường
+  if (heightRecords.length >= 2) {
+    const latest = heightRecords[heightRecords.length - 1];
+    const prev   = heightRecords[heightRecords.length - 2];
+    const months = (new Date(latest.recorded_date) - new Date(prev.recorded_date)) / (1000*60*60*24*30.44);
+    if (months > 0) {
+      const cmPerYear = (latest.height_cm - prev.height_cm) / months * 12;
+      if (age < earlyAge && cmPerYear > 6) {
+        warnings.push({
+          level: 'danger',
+          text: `⚠️ Tốc độ tăng chiều cao ${cmPerYear.toFixed(1)}cm/năm — cao bất thường với bé ${gender==='female'?'gái':'trai'} dưới ${earlyAge} tuổi. Nên tham vấn bác sĩ nội tiết nhi.`
+        });
+      }
+    }
+  }
+
+  // Cảnh báo 2: Percentile quá cao so với tuổi
+  if (heightRecords.length >= 1) {
+    const latest = heightRecords[heightRecords.length - 1];
+    const percentile = getPercentile(latest.height_cm, age, gender);
+    if (age <= earlyAge && percentile > 97) {
+      warnings.push({
+        level: 'danger',
+        text: `⚠️ Chiều cao vượt P97 ở tuổi ${age} — có thể là dấu hiệu dậy thì sớm. Nên đo tuổi xương (bone age) tại bệnh viện.`
+      });
+    } else if (age <= earlyAge + 1 && percentile > 90) {
+      warnings.push({
+        level: 'warn',
+        text: `📊 Chiều cao đang ở P${percentile} — theo dõi sát tốc độ tăng mỗi 3 tháng.`
+      });
+    }
+  }
+
+  return warnings;
+}
 // ════════════════════════════════════════════════════════
 // HEIGHT ADVICE (khoa học)
 // ════════════════════════════════════════════════════════
@@ -1184,6 +1241,24 @@ function renderHeightModule() {
   });
 
   renderHeightChart(heightRecords);
+   // Hiển thị cảnh báo dậy thì sớm nếu có
+const earlyWarnings = checkEarlyPuberty(heightRecords, age, gender);
+const warnContainer = document.getElementById('earlyPubertyWarning');
+if (warnContainer) {
+  if (earlyWarnings.length) {
+    warnContainer.style.display = 'block';
+    warnContainer.innerHTML = earlyWarnings.map(w => `
+      <div style="
+        background:${w.level==='danger'?'#fdecea':'#fff8e1'};
+        border-left: 4px solid ${w.level==='danger'?'#c0392b':'#e67e22'};
+        border-radius: 10px; padding: 14px 16px; margin-bottom: 10px;
+        font-size: 13.5px; color: var(--ink); line-height: 1.6;
+      ">${w.text}</div>
+    `).join('');
+  } else {
+    warnContainer.style.display = 'none';
+  }
+}
   renderHeightAdvice(age, gender, percentile);
 }
 
