@@ -743,19 +743,90 @@ function startSTT(){
 }
 function openVoiceMode(){ voiceModeActive=true; document.getElementById('voiceOverlay').classList.add('active'); addBotMessage('🎤 Voice conversation mode ON. Tap the orb to start speaking!'); }
 function closeVoiceMode(){ voiceModeActive=false; if(recognition)recognition.stop(); window.speechSynthesis.cancel(); document.getElementById('voiceOverlay').classList.remove('active'); }
-function toggleVoiceListening(){
-  if(voiceListening)return; if(!('webkitSpeechRecognition' in window))return;
-  voiceListening=true; const SR=window.SpeechRecognition||window.webkitSpeechRecognition; recognition=new SR(); recognition.lang='en-US';
-  const orb=document.getElementById('voiceOrb'); const status=document.getElementById('voiceStatus');
-  orb.classList.add('listening'); orb.textContent='⏺'; status.textContent='Listening... Speak now!';
-  recognition.onresult=async e=>{ const t=e.results[0][0].transcript; orb.classList.remove('listening'); voiceListening=false; status.textContent='Processing...'; addUserMessage(t); conversationHistory.push({role:'user',content:t}); showTyping();
-    try{
-      const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':ANTHROPIC_API_KEY,'anthropic-version':'2023-06-01'},body:JSON.stringify({model:'claude-3-sonnet-20241022',max_tokens:600,system:getSystemPrompt()+'\n\nVOICE MODE: Respond briefly (max 80 words). Always include English sentences for pronunciation practice.',messages:conversationHistory})});
-      const d=await res.json(); removeTyping();
-      if(d.content){ const r=d.content[0].text; conversationHistory.push({role:'assistant',content:r}); addBotMessage(r); speakText(r.replace(/<[^>]+>/g,'').substring(0,150)); status.textContent='Tap to continue'; orb.className='voice-orb'; orb.textContent='🎤'; }
-    }catch(e){ removeTyping(); status.textContent='Error, try again'; orb.className='voice-orb'; orb.textContent='🎤'; voiceListening=false; }
+function toggleVoiceListening() {
+  if (voiceListening) return;
+  if (!('webkitSpeechRecognition' in window)) {
+    addBotMessage('⚠️ Browser does not support voice input. Use Chrome.');
+    return;
+  }
+  voiceListening = true;
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SR();
+  recognition.lang = 'en-US';
+  const orb = document.getElementById('voiceOrb');
+  const status = document.getElementById('voiceStatus');
+  orb.classList.add('listening');
+  orb.textContent = '⏺';
+  status.textContent = 'Listening... Speak now!';
+  
+  recognition.onresult = async (e) => {
+    const spokenText = e.results[0][0].transcript;
+    orb.classList.remove('listening');
+    voiceListening = false;
+    status.textContent = 'Processing...';
+    addUserMessage(spokenText);
+    conversationHistory.push({ role: 'user', content: spokenText });
+    showTyping();
+    
+    try {
+      const messages = [
+        { role: 'system', content: getSystemPrompt() + '\n\nVOICE MODE: Respond briefly (max 80 words). Always include English sentences for pronunciation practice.' },
+        ...conversationHistory.map(m => ({ role: m.role === 'assistant' ? 'assistant' : 'user', content: m.content }))
+      ];
+      
+      const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${GROQ_API_KEY}`
+        },
+        body: JSON.stringify({
+          model: 'llama-3.3-70b-versatile',
+          messages: messages,
+          max_tokens: 600,
+          temperature: 0.7
+        })
+      });
+      
+      const data = await response.json();
+      removeTyping();
+      
+      if (data.error) {
+        addBotMessage(`⚠️ API Error: ${data.error.message}`);
+      } else if (data.choices && data.choices[0]) {
+        const reply = data.choices[0].message.content;
+        conversationHistory.push({ role: 'assistant', content: reply });
+        addBotMessage(reply);
+        speakText(reply.replace(/<[^>]+>/g, '').substring(0, 150));
+        status.textContent = 'Tap to continue';
+        orb.className = 'voice-orb';
+        orb.textContent = '🎤';
+      }
+    } catch (error) {
+      removeTyping();
+      console.error(error);
+      status.textContent = 'Error, try again';
+      orb.className = 'voice-orb';
+      orb.textContent = '🎤';
+      voiceListening = false;
+    }
   };
-  recognition.onend=()=>{ if(voiceListening){ orb.classList.remove('listening'); orb.textContent='🎤'; voiceListening=false; } };
+  
+  recognition.onerror = () => {
+    orb.classList.remove('listening');
+    orb.textContent = '🎤';
+    voiceListening = false;
+    status.textContent = 'Error, tap to retry';
+  };
+  
+  recognition.onend = () => {
+    if (voiceListening) {
+      orb.classList.remove('listening');
+      orb.textContent = '🎤';
+      voiceListening = false;
+    }
+  };
+  
   recognition.start();
 }
 function resetLesson(){ conversationHistory=[]; loadLesson(currentLessonIdx); }
