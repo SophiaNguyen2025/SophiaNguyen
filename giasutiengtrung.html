@@ -907,6 +907,7 @@ function getPlainText(text) {
 // ===== API CALL - DÙNG GROQ =====
 async function sendAutoMessage(prompt) {
   conversationHistory.push({role:'user', content:prompt});
+  addUserMessage(prompt); 
   showTypingIndicator();
   isTyping = true;
   document.getElementById('sendBtn').disabled = true;
@@ -1057,31 +1058,33 @@ function addNextStepSuggestions() {
   chatArea.scrollTop = chatArea.scrollHeight;
 }
 
+// Thay toàn bộ hàm speakText bằng:
 function speakText(text) {
   if (!window.speechSynthesis) return;
   window.speechSynthesis.cancel();
-  const utter = new SpeechSynthesisUtterance(text);
-  const voices = window.speechSynthesis.getVoices();
-  const zhVoice = voices.find(v => v.lang.startsWith('zh'));
-  if (zhVoice) utter.voice = zhVoice;
+  const toSpeak = getPlainText(text).substring(0, 200);
+  if (!toSpeak) return;
+  const utter = new SpeechSynthesisUtterance(toSpeak);
   utter.lang = 'zh-CN';
   utter.rate = 0.85;
+  const setVoiceAndSpeak = () => {
+    const voices = window.speechSynthesis.getVoices();
+    const zhVoice = voices.find(v => v.lang.startsWith('zh'));
+    if (zhVoice) utter.voice = zhVoice;
+    window.speechSynthesis.speak(utter);
+  };
   const bar = document.getElementById('ttsBar');
   bar.classList.add('active');
   utter.onend = () => {
     bar.classList.remove('active');
-    if (autoMicEnabled && document.getElementById('autoMicToggle').checked && !voiceModeActive) {
-      setTimeout(startSTT, 500);
-    }
-    if (voiceModeActive) {
-      document.getElementById('voiceOrb').className = 'voice-orb';
-      document.getElementById('voiceStatus').textContent = 'Chạm để nói tiếp';
-      setTimeout(() => { if(voiceModeActive) toggleVoiceListening(); }, 600);
-    }
+    if (autoMicEnabled && !voiceModeActive) setTimeout(startSTT, 500);
   };
-  window.speechSynthesis.speak(utter);
+  if (window.speechSynthesis.getVoices().length) {
+    setVoiceAndSpeak();
+  } else {
+    window.speechSynthesis.onvoiceschanged = setVoiceAndSpeak;
+  }
 }
-
 function stopTTS() {
   window.speechSynthesis.cancel();
   document.getElementById('ttsBar').classList.remove('active');
@@ -1213,7 +1216,7 @@ document.getElementById('pinyinToggle').addEventListener('change', e => showPiny
 if (window.speechSynthesis) {
   window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
 }
-
+window.markLessonDone = markLessonDone;
 init();
   // ===== MOBILE SIDEBAR FIX =====
 function closeSidebar() {
