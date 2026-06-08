@@ -589,29 +589,62 @@ function removeTyping(){ const t=document.getElementById('typingDots'); if(t)t.r
 async function sendAutoMessage(prompt) {
   conversationHistory.push({role:'user',content:prompt}); showTyping(); isTyping=true;
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method:'POST', headers:{'Content-Type':'application/json','x-api-key':ANTHROPIC_API_KEY,'anthropic-version':'2023-06-01'},
-      body:JSON.stringify({model:'claude-3-sonnet-20241022',max_tokens:1200,system:getSystemPrompt(),messages:conversationHistory})
+    const messages = [
+      { role: 'system', content: getSystemPrompt() },
+      ...conversationHistory.map(m => ({ role: m.role === 'assistant' ? 'assistant' : 'user', content: m.content }))
+    ];
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer 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`
+      },
+      body: JSON.stringify({
+        model: 'llama-3.3-70b-versatile',
+        messages: messages,
+        max_tokens: 1200,
+        temperature: 0.7
+      })
     });
     const data = await res.json(); removeTyping();
-    if(data.content){ const reply=data.content[0].text; conversationHistory.push({role:'assistant',content:reply}); addBotMessage(reply); addNextSteps(); }
-    else throw new Error('API error');
-  } catch(e){ removeTyping(); addBotMessage('⚠️ Connection error. Please check API Key or try again.'); }
+    if (data.choices && data.choices[0]) {
+      const reply = data.choices[0].message.content;
+      conversationHistory.push({role:'assistant',content:reply});
+      addBotMessage(reply);
+      addNextSteps();
+    } else throw new Error('API error');
+  } catch(e){ removeTyping(); addBotMessage('⚠️ Lỗi kết nối. Kiểm tra API key hoặc thử lại!'); }
   isTyping=false; document.getElementById('sendBtn').disabled=false;
 }
-async function sendMessage() {
-  const input=document.getElementById('userInput'); const text=input.value.trim();
-  if(!text||isTyping)return; input.value=''; autoResize(input);
-  addUserMessage(text); conversationHistory.push({role:'user',content:text}); showTyping(); isTyping=true;
+async function sendAutoMessage(prompt) {
+  conversationHistory.push({role:'user',content:prompt}); showTyping(); isTyping=true;
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method:'POST', headers:{'Content-Type':'application/json','x-api-key':ANTHROPIC_API_KEY,'anthropic-version':'2023-06-01'},
-      body:JSON.stringify({model:'claude-3-sonnet-20241022',max_tokens:1200,system:getSystemPrompt(),messages:conversationHistory})
+    const messages = [
+      { role: 'system', content: getSystemPrompt() },
+      ...conversationHistory.map(m => ({ role: m.role === 'assistant' ? 'assistant' : 'user', content: m.content }))
+    ];
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer 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`
+      },
+      body: JSON.stringify({
+        model: 'llama-3.3-70b-versatile',
+        messages: messages,
+        max_tokens: 1200,
+        temperature: 0.7
+      })
     });
     const data = await res.json(); removeTyping();
-    if(data.content){ const reply=data.content[0].text; conversationHistory.push({role:'assistant',content:reply}); addBotMessage(reply); addNextSteps(); }
-  } catch(e){ removeTyping(); addBotMessage('⚠️ Connection error. Please try again.'); }
-  isTyping=false; document.getElementById('sendBtn').disabled=false; input.focus();
+    if (data.choices && data.choices[0]) {
+      const reply = data.choices[0].message.content;
+      conversationHistory.push({role:'assistant',content:reply});
+      addBotMessage(reply);
+      addNextSteps();
+    } else throw new Error('API error');
+  } catch(e){ removeTyping(); addBotMessage('⚠️ Lỗi kết nối. Kiểm tra API key hoặc thử lại!'); }
+  isTyping=false; document.getElementById('sendBtn').disabled=false;
 }
 function addNextSteps() {
   const chat=document.getElementById('chatArea');
