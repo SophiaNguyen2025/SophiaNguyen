@@ -1157,6 +1157,18 @@ async function saveHeightRecord() {
   if (!date) { showToast('Vui lòng chọn ngày đo'); return; }
   if (!cm || cm < 50 || cm > 220) { showToast('Chiều cao không hợp lệ (50–220 cm)'); return; }
   try {
+     // Lưu chiều cao ba mẹ vào hồ sơ con nếu có nhập
+const fH = parseFloat(document.getElementById('fatherHeightInput')?.value) || null;
+const mH = parseFloat(document.getElementById('motherHeightInput')?.value) || null;
+if (fH || mH) {
+  await db.from('children').update({
+    father_height: fH || selectedChildObj.father_height,
+    mother_height: mH || selectedChildObj.mother_height
+  }).eq('id', selectedChildId);
+  // Cập nhật lại object local
+  if (fH) selectedChildObj.father_height = fH;
+  if (mH) selectedChildObj.mother_height = mH;
+}
     const { error } = await db.from('height_records').insert({
       child_id: selectedChildId,
       recorded_date: date,
