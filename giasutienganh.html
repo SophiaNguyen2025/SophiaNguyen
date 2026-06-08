@@ -682,14 +682,21 @@ function speakText(text) {
   if (!window.speechSynthesis) return;
   window.speechSynthesis.cancel();
 
+  // Tách từng dòng, chỉ giữ dòng THUẦN tiếng Anh
+  // Loại bỏ dòng có dấu tiếng Việt: àáâãèéêìíòóôõùúýăđơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ
+  const vietnameseDiacritics = /[àáâãèéêìíòóôõùúýăđơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝĂĐƠƯ]/;
+
   const lines = text.replace(/<[^>]+>/g, '').split('\n');
-  const englishLines = lines.filter(line => {
-    const trimmed = line.trim();
-    if (!trimmed) return false;
-    const ascii = (trimmed.match(/[a-zA-Z0-9\s.,!?'"]/g) || []).length;
-    return ascii / trimmed.length > 0.7;
+  const englishOnly = lines.filter(line => {
+    const t = line.trim();
+    if (!t || t.length < 2) return false;
+    if (vietnameseDiacritics.test(t)) return false;      // ← loại dòng có dấu tiếng Việt
+    if (/[→\-]\s*$/.test(t)) return false;               // ← loại dòng chỉ là mũi tên/gạch ngang
+    const ascii = (t.match(/[a-zA-Z\s.,!?'"]/g) || []).length;
+    return ascii / t.length > 0.75;                      // ← ngưỡng cao hơn
   });
-  let cleanText = englishLines.join('. ').substring(0, 200);
+
+  const cleanText = englishOnly.join('. ').substring(0, 200).trim();
   if (!cleanText) return;
 
   const bar = document.getElementById('ttsBar');
@@ -726,47 +733,6 @@ function speakText(text) {
   } else {
     window.speechSynthesis.onvoiceschanged = setVoiceAndSpeak;
   }
-}
-function speakVoiceReply(text) {
-  if (!window.speechSynthesis) return;
-  window.speechSynthesis.cancel();
-  
-  // Lấy phần tiếng Trung (ưu tiên) hoặc lọc sạch markdown
-  let chineseParts = text.match(/[\u4e00-\u9fff][^\n]{0,100}/g);
-  let cleanText = '';
-  if (chineseParts && chineseParts.length > 0) {
-    cleanText = chineseParts.slice(0, 2).join('。');
-  } else {
-    cleanText = text
-      .replace(/\*\*(.*?)\*\*/g, '$1')
-      .replace(/\*(.*?)\*/g, '$1')
-      .replace(/___(.*?)___/g, '$1')
-      .replace(/[*_~`>#+-]/g, '')
-      .substring(0, 150);
-  }
-  
-  if (!cleanText) return;
-  
-  const utter = new SpeechSynthesisUtterance(cleanText);
-  const voices = window.speechSynthesis.getVoices();
- const enVoice = voices.find(v => v.name === 'Google US English') 
-             || voices.find(v => v.lang === 'en-US')
-             || voices.find(v => v.lang.startsWith('en'));
-if (enVoice) utter.voice = enVoice;
-utter.lang = 'en-US';
-  utter.rate = 0.8;
-  
-  const orb = document.getElementById('voiceOrb');
-  const status = document.getElementById('voiceStatus');
-  
-  utter.onend = () => {
-    if (voiceModeActive) {
-      if (orb) orb.className = 'voice-orb';
-      if (status) status.textContent = 'Chạm để nói tiếp';
-      setTimeout(() => { if(voiceModeActive) toggleVoiceListening(); }, 800);
-    }
-  };
-  window.speechSynthesis.speak(utter);
 }
 function stopTTS(){ window.speechSynthesis.cancel(); document.getElementById('ttsBar').classList.remove('active'); }
 function startSTT(){
