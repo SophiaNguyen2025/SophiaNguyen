@@ -1085,22 +1085,24 @@ function checkEarlyPuberty(heightRecords, age, gender) {
 
   return warnings;
 }
-   const PUBERTY_SIGNS = {
+  const PUBERTY_SIGNS = {
   female: [
-    { id:'f1', text:'Ngực bắt đầu nhô hoặc có cục cứng dưới núm vú' },
-    { id:'f2', text:'Xuất hiện lông mu hoặc lông nách' },
-    { id:'f3', text:'Mùi cơ thể thay đổi rõ rệt' },
-    { id:'f4', text:'Mụn trứng cá xuất hiện' },
-    { id:'f5', text:'Chiều cao tăng vọt bất thường trong 6 tháng gần đây' },
-    { id:'f6', text:'Có kinh nguyệt' },
+    { id:'f1', text:'Ngực bắt đầu nhô hoặc có cục cứng dưới núm vú (thelarche)', weight: 3 },
+    { id:'f2', text:'Xuất hiện lông mu (pubarche)', weight: 3 },
+    { id:'f3', text:'Lông nách bắt đầu mọc', weight: 2 },
+    { id:'f4', text:'Mùi cơ thể thay đổi rõ rệt, cần dùng lăn khử mùi', weight: 1 },
+    { id:'f5', text:'Chiều cao tăng vọt >6cm trong 6 tháng (growth spurt)', weight: 3 },
+    { id:'f6', text:'Vùng hông/đùi bắt đầu nở ra', weight: 2 },
+    { id:'f7', text:'Có kinh nguyệt', weight: 4 },
   ],
   male: [
-    { id:'m1', text:'Tinh hoàn hoặc dương vật to hơn bình thường' },
-    { id:'m2', text:'Xuất hiện lông mu hoặc lông nách' },
-    { id:'m3', text:'Mùi cơ thể thay đổi rõ rệt' },
-    { id:'m4', text:'Mụn trứng cá xuất hiện' },
-    { id:'m5', text:'Giọng bắt đầu thay đổi hoặc vỡ giọng' },
-    { id:'m6', text:'Chiều cao tăng vọt bất thường trong 6 tháng gần đây' },
+    { id:'m1', text:'Tinh hoàn to hơn bình thường (orchidometer >4ml)', weight: 4 },
+    { id:'m2', text:'Dương vật dài và to hơn', weight: 3 },
+    { id:'m3', text:'Xuất hiện lông mu (pubarche)', weight: 3 },
+    { id:'m4', text:'Lông nách bắt đầu mọc', weight: 2 },
+    { id:'m5', text:'Mùi cơ thể thay đổi rõ rệt, cần dùng lăn khử mùi', weight: 1 },
+    { id:'m6', text:'Chiều cao tăng vọt >6cm trong 6 tháng (growth spurt)', weight: 3 },
+    { id:'m7', text:'Giọng bắt đầu vỡ hoặc trầm hơn', weight: 2 },
   ]
 };
 
@@ -1116,7 +1118,7 @@ function renderEarlyPubertyChecklist(age, gender) {
 
   const earlyAge = gender === 'female' ? 8 : 9;
   document.getElementById('pubertyAgeNote').textContent =
-    `Bé ${gender==='female'?'gái':'trai'} dưới ${earlyAge} tuổi có các dấu hiệu này cần đi khám ngay`;
+    `Dậy thì sớm được định nghĩa khi xuất hiện trước ${earlyAge} tuổi với bé ${gender==='female'?'gái':'trai'}`;
 
   const signs = gender === 'female' ? PUBERTY_SIGNS.female : PUBERTY_SIGNS.male;
   const itemsEl = document.getElementById('pubertyChecklistItems');
@@ -1128,13 +1130,62 @@ function renderEarlyPubertyChecklist(age, gender) {
         background:${pubertyChecked[s.id]?'#E86A8A':'transparent'}">
         ${pubertyChecked[s.id]?'<span style="color:white;font-size:12px;font-weight:700">✓</span>':''}
       </div>
-      <div style="font-size:13px;color:#3D2030">${s.text}</div>
+      <div style="font-size:13px;color:#3D2030;line-height:1.5">${s.text}</div>
     </div>
   `).join('');
 
   evaluatePubertySigns(age, gender);
 }
 
+function togglePubertySign(id) {
+  pubertyChecked[id] = !pubertyChecked[id];
+  const age = calcAge(selectedChildObj?.birthday);
+  const gender = selectedChildObj?.gender;
+  renderEarlyPubertyChecklist(age, gender);
+}
+
+function evaluatePubertySigns(age, gender) {
+  const resultEl = document.getElementById('pubertyResult');
+  const earlyAge = gender === 'female' ? 8 : 9;
+  const signs = gender === 'female' ? PUBERTY_SIGNS.female : PUBERTY_SIGNS.male;
+
+  const checkedSigns = signs.filter(s => pubertyChecked[s.id]);
+  const totalWeight = checkedSigns.reduce((sum, s) => sum + s.weight, 0);
+  const hasKinh = pubertyChecked['f7'];
+  const hasTinh = pubertyChecked['m1'];
+  const hasMainSign = pubertyChecked['f1'] || pubertyChecked['f2'] ||
+                      pubertyChecked['m1'] || pubertyChecked['m2'] || pubertyChecked['m3'];
+
+  if (checkedSigns.length === 0) { resultEl.style.display = 'none'; return; }
+  resultEl.style.display = 'block';
+
+  // Cảnh báo đỏ: dấu hiệu chính xuất hiện trước earlyAge, hoặc có kinh/tinh hoàn to
+  if (hasKinh || hasTinh || (hasMainSign && age < earlyAge) || (totalWeight >= 6 && age < earlyAge)) {
+    resultEl.style.background = '#fdecea';
+    resultEl.style.borderLeft = '4px solid #c0392b';
+    resultEl.innerHTML = `⚠️ <strong>Cần đưa bé đi khám bác sĩ nội tiết nhi sớm!</strong><br>
+      Bé ${age} tuổi có ${checkedSigns.length} dấu hiệu với tổng điểm ${totalWeight}/17 — 
+      có khả năng dậy thì sớm thực sự (central precocious puberty). 
+      Bác sĩ sẽ chỉ định <strong>chụp X-quang tuổi xương</strong> và 
+      <strong>xét nghiệm LH/FSH/Estradiol</strong> để xác nhận.`;
+
+  // Cảnh báo vàng: có dấu hiệu nhưng chưa đủ mức báo động, hoặc tuổi gần ngưỡng
+  } else if (totalWeight >= 3 || (checkedSigns.length >= 2 && age <= earlyAge + 1)) {
+    resultEl.style.background = '#fff8e1';
+    resultEl.style.borderLeft = '4px solid #e67e22';
+    resultEl.innerHTML = `📋 <strong>Nên theo dõi sát và tham vấn bác sĩ nhi.</strong><br>
+      Bé có ${checkedSigns.length} dấu hiệu. Ghi lại ngày xuất hiện từng dấu hiệu và 
+      tái khám sau <strong>3–6 tháng</strong>. Nếu thêm dấu hiệu mới → đi khám ngay.`;
+
+  // An toàn: dấu hiệu nhẹ, tuổi còn xa ngưỡng
+  } else {
+    resultEl.style.background = '#eef5f1';
+    resultEl.style.borderLeft = '4px solid #3D6B58';
+    resultEl.innerHTML = `✅ <strong>Chưa có dấu hiệu đáng lo ngại.</strong><br>
+      Các dấu hiệu hiện tại chưa đủ để nghi ngờ dậy thì sớm. 
+      Tiếp tục theo dõi định kỳ mỗi <strong>3 tháng</strong> và đo chiều cao thường xuyên.`;
+  }
+}
 function togglePubertySign(id) {
   pubertyChecked[id] = !pubertyChecked[id];
   const age = calcAge(selectedChildObj?.birthday);
