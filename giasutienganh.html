@@ -671,12 +671,25 @@ const englishLines = lines.filter(line => {
 let cleanText = englishLines.join('. ').substring(0, 200);
 if (!cleanText) return;
   
-  const utter = new SpeechSynthesisUtterance(cleanText);
-  const voices = window.speechSynthesis.getVoices();
-  const enVoice = voices.find(v => v.lang === 'en-US' && v.name.includes('Google'));
-if (enVoice) utter.voice = enVoice;
-utter.lang = 'en-US';
+   const utter = new SpeechSynthesisUtterance(cleanText);
+  utter.lang = 'en-US';
   utter.rate = 0.85;
+  
+  // Đợi voices load xong mới set
+  const setVoiceAndSpeak = () => {
+    const voices = window.speechSynthesis.getVoices();
+    const enVoice = voices.find(v => v.name === 'Google US English')
+                 || voices.find(v => v.lang === 'en-US');
+    if (enVoice) utter.voice = enVoice;
+    window.speechSynthesis.speak(utter);
+  };
+  
+  if (window.speechSynthesis.getVoices().length) {
+    setVoiceAndSpeak();
+  } else {
+    window.speechSynthesis.onvoiceschanged = setVoiceAndSpeak;
+  }
+}
   
   const bar = document.getElementById('ttsBar');
   if (bar) bar.classList.add('active');
@@ -719,7 +732,9 @@ function speakVoiceReply(text) {
   
   const utter = new SpeechSynthesisUtterance(cleanText);
   const voices = window.speechSynthesis.getVoices();
- const enVoice = voices.find(v => v.lang === 'en-US' && v.name.includes('Google'));
+ const enVoice = voices.find(v => v.name === 'Google US English') 
+             || voices.find(v => v.lang === 'en-US')
+             || voices.find(v => v.lang.startsWith('en'));
 if (enVoice) utter.voice = enVoice;
 utter.lang = 'en-US';
   utter.rate = 0.8;
