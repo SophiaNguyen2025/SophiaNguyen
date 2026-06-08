@@ -538,7 +538,53 @@ function loadLesson(idx) {
 function startLesson() { clearAndSend(`Teach me "${CURRICULUM[currentLevel].lessons[currentLessonIdx].title}" for ${CURRICULUM[currentLevel].name} level. Include: 1) Introduction, 2) Key vocabulary (8-10 words with examples), 3) Key sentences, 4) Sample dialogue, 5) Practice suggestions.`); }
 function doQuiz() { clearAndSend(`Create a quiz for "${CURRICULUM[currentLevel].lessons[currentLessonIdx].title}" (${CURRICULUM[currentLevel].name}): 5 multiple choice, 3 fill-in-blank, 2 translation tasks.`); markDone(); }
 function doConvo() { clearAndSend(`Role-play conversation about "${CURRICULUM[currentLevel].lessons[currentLessonIdx].title}". Start with a situation, then speak one English sentence and wait for my response.`); }
-function clearAndSend(prompt) { document.getElementById('chatArea').innerHTML = ''; sendAutoMessage(prompt); }
+function clearAndSend(prompt) {
+  document.getElementById('chatArea').innerHTML = '';
+  // Gọi API trực tiếp không hiện prompt xấu lên màn hình
+  conversationHistory = [];
+  if (isTyping) return;
+  conversationHistory.push({role:'user', content:prompt});
+  showTyping();
+  isTyping = true;
+  document.getElementById('sendBtn').disabled = true;
+  
+  fetch('https://api.groq.com/openai/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${GROQ_API_KEY}`
+    },
+    body: JSON.stringify({
+      model: 'llama-3.3-70b-versatile',
+      messages: [
+        { role: 'system', content: getSystemPrompt() },
+        { role: 'user', content: prompt }
+      ],
+      max_tokens: 1200,
+      temperature: 0.7
+    })
+  })
+  .then(r => r.json())
+  .then(data => {
+    removeTyping();
+    if (data.choices && data.choices[0]) {
+      const reply = data.choices[0].message.content;
+      conversationHistory.push({role:'assistant', content:reply});
+      addBotMessage(reply);
+      addNextSteps();
+    } else {
+      addBotMessage('⚠️ Không nhận được phản hồi. Thử lại nhé!');
+    }
+  })
+  .catch(() => {
+    removeTyping();
+    addBotMessage('⚠️ Lỗi kết nối. Kiểm tra API Key hoặc mạng!');
+  })
+  .finally(() => {
+    isTyping = false;
+    document.getElementById('sendBtn').disabled = false;
+  });
+}
 function setLevel(lvl,btn) {
   currentLevel = lvl; currentLessonIdx = 0; conversationHistory = [];
   document.querySelectorAll('.ltab').forEach(b=>b.classList.remove('active')); btn.classList.add('active');
