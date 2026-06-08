@@ -653,10 +653,15 @@ function formatMessage(t) {
   t = t.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
   const lines = t.split('\n');
   return lines.map(l=>{
-    if(l.includes(' - ') && !l.includes('```')){
-      const parts = l.split(' - ');
-      if(parts.length>=2) return `<div class="vc"><span class="en">📖 ${parts[0].trim()}</span><span class="vi">→ ${parts.slice(1).join(' - ')}</span></div>`;
-    }
+   if(l.includes(' - ') && !l.includes('```')){
+  const parts = l.split(' - ');
+  const enPart = parts[0].trim();
+  const viPart = parts.slice(1).join(' - ').trim();
+  // Chỉ format thành vocab card nếu phần EN không rỗng
+  if(parts.length>=2 && enPart) {
+    return `<div class="vc"><span class="en">📖 ${enPart}</span><span class="vi">→ ${viPart}</span></div>`;
+  }
+}
     return l || '<br>';
   }).join('<br>');
 }
