@@ -551,6 +551,11 @@ body { font-family:'DM Sans',sans-serif; background:var(--ink); color:var(--pape
 </div>
 
 <script>
+// ==================== CHỈ SỬA DUY NHẤT DÒNG NÀY ====================
+// 👇 DÙNG LẠI KEY GROQ CŨ CỦA CHỊ (bắt đầu bằng gsk_)
+const GROQ_API_KEY = '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';
+// ==================================================================
+
 // ===== CURRICULUM =====
 const CURRICULUM = {
   1: { name:'HSK 1', totalWords:150, desc:'Vỡ lòng', lessons:[
@@ -628,7 +633,6 @@ function init() {
   updateProgress();
 }
 
-// ===== LESSON LIST =====
 function renderLessonList() {
   const list = document.getElementById('lessonList');
   const lessons = CURRICULUM[currentLevel].lessons;
@@ -652,13 +656,10 @@ function loadLesson(idx) {
   currentLessonIdx = idx;
   conversationHistory = [];
   const lesson = CURRICULUM[currentLevel].lessons[idx];
-  // Update topbar
   document.getElementById('topbarTitle').textContent = `${lesson.emoji} Bài ${idx+1} · ${lesson.title}`;
   document.getElementById('topbarGoal').textContent = `${lesson.goal} · ${CURRICULUM[currentLevel].name}`;
   document.getElementById('levelBadge').textContent = CURRICULUM[currentLevel].name;
-  // Re-render list
   renderLessonList();
-  // Show lesson card
   showLessonCard(lesson, idx);
 }
 
@@ -734,7 +735,6 @@ function clearChatKeepCard() {
   document.getElementById('chatArea').innerHTML = '';
 }
 
-// ===== LEVEL & MODE =====
 function setLevel(lvl, btn) {
   currentLevel = lvl;
   currentLessonIdx = 0;
@@ -775,7 +775,6 @@ function setMode(mode, btn) {
   }
 }
 
-// ===== PROGRESS =====
 function markLessonDone() {
   const key = `${currentLevel}-${currentLessonIdx}`;
   progress[key] = true;
@@ -793,7 +792,6 @@ function updateProgress() {
   document.getElementById('progressFill').style.width = pct + '%';
 }
 
-// ===== SYSTEM PROMPT =====
 function getSystemPrompt() {
   const lvl = CURRICULUM[currentLevel];
   const lesson = lvl.lessons[currentLessonIdx];
@@ -824,7 +822,6 @@ NGUYÊN TẮC:
 CHẾ ĐỘ HIỆN TẠI: ${modeGuide[currentMode] || modeGuide.free}`;
 }
 
-// ===== MESSAGING =====
 function addBotMessage(content) {
   const chatArea = document.getElementById('chatArea');
   const msg = document.createElement('div');
@@ -868,21 +865,15 @@ function showTypingIndicator() {
 }
 function removeTypingIndicator() { const t = document.getElementById('typingDots'); if(t)t.remove(); }
 
-// ===== FORMAT MESSAGE =====
 function formatMessage(text) {
-  // Strip literal HTML tags from AI output (fix the <strong> bug)
   text = text.replace(/<strong>(.*?)<\/strong>/gi, '**$1**');
   text = text.replace(/<em>(.*?)<\/em>/gi, '*$1*');
   text = text.replace(/<[^>]+>/g, '');
-
-  // Markdown bold/italic
   text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
   text = text.replace(/\*(.*?)\*/g, '<em style="color:var(--jade);font-style:normal">$1</em>');
-
   const lines = text.split('\n');
   const out = [];
   for (let line of lines) {
-    // Vocab card: Chinese - pinyin - meaning
     if (/[\u4e00-\u9fff]/.test(line) && line.includes(' - ')) {
       const parts = line.split(' - ');
       if (parts.length >= 2) {
@@ -899,7 +890,6 @@ function formatMessage(text) {
         }
       }
     }
-    // Highlight inline Chinese
     line = line.replace(/([\u4e00-\u9fff]+)/g, '<span class="hz">$1</span>');
     out.push(line || '<br>');
   }
@@ -907,39 +897,43 @@ function formatMessage(text) {
 }
 
 function getPlainText(text) {
-  // Extract only Chinese text for TTS (better pronunciation)
   const chinese = text.match(/[\u4e00-\u9fff\u3000-\u303f\uff00-\uffef]+/g);
   if (chinese && chinese.join('').length > 5) {
-    // Mix: read Chinese parts
     return chinese.slice(0, 6).join('，');
   }
-  // Fallback: strip markdown, read Vietnamese (shorter version)
   return text.replace(/\*\*/g,'').replace(/\*/g,'').replace(/<[^>]+>/g,'').substring(0,200);
 }
 
-// ===== API CALL =====
+// ===== API CALL - DÙNG GROQ =====
 async function sendAutoMessage(prompt) {
   conversationHistory.push({role:'user', content:prompt});
   showTypingIndicator();
   isTyping = true;
   document.getElementById('sendBtn').disabled = true;
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      'x-api-key': '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',   // <--- THÊM DÒNG NÀY
-    'anthropic-version': '2023-06-01'         
+    const messages = [
+      { role: 'system', content: getSystemPrompt() },
+      ...conversationHistory.map(m => ({ role: m.role === 'assistant' ? 'assistant' : 'user', content: m.content }))
+    ];
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${GROQ_API_KEY}`
+      },
       body: JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:1000,
-        system: getSystemPrompt(),
-        messages: conversationHistory
+        model: 'llama-3.3-70b-versatile',
+        messages: messages,
+        temperature: 0.7,
+        max_tokens: 1200
       })
     });
     const data = await res.json();
     removeTypingIndicator();
-    if (data.content && data.content[0]) {
-      const reply = data.content[0].text;
+    if (data.error) {
+      addBotMessage(`⚠️ Lỗi Groq API: ${data.error.message}. Kiểm tra lại key nhé!`);
+    } else if (data.choices && data.choices[0]) {
+      const reply = data.choices[0].message.content;
       conversationHistory.push({role:'assistant', content:reply});
       addBotMessage(reply);
       addNextStepSuggestions();
@@ -965,20 +959,29 @@ async function sendMessage() {
   isTyping = true;
   document.getElementById('sendBtn').disabled = true;
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
+    const messages = [
+      { role: 'system', content: getSystemPrompt() },
+      ...conversationHistory.map(m => ({ role: m.role === 'assistant' ? 'assistant' : 'user', content: m.content }))
+    ];
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${GROQ_API_KEY}`
+      },
       body: JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:1000,
-        system: getSystemPrompt(),
-        messages: conversationHistory
+        model: 'llama-3.3-70b-versatile',
+        messages: messages,
+        temperature: 0.7,
+        max_tokens: 1200
       })
     });
     const data = await res.json();
     removeTypingIndicator();
-    if (data.content && data.content[0]) {
-      const reply = data.content[0].text;
+    if (data.error) {
+      addBotMessage(`⚠️ Lỗi Groq API: ${data.error.message}`);
+    } else if (data.choices && data.choices[0]) {
+      const reply = data.choices[0].message.content;
       conversationHistory.push({role:'assistant', content:reply});
       addBotMessage(reply);
       if (conversationHistory.length >= 4) addNextStepSuggestions();
@@ -990,6 +993,51 @@ async function sendMessage() {
   isTyping = false;
   document.getElementById('sendBtn').disabled = false;
   input.focus();
+}
+
+async function sendVoiceMessage(text) {
+  const orb = document.getElementById('voiceOrb');
+  const status = document.getElementById('voiceStatus');
+  addUserMessage(text);
+  conversationHistory.push({role:'user', content:text});
+  status.textContent = 'Đang suy nghĩ...';
+  try {
+    const messages = [
+      { role: 'system', content: getSystemPrompt() + '\n\nLƯU Ý VOICE MODE: Trả lời NGẮN GỌN hơn (tối đa 100 chữ). Luôn có ít nhất 1 câu tiếng Trung để học viên nghe phát âm.' },
+      ...conversationHistory.map(m => ({ role: m.role === 'assistant' ? 'assistant' : 'user', content: m.content }))
+    ];
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer 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`
+      },
+      body: JSON.stringify({
+        model: 'llama-3.3-70b-versatile',
+        messages: messages,
+        temperature: 0.7,
+        max_tokens: 600
+      })
+    });
+    const data = await res.json();
+    if (data.error) {
+      status.textContent = '⚠️ Lỗi API. Thử lại!';
+      orb.className = 'voice-orb';
+      orb.textContent = '🎤';
+    } else if (data.choices && data.choices[0]) {
+      const reply = data.choices[0].message.content;
+      conversationHistory.push({role:'assistant', content:reply});
+      addBotMessage(reply);
+      status.textContent = 'Đang đọc câu trả lời...';
+      orb.className = 'voice-orb speaking';
+      orb.textContent = '🔊';
+      speakVoiceReply(reply);
+    }
+  } catch(e) {
+    status.textContent = '⚠️ Lỗi kết nối. Thử lại!';
+    orb.className = 'voice-orb';
+    orb.textContent = '🎤';
+  }
 }
 
 function addNextStepSuggestions() {
@@ -1009,22 +1057,17 @@ function addNextStepSuggestions() {
   chatArea.scrollTop = chatArea.scrollHeight;
 }
 
-// ===== TTS =====
 function speakText(text) {
   if (!window.speechSynthesis) return;
   window.speechSynthesis.cancel();
   const utter = new SpeechSynthesisUtterance(text);
-  // Prefer zh-CN voice
   const voices = window.speechSynthesis.getVoices();
   const zhVoice = voices.find(v => v.lang.startsWith('zh'));
   if (zhVoice) utter.voice = zhVoice;
   utter.lang = 'zh-CN';
   utter.rate = 0.85;
-  utter.pitch = 1;
   const bar = document.getElementById('ttsBar');
-  const barText = document.getElementById('ttsBarText');
   bar.classList.add('active');
-  barText.textContent = 'Đang đọc tiếng Trung...';
   utter.onend = () => {
     bar.classList.remove('active');
     if (autoMicEnabled && document.getElementById('autoMicToggle').checked && !voiceModeActive) {
@@ -1036,7 +1079,6 @@ function speakText(text) {
       setTimeout(() => { if(voiceModeActive) toggleVoiceListening(); }, 600);
     }
   };
-  utter.onerror = () => bar.classList.remove('active');
   window.speechSynthesis.speak(utter);
 }
 
@@ -1045,7 +1087,6 @@ function stopTTS() {
   document.getElementById('ttsBar').classList.remove('active');
 }
 
-// ===== STT (inline) =====
 function startSTT() {
   if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
     addBotMessage('⚠️ Trình duyệt chị chưa hỗ trợ nhận giọng nói. Hãy dùng Chrome hoặc Edge nhé!');
@@ -1053,7 +1094,7 @@ function startSTT() {
   }
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   recognition = new SR();
-  recognition.lang = currentMode === 'pronunciation' ? 'zh-CN' : 'zh-CN';
+  recognition.lang = 'zh-CN';
   recognition.interimResults = false;
   const micBtn = document.getElementById('micBtn');
   micBtn.classList.add('listening');
@@ -1070,7 +1111,6 @@ function startSTT() {
   recognition.start();
 }
 
-// ===== VOICE CONVERSATION MODE =====
 function openVoiceMode() {
   voiceModeActive = true;
   document.getElementById('voiceOverlay').classList.add('active');
@@ -1134,44 +1174,9 @@ function toggleVoiceListening() {
   recognition.start();
 }
 
-async function sendVoiceMessage(text) {
-  const orb = document.getElementById('voiceOrb');
-  const status = document.getElementById('voiceStatus');
-  addUserMessage(text);
-  conversationHistory.push({role:'user', content:text});
-  status.textContent = 'Đang suy nghĩ...';
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:1000,
-        system: getSystemPrompt() + '\n\nLƯU Ý VOICE MODE: Trả lời NGẮN GỌN hơn (tối đa 100 chữ). Luôn có ít nhất 1 câu tiếng Trung để học viên nghe phát âm.',
-        messages: conversationHistory
-      })
-    });
-    const data = await res.json();
-    if (data.content && data.content[0]) {
-      const reply = data.content[0].text;
-      conversationHistory.push({role:'assistant', content:reply});
-      addBotMessage(reply);
-      status.textContent = 'Đang đọc câu trả lời...';
-      orb.className = 'voice-orb speaking';
-      orb.textContent = '🔊';
-      speakVoiceReply(reply);
-    }
-  } catch(e) {
-    status.textContent = '⚠️ Lỗi kết nối. Thử lại!';
-    orb.className = 'voice-orb';
-    orb.textContent = '🎤';
-  }
-}
-
 function speakVoiceReply(text) {
   if (!window.speechSynthesis) return;
   window.speechSynthesis.cancel();
-  // Extract Chinese sentences to read
   const chineseParts = text.match(/[\u4e00-\u9fff][^\n]*/g);
   const toSpeak = chineseParts ? chineseParts.slice(0,3).join('。') : text.replace(/\*\*/g,'').substring(0,150);
   const utter = new SpeechSynthesisUtterance(toSpeak);
@@ -1190,26 +1195,21 @@ function speakVoiceReply(text) {
       setTimeout(() => { if(voiceModeActive) toggleVoiceListening(); }, 800);
     }
   };
-  utter.onerror = () => {
-    orb.className = 'voice-orb';
-    orb.textContent = '🎤';
-    status.textContent = 'Chạm để nói tiếp';
-  };
   window.speechSynthesis.speak(utter);
 }
 
-// ===== UTILS =====
 function resetLesson() {
   conversationHistory = [];
   loadLesson(currentLessonIdx);
 }
+
 function handleKey(e) { if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();} }
 function autoResize(el) { el.style.height='auto'; el.style.height=Math.min(el.scrollHeight,110)+'px'; }
+
 document.getElementById('ttsToggle').addEventListener('change', e => ttsEnabled = e.target.checked);
 document.getElementById('autoMicToggle').addEventListener('change', e => autoMicEnabled = e.target.checked);
 document.getElementById('pinyinToggle').addEventListener('change', e => showPinyin = e.target.checked);
 
-// Load voices async
 if (window.speechSynthesis) {
   window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
 }
