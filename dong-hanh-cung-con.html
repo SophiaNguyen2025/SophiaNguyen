@@ -429,7 +429,14 @@ body {
 .height-stat-badge.low  { background: #fde8e8; color: var(--error); }
 
 .height-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 20px; }
-.chart-card { background: var(--white); border: 1px solid var(--divider); border-radius: var(--radius-md); padding: 20px; }
+.chart-card { 
+  background: var(--white); 
+  border: 1px solid var(--divider); 
+  border-radius: var(--radius-md); 
+  padding: 20px;
+  min-height: 320px;        /* ← thêm dòng này */
+  position: relative;       /* ← thêm dòng này */
+}
 .height-log-form { background: var(--white); border: 1px solid var(--divider); border-radius: var(--radius-md); padding: 20px; }
 .height-history { background: var(--white); border: 1px solid var(--divider); border-radius: var(--radius-md); padding: 20px; }
 .height-history-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--divider); }
@@ -792,7 +799,7 @@ body {
           <div class="height-grid">
             <div class="chart-card">
               <div class="card-label" style="margin-bottom:14px">Biểu đồ tăng trưởng (so với chuẩn WHO)</div>
-              <canvas id="heightChart" height="240"></canvas>
+               <canvas id="heightChart" style="width:100% !important; height:260px !important;"></canvas>
             </div>
             <div class="height-log-form">
               <div class="card-label">Ghi nhận chiều cao mới</div>
