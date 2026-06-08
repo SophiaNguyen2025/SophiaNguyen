@@ -659,41 +659,24 @@ function addNextSteps() {
 function speakText(text) {
   if (!window.speechSynthesis) return;
   window.speechSynthesis.cancel();
-  
-  // Loại bỏ markdown và ký tự đặc biệt trước khi đọc
- const lines = text.replace(/<[^>]+>/g, '').split('\n');
-const englishLines = lines.filter(line => {
-  const trimmed = line.trim();
-  if (!trimmed) return false;
-  const ascii = (trimmed.match(/[a-zA-Z0-9\s.,!?'"]/g) || []).length;
-  return ascii / trimmed.length > 0.7;
-});
-let cleanText = englishLines.join('. ').substring(0, 200);
-if (!cleanText) return;
-  
-   const utter = new SpeechSynthesisUtterance(cleanText);
-  utter.lang = 'en-US';
-  utter.rate = 0.85;
-  
-  // Đợi voices load xong mới set
-  const setVoiceAndSpeak = () => {
-    const voices = window.speechSynthesis.getVoices();
-    const enVoice = voices.find(v => v.name === 'Google US English')
-                 || voices.find(v => v.lang === 'en-US');
-    if (enVoice) utter.voice = enVoice;
-    window.speechSynthesis.speak(utter);
-  };
-  
-  if (window.speechSynthesis.getVoices().length) {
-    setVoiceAndSpeak();
-  } else {
-    window.speechSynthesis.onvoiceschanged = setVoiceAndSpeak;
-  }
-}
-  
+
+  const lines = text.replace(/<[^>]+>/g, '').split('\n');
+  const englishLines = lines.filter(line => {
+    const trimmed = line.trim();
+    if (!trimmed) return false;
+    const ascii = (trimmed.match(/[a-zA-Z0-9\s.,!?'"]/g) || []).length;
+    return ascii / trimmed.length > 0.7;
+  });
+  let cleanText = englishLines.join('. ').substring(0, 200);
+  if (!cleanText) return;
+
   const bar = document.getElementById('ttsBar');
   if (bar) bar.classList.add('active');
-  
+
+  const utter = new SpeechSynthesisUtterance(cleanText);
+  utter.lang = 'en-US';
+  utter.rate = 0.85;
+
   utter.onend = () => {
     if (bar) bar.classList.remove('active');
     if (autoMicEnabled && document.getElementById('autoMicToggle')?.checked && !voiceModeActive) {
@@ -707,9 +690,21 @@ if (!cleanText) return;
       setTimeout(() => { if(voiceModeActive) toggleVoiceListening(); }, 600);
     }
   };
-  window.speechSynthesis.speak(utter);
-}
 
+  const setVoiceAndSpeak = () => {
+    const voices = window.speechSynthesis.getVoices();
+    const enVoice = voices.find(v => v.name === 'Google US English')
+                 || voices.find(v => v.lang === 'en-US');
+    if (enVoice) utter.voice = enVoice;
+    window.speechSynthesis.speak(utter);
+  };
+
+  if (window.speechSynthesis.getVoices().length) {
+    setVoiceAndSpeak();
+  } else {
+    window.speechSynthesis.onvoiceschanged = setVoiceAndSpeak;
+  }
+}
 function speakVoiceReply(text) {
   if (!window.speechSynthesis) return;
   window.speechSynthesis.cancel();
