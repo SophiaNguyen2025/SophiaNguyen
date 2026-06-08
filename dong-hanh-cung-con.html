@@ -1818,19 +1818,17 @@ async function saveChild(){
   try{
     const{data:sessionData}=await db.auth.getSession(); if(!sessionData?.session){showError('child-error','Phiên đăng nhập hết hạn');return;}
     currentUser=sessionData.session.user;
-    const{data,error}=await db.from('children').insert({profile_id:currentUser.id,name,birthday,gender:selectedGenderVal}).select().single();
+   const fatherH = parseFloat(document.getElementById('new-father-height').value) || null;
+const motherH = parseFloat(document.getElementById('new-mother-height').value) || null;
+const{data,error}=await db.from('children').insert({
+  profile_id:currentUser.id, name, birthday, gender:selectedGenderVal,
+  father_height: fatherH, mother_height: motherH
+}).select().single();
     if(error){showError('child-error','Lỗi: '+error.message);return;}
     children.push(data); renderChildren(); closeModal(); showToast(`Đã thêm hồ sơ cho ${name} 🎉`); await selectChild(data);
   }catch(e){showError('child-error','Lỗi: '+e.message);}
   finally{if(btn){btn.disabled=false;btn.textContent='Thêm con ✓';}}
 }
-const fatherH = parseFloat(document.getElementById('new-father-height').value) || null;
-const motherH = parseFloat(document.getElementById('new-mother-height').value) || null;
-// Rồi thêm vào insert:
-const{data,error}=await db.from('children').insert({
-  profile_id:currentUser.id, name, birthday, gender:selectedGenderVal,
-  father_height: fatherH, mother_height: motherH
-})
 function refreshAI(){aiIdx=(aiIdx+1)%20;if(selectedChildObj){const sug=getAISuggestion(selectedChildObj);document.getElementById('ai-title').textContent=sug.title;document.getElementById('ai-text').textContent=sug.text;}}
 
 // ════════════════════════════════════════════════════════
