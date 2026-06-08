@@ -678,9 +678,9 @@ function speakText(text) {
   
   const utter = new SpeechSynthesisUtterance(cleanText);
   const voices = window.speechSynthesis.getVoices();
-  const zhVoice = voices.find(v => v.lang.startsWith('zh'));
-  if (zhVoice) utter.voice = zhVoice;
-  utter.lang = 'en-US';
+  const enVoice = voices.find(v => v.lang === 'en-US' && v.name.includes('Google'));
+if (enVoice) utter.voice = enVoice;
+utter.lang = 'en-US';
   utter.rate = 0.85;
   
   const bar = document.getElementById('ttsBar');
@@ -724,9 +724,9 @@ function speakVoiceReply(text) {
   
   const utter = new SpeechSynthesisUtterance(cleanText);
   const voices = window.speechSynthesis.getVoices();
-  const zhVoice = voices.find(v => v.lang.startsWith('zh'));
-  if (zhVoice) utter.voice = zhVoice;
-  utter.lang = 'en-US';
+ const enVoice = voices.find(v => v.lang === 'en-US' && v.name.includes('Google'));
+if (enVoice) utter.voice = enVoice;
+utter.lang = 'en-US';
   utter.rate = 0.8;
   
   const orb = document.getElementById('voiceOrb');
