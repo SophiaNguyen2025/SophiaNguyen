@@ -629,6 +629,7 @@ Always end long responses with 2-3 specific next-step suggestions.`;
 }
 function addBotMessage(msg) {
   const chat = document.getElementById('chatArea');
+  const formatted = formatMessage(msg);
   const div = document.createElement('div'); div.className='message bot';
   div.innerHTML = `<div class="av bot">🇬🇧</div><div class="bubble">${formatMessage(msg)}</div>`;
   chat.appendChild(div); chat.scrollTop = chat.scrollHeight;
