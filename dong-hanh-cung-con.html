@@ -1225,7 +1225,6 @@ if (predicted.type === 'range') {
 
   // Stats
   document.getElementById('hstat-current').textContent    = current;
-  document.getElementById('hstat-predicted').textContent  = predicted;
   document.getElementById('hstat-velocity').textContent   = velocity;
   document.getElementById('hstat-percentile').textContent = percentile;
 
@@ -1242,15 +1241,7 @@ if (predicted.type === 'range') {
   else                      { pbadge.textContent = '✅ Trong tầm chuẩn'; pbadge.className = 'height-stat-badge good'; }
 
   // Predicted badge
-  const who50 = getWHO(18, gender);
-  const pdBadge = document.getElementById('hstat-predicted-badge');
-  if (who50) {
-    const diff = predicted - who50.p50;
-    if (diff >= 5)       { pdBadge.textContent = '🌟 Cao hơn TB'; pdBadge.className = 'height-stat-badge good'; }
-    else if (diff >= -5) { pdBadge.textContent = '✅ Đạt trung bình'; pdBadge.className = 'height-stat-badge good'; }
-    else                 { pdBadge.textContent = '⚠️ Cần tối ưu'; pdBadge.className = 'height-stat-badge warn'; }
-  }
-
+  
   document.getElementById('heightPercentileLabel').textContent = `Percentile ${percentile} · ${gender === 'female' ? 'Nữ' : 'Nam'}`;
 
   // History list
