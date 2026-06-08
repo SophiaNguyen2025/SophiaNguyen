@@ -840,7 +840,20 @@ body {
 
 <!-- Cảnh báo dậy thì sớm -->
 <div id="earlyPubertyWarning" style="display:none; margin-bottom:16px;"></div>
-           
+       <!-- Checklist dậy thì sớm — chỉ hiện khi bé < 10 tuổi -->
+<div id="earlyPubertyChecklist" style="display:none; margin-bottom:20px;">
+  <div style="background:linear-gradient(135deg,#FFF0F5,#FFE4EE);border-radius:16px;padding:20px;border-left:4px solid #E86A8A;">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+      <span style="font-size:22px">🌸</span>
+      <div>
+        <div style="font-size:14px;font-weight:700;color:#C2416B">Theo dõi dấu hiệu dậy thì</div>
+        <div style="font-size:12px;color:#E86A8A" id="pubertyAgeNote"></div>
+      </div>
+    </div>
+    <div id="pubertyChecklistItems"></div>
+    <div id="pubertyResult" style="display:none;margin-top:14px;padding:12px 14px;border-radius:10px;font-size:13px;line-height:1.6"></div>
+  </div>
+</div>    
           <div class="advice-section">
             <div class="card-label">💡 Khuyến nghị khoa học để tối ưu chiều cao</div>
             <div class="advice-grid" id="heightAdviceGrid">
@@ -1021,36 +1034,15 @@ function predictAdultHeight(currentHeight, age, gender) {
   const fH = child?.father_height;
   const mH = child?.mother_height;
 
-  // Bước 1: Mid-Parental Height (gen di truyền)
-  let mph = null;
   if (fH && mH) {
-    mph = gender === 'female' ? (fH + mH - 13) / 2 : (fH + mH + 13) / 2;
+    const mid = gender === 'female'
+      ? (fH + mH - 13) / 2
+      : (fH + mH + 13) / 2;
+    const lo = Math.round((mid - 8.5) * 10) / 10;
+    const hi = Math.round((mid + 8.5) * 10) / 10;
+    return { type: 'range', lo, hi, mid: Math.round(mid * 10) / 10 };
   }
-
-  // Bước 2: Dự đoán từ chiều cao hiện tại (Percentage of Adult Height)
-  const PCT_BOYS  = {5:0.617,6:0.647,7:0.677,8:0.706,9:0.735,10:0.764,11:0.792,12:0.822,13:0.858,14:0.895,15:0.930,16:0.958,17:0.978,18:0.991};
-  const PCT_GIRLS = {5:0.672,6:0.703,7:0.733,8:0.762,9:0.793,10:0.826,11:0.862,12:0.897,13:0.929,14:0.953,15:0.968,16:0.978,17:0.986,18:0.993};
-  const table = gender === 'female' ? PCT_GIRLS : PCT_BOYS;
-  const a = Math.max(5, Math.min(18, Math.round(age)));
-  const heightBased = currentHeight / (table[a] || 0.99);
-
-  // Bước 3: Kết hợp — nếu có MPH thì weighted average (60% chiều cao hiện tại + 40% gen)
-  // Vì ở tuổi 10+ chiều cao hiện tại phản ánh chính xác hơn gen
-  let mid, lo, hi;
-  if (mph) {
-    const weight = age >= 12 ? 0.7 : age >= 9 ? 0.6 : 0.5;
-    mid = Math.round((heightBased * weight + mph * (1 - weight)) * 10) / 10;
-    lo  = Math.round((mid - 6) * 10) / 10;
-    hi  = Math.round((mid + 6) * 10) / 10;
-    return { type: 'range', lo, hi, mid };
-  }
-
-  // Không có MPH — chỉ dùng chiều cao hiện tại, sai số ±8cm
-  const limits = gender === 'female' ? {min:145,max:182} : {min:155,max:200};
-  mid = Math.round(Math.max(limits.min, Math.min(limits.max, heightBased)) * 10) / 10;
-  lo  = Math.round((mid - 8) * 10) / 10;
-  hi  = Math.round((mid + 8) * 10) / 10;
-  return { type: 'range', lo, hi, mid };
+  return { type: 'unknown' };
 }
 function checkEarlyPuberty(heightRecords, age, gender) {
   const warnings = [];
@@ -1092,6 +1084,92 @@ function checkEarlyPuberty(heightRecords, age, gender) {
   }
 
   return warnings;
+}
+   const PUBERTY_SIGNS = {
+  female: [
+    { id:'f1', text:'Ngực bắt đầu nhô hoặc có cục cứng dưới núm vú' },
+    { id:'f2', text:'Xuất hiện lông mu hoặc lông nách' },
+    { id:'f3', text:'Mùi cơ thể thay đổi rõ rệt' },
+    { id:'f4', text:'Mụn trứng cá xuất hiện' },
+    { id:'f5', text:'Chiều cao tăng vọt bất thường trong 6 tháng gần đây' },
+    { id:'f6', text:'Có kinh nguyệt' },
+  ],
+  male: [
+    { id:'m1', text:'Tinh hoàn hoặc dương vật to hơn bình thường' },
+    { id:'m2', text:'Xuất hiện lông mu hoặc lông nách' },
+    { id:'m3', text:'Mùi cơ thể thay đổi rõ rệt' },
+    { id:'m4', text:'Mụn trứng cá xuất hiện' },
+    { id:'m5', text:'Giọng bắt đầu thay đổi hoặc vỡ giọng' },
+    { id:'m6', text:'Chiều cao tăng vọt bất thường trong 6 tháng gần đây' },
+  ]
+};
+
+let pubertyChecked = {};
+
+function renderEarlyPubertyChecklist(age, gender) {
+  const container = document.getElementById('earlyPubertyChecklist');
+  if (!container) return;
+
+  // Chỉ hiện khi bé dưới 10 tuổi
+  if (age >= 10) { container.style.display = 'none'; return; }
+  container.style.display = 'block';
+
+  const earlyAge = gender === 'female' ? 8 : 9;
+  document.getElementById('pubertyAgeNote').textContent =
+    `Bé ${gender==='female'?'gái':'trai'} dưới ${earlyAge} tuổi có các dấu hiệu này cần đi khám ngay`;
+
+  const signs = gender === 'female' ? PUBERTY_SIGNS.female : PUBERTY_SIGNS.male;
+  const itemsEl = document.getElementById('pubertyChecklistItems');
+  itemsEl.innerHTML = signs.map(s => `
+    <div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid rgba(226,106,138,.15)">
+      <div onclick="togglePubertySign('${s.id}')" id="psign-${s.id}"
+        style="width:22px;height:22px;border-radius:6px;border:2px solid #E86A8A;
+        flex-shrink:0;display:flex;align-items:center;justify-content:center;cursor:pointer;
+        background:${pubertyChecked[s.id]?'#E86A8A':'transparent'}">
+        ${pubertyChecked[s.id]?'<span style="color:white;font-size:12px;font-weight:700">✓</span>':''}
+      </div>
+      <div style="font-size:13px;color:#3D2030">${s.text}</div>
+    </div>
+  `).join('');
+
+  evaluatePubertySigns(age, gender);
+}
+
+function togglePubertySign(id) {
+  pubertyChecked[id] = !pubertyChecked[id];
+  const age = calcAge(selectedChildObj?.birthday);
+  const gender = selectedChildObj?.gender;
+  renderEarlyPubertyChecklist(age, gender);
+}
+
+function evaluatePubertySigns(age, gender) {
+  const resultEl = document.getElementById('pubertyResult');
+  const earlyAge = gender === 'female' ? 8 : 9;
+  const signs = gender === 'female' ? PUBERTY_SIGNS.female : PUBERTY_SIGNS.male;
+  const checkedCount = signs.filter(s => pubertyChecked[s.id]).length;
+  const hasKinh = pubertyChecked['f6'];
+  const hasTinh = pubertyChecked['m1'];
+
+  if (checkedCount === 0) { resultEl.style.display = 'none'; return; }
+  resultEl.style.display = 'block';
+
+  if (hasKinh || hasTinh || (checkedCount >= 3 && age < earlyAge)) {
+    resultEl.style.background = '#fdecea';
+    resultEl.style.borderLeft = '4px solid #c0392b';
+    resultEl.innerHTML = `⚠️ <strong>Cần đi khám bác sĩ nội tiết nhi sớm!</strong><br>
+      Bé có ${checkedCount} dấu hiệu${age < earlyAge ? ` ở tuổi ${age} — sớm hơn bình thường` : ''}. 
+      Bác sĩ sẽ chỉ định chụp X-quang tuổi xương và xét nghiệm hormone nếu cần.`;
+  } else if (checkedCount >= 2 && age < earlyAge) {
+    resultEl.style.background = '#fff8e1';
+    resultEl.style.borderLeft = '4px solid #e67e22';
+    resultEl.innerHTML = `📋 <strong>Nên theo dõi thêm và tham vấn bác sĩ.</strong><br>
+      Bé có ${checkedCount} dấu hiệu. Ghi lại ngày xuất hiện và tái kiểm tra sau 1–2 tháng.`;
+  } else {
+    resultEl.style.background = '#eef5f1';
+    resultEl.style.borderLeft = '4px solid #3D6B58';
+    resultEl.innerHTML = `✅ <strong>Chưa có dấu hiệu đáng lo ngại.</strong><br>
+      Tiếp tục theo dõi định kỳ mỗi 3 tháng.`;
+  }
 }
 // ════════════════════════════════════════════════════════
 // HEIGHT ADVICE (khoa học)
@@ -1242,17 +1320,20 @@ const predBadge = document.getElementById('hstat-predicted-badge');
 const predUnit  = predEl.nextElementSibling; // div "cm"
 
 if (predicted.type === 'range') {
-  predEl.textContent       = `${predicted.lo}–${predicted.hi}`;
-  predEl.style.fontSize    = '18px';
-  predUnit.textContent     = 'cm';
-  predBadge.textContent    = `TB dự kiến: ${predicted.mid} cm`;
-  predBadge.className      = 'height-stat-badge good';
-} else {
-  predEl.textContent       = '—';
-  predEl.style.fontSize    = '28px';
-  predUnit.textContent     = '';
-  predBadge.textContent    = '⚠️ Nhập chiều cao ba mẹ để dự đoán';
-  predBadge.className      = 'height-stat-badge warn';
+  predEl.textContent    = `${predicted.lo}–${predicted.hi}`;
+  predEl.style.fontSize = '18px';
+  predUnit.textContent  = 'cm';
+  predBadge.textContent = `Theo gen ba mẹ`;
+  predBadge.className   = 'height-stat-badge warn';
+
+  // Xóa note cũ nếu có rồi thêm mới
+  const oldNote = predEl.closest('.height-stat-card').querySelector('.pred-note');
+  if (oldNote) oldNote.remove();
+  const note = document.createElement('div');
+  note.className = 'pred-note';
+  note.style.cssText = 'font-size:10px;color:var(--mist);margin-top:6px;line-height:1.5';
+  note.textContent = '⚠️ Con đang cao hơn dự đoán di truyền — tiềm năng thực tế có thể cao hơn. Cần đo tuổi xương tại BV để biết chính xác.';
+  predEl.closest('.height-stat-card').appendChild(note);
 }
 
   // Velocity
@@ -1324,7 +1405,8 @@ if (warnContainer) {
   } else {
     warnContainer.style.display = 'none';
   }
-}
+   renderEarlyPubertyChecklist(age, gender);
+
   renderHeightAdvice(age, gender, percentile);
 }
 
