@@ -503,6 +503,7 @@ body {
   .progress-grid { grid-template-columns: 1fr 1fr; }
   .height-stats-row { grid-template-columns: 1fr 1fr; }
 }
+   .chart-card { min-height: 300px; }
 </style>
 </head>
 <body>
@@ -1039,29 +1040,23 @@ function getHeightAdvice(age, gender, percentile) {
   ];
 }
 
-// ═══════════════════════════════════════════════════════
-// HEIGHT RECORDS — SUPABASE
-// Chị cần tạo bảng này trong Supabase:
-// CREATE TABLE height_records (
-//   id bigserial primary key,
-//   child_id uuid references children(id) on delete cascade,
-//   recorded_date date not null,
-//   height_cm numeric(5,1) not null,
-//   weight_kg numeric(5,1),
-//   created_at timestamptz default now()
-// );
-// ALTER TABLE height_records ENABLE ROW LEVEL SECURITY;
-// CREATE POLICY "Users manage own height records" ON height_records
-//   USING (child_id IN (SELECT id FROM children WHERE profile_id = auth.uid()));
-// ═══════════════════════════════════════════════════════
-
 async function loadHeightRecords() {
   if (!selectedChildId) return;
   try {
     const { data, error } = await db.from('height_records')
       .select('*').eq('child_id', selectedChildId)
       .order('recorded_date', { ascending: true });
-    if (error) throw error;
+    if (error) {
+      // Nếu bảng chưa tạo, hiện thông báo rõ ràng
+      if (error.code === '42P01') {
+        showToast('⚠️ Bảng height_records chưa được tạo trong Supabase');
+      } else {
+        showToast('Lỗi tải dữ liệu chiều cao: ' + error.message);
+      }
+      heightRecords = [];
+      renderHeightModule();
+      return;
+    }
     heightRecords = data || [];
     renderHeightModule();
   } catch(e) {
@@ -1181,14 +1176,12 @@ function renderHeightModule() {
 function renderHeightChart(records) {
   const child = selectedChildObj;
   if (!child) return;
-  const age    = calcAge(child.birthday);
   const gender = child.gender;
-  const ctx    = document.getElementById('heightChart');
+  const ctx = document.getElementById('heightChart');
   if (!ctx) return;
 
   if (heightChartInstance) { heightChartInstance.destroy(); heightChartInstance = null; }
 
-  // Build WHO percentile lines for ages 5–18
   const ageRange = [];
   for (let a = 5; a <= 18; a++) ageRange.push(a);
 
@@ -1197,22 +1190,39 @@ function renderHeightChart(records) {
   const p50 = ageRange.map(a => whoTable[a]?.p50 || null);
   const p97 = ageRange.map(a => whoTable[a]?.p97 || null);
 
-  const childPoints = records.map(r => ({
-    x: new Date(r.recorded_date).getFullYear() - new Date(child.birthday).getFullYear(),
-    y: parseFloat(r.height_cm)
-  }));
+  // FIX: tính tuổi chính xác theo ngày, không dùng getFullYear()
+  const childPoints = records.map(r => {
+    const birthDate = new Date(child.birthday);
+    const measureDate = new Date(r.recorded_date);
+    const ageAtMeasure = (measureDate - birthDate) / (1000 * 60 * 60 * 24 * 365.25);
+    return { x: Math.round(ageAtMeasure * 10) / 10, y: parseFloat(r.height_cm) };
+  });
 
   heightChartInstance = new Chart(ctx, {
     type: 'line',
     data: {
-      labels: ageRange,
       datasets: [
-        { label: 'P97', data: p97, borderColor: 'rgba(95,139,118,.25)', borderWidth: 1, borderDash: [4,4], pointRadius: 0, fill: false, tension: .4 },
-        { label: 'P50 (trung bình)', data: p50, borderColor: 'rgba(95,139,118,.6)', borderWidth: 2, pointRadius: 0, fill: false, tension: .4 },
-        { label: 'P3', data: p3, borderColor: 'rgba(95,139,118,.25)', borderWidth: 1, borderDash: [4,4], pointRadius: 0, fill: false, tension: .4 },
+        {
+          label: 'P97',
+          data: ageRange.map((a, i) => ({ x: a, y: p97[i] })),
+          borderColor: 'rgba(95,139,118,.25)', borderWidth: 1,
+          borderDash: [4,4], pointRadius: 0, fill: false, tension: .4
+        },
+        {
+          label: 'P50 (trung bình)',
+          data: ageRange.map((a, i) => ({ x: a, y: p50[i] })),
+          borderColor: 'rgba(95,139,118,.6)', borderWidth: 2,
+          pointRadius: 0, fill: false, tension: .4
+        },
+        {
+          label: 'P3',
+          data: ageRange.map((a, i) => ({ x: a, y: p3[i] })),
+          borderColor: 'rgba(95,139,118,.25)', borderWidth: 1,
+          borderDash: [4,4], pointRadius: 0, fill: false, tension: .4
+        },
         {
           label: child.name,
-          data: childPoints.map(p => p.y),
+          data: childPoints,          // ← dùng {x, y} object thay vì array y thuần
           borderColor: '#C4714A',
           backgroundColor: 'rgba(196,113,74,.15)',
           borderWidth: 2.5,
@@ -1223,14 +1233,24 @@ function renderHeightChart(records) {
       ]
     },
     options: {
-      responsive: true, maintainAspectRatio: false,
+      responsive: true,
+      maintainAspectRatio: false,
       plugins: {
         legend: { display: true, position: 'bottom', labels: { font: { size: 11 }, boxWidth: 14 } },
         tooltip: { mode: 'index', intersect: false }
       },
       scales: {
-        x: { title: { display: true, text: 'Tuổi', font: { size: 11 } }, grid: { color: '#f0f0f0' } },
-        y: { title: { display: true, text: 'Chiều cao (cm)', font: { size: 11 } }, grid: { color: '#f0f0f0' } }
+        x: {
+          type: 'linear',           // ← PHẢI là 'linear' để dùng {x,y} object
+          min: 5, max: 18,
+          title: { display: true, text: 'Tuổi', font: { size: 11 } },
+          grid: { color: '#f0f0f0' },
+          ticks: { stepSize: 1 }
+        },
+        y: {
+          title: { display: true, text: 'Chiều cao (cm)', font: { size: 11 } },
+          grid: { color: '#f0f0f0' }
+        }
       }
     }
   });
