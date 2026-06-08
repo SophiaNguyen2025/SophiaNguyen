@@ -1085,24 +1085,19 @@ function checkEarlyPuberty(heightRecords, age, gender) {
 
   return warnings;
 }
-  const PUBERTY_SIGNS = {
+ const PUBERTY_SIGNS = {
   female: [
-    { id:'f1', text:'Ngực bắt đầu nhô hoặc có cục cứng dưới núm vú (thelarche)', weight: 3 },
-    { id:'f2', text:'Xuất hiện lông mu (pubarche)', weight: 3 },
-    { id:'f3', text:'Lông nách bắt đầu mọc', weight: 2 },
-    { id:'f4', text:'Mùi cơ thể thay đổi rõ rệt, cần dùng lăn khử mùi', weight: 1 },
-    { id:'f5', text:'Chiều cao tăng vọt >6cm trong 6 tháng (growth spurt)', weight: 3 },
-    { id:'f6', text:'Vùng hông/đùi bắt đầu nở ra', weight: 2 },
-    { id:'f7', text:'Có kinh nguyệt', weight: 4 },
+    { id:'f1', text:'Ngực bắt đầu to (có thể thấy "quả trám" dưới núm vú) — kể cả bé thừa cân' },
+    { id:'f2', text:'Chiều cao tăng vọt, cao vượt trội các bạn cùng lứa trong thời gian ngắn' },
+    { id:'f3', text:'Mọc lông mu hoặc lông nách' },
+    { id:'f4', text:'Có kinh nguyệt (hành kinh)' },
   ],
   male: [
-    { id:'m1', text:'Tinh hoàn to hơn bình thường (orchidometer >4ml)', weight: 4 },
-    { id:'m2', text:'Dương vật dài và to hơn', weight: 3 },
-    { id:'m3', text:'Xuất hiện lông mu (pubarche)', weight: 3 },
-    { id:'m4', text:'Lông nách bắt đầu mọc', weight: 2 },
-    { id:'m5', text:'Mùi cơ thể thay đổi rõ rệt, cần dùng lăn khử mùi', weight: 1 },
-    { id:'m6', text:'Chiều cao tăng vọt >6cm trong 6 tháng (growth spurt)', weight: 3 },
-    { id:'m7', text:'Giọng bắt đầu vỡ hoặc trầm hơn', weight: 2 },
+    { id:'m1', text:'Tinh hoàn và dương vật to nhanh hơn bình thường' },
+    { id:'m2', text:'Chiều cao tăng vọt, cao vượt trội các bạn cùng lứa trong thời gian ngắn' },
+    { id:'m3', text:'Mọc lông mu hoặc lông nách' },
+    { id:'m4', text:'Giọng bắt đầu vỡ (bể tiếng)' },
+    { id:'m5', text:'Mọc mụn trứng cá' },
   ]
 };
 
@@ -1112,29 +1107,76 @@ function renderEarlyPubertyChecklist(age, gender) {
   const container = document.getElementById('earlyPubertyChecklist');
   if (!container) return;
 
-  // Chỉ hiện khi bé dưới 10 tuổi
   if (age >= 10) { container.style.display = 'none'; return; }
   container.style.display = 'block';
 
   const earlyAge = gender === 'female' ? 8 : 9;
+  const kinhAge  = 9.5; // bé gái hành kinh trước 9.5 tuổi = dậy thì sớm
+
   document.getElementById('pubertyAgeNote').textContent =
-    `Dậy thì sớm được định nghĩa khi xuất hiện trước ${earlyAge} tuổi với bé ${gender==='female'?'gái':'trai'}`;
+    gender === 'female'
+      ? `Các dấu hiệu dưới đây nếu xuất hiện trước 8 tuổi (hoặc hành kinh trước 9.5 tuổi) = dậy thì sớm, cần đi khám ngay`
+      : `Các dấu hiệu dưới đây nếu xuất hiện trước 9 tuổi = dậy thì sớm, cần đi khám ngay`;
 
   const signs = gender === 'female' ? PUBERTY_SIGNS.female : PUBERTY_SIGNS.male;
   const itemsEl = document.getElementById('pubertyChecklistItems');
   itemsEl.innerHTML = signs.map(s => `
-    <div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid rgba(226,106,138,.15)">
+    <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid rgba(226,106,138,.15)">
       <div onclick="togglePubertySign('${s.id}')" id="psign-${s.id}"
-        style="width:22px;height:22px;border-radius:6px;border:2px solid #E86A8A;
+        style="width:22px;height:22px;border-radius:6px;border:2px solid #E86A8A;margin-top:1px;
         flex-shrink:0;display:flex;align-items:center;justify-content:center;cursor:pointer;
         background:${pubertyChecked[s.id]?'#E86A8A':'transparent'}">
         ${pubertyChecked[s.id]?'<span style="color:white;font-size:12px;font-weight:700">✓</span>':''}
       </div>
-      <div style="font-size:13px;color:#3D2030;line-height:1.5">${s.text}</div>
+      <div style="font-size:13px;color:#3D2030;line-height:1.6">${s.text}</div>
     </div>
   `).join('');
 
   evaluatePubertySigns(age, gender);
+}
+
+function togglePubertySign(id) {
+  pubertyChecked[id] = !pubertyChecked[id];
+  const age    = calcAge(selectedChildObj?.birthday);
+  const gender = selectedChildObj?.gender;
+  renderEarlyPubertyChecklist(age, gender);
+}
+
+function evaluatePubertySigns(age, gender) {
+  const resultEl = document.getElementById('pubertyResult');
+  const earlyAge = gender === 'female' ? 8 : 9;
+  const signs    = gender === 'female' ? PUBERTY_SIGNS.female : PUBERTY_SIGNS.male;
+
+  const checkedSigns = signs.filter(s => pubertyChecked[s.id]);
+  if (checkedSigns.length === 0) { resultEl.style.display = 'none'; return; }
+  resultEl.style.display = 'block';
+
+  // Bất kỳ dấu hiệu nào xuất hiện trước ngưỡng tuổi = dậy thì sớm, đi khám NGAY
+  if (age < earlyAge) {
+    resultEl.style.background  = '#fdecea';
+    resultEl.style.borderLeft  = '4px solid #c0392b';
+    resultEl.innerHTML = `
+      ⚠️ <strong>Cần đưa bé đi khám bác sĩ Nội tiết Nhi ngay!</strong><br><br>
+      Bé ${age} tuổi đã có dấu hiệu dậy thì — sớm hơn bình thường 
+      (${gender==='female'?'bé gái thường dậy thì từ 8–13 tuổi':'bé trai thường dậy thì từ 9–14 tuổi'}).<br><br>
+      Bác sĩ sẽ chỉ định:<br>
+      • <strong>Chụp X-quang tuổi xương bàn tay</strong> — đánh giá mức độ phát triển xương<br>
+      • <strong>Siêu âm bụng, tử cung, buồng trứng</strong> ${gender==='female'?'(với bé gái)':''}<br>
+      • <strong>Xét nghiệm máu nội tiết</strong> (LH, FSH, Estradiol/Testosterone)<br><br>
+      <span style="font-size:12px;color:#888">Điều trị kịp thời giúp bảo vệ chiều cao tối đa và tránh ảnh hưởng tâm lý cho bé.</span>
+    `;
+
+  // Có dấu hiệu nhưng tuổi đã gần/đúng ngưỡng bình thường → dậy thì bình thường, không lo
+  } else {
+    resultEl.style.background  = '#eef5f1';
+    resultEl.style.borderLeft  = '4px solid #3D6B58';
+    resultEl.innerHTML = `
+      ✅ <strong>Đây là dậy thì bình thường theo độ tuổi.</strong><br>
+      Bé ${age} tuổi có các dấu hiệu dậy thì — hoàn toàn phù hợp với lứa tuổi 
+      (${gender==='female'?'bé gái thường dậy thì từ 8–13 tuổi':'bé trai thường dậy thì từ 9–14 tuổi'}).<br><br>
+      Ba mẹ chuẩn bị kiến thức và trò chuyện cởi mở với bé về những thay đổi của cơ thể nhé! 🌸
+    `;
+  }
 }
 
 function togglePubertySign(id) {
