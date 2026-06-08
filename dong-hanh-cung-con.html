@@ -822,6 +822,14 @@ body {
                 <label class="form-label">Cân nặng (kg) — tùy chọn</label>
                 <input class="form-input" type="number" id="weightKg" placeholder="VD: 35.0" step="0.1" min="10" max="150">
               </div>
+               <div class="form-group">
+  <label class="form-label">Chiều cao Ba (cm) — để dự đoán chiều cao con</label>
+  <input class="form-input" type="number" id="new-father-height" placeholder="VD: 172" step="0.1" min="140" max="220">
+</div>
+<div class="form-group">
+  <label class="form-label">Chiều cao Mẹ (cm)</label>
+  <input class="form-input" type="number" id="new-mother-height" placeholder="VD: 158" step="0.1" min="130" max="200">
+</div>
               <button class="btn btn-sm" style="width:100%;justify-content:center" onclick="saveHeightRecord()">📏 Lưu số đo</button>
               <div style="margin-top:14px">
                 <div class="card-label" style="margin-bottom:10px">Lịch sử gần đây</div>
@@ -1009,15 +1017,22 @@ const PCT_ADULT_GIRLS = {
 };
 
 function predictAdultHeight(currentHeight, age, gender) {
-  const table = gender === 'female' ? PCT_ADULT_GIRLS : PCT_ADULT_BOYS;
-  // Giới hạn kết quả trong khoảng thực tế
-  const limits = gender === 'female'
-    ? { min: 145, max: 182 }
-    : { min: 155, max: 200 };
-  const a = Math.max(5, Math.min(18, Math.round(age)));
-  const pct = table[a] || 0.99;
-  const predicted = currentHeight / pct;
-  return Math.round(Math.max(limits.min, Math.min(limits.max, predicted)) * 10) / 10;
+  const child = selectedChildObj;
+  const fH = child?.father_height;
+  const mH = child?.mother_height;
+
+  // Ưu tiên Mid-Parental Height nếu có
+  if (fH && mH) {
+    const mid = gender === 'female'
+      ? (fH + mH - 13) / 2
+      : (fH + mH + 13) / 2;
+    const lo = Math.round((mid - 8.5) * 10) / 10;
+    const hi = Math.round((mid + 8.5) * 10) / 10;
+    return { type: 'range', lo, hi, mid: Math.round(mid * 10) / 10 };
+  }
+
+  // Không có chiều cao ba mẹ → không đoán
+  return { type: 'unknown' };
 }
 function checkEarlyPuberty(heightRecords, age, gender) {
   const warnings = [];
@@ -1181,7 +1196,24 @@ function renderHeightModule() {
   const latest     = heightRecords[heightRecords.length - 1];
   const current    = parseFloat(latest.height_cm);
   const percentile = getPercentile(current, age, gender);
-  const predicted  = predictAdultHeight(current, age, gender);
+  const predicted = predictAdultHeight(current, age, gender);
+const predEl    = document.getElementById('hstat-predicted');
+const predBadge = document.getElementById('hstat-predicted-badge');
+const predUnit  = predEl.nextElementSibling; // div "cm"
+
+if (predicted.type === 'range') {
+  predEl.textContent       = `${predicted.lo}–${predicted.hi}`;
+  predEl.style.fontSize    = '18px';
+  predUnit.textContent     = 'cm';
+  predBadge.textContent    = `TB dự kiến: ${predicted.mid} cm`;
+  predBadge.className      = 'height-stat-badge good';
+} else {
+  predEl.textContent       = '—';
+  predEl.style.fontSize    = '28px';
+  predUnit.textContent     = '';
+  predBadge.textContent    = '⚠️ Nhập chiều cao ba mẹ để dự đoán';
+  predBadge.className      = 'height-stat-badge warn';
+}
 
   // Velocity
   let velocity = '—';
@@ -1203,6 +1235,10 @@ function renderHeightModule() {
   else if (percentile < 10) { pbadge.textContent = '⚠️ Thấp — nên tham vấn BS'; pbadge.className = 'height-stat-badge warn'; }
   else if (percentile < 25) { pbadge.textContent = '📊 Dưới trung bình'; pbadge.className = 'height-stat-badge warn'; }
   else if (percentile > 90) { pbadge.textContent = '🌟 Rất cao'; pbadge.className = 'height-stat-badge good'; }
+     else if (percentile >= 97) { 
+  pbadge.textContent = '🌟 Rất cao — theo dõi 3 tháng/lần'; 
+  pbadge.className = 'height-stat-badge good'; 
+}
   else                      { pbadge.textContent = '✅ Trong tầm chuẩn'; pbadge.className = 'height-stat-badge good'; }
 
   // Predicted badge
@@ -1788,7 +1824,13 @@ async function saveChild(){
   }catch(e){showError('child-error','Lỗi: '+e.message);}
   finally{if(btn){btn.disabled=false;btn.textContent='Thêm con ✓';}}
 }
-
+const fatherH = parseFloat(document.getElementById('new-father-height').value) || null;
+const motherH = parseFloat(document.getElementById('new-mother-height').value) || null;
+// Rồi thêm vào insert:
+const{data,error}=await db.from('children').insert({
+  profile_id:currentUser.id, name, birthday, gender:selectedGenderVal,
+  father_height: fatherH, mother_height: motherH
+})
 function refreshAI(){aiIdx=(aiIdx+1)%20;if(selectedChildObj){const sug=getAISuggestion(selectedChildObj);document.getElementById('ai-title').textContent=sug.title;document.getElementById('ai-text').textContent=sug.text;}}
 
 // ════════════════════════════════════════════════════════
