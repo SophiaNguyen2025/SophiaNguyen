@@ -589,7 +589,7 @@ function addBotMessage(msg) {
 if(ttsEnabled && document.getElementById('ttsToggle').checked) {
   // Chỉ lấy text trong thẻ .en (từ tiếng Anh), bỏ hết phần tiếng Việt
   const tempDiv = document.createElement('div');
-  tempDiv.innerHTML = msg;
+  tempDiv.innerHTML = formatted;
   const enEls = tempDiv.querySelectorAll('.en');
   const enText = enEls.length > 0
     ? Array.from(enEls).map(e => e.textContent.replace(/^📖\s*/,'')).join('. ').substring(0,200)
