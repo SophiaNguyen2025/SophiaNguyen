@@ -586,14 +586,22 @@ function formatMessage(t) {
 function escapeHtml(s){ const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
 function showTyping(){ const c=document.getElementById('chatArea'); const t=document.createElement('div'); t.className='typing'; t.id='typingDots'; t.innerHTML=`<div class="av bot">🇬🇧</div><div class="bubble" style="background:var(--ink2);padding:12px;"><div class="typing-dots" style="display:flex;gap:5px;"><div class="dot" style="width:7px;height:7px;background:var(--gold);border-radius:50%;animation:bounce 1.2s infinite;"></div><div class="dot" style="animation-delay:.15s"></div><div class="dot" style="animation-delay:.3s"></div></div></div>`; c.appendChild(t); c.scrollTop=c.scrollHeight; }
 function removeTyping(){ const t=document.getElementById('typingDots'); if(t)t.remove(); }
-  
+
+  async function sendMessage() {
+  const input = document.getElementById('userInput');
+  const text = input.value.trim();
+  if (!text || isTyping) return;
+  input.value = '';
+  input.style.height = 'auto';
+  await sendAutoMessage(text);
+}
 async function sendAutoMessage(prompt) {
   if (isTyping) return;
   conversationHistory.push({role:'user', content:prompt});
   addUserMessage(prompt);
   showTyping();
   isTyping = true;
-  document.getElementById('sendBtn').disabled = true;
+  document.getElementById('.send-btn').disabled = true;
   
   try {
     const messages = [
@@ -624,6 +632,7 @@ async function sendAutoMessage(prompt) {
       const reply = data.choices[0].message.content;
       conversationHistory.push({role:'assistant', content:reply});
       addBotMessage(reply);
+      addNextSteps();
     } else {
       addBotMessage('⚠️ Không nhận được phản hồi. Thử lại nhé!');
     }
@@ -634,7 +643,7 @@ async function sendAutoMessage(prompt) {
   }
   
   isTyping = false;
-  document.getElementById('sendBtn').disabled = false;
+  document.getElementById('.send-btn').disabled = false;
 }
   
 function addNextSteps() {
@@ -671,7 +680,7 @@ function speakText(text) {
   const voices = window.speechSynthesis.getVoices();
   const zhVoice = voices.find(v => v.lang.startsWith('zh'));
   if (zhVoice) utter.voice = zhVoice;
-  utter.lang = 'zh-CN';
+  utter.lang = 'en-US';
   utter.rate = 0.85;
   
   const bar = document.getElementById('ttsBar');
@@ -717,7 +726,7 @@ function speakVoiceReply(text) {
   const voices = window.speechSynthesis.getVoices();
   const zhVoice = voices.find(v => v.lang.startsWith('zh'));
   if (zhVoice) utter.voice = zhVoice;
-  utter.lang = 'zh-CN';
+  utter.lang = 'en-US';
   utter.rate = 0.8;
   
   const orb = document.getElementById('voiceOrb');
@@ -797,6 +806,7 @@ function toggleVoiceListening() {
         const reply = data.choices[0].message.content;
         conversationHistory.push({ role: 'assistant', content: reply });
         addBotMessage(reply);
+        addNextSteps();
         speakText(reply.replace(/<[^>]+>/g, '').substring(0, 150));
         status.textContent = 'Tap to continue';
         orb.className = 'voice-orb';
