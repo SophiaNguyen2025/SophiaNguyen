@@ -836,12 +836,15 @@ function getSystemPrompt() {
 NGUYÊN TẮC:
 - Giải thích HOÀN TOÀN bằng tiếng Việt
 - ${py}
-- Format từ vựng: [Chữ Hán] - [pinyin] - [Nghĩa tiếng Việt] - [Ví dụ câu]
+- Format từ vựng: [Chữ Hán] - [pinyin] - [Nghĩa tiếng Việt NGẮN GỌN ĐÚNG NGHĨA] - [Ví dụ câu]
+- QUAN TRỌNG: Dịch nghĩa PHẢI CHÍNH XÁC, NGẮN GỌN. KHÔNG thêm chữ thừa. Ví dụ: 早上好 = "Chào buổi sáng" KHÔNG PHẢI "Chào buổi sáng, hôm nay trời đẹp". 不客气 = "Không có gì" KHÔNG PHẢI "Không có vấn đề, miễn sao bạn hài lòng".
+
 - Khen ngợi và động viên học viên
 - Cuối mỗi câu trả lời DÀI: gợi ý 2-3 bước tiếp theo cụ thể để học viên biết làm gì tiếp
 - Dùng emoji vừa phải để sinh động
 
-CHẾ ĐỘ HIỆN TẠI: ${modeGuide[currentMode] || modeGuide.free}`;
+CHẾ ĐỘ HIỆN TẠI: ${modeGuide[currentMode] || modeGuide.free}
+QUY TẮC DỊCH THUẬT BẮT BUỘC: Mọi bản dịch phải NGẮN GỌN và CHÍNH XÁC. Tuyệt đối KHÔNG thêm câu thừa vào phần dịch nghĩa từ vựng.`;
 }
 
 function addBotMessage(content) {
