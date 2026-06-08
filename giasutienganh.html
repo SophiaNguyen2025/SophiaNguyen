@@ -417,7 +417,7 @@ body { font-family:'Inter',sans-serif; background:var(--ink); color:var(--paper)
       <div class="input-row">
         <textarea class="input-box" id="userInput" placeholder="Type your question... or tap 🎤 to speak" rows="1" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
         <button class="icon-btn mic-btn" id="micBtn" onclick="startSTT()">🎤</button>
-        <button class="icon-btn send-btn" onclick="sendMessage()">➤</button>
+       <button class="icon-btn send-btn" id="sendBtn" onclick="sendMessage()">➤</button>
       </div>
       <div class="input-hints">
         <div class="hint-left">
@@ -601,7 +601,7 @@ async function sendAutoMessage(prompt) {
   addUserMessage(prompt);
   showTyping();
   isTyping = true;
-  document.getElementById('.send-btn').disabled = true;
+  document.getElementById('sendBtn').disabled = true;
   
   try {
     const messages = [
@@ -643,7 +643,7 @@ async function sendAutoMessage(prompt) {
   }
   
   isTyping = false;
-  document.getElementById('.send-btn').disabled = false;
+  document.getElementById('sendBtn').disabled = false;
 }
   
 function addNextSteps() {
