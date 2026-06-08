@@ -3,548 +3,1216 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>汉语学习 · Gia Sư Tiếng Trung · Full + Voice</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Quicksand:wght@400;500;600;700&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<title>漢語學習 · Gia Sư Tiếng Trung HSK v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --ink: #1a1a2e;
-    --paper: #f5f0e8;
-    --vermillion: #c0392b;
-    --vermillion-light: #e74c3c;
-    --gold: #d4a843;
-    --jade: #27ae60;
-    --mist: #8e9aaf;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: 'Quicksand', sans-serif;
-    background: var(--ink);
-    min-height: 100vh;
-    overflow: hidden;
-    position: relative;
-  }
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background: radial-gradient(ellipse at 10% 20%, rgba(192,57,43,0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 90% 80%, rgba(212,168,67,0.06) 0%, transparent 50%);
-    pointer-events: none;
-    z-index: 0;
-  }
-  .bg-chars { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
-  .bg-char {
-    position: absolute;
-    font-family: 'Ma Shan Zheng', serif;
-    color: rgba(212,168,67,0.04);
-    animation: floatChar 20s ease-in-out infinite;
-    font-size: 80px;
-  }
-  @keyframes floatChar { 0%, 100% { transform: translateY(0px) rotate(-5deg); } 50% { transform: translateY(-20px) rotate(5deg); } }
-  .app {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-  .header {
-    padding: 16px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid rgba(212,168,67,0.2);
-    background: rgba(26,26,46,0.9);
-    backdrop-filter: blur(10px);
-    flex-shrink: 0;
-  }
-  .logo { display: flex; align-items: center; gap: 12px; }
-  .logo-img {
-    width: 42px; height: 42px; border-radius: 10px;
-    object-fit: cover; box-shadow: 0 4px 15px rgba(192,57,43,0.4);
-    border: 1.5px solid rgba(212,168,67,0.3);
-  }
-  .logo-text h1 { font-size: 16px; font-weight: 700; color: var(--paper); }
-  .logo-text p { font-size: 11px; color: var(--gold); font-weight: 500; text-transform: uppercase; }
-  .header-controls { display: flex; align-items: center; gap: 10px; }
-  
-  .level-bar {
-    padding: 12px 24px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: rgba(26,26,46,0.6);
-    border-bottom: 1px solid rgba(212,168,67,0.1);
-    flex-shrink: 0;
-    overflow-x: auto;
-  }
-  .level-bar::-webkit-scrollbar { display: none; }
-  .level-label { font-size: 11px; color: var(--mist); font-weight: 600; text-transform: uppercase; white-space: nowrap; }
-  .level-btn {
-    padding: 6px 14px;
-    border: 1.5px solid rgba(212,168,67,0.3);
-    background: transparent;
-    color: var(--mist);
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    white-space: nowrap;
-  }
-  .level-btn:hover { border-color: var(--gold); color: var(--gold); }
-  .level-btn.active { background: var(--vermillion); border-color: var(--vermillion); color: white; }
-  
-  .mode-bar {
-    padding: 10px 24px;
-    display: flex;
-    gap: 8px;
-    background: rgba(26,26,46,0.4);
-    border-bottom: 1px solid rgba(212,168,67,0.08);
-    flex-shrink: 0;
-    overflow-x: auto;
-  }
-  .mode-btn {
-    padding: 7px 14px;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 8px;
-    color: var(--mist);
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    white-space: nowrap;
-  }
-  .mode-btn:hover { background: rgba(255,255,255,0.1); color: var(--paper); }
-  .mode-btn.active { background: rgba(212,168,67,0.15); border-color: rgba(212,168,67,0.4); color: var(--gold); }
-  
-  .chat-area {
-    flex: 1;
-    overflow-y: auto;
-    padding: 20px 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  .welcome-card {
-    background: linear-gradient(135deg, rgba(45,45,78,0.8), rgba(26,26,46,0.9));
-    border: 1px solid rgba(212,168,67,0.2);
-    border-radius: 16px;
-    padding: 28px;
-    text-align: center;
-  }
-  .welcome-char { font-family: 'Ma Shan Zheng', serif; font-size: 72px; color: var(--gold); }
-  .welcome-card h2 { color: var(--paper); font-size: 20px; margin-bottom: 8px; }
-  .welcome-card p { color: var(--mist); font-size: 14px; margin-bottom: 20px; }
-  .quick-start { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
-  .quick-btn {
-    padding: 8px 16px;
-    background: rgba(212,168,67,0.1);
-    border: 1px solid rgba(212,168,67,0.3);
-    border-radius: 20px;
-    color: var(--gold);
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-  }
-  
-  .message { display: flex; gap: 12px; max-width: 100%; animation: fadeUp 0.3s ease; }
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-  .message.user { flex-direction: row-reverse; }
-  .avatar {
-    width: 36px; height: 36px; border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 16px; flex-shrink: 0;
-    overflow: hidden;
-  }
-  .avatar.bot { background: linear-gradient(135deg, var(--vermillion), var(--gold)); color: white; }
-  .avatar.bot img { width: 100%; height: 100%; object-fit: cover; }
-  .avatar.user { background: rgba(255,255,255,0.1); color: var(--paper); font-weight: 700; }
-  .bubble {
-    max-width: 75%;
-    padding: 12px 16px;
-    border-radius: 14px;
-    font-size: 14px;
-    line-height: 1.7;
-  }
-  .message.bot .bubble { background: rgba(45,45,78,0.9); border: 1px solid rgba(212,168,67,0.15); color: var(--paper); border-radius: 4px 14px 14px 14px; }
-  .message.user .bubble { background: var(--vermillion); color: white; border-radius: 14px 4px 14px 14px; }
-  .vocab-card {
-    margin: 8px 0;
-    padding: 10px 14px;
-    background: rgba(212,168,67,0.08);
-    border-radius: 12px;
-    border-left: 3px solid var(--gold);
-  }
-  .vocab-chinese { font-size: 18px; font-weight: 600; color: var(--gold); font-family: 'Noto Serif SC', serif; display: block; }
-  .vocab-meaning { font-size: 13px; color: #a0aec0; display: block; margin-top: 4px; }
-  
-  .typing { display: flex; gap: 12px; align-items: center; }
-  .typing-dots { display: flex; gap: 5px; padding: 14px 18px; background: rgba(45,45,78,0.9); border-radius: 4px 14px 14px 14px; }
-  .dot { width: 7px; height: 7px; background: var(--gold); border-radius: 50%; animation: bounce 1.2s infinite; }
-  .dot:nth-child(2) { animation-delay: 0.15s; }
-  .dot:nth-child(3) { animation-delay: 0.3s; }
-  @keyframes bounce { 0%, 80%, 100% { transform: translateY(0); opacity: 0.4; } 40% { transform: translateY(-6px); opacity: 1; } }
-  
-  .input-area {
-    padding: 16px 24px;
-    border-top: 1px solid rgba(212,168,67,0.1);
-    background: rgba(26,26,46,0.95);
-    backdrop-filter: blur(10px);
-    flex-shrink: 0;
-  }
-  .input-row { display: flex; gap: 10px; align-items: flex-end; }
-  .input-box {
-    flex: 1;
-    background: rgba(45,45,78,0.8);
-    border: 1.5px solid rgba(212,168,67,0.2);
-    border-radius: 14px;
-    padding: 12px 16px;
-    color: var(--paper);
-    font-size: 14px;
-    resize: none;
-    outline: none;
-    max-height: 120px;
-    min-height: 48px;
-  }
-  .input-box:focus { border-color: rgba(212,168,67,0.5); }
-  .voice-btn, .send-btn {
-    width: 48px; height: 48px;
-    background: var(--vermillion);
-    border: none;
-    border-radius: 12px;
-    color: white;
-    cursor: pointer;
-    font-size: 18px;
-    transition: all 0.2s;
-  }
-  .voice-btn:hover, .send-btn:hover { background: var(--vermillion-light); transform: translateY(-1px); }
-  .voice-btn.listening { background: #27ae60; animation: pulse 1.2s infinite; }
-  @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-  
-  .input-hint { margin-top: 8px; font-size: 11px; color: var(--mist); display: flex; justify-content: space-between; }
-  .toggle { display: flex; align-items: center; gap: 6px; cursor: pointer; }
-  .toggle input { display: none; }
-  .toggle-track { width: 30px; height: 16px; background: rgba(255,255,255,0.1); border-radius: 8px; position: relative; }
-  .toggle-track::after { content: ''; position: absolute; top: 2px; left: 2px; width: 12px; height: 12px; background: var(--mist); border-radius: 50%; transition: 0.2s; }
-  .toggle input:checked + .toggle-track { background: rgba(39,174,96,0.4); }
-  .toggle input:checked + .toggle-track::after { left: 16px; background: var(--jade); }
-  .reset-btn { padding: 7px 14px; background: transparent; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: var(--mist); font-size: 12px; cursor: pointer; }
-  .reset-btn:hover { border-color: var(--vermillion); color: var(--vermillion); }
-  .level-info { padding: 6px 12px; background: rgba(212,168,67,0.1); border: 1px solid rgba(212,168,67,0.2); border-radius: 20px; font-size: 11px; color: var(--gold); font-weight: 600; }
-  @media (max-width: 600px) { .bubble { max-width: 88%; } }
+:root {
+  --ink: #111827;
+  --ink2: #1f2937;
+  --ink3: #374151;
+  --paper: #f9f5ee;
+  --paper2: #f0e9d8;
+  --gold: #d4a843;
+  --gold2: #f0c96e;
+  --vermillion: #c0392b;
+  --jade: #27ae60;
+  --mist: #9ca3af;
+  --mist2: #6b7280;
+  --sidebar-w: 280px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'DM Sans',sans-serif; background:var(--ink); color:var(--paper); height:100vh; overflow:hidden; }
+
+/* ===== LAYOUT ===== */
+.app { display:flex; height:100vh; }
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+  width: var(--sidebar-w);
+  background: var(--ink2);
+  border-right: 1px solid rgba(212,168,67,0.15);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.sidebar-header {
+  padding: 18px 16px 14px;
+  border-bottom: 1px solid rgba(212,168,67,0.12);
+  flex-shrink: 0;
+}
+.brand { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+.brand-icon {
+  width:36px; height:36px;
+  background: linear-gradient(135deg, var(--vermillion), var(--gold));
+  border-radius:9px;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Ma Shan Zheng',serif; font-size:18px; color:white;
+  flex-shrink:0;
+  box-shadow: 0 3px 10px rgba(192,57,43,0.35);
+}
+.brand-text h1 { font-size:14px; font-weight:700; color:var(--paper); }
+.brand-text p { font-size:10px; color:var(--gold); font-weight:600; letter-spacing:0.8px; text-transform:uppercase; }
+
+/* Level tabs */
+.level-tabs {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.ltab {
+  padding: 4px 10px;
+  border: 1px solid rgba(212,168,67,0.25);
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--mist);
+  cursor: pointer;
+  background: transparent;
+  transition: all 0.2s;
+  font-family: 'DM Sans', sans-serif;
+}
+.ltab:hover { color: var(--gold); border-color: var(--gold); }
+.ltab.active { background: var(--vermillion); border-color: var(--vermillion); color: white; }
+
+/* Sidebar progress */
+.sidebar-progress {
+  padding: 10px 16px;
+  border-bottom: 1px solid rgba(212,168,67,0.08);
+  flex-shrink: 0;
+}
+.progress-label { font-size:10px; color:var(--mist); font-weight:600; text-transform:uppercase; letter-spacing:0.6px; margin-bottom:6px; display:flex; justify-content:space-between; }
+.progress-bar { height:4px; background:rgba(255,255,255,0.08); border-radius:2px; }
+.progress-fill { height:100%; background:linear-gradient(90deg, var(--vermillion), var(--gold)); border-radius:2px; transition:width 0.5s ease; }
+
+/* Lesson list */
+.lesson-list { flex:1; overflow-y:auto; padding:8px; scrollbar-width:thin; scrollbar-color:rgba(212,168,67,0.15) transparent; }
+.lesson-list::-webkit-scrollbar { width:3px; }
+.lesson-list::-webkit-scrollbar-thumb { background:rgba(212,168,67,0.15); border-radius:2px; }
+
+.lesson-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: 2px;
+  position: relative;
+}
+.lesson-item:hover { background: rgba(212,168,67,0.07); }
+.lesson-item.active { background: rgba(192,57,43,0.15); }
+.lesson-item.completed .lesson-num { background: var(--jade); color: white; }
+.lesson-item.active .lesson-num { background: var(--vermillion); color: white; }
+
+.lesson-emoji { font-size:16px; flex-shrink:0; width:20px; text-align:center; }
+.lesson-info { flex:1; min-width:0; }
+.lesson-title { font-size:12px; font-weight:600; color:var(--paper); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.lesson-item.completed .lesson-title { color: var(--mist); }
+.lesson-goal { font-size:10px; color:var(--mist2); margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.lesson-num {
+  width:18px; height:18px;
+  background: rgba(255,255,255,0.08);
+  border-radius:50%;
+  font-size:9px;
+  font-weight:700;
+  color:var(--mist);
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+}
+.lesson-check { font-size:10px; }
+
+/* ===== MAIN AREA ===== */
+.main { flex:1; display:flex; flex-direction:column; overflow:hidden; }
+
+/* Top bar */
+.topbar {
+  padding: 12px 20px;
+  border-bottom: 1px solid rgba(212,168,67,0.12);
+  background: rgba(17,24,39,0.97);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.lesson-context { flex:1; }
+.lesson-context h2 { font-size:14px; font-weight:700; color:var(--paper); }
+.lesson-context p { font-size:11px; color:var(--mist2); margin-top:1px; }
+.topbar-actions { display:flex; gap:8px; align-items:center; }
+
+/* Mode pills */
+.mode-pills {
+  display: flex;
+  gap: 6px;
+  padding: 10px 20px;
+  background: rgba(17,24,39,0.6);
+  border-bottom: 1px solid rgba(212,168,67,0.07);
+  flex-shrink: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.mode-pills::-webkit-scrollbar { display:none; }
+.mpill {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.07);
+  background: transparent;
+  color: var(--mist);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.mpill:hover { background:rgba(255,255,255,0.06); color:var(--paper); }
+.mpill.active { background:rgba(212,168,67,0.12); border-color:rgba(212,168,67,0.35); color:var(--gold); }
+
+/* Chat */
+.chat-area {
+  flex:1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212,168,67,0.12) transparent;
+}
+.chat-area::-webkit-scrollbar { width:4px; }
+.chat-area::-webkit-scrollbar-thumb { background:rgba(212,168,67,0.15); border-radius:2px; }
+
+/* Lesson card (welcome state) */
+.lesson-card {
+  background: linear-gradient(135deg, rgba(31,41,55,0.95), rgba(26,26,46,0.9));
+  border: 1px solid rgba(212,168,67,0.2);
+  border-radius: 18px;
+  padding: 24px;
+  animation: fadeUp 0.4s ease;
+}
+.lc-header { display:flex; align-items:center; gap:14px; margin-bottom:16px; }
+.lc-emoji { font-size:40px; }
+.lc-meta h3 { font-size:18px; font-weight:700; color:var(--paper); }
+.lc-meta p { font-size:12px; color:var(--gold); margin-top:3px; }
+.lc-goal {
+  background: rgba(212,168,67,0.08);
+  border: 1px solid rgba(212,168,67,0.15);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size:12px;
+  color: var(--paper);
+  margin-bottom: 16px;
+  display:flex; align-items:center; gap:8px;
+}
+.lc-goal span { color:var(--gold); font-size:14px; }
+.lc-topics { margin-bottom:18px; }
+.lc-topics h4 { font-size:11px; text-transform:uppercase; letter-spacing:0.8px; color:var(--mist); font-weight:700; margin-bottom:8px; }
+.topic-tags { display:flex; flex-wrap:wrap; gap:6px; }
+.topic-tag {
+  padding:4px 10px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:6px;
+  font-size:12px;
+  color:var(--paper);
+  font-family:'Noto Serif SC',serif;
+}
+.lc-actions { display:flex; gap:8px; flex-wrap:wrap; }
+.lc-btn {
+  padding:9px 16px;
+  border-radius:10px;
+  font-size:13px;
+  font-weight:600;
+  cursor:pointer;
+  font-family:'DM Sans',sans-serif;
+  transition:all 0.2s;
+  border:none;
+}
+.lc-btn.primary { background:var(--vermillion); color:white; }
+.lc-btn.primary:hover { background:#d44235; }
+.lc-btn.secondary { background:rgba(212,168,67,0.1); border:1px solid rgba(212,168,67,0.3); color:var(--gold); }
+.lc-btn.secondary:hover { background:rgba(212,168,67,0.18); }
+
+/* Messages */
+.message { display:flex; gap:10px; animation:fadeUp 0.3s ease; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+.message.user { flex-direction:row-reverse; }
+.av { width:34px; height:34px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; }
+.av.bot { background:linear-gradient(135deg,var(--vermillion),var(--gold)); font-family:'Ma Shan Zheng',serif; color:white; font-size:16px; }
+.av.user { background:rgba(255,255,255,0.1); font-size:13px; font-weight:700; color:var(--paper); }
+.bubble { max-width:78%; padding:11px 15px; border-radius:14px; font-size:13.5px; line-height:1.7; }
+.message.bot .bubble {
+  background:var(--ink2);
+  border:1px solid rgba(212,168,67,0.12);
+  color:var(--paper);
+  border-radius:4px 14px 14px 14px;
+}
+.message.user .bubble {
+  background:var(--vermillion);
+  color:white;
+  border-radius:14px 4px 14px 14px;
+}
+/* Vocab card inside bubble */
+.bubble .vc { background:rgba(212,168,67,0.07); border:1px solid rgba(212,168,67,0.15); border-left:3px solid var(--gold); border-radius:8px; padding:10px 12px; margin:8px 0; }
+.bubble .vc .zh { font-family:'Noto Serif SC',serif; font-size:20px; color:var(--gold); display:block; margin-bottom:2px; }
+.bubble .vc .py { font-size:12px; color:var(--jade); font-style:italic; display:block; margin-bottom:3px; }
+.bubble .vc .vi { font-size:12px; color:var(--mist); }
+/* Inline Chinese */
+.bubble .hz { font-family:'Noto Serif SC',serif; color:var(--gold); font-size:1.1em; }
+/* Next step suggestion */
+.next-step {
+  margin-top:12px;
+  padding:10px 12px;
+  background:rgba(39,174,96,0.08);
+  border:1px solid rgba(39,174,96,0.2);
+  border-radius:10px;
+  font-size:12px;
+  color:var(--jade);
+}
+.next-step strong { display:block; margin-bottom:6px; font-size:11px; text-transform:uppercase; letter-spacing:0.5px; }
+.next-btns { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+.next-btn {
+  padding:5px 12px;
+  background:rgba(39,174,96,0.12);
+  border:1px solid rgba(39,174,96,0.25);
+  border-radius:20px;
+  font-size:11px;
+  font-weight:600;
+  color:var(--jade);
+  cursor:pointer;
+  font-family:'DM Sans',sans-serif;
+}
+.next-btn:hover { background:rgba(39,174,96,0.2); }
+
+/* Typing */
+.typing { display:flex; gap:10px; align-items:center; }
+.typing-dots { display:flex; gap:5px; padding:12px 16px; background:var(--ink2); border-radius:4px 14px 14px 14px; border:1px solid rgba(212,168,67,0.12); }
+.dot { width:7px; height:7px; background:var(--gold); border-radius:50%; animation:bounce 1.2s infinite; }
+.dot:nth-child(2){animation-delay:.15s} .dot:nth-child(3){animation-delay:.3s}
+@keyframes bounce{0%,80%,100%{transform:translateY(0);opacity:.4}40%{transform:translateY(-6px);opacity:1}}
+
+/* TTS playing indicator */
+.tts-bar {
+  display:none;
+  align-items:center;
+  gap:8px;
+  padding:8px 12px;
+  background:rgba(39,174,96,0.1);
+  border:1px solid rgba(39,174,96,0.2);
+  border-radius:8px;
+  font-size:11px;
+  color:var(--jade);
+  margin-bottom:4px;
+}
+.tts-bar.active { display:flex; }
+.tts-waves { display:flex; gap:3px; align-items:center; }
+.tts-wave { width:3px; background:var(--jade); border-radius:2px; animation:wave 0.8s ease-in-out infinite; }
+.tts-wave:nth-child(1){height:8px;animation-delay:0s}
+.tts-wave:nth-child(2){height:14px;animation-delay:.1s}
+.tts-wave:nth-child(3){height:10px;animation-delay:.2s}
+.tts-wave:nth-child(4){height:16px;animation-delay:.15s}
+.tts-wave:nth-child(5){height:8px;animation-delay:.25s}
+@keyframes wave{0%,100%{transform:scaleY(0.5)}50%{transform:scaleY(1)}}
+
+/* Input area */
+.input-area {
+  padding:14px 20px;
+  border-top:1px solid rgba(212,168,67,0.1);
+  background:rgba(17,24,39,0.98);
+  flex-shrink:0;
+}
+.tts-bar { margin-bottom:8px; }
+.input-row { display:flex; gap:8px; align-items:flex-end; }
+.input-box {
+  flex:1;
+  background:var(--ink2);
+  border:1.5px solid rgba(212,168,67,0.2);
+  border-radius:14px;
+  padding:11px 15px;
+  color:var(--paper);
+  font-size:13.5px;
+  font-family:'DM Sans',sans-serif;
+  resize:none;
+  outline:none;
+  min-height:44px;
+  max-height:110px;
+  line-height:1.5;
+  transition:border-color 0.2s;
+}
+.input-box::placeholder{color:var(--mist2)}
+.input-box:focus{border-color:rgba(212,168,67,0.45)}
+
+.icon-btn {
+  width:44px; height:44px;
+  border-radius:12px;
+  border:none;
+  cursor:pointer;
+  font-size:17px;
+  display:flex; align-items:center; justify-content:center;
+  transition:all 0.2s;
+  flex-shrink:0;
+}
+.mic-btn { background:var(--ink2); border:1.5px solid rgba(212,168,67,0.25); color:var(--gold); }
+.mic-btn:hover { background:rgba(212,168,67,0.12); }
+.mic-btn.listening { background:#1a4a2e; border-color:var(--jade); color:var(--jade); animation:pulse 1s infinite; }
+.mic-btn.speaking { background:#1a3a4a; border-color:#3b9ddd; color:#3b9ddd; }
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+.send-btn { background:var(--vermillion); color:white; }
+.send-btn:hover { background:#d44235; }
+.send-btn:disabled { background:rgba(192,57,43,0.3); cursor:not-allowed; }
+
+.input-hints { margin-top:8px; display:flex; justify-content:space-between; align-items:center; font-size:10.5px; color:var(--mist2); }
+.hint-left { display:flex; gap:14px; align-items:center; }
+.toggle-row { display:flex; align-items:center; gap:5px; cursor:pointer; user-select:none; }
+.toggle-row input { display:none; }
+.tr-track { width:28px; height:15px; background:rgba(255,255,255,0.08); border-radius:8px; position:relative; transition:.2s; }
+.tr-track::after { content:''; position:absolute; top:2px; left:2px; width:11px; height:11px; background:var(--mist2); border-radius:50%; transition:.2s; }
+.toggle-row input:checked + .tr-track { background:rgba(39,174,96,0.3); }
+.toggle-row input:checked + .tr-track::after { left:15px; background:var(--jade); }
+
+/* Voice conversation mode */
+.voice-convo-overlay {
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(10,15,25,0.92);
+  z-index:100;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:20px;
+  backdrop-filter:blur(8px);
+}
+.voice-convo-overlay.active { display:flex; }
+.voice-orb {
+  width:120px; height:120px;
+  border-radius:50%;
+  background: radial-gradient(circle, rgba(192,57,43,0.8), rgba(212,168,67,0.4));
+  display:flex; align-items:center; justify-content:center;
+  font-size:44px;
+  box-shadow: 0 0 0 0 rgba(192,57,43,0.4);
+  animation: orbPulse 2s ease-in-out infinite;
+  cursor:pointer;
+}
+.voice-orb.listening { animation: orbListen 0.8s ease-in-out infinite; box-shadow:0 0 0 0 rgba(39,174,96,0.5); background:radial-gradient(circle,rgba(39,174,96,0.8),rgba(39,174,96,0.2)); }
+.voice-orb.speaking { animation: orbSpeak 1.2s ease-in-out infinite; background:radial-gradient(circle,rgba(59,157,221,0.8),rgba(59,157,221,0.2)); }
+@keyframes orbPulse{0%,100%{box-shadow:0 0 0 0 rgba(192,57,43,0.4)}50%{box-shadow:0 0 0 20px rgba(192,57,43,0)}}
+@keyframes orbListen{0%,100%{box-shadow:0 0 0 0 rgba(39,174,96,0.5)}50%{box-shadow:0 0 0 25px rgba(39,174,96,0)}}
+@keyframes orbSpeak{0%,100%{box-shadow:0 0 0 0 rgba(59,157,221,0.5)}50%{box-shadow:0 0 0 30px rgba(59,157,221,0)}}
+.voice-status { font-size:16px; font-weight:600; color:var(--paper); }
+.voice-transcript { font-size:13px; color:var(--mist); max-width:360px; text-align:center; min-height:20px; }
+.voice-close { padding:10px 28px; background:transparent; border:1.5px solid rgba(255,255,255,0.2); border-radius:30px; color:var(--mist); font-size:13px; font-weight:600; cursor:pointer; font-family:'DM Sans',sans-serif; }
+.voice-close:hover { border-color:var(--vermillion); color:var(--vermillion); }
+
+/* Topbar buttons */
+.tb-btn {
+  padding:6px 12px;
+  border-radius:8px;
+  font-size:11px;
+  font-weight:700;
+  cursor:pointer;
+  font-family:'DM Sans',sans-serif;
+  transition:all 0.2s;
+  border:none;
+  display:flex;
+  align-items:center;
+  gap:5px;
+}
+.tb-btn.voice-mode { background:rgba(212,168,67,0.1); border:1px solid rgba(212,168,67,0.25); color:var(--gold); }
+.tb-btn.voice-mode:hover { background:rgba(212,168,67,0.2); }
+.tb-btn.reset { background:transparent; border:1px solid rgba(255,255,255,0.1); color:var(--mist); }
+.tb-btn.reset:hover { border-color:var(--vermillion); color:var(--vermillion); }
+.level-badge { padding:5px 10px; background:rgba(192,57,43,0.15); border:1px solid rgba(192,57,43,0.3); border-radius:8px; font-size:10px; font-weight:700; color:var(--vermillion); letter-spacing:0.5px; }
+
+/* Sidebar toggle for mobile */
+.sidebar-toggle { display:none; }
+@media(max-width:768px){
+  .sidebar { position:fixed; left:0; top:0; height:100vh; z-index:50; transform:translateX(-100%); transition:transform 0.3s ease; }
+  .sidebar.open { transform:translateX(0); }
+  .sidebar-toggle { display:flex; width:36px; height:36px; background:rgba(212,168,67,0.1); border:1px solid rgba(212,168,67,0.25); border-radius:8px; color:var(--gold); font-size:16px; cursor:pointer; align-items:center; justify-content:center; }
+  .bubble { max-width:90%; }
+}
 </style>
 </head>
 <body>
 
-<div class="bg-chars" id="bgChars"></div>
+<!-- Voice conversation overlay -->
+<div class="voice-convo-overlay" id="voiceOverlay">
+  <div class="voice-orb" id="voiceOrb" onclick="toggleVoiceListening()">🎤</div>
+  <div class="voice-status" id="voiceStatus">Chạm để bắt đầu nói</div>
+  <div class="voice-transcript" id="voiceTranscript"></div>
+  <button class="voice-close" onclick="closeVoiceMode()">✕ Thoát hội thoại voice</button>
+</div>
 
 <div class="app">
-  <div class="header">
-    <div class="logo">
-      <img class="logo-img" src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Sophia">
-      <div class="logo-text">
-        <h1>Gia Sư Tiếng Trung</h1>
-        <p>Sophia Nguyễn · HSK 1–6 · Voice</p>
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="brand">
+        <div class="brand-icon">學</div>
+        <div class="brand-text">
+          <h1>Gia Sư Tiếng Trung</h1>
+          <p>Sophia Nguyễn · HSK 1–6</p>
+        </div>
+      </div>
+      <div class="level-tabs" id="levelTabs">
+        <button class="ltab active" onclick="setLevel(1,this)">HSK 1</button>
+        <button class="ltab" onclick="setLevel(2,this)">HSK 2</button>
+        <button class="ltab" onclick="setLevel(3,this)">HSK 3</button>
+        <button class="ltab" onclick="setLevel(4,this)">HSK 4</button>
+        <button class="ltab" onclick="setLevel(5,this)">HSK 5</button>
+        <button class="ltab" onclick="setLevel(6,this)">HSK 6</button>
       </div>
     </div>
-    <div class="header-controls">
-      <span class="level-info" id="levelInfo">HSK 1 · 150 từ</span>
-      <button class="reset-btn" onclick="resetChat()">↺ Bắt đầu lại</button>
+    <div class="sidebar-progress">
+      <div class="progress-label">
+        <span id="progressLabel">Tiến độ HSK 1</span>
+        <span id="progressPct">0%</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
     </div>
+    <div class="lesson-list" id="lessonList"></div>
   </div>
 
-  <div class="level-bar">
-    <span class="level-label">Cấp độ:</span>
-    <button class="level-btn active" onclick="setLevel(1, this)">HSK 1</button>
-    <button class="level-btn" onclick="setLevel(2, this)">HSK 2</button>
-    <button class="level-btn" onclick="setLevel(3, this)">HSK 3</button>
-    <button class="level-btn" onclick="setLevel(4, this)">HSK 4</button>
-    <button class="level-btn" onclick="setLevel(5, this)">HSK 5</button>
-    <button class="level-btn" onclick="setLevel(6, this)">HSK 6</button>
-  </div>
-
-  <div class="mode-bar">
-    <button class="mode-btn active" onclick="setMode('vocab', this)">📖 Học từ vựng</button>
-    <button class="mode-btn" onclick="setMode('convo', this)">🗣️ Luyện hội thoại</button>
-    <button class="mode-btn" onclick="setMode('pronunciation', this)">🎵 Luyện phát âm (Voice)</button>
-    <button class="mode-btn" onclick="setMode('grammar', this)">📝 Ôn ngữ pháp</button>
-    <button class="mode-btn" onclick="setMode('quiz', this)">✅ Kiểm tra</button>
-    <button class="mode-btn" onclick="setMode('free', this)">💬 Hỏi tự do</button>
-  </div>
-
-  <div class="chat-area" id="chatArea">
-    <div class="welcome-card" id="welcomeCard">
-      <div class="welcome-char">你好🎤</div>
-      <h2>Chào mừng đến với lớp học tiếng Trung!</h2>
-      <p>Bạn đang ở <strong>HSK 1</strong>. Bật chế độ Luyện phát âm, nhấn nút mic 🎤 và đọc to để được sửa lỗi phát âm nhé!</p>
-      <div class="quick-start">
-        <button class="quick-btn" onclick="sendQuick('Dạy tôi chào hỏi cơ bản')">👋 Chào hỏi</button>
-        <button class="quick-btn" onclick="sendQuick('Dạy tôi đếm số 1-10')">🔢 Số đếm</button>
-        <button class="quick-btn" onclick="sendQuick('Dạy tôi từ vựng về gia đình')">👪 Gia đình</button>
-        <button class="quick-btn" onclick="sendQuick('Cho tôi quiz HSK 1')">✅ Quiz</button>
+  <!-- MAIN -->
+  <div class="main">
+    <!-- Top bar -->
+    <div class="topbar">
+      <button class="sidebar-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+      <div class="lesson-context">
+        <h2 id="topbarTitle">👋 Bài 1 · Chào hỏi</h2>
+        <p id="topbarGoal">Biết 10 câu chào hỏi cơ bản nhất · HSK 1</p>
+      </div>
+      <div class="topbar-actions">
+        <span class="level-badge" id="levelBadge">HSK 1</span>
+        <button class="tb-btn voice-mode" onclick="openVoiceMode()">🎤 Hội thoại Voice</button>
+        <button class="tb-btn reset" onclick="resetLesson()">↺</button>
       </div>
     </div>
-  </div>
 
-  <div class="input-area">
-    <div class="input-row">
-      <textarea class="input-box" id="userInput" placeholder="Nhập câu hỏi... hoặc nhấn 🎤 để nói" rows="1" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
-      <button class="voice-btn" id="voiceBtn" onclick="startVoiceInput()" title="Nhấn để nói">🎤</button>
-      <button class="send-btn" onclick="sendMessage()">➤</button>
+    <!-- Mode pills -->
+    <div class="mode-pills">
+      <button class="mpill active" onclick="setMode('lesson',this)">📚 Bài học</button>
+      <button class="mpill" onclick="setMode('vocab',this)">📖 Từ vựng</button>
+      <button class="mpill" onclick="setMode('convo',this)">🗣️ Hội thoại</button>
+      <button class="mpill" onclick="setMode('grammar',this)">📝 Ngữ pháp</button>
+      <button class="mpill" onclick="setMode('quiz',this)">✅ Kiểm tra</button>
+      <button class="mpill" onclick="setMode('pronunciation',this)">🎵 Phát âm</button>
+      <button class="mpill" onclick="setMode('free',this)">💬 Tự do</button>
     </div>
-    <div class="input-hint">
-      <label class="toggle">
-        <input type="checkbox" id="pinyinToggle" checked>
-        <span class="toggle-track"></span>
-        Hiển thị Pinyin
-      </label>
-      <span>🎤 Bấm mic → nói → tự gửi</span>
+
+    <!-- Chat area -->
+    <div class="chat-area" id="chatArea"></div>
+
+    <!-- Input -->
+    <div class="input-area">
+      <div class="tts-bar" id="ttsBar">
+        <div class="tts-waves">
+          <div class="tts-wave"></div><div class="tts-wave"></div>
+          <div class="tts-wave"></div><div class="tts-wave"></div><div class="tts-wave"></div>
+        </div>
+        <span id="ttsBarText">Đang đọc...</span>
+        <button onclick="stopTTS()" style="margin-left:auto;background:transparent;border:none;color:var(--mist);cursor:pointer;font-size:13px;">■ Dừng</button>
+      </div>
+      <div class="input-row">
+        <textarea class="input-box" id="userInput"
+          placeholder="Nhập câu hỏi... hoặc bấm 🎤 để nói"
+          rows="1" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+        <button class="icon-btn mic-btn" id="micBtn" onclick="startSTT()" title="Bấm để nói">🎤</button>
+        <button class="icon-btn send-btn" id="sendBtn" onclick="sendMessage()">➤</button>
+      </div>
+      <div class="input-hints">
+        <div class="hint-left">
+          <label class="toggle-row">
+            <input type="checkbox" id="pinyinToggle" checked>
+            <span class="tr-track"></span>
+            Pinyin
+          </label>
+          <label class="toggle-row">
+            <input type="checkbox" id="ttsToggle" checked>
+            <span class="tr-track"></span>
+            Tự đọc to
+          </label>
+          <label class="toggle-row">
+            <input type="checkbox" id="autoMicToggle">
+            <span class="tr-track"></span>
+            Auto-mic sau TTS
+          </label>
+        </div>
+        <span>Enter gửi · Shift+Enter xuống dòng</span>
+      </div>
     </div>
   </div>
 </div>
 
 <script>
-const GROQ_API_KEY = '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';
-
-let currentLevel = 1;
-let currentMode = 'vocab';
-let conversationHistory = [];
-let showPinyin = true;
-let isTyping = false;
-
-const levelInfo = {
-  1: { name: 'HSK 1', words: '150 từ', desc: 'Vỡ lòng' },
-  2: { name: 'HSK 2', words: '300 từ', desc: 'Sơ cấp' },
-  3: { name: 'HSK 3', words: '600 từ', desc: 'Trung cấp sơ' },
-  4: { name: 'HSK 4', words: '1200 từ', desc: 'Trung cấp' },
-  5: { name: 'HSK 5', words: '2500 từ', desc: 'Cao cấp sơ' },
-  6: { name: 'HSK 6', words: '5000+ từ', desc: 'Cao cấp' },
+// ===== CURRICULUM =====
+const CURRICULUM = {
+  1: { name:'HSK 1', totalWords:150, desc:'Vỡ lòng', lessons:[
+    {id:'1-1',title:'Chào hỏi',emoji:'👋',topics:['你好 nǐ hǎo','谢谢 xièxie','再见 zàijiàn','对不起 duìbuqǐ','不客气 bú kèqi'],goal:'Biết 10 câu chào hỏi cơ bản nhất'},
+    {id:'1-2',title:'Số đếm 0–10',emoji:'🔢',topics:['零一二三四','五六七八九十'],goal:'Đọc và viết số 0-10, nói tuổi'},
+    {id:'1-3',title:'Số đếm 11–100',emoji:'💯',topics:['十一 shíyī','二十 èrshí','百 bǎi','多少 duōshao'],goal:'Đọc số lớn, hỏi số lượng'},
+    {id:'1-4',title:'Màu sắc',emoji:'🎨',topics:['红 hóng','白 bái','黑 hēi','蓝 lán','绿 lǜ','黄 huáng'],goal:'Mô tả màu sắc đồ vật'},
+    {id:'1-5',title:'Gia đình',emoji:'👨‍👩‍👧',topics:['爸爸 bàba','妈妈 māma','哥哥 gēge','姐姐 jiějie','弟弟 dìdi'],goal:'Giới thiệu các thành viên gia đình'},
+    {id:'1-6',title:'Đồ ăn & Uống',emoji:'🍜',topics:['米饭 mǐfàn','水 shuǐ','茶 chá','好吃 hǎochī','不好吃 bù hǎochī'],goal:'Gọi món, nói về đồ ăn yêu thích'},
+    {id:'1-7',title:'Ngày tháng năm',emoji:'📅',topics:['今天 jīntiān','明天 míngtiān','年 nián','月 yuè','日 rì'],goal:'Hỏi đáp về ngày tháng năm'},
+    {id:'1-8',title:'Giờ giấc',emoji:'🕐',topics:['几点 jǐ diǎn','上午 shàngwǔ','下午 xiàwǔ','分钟 fēnzhōng'],goal:'Nói và hỏi giờ hiện tại'},
+    {id:'1-9',title:'Địa điểm & Hỏi đường',emoji:'📍',topics:['这里 zhèlǐ','那里 nàlǐ','哪里 nǎlǐ','学校 xuéxiào','在 zài'],goal:'Hỏi và chỉ vị trí đơn giản'},
+    {id:'1-10',title:'Mua sắm',emoji:'🛒',topics:['多少钱 duōshao qián','块 kuài','买 mǎi','卖 mài','贵 guì'],goal:'Hỏi giá, mua đồ cơ bản'},
+    {id:'1-11',title:'Thời tiết',emoji:'🌤',topics:['天气 tiānqì','热 rè','冷 lěng','下雨 xià yǔ','今天天气怎么样'],goal:'Nói chuyện về thời tiết hàng ngày'},
+    {id:'1-12',title:'Sức khỏe & Cơ thể',emoji:'🧍',topics:['头 tóu','手 shǒu','眼睛 yǎnjing','不舒服','医生 yīshēng'],goal:'Mô tả sức khỏe, gặp bác sĩ cơ bản'},
+    {id:'1-13',title:'Động vật',emoji:'🐼',topics:['猫 māo','狗 gǒu','鸟 niǎo','大 dà','小 xiǎo','可爱 kě\'ài'],goal:'Mô tả động vật yêu thích'},
+    {id:'1-14',title:'Trường học & Công việc',emoji:'🏫',topics:['学生 xuésheng','老师 lǎoshī','书 shū','学习 xuéxí','工作 gōngzuò'],goal:'Giới thiệu bản thân, nghề nghiệp'},
+    {id:'1-15',title:'Ôn tập & Thi HSK 1',emoji:'🏆',topics:['Tổng hợp 150 từ HSK 1','Bài kiểm tra chuẩn HSK','Hội thoại tổng hợp'],goal:'Tự tin giao tiếp cơ bản bằng tiếng Trung'},
+  ]},
+  2: { name:'HSK 2', totalWords:300, desc:'Sơ cấp', lessons:[
+    {id:'2-1',title:'Tự giới thiệu',emoji:'🙋',topics:['我叫...','我是...','我来自...','我今年...岁'],goal:'Giới thiệu đầy đủ về bản thân'},
+    {id:'2-2',title:'Nghề nghiệp',emoji:'💼',topics:['工作 gōngzuò','医生 yīshēng','老师 lǎoshī','学生 xuéshēng'],goal:'Hỏi đáp về công việc'},
+    {id:'2-3',title:'Sở thích',emoji:'🎯',topics:['喜欢 xǐhuan','爱好 àihào','运动 yùndòng','音乐 yīnyuè'],goal:'Nói về sở thích, giải trí'},
+    {id:'2-4',title:'Giao thông',emoji:'🚌',topics:['地铁 dìtiě','公共汽车','打车 dǎchē','走路 zǒulù'],goal:'Hỏi đường, đi lại thành phố'},
+    {id:'2-5',title:'Nhà hàng',emoji:'🍽',topics:['服务员 fúwùyuán','点菜 diǎncài','结账 jiézhàng','好吃极了'],goal:'Gọi món và thanh toán thành thạo'},
+    {id:'2-6',title:'Mua sắm nâng cao',emoji:'🛍',topics:['贵 guì','便宜 piányí','试穿 shìchuān','大号 dàhào'],goal:'Mặc cả, chọn kích cỡ quần áo'},
+    {id:'2-7',title:'Cảm xúc',emoji:'😊',topics:['高兴 gāoxìng','难过 nánguò','累 lèi','生病 shēngbìng'],goal:'Diễn đạt cảm xúc tự nhiên'},
+    {id:'2-8',title:'Kế hoạch & Tương lai',emoji:'📋',topics:['想 xiǎng','要 yào','打算 dǎsuàn','会 huì','明天我要...'],goal:'Nói về dự định, kế hoạch'},
+  ]},
+  3: { name:'HSK 3', totalWords:600, desc:'Trung cấp sơ', lessons:[
+    {id:'3-1',title:'Kể chuyện quá khứ',emoji:'📖',topics:['了 le','过 guò','以前 yǐqián','那时候'],goal:'Kể chuyện đã xảy ra mạch lạc'},
+    {id:'3-2',title:'So sánh',emoji:'⚖️',topics:['比 bǐ','最 zuì','一样 yīyàng','没有 méiyǒu'],goal:'So sánh sự vật, sự việc'},
+    {id:'3-3',title:'Yêu cầu lịch sự',emoji:'🙏',topics:['请 qǐng','能 néng','可以 kěyǐ','帮 bāng','麻烦 máfan'],goal:'Nhờ vả, từ chối lịch sự'},
+    {id:'3-4',title:'Mô tả & Hướng dẫn',emoji:'🗺',topics:['先...再...然后','一边...一边','首先 shǒuxiān'],goal:'Mô tả quá trình, hướng dẫn chi tiết'},
+    {id:'3-5',title:'Bày tỏ ý kiến',emoji:'💬',topics:['觉得 juéde','认为 rènwéi','同意 tóngyì','不同意'],goal:'Tranh luận và bày tỏ quan điểm'},
+  ]},
+  4: { name:'HSK 4', totalWords:1200, desc:'Trung cấp', lessons:[
+    {id:'4-1',title:'Chủ đề xã hội',emoji:'🌏',topics:['环境 huánjìng','经济 jīngjì','文化 wénhuà','社会 shèhuì'],goal:'Thảo luận vấn đề xã hội hiện đại'},
+    {id:'4-2',title:'Ngữ pháp nâng cao',emoji:'📐',topics:['把 bǎ','被 bèi','使 shǐ','让 ràng','虽然...但是...'],goal:'Sử dụng cấu trúc câu phức tạp'},
+    {id:'4-3',title:'Thành ngữ phổ biến',emoji:'🏮',topics:['马到成功','一石二鸟','半途而废','守株待兔'],goal:'Hiểu và dùng 20 thành ngữ phổ biến'},
+    {id:'4-4',title:'Email & Viết thư',emoji:'✉️',topics:['正式 zhèngshì','敬语 jìngyǔ','此致 cǐzhì','敬礼 jìnglǐ'],goal:'Viết email công việc bằng tiếng Trung'},
+  ]},
+  5: { name:'HSK 5', totalWords:2500, desc:'Cao cấp sơ', lessons:[
+    {id:'5-1',title:'Văn học & Nghệ thuật',emoji:'🎭',topics:['文学 wénxué','艺术 yìshù','哲学 zhéxué','审美 shěnměi'],goal:'Thảo luận về văn học, nghệ thuật'},
+    {id:'5-2',title:'Kinh doanh',emoji:'📈',topics:['投资 tóuzī','合同 hétong','谈判 tánpàn','利润 lìrùn'],goal:'Giao tiếp chuyên nghiệp trong kinh doanh'},
+    {id:'5-3',title:'Thành ngữ nâng cao',emoji:'🐉',topics:['50 thành ngữ HSK 5','典故 diǎngù','出处 chūchù'],goal:'Sử dụng thành ngữ tự nhiên như người bản ngữ'},
+  ]},
+  6: { name:'HSK 6', totalWords:5000, desc:'Cao cấp', lessons:[
+    {id:'6-1',title:'Văn phong học thuật',emoji:'🎓',topics:['论文 lùnwén','引用 yǐnyòng','分析 fēnxī','论证 lùnzhèng'],goal:'Đọc hiểu và viết văn bản học thuật'},
+    {id:'6-2',title:'Văn hóa & Lịch sử',emoji:'🏯',topics:['方言 fāngyán','习俗 xísú','历史 lìshǐ','传统 chuántǒng'],goal:'Hiểu sâu văn hóa, lịch sử Trung Hoa'},
+    {id:'6-3',title:'Hùng biện & Thuyết trình',emoji:'🎤',topics:['演讲 yǎnjiǎng','辩论 biànlùn','修辞 xiūcí','逻辑 luójí'],goal:'Thuyết trình và tranh luận tự tin'},
+  ]}
 };
 
-function getSystemPrompt() {
-  const lvl = levelInfo[currentLevel];
-  const pinyin = showPinyin ? 'Luôn kèm pinyin đầy đủ. Format: [chữ Hán] - [pinyin] - [nghĩa]' : 'Không cần pinyin.';
-  const voiceInstruction = currentMode === 'pronunciation' ? 
-    `\nQUAN TRỌNG: Đây là chế độ LUYỆN PHÁT ÂM. Sau khi người dùng nói (bạn sẽ thấy văn bản được chuyển từ giọng nói), hãy phân tích chi tiết: 1) Âm nào đúng/sai, 2) Cách phát âm đúng (vị trí lưỡi, miệng), 3) So sánh với âm trong tiếng Việt nếu có thể. Hãy khuyến khích và hướng dẫn cụ thể.` : '';
-  
-  return `Bạn là gia sư tiếng Trung "Cô Sophia", dạy người Việt. Trình độ: ${lvl.name} (${lvl.desc} - ${lvl.words}).
+// ===== STATE =====
+let currentLevel = 1;
+let currentLessonIdx = 0;
+let currentMode = 'lesson';
+let conversationHistory = [];
+let isTyping = false;
+let ttsEnabled = true;
+let autoMicEnabled = false;
+let showPinyin = true;
+let recognition = null;
+let voiceModeActive = false;
+let voiceListening = false;
 
-NGUYÊN TẮC:
-- Dùng tiếng Việt để giải thích
-- ${pinyin}
-- Chia nhỏ kiến thức, khen ngợi học viên
+// Load progress from localStorage
+let progress = JSON.parse(localStorage.getItem('hsk_progress') || '{}');
 
-CHẾ ĐỘ: ${currentMode}${voiceInstruction}`;
+// ===== INIT =====
+function init() {
+  renderLessonList();
+  loadLesson(0);
+  updateProgress();
 }
 
-function initBgChars() {
-  const chars = ['学','中','文','语','好','你','我','他','她','们'];
-  const container = document.getElementById('bgChars');
-  if (!container) return;
-  chars.forEach((char) => {
-    const el = document.createElement('div');
-    el.className = 'bg-char';
-    el.textContent = char;
-    el.style.cssText = `left: ${Math.random() * 100}%; top: ${Math.random() * 100}%; font-size: ${60 + Math.random() * 100}px; animation-delay: ${Math.random() * 10}s; opacity: 0.15;`;
-    container.appendChild(el);
-  });
+// ===== LESSON LIST =====
+function renderLessonList() {
+  const list = document.getElementById('lessonList');
+  const lessons = CURRICULUM[currentLevel].lessons;
+  list.innerHTML = lessons.map((l, i) => {
+    const key = `${currentLevel}-${i}`;
+    const done = progress[key];
+    const active = i === currentLessonIdx;
+    return `
+      <div class="lesson-item ${done?'completed':''} ${active?'active':''}" onclick="loadLesson(${i})" id="li-${i}">
+        <span class="lesson-emoji">${l.emoji}</span>
+        <div class="lesson-info">
+          <div class="lesson-title">${l.title}</div>
+          <div class="lesson-goal">${l.goal}</div>
+        </div>
+        <div class="lesson-num">${done ? '<span class="lesson-check">✓</span>' : i+1}</div>
+      </div>`;
+  }).join('');
 }
 
+function loadLesson(idx) {
+  currentLessonIdx = idx;
+  conversationHistory = [];
+  const lesson = CURRICULUM[currentLevel].lessons[idx];
+  // Update topbar
+  document.getElementById('topbarTitle').textContent = `${lesson.emoji} Bài ${idx+1} · ${lesson.title}`;
+  document.getElementById('topbarGoal').textContent = `${lesson.goal} · ${CURRICULUM[currentLevel].name}`;
+  document.getElementById('levelBadge').textContent = CURRICULUM[currentLevel].name;
+  // Re-render list
+  renderLessonList();
+  // Show lesson card
+  showLessonCard(lesson, idx);
+}
+
+function showLessonCard(lesson, idx) {
+  const chatArea = document.getElementById('chatArea');
+  chatArea.innerHTML = '';
+  const card = document.createElement('div');
+  card.className = 'lesson-card';
+  card.innerHTML = `
+    <div class="lc-header">
+      <div class="lc-emoji">${lesson.emoji}</div>
+      <div class="lc-meta">
+        <h3>Bài ${idx+1}: ${lesson.title}</h3>
+        <p>${CURRICULUM[currentLevel].name} · ${CURRICULUM[currentLevel].desc}</p>
+      </div>
+    </div>
+    <div class="lc-goal"><span>🎯</span> Mục tiêu: ${lesson.goal}</div>
+    <div class="lc-topics">
+      <h4>Nội dung bài học</h4>
+      <div class="topic-tags">${lesson.topics.map(t=>`<span class="topic-tag">${t}</span>`).join('')}</div>
+    </div>
+    <div class="lc-actions">
+      <button class="lc-btn primary" onclick="startLesson()">▶ Bắt đầu bài học</button>
+      <button class="lc-btn secondary" onclick="doQuiz()">✅ Quiz ngay</button>
+      <button class="lc-btn secondary" onclick="doConvo()">🗣️ Luyện hội thoại</button>
+      ${idx > 0 ? `<button class="lc-btn secondary" onclick="loadLesson(${idx-1})">← Bài trước</button>` : ''}
+      ${idx < CURRICULUM[currentLevel].lessons.length-1 ? `<button class="lc-btn secondary" onclick="loadLesson(${idx+1})">Bài tiếp →</button>` : ''}
+    </div>`;
+  chatArea.appendChild(card);
+}
+
+function startLesson() {
+  const lesson = CURRICULUM[currentLevel].lessons[currentLessonIdx];
+  const prompt = `Hãy dạy tôi bài học "${lesson.title}" theo cấu trúc đầy đủ sau:
+1. **Giới thiệu** - bài này học gì, tại sao quan trọng (2-3 câu)
+2. **Từ vựng chính** - dạy ${Math.min(lesson.topics.length+2, 8)} từ/câu quan trọng nhất với chữ Hán + pinyin + nghĩa tiếng Việt + ví dụ câu
+3. **Mẫu câu** - 2-3 cấu trúc câu hay dùng nhất trong chủ đề này
+4. **Hội thoại mẫu** - 1 đoạn hội thoại ngắn 4-6 lượt thoại thực tế
+5. **Gợi ý luyện tập** - chỉ tôi cách luyện tiếp (đặt câu, hỏi đáp, v.v.)
+
+Tôi là người Việt Nam hoàn toàn mới với tiếng Trung, đang học ${CURRICULUM[currentLevel].name}.`;
+  clearChatKeepCard();
+  sendAutoMessage(prompt);
+}
+
+function doQuiz() {
+  const lesson = CURRICULUM[currentLevel].lessons[currentLessonIdx];
+  const prompt = `Hãy tạo bài kiểm tra bài "${lesson.title}" (${CURRICULUM[currentLevel].name}) gồm:
+- 5 câu trắc nghiệm A/B/C/D (có đáp án bên dưới ô ẩn)
+- 3 câu điền từ vào chỗ trống
+- 2 câu dịch tiếng Việt → tiếng Trung
+
+Mỗi câu đều rõ ràng, phù hợp trình độ ${CURRICULUM[currentLevel].name}. Sau quiz, chờ tôi trả lời từng câu nhé!`;
+  clearChatKeepCard();
+  sendAutoMessage(prompt);
+  markLessonDone();
+}
+
+function doConvo() {
+  const lesson = CURRICULUM[currentLevel].lessons[currentLessonIdx];
+  const prompt = `Hãy luyện hội thoại với tôi về chủ đề "${lesson.title}" theo format sau:
+1. Đưa ra 1 tình huống thực tế (ví dụ: gặp người mới, đi mua hàng...)
+2. Bắt đầu hội thoại bằng cách nói 1 câu tiếng Trung (kèm pinyin + nghĩa)
+3. Chờ tôi trả lời
+4. Sau mỗi lượt tôi nói, hãy: nhận xét ngắn → đáp lại bằng tiếng Trung → gợi ý câu tiếp theo cho tôi
+
+Mức độ phù hợp với ${CURRICULUM[currentLevel].name}.`;
+  clearChatKeepCard();
+  sendAutoMessage(prompt);
+}
+
+function clearChatKeepCard() {
+  document.getElementById('chatArea').innerHTML = '';
+}
+
+// ===== LEVEL & MODE =====
 function setLevel(lvl, btn) {
   currentLevel = lvl;
-  document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('levelInfo').textContent = `${levelInfo[lvl].name} · ${levelInfo[lvl].words}`;
+  currentLessonIdx = 0;
   conversationHistory = [];
-  const welcome = document.getElementById('welcomeCard');
-  if (welcome) {
-    const h2 = welcome.querySelector('h2');
-    if (h2) h2.textContent = `Cấp độ ${levelInfo[lvl].name} — ${levelInfo[lvl].desc}!`;
-  }
+  document.querySelectorAll('.ltab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderLessonList();
+  loadLesson(0);
+  updateProgress();
 }
 
 function setMode(mode, btn) {
   currentMode = mode;
-  document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.mpill').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
+  const lesson = CURRICULUM[currentLevel].lessons[currentLessonIdx];
+  if (mode === 'lesson') { loadLesson(currentLessonIdx); return; }
+  if (mode === 'quiz') { doQuiz(); return; }
+  if (mode === 'convo') { doConvo(); return; }
   if (mode === 'pronunciation') {
-    addMessage('bot', '🎤 Chế độ luyện phát âm đã bật! Nhấn nút mic 🎤, đọc to một từ hoặc câu tiếng Trung, tôi sẽ nhận xét và hướng dẫn bạn phát âm chuẩn hơn!');
-  } else if (mode === 'vocab') {
-    addMessage('bot', '📖 Chế độ học từ vựng. Hãy cho tôi biết chủ đề bạn muốn học (ví dụ: "thời tiết", "gia đình", "công việc")!');
-  } else if (mode === 'convo') {
-    addMessage('bot', '🗣️ Chế độ luyện hội thoại. Tôi sẽ tạo đoạn hội thoại mẫu để bạn thực hành!');
-  } else if (mode === 'grammar') {
-    addMessage('bot', '📝 Chế độ ôn ngữ pháp. Hỏi tôi về bất kỳ cấu trúc ngữ pháp nào (ví dụ: "câu 是...的", "động từ năng nguyện")!');
-  } else if (mode === 'quiz') {
-    addMessage('bot', '✅ Chế độ kiểm tra. Tôi sẽ tạo câu hỏi trắc nghiệm để kiểm tra kiến thức của bạn!');
-  } else if (mode === 'free') {
-    addMessage('bot', '💬 Chế độ hỏi tự do. Hỏi tôi bất cứ điều gì về tiếng Trung!');
+    clearChatKeepCard();
+    addBotMessage(`🎵 **Chế độ luyện phát âm**\n\nEm sẽ hỗ trợ chị luyện phát âm chuẩn tiếng Trung!\n\nCách dùng:\n• Gõ hoặc **bấm 🎤** để nói một từ/câu tiếng Trung\n• Em sẽ phân tích phát âm và hướng dẫn cải thiện\n\nChị muốn luyện từ nào? Ví dụ gõ: **你好** hoặc nói trực tiếp vào mic nhé!`);
+    return;
+  }
+  if (mode === 'vocab') {
+    clearChatKeepCard();
+    sendAutoMessage(`Dạy tôi từ vựng chủ đề "${lesson.title}" theo ${CURRICULUM[currentLevel].name}. Liệt kê 10 từ quan trọng nhất với chữ Hán + pinyin + nghĩa tiếng Việt + 1 ví dụ câu đơn giản cho mỗi từ.`);
+    return;
+  }
+  if (mode === 'grammar') {
+    clearChatKeepCard();
+    sendAutoMessage(`Giải thích ngữ pháp quan trọng nhất trong bài "${lesson.title}" cho người học ${CURRICULUM[currentLevel].name}. Dùng tiếng Việt, cho công thức rõ ràng và nhiều ví dụ.`);
+    return;
+  }
+  if (mode === 'free') {
+    clearChatKeepCard();
+    addBotMessage(`💬 **Chế độ hỏi tự do**\n\nChị cứ hỏi bất cứ điều gì về tiếng Trung! Em sẵn sàng giải đáp theo trình độ **${CURRICULUM[currentLevel].name}** nhé 😊`);
   }
 }
 
-function addMessage(role, content) {
+// ===== PROGRESS =====
+function markLessonDone() {
+  const key = `${currentLevel}-${currentLessonIdx}`;
+  progress[key] = true;
+  localStorage.setItem('hsk_progress', JSON.stringify(progress));
+  updateProgress();
+  renderLessonList();
+}
+
+function updateProgress() {
+  const lessons = CURRICULUM[currentLevel].lessons;
+  const done = lessons.filter((_,i) => progress[`${currentLevel}-${i}`]).length;
+  const pct = Math.round(done/lessons.length*100);
+  document.getElementById('progressLabel').textContent = `Tiến độ ${CURRICULUM[currentLevel].name}`;
+  document.getElementById('progressPct').textContent = `${pct}%`;
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+
+// ===== SYSTEM PROMPT =====
+function getSystemPrompt() {
+  const lvl = CURRICULUM[currentLevel];
+  const lesson = lvl.lessons[currentLessonIdx];
+  const py = showPinyin ? 'Luôn kèm pinyin cho mọi chữ Hán.' : 'Không cần pinyin.';
+  const modeGuide = {
+    lesson: 'Dạy bài học có cấu trúc rõ ràng: từ vựng → mẫu câu → hội thoại → luyện tập. Sau mỗi phần, gợi ý bước tiếp theo cụ thể.',
+    vocab: 'Dạy từ vựng có hệ thống. Mỗi từ: chữ Hán + pinyin + nghĩa + ví dụ câu. Nhóm theo chủ đề.',
+    convo: 'Luyện hội thoại đóng vai. Sau mỗi lượt nói của học viên, nhận xét ngắn rồi tiếp tục hội thoại tự nhiên.',
+    grammar: 'Giải thích ngữ pháp bằng tiếng Việt. Công thức rõ ràng, nhiều ví dụ, so sánh với tiếng Việt khi có thể.',
+    quiz: 'Tạo bài kiểm tra đa dạng. Chờ học viên trả lời, chấm điểm và giải thích từng câu chi tiết.',
+    pronunciation: 'Phân tích phát âm tiếng Trung. Giải thích vị trí lưỡi, miệng, thanh điệu. So sánh âm khó với âm tiếng Việt gần nhất.',
+    free: 'Trả lời mọi câu hỏi về tiếng Trung. Luôn gợi ý nội dung liên quan đến cấp độ hiện tại.',
+  };
+  return `Bạn là gia sư tiếng Trung Mandarin chuyên nghiệp, dạy người Việt Nam theo giáo trình HSK chuẩn quốc tế.
+
+📚 THÔNG TIN HỌC VIÊN: Đang học ${lvl.name} (${lvl.desc} - ${lvl.totalWords} từ)
+📖 BÀI HỌC HIỆN TẠI: "${lesson.title}" - Mục tiêu: ${lesson.goal}
+🎯 CHỦ ĐỀ: ${lesson.topics.join(', ')}
+
+NGUYÊN TẮC:
+- Giải thích HOÀN TOÀN bằng tiếng Việt
+- ${py}
+- Format từ vựng: [Chữ Hán] - [pinyin] - [Nghĩa tiếng Việt] - [Ví dụ câu]
+- Khen ngợi và động viên học viên
+- Cuối mỗi câu trả lời DÀI: gợi ý 2-3 bước tiếp theo cụ thể để học viên biết làm gì tiếp
+- Dùng emoji vừa phải để sinh động
+
+CHẾ ĐỘ HIỆN TẠI: ${modeGuide[currentMode] || modeGuide.free}`;
+}
+
+// ===== MESSAGING =====
+function addBotMessage(content) {
   const chatArea = document.getElementById('chatArea');
-  const welcome = document.getElementById('welcomeCard');
-  if (welcome && role === 'user') welcome.remove();
   const msg = document.createElement('div');
-  msg.className = `message ${role}`;
-  const avatar = document.createElement('div');
-  avatar.className = `avatar ${role}`;
-  if (role === 'bot') {
-    avatar.innerHTML = `<img src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Sophia">`;
-  } else {
-    avatar.textContent = 'C';
-  }
+  msg.className = 'message bot';
+  const av = document.createElement('div');
+  av.className = 'av bot'; av.textContent = '師';
   const bubble = document.createElement('div');
   bubble.className = 'bubble';
   bubble.innerHTML = formatMessage(content);
-  msg.appendChild(avatar);
-  msg.appendChild(bubble);
+  msg.appendChild(av); msg.appendChild(bubble);
+  chatArea.appendChild(msg);
+  chatArea.scrollTop = chatArea.scrollHeight;
+  if (ttsEnabled && document.getElementById('ttsToggle').checked) {
+    speakText(getPlainText(content));
+  }
+}
+
+function addUserMessage(text) {
+  const chatArea = document.getElementById('chatArea');
+  const welcome = chatArea.querySelector('.lesson-card');
+  if (welcome) welcome.style.opacity = '0.4';
+  const msg = document.createElement('div');
+  msg.className = 'message user';
+  const av = document.createElement('div');
+  av.className = 'av user'; av.textContent = 'C';
+  const bubble = document.createElement('div');
+  bubble.className = 'bubble';
+  bubble.textContent = text;
+  msg.appendChild(av); msg.appendChild(bubble);
   chatArea.appendChild(msg);
   chatArea.scrollTop = chatArea.scrollHeight;
 }
 
-function formatMessage(text) {
-  text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-  const lines = text.split('\n');
-  const formattedLines = lines.map(line => {
-    const parts = line.split(' - ');
-    if (parts.length >= 2 && /[\u4e00-\u9fff]/.test(parts[0])) {
-      const chinese = parts[0].trim();
-      const rest = parts.slice(1).join(' - ');
-      if (showPinyin && parts.length >= 3) {
-        return `<div class="vocab-card"><span class="vocab-chinese">📖 ${chinese}</span><span class="vocab-meaning">${rest}</span></div>`;
-      }
-      return `<div class="vocab-card"><span class="vocab-chinese">📖 ${chinese}</span><span class="vocab-meaning">→ ${rest}</span></div>`;
-    }
-    return escapeHtml(line) || '<br>';
-  });
-  return formattedLines.join('<br>');
-}
-
-function escapeHtml(text) { 
-  const div = document.createElement('div'); 
-  div.textContent = text; 
-  return div.innerHTML; 
-}
-
-function showTyping() {
+function showTypingIndicator() {
   const chatArea = document.getElementById('chatArea');
-  const typing = document.createElement('div');
-  typing.className = 'typing';
-  typing.id = 'typingIndicator';
-  typing.innerHTML = `<div class="avatar bot"><img src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Sophia"></div><div class="typing-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>`;
-  chatArea.appendChild(typing);
+  const t = document.createElement('div');
+  t.className = 'typing'; t.id = 'typingDots';
+  t.innerHTML = `<div class="av bot">師</div><div class="typing-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>`;
+  chatArea.appendChild(t);
+  chatArea.scrollTop = chatArea.scrollHeight;
+}
+function removeTypingIndicator() { const t = document.getElementById('typingDots'); if(t)t.remove(); }
+
+// ===== FORMAT MESSAGE =====
+function formatMessage(text) {
+  // Strip literal HTML tags from AI output (fix the <strong> bug)
+  text = text.replace(/<strong>(.*?)<\/strong>/gi, '**$1**');
+  text = text.replace(/<em>(.*?)<\/em>/gi, '*$1*');
+  text = text.replace(/<[^>]+>/g, '');
+
+  // Markdown bold/italic
+  text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  text = text.replace(/\*(.*?)\*/g, '<em style="color:var(--jade);font-style:normal">$1</em>');
+
+  const lines = text.split('\n');
+  const out = [];
+  for (let line of lines) {
+    // Vocab card: Chinese - pinyin - meaning
+    if (/[\u4e00-\u9fff]/.test(line) && line.includes(' - ')) {
+      const parts = line.split(' - ');
+      if (parts.length >= 2) {
+        const zh = parts[0].replace(/^[\s•\-\d\.]+/, '').trim();
+        if (/[\u4e00-\u9fff]/.test(zh)) {
+          const py = parts.length >= 3 ? parts[1] : '';
+          const vi = parts.length >= 3 ? parts.slice(2).join(' - ') : parts[1];
+          if (showPinyin && py) {
+            out.push(`<div class="vc"><span class="zh">${zh}</span><span class="py">${py}</span><span class="vi">${vi}</span></div>`);
+          } else {
+            out.push(`<div class="vc"><span class="zh">${zh}</span><span class="vi">${vi}</span></div>`);
+          }
+          continue;
+        }
+      }
+    }
+    // Highlight inline Chinese
+    line = line.replace(/([\u4e00-\u9fff]+)/g, '<span class="hz">$1</span>');
+    out.push(line || '<br>');
+  }
+  return out.join('<br>');
+}
+
+function getPlainText(text) {
+  // Extract only Chinese text for TTS (better pronunciation)
+  const chinese = text.match(/[\u4e00-\u9fff\u3000-\u303f\uff00-\uffef]+/g);
+  if (chinese && chinese.join('').length > 5) {
+    // Mix: read Chinese parts
+    return chinese.slice(0, 6).join('，');
+  }
+  // Fallback: strip markdown, read Vietnamese (shorter version)
+  return text.replace(/\*\*/g,'').replace(/\*/g,'').replace(/<[^>]+>/g,'').substring(0,200);
+}
+
+// ===== API CALL =====
+async function sendAutoMessage(prompt) {
+  conversationHistory.push({role:'user', content:prompt});
+  showTypingIndicator();
+  isTyping = true;
+  document.getElementById('sendBtn').disabled = true;
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        system: getSystemPrompt(),
+        messages: conversationHistory
+      })
+    });
+    const data = await res.json();
+    removeTypingIndicator();
+    if (data.content && data.content[0]) {
+      const reply = data.content[0].text;
+      conversationHistory.push({role:'assistant', content:reply});
+      addBotMessage(reply);
+      addNextStepSuggestions();
+    }
+  } catch(e) {
+    removeTypingIndicator();
+    addBotMessage('⚠️ Lỗi kết nối. Chị thử lại nhé!');
+  }
+  isTyping = false;
+  document.getElementById('sendBtn').disabled = false;
+}
+
+async function sendMessage() {
+  const input = document.getElementById('userInput');
+  const text = input.value.trim();
+  if (!text || isTyping) return;
+  showPinyin = document.getElementById('pinyinToggle').checked;
+  input.value = '';
+  autoResize(input);
+  addUserMessage(text);
+  conversationHistory.push({role:'user', content:text});
+  showTypingIndicator();
+  isTyping = true;
+  document.getElementById('sendBtn').disabled = true;
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        system: getSystemPrompt(),
+        messages: conversationHistory
+      })
+    });
+    const data = await res.json();
+    removeTypingIndicator();
+    if (data.content && data.content[0]) {
+      const reply = data.content[0].text;
+      conversationHistory.push({role:'assistant', content:reply});
+      addBotMessage(reply);
+      if (conversationHistory.length >= 4) addNextStepSuggestions();
+    }
+  } catch(e) {
+    removeTypingIndicator();
+    addBotMessage('⚠️ Lỗi kết nối. Chị thử lại nhé!');
+  }
+  isTyping = false;
+  document.getElementById('sendBtn').disabled = false;
+  input.focus();
+}
+
+function addNextStepSuggestions() {
+  const lesson = CURRICULUM[currentLevel].lessons[currentLessonIdx];
+  const nextLesson = CURRICULUM[currentLevel].lessons[currentLessonIdx + 1];
+  const chatArea = document.getElementById('chatArea');
+  const ns = document.createElement('div');
+  ns.className = 'next-step';
+  ns.innerHTML = `<strong>🚀 Bước tiếp theo</strong>
+    <div class="next-btns">
+      <button class="next-btn" onclick="sendAutoMessage('Cho tôi thêm ví dụ câu và bài tập luyện tập về ${lesson.title}')">➕ Thêm bài tập</button>
+      <button class="next-btn" onclick="doQuiz()">✅ Làm quiz bài này</button>
+      <button class="next-btn" onclick="doConvo()">🗣️ Luyện hội thoại</button>
+      ${nextLesson ? `<button class="next-btn" onclick="loadLesson(${currentLessonIdx+1});markLessonDone()">→ Bài ${currentLessonIdx+2}: ${nextLesson.title}</button>` : '<button class="next-btn" onclick="loadLesson(0)">🏆 Hoàn thành! Ôn tập</button>'}
+    </div>`;
+  chatArea.appendChild(ns);
   chatArea.scrollTop = chatArea.scrollHeight;
 }
 
-function removeTyping() { 
-  const t = document.getElementById('typingIndicator'); 
-  if (t) t.remove(); 
+// ===== TTS =====
+function speakText(text) {
+  if (!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  const utter = new SpeechSynthesisUtterance(text);
+  // Prefer zh-CN voice
+  const voices = window.speechSynthesis.getVoices();
+  const zhVoice = voices.find(v => v.lang.startsWith('zh'));
+  if (zhVoice) utter.voice = zhVoice;
+  utter.lang = 'zh-CN';
+  utter.rate = 0.85;
+  utter.pitch = 1;
+  const bar = document.getElementById('ttsBar');
+  const barText = document.getElementById('ttsBarText');
+  bar.classList.add('active');
+  barText.textContent = 'Đang đọc tiếng Trung...';
+  utter.onend = () => {
+    bar.classList.remove('active');
+    if (autoMicEnabled && document.getElementById('autoMicToggle').checked && !voiceModeActive) {
+      setTimeout(startSTT, 500);
+    }
+    if (voiceModeActive) {
+      document.getElementById('voiceOrb').className = 'voice-orb';
+      document.getElementById('voiceStatus').textContent = 'Chạm để nói tiếp';
+      setTimeout(() => { if(voiceModeActive) toggleVoiceListening(); }, 600);
+    }
+  };
+  utter.onerror = () => bar.classList.remove('active');
+  window.speechSynthesis.speak(utter);
 }
 
-async function sendMessage(text = null) {
-  const input = document.getElementById('userInput');
-  const messageText = text !== null ? text : input.value.trim();
-  if (!messageText || isTyping) return;
-  showPinyin = document.getElementById('pinyinToggle').checked;
-  if (text === null) input.value = '';
-  autoResize(input);
-  addMessage('user', messageText);
-  conversationHistory.push({ role: 'user', content: messageText });
-  isTyping = true;
-  const sendBtn = document.getElementById('sendBtn');
-  if (sendBtn) sendBtn.disabled = true;
-  showTyping();
-  try {
-    const messages = [
-      { role: 'system', content: getSystemPrompt() },
-      ...conversationHistory.map(m => ({ role: m.role === 'assistant' ? 'assistant' : 'user', content: m.content }))
-    ];
-    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${GROQ_API_KEY}` },
-      body: JSON.stringify({ model: 'llama-3.3-70b-versatile', messages, temperature: 0.7, max_tokens: 1500 })
-    });
-    const data = await response.json();
-    removeTyping();
-    if (data.error) throw new Error(data.error.message);
-    if (data.choices && data.choices[0]) {
-      const reply = data.choices[0].message.content;
-      conversationHistory.push({ role: 'assistant', content: reply });
-      addMessage('bot', reply);
-    } else throw new Error('No response');
-  } catch (err) {
-    removeTyping();
-    console.error(err);
-    addMessage('bot', `⚠️ Lỗi: ${err.message}. Vui lòng thử lại!`);
-  }
-  isTyping = false;
-  if (sendBtn) sendBtn.disabled = false;
+function stopTTS() {
+  window.speechSynthesis.cancel();
+  document.getElementById('ttsBar').classList.remove('active');
 }
 
-function startVoiceInput() {
-  const voiceBtn = document.getElementById('voiceBtn');
+// ===== STT (inline) =====
+function startSTT() {
   if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-    addMessage('bot', '⚠️ Trình duyệt của bạn không hỗ trợ nhận diện giọng nói. Vui lòng dùng Chrome, Edge hoặc Safari.');
+    addBotMessage('⚠️ Trình duyệt chị chưa hỗ trợ nhận giọng nói. Hãy dùng Chrome hoặc Edge nhé!');
     return;
   }
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  const recognition = new SpeechRecognition();
-  recognition.lang = 'zh-CN';
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SR();
+  recognition.lang = currentMode === 'pronunciation' ? 'zh-CN' : 'zh-CN';
   recognition.interimResults = false;
-  recognition.maxAlternatives = 1;
-  voiceBtn.classList.add('listening');
-  voiceBtn.textContent = '⏺';
-  recognition.start();
-  recognition.onresult = (event) => {
-    const spokenText = event.results[0][0].transcript;
-    voiceBtn.classList.remove('listening');
-    voiceBtn.textContent = '🎤';
-    document.getElementById('userInput').value = spokenText;
-    sendMessage(spokenText);
+  const micBtn = document.getElementById('micBtn');
+  micBtn.classList.add('listening');
+  micBtn.textContent = '⏺';
+  recognition.onresult = (e) => {
+    const spoken = e.results[0][0].transcript;
+    micBtn.classList.remove('listening');
+    micBtn.textContent = '🎤';
+    document.getElementById('userInput').value = spoken;
+    sendMessage();
   };
-  recognition.onerror = (event) => {
-    voiceBtn.classList.remove('listening');
-    voiceBtn.textContent = '🎤';
-    addMessage('bot', `⚠️ Lỗi voice: ${event.error}. Thử lại nhé.`);
+  recognition.onerror = () => { micBtn.classList.remove('listening'); micBtn.textContent = '🎤'; };
+  recognition.onend = () => { micBtn.classList.remove('listening'); micBtn.textContent = '🎤'; };
+  recognition.start();
+}
+
+// ===== VOICE CONVERSATION MODE =====
+function openVoiceMode() {
+  voiceModeActive = true;
+  document.getElementById('voiceOverlay').classList.add('active');
+  document.getElementById('voiceStatus').textContent = 'Chạm vào vòng tròn để bắt đầu';
+  addBotMessage('🎤 **Hội thoại Voice đã bật!**\n\nEm sẽ nghe chị nói → trả lời → đọc to câu trả lời → chờ chị nói tiếp. Nhấn vào vòng tròn để bắt đầu!');
+}
+
+function closeVoiceMode() {
+  voiceModeActive = false;
+  voiceListening = false;
+  if (recognition) { try { recognition.stop(); } catch(e){} }
+  window.speechSynthesis.cancel();
+  document.getElementById('voiceOverlay').classList.remove('active');
+  document.getElementById('ttsBar').classList.remove('active');
+}
+
+function toggleVoiceListening() {
+  if (voiceListening) return;
+  if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+    document.getElementById('voiceStatus').textContent = '⚠️ Trình duyệt không hỗ trợ';
+    return;
+  }
+  voiceListening = true;
+  const orb = document.getElementById('voiceOrb');
+  const status = document.getElementById('voiceStatus');
+  const transcript = document.getElementById('voiceTranscript');
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SR();
+  recognition.lang = 'zh-CN';
+  recognition.interimResults = true;
+  orb.className = 'voice-orb listening';
+  orb.textContent = '⏺';
+  status.textContent = 'Đang nghe... Nói đi chị!';
+  transcript.textContent = '';
+  recognition.onresult = (e) => {
+    const interim = Array.from(e.results).map(r=>r[0].transcript).join('');
+    transcript.textContent = interim;
+    if (e.results[e.results.length-1].isFinal) {
+      const final = e.results[e.results.length-1][0].transcript;
+      transcript.textContent = final;
+      voiceListening = false;
+      orb.className = 'voice-orb speaking';
+      orb.textContent = '🔊';
+      status.textContent = 'Đang xử lý...';
+      sendVoiceMessage(final);
+    }
+  };
+  recognition.onerror = (e) => {
+    voiceListening = false;
+    orb.className = 'voice-orb';
+    orb.textContent = '🎤';
+    status.textContent = 'Lỗi: ' + e.error + '. Thử lại!';
   };
   recognition.onend = () => {
-    voiceBtn.classList.remove('listening');
-    voiceBtn.textContent = '🎤';
+    if (voiceListening) {
+      voiceListening = false;
+      orb.className = 'voice-orb';
+      orb.textContent = '🎤';
+    }
   };
+  recognition.start();
 }
 
-function sendQuick(text) { sendMessage(text); }
+async function sendVoiceMessage(text) {
+  const orb = document.getElementById('voiceOrb');
+  const status = document.getElementById('voiceStatus');
+  addUserMessage(text);
+  conversationHistory.push({role:'user', content:text});
+  status.textContent = 'Đang suy nghĩ...';
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        system: getSystemPrompt() + '\n\nLƯU Ý VOICE MODE: Trả lời NGẮN GỌN hơn (tối đa 100 chữ). Luôn có ít nhất 1 câu tiếng Trung để học viên nghe phát âm.',
+        messages: conversationHistory
+      })
+    });
+    const data = await res.json();
+    if (data.content && data.content[0]) {
+      const reply = data.content[0].text;
+      conversationHistory.push({role:'assistant', content:reply});
+      addBotMessage(reply);
+      status.textContent = 'Đang đọc câu trả lời...';
+      orb.className = 'voice-orb speaking';
+      orb.textContent = '🔊';
+      speakVoiceReply(reply);
+    }
+  } catch(e) {
+    status.textContent = '⚠️ Lỗi kết nối. Thử lại!';
+    orb.className = 'voice-orb';
+    orb.textContent = '🎤';
+  }
+}
 
-function resetChat() {
+function speakVoiceReply(text) {
+  if (!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  // Extract Chinese sentences to read
+  const chineseParts = text.match(/[\u4e00-\u9fff][^\n]*/g);
+  const toSpeak = chineseParts ? chineseParts.slice(0,3).join('。') : text.replace(/\*\*/g,'').substring(0,150);
+  const utter = new SpeechSynthesisUtterance(toSpeak);
+  const voices = window.speechSynthesis.getVoices();
+  const zhVoice = voices.find(v=>v.lang.startsWith('zh'));
+  if (zhVoice) utter.voice = zhVoice;
+  utter.lang = 'zh-CN';
+  utter.rate = 0.8;
+  const orb = document.getElementById('voiceOrb');
+  const status = document.getElementById('voiceStatus');
+  utter.onend = () => {
+    if (voiceModeActive) {
+      orb.className = 'voice-orb';
+      orb.textContent = '🎤';
+      status.textContent = 'Chạm để nói tiếp';
+      setTimeout(() => { if(voiceModeActive) toggleVoiceListening(); }, 800);
+    }
+  };
+  utter.onerror = () => {
+    orb.className = 'voice-orb';
+    orb.textContent = '🎤';
+    status.textContent = 'Chạm để nói tiếp';
+  };
+  window.speechSynthesis.speak(utter);
+}
+
+// ===== UTILS =====
+function resetLesson() {
   conversationHistory = [];
-  const chatArea = document.getElementById('chatArea');
-  if (chatArea) chatArea.innerHTML = '';
-  const welcome = document.createElement('div');
-  welcome.className = 'welcome-card';
-  welcome.id = 'welcomeCard';
-  welcome.innerHTML = `<div class="welcome-char">你好🎤</div><h2>Bắt đầu lại!</h2><p>Bạn đang ở <strong>HSK 1</strong>. Chọn chế độ Luyện phát âm và nhấn mic 🎤 để luyện nói nhé!</p><div class="quick-start"><button class="quick-btn" onclick="sendQuick('Dạy tôi chào hỏi cơ bản')">👋 Chào hỏi</button><button class="quick-btn" onclick="sendQuick('Dạy tôi đếm số 1-10')">🔢 Số đếm</button><button class="quick-btn" onclick="sendQuick('Dạy tôi từ vựng về gia đình')">👪 Gia đình</button></div>`;
-  if (chatArea) chatArea.appendChild(welcome);
+  loadLesson(currentLessonIdx);
+}
+function handleKey(e) { if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();} }
+function autoResize(el) { el.style.height='auto'; el.style.height=Math.min(el.scrollHeight,110)+'px'; }
+document.getElementById('ttsToggle').addEventListener('change', e => ttsEnabled = e.target.checked);
+document.getElementById('autoMicToggle').addEventListener('change', e => autoMicEnabled = e.target.checked);
+document.getElementById('pinyinToggle').addEventListener('change', e => showPinyin = e.target.checked);
+
+// Load voices async
+if (window.speechSynthesis) {
+  window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
 }
 
-function handleKey(e) { 
-  if (e.key === 'Enter' && !e.shiftKey) { 
-    e.preventDefault(); 
-    sendMessage(); 
-  } 
-}
-
-function autoResize(el) { 
-  if (!el) return; 
-  el.style.height = 'auto'; 
-  el.style.height = Math.min(el.scrollHeight, 120) + 'px'; 
-}
-
-initBgChars();
-document.getElementById('pinyinToggle').addEventListener('change', (e) => showPinyin = e.target.checked);
+init();
 </script>
 </body>
 </html>
