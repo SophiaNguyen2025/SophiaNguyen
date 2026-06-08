@@ -697,6 +697,38 @@ document.getElementById('ttsToggle')?.addEventListener('change',e=>ttsEnabled=e.
 document.getElementById('autoMicToggle')?.addEventListener('change',e=>autoMicEnabled=e.target.checked);
 window.speechSynthesis?.onvoiceschanged?.(()=>window.speechSynthesis.getVoices());
 init();
+  // ===== MOBILE SIDEBAR FIX =====
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+}
+
+// Đóng sidebar khi chọn bài học
+const originalLoadLesson = loadLesson;
+window.loadLesson = function(idx) {
+  if (typeof originalLoadLesson === 'function') originalLoadLesson(idx);
+  closeSidebar();
+};
+
+// Đóng sidebar khi chọn level
+const originalSetLevel = window.setLevel;
+window.setLevel = function(lvl, btn) {
+  if (typeof originalSetLevel === 'function') originalSetLevel(lvl, btn);
+  closeSidebar();
+};
+
+// Đóng sidebar khi bấm ra ngoài nội dung
+document.addEventListener('click', function(event) {
+  const sidebar = document.getElementById('sidebar');
+  const toggleBtn = document.querySelector('.sidebar-toggle');
+  if (sidebar && sidebar.classList.contains('open')) {
+    // Nếu bấm vào toggle thì không đóng (để toggle xử lý)
+    if (toggleBtn && toggleBtn.contains(event.target)) return;
+    // Nếu bấm vào bên trong sidebar thì không đóng
+    if (sidebar.contains(event.target)) return;
+    // Còn lại thì đóng
+    closeSidebar();
+  }
+});
 </script>
 </body>
 </html>
