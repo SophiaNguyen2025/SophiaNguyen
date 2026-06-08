@@ -661,24 +661,15 @@ function speakText(text) {
   window.speechSynthesis.cancel();
   
   // Loại bỏ markdown và ký tự đặc biệt trước khi đọc
-  let cleanText = text
-    .replace(/\*\*(.*?)\*\*/g, '$1')      // bỏ **bold**
-    .replace(/\*(.*?)\*/g, '$1')          // bỏ *italic*
-    .replace(/___(.*?)___/g, '$1')        // bỏ ___gạch dưới___
-    .replace(/\[(.*?)\]\(.*?\)/g, '$1')   // bỏ link markdown
-    .replace(/`(.*?)`/g, '$1')            // bỏ code inline
-    .replace(/[*_~`>#+-]/g, '')           // bỏ ký tự đặc biệt
-    .replace(/\s+/g, ' ')                 // gộp khoảng trắng
-    .trim();
-  // Thêm dòng này sau khi đã có cleanText:
-cleanText = cleanText.replace(/[\u00C0-\u024F\u1E00-\u1EFF\u0300-\u036f]/g, '') // bỏ ký tự có dấu tiếng Việt
-                     .replace(/[^\x00-\x7F]/g, '') // chỉ giữ ASCII (tiếng Anh)
-                     .replace(/\s+/g, ' ')
-                     .trim();
-  // Lấy 200 ký tự đầu tiên (tránh đọc quá dài)
-  cleanText = cleanText.substring(0, 200);
-  
-  if (!cleanText) return;
+ const lines = text.replace(/<[^>]+>/g, '').split('\n');
+const englishLines = lines.filter(line => {
+  const trimmed = line.trim();
+  if (!trimmed) return false;
+  const ascii = (trimmed.match(/[a-zA-Z0-9\s.,!?'"]/g) || []).length;
+  return ascii / trimmed.length > 0.7;
+});
+let cleanText = englishLines.join('. ').substring(0, 200);
+if (!cleanText) return;
   
   const utter = new SpeechSynthesisUtterance(cleanText);
   const voices = window.speechSynthesis.getVoices();
