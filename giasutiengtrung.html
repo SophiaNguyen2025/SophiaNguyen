@@ -437,6 +437,28 @@ body { font-family:'DM Sans',sans-serif; background:var(--ink); color:var(--pape
   .sidebar-toggle { display:flex; width:36px; height:36px; background:rgba(212,168,67,0.1); border:1px solid rgba(212,168,67,0.25); border-radius:8px; color:var(--gold); font-size:16px; cursor:pointer; align-items:center; justify-content:center; }
   .bubble { max-width:90%; }
 }
+  /* ===== CLICK-TO-SPEAK ===== */
+.speakable {
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.15s;
+  display: inline;
+}
+.speakable:hover {
+  background: rgba(212,168,67,0.2);
+}
+.speakable.speaking {
+  background: rgba(212,168,67,0.3);
+  outline: 1.5px solid var(--gold);
+}
+.speak-hint {
+  font-size: 10px;
+  color: var(--mist2);
+  margin: 4px 0 2px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
 </style>
 </head>
 <body>
@@ -1249,6 +1271,70 @@ document.addEventListener('click', function(event) {
     // Còn lại thì đóng
     closeSidebar();
   }
+});
+  // ===== CLICK / HIGHLIGHT TO SPEAK =====
+function speakWord(text, el) {
+  if (!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  document.querySelectorAll('.speakable.speaking').forEach(e => e.classList.remove('speaking'));
+  if (el) el.classList.add('speaking');
+  const utter = new SpeechSynthesisUtterance(text.trim());
+  utter.lang = 'zh-CN';
+  utter.rate = 0.82;
+  const voices = window.speechSynthesis.getVoices();
+  const v = voices.find(v => v.lang === 'zh-CN') || voices.find(v => v.lang.startsWith('zh'));
+  if (v) utter.voice = v;
+  utter.onend = () => { if (el) el.classList.remove('speaking'); };
+  window.speechSynthesis.speak(utter);
+}
+
+// Wrap chữ Hán trong .vc thành speakable
+function makeVcSpeakable(bubble) {
+  bubble.querySelectorAll('.vc').forEach(vc => {
+    const zhEl = vc.querySelector('.zh');
+    if (!zhEl || zhEl.dataset.speakable) return;
+    zhEl.dataset.speakable = '1';
+    zhEl.classList.add('speakable');
+    zhEl.title = '🔊 Click để nghe phát âm';
+    zhEl.addEventListener('click', () => speakWord(zhEl.textContent, zhEl));
+    if (!vc.querySelector('.speak-hint')) {
+      const hint = document.createElement('div');
+      hint.className = 'speak-hint';
+      hint.innerHTML = '🔊 Click vào chữ Hán để nghe';
+      vc.appendChild(hint);
+    }
+  });
+
+  // Inline .hz cũng speakable
+  bubble.querySelectorAll('.hz').forEach(hz => {
+    if (hz.dataset.speakable) return;
+    hz.dataset.speakable = '1';
+    hz.classList.add('speakable');
+    hz.title = '🔊 Click để nghe';
+    hz.addEventListener('click', () => speakWord(hz.textContent, hz));
+  });
+}
+
+// Lắng nghe bubble mới
+const _chatObserverZH = new MutationObserver(mutations => {
+  mutations.forEach(m => {
+    m.addedNodes.forEach(node => {
+      if (node.nodeType !== 1) return;
+      const bubbles = node.classList?.contains('bubble') ? [node] : node.querySelectorAll?.('.bubble') || [];
+      bubbles.forEach(makeVcSpeakable);
+    });
+  });
+});
+_chatObserverZH.observe(document.getElementById('chatArea'), { childList: true, subtree: true });
+
+// Bôi đen chữ Hán bất kỳ → đọc to
+document.getElementById('chatArea').addEventListener('mouseup', () => {
+  const sel = window.getSelection();
+  const text = sel?.toString().trim();
+  if (!text || text.length < 1 || text.length > 60) return;
+  // Chỉ đọc nếu có chữ Hán
+  if (!/[\u4e00-\u9fff]/.test(text)) return;
+  speakWord(text, null);
 });
 </script>
 </body>
