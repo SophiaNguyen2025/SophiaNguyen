@@ -1171,7 +1171,15 @@ async function saveHeightRecord() {
     await loadHeightRecords();
   } catch(e) { showToast('Lỗi: ' + e.message); }
 }
-
+async function deleteHeightRecord(id) {
+  if (!confirm('Xóa số đo này?')) return;
+  try {
+    const { error } = await db.from('height_records').delete().eq('id', id);
+    if (error) throw error;
+    showToast('Đã xóa ✓');
+    await loadHeightRecords();
+  } catch(e) { showToast('Lỗi khi xóa: ' + e.message); }
+}
 function renderHeightModule() {
   const child = selectedChildObj;
   if (!child) return;
@@ -1253,15 +1261,16 @@ if (predicted.type === 'range') {
     const el = document.createElement('div');
     el.className = 'height-history-item';
     el.innerHTML = `
-      <div>
-        <div class="height-date">${new Date(rec.recorded_date).toLocaleDateString('vi-VN')}</div>
-        ${rec.weight_kg ? `<div style="font-size:11px;color:var(--mist)">${rec.weight_kg} kg</div>` : ''}
-      </div>
-      <div style="display:flex;align-items:center;gap:8px">
-        <div class="height-val">${rec.height_cm} cm</div>
-        ${diff !== null ? `<span class="height-diff ${diff > 0 ? 'pos' : 'neu'}">+${diff} cm</span>` : ''}
-      </div>
-    `;
+  <div>
+    <div class="height-date">${new Date(rec.recorded_date).toLocaleDateString('vi-VN')}</div>
+    ${rec.weight_kg ? `<div style="font-size:11px;color:var(--mist)">${rec.weight_kg} kg</div>` : ''}
+  </div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <div class="height-val">${rec.height_cm} cm</div>
+    ${diff !== null ? `<span class="height-diff ${diff > 0 ? 'pos' : 'neu'}">+${diff} cm</span>` : ''}
+    <button class="btn-danger" onclick="deleteHeightRecord(${rec.id})">🗑️</button>
+  </div>
+`;
     historyEl.appendChild(el);
   });
 
