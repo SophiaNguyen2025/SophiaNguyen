@@ -652,18 +652,26 @@ function addUserMessage(msg) {
 }
 function formatMessage(t) {
   t = t.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
+  t = t.replace(/^\*\s+/gm, '');      // xóa dấu * đầu dòng
+  t = t.replace(/^#+\s*/gm, '');      // xóa ## heading
   const lines = t.split('\n');
   return lines.map(l=>{
-   if(l.includes(' - ') && !l.includes('```')){
-  const parts = l.split(' - ');
-  const enPart = parts[0].trim();
-  const viPart = parts.slice(1).join(' - ').trim();
-  // Chỉ format thành vocab card nếu phần EN không rỗng
-  if(parts.length>=2 && enPart) {
-    return `<div class="vc"><span class="en">📖 ${enPart}</span><span class="vi">→ ${viPart}</span></div>`;
-  }
-}
-    return l || '<br>';
+    const trimmed = l.trim();
+    // Bỏ qua dòng bắt đầu bằng "Ví dụ" hoặc "Example"
+    if (/^(ví dụ|vi du|example|vd)[:\s]/i.test(trimmed)) {
+      return `<div style="font-size:12px;color:var(--mist);margin:4px 0">💬 ${trimmed}</div>`;
+    }
+    if(trimmed.includes(' - ') && !trimmed.includes('```')){
+      const parts = trimmed.split(' - ');
+      const enPart = parts[0].replace(/^[\d\.\*\s]+/,'').trim(); // xóa số thứ tự, dấu *
+      const viPart = parts.slice(1).join(' - ').trim();
+      // Chỉ tạo vocab card nếu enPart có chữ thật và không phải tiếng Việt
+      const hasVietnamese = /[àáâãèéêìíòóôõùúýăđơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]/i.test(enPart);
+      if(enPart && viPart && !hasVietnamese) {
+        return `<div class="vc"><span class="en">📖 ${enPart}</span><span class="vi">→ ${viPart}</span></div>`;
+      }
+    }
+    return trimmed || '<br>';
   }).join('<br>');
 }
 function escapeHtml(s){ const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
