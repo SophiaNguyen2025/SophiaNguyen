@@ -1419,7 +1419,9 @@ async function saveHeightRecord() {
     if (fH) selectedChildObj.father_height = fH;
     if (mH) selectedChildObj.mother_height = mH;
   }
- 
+  const { data: refreshed } = await db.from('children').select('*').eq('id', selectedChildId).single();
+    if (refreshed) selectedChildObj = refreshed;
+  }
   try {
     const { error } = await db.from('height_records').insert({
       child_id: selectedChildId,
