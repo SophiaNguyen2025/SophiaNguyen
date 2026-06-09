@@ -1419,8 +1419,7 @@ async function saveHeightRecord() {
     if (fH) selectedChildObj.father_height = fH;
     if (mH) selectedChildObj.mother_height = mH;
   }
-  const { data: refreshed } = await db.from('children').select('*').eq('id', selectedChildId).single();
-    if (refreshed) selectedChildObj = refreshed;
+  
   }
   try {
     const { error } = await db.from('height_records').insert({
@@ -1438,6 +1437,7 @@ async function saveHeightRecord() {
     document.querySelectorAll('input[name="pubertyStatus"]').forEach(r => r.checked = false);
     showToast('Đã lưu số đo 📏');
     await loadHeightRecords();
+     renderHeightModule();
   } catch(e) { showToast('Lỗi: ' + e.message); }
 }
  
