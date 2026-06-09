@@ -1189,8 +1189,7 @@ function evaluatePubertySigns(age, gender) {
  
   const hasMain    = signs.main.some(s  => pubertyChecked[s.id]);
   const subChecked = signs.sub.filter(s => pubertyChecked[s.id]);
-  const hasKinh    = pubertyChecked['f9']; // có kinh nguyệt sớm
- 
+
   if (!hasMain && subChecked.length === 0) {
     resultEl.style.display = 'none';
     return;
@@ -1198,7 +1197,7 @@ function evaluatePubertySigns(age, gender) {
   resultEl.style.display = 'block';
  
   // 🔴 Có dấu hiệu CHÍNH hoặc có kinh trước 9 tuổi
-  if (hasMain)) {
+  if (hasMain) {
     resultEl.style.background  = '#fdecea';
     resultEl.style.borderLeft  = '4px solid #c0392b';
     resultEl.innerHTML = `
