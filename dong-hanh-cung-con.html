@@ -1085,7 +1085,8 @@ function checkEarlyPuberty(heightRecords, age, gender) {
 
   return warnings;
 }
- const PUBERTY_SIGNS = {
+
+   const PUBERTY_SIGNS = {
   female: {
     main: [
       { id:'f1', text:'Ngực bắt đầu to, có thể thấy "quả trám" cứng dưới núm vú — kể cả bé thừa cân (dễ nhầm với mô mỡ)' },
@@ -1118,27 +1119,24 @@ function renderEarlyPubertyChecklist(age, gender) {
   container.style.display = 'block';
 
   const earlyAge = gender === 'female' ? 8 : 9;
-  const signs    = gender === 'female' ? PUBERTY_SIGNS.female : PUBERTY_SIGNS.male;
-  const allSigns = [...signs.main, ...signs.sub];
+  const signs = gender === 'female' ? PUBERTY_SIGNS.female : PUBERTY_SIGNS.male;
 
   document.getElementById('pubertyAgeNote').textContent =
-    `Bé ${gender==='female'?'gái':'trai'} dưới ${earlyAge} tuổi — ba mẹ tick vào những gì đã quan sát thấy ở bé`;
+    gender === 'female'
+      ? 'Dấu hiệu xuất hiện trước 8 tuổi (hoặc có kinh trước 9.5 tuổi) = dậy thì sớm, cần đi khám ngay'
+      : 'Dấu hiệu xuất hiện trước 9 tuổi = dậy thì sớm, cần đi khám ngay';
 
-  const itemsEl = document.getElementById('pubertyChecklistItems');
-  itemsEl.innerHTML = `
-    <!-- WARNING CỐ ĐỊNH — hiện ngay trước checklist -->
+  document.getElementById('pubertyChecklistItems').innerHTML = `
     <div style="background:#fff3cd;border-left:4px solid #e67e22;border-radius:8px;
       padding:12px 14px;margin-bottom:14px;font-size:12.5px;color:#5a3e00;line-height:1.7">
-      ⚠️ <strong>Ba mẹ lưu ý:</strong> Đây là công cụ hỗ trợ quan sát — 
-      <strong>không thay thế chẩn đoán y tế.</strong><br>
-      Hãy tick vào những dấu hiệu ba mẹ đã <strong>thực sự quan sát thấy</strong> ở bé. 
-      Kết quả sẽ hiện ngay bên dưới.
+      ⚠️ <strong>Ba mẹ lưu ý:</strong> Hãy tick vào những dấu hiệu ba mẹ đã 
+      <strong>thực sự quan sát thấy</strong> ở bé. Đây là công cụ hỗ trợ — 
+      <strong>không thay thế chẩn đoán y tế.</strong>
     </div>
 
-    <!-- NHÓM DẤU HIỆU CHÍNH -->
     <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-      color:#C2416B;margin-bottom:8px;margin-top:4px">
-      🔴 Dấu hiệu chính — chỉ cần 1 dấu hiệu là cần đi khám ngay
+      color:#C2416B;margin:12px 0 8px">
+      🔴 Dấu hiệu chính — chỉ cần 1 là cần đi khám ngay
     </div>
     ${signs.main.map(s => `
       <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 0;
@@ -1153,10 +1151,9 @@ function renderEarlyPubertyChecklist(age, gender) {
       </div>
     `).join('')}
 
-    <!-- NHÓM DẤU HIỆU PHỤ -->
     <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-      color:#e67e22;margin-bottom:8px;margin-top:14px">
-      🟡 Dấu hiệu phụ — cần theo dõi thêm, nếu có 2 dấu hiệu trở lên nên đi khám
+      color:#e67e22;margin:14px 0 8px">
+      🟡 Dấu hiệu phụ — 2 dấu hiệu trở lên nên đưa bé đi khám
     </div>
     ${signs.sub.map(s => `
       <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 0;
@@ -1191,188 +1188,56 @@ function evaluatePubertySigns(age, gender) {
   const subChecked = signs.sub.filter(s => pubertyChecked[s.id]);
   const hasKinh    = pubertyChecked['f4'];
 
-  // Chưa tick gì
   if (!hasMain && subChecked.length === 0) {
     resultEl.style.display = 'none';
     return;
   }
-
   resultEl.style.display = 'block';
 
-  // 🔴 CÓ DẤU HIỆU CHÍNH = đi khám ngay
+  // 🔴 Có dấu hiệu CHÍNH, hoặc có kinh trước 9.5 tuổi
   if (hasMain || (hasKinh && age < 9.5)) {
     resultEl.style.background = '#fdecea';
     resultEl.style.borderLeft = '4px solid #c0392b';
     resultEl.innerHTML = `
       🚨 <strong>Cần đưa bé đi khám Bác sĩ Nội tiết Nhi ngay!</strong><br><br>
-      Bé ${age} tuổi đã có <strong>dấu hiệu chính của dậy thì</strong> — 
-      xuất hiện trước ${earlyAge} tuổi là dậy thì sớm, cần được đánh giá y tế.<br><br>
+      Bé ${age} tuổi đã có dấu hiệu chính của dậy thì — xuất hiện trước ${earlyAge} tuổi 
+      là dậy thì sớm, cần đánh giá y tế kịp thời.<br><br>
       Bác sĩ sẽ chỉ định:<br>
       • <strong>Chụp X-quang tuổi xương bàn tay</strong><br>
       • <strong>Siêu âm ${gender==='female'?'tử cung, buồng trứng':'bụng'}</strong><br>
-      • <strong>Xét nghiệm máu nội tiết</strong> (LH, FSH, ${gender==='female'?'Estradiol':'Testosterone'})<br><br>
+      • <strong>Xét nghiệm máu nội tiết</strong> 
+        (LH, FSH, ${gender==='female'?'Estradiol':'Testosterone'})<br><br>
       <span style="font-size:12px;color:#888">
-        Phát hiện và điều trị sớm giúp bảo vệ chiều cao tối đa và tâm lý cho bé.
+        Phát hiện sớm giúp bảo vệ chiều cao tối đa và tâm lý cho bé.
       </span>
     `;
 
-  // 🟡 CÓ 2+ DẤU HIỆU PHỤ = nên đi khám
+  // 🟡 Có 2+ dấu hiệu phụ
   } else if (subChecked.length >= 2) {
     resultEl.style.background = '#fff8e1';
     resultEl.style.borderLeft = '4px solid #e67e22';
     resultEl.innerHTML = `
       ⚠️ <strong>Nên đưa bé đi khám bác sĩ Nhi để theo dõi.</strong><br><br>
-      Bé có ${subChecked.length} dấu hiệu phụ — chưa đủ kết luận dậy thì sớm nhưng 
-      cần được bác sĩ đánh giá để loại trừ.<br><br>
-      Ba mẹ <strong>ghi lại ngày xuất hiện</strong> từng dấu hiệu và 
-      tái khám sau <strong>1–3 tháng</strong>. 
-      Nếu xuất hiện thêm dấu hiệu chính (🔴) → đi khám ngay không chờ.
+      Bé có ${subChecked.length} dấu hiệu phụ — chưa kết luận dậy thì sớm nhưng 
+      cần bác sĩ đánh giá loại trừ.<br><br>
+      Ba mẹ <strong>ghi lại ngày xuất hiện</strong> từng dấu hiệu và tái khám sau 
+      <strong>1–3 tháng</strong>. Nếu xuất hiện dấu hiệu chính 🔴 → đi khám ngay.
     `;
 
-  // 🟢 CHỈ CÓ 1 DẤU HIỆU PHỤ = theo dõi
+  // 🟢 Chỉ 1 dấu hiệu phụ
   } else {
     resultEl.style.background = '#eef5f1';
     resultEl.style.borderLeft = '4px solid #3D6B58';
     resultEl.innerHTML = `
       📋 <strong>Theo dõi thêm tại nhà.</strong><br><br>
-      Bé có 1 dấu hiệu phụ đơn lẻ — có thể là biến đổi sinh lý bình thường 
-      (ví dụ lông mu đơn lẻ có thể do tuyến thượng thận, chưa phải dậy thì).<br><br>
-      Ba mẹ <strong>đo chiều cao mỗi 3 tháng</strong> và quan sát xem có thêm 
-      dấu hiệu nào không. Nếu có thêm → quay lại tick và xem kết quả mới.
+      1 dấu hiệu phụ đơn lẻ có thể là biến đổi sinh lý bình thường.<br>
+      Ba mẹ <strong>đo chiều cao mỗi 3 tháng</strong> và quan sát thêm. 
+      Nếu có thêm dấu hiệu → tick lại để xem kết quả mới.
     `;
   }
 }
-
-function togglePubertySign(id) {
-  pubertyChecked[id] = !pubertyChecked[id];
-  const age    = calcAge(selectedChildObj?.birthday);
-  const gender = selectedChildObj?.gender;
-  renderEarlyPubertyChecklist(age, gender);
-}
-
-function evaluatePubertySigns(age, gender) {
-  const resultEl = document.getElementById('pubertyResult');
-  const earlyAge = gender === 'female' ? 8 : 9;
-  const signs    = gender === 'female' ? PUBERTY_SIGNS.female : PUBERTY_SIGNS.male;
-
-  const checkedSigns = signs.filter(s => pubertyChecked[s.id]);
-  if (checkedSigns.length === 0) { resultEl.style.display = 'none'; return; }
-  resultEl.style.display = 'block';
-
-  // Bất kỳ dấu hiệu nào xuất hiện trước ngưỡng tuổi = dậy thì sớm, đi khám NGAY
-  if (age < earlyAge) {
-    resultEl.style.background  = '#fdecea';
-    resultEl.style.borderLeft  = '4px solid #c0392b';
-    resultEl.innerHTML = `
-      ⚠️ <strong>Cần đưa bé đi khám bác sĩ Nội tiết Nhi ngay!</strong><br><br>
-      Bé ${age} tuổi đã có dấu hiệu dậy thì — sớm hơn bình thường 
-      (${gender==='female'?'bé gái thường dậy thì từ 8–13 tuổi':'bé trai thường dậy thì từ 9–14 tuổi'}).<br><br>
-      Bác sĩ sẽ chỉ định:<br>
-      • <strong>Chụp X-quang tuổi xương bàn tay</strong> — đánh giá mức độ phát triển xương<br>
-      • <strong>Siêu âm bụng, tử cung, buồng trứng</strong> ${gender==='female'?'(với bé gái)':''}<br>
-      • <strong>Xét nghiệm máu nội tiết</strong> (LH, FSH, Estradiol/Testosterone)<br><br>
-      <span style="font-size:12px;color:#888">Điều trị kịp thời giúp bảo vệ chiều cao tối đa và tránh ảnh hưởng tâm lý cho bé.</span>
-    `;
-
-  // Có dấu hiệu nhưng tuổi đã gần/đúng ngưỡng bình thường → dậy thì bình thường, không lo
-  } else {
-    resultEl.style.background  = '#eef5f1';
-    resultEl.style.borderLeft  = '4px solid #3D6B58';
-    resultEl.innerHTML = `
-      ✅ <strong>Đây là dậy thì bình thường theo độ tuổi.</strong><br>
-      Bé ${age} tuổi có các dấu hiệu dậy thì — hoàn toàn phù hợp với lứa tuổi 
-      (${gender==='female'?'bé gái thường dậy thì từ 8–13 tuổi':'bé trai thường dậy thì từ 9–14 tuổi'}).<br><br>
-      Ba mẹ chuẩn bị kiến thức và trò chuyện cởi mở với bé về những thay đổi của cơ thể nhé! 🌸
-    `;
-  }
-}
-
-function togglePubertySign(id) {
-  pubertyChecked[id] = !pubertyChecked[id];
-  const age = calcAge(selectedChildObj?.birthday);
-  const gender = selectedChildObj?.gender;
-  renderEarlyPubertyChecklist(age, gender);
-}
-
-function evaluatePubertySigns(age, gender) {
-  const resultEl = document.getElementById('pubertyResult');
-  const earlyAge = gender === 'female' ? 8 : 9;
-  const signs = gender === 'female' ? PUBERTY_SIGNS.female : PUBERTY_SIGNS.male;
-
-  const checkedSigns = signs.filter(s => pubertyChecked[s.id]);
-  const totalWeight = checkedSigns.reduce((sum, s) => sum + s.weight, 0);
-  const hasKinh = pubertyChecked['f7'];
-  const hasTinh = pubertyChecked['m1'];
-  const hasMainSign = pubertyChecked['f1'] || pubertyChecked['f2'] ||
-                      pubertyChecked['m1'] || pubertyChecked['m2'] || pubertyChecked['m3'];
-
-  if (checkedSigns.length === 0) { resultEl.style.display = 'none'; return; }
-  resultEl.style.display = 'block';
-
-  // Cảnh báo đỏ: dấu hiệu chính xuất hiện trước earlyAge, hoặc có kinh/tinh hoàn to
-  if (hasKinh || hasTinh || (hasMainSign && age < earlyAge) || (totalWeight >= 6 && age < earlyAge)) {
-    resultEl.style.background = '#fdecea';
-    resultEl.style.borderLeft = '4px solid #c0392b';
-    resultEl.innerHTML = `⚠️ <strong>Cần đưa bé đi khám bác sĩ nội tiết nhi sớm!</strong><br>
-      Bé ${age} tuổi có ${checkedSigns.length} dấu hiệu với tổng điểm ${totalWeight}/17 — 
-      có khả năng dậy thì sớm thực sự (central precocious puberty). 
-      Bác sĩ sẽ chỉ định <strong>chụp X-quang tuổi xương</strong> và 
-      <strong>xét nghiệm LH/FSH/Estradiol</strong> để xác nhận.`;
-
-  // Cảnh báo vàng: có dấu hiệu nhưng chưa đủ mức báo động, hoặc tuổi gần ngưỡng
-  } else if (totalWeight >= 3 || (checkedSigns.length >= 2 && age <= earlyAge + 1)) {
-    resultEl.style.background = '#fff8e1';
-    resultEl.style.borderLeft = '4px solid #e67e22';
-    resultEl.innerHTML = `📋 <strong>Nên theo dõi sát và tham vấn bác sĩ nhi.</strong><br>
-      Bé có ${checkedSigns.length} dấu hiệu. Ghi lại ngày xuất hiện từng dấu hiệu và 
-      tái khám sau <strong>3–6 tháng</strong>. Nếu thêm dấu hiệu mới → đi khám ngay.`;
-
-  // An toàn: dấu hiệu nhẹ, tuổi còn xa ngưỡng
-  } else {
-    resultEl.style.background = '#eef5f1';
-    resultEl.style.borderLeft = '4px solid #3D6B58';
-    resultEl.innerHTML = `✅ <strong>Chưa có dấu hiệu đáng lo ngại.</strong><br>
-      Các dấu hiệu hiện tại chưa đủ để nghi ngờ dậy thì sớm. 
-      Tiếp tục theo dõi định kỳ mỗi <strong>3 tháng</strong> và đo chiều cao thường xuyên.`;
-  }
-}
-function togglePubertySign(id) {
-  pubertyChecked[id] = !pubertyChecked[id];
-  const age = calcAge(selectedChildObj?.birthday);
-  const gender = selectedChildObj?.gender;
-  renderEarlyPubertyChecklist(age, gender);
-}
-
-function evaluatePubertySigns(age, gender) {
-  const resultEl = document.getElementById('pubertyResult');
-  const earlyAge = gender === 'female' ? 8 : 9;
-  const signs = gender === 'female' ? PUBERTY_SIGNS.female : PUBERTY_SIGNS.male;
-  const checkedCount = signs.filter(s => pubertyChecked[s.id]).length;
-  const hasKinh = pubertyChecked['f6'];
-  const hasTinh = pubertyChecked['m1'];
-
-  if (checkedCount === 0) { resultEl.style.display = 'none'; return; }
-  resultEl.style.display = 'block';
-
-  if (hasKinh || hasTinh || (checkedCount >= 3 && age < earlyAge)) {
-    resultEl.style.background = '#fdecea';
-    resultEl.style.borderLeft = '4px solid #c0392b';
-    resultEl.innerHTML = `⚠️ <strong>Cần đi khám bác sĩ nội tiết nhi sớm!</strong><br>
-      Bé có ${checkedCount} dấu hiệu${age < earlyAge ? ` ở tuổi ${age} — sớm hơn bình thường` : ''}. 
-      Bác sĩ sẽ chỉ định chụp X-quang tuổi xương và xét nghiệm hormone nếu cần.`;
-  } else if (checkedCount >= 2 && age < earlyAge) {
-    resultEl.style.background = '#fff8e1';
-    resultEl.style.borderLeft = '4px solid #e67e22';
-    resultEl.innerHTML = `📋 <strong>Nên theo dõi thêm và tham vấn bác sĩ.</strong><br>
-      Bé có ${checkedCount} dấu hiệu. Ghi lại ngày xuất hiện và tái kiểm tra sau 1–2 tháng.`;
-  } else {
-    resultEl.style.background = '#eef5f1';
-    resultEl.style.borderLeft = '4px solid #3D6B58';
-    resultEl.innerHTML = `✅ <strong>Chưa có dấu hiệu đáng lo ngại.</strong><br>
-      Tiếp tục theo dõi định kỳ mỗi 3 tháng.`;
-  }
-}
-// ════════════════════════════════════════════════════════
+   
+ // ════════════════════════════════════════════════════════
 // HEIGHT ADVICE (khoa học)
 // ════════════════════════════════════════════════════════
 function getHeightAdvice(age, gender, percentile) {
