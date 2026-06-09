@@ -1477,6 +1477,8 @@ function renderHeightModule() {
   const percentile = getPercentile(current, age, gender);
   const predicted = predictAdultHeight(current, age, gender);
 
+   renderPrediction(predicted);
+   
 function renderPrediction(predicted) {
   const predEl    = document.getElementById('hstat-predicted');
   const predBadge = document.getElementById('hstat-predicted-badge');
