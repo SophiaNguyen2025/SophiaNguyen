@@ -1527,7 +1527,7 @@ function renderPrediction(predicted) {
     note.innerHTML = noteHTML;
     predEl.closest('.height-stat-card').appendChild(note);
  
-  } else if (predicted.type === 'range') {
+  } else renderPrediction(predicted); {
     predEl.textContent    = `${predicted.lo}–${predicted.hi}`;
     predEl.style.fontSize = '18px';
     predUnit.textContent  = 'cm';
