@@ -1089,27 +1089,37 @@ function checkEarlyPuberty(heightRecords, age, gender) {
    const PUBERTY_SIGNS = {
   female: {
     main: [
-      { id:'f1', text:'Ngực bắt đầu to, có thể thấy "quả trám" cứng dưới núm vú — kể cả bé thừa cân (dễ nhầm với mô mỡ)' },
+      { id:'f1', text:'Ngực phát triển — núm vú nhô lên, quầng vú to hơn, có thể sờ thấy mô cứng dưới núm vú; một bên có thể phát triển trước bên kia (dấu hiệu đầu tiên và có giá trị nhất)' },
+      { id:'f2', text:'Tăng chiều cao rất nhanh trong thời gian ngắn, vượt hẳn các bạn cùng tuổi (VD: trẻ 6–7 tuổi tăng 8–10 cm/năm trở lên)' },
     ],
     sub: [
-      { id:'f2', text:'Chiều cao tăng vọt, cao vượt trội các bạn cùng lứa rõ rệt trong thời gian ngắn' },
-      { id:'f3', text:'Mọc lông mu hoặc lông nách' },
-      { id:'f4', text:'Có kinh nguyệt (hành kinh)' },
+      { id:'f3', text:'Mọc lông mu — ban đầu mềm, mảnh; sau đó đậm màu và cứng hơn' },
+      { id:'f4', text:'Mọc lông nách sớm hơn tuổi bình thường' },
+      { id:'f5', text:'Thay đổi hình dáng cơ thể: hông nở, tích mỡ ở ngực/mông/đùi, dáng vẻ thiếu nữ rõ hơn' },
+      { id:'f6', text:'Xuất hiện mùi cơ thể người lớn: mồ hôi có mùi rõ hơn, cần dùng lăn khử mùi sớm hơn bạn cùng lứa' },
+      { id:'f7', text:'Da nhờn, nổi mụn đầu trắng/đen hoặc mụn viêm; tóc bết dầu nhanh hơn trước' },
+      { id:'f8', text:'Khí hư xuất hiện — dịch tiết âm đạo màu trắng hoặc trong, không mùi hôi (thường báo trước kỳ kinh vài tháng đến vài năm)' },
+      { id:'f9', text:'Có kinh nguyệt trước 9 tuổi' },
+      { id:'f10', text:'Thay đổi cảm xúc rõ rệt: nhạy cảm hơn, dễ buồn/cáu, tâm trạng thất thường; bắt đầu quan tâm nhiều đến ngoại hình, quần áo, ngại thay đồ trước người khác' },
     ]
   },
   male: {
     main: [
-      { id:'m1', text:'Tinh hoàn to hơn bình thường, dương vật phát triển nhanh' },
+      { id:'m1', text:'Tinh hoàn to hơn bình thường, dương vật phát triển nhanh (dấu hiệu đầu tiên điển hình ở bé trai)' },
+      { id:'m2', text:'Tăng chiều cao rất nhanh trong thời gian ngắn, vượt hẳn các bạn cùng tuổi' },
     ],
     sub: [
-      { id:'m2', text:'Chiều cao tăng vọt, cao vượt trội các bạn cùng lứa rõ rệt trong thời gian ngắn' },
-      { id:'m3', text:'Mọc lông mu hoặc lông nách' },
-      { id:'m4', text:'Giọng bắt đầu vỡ (bể tiếng)' },
-      { id:'m5', text:'Mọc mụn trứng cá' },
+      { id:'m3', text:'Mọc lông mu — ban đầu mềm, mảnh; sau đó đậm màu và cứng hơn' },
+      { id:'m4', text:'Mọc lông nách sớm hơn tuổi bình thường' },
+      { id:'m5', text:'Xuất hiện mùi cơ thể người lớn: mồ hôi có mùi rõ hơn, cần dùng lăn khử mùi' },
+      { id:'m6', text:'Da nhờn, nổi mụn đầu trắng/đen hoặc mụn viêm; tóc bết dầu nhanh' },
+      { id:'m7', text:'Giọng bắt đầu vỡ (bể tiếng)' },
+      { id:'m8', text:'Cơ bắp phát triển hơn so với bạn cùng tuổi' },
+      { id:'m9', text:'Thay đổi cảm xúc: nhạy cảm hơn, dễ cáu; bắt đầu quan tâm đến ngoại hình' },
     ]
   }
 };
-
+ 
 let pubertyChecked = {};
 
 function renderEarlyPubertyChecklist(age, gender) {
@@ -1117,23 +1127,30 @@ function renderEarlyPubertyChecklist(age, gender) {
   if (!container) return;
   if (age >= 10) { container.style.display = 'none'; return; }
   container.style.display = 'block';
-
+ 
   const earlyAge = gender === 'female' ? 8 : 9;
   const signs = gender === 'female' ? PUBERTY_SIGNS.female : PUBERTY_SIGNS.male;
-
+ 
   document.getElementById('pubertyAgeNote').textContent =
     gender === 'female'
-      ? 'Dấu hiệu xuất hiện trước 8 tuổi (hoặc có kinh trước 9.5 tuổi) = dậy thì sớm, cần đi khám ngay'
-      : 'Dấu hiệu xuất hiện trước 9 tuổi = dậy thì sớm, cần đi khám ngay';
-
+      ? `Dấu hiệu chính xuất hiện trước 8 tuổi = dậy thì sớm, cần đưa bé đến bác sĩ Nội tiết Nhi ngay`
+      : `Dấu hiệu chính xuất hiện trước 9 tuổi = dậy thì sớm, cần đưa bé đến bác sĩ Nội tiết Nhi ngay`;
+ 
   document.getElementById('pubertyChecklistItems').innerHTML = `
     <div style="background:#fff3cd;border-left:4px solid #e67e22;border-radius:8px;
       padding:12px 14px;margin-bottom:14px;font-size:12.5px;color:#5a3e00;line-height:1.7">
-      ⚠️ <strong>Ba mẹ lưu ý:</strong> Hãy tick vào những dấu hiệu ba mẹ đã 
-      <strong>thực sự quan sát thấy</strong> ở bé. Đây là công cụ hỗ trợ — 
+      ⚠️ <strong>Ba mẹ lưu ý:</strong> Chỉ tick vào những dấu hiệu ba mẹ đã
+      <strong>thực sự quan sát thấy</strong> ở bé. Đây là công cụ hỗ trợ —
       <strong>không thay thế chẩn đoán y tế.</strong>
     </div>
-
+ 
+    <div style="background:#fdecea;border-radius:8px;padding:10px 14px;margin-bottom:14px;
+      font-size:12px;color:#7b1a1a;line-height:1.6">
+      💡 <strong>Lưu ý quan trọng:</strong> Không phải ngực to lên đều là dậy thì sớm —
+      có thể do thừa cân (mô mỡ), phát triển tuyến vú đơn thuần, hoặc tiếp xúc estrogen
+      từ thuốc/mỹ phẩm. Bác sĩ sẽ đánh giá qua <strong>tuổi xương, siêu âm, xét nghiệm hormone</strong>.
+    </div>
+ 
     <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
       color:#C2416B;margin:12px 0 8px">
       🔴 Dấu hiệu chính — chỉ cần 1 là cần đi khám ngay
@@ -1142,15 +1159,15 @@ function renderEarlyPubertyChecklist(age, gender) {
       <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 0;
         border-bottom:1px solid rgba(226,106,138,.15)">
         <div onclick="togglePubertySign('${s.id}')" id="psign-${s.id}"
-          style="width:22px;height:22px;border-radius:6px;border:2px solid #E86A8A;margin-top:1px;
+          style="width:22px;height:22px;border-radius:6px;border:2px solid #E86A8A;margin-top:2px;
           flex-shrink:0;display:flex;align-items:center;justify-content:center;cursor:pointer;
-          background:${pubertyChecked[s.id]?'#E86A8A':'transparent'}">
-          ${pubertyChecked[s.id]?'<span style="color:white;font-size:12px;font-weight:700">✓</span>':''}
+          background:${pubertyChecked[s.id] ? '#E86A8A' : 'transparent'}">
+          ${pubertyChecked[s.id] ? '<span style="color:white;font-size:12px;font-weight:700">✓</span>' : ''}
         </div>
         <div style="font-size:13px;color:#3D2030;line-height:1.6">${s.text}</div>
       </div>
     `).join('')}
-
+ 
     <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
       color:#e67e22;margin:14px 0 8px">
       🟡 Dấu hiệu phụ — 2 dấu hiệu trở lên nên đưa bé đi khám
@@ -1159,19 +1176,18 @@ function renderEarlyPubertyChecklist(age, gender) {
       <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 0;
         border-bottom:1px solid rgba(226,106,138,.15)">
         <div onclick="togglePubertySign('${s.id}')" id="psign-${s.id}"
-          style="width:22px;height:22px;border-radius:6px;border:2px solid #e67e22;margin-top:1px;
+          style="width:22px;height:22px;border-radius:6px;border:2px solid #e67e22;margin-top:2px;
           flex-shrink:0;display:flex;align-items:center;justify-content:center;cursor:pointer;
-          background:${pubertyChecked[s.id]?'#e67e22':'transparent'}">
-          ${pubertyChecked[s.id]?'<span style="color:white;font-size:12px;font-weight:700">✓</span>':''}
+          background:${pubertyChecked[s.id] ? '#e67e22' : 'transparent'}">
+          ${pubertyChecked[s.id] ? '<span style="color:white;font-size:12px;font-weight:700">✓</span>' : ''}
         </div>
         <div style="font-size:13px;color:#3D2030;line-height:1.6">${s.text}</div>
       </div>
     `).join('')}
   `;
-
+ 
   evaluatePubertySigns(age, gender);
 }
-
 function togglePubertySign(id) {
   pubertyChecked[id] = !pubertyChecked[id];
   const age    = calcAge(selectedChildObj?.birthday);
@@ -1181,49 +1197,50 @@ function togglePubertySign(id) {
 
 function evaluatePubertySigns(age, gender) {
   const resultEl = document.getElementById('pubertyResult');
-  const earlyAge = gender === 'female' ? 8 : 9;
   const signs    = gender === 'female' ? PUBERTY_SIGNS.female : PUBERTY_SIGNS.male;
-
-  const hasMain    = signs.main.some(s => pubertyChecked[s.id]);
+ 
+  const hasMain    = signs.main.some(s  => pubertyChecked[s.id]);
   const subChecked = signs.sub.filter(s => pubertyChecked[s.id]);
-  const hasKinh    = pubertyChecked['f4'];
-
+  const hasKinh    = pubertyChecked['f9']; // có kinh nguyệt sớm
+ 
   if (!hasMain && subChecked.length === 0) {
     resultEl.style.display = 'none';
     return;
   }
   resultEl.style.display = 'block';
-
-  // 🔴 Có dấu hiệu CHÍNH, hoặc có kinh trước 9.5 tuổi
-  if (hasMain || (hasKinh && age < 9.5)) {
-    resultEl.style.background = '#fdecea';
-    resultEl.style.borderLeft = '4px solid #c0392b';
+ 
+  // 🔴 Có dấu hiệu CHÍNH hoặc có kinh trước 9 tuổi
+  if (hasMain || (hasKinh && age < 9)) {
+    resultEl.style.background  = '#fdecea';
+    resultEl.style.borderLeft  = '4px solid #c0392b';
     resultEl.innerHTML = `
-      🚨 <strong>Cần đưa bé đi khám Bác sĩ Nội tiết Nhi ngay!</strong><br><br>
-      Bé ${age} tuổi đã có dấu hiệu chính của dậy thì — xuất hiện trước ${earlyAge} tuổi 
-      là dậy thì sớm, cần đánh giá y tế kịp thời.<br><br>
-      Bác sĩ sẽ chỉ định:<br>
-      • <strong>Chụp X-quang tuổi xương bàn tay</strong><br>
-      • <strong>Siêu âm ${gender==='female'?'tử cung, buồng trứng':'bụng'}</strong><br>
-      • <strong>Xét nghiệm máu nội tiết</strong> 
-        (LH, FSH, ${gender==='female'?'Estradiol':'Testosterone'})<br><br>
-      <span style="font-size:12px;color:#888">
-        Phát hiện sớm giúp bảo vệ chiều cao tối đa và tâm lý cho bé.
-      </span>
+      🚨 <strong>Cần đưa bé đến Bác sĩ Nội tiết Nhi sớm nhất có thể!</strong><br><br>
+      Bé ${age} tuổi đã có dấu hiệu chính của dậy thì — xuất hiện trước
+      ${gender === 'female' ? '8' : '9'} tuổi là dậy thì sớm cần được đánh giá y tế kịp thời.<br><br>
+      <strong>Bác sĩ sẽ chỉ định:</strong><br>
+      • Chụp X-quang <strong>tuổi xương bàn tay</strong> để đánh giá tốc độ trưởng thành xương<br>
+      • Siêu âm <strong>${gender === 'female' ? 'tử cung và buồng trứng' : 'bụng'}</strong><br>
+      • Xét nghiệm máu nội tiết
+        (LH, FSH, ${gender === 'female' ? 'Estradiol' : 'Testosterone'})<br><br>
+      <div style="background:rgba(192,57,43,.08);border-radius:6px;padding:10px;margin-top:4px;font-size:12px;line-height:1.6">
+        ℹ️ <strong>Lưu ý:</strong> Ngực to không phải lúc nào cũng là dậy thì sớm.
+        Bác sĩ cần kết hợp nhiều yếu tố (tuổi xương, hormone, siêu âm) để kết luận.
+        Phát hiện và can thiệp sớm giúp <strong>bảo vệ chiều cao tối đa</strong> và sức khỏe tâm lý cho bé.
+      </div>
     `;
-
+ 
   // 🟡 Có 2+ dấu hiệu phụ
   } else if (subChecked.length >= 2) {
     resultEl.style.background = '#fff8e1';
     resultEl.style.borderLeft = '4px solid #e67e22';
     resultEl.innerHTML = `
-      ⚠️ <strong>Nên đưa bé đi khám bác sĩ Nhi để theo dõi.</strong><br><br>
-      Bé có ${subChecked.length} dấu hiệu phụ — chưa kết luận dậy thì sớm nhưng 
-      cần bác sĩ đánh giá loại trừ.<br><br>
-      Ba mẹ <strong>ghi lại ngày xuất hiện</strong> từng dấu hiệu và tái khám sau 
-      <strong>1–3 tháng</strong>. Nếu xuất hiện dấu hiệu chính 🔴 → đi khám ngay.
+      ⚠️ <strong>Nên đưa bé đi khám bác sĩ Nhi để đánh giá.</strong><br><br>
+      Bé có <strong>${subChecked.length} dấu hiệu phụ</strong> — chưa kết luận dậy thì sớm
+      nhưng cần bác sĩ loại trừ và theo dõi.<br><br>
+      Ba mẹ hãy <strong>ghi lại ngày xuất hiện</strong> từng dấu hiệu và tái khám sau
+      <strong>1–3 tháng</strong>. Nếu xuất hiện dấu hiệu chính 🔴 → đưa bé đi khám ngay.
     `;
-
+ 
   // 🟢 Chỉ 1 dấu hiệu phụ
   } else {
     resultEl.style.background = '#eef5f1';
@@ -1231,12 +1248,11 @@ function evaluatePubertySigns(age, gender) {
     resultEl.innerHTML = `
       📋 <strong>Theo dõi thêm tại nhà.</strong><br><br>
       1 dấu hiệu phụ đơn lẻ có thể là biến đổi sinh lý bình thường.<br>
-      Ba mẹ <strong>đo chiều cao mỗi 3 tháng</strong> và quan sát thêm. 
-      Nếu có thêm dấu hiệu → tick lại để xem kết quả mới.
+      Ba mẹ <strong>đo chiều cao mỗi 3 tháng</strong> và quan sát thêm.
+      Nếu xuất hiện thêm dấu hiệu → tick lại để xem kết quả mới.
     `;
   }
-}
-   
+}   
  // ════════════════════════════════════════════════════════
 // HEIGHT ADVICE (khoa học)
 // ════════════════════════════════════════════════════════
