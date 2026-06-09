@@ -1079,6 +1079,7 @@ function checkEarlyPuberty(heightRecords, age, gender) {
     main: [
       { id:'f1', text:'Ngực phát triển — núm vú nhô lên, quầng vú to hơn, có thể sờ thấy mô cứng dưới núm vú; một bên có thể phát triển trước bên kia (dấu hiệu đầu tiên và có giá trị nhất)' },
       { id:'f2', text:'Tăng chiều cao rất nhanh trong thời gian ngắn, vượt hẳn các bạn cùng tuổi (VD: trẻ 6–7 tuổi tăng 8–10 cm/năm trở lên)' },
+       { id:'f9', text:'Có kinh nguyệt trước 9 tuổi' },
     ],
     sub: [
       { id:'f3', text:'Mọc lông mu — ban đầu mềm, mảnh; sau đó đậm màu và cứng hơn' },
@@ -1087,7 +1088,6 @@ function checkEarlyPuberty(heightRecords, age, gender) {
       { id:'f6', text:'Xuất hiện mùi cơ thể người lớn: mồ hôi có mùi rõ hơn, cần dùng lăn khử mùi sớm hơn bạn cùng lứa' },
       { id:'f7', text:'Da nhờn, nổi mụn đầu trắng/đen hoặc mụn viêm; tóc bết dầu nhanh hơn trước' },
       { id:'f8', text:'Khí hư xuất hiện — dịch tiết âm đạo màu trắng hoặc trong, không mùi hôi (thường báo trước kỳ kinh vài tháng đến vài năm)' },
-      { id:'f9', text:'Có kinh nguyệt trước 9 tuổi' },
       { id:'f10', text:'Thay đổi cảm xúc rõ rệt: nhạy cảm hơn, dễ buồn/cáu, tâm trạng thất thường; bắt đầu quan tâm nhiều đến ngoại hình, quần áo, ngại thay đồ trước người khác' },
     ]
   },
@@ -1198,7 +1198,7 @@ function evaluatePubertySigns(age, gender) {
   resultEl.style.display = 'block';
  
   // 🔴 Có dấu hiệu CHÍNH hoặc có kinh trước 9 tuổi
-  if (hasMain || (hasKinh && age < 9)) {
+  if (hasMain)) {
     resultEl.style.background  = '#fdecea';
     resultEl.style.borderLeft  = '4px solid #c0392b';
     resultEl.innerHTML = `
