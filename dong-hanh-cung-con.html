@@ -1477,9 +1477,6 @@ function renderHeightModule() {
   const current    = parseFloat(latest.height_cm);
   const percentile = getPercentile(current, age, gender);
   const predicted = predictAdultHeight(current, age, gender);
-const predEl    = document.getElementById('hstat-predicted');
-const predBadge = document.getElementById('hstat-predicted-badge');
-const predUnit  = predEl.nextElementSibling; // div "cm"
 
 function renderPrediction(predicted) {
   const predEl    = document.getElementById('hstat-predicted');
@@ -1527,7 +1524,7 @@ function renderPrediction(predicted) {
     note.innerHTML = noteHTML;
     predEl.closest('.height-stat-card').appendChild(note);
  
-  } else renderPrediction(predicted); {
+  } else if (predicted.type === 'range')  {
     predEl.textContent    = `${predicted.lo}–${predicted.hi}`;
     predEl.style.fontSize = '18px';
     predUnit.textContent  = 'cm';
