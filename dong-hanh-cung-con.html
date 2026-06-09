@@ -132,7 +132,7 @@ body {
 @keyframes spin { to { transform: rotate(360deg); } }
 
 /* ── BUTTONS ── */
-.btn { display: inline-flex; align-items: center; gap: 6px; border: none; cursor: pointer; font-family: var(--font-body); font-weight: 600; transition: all .2s; border-radius: 999px; }
+.btn { display: inline-fl0ex; align-items: center; gap: 6px; border: none; cursor: pointer; font-family: var(--font-body); font-weight: 600; transition: all .2s; border-radius: 999px; }
 .btn-primary { background: var(--sage-dark); color: var(--white); padding: 13px 28px; font-size: 15px; }
 .btn-primary:hover { background: var(--sage); transform: translateY(-1px); }
 .btn-ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--divider); padding: 12px 24px; font-size: 14px; }
@@ -1017,18 +1017,6 @@ function getPercentile(height, age, gender) {
   return 97;
 }
 
-
-const PCT_ADULT_BOYS = {
-  5:0.617, 6:0.647, 7:0.677, 8:0.706, 9:0.735,
-  10:0.764, 11:0.792, 12:0.822, 13:0.858, 14:0.895,
-  15:0.930, 16:0.958, 17:0.978, 18:0.991
-};
-const PCT_ADULT_GIRLS = {
-  5:0.672, 6:0.703, 7:0.733, 8:0.762, 9:0.793,
-  10:0.826, 11:0.862, 12:0.897, 13:0.929, 14:0.953,
-  15:0.968, 16:0.978, 17:0.986, 18:0.993
-};
-
 function predictAdultHeight(currentHeight, age, gender) {
   const child = selectedChildObj;
   const fH = child?.father_height;
@@ -1057,7 +1045,7 @@ function checkEarlyPuberty(heightRecords, age, gender) {
     const months = (new Date(latest.recorded_date) - new Date(prev.recorded_date)) / (1000*60*60*24*30.44);
     if (months > 0) {
       const cmPerYear = (latest.height_cm - prev.height_cm) / months * 12;
-      if (age < earlyAge && cmPerYear > 6) {
+      if (age <= earlyAge && cmPerYear > 6) {
         warnings.push({
           level: 'danger',
           text: `⚠️ Tốc độ tăng chiều cao ${cmPerYear.toFixed(1)}cm/năm — cao bất thường với bé ${gender==='female'?'gái':'trai'} dưới ${earlyAge} tuổi. Nên tham vấn bác sĩ nội tiết nhi.`
