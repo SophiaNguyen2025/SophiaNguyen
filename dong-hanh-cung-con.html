@@ -1580,26 +1580,220 @@ function renderHeightAdvice(age, gender, percentile) {
 // ════════════════════════════════════════════════════════
 function getChecklistForAge(age, gender, cat) {
   if (cat === 'study') {
-    if (age <= 5) return [{task:'Nhận biết mặt chữ cái và số',desc:'Làm quen với bảng chữ cái, số 1-10 qua trò chơi.'},{task:'Tập tô màu và vẽ',desc:'Phát triển kỹ năng vận động tinh.'},{task:'Nghe kể chuyện và kể lại',desc:'Phát triển ngôn ngữ và trí nhớ.'},{task:'Làm quen với sách tranh',desc:'Xây dựng thói quen đọc sách từ sớm.'},{task:'Học hát và đọc thơ',desc:'Phát triển ngôn ngữ và cảm xúc.'}];
-    if (age <= 10) return [{task:'Hoàn thành bài tập về nhà đúng hạn',desc:'Rèn tính tự giác và trách nhiệm.'},{task:'Đọc sách 15 phút mỗi ngày',desc:'Xây dựng thói quen đọc sách.'},{task:'Học thuộc bảng cửu chương',desc:'Nền tảng cho toán học sau này.'},{task:'Luyện viết chữ đẹp',desc:'Rèn tính kiên nhẫn và tỉ mỉ.'},{task:'Tham gia hoạt động nhóm',desc:'Phát triển kỹ năng hợp tác.'}];
-    return [{task:'Lập thời gian biểu học tập',desc:'Rèn kỹ năng quản lý thời gian.'},{task:'Ôn tập kiến thức mỗi tối 10 phút',desc:'Thói quen nhỏ giúp ghi nhớ lâu hơn.'},{task:'Đặt mục tiêu học tập học kỳ',desc:'Học cách lập kế hoạch dài hạn.'},{task:'Làm bài kiểm tra thử trước kỳ thi',desc:'Làm quen áp lực phòng thi.'},{task:'Tìm kiếm tài liệu tham khảo',desc:'Rèn kỹ năng tự học suốt đời.'}];
+    if (age <= 5) return [
+      {task:'Nhận biết mặt chữ cái và số 1–10',desc:'Làm quen qua trò chơi, bài hát, thẻ hình.'},
+      {task:'Tập tô màu và vẽ trong đường kẻ',desc:'Phát triển vận động tinh, sự tập trung.'},
+      {task:'Nghe kể chuyện và kể lại được đại ý',desc:'Phát triển ngôn ngữ và trí nhớ ngắn hạn.'},
+      {task:'Làm quen với sách tranh, lật từng trang',desc:'Xây dựng thói quen đọc sách từ sớm.'},
+      {task:'Học hát và đọc thơ ngắn thuộc lòng',desc:'Phát triển ngôn ngữ và cảm xúc.'},
+      {task:'Nhận biết màu sắc cơ bản (đỏ, xanh, vàng)',desc:'Nền tảng tư duy phân loại.'},
+      {task:'Ghép hình đơn giản (puzzle 4–6 mảnh)',desc:'Phát triển tư duy không gian.'},
+      {task:'Biết viết tên mình (hoặc tập nét cơ bản)',desc:'Chuẩn bị cho kỹ năng viết sau này.'},
+    ];
+    if (age <= 10) return [
+      {task:'Hoàn thành bài tập về nhà trước khi chơi',desc:'Rèn tính tự giác và trách nhiệm.'},
+      {task:'Đọc sách 15–20 phút mỗi ngày',desc:'Xây dựng thói quen đọc sách bền vững.'},
+      {task:'Học thuộc bảng cửu chương đến 10',desc:'Nền tảng toán học không thể thiếu.'},
+      {task:'Luyện viết chữ đẹp, đúng cỡ',desc:'Rèn tính kiên nhẫn và tỉ mỉ.'},
+      {task:'Biết tra từ điển hoặc tìm thông tin đơn giản',desc:'Kỹ năng tự học cơ bản.'},
+      {task:'Tham gia phát biểu trong lớp ít nhất 1 lần/tuần',desc:'Phát triển sự tự tin khi nói trước đám đông.'},
+      {task:'Lập thời gian biểu học–chơi trong ngày',desc:'Học cách quản lý thời gian từ sớm.'},
+      {task:'Biết cách trình bày bài làm sạch sẽ, rõ ràng',desc:'Rèn tư duy có tổ chức.'},
+      {task:'Đọc và hiểu đề bài trước khi làm',desc:'Tránh sai do không đọc kỹ đề.'},
+      {task:'Biết xin lỗi và sửa lỗi khi làm bài sai',desc:'Hình thành thái độ học tập tích cực.'},
+    ];
+    if (age <= 15) return [
+      {task:'Lập thời gian biểu học tập theo tuần',desc:'Rèn kỹ năng quản lý thời gian dài hạn.'},
+      {task:'Ôn tập kiến thức mỗi tối 20–30 phút',desc:'Thói quen nhỏ giúp ghi nhớ lâu hơn.'},
+      {task:'Đặt mục tiêu học tập cụ thể cho học kỳ',desc:'Học cách lập kế hoạch và theo dõi tiến độ.'},
+      {task:'Làm bài kiểm tra thử trước kỳ thi',desc:'Làm quen áp lực và phát hiện lỗ hổng kiến thức.'},
+      {task:'Biết tìm tài liệu tham khảo từ nhiều nguồn',desc:'Rèn kỹ năng tự học suốt đời.'},
+      {task:'Ghi chú bài học bằng sơ đồ tư duy',desc:'Tăng khả năng ghi nhớ và hệ thống hóa kiến thức.'},
+      {task:'Biết đặt câu hỏi khi không hiểu bài',desc:'Chủ động trong học tập, không ngại hỏi.'},
+      {task:'Tham gia ít nhất 1 hoạt động ngoại khóa',desc:'Phát triển kỹ năng mềm ngoài sách vở.'},
+      {task:'Biết trình bày ý kiến trước nhóm/lớp',desc:'Phát triển kỹ năng thuyết trình.'},
+      {task:'Đọc ít nhất 1 cuốn sách mỗi tháng',desc:'Mở rộng vốn kiến thức và ngôn ngữ.'},
+      ...(gender==='female'?[
+        {task:'Biết cân bằng học tập khi cơ thể thay đổi',desc:'Hiểu rằng dậy thì có thể ảnh hưởng tập trung — là bình thường.'},
+      ]:[
+        {task:'Biết kiểm soát sự xao nhãng khi học',desc:'Đặc biệt quan trọng với bé trai tuổi dậy thì.'},
+      ]),
+    ];
+    return [
+      {task:'Tự lập kế hoạch ôn thi không cần nhắc nhở',desc:'Kỹ năng tự quản lý quan trọng cho tương lai.'},
+      {task:'Biết phân loại môn học ưu tiên theo điểm yếu',desc:'Học hiệu quả hơn bằng cách tập trung đúng chỗ.'},
+      {task:'Tìm hiểu về ngành nghề yêu thích',desc:'Định hướng sớm giúp chọn môn học phù hợp.'},
+      {task:'Biết đọc và tóm tắt văn bản dài',desc:'Kỹ năng cần thiết cho học đại học và làm việc.'},
+      {task:'Tham gia học nhóm hiệu quả',desc:'Biết lắng nghe, đóng góp và phân chia công việc.'},
+      {task:'Biết tự đánh giá điểm mạnh/yếu của bản thân',desc:'Tư duy phản tỉnh giúp phát triển liên tục.'},
+      {task:'Đọc ít nhất 2 cuốn sách/tháng (văn học + kiến thức)',desc:'Mở rộng tư duy đa chiều.'},
+      {task:'Biết sử dụng công nghệ hỗ trợ học tập đúng cách',desc:'Tận dụng AI, app học tập thay vì dùng để giải trí.'},
+    ];
   }
+
   if (cat === 'skills') {
-    if (age <= 5) return [{task:'Tự cất đồ chơi sau khi chơi',desc:'Rèn tính ngăn nắp và trách nhiệm.'},{task:'Tự xúc cơm ăn',desc:'Phát triển kỹ năng vận động và tự lập.'},{task:'Biết nói "cảm ơn" và "xin lỗi"',desc:'Rèn phép lịch sự cơ bản.'},{task:'Tự đi vệ sinh đúng nơi quy định',desc:'Kỹ năng tự phục vụ cơ bản.'},{task:'Biết chào hỏi người lớn',desc:'Rèn kỹ năng giao tiếp xã hội.'}];
-    if (age <= 10) return [{task:'Tự mặc quần áo, đi giày',desc:'Rèn tính tự lập hàng ngày.'},{task:'Pha một ly nước cho ba mẹ',desc:'Thể hiện lòng biết ơn.'},{task:'Tự chuẩn bị đồ dùng học tập',desc:'Rèn tính tự lập và chủ động.'},{task:'Biết nhận lỗi và xin lỗi',desc:'Dạy con về trách nhiệm.'},{task:'Giúp đỡ việc nhà nhẹ nhàng',desc:'Rèn tinh thần trách nhiệm.'}];
-    return [{task:'Tự chuẩn bị bữa sáng đơn giản',desc:'Kỹ năng nấu ăn cơ bản.'},{task:'Biết cách quản lý tiền tiêu vặt',desc:'Hình thành thói quen tài chính.'},{task:'Biết cách từ chối khi bị rủ rê',desc:'Rèn bản lĩnh bảo vệ bản thân.'},{task:'Tự giặt đồ, ủi đồ',desc:'Kỹ năng sinh hoạt độc lập.'},{task:'Lên kế hoạch chi tiêu',desc:'Quản lý tài chính cá nhân.'}];
+    if (age <= 5) return [
+      {task:'Tự cất đồ chơi sau khi chơi xong',desc:'Rèn tính ngăn nắp và trách nhiệm với đồ vật.'},
+      {task:'Tự xúc cơm ăn không đổ',desc:'Phát triển vận động tinh và tính tự lập.'},
+      {task:'Biết nói "cảm ơn", "xin lỗi", "làm ơn"',desc:'Rèn phép lịch sự cơ bản trong giao tiếp.'},
+      {task:'Tự đi vệ sinh và rửa tay sau đó',desc:'Kỹ năng tự phục vụ và vệ sinh cá nhân.'},
+      {task:'Biết chào hỏi người lớn khi gặp',desc:'Rèn kỹ năng giao tiếp xã hội cơ bản.'},
+      {task:'Tự mặc quần áo đơn giản',desc:'Phát triển tính tự lập trong sinh hoạt hàng ngày.'},
+      {task:'Biết chia sẻ đồ chơi với bạn',desc:'Nền tảng của kỹ năng làm việc nhóm sau này.'},
+      {task:'Nhận biết và gọi tên cảm xúc của mình',desc:'Nền tảng trí tuệ cảm xúc (EQ).'},
+    ];
+    if (age <= 10) return [
+      {task:'Tự chuẩn bị cặp sách và đồ dùng học tập',desc:'Rèn tính tự lập và chủ động.'},
+      {task:'Giúp đỡ việc nhà phù hợp lứa tuổi',desc:'Rèn tinh thần trách nhiệm với gia đình.'},
+      {task:'Biết nhận lỗi và xin lỗi chân thành',desc:'Dạy con về trách nhiệm và lòng dũng cảm.'},
+      {task:'Pha nước, rót nước mời khách',desc:'Rèn kỹ năng tiếp khách và lòng biết ơn.'},
+      {task:'Biết giải quyết mâu thuẫn với bạn bằng lời nói',desc:'Kỹ năng xử lý xung đột không bạo lực.'},
+      {task:'Biết từ chối điều không muốn một cách lịch sự',desc:'Nền tảng kỹ năng bảo vệ bản thân.'},
+      {task:'Tự giặt đồ nhỏ (vớ, khăn tay)',desc:'Kỹ năng tự chăm sóc bản thân.'},
+      {task:'Biết lắng nghe khi người khác nói',desc:'Kỹ năng giao tiếp quan trọng suốt đời.'},
+      {task:'Quản lý tiền tiêu vặt trong tuần',desc:'Hình thành ý thức tài chính từ sớm.'},
+      {task:'Biết xử lý khi bị bạn bè trêu chọc',desc:'Rèn bản lĩnh và kỹ năng ứng xử.'},
+    ];
+    if (age <= 15) return [
+      {task:'Tự nấu được 1–2 món ăn đơn giản',desc:'Kỹ năng sinh tồn cơ bản và tự lập.'},
+      {task:'Biết quản lý tiền tiêu vặt theo tuần/tháng',desc:'Hình thành thói quen tài chính lành mạnh.'},
+      {task:'Biết cách từ chối khi bị áp lực bạn bè',desc:'Rèn bản lĩnh và khả năng bảo vệ bản thân.'},
+      {task:'Tự giặt và ủi quần áo của mình',desc:'Kỹ năng sinh hoạt độc lập.'},
+      {task:'Biết xin lỗi và tha thứ trong các mối quan hệ',desc:'Kỹ năng duy trì tình bạn lành mạnh.'},
+      {task:'Biết đặt giới hạn trong tình bạn',desc:'Không để bạn bè lợi dụng hay ép buộc.'},
+      {task:'Biết quản lý thời gian dùng điện thoại/mạng xã hội',desc:'Tự kiểm soát — kỹ năng thiết yếu thời đại số.'},
+      {task:'Biết nói chuyện với ba mẹ khi gặp vấn đề',desc:'Duy trì kênh giao tiếp tin cậy trong gia đình.'},
+      ...(gender==='female'?[
+        {task:'Biết chăm sóc bản thân khi có kinh nguyệt',desc:'Vệ sinh đúng cách, xử lý cơn đau bụng kinh.'},
+        {task:'Biết nhận diện và thoát khỏi tình huống không an toàn',desc:'Đặc biệt quan trọng với bé gái tuổi dậy thì.'},
+      ]:[
+        {task:'Biết kiểm soát cảm xúc khi tức giận',desc:'Đặc biệt quan trọng với bé trai tuổi dậy thì.'},
+        {task:'Biết thể hiện cảm xúc bằng lời thay vì hành động',desc:'Nền tảng sức khỏe tâm lý và các mối quan hệ.'},
+      ]),
+    ];
+    return [
+      {task:'Biết lập kế hoạch chi tiêu cá nhân',desc:'Nền tảng tài chính cho người trưởng thành.'},
+      {task:'Biết nấu ăn đủ bữa cho bản thân',desc:'Kỹ năng tự lập hoàn toàn.'},
+      {task:'Biết sơ cứu cơ bản (băng bó, CPR)',desc:'Kỹ năng có thể cứu sống người khác.'},
+      {task:'Biết cách ứng xử chuyên nghiệp',desc:'Cần thiết khi đi làm thêm hoặc thực tập.'},
+      {task:'Biết đặt mục tiêu và theo dõi tiến độ',desc:'Kỹ năng tự quản lý quan trọng nhất.'},
+      {task:'Biết lắng nghe phản hồi và cải thiện',desc:'Tư duy phát triển (growth mindset).'},
+      {task:'Biết xây dựng và duy trì các mối quan hệ lành mạnh',desc:'Nền tảng hạnh phúc và thành công lâu dài.'},
+      {task:'Biết tự chăm sóc sức khỏe thể chất và tinh thần',desc:'Tự nhận biết khi nào cần nghỉ ngơi, tìm giúp đỡ.'},
+    ];
   }
+
   if (cat === 'safety') {
-    if (age <= 6) return [{task:'Thuộc lòng số điện thoại ba mẹ',desc:'Dùng trong trường hợp khẩn cấp.'},{task:'Biết quy tắc "Đồ bơi"',desc:'Vùng riêng tư không ai được chạm.'},{task:'Đánh răng 2 lần mỗi ngày',desc:'Duy trì vệ sinh răng miệng.'},{task:'Rửa tay bằng xà phòng trước khi ăn',desc:'Phòng tránh bệnh truyền nhiễm.'},{task:'Không nhận đồ từ người lạ',desc:'Thực hành qua tình huống giả định.'}];
-    if (age <= 10) return [{task:'Thuộc lòng số điện thoại ba mẹ',desc:'Dùng trong trường hợp khẩn cấp.'},{task:'Biết cách gọi 113/114/115',desc:'Nhận biết tình huống nguy hiểm.'},{task:'Biết quy tắc "Đồ bơi"',desc:'Vùng riêng tư không ai được chạm.'},{task:'Đánh răng 2 lần mỗi ngày',desc:'Duy trì vệ sinh răng miệng.'},{task:'Rửa tay bằng xà phòng trước khi ăn',desc:'Phòng tránh bệnh truyền nhiễm.'},{task:'An toàn khi dùng internet',desc:'Không chia sẻ thông tin cá nhân.'},{task:'Biết cách băng bó vết thương nhỏ',desc:'Kỹ năng sơ cứu cơ bản.'}];
-    if (age <= 15) { const items=[{task:'Thuộc lòng số điện thoại ba mẹ',desc:'Dùng trong trường hợp khẩn cấp.'},{task:'Biết cách gọi 113/114/115',desc:'Nhận biết tình huống nguy hiểm.'},{task:'An toàn khi sử dụng mạng xã hội',desc:'Không chia sẻ thông tin cá nhân.'},{task:'Biết cách băng bó vết thương nhỏ',desc:'Kỹ năng sơ cứu cơ bản.'}]; if(gender==='female') items.push({task:'Hiểu về chu kỳ kinh nguyệt',desc:'Chuẩn bị tâm lý và kiến thức cho tuổi dậy thì.'}); else items.push({task:'Hiểu về sự thay đổi giọng nói và cơ thể',desc:'Chuẩn bị tâm lý cho tuổi dậy thì.'}); return items; }
-    return [{task:'Hiểu về các bệnh lây truyền qua đường tình dục',desc:'Kiến thức quan trọng cho tuổi trưởng thành.'},{task:'Biết cách nói "không" với rượu bia, thuốc lá',desc:'Kỹ năng từ chối trong áp lực bạn bè.'},{task:'Biết cách kiểm tra sức khỏe định kỳ',desc:'Chủ động chăm sóc sức khỏe bản thân.'},{task:'An toàn khi tham gia giao thông',desc:'Đội mũ bảo hiểm, không sử dụng điện thoại khi lái xe.'}];
+    if (age <= 6) return [
+      {task:'Thuộc lòng số điện thoại ba và mẹ',desc:'Dùng trong trường hợp khẩn cấp.'},
+      {task:'Biết quy tắc "Đồ bơi" — vùng riêng tư',desc:'Không ai được chạm vào vùng đồ bơi che.'},
+      {task:'Đánh răng sáng và tối mỗi ngày',desc:'Duy trì vệ sinh răng miệng từ sớm.'},
+      {task:'Rửa tay bằng xà phòng trước khi ăn và sau vệ sinh',desc:'Phòng tránh bệnh truyền nhiễm.'},
+      {task:'Không nhận đồ hoặc đi theo người lạ',desc:'Thực hành qua tình huống giả định với ba mẹ.'},
+      {task:'Biết dừng lại quan sát trước khi qua đường',desc:'An toàn giao thông cơ bản.'},
+      {task:'Không tự mở cửa cho người lạ khi ở nhà một mình',desc:'Kỹ năng an toàn tại nhà.'},
+      {task:'Biết hét to "KHÔNG" và chạy khi bị đe dọa',desc:'Phản xạ tự bảo vệ trong tình huống nguy hiểm.'},
+    ];
+    if (age <= 10) return [
+      {task:'Thuộc lòng số điện thoại ba mẹ và địa chỉ nhà',desc:'Thông tin khẩn cấp quan trọng nhất.'},
+      {task:'Biết cách gọi 113 (cảnh sát), 114 (cứu hỏa), 115 (cấp cứu)',desc:'Nhận biết tình huống nào gọi số nào.'},
+      {task:'Hiểu và thực hành quy tắc "Đồ bơi"',desc:'Vùng riêng tư — không ai được chạm, kể cả người thân.'},
+      {task:'Biết an toàn khi dùng internet và mạng xã hội',desc:'Không chia sẻ thông tin cá nhân, ảnh với người lạ online.'},
+      {task:'Biết cách băng bó vết thương nhỏ',desc:'Kỹ năng sơ cứu cơ bản.'},
+      {task:'Không chia sẻ mật khẩu với bất kỳ ai kể cả bạn thân',desc:'Bảo mật thông tin cá nhân từ sớm.'},
+      {task:'Biết nhận ra và báo cáo khi bị bắt nạt',desc:'Không im lặng khi bị bắt nạt.'},
+      {task:'Biết cách thoát ra khi bị kẹt trong tình huống nguy hiểm',desc:'Thực hành tình huống cháy nhà, người lạ...'},
+      {task:'Không giữ bí mật gây lo sợ với ba mẹ',desc:'Bí mật xấu luôn cần được nói ra.'},
+      {task:'Đội mũ bảo hiểm khi đi xe đạp, xe máy',desc:'An toàn giao thông — thói quen cần hình thành sớm.'},
+    ];
+    if (age <= 15) {
+      const items = [
+        {task:'Biết nhận diện các hình thức bắt nạt online (cyberbullying)',desc:'Không tham gia, không im lặng, báo ngay với người tin cậy.'},
+        {task:'Biết cách bảo vệ thông tin cá nhân trên mạng xã hội',desc:'Cài đặt riêng tư, không kết bạn với người lạ.'},
+        {task:'Biết cách gọi cấp cứu và sơ cứu cơ bản',desc:'Kỹ năng có thể cứu sống người thân.'},
+        {task:'Không đi một mình vào nơi vắng vẻ, tối tăm',desc:'Nhận thức về môi trường an toàn.'},
+        {task:'Biết cách thoát khỏi tình huống bị ép buộc, đe dọa',desc:'La to, chạy, tìm người giúp đỡ.'},
+        {task:'Không uống đồ uống do người lạ đưa',desc:'Phòng tránh bị bỏ thuốc mê hoặc chất kích thích.'},
+        {task:'Biết nhận ra dấu hiệu của mối quan hệ không lành mạnh',desc:'Kiểm soát, cô lập, đe dọa — không phải tình yêu.'},
+        {task:'Không chia sẻ hình ảnh riêng tư lên mạng',desc:'Một khi đã đăng lên, không thể xóa hoàn toàn.'},
+      ];
+      if (gender==='female') items.push(
+        {task:'Biết cách xử lý khi bị quấy rối nơi công cộng',desc:'La to, rời đi, kể lại với người tin cậy.'},
+        {task:'Luôn báo ba mẹ biết mình đang ở đâu khi ra ngoài',desc:'Đặc biệt quan trọng với bé gái.'},
+      );
+      else items.push(
+        {task:'Biết kiểm soát hành vi khi tức giận để không gây hại cho người khác',desc:'Trách nhiệm với hành động của bản thân.'},
+        {task:'Không tham gia vào các nhóm có hành vi bạo lực hoặc phạm pháp',desc:'Áp lực nhóm có thể dẫn đến hậu quả nghiêm trọng.'},
+      );
+      return items;
+    }
+    return [
+      {task:'Hiểu về các bệnh lây truyền qua đường tình dục và cách phòng ngừa',desc:'Kiến thức bảo vệ sức khỏe sinh sản.'},
+      {task:'Biết cách từ chối rượu bia, thuốc lá, ma túy',desc:'Kỹ năng từ chối trong áp lực xã hội.'},
+      {task:'Biết kiểm tra sức khỏe định kỳ',desc:'Chủ động chăm sóc sức khỏe bản thân.'},
+      {task:'Không lái xe khi chưa đủ tuổi và chưa có bằng',desc:'Trách nhiệm pháp lý và an toàn tính mạng.'},
+      {task:'Biết nhận ra dấu hiệu trầm cảm và tìm kiếm giúp đỡ',desc:'Sức khỏe tâm lý quan trọng như sức khỏe thể chất.'},
+      {task:'Biết cách ứng phó khi bạn bè gặp khủng hoảng',desc:'Không xử lý một mình — luôn báo người lớn tin cậy.'},
+      {task:'Có ít nhất 1 người lớn tin cậy ngoài ba mẹ để chia sẻ',desc:'Mạng lưới hỗ trợ an toàn.'},
+      {task:'Biết quyền của mình khi bị xâm phạm',desc:'Có quyền nói không, tố cáo, được bảo vệ.'},
+    ];
   }
+
   if (cat === 'sex-ed') {
-    if (age <= 5) return [{task:'Biết tên gọi đúng của các bộ phận cơ thể',desc:'Giúp con tự tin và không xấu hổ.'},{task:'Phân biệt cái chạm an toàn và không an toàn',desc:'Cái chạm kỳ lạ cần báo ngay.'},{task:'Hiểu rằng bí mật xấu cần được chia sẻ',desc:'Không giữ bí mật khiến con sợ hãi.'},{task:'Biết nói "KHÔNG" khi không thoải mái',desc:'Con có quyền từ chối ngay cả với người thân.'}];
-    if (age <= 10) return [{task:'Hiểu về ranh giới cơ thể',desc:'"Vùng đồ bơi" không ai được chạm.'},{task:'Biết nói "KHÔNG" khi không thoải mái',desc:'Con có quyền từ chối bất kỳ ai.'},{task:'Hiểu sự khác biệt cơ bản nam/nữ',desc:'Giải thích tự nhiên, khoa học.'},{task:'Biết báo với người tin cậy',desc:'Ba mẹ, thầy cô nếu gặp vấn đề.'}];
-    if (age <= 15) { const items=[{task:'Hiểu về dậy thì và những thay đổi của cơ thể',desc:'Chuẩn bị tâm lý trước khi bước vào dậy thì.'},{task:'Hiểu về sự đồng thuận (consent)',desc:'"Không có nghĩa là không".'},{task:'Biết tìm kiếm sự giúp đỡ khi gặp vấn đề',desc:'Có thể nói với ba mẹ hoặc gọi 111.'},{task:'Tôn trọng sự khác biệt giới tính',desc:'Không trêu chọc, phân biệt bạn nam/nữ.'}]; if(gender==='female') items.push({task:'Hiểu về kinh nguyệt và cách chăm sóc bản thân',desc:'Kiến thức quan trọng cho tuổi dậy thì của bé gái.'}); else items.push({task:'Hiểu về những thay đổi cơ thể ở tuổi dậy thì (nam)',desc:'Thay đổi giọng nói, mộng tinh, vệ sinh cá nhân.'}); return items; }
-    return [{task:'Hiểu về các biện pháp tránh thai an toàn',desc:'Kiến thức quan trọng cho sức khỏe sinh sản.'},{task:'Hiểu về các bệnh lây truyền qua đường tình dục',desc:'Phòng tránh và bảo vệ bản thân.'},{task:'Biết cách xây dựng mối quan hệ lành mạnh',desc:'Tôn trọng, tin tưởng và bình đẳng.'},{task:'Biết tìm kiếm sự giúp đỡ khi cần',desc:'Từ ba mẹ, thầy cô hoặc chuyên gia tâm lý.'}];
+    if (age <= 5) return [
+      {task:'Biết tên gọi đúng của các bộ phận cơ thể',desc:'Gọi đúng tên giúp con tự tin và dễ kể lại nếu bị xâm hại.'},
+      {task:'Phân biệt cái chạm an toàn và không an toàn',desc:'"Cái chạm kỳ lạ" cần báo ngay với ba mẹ.'},
+      {task:'Hiểu rằng bí mật gây lo sợ cần được kể với ba mẹ',desc:'Không có bí mật nào quan trọng hơn sự an toàn.'},
+      {task:'Biết nói "KHÔNG" khi không thoải mái',desc:'Con có quyền từ chối kể cả với người thân.'},
+      {task:'Biết cơ thể mình là của mình — không ai được chạm khi con không muốn',desc:'Nền tảng quyền tự chủ cơ thể.'},
+      {task:'Biết phân biệt "bí mật tốt" và "bí mật xấu"',desc:'Bí mật tốt làm con vui; bí mật xấu làm con sợ — cần kể ra.'},
+    ];
+    if (age <= 10) return [
+      {task:'Hiểu về ranh giới cơ thể và quyền tự chủ',desc:'"Vùng đồ bơi" — không ai được chạm không có lý do y tế.'},
+      {task:'Biết nói "KHÔNG" với bất kỳ ai khi không muốn',desc:'Kể cả người thân, thầy cô, bạn bè.'},
+      {task:'Hiểu sự khác biệt cơ bản về cơ thể nam và nữ',desc:'Giải thích tự nhiên, khoa học, không kỳ thị.'},
+      {task:'Biết báo với ba mẹ hoặc thầy cô khi gặp vấn đề về cơ thể',desc:'Không tự xử lý một mình.'},
+      {task:'Biết rằng hình ảnh nhạy cảm không được chia sẻ',desc:'Kể cả hình của mình và của người khác.'},
+      {task:'Hiểu rằng không ai có quyền chụp ảnh vùng riêng tư của con',desc:'Nhận biết hành vi xâm hại qua hình ảnh.'},
+      {task:'Biết trẻ em không nên xem nội dung người lớn',desc:'Nếu vô tình thấy, cần báo ba mẹ ngay, không xấu hổ.'},
+      {task:'Hiểu về sự thay đổi cơ thể sắp xảy ra ở tuổi dậy thì',desc:'Chuẩn bị tâm lý trước để không hoảng sợ.'},
+      ...(gender==='female'?[
+        {task:'Biết kinh nguyệt là gì và tại sao xảy ra',desc:'Giải thích trước tuổi dậy thì để bé không sợ hãi.'},
+      ]:[
+        {task:'Biết về sự thay đổi giọng nói và cơ thể ở tuổi dậy thì nam',desc:'Chuẩn bị tâm lý cho những thay đổi sắp đến.'},
+      ]),
+    ];
+    if (age <= 15) {
+      const items = [
+        {task:'Hiểu về dậy thì và những thay đổi thể chất — là bình thường',desc:'Không xấu hổ, không hoảng loạn với sự thay đổi của cơ thể.'},
+        {task:'Hiểu về sự đồng thuận (consent) trong mọi mối quan hệ',desc:'"Không" là "không" — dù là bạn bè hay người yêu.'},
+        {task:'Biết tìm kiếm sự giúp đỡ từ người tin cậy khi gặp vấn đề',desc:'Ba mẹ, thầy cô tư vấn, đường dây 111.'},
+        {task:'Tôn trọng sự khác biệt giới tính và xu hướng tình cảm',desc:'Không trêu chọc, không kỳ thị.'},
+        {task:'Hiểu về các hình thức xâm hại tình dục và cách nhận diện',desc:'Lời nói, hình ảnh, hành động — đều có thể là xâm hại.'},
+        {task:'Biết rằng xâm hại không bao giờ là lỗi của nạn nhân',desc:'Không tự trách bản thân — luôn lên tiếng.'},
+        {task:'Không chia sẻ hình ảnh nhạy cảm của mình hoặc người khác',desc:'Hậu quả pháp lý và tâm lý rất nghiêm trọng.'},
+        {task:'Hiểu về tình bạn lành mạnh vs mối quan hệ kiểm soát',desc:'Tình bạn tốt tôn trọng ranh giới, không áp lực.'},
+      ];
+      if (gender==='female') items.push(
+        {task:'Biết cách chăm sóc bản thân khi có kinh nguyệt',desc:'Vệ sinh đúng, xử lý đau bụng kinh, không ngại hỏi ba mẹ.'},
+        {task:'Nhận ra dấu hiệu của mối quan hệ tình cảm không lành mạnh',desc:'Ghen tuông thái quá, kiểm soát, cô lập là dấu hiệu nguy hiểm.'},
+      );
+      else items.push(
+        {task:'Hiểu về vệ sinh cơ thể nam ở tuổi dậy thì',desc:'Mộng tinh là bình thường — không xấu hổ, không lo lắng.'},
+        {task:'Biết rằng nam giới cũng có quyền nói không và đặt giới hạn',desc:'Không phải chứng tỏ bản thân bằng cách liều lĩnh.'},
+      );
+      return items;
+    }
+    return [
+      {task:'Hiểu về các biện pháp tránh thai an toàn',desc:'Kiến thức bảo vệ sức khỏe sinh sản — không phải khuyến khích quan hệ sớm.'},
+      {task:'Hiểu về các bệnh lây truyền qua đường tình dục',desc:'Phòng ngừa bằng kiến thức, không phải bằng sự không biết.'},
+      {task:'Biết cách xây dựng mối quan hệ tình cảm lành mạnh',desc:'Tôn trọng, tin tưởng, bình đẳng — 3 nền tảng.'},
+      {task:'Biết tìm kiếm hỗ trợ chuyên nghiệp khi cần',desc:'Bác sĩ, chuyên gia tâm lý — không phải chỉ có internet.'},
+      {task:'Hiểu về sự đồng thuận và trách nhiệm pháp lý',desc:'Quan hệ tình dục với người dưới 16 tuổi là phạm pháp tại VN.'},
+      {task:'Biết phân biệt tình yêu lành mạnh và tình yêu độc hại',desc:'Tình yêu không nên đau đớn, sợ hãi hay bị kiểm soát.'},
+      {task:'Không tạo, chia sẻ hoặc lưu trữ nội dung khiêu dâm trẻ em',desc:'Nghiêm cấm tuyệt đối — hậu quả pháp lý rất nặng.'},
+      {task:'Biết chăm sóc sức khỏe sinh sản chủ động',desc:'Khám phụ khoa/nam khoa định kỳ khi đến tuổi.'},
+    ];
   }
   return [];
 }
@@ -1608,23 +1802,163 @@ function getChecklistForAge(age, gender, cat) {
 // AI SUGGESTIONS (giữ nguyên)
 // ════════════════════════════════════════════════════════
 function getAISuggestion(child) {
-  const age = child ? calcAge(child.birthday) : 0;
-  const name = child ? child.name : 'con';
-  const all = [
-    {title:`${name} ${age} tuổi — Thời điểm quan trọng`,text:age<6?`Giai đoạn 0-6 tuổi là nền tảng cảm xúc. Hãy đọc sách cùng ${name} mỗi ngày.`:age<12?`${name} ${age} tuổi — thời điểm phù hợp để nói về ranh giới thân thể và an toàn cá nhân.`:`${name} đang trong giai đoạn dậy thì. Hãy tạo không gian trò chuyện cởi mở.`},
-    {title:`Xây dựng thói quen đọc sách`,text:`Đọc cùng ${name} 15–20 phút mỗi tối trước khi ngủ, gắn kết tình cảm và phát triển ngôn ngữ.`},
-    {title:`Dạy ${name} về cảm xúc`,text:`Thay vì "Đừng khóc", hãy hỏi "Con đang buồn vì điều gì?" — phát triển trí tuệ cảm xúc (EQ).`},
-    {title:`Giới hạn thời gian sử dụng thiết bị`,text:`Quy tắc 20-20-20: sau 20 phút nhìn màn hình, nghỉ 20 giây nhìn xa 6 mét. Bảo vệ mắt và não bộ.`},
-    {title:`Dạy ${name} về ranh giới cơ thể`,text:`"Đồ bơi": vùng cơ thể được che bởi đồ bơi là riêng tư. Con có quyền nói "KHÔNG" với bất kỳ ai.`},
-    {title:`Lắng nghe ${name} đúng cách`,text:`Ngồi xuống ngang tầm mắt, gật đầu, đặt câu hỏi mở. Không ngắt lời hay phán xét.`},
-    {title:`Dạy ${name} kỹ năng giải quyết vấn đề`,text:`4 bước: Nhận diện vấn đề → Nghĩ ra giải pháp → Chọn tốt nhất → Thực hiện.`},
-    {title:`Xây dựng lòng tự trọng`,text:`Khen vì nỗ lực: "Mẹ thấy con đã cố gắng rất nhiều!" thay vì "Con giỏi quá!" — giúp con không sợ thất bại.`},
-    {title:`Tạo không gian an toàn để ${name} chia sẻ`,text:`"Giờ gia đình" mỗi tối 15 phút, không điện thoại, chỉ trò chuyện — con sẽ dần mở lòng hơn.`},
-    {title:`Dạy ${name} về lòng biết ơn`,text:`Mỗi tối trước khi ngủ, kể ra 3 điều biết ơn trong ngày. Hình thành tư duy tích cực.`},
-  ];
-  return all[aiIdx % all.length];
-}
+  const age    = child ? calcAge(child.birthday) : 0;
+  const name   = child ? child.name : 'con';
+  const gender = child ? child.gender : 'male';
+  const isFemale = gender === 'female';
 
+  // Gợi ý theo nhóm tuổi + giới tính
+  const suggestions = {
+    // ══ 0–5 TUỔI ══
+    early: [
+      {
+        title: `Đọc sách cùng ${name} mỗi tối`,
+        text: `Chỉ 10–15 phút đọc sách trước khi ngủ giúp ${name} phát triển ngôn ngữ nhanh gấp đôi, đồng thời tạo kết nối cảm xúc sâu sắc giữa ba mẹ và con.`
+      },
+      {
+        title: `Dạy ${name} gọi tên cảm xúc`,
+        text: `Thay vì "Đừng khóc", hãy nói "Con đang buồn đúng không?" — giúp ${name} nhận biết và diễn đạt cảm xúc, nền tảng của EQ sau này.`
+      },
+      {
+        title: `Trò chơi đóng vai với ${name}`,
+        text: `Chơi bán hàng, nấu ăn, bác sĩ... giúp ${name} phát triển ngôn ngữ, trí tưởng tượng và kỹ năng xã hội một cách tự nhiên nhất.`
+      },
+      {
+        title: `Dạy ${name} quy tắc "Đồ bơi" ngay hôm nay`,
+        text: `Vùng cơ thể được che bởi đồ bơi là riêng tư — không ai được chạm vào, kể cả người thân. ${name} có quyền nói "KHÔNG" với bất kỳ ai.`
+      },
+      {
+        title: `Đừng ép ${name} ôm hôn người thân`,
+        text: `Khi ép con hôn ông bà, chúng ta vô tình dạy con rằng cơ thể không thuộc về mình. Hãy để ${name} tự chọn cách thể hiện tình cảm.`
+      },
+      {
+        title: `Thói quen buổi sáng cho ${name}`,
+        text: `Trẻ 3–5 tuổi hoàn toàn có thể tự đánh răng, rửa mặt, mặc quần áo đơn giản. Ba mẹ hướng dẫn rồi để ${name} tự làm — kiên nhẫn là chìa khóa!`
+      },
+    ],
+
+    // ══ 6–10 TUỔI ══
+    primary: [
+      {
+        title: `${name} ${age} tuổi — thời điểm vàng xây dựng thói quen`,
+        text: `Nghiên cứu cho thấy thói quen hình thành trước 10 tuổi sẽ gắn bó cả đời. Hãy giúp ${name} xây dựng thói quen đọc sách, vận động và ngủ đúng giờ ngay bây giờ.`
+      },
+      {
+        title: `Trao việc nhà thật sự cho ${name}`,
+        text: `Không phải "giúp ba mẹ" mà là trách nhiệm thật sự — rửa bát, quét nhà, gấp quần áo. Trẻ có trách nhiệm gia đình tự tin hơn và học tốt hơn.`
+      },
+      {
+        title: `Nói chuyện với ${name} về an toàn online`,
+        text: `${name} có thể đang gặp người lạ qua game, mạng xã hội mà ba mẹ không biết. Hỏi thẳng: "Con đang chơi game với ai?" — không phán xét, chỉ lắng nghe.`
+      },
+      {
+        title: `Dạy ${name} về bắt nạt học đường`,
+        text: `Hỏi con mỗi tuần: "Ở trường có ai làm con khó chịu không?" và "Con có thấy bạn nào bị bắt nạt không?" — tạo thói quen chia sẻ trước khi có vấn đề.`
+      },
+      {
+        title: `Cho ${name} thất bại một cách an toàn`,
+        text: `Đừng giải cứu ${name} ngay khi con gặp khó khăn. Hãy hỏi "Con nghĩ mình có thể làm gì?" — kỹ năng giải quyết vấn đề chỉ học được qua thất bại thật sự.`
+      },
+      {
+        title: `Giờ gia đình không màn hình`,
+        text: `15–20 phút mỗi tối không điện thoại, không TV — chỉ trò chuyện. Hỏi ${name}: "Điều vui nhất hôm nay là gì? Điều khó nhất là gì?" — kết nối sâu hơn bất kỳ hoạt động nào.`
+      },
+    ],
+
+    // ══ 11–14 TUỔI — BÉ GÁI ══
+    puberty_female: [
+      {
+        title: `${name} đang dậy thì — ba mẹ cần làm gì?`,
+        text: `Sự thay đổi hormone khiến ${name} dễ cáu kỉnh, nhạy cảm hơn — đây là sinh lý bình thường. Ba mẹ hãy phản ứng bằng sự bình tĩnh và câu hỏi mở thay vì la mắng.`
+      },
+      {
+        title: `Nói chuyện với ${name} về kinh nguyệt`,
+        text: `Nếu chưa nói, hãy nói ngay hôm nay. ${name} cần biết kinh nguyệt là gì, cách dùng băng vệ sinh, và rằng đau bụng kinh là bình thường — nhưng đau quá cần đi khám.`
+      },
+      {
+        title: `Dạy ${name} về ranh giới trong tình bạn`,
+        text: `Bạn bè tốt không ép buộc, không đe dọa, không yêu cầu giữ bí mật. Dạy ${name} nhận ra dấu hiệu của mối quan hệ không lành mạnh từ sớm.`
+      },
+      {
+        title: `Hình ảnh cơ thể và áp lực ngoại hình`,
+        text: `Bé gái tuổi dậy thì rất dễ bị ảnh hưởng bởi mạng xã hội về ngoại hình. Hãy thường xuyên nói với ${name}: "Con đẹp vì con là con — không phải vì cân nặng hay ngoại hình."`
+      },
+      {
+        title: `${name} và mạng xã hội`,
+        text: `Tuổi này ${name} có thể đang so sánh bản thân với người khác trên mạng. Hãy cùng con thảo luận: "Những gì thấy trên mạng có phải là thật không?" — tư duy phản biện media.`
+      },
+      {
+        title: `Dạy ${name} nhận diện mối quan hệ tình cảm sớm`,
+        text: `Nếu ${name} bắt đầu thích ai đó, đừng chế giễu hay cấm đoán. Hãy hỏi: "Con thích điều gì ở người đó?" — tạo không gian để con chia sẻ thay vì giấu giếm.`
+      },
+    ],
+
+    // ══ 11–14 TUỔI — BÉ TRAI ══
+    puberty_male: [
+      {
+        title: `${name} đang dậy thì — những thay đổi ba mẹ cần biết`,
+        text: `Giọng vỡ, mọc lông, mộng tinh... ${name} có thể đang bối rối và xấu hổ. Ba mẹ hãy chủ động nói chuyện bình thường để con biết đây là sinh lý hoàn toàn bình thường.`
+      },
+      {
+        title: `Nói chuyện với ${name} về kiểm soát cảm xúc`,
+        text: `Testosterone tăng cao khiến bé trai dễ bốc đồng, hung hăng hơn. Dạy ${name}: "Khi tức giận, hít thở 5 cái rồi mới nói" — kỹ năng này quan trọng suốt cuộc đời.`
+      },
+      {
+        title: `Dạy ${name} về vệ sinh cơ thể tuổi dậy thì`,
+        text: `Tắm hàng ngày, dùng lăn khử mùi, giặt quần lót thường xuyên — những điều tưởng hiển nhiên nhưng bé trai thường không tự biết nếu không được dạy.`
+      },
+      {
+        title: `${name} và áp lực "phải mạnh mẽ"`,
+        text: `Xã hội hay dạy bé trai "không được khóc". Hãy nói với ${name}: "Con trai cũng được buồn, được sợ, được cần giúp đỡ — đó là dũng cảm thật sự."`
+      },
+      {
+        title: `Nói chuyện với ${name} về nội dung không phù hợp online`,
+        text: `Bé trai tuổi này rất dễ tiếp cận nội dung khiêu dâm online. Đừng la mắng — hãy nói thẳng: "Con có thể đã thấy những thứ đó. Ba/mẹ muốn giải thích cho con hiểu đúng hơn."`
+      },
+      {
+        title: `Dạy ${name} về tôn trọng giới tính khác`,
+        text: `"Con gái cũng mạnh mẽ như con trai", "Không ai được đụng chạm người khác khi người ta không muốn" — những bài học này cần được nhắc đi nhắc lại.`
+      },
+    ],
+
+    // ══ 15+ TUỔI ══
+    teen: [
+      {
+        title: `${name} sắp trưởng thành — ba mẹ cần thay đổi cách tiếp cận`,
+        text: `Thay vì ra lệnh, hãy thảo luận. Thay vì kiểm soát, hãy hướng dẫn. ${name} cần học cách tự quyết định — ba mẹ là người đồng hành, không phải người chỉ huy.`
+      },
+      {
+        title: `Nói chuyện thật sự về tình yêu và tình dục`,
+        text: `Nếu ba mẹ không nói, ${name} sẽ học từ bạn bè và internet — những nguồn thông tin không đáng tin cậy. Hãy dũng cảm bắt đầu cuộc trò chuyện này.`
+      },
+      {
+        title: `Dạy ${name} về sức khỏe tâm lý`,
+        text: `Stress thi cử, áp lực bạn bè, cô đơn... Dạy ${name} nhận ra khi nào mình cần giúp đỡ và đừng ngại tìm kiếm. "Tìm chuyên gia tâm lý không phải điều đáng xấu hổ."`
+      },
+      {
+        title: `Giúp ${name} định hướng nghề nghiệp`,
+        text: `Không phải hỏi "Con muốn làm gì?" mà hỏi "Con giỏi gì? Con thích gì? Con muốn cuộc sống của mình trông như thế nào?" — 3 câu hỏi này dẫn đến lựa chọn đúng hơn.`
+      },
+      {
+        title: `${name} và áp lực mạng xã hội`,
+        text: `Like, follow, so sánh... đang ảnh hưởng trực tiếp đến sức khỏe tâm lý của ${name}. Hãy cùng con thảo luận về "cuộc sống thật" vs "cuộc sống trên mạng".`
+      },
+      {
+        title: `Dạy ${name} về tài chính cá nhân`,
+        text: `Kiếm tiền, tiết kiệm, chi tiêu, đầu tư — ${name} cần biết những điều này trước khi ra trường. Bắt đầu bằng việc để con tự quản lý tiền tiêu vặt hàng tháng.`
+      },
+    ],
+  };
+
+  // Chọn nhóm phù hợp
+  let pool;
+  if (age <= 5)       pool = suggestions.early;
+  else if (age <= 10) pool = suggestions.primary;
+  else if (age <= 14) pool = isFemale ? suggestions.puberty_female : suggestions.puberty_male;
+  else                pool = suggestions.teen;
+
+  return pool[aiIdx % pool.length];
+}
 // ════════════════════════════════════════════════════════
 // UTILS
 // ════════════════════════════════════════════════════════
