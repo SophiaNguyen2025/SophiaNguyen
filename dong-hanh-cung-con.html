@@ -1437,8 +1437,7 @@ async function saveHeightRecord() {
     document.querySelectorAll('input[name="pubertyStatus"]').forEach(r => r.checked = false);
     showToast('Đã lưu số đo 📏');
     await loadHeightRecords();
-     renderHeightModule();
-  } catch(e) { showToast('Lỗi: ' + e.message); }
+       } catch(e) { showToast('Lỗi: ' + e.message); }
 }
  
 async function deleteHeightRecord(id) {
