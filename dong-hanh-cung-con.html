@@ -2285,7 +2285,12 @@ function renderChildren() {
   children.forEach(child=>{
     const age=calcAge(child.birthday);
     const card=document.createElement('div'); card.className='child-card'+(child.id===selectedChildId?' selected':''); card.dataset.childId=child.id; card.onclick=()=>selectChild(child);
-    card.innerHTML=`<div class="child-avatar-emoji">${child.gender==='female'?'👧':'👦'}</div><div class="child-name">${child.name}</div><div class="child-age-text">${age} tuổi · ${getZodiacSign(child.birthday)}</div><div class="child-bar"><div class="child-bar-fill" id="progress-${child.id}" style="width:0%"></div></div>`;
+    card.innerHTML=`<div class="child-avatar-emoji">${child.gender==='female'?'👧':'👦'}</div><div class="child-name">${child.name}</div><div class="child-age-text">${age} tuổi · ${getZodiacSign(child.birthday)}</div><div class="child-bar"><div class="child-bar-fill" id="progress-${child.id}" style="width:0%"></div></div> 
+    <button onclick="event.stopPropagation();deleteChild(${child.id},'${child.name}')" 
+  style="margin-top:8px;background:transparent;border:1px solid #e0b0aa;color:#C0392B;
+  border-radius:999px;padding:3px 10px;font-size:11px;cursor:pointer;font-family:inherit">
+  🗑️ Xóa
+</button>`;
     row.appendChild(card);
   });
   const add=document.createElement('div'); add.className='add-child-card'; add.onclick=openAddChild; add.innerHTML='<div class="plus">＋</div><span>Thêm con</span>'; row.appendChild(add);
@@ -2568,7 +2573,32 @@ const{data,error}=await db.from('children').insert({
   finally{if(btn){btn.disabled=false;btn.textContent='Thêm con ✓';}}
 }
 function refreshAI(){aiIdx=(aiIdx+1)%20;if(selectedChildObj){const sug=getAISuggestion(selectedChildObj);document.getElementById('ai-title').textContent=sug.title;document.getElementById('ai-text').textContent=sug.text;}}
-
+async function deleteChild(id, name) {
+  if (!confirm(`Xóa hồ sơ của ${name}?\n\nTất cả dữ liệu (nhật ký, checklist, chiều cao, chu kỳ) sẽ bị xóa vĩnh viễn.`)) return;
+  try {
+    // Xóa các bảng liên quan trước
+    await db.from('height_records').delete().eq('child_id', id);
+    await db.from('journal_entries').delete().eq('child_id', id);
+    await db.from('checklist_items').delete().eq('child_id', id);
+    await db.from('custom_checklist').delete().eq('child_id', id);
+    await db.from('menstrual_cycles').delete().eq('child_id', id);
+    // Xóa hồ sơ con
+    const { error } = await db.from('children').delete().eq('id', id);
+    if (error) throw error;
+    showToast(`Đã xóa hồ sơ ${name}`);
+    // Reset state nếu đang chọn con này
+    if (selectedChildId === id) {
+      selectedChildId = null;
+      selectedChildObj = null;
+      document.getElementById('child-content').style.display = 'none';
+      document.getElementById('progressDashboard').style.display = 'none';
+      document.getElementById('ai-panel').style.display = 'none';
+      document.getElementById('no-child-state').style.display = 'block';
+    }
+    children = children.filter(c => c.id !== id);
+    renderChildren();
+  } catch(e) { showToast('Lỗi khi xóa: ' + e.message); }
+}
 // ════════════════════════════════════════════════════════
 // INIT
 // ════════════════════════════════════════════════════════
