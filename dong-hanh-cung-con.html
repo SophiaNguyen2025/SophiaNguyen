@@ -1476,8 +1476,6 @@ function renderHeightModule() {
   const current    = parseFloat(latest.height_cm);
   const percentile = getPercentile(current, age, gender);
   const predicted = predictAdultHeight(current, age, gender);
-
-   renderPrediction(predicted);
    
 function renderPrediction(predicted) {
   const predEl    = document.getElementById('hstat-predicted');
