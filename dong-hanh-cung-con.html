@@ -1420,8 +1420,7 @@ async function saveHeightRecord() {
     if (mH) selectedChildObj.mother_height = mH;
   }
   
-  }
-  try {
+    try {
     const { error } = await db.from('height_records').insert({
       child_id: selectedChildId,
       recorded_date: date,
@@ -1476,68 +1475,9 @@ function renderHeightModule() {
   const current    = parseFloat(latest.height_cm);
   const percentile = getPercentile(current, age, gender);
   const predicted = predictAdultHeight(current, age, gender);
-   
-function renderPrediction(predicted) {
-  const predEl    = document.getElementById('hstat-predicted');
-  const predBadge = document.getElementById('hstat-predicted-badge');
-  const predUnit  = predEl.nextElementSibling;
- 
-  // Xóa note cũ
-  const oldNote = predEl.closest('.height-stat-card').querySelector('.pred-note');
-  if (oldNote) oldNote.remove();
- 
-  if (predicted.type === 'puberty') {
-    // Hiển thị dự đoán theo trạng thái dậy thì
-    predEl.textContent    = `${predicted.projectedLo}–${predicted.projectedHi}`;
-    predEl.style.fontSize = '16px';
-    predUnit.textContent  = 'cm';
- 
-    const statusLabel = predicted.pubertyStatus === 'pre' ? '🌱 Tiền dậy thì' : '🔴 Đã dậy thì';
-    predBadge.textContent = statusLabel;
-    predBadge.className   = `height-stat-badge ${predicted.urgency}`;
- 
-    const note = document.createElement('div');
-    note.className = 'pred-note';
-    note.style.cssText = 'font-size:11px;color:var(--ink-soft);margin-top:8px;line-height:1.6';
- 
-    let noteHTML = `<div style="margin-bottom:6px">📈 Còn có thể tăng thêm <strong>${predicted.remainLo}–${predicted.remainHi} cm</strong> trong <strong>${predicted.timeLeft}</strong> tới</div>`;
- 
-    if (predicted.vsGenetic) {
-      const bgColor = predicted.vsGenetic.status === 'reach' ? '#eef5f1'
-                    : predicted.vsGenetic.status === 'close' ? '#fff8e1' : '#fdecea';
-      const borderColor = predicted.vsGenetic.status === 'reach' ? '#3D6B58'
-                        : predicted.vsGenetic.status === 'close' ? '#e67e22' : '#c0392b';
-      noteHTML += `
-        <div style="background:${bgColor};border-left:3px solid ${borderColor};
-          border-radius:6px;padding:8px 10px;font-size:11px;line-height:1.6;margin-top:6px">
-          ${predicted.vsGenetic.msg}
-        </div>`;
-    }
- 
-    if (predicted.urgency === 'warn') {
-      noteHTML += `<div style="margin-top:6px;font-size:10.5px;color:var(--mist)">
-        ⏳ Cửa sổ tăng trưởng đang thu hẹp — tối ưu dinh dưỡng, giấc ngủ và vận động ngay bây giờ.
-      </div>`;
-    }
- 
-    note.innerHTML = noteHTML;
-    predEl.closest('.height-stat-card').appendChild(note);
- 
-  } else if (predicted.type === 'range')  {
-    predEl.textContent    = `${predicted.lo}–${predicted.hi}`;
-    predEl.style.fontSize = '18px';
-    predUnit.textContent  = 'cm';
-    predBadge.textContent = 'Theo gen ba mẹ';
-    predBadge.className   = 'height-stat-badge warn';
- 
-    const note = document.createElement('div');
-    note.className = 'pred-note';
-    note.style.cssText = 'font-size:10px;color:var(--mist);margin-top:6px;line-height:1.5';
-    note.textContent = '⚠️ Dự đoán theo di truyền ba mẹ. Cần đo tuổi xương tại BV để biết chính xác.';
-    predEl.closest('.height-stat-card').appendChild(note);
-  }
-}
 
+   renderPrediction(predicted);
+   
   // Velocity
   let velocity = '—';
   if (heightRecords.length >= 2) {
@@ -1612,6 +1552,68 @@ if (warnContainer) {
   renderHeightAdvice(age, gender, percentile);
 }
 
+function renderPrediction(predicted) {
+  const predEl    = document.getElementById('hstat-predicted');
+  const predBadge = document.getElementById('hstat-predicted-badge');
+  const predUnit  = predEl.nextElementSibling;
+ 
+  // Xóa note cũ
+  const oldNote = predEl.closest('.height-stat-card').querySelector('.pred-note');
+  if (oldNote) oldNote.remove();
+ 
+  if (predicted.type === 'puberty') {
+    // Hiển thị dự đoán theo trạng thái dậy thì
+    predEl.textContent    = `${predicted.projectedLo}–${predicted.projectedHi}`;
+    predEl.style.fontSize = '16px';
+    predUnit.textContent  = 'cm';
+ 
+    const statusLabel = predicted.pubertyStatus === 'pre' ? '🌱 Tiền dậy thì' : '🔴 Đã dậy thì';
+    predBadge.textContent = statusLabel;
+    predBadge.className   = `height-stat-badge ${predicted.urgency}`;
+ 
+    const note = document.createElement('div');
+    note.className = 'pred-note';
+    note.style.cssText = 'font-size:11px;color:var(--ink-soft);margin-top:8px;line-height:1.6';
+ 
+    let noteHTML = `<div style="margin-bottom:6px">📈 Còn có thể tăng thêm <strong>${predicted.remainLo}–${predicted.remainHi} cm</strong> trong <strong>${predicted.timeLeft}</strong> tới</div>`;
+ 
+    if (predicted.vsGenetic) {
+      const bgColor = predicted.vsGenetic.status === 'reach' ? '#eef5f1'
+                    : predicted.vsGenetic.status === 'close' ? '#fff8e1' : '#fdecea';
+      const borderColor = predicted.vsGenetic.status === 'reach' ? '#3D6B58'
+                        : predicted.vsGenetic.status === 'close' ? '#e67e22' : '#c0392b';
+      noteHTML += `
+        <div style="background:${bgColor};border-left:3px solid ${borderColor};
+          border-radius:6px;padding:8px 10px;font-size:11px;line-height:1.6;margin-top:6px">
+          ${predicted.vsGenetic.msg}
+        </div>`;
+    }
+ 
+    if (predicted.urgency === 'warn') {
+      noteHTML += `<div style="margin-top:6px;font-size:10.5px;color:var(--mist)">
+        ⏳ Cửa sổ tăng trưởng đang thu hẹp — tối ưu dinh dưỡng, giấc ngủ và vận động ngay bây giờ.
+      </div>`;
+    }
+ 
+    note.innerHTML = noteHTML;
+    predEl.closest('.height-stat-card').appendChild(note);
+ 
+  } else if (predicted.type === 'range')  {
+    predEl.textContent    = `${predicted.lo}–${predicted.hi}`;
+    predEl.style.fontSize = '18px';
+    predUnit.textContent  = 'cm';
+    predBadge.textContent = 'Theo gen ba mẹ';
+    predBadge.className   = 'height-stat-badge warn';
+ 
+    const note = document.createElement('div');
+    note.className = 'pred-note';
+    note.style.cssText = 'font-size:10px;color:var(--mist);margin-top:6px;line-height:1.5';
+    note.textContent = '⚠️ Dự đoán theo di truyền ba mẹ. Cần đo tuổi xương tại BV để biết chính xác.';
+    predEl.closest('.height-stat-card').appendChild(note);
+  }
+}
+
+   
 function renderHeightChart(records) {
   const child = selectedChildObj;
   if (!child) return;
