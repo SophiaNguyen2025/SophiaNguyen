@@ -3,6 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+ 
+<meta name="keywords" content="theo dõi chiều cao trẻ em, dậy thì sớm ở trẻ, dấu hiệu dậy thì sớm bé gái, theo dõi phát triển trẻ em, chiều cao chuẩn WHO, dự đoán chiều cao trưởng thành, kỹ năng sống cho trẻ, giáo dục giới tính trẻ em, đồng hành cùng con, nuôi dạy con toàn diện">
+<meta name="author" content="Sophia Nguyễn">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://sophianguyen.com.vn/dong-hanh-cung-con.html">
+
+<meta property="og:title" content="Đồng hành cùng con — Theo dõi phát triển toàn diện | Sophia Nguyễn">
+<meta property="og:description" content="Công cụ miễn phí giúp ba mẹ theo dõi chiều cao, phát hiện dậy thì sớm, và đồng hành cùng con từ học tập đến sức khỏe tâm lý — dựa trên chuẩn WHO.">
+<meta property="og:url" content="https://sophianguyen.com.vn/dong-hanh-cung-con.html">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://sophianguyen.com.vn/images/rs1.png">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:site_name" content="Sophia Nguyễn">
+   
 <title>Đồng hành cùng con - Sophia Nguyễn</title>
 <meta name="description" content="Hệ thống theo dõi phát triển toàn diện cho con — từ học tập, kỹ năng sống, giáo dục giới tính đến sức khỏe tâm lý.">
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
@@ -11,9 +25,6 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
 <style>
-/* ═══════════════════════════════════════════
-   DESIGN TOKENS — nhất quán toàn bộ app
-═══════════════════════════════════════════ */
 :root {
   --sage:        #5F8B76;
   --sage-light:  #A8C4B5;
@@ -547,7 +558,7 @@ body {
   <div class="screen active" id="screen-landing">
     <div class="landing-badge">🌿 Nuôi dạy con toàn diện</div>
     <h1 class="landing-title">Đồng hành<br>cùng <span>con lớn khôn</span></h1>
-    <p class="landing-sub">Theo dõi phát triển toàn diện — từ học tập, kỹ năng sống, chiều cao, đến sức khỏe tâm lý.</p>
+    <p class="landing-sub">Theo dõi sự phát triển toàn diện — từ học tập, kỹ năng sống, chiều cao, đến sức khỏe tâm lý.</p>
     <div class="landing-actions">
       <button class="btn btn-primary" onclick="gotoAuth('register')">Bắt đầu miễn phí</button>
       <button class="btn btn-ghost" onclick="gotoAuth('login')">Đăng nhập</button>
@@ -560,7 +571,7 @@ body {
     <div class="auth-card fade-in">
       <div class="auth-logo">sophianguyen.com.vn</div>
       <div class="auth-title" id="auth-title">Tạo tài khoản</div>
-      <div class="auth-sub" id="auth-sub">Miễn phí, không cần thẻ tín dụng</div>
+      <div class="auth-sub" id="auth-sub">Miễn phí hoàn toàn</div>
       <div class="tab-row">
         <button class="tab-btn active" id="tab-register" onclick="switchTab('register')">Đăng ký</button>
         <button class="tab-btn" id="tab-login" onclick="switchTab('login')">Đăng nhập</button>
@@ -568,7 +579,7 @@ body {
       <div id="register-fields">
         <div class="form-group">
           <label class="form-label">Họ và tên</label>
-          <input class="form-input" type="text" id="input-name" placeholder="Nguyễn Thị Lan">
+          <input class="form-input" type="text" id="input-name" placeholder="Nguyễn Thị A">
         </div>
       </div>
       <div class="form-group">
@@ -578,7 +589,7 @@ body {
       <div class="form-group">
         <label class="form-label">Mật khẩu</label>
         <div class="pwd-wrapper">
-          <input class="form-input" type="password" id="input-password" placeholder="Tối thiểu 6 ký tự">
+          <input class="form-input" type="password" id="input-password" placeholder="Tối thiểu 12 ký tự">
           <button type="button" class="pwd-toggle" onclick="togglePassword()">
             <i class="fa fa-eye" id="pwd-eye-icon"></i>
           </button>
@@ -610,8 +621,7 @@ body {
         </div>
       </div>
 
-      <!-- Progress dashboard (ẩn đến khi chọn con) -->
-      <div id="progressDashboard" style="display:none">
+       <div id="progressDashboard" style="display:none">
         <div class="hero-card">
           <div class="hero-left">
             <div class="hero-child-row">
@@ -666,7 +676,7 @@ body {
           </div>
           <div class="badge-chips" id="badgeContainer"></div>
         </div>
-      </div><!-- /progressDashboard -->
+      </div>
 
       <div class="ai-panel" id="ai-panel" style="display:none">
         <div class="ai-label"><div class="ai-dot"></div> Gợi ý từ Sophia</div>
@@ -1557,12 +1567,12 @@ function renderPrediction(predicted) {
   const predBadge = document.getElementById('hstat-predicted-badge');
   const predUnit  = predEl.nextElementSibling;
  
-  // Xóa note cũ
+  
   const oldNote = predEl.closest('.height-stat-card').querySelector('.pred-note');
   if (oldNote) oldNote.remove();
  
   if (predicted.type === 'puberty') {
-    // Hiển thị dự đoán theo trạng thái dậy thì
+
     predEl.textContent    = `${predicted.projectedLo}–${predicted.projectedHi}`;
     predEl.style.fontSize = '16px';
     predUnit.textContent  = 'cm';
@@ -1631,7 +1641,7 @@ function renderHeightChart(records) {
   const p50 = ageRange.map(a => whoTable[a]?.p50 || null);
   const p97 = ageRange.map(a => whoTable[a]?.p97 || null);
 
-  // FIX: tính tuổi chính xác theo ngày, không dùng getFullYear()
+
   const childPoints = records.map(r => {
     const birthDate = new Date(child.birthday);
     const measureDate = new Date(r.recorded_date);
@@ -1719,7 +1729,7 @@ function renderHeightAdvice(age, gender, percentile) {
 }
 
 // ════════════════════════════════════════════════════════
-// CHECKLIST DATA (giữ nguyên từ file gốc)
+// CHECKLIST DATA
 // ════════════════════════════════════════════════════════
 function getChecklistForAge(age, gender, cat) {
   if (cat === 'study') {
@@ -1942,7 +1952,7 @@ function getChecklistForAge(age, gender, cat) {
 }
 
 // ════════════════════════════════════════════════════════
-// AI SUGGESTIONS (giữ nguyên)
+// AI SUGGESTIONS
 // ════════════════════════════════════════════════════════
 function getAISuggestion(child) {
   const age    = child ? calcAge(child.birthday) : 0;
@@ -1950,7 +1960,7 @@ function getAISuggestion(child) {
   const gender = child ? child.gender : 'male';
   const isFemale = gender === 'female';
 
-  // Gợi ý theo nhóm tuổi + giới tính
+ 
   const suggestions = {
     // ══ 0–5 TUỔI ══
     early: [
@@ -2198,7 +2208,7 @@ function gotoAuth(tab) { showScreen('screen-auth'); switchTab(tab); }
 function togglePassword() { const i=document.getElementById('input-password'),ic=document.getElementById('pwd-eye-icon'); if(i.type==='password'){i.type='text';ic.className='fa fa-eye-slash';}else{i.type='password';ic.className='fa fa-eye';} }
 
 // ════════════════════════════════════════════════════════
-// AUTH — giữ nguyên logic Supabase
+// AUTH 
 // ════════════════════════════════════════════════════════
 function switchTab(tab) {
   const isReg = tab==='register';
