@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>♟ Luyện Cờ Vua</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+<style>
+  :root {
+    --bg: #0f1923;
+    --surface: #1a2535;
+    --surface2: #243044;
+    --gold: #f0c040;
+    --gold2: #ffd96a;
+    --green: #4ade80;
+    --red: #f87171;
+    --blue: #60a5fa;
+    --text: #e8eaf0;
+    --muted: #8a9ab5;
+    --light-sq: #f0d9b5;
+    --dark-sq: #b58863;
+    --highlight: rgba(255, 220, 50, 0.55);
+    --hint: rgba(80, 220, 120, 0.45);
+    --danger: rgba(248, 113, 113, 0.5);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* HEADER */
+  header {
+    width: 100%;
+    background: var(--surface);
+    border-bottom: 2px solid var(--gold);
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  header h1 { font-size: 1.3rem; color: var(--gold); letter-spacing: 0.04em; }
+  header span { font-size: 1.6rem; }
+
+  /* LAYOUT */
+  .app {
+    display: flex;
+    gap: 24px;
+    padding: 24px 16px;
+    width: 100%;
+    max-width: 960px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* SIDEBAR */
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 240px;
+    flex-shrink: 0;
+  }
+  .card {
+    background: var(--surface);
+    border-radius: 12px;
+    padding: 16px;
+    border: 1px solid var(--surface2);
+  }
+  .card h3 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  /* LEVEL BUTTONS */
+  .level-btns { display: flex; flex-direction: column; gap: 8px; }
+  .level-btn {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    background: var(--surface2);
+    color: var(--text);
+    cursor: pointer;
+    font-size: 0.9rem;
+    text-align: left;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .level-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .level-btn.active { border-color: var(--gold); background: rgba(240,192,64,0.12); color: var(--gold); }
+  .level-badge {
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: var(--surface);
+    color: var(--muted);
+    margin-left: auto;
+  }
+  .level-btn.active .level-badge { background: var(--gold); color: var(--bg); }
+
+  /* GAME CONTROLS */
+  .ctrl-btns { display: flex; flex-direction: column; gap: 8px; }
+  .ctrl-btn {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.88rem;
+    font-weight: 600;
+    transition: all 0.15s;
+  }
+  .btn-primary { background: var(--gold); color: var(--bg); }
+  .btn-primary:hover { background: var(--gold2); }
+  .btn-secondary { background: var(--surface2); color: var(--text); }
+  .btn-secondary:hover { background: #2e3d55; }
+  .btn-danger { background: rgba(248,113,113,0.15); color: var(--red); border: 1px solid var(--red); }
+  .btn-danger:hover { background: rgba(248,113,113,0.25); }
+
+  /* STATUS / SCORE */
+  .status-bar {
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-align: center;
+    background: var(--surface2);
+    border: 1px solid var(--surface2);
+    transition: all 0.3s;
+  }
+  .status-bar.check { border-color: var(--red); color: var(--red); background: rgba(248,113,113,0.1); }
+  .status-bar.win { border-color: var(--green); color: var(--green); background: rgba(74,222,128,0.1); }
+  .status-bar.draw { border-color: var(--blue); color: var(--blue); background: rgba(96,165,250,0.1); }
+
+  .score-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+  }
+  .score-val { color: var(--gold); font-weight: 700; font-size: 1rem; }
+
+  /* CAPTURED PIECES */
+  .captured { font-size: 0.95rem; min-height: 24px; letter-spacing: 1px; }
+
+  /* MOVE HISTORY */
+  .history-box {
+    max-height: 140px;
+    overflow-y: auto;
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+  .history-box::-webkit-scrollbar { width: 4px; }
+  .history-box::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 4px; }
+
+  /* BOARD WRAPPER */
+  .board-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* PLAYER TAGS */
+  .player-tag {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 8px 12px;
+    background: var(--surface);
+    border-radius: 8px;
+    font-size: 0.88rem;
+  }
+  .player-tag .dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-white { background: #f0f0f0; border: 1px solid #888; }
+  .dot-black { background: #222; border: 1px solid #555; }
+  .player-tag .think { margin-left: auto; font-size: 0.75rem; color: var(--gold); animation: pulse 1s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  /* CHESS BOARD */
+  .board-container { position: relative; }
+  #chessboard {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    border: 3px solid var(--gold);
+    border-radius: 4px;
+    overflow: hidden;
+    user-select: none;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+  }
+  .square {
+    width: 70px; height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.1s;
+  }
+  .square.light { background: var(--light-sq); }
+  .square.dark  { background: var(--dark-sq); }
+  .square.selected { background: var(--highlight) !important; }
+  .square.hint::after {
+    content: '';
+    position: absolute;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--hint);
+    pointer-events: none;
+  }
+  .square.hint.has-piece::after {
+    width: 100%; height: 100%;
+    border-radius: 0;
+    background: var(--danger);
+  }
+  .square.last-move { background: rgba(255,200,50,0.3) !important; }
+  .coord-col {
+    position: absolute;
+    bottom: 2px; right: 4px;
+    font-size: 0.6rem;
+    font-weight: 700;
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  .coord-row {
+    position: absolute;
+    top: 2px; left: 4px;
+    font-size: 0.6rem;
+    font-weight: 700;
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  /* PIECES */
+  .piece {
+    font-size: 40px;
+    line-height: 1;
+    cursor: pointer;
+    filter: drop-shadow(1px 2px 2px rgba(0,0,0,0.4));
+    transition: transform 0.1s;
+    pointer-events: none;
+  }
+  .square:hover .piece { transform: scale(1.1); }
+
+  /* PROMOTION MODAL */
+  #promoModal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+  }
+  #promoModal.show { display: flex; }
+  .promo-box {
+    background: var(--surface);
+    border: 2px solid var(--gold);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+  }
+  .promo-box h3 { color: var(--gold); margin-bottom: 16px; }
+  .promo-choices { display: flex; gap: 12px; justify-content: center; }
+  .promo-piece {
+    width: 64px; height: 64px;
+    background: var(--surface2);
+    border-radius: 8px;
+    border: 2px solid var(--surface2);
+    font-size: 36px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+  }
+  .promo-piece:hover { border-color: var(--gold); background: rgba(240,192,64,0.15); }
+
+  /* RESULT MODAL */
+  #resultModal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+  }
+  #resultModal.show { display: flex; }
+  .result-box {
+    background: var(--surface);
+    border-radius: 20px;
+    padding: 32px 40px;
+    text-align: center;
+    border: 2px solid var(--gold);
+    max-width: 340px;
+  }
+  .result-emoji { font-size: 3rem; margin-bottom: 12px; }
+  .result-title { font-size: 1.5rem; font-weight: 700; color: var(--gold); margin-bottom: 8px; }
+  .result-sub { color: var(--muted); margin-bottom: 20px; font-size: 0.9rem; }
+  .result-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+  /* HINT TOGGLE */
+  .toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.85rem;
+  }
+  .toggle {
+    width: 38px; height: 22px;
+    background: var(--surface2);
+    border-radius: 11px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.2s;
+    border: none;
+    flex-shrink: 0;
+  }
+  .toggle.on { background: var(--green); }
+  .toggle::after {
+    content: '';
+    position: absolute;
+    width: 16px; height: 16px;
+    background: white;
+    border-radius: 50%;
+    top: 3px; left: 3px;
+    transition: left 0.2s;
+  }
+  .toggle.on::after { left: 19px; }
+
+  /* THINKING OVERLAY */
+  #thinkingBar {
+    display: none;
+    width: 100%;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--gold);
+    padding: 4px;
+  }
+  #thinkingBar.show { display: block; }
+
+  @media (max-width: 620px) {
+    .square { width: 44px; height: 44px; }
+    .piece { font-size: 26px; }
+    .sidebar { width: 100%; flex-direction: row; flex-wrap: wrap; }
+    .card { flex: 1; min-width: 160px; }
+    .square.hint::after { width: 18px; height: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <span>♟</span>
+  <h1>Luyện Cờ Vua</h1>
+</header>
+
+<div class="app">
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+
+    <div class="card">
+      <h3>Cấp độ AI</h3>
+      <div class="level-btns">
+        <button class="level-btn active" data-level="1">🐣 Gà Con <span class="level-badge">Lv 1</span></button>
+        <button class="level-btn" data-level="2">🐥 Đang Học <span class="level-badge">Lv 2</span></button>
+        <button class="level-btn" data-level="3">🐦 Tự Tin <span class="level-badge">Lv 3</span></button>
+        <button class="level-btn" data-level="4">🦅 Thách Thức <span class="level-badge">Lv 4</span></button>
+        <button class="level-btn" data-level="5">🦁 Chuyên Gia <span class="level-badge">Lv 5</span></button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Điều Khiển</h3>
+      <div class="ctrl-btns">
+        <button class="ctrl-btn btn-primary" id="btnNew">🎮 Ván Mới</button>
+        <button class="ctrl-btn btn-secondary" id="btnUndo">↩ Đi Lại</button>
+        <button class="ctrl-btn btn-secondary" id="btnFlip">🔄 Đổi Bên</button>
+        <button class="ctrl-btn btn-danger" id="btnResign">🏳 Đầu Hàng</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Hỗ Trợ</h3>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div class="toggle-row">
+          <span>💡 Gợi ý nước đi</span>
+          <button class="toggle on" id="toggleHint"></button>
+        </div>
+        <div class="toggle-row">
+          <span>🔢 Hiện toạ độ</span>
+          <button class="toggle" id="toggleCoord"></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Điểm Số</h3>
+      <div class="score-row">
+        <span>🏆 Thắng</span><span class="score-val" id="scoreWin">0</span>
+      </div>
+      <div class="score-row" style="margin-top:6px">
+        <span>😔 Thua</span><span class="score-val" id="scoreLoss">0</span>
+      </div>
+      <div class="score-row" style="margin-top:6px">
+        <span>🤝 Hòa</span><span class="score-val" id="scoreDraw">0</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Quân Bị Ăn</h3>
+      <div id="capturedWhite" class="captured" style="margin-bottom:4px"></div>
+      <div id="capturedBlack" class="captured"></div>
+    </div>
+
+    <div class="card">
+      <h3>Lịch Sử Nước Đi</h3>
+      <div class="history-box" id="historyBox"></div>
+    </div>
+
+  </div>
+
+  <!-- BOARD -->
+  <div class="board-wrapper">
+    <div class="player-tag" id="tagBlack">
+      <div class="dot dot-black"></div>
+      <span id="blackLabel">♟ Máy tính</span>
+      <span class="think" id="thinkingDot" style="display:none">đang nghĩ…</span>
+    </div>
+    <div class="board-container">
+      <div id="chessboard"></div>
+    </div>
+    <div class="player-tag" id="tagWhite">
+      <div class="dot dot-white"></div>
+      <span id="whiteLabel">♙ Người chơi</span>
+    </div>
+    <div id="statusBar" class="status-bar">🎯 Lượt của bạn – Quân trắng đi trước</div>
+    <div id="thinkingBar">🤖 AI đang suy nghĩ…</div>
+  </div>
+</div>
+
+<!-- PROMOTION MODAL -->
+<div id="promoModal">
+  <div class="promo-box">
+    <h3>♛ Phong cấp! Chọn quân:</h3>
+    <div class="promo-choices" id="promoChoices"></div>
+  </div>
+</div>
+
+<!-- RESULT MODAL -->
+<div id="resultModal">
+  <div class="result-box">
+    <div class="result-emoji" id="resultEmoji"></div>
+    <div class="result-title" id="resultTitle"></div>
+    <div class="result-sub" id="resultSub"></div>
+    <div class="result-btns">
+      <button class="ctrl-btn btn-primary" id="btnPlayAgain">🎮 Chơi Lại</button>
+      <button class="ctrl-btn btn-secondary" id="btnClose">✕ Đóng</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════
+// STATE
+// ═══════════════════════════════
+const game = new Chess();
+let selectedSq = null;
+let legalMoves = [];
+let flipped = false;
+let playerColor = 'w';
+let level = 1;
+let showHints = true;
+let showCoords = false;
+let lastMove = null;
+let score = { win: 0, loss: 0, draw: 0 };
+let pendingPromotion = null;
+let gameOver = false;
+
+// Piece unicode map
+const PIECES = {
+  wK:'♔', wQ:'♕', wR:'♖', wB:'♗', wN:'♘', wP:'♙',
+  bK:'♚', bQ:'♛', bR:'♜', bB:'♝', bN:'♞', bP:'♟'
+};
+
+// ═══════════════════════════════
+// BOARD RENDERING
+// ═══════════════════════════════
+function renderBoard() {
+  const board = document.getElementById('chessboard');
+  board.innerHTML = '';
+
+  const ranks = flipped ? [0,1,2,3,4,5,6,7] : [7,6,5,4,3,2,1,0];
+  const files = flipped ? [7,6,5,4,3,2,1,0] : [0,1,2,3,4,5,6,7];
+
+  for (const r of ranks) {
+    for (const f of files) {
+      const file = 'abcdefgh'[f];
+      const rank = r + 1;
+      const sq = file + rank;
+      const isLight = (r + f) % 2 !== 0;
+
+      const div = document.createElement('div');
+      div.className = 'square ' + (isLight ? 'light' : 'dark');
+      div.dataset.sq = sq;
+
+      // Highlight selected
+      if (selectedSq === sq) div.classList.add('selected');
+
+      // Last move highlight
+      if (lastMove && (lastMove.from === sq || lastMove.to === sq)) {
+        div.classList.add('last-move');
+      }
+
+      // Hint dots
+      if (showHints && legalMoves.includes(sq)) {
+        div.classList.add('hint');
+        const piece = game.get(sq);
+        if (piece) div.classList.add('has-piece');
+      }
+
+      // Coordinates
+      if (showCoords) {
+        if (f === (flipped ? 7 : 0)) {
+          const cr = document.createElement('span');
+          cr.className = 'coord-row';
+          cr.textContent = rank;
+          div.appendChild(cr);
+        }
+        if (r === (flipped ? 7 : 0)) {
+          const cc = document.createElement('span');
+          cc.className = 'coord-col';
+          cc.textContent = file;
+          div.appendChild(cc);
+        }
+      }
+
+      // Piece
+      const piece = game.get(sq);
+      if (piece) {
+        const span = document.createElement('span');
+        span.className = 'piece';
+        span.textContent = PIECES[piece.color + piece.type.toUpperCase()];
+        div.appendChild(span);
+      }
+
+      div.addEventListener('click', () => onSquareClick(sq));
+      board.appendChild(div);
+    }
+  }
+  updateStatus();
+  updateCaptured();
+  updateHistory();
+}
+
+// ═══════════════════════════════
+// CLICK HANDLER
+// ═══════════════════════════════
+function onSquareClick(sq) {
+  if (gameOver) return;
+  if (game.turn() !== playerColor) return;
+
+  const piece = game.get(sq);
+
+  if (selectedSq) {
+    if (legalMoves.includes(sq)) {
+      doMove(selectedSq, sq);
+    } else if (piece && piece.color === playerColor) {
+      selectSquare(sq);
+    } else {
+      clearSelection();
+    }
+  } else {
+    if (piece && piece.color === playerColor) {
+      selectSquare(sq);
+    }
+  }
+}
+
+function selectSquare(sq) {
+  selectedSq = sq;
+  legalMoves = game.moves({ square: sq, verbose: true }).map(m => m.to);
+  renderBoard();
+}
+
+function clearSelection() {
+  selectedSq = null;
+  legalMoves = [];
+  renderBoard();
+}
+
+// ═══════════════════════════════
+// MOVE EXECUTION
+// ═══════════════════════════════
+function doMove(from, to, promo) {
+  const moves = game.moves({ square: from, verbose: true });
+  const target = moves.find(m => m.to === to);
+  if (!target) return;
+
+  // Check promotion
+  if (target.flags.includes('p') && !promo) {
+    pendingPromotion = { from, to };
+    showPromoModal();
+    return;
+  }
+
+  const move = game.move({ from, to, promotion: promo || 'q' });
+  if (!move) return;
+
+  lastMove = { from: move.from, to: move.to };
+  clearSelection();
+  renderBoard();
+  checkGameEnd();
+
+  if (!gameOver) {
+    setTimeout(aiMove, 200);
+  }
+}
+
+// ═══════════════════════════════
+// AI (Minimax + Alpha-Beta)
+// ═══════════════════════════════
+
+// Piece values
+const PIECE_VALUES = { p:100, n:320, b:330, r:500, q:900, k:20000 };
+
+// Piece-square tables (simplified, from white's perspective)
+const PST = {
+  p: [
+    0,0,0,0,0,0,0,0,
+    50,50,50,50,50,50,50,50,
+    10,10,20,30,30,20,10,10,
+    5,5,10,25,25,10,5,5,
+    0,0,0,20,20,0,0,0,
+    5,-5,-10,0,0,-10,-5,5,
+    5,10,10,-20,-20,10,10,5,
+    0,0,0,0,0,0,0,0
+  ],
+  n: [
+    -50,-40,-30,-30,-30,-30,-40,-50,
+    -40,-20,0,0,0,0,-20,-40,
+    -30,0,10,15,15,10,0,-30,
+    -30,5,15,20,20,15,5,-30,
+    -30,0,15,20,20,15,0,-30,
+    -30,5,10,15,15,10,5,-30,
+    -40,-20,0,5,5,0,-20,-40,
+    -50,-40,-30,-30,-30,-30,-40,-50
+  ],
+  b: [
+    -20,-10,-10,-10,-10,-10,-10,-20,
+    -10,0,0,0,0,0,0,-10,
+    -10,0,5,10,10,5,0,-10,
+    -10,5,5,10,10,5,5,-10,
+    -10,0,10,10,10,10,0,-10,
+    -10,10,10,10,10,10,10,-10,
+    -10,5,0,0,0,0,5,-10,
+    -20,-10,-10,-10,-10,-10,-10,-20
+  ],
+  r: [
+    0,0,0,0,0,0,0,0,
+    5,10,10,10,10,10,10,5,
+    -5,0,0,0,0,0,0,-5,
+    -5,0,0,0,0,0,0,-5,
+    -5,0,0,0,0,0,0,-5,
+    -5,0,0,0,0,0,0,-5,
+    -5,0,0,0,0,0,0,-5,
+    0,0,0,5,5,0,0,0
+  ],
+  q: [
+    -20,-10,-10,-5,-5,-10,-10,-20,
+    -10,0,0,0,0,0,0,-10,
+    -10,0,5,5,5,5,0,-10,
+    -5,0,5,5,5,5,0,-5,
+    0,0,5,5,5,5,0,-5,
+    -10,5,5,5,5,5,0,-10,
+    -10,0,5,0,0,0,0,-10,
+    -20,-10,-10,-5,-5,-10,-10,-20
+  ],
+  k: [
+    -30,-40,-40,-50,-50,-40,-40,-30,
+    -30,-40,-40,-50,-50,-40,-40,-30,
+    -30,-40,-40,-50,-50,-40,-40,-30,
+    -30,-40,-40,-50,-50,-40,-40,-30,
+    -20,-30,-30,-40,-40,-30,-30,-20,
+    -10,-20,-20,-20,-20,-20,-20,-10,
+    20,20,0,0,0,0,20,20,
+    20,30,10,0,0,10,30,20
+  ]
+};
+
+function getPSTValue(piece, square) {
+  const file = square.charCodeAt(0) - 97;
+  const rank = parseInt(square[1]) - 1;
+  const idx = piece.color === 'w' ? (7-rank)*8 + file : rank*8 + file;
+  const tbl = PST[piece.type];
+  return tbl ? tbl[idx] || 0 : 0;
+}
+
+function evaluate(g) {
+  if (g.in_checkmate()) return g.turn() === 'w' ? -30000 : 30000;
+  if (g.in_draw()) return 0;
+
+  let score = 0;
+  const board = g.board();
+  for (const row of board) {
+    for (const p of row) {
+      if (!p) continue;
+      const val = PIECE_VALUES[p.type] + getPSTValue(p, p.square);
+      score += p.color === 'w' ? val : -val;
+    }
+  }
+  return score;
+}
+
+// Depth per level
+const DEPTHS = { 1: 1, 2: 2, 3: 3, 4: 3, 5: 4 };
+// Random noise per level (to make lower levels imperfect)
+const NOISE = { 1: 200, 2: 100, 3: 40, 4: 10, 5: 0 };
+
+function minimax(g, depth, alpha, beta, isMax) {
+  if (depth === 0 || g.game_over()) return evaluate(g);
+  const moves = g.moves();
+  if (isMax) {
+    let best = -Infinity;
+    for (const m of moves) {
+      g.move(m);
+      best = Math.max(best, minimax(g, depth-1, alpha, beta, false));
+      g.undo();
+      alpha = Math.max(alpha, best);
+      if (beta <= alpha) break;
+    }
+    return best;
+  } else {
+    let best = Infinity;
+    for (const m of moves) {
+      g.move(m);
+      best = Math.min(best, minimax(g, depth-1, alpha, beta, true));
+      g.undo();
+      beta = Math.min(beta, best);
+      if (beta <= alpha) break;
+    }
+    return best;
+  }
+}
+
+function aiMove() {
+  if (game.game_over() || gameOver) return;
+  const aiColor = playerColor === 'w' ? 'b' : 'w';
+  if (game.turn() !== aiColor) return;
+
+  showThinking(true);
+
+  setTimeout(() => {
+    const moves = game.moves({ verbose: true });
+    if (!moves.length) { showThinking(false); return; }
+
+    const depth = DEPTHS[level];
+    const noise = NOISE[level];
+    const isMax = aiColor === 'w';
+
+    let bestScore = isMax ? -Infinity : Infinity;
+    let bestMoves = [];
+
+    for (const m of moves) {
+      game.move(m);
+      const score = minimax(game, depth - 1, -Infinity, Infinity, !isMax);
+      game.undo();
+
+      const noisy = score + (Math.random() - 0.5) * noise * 2;
+      if (isMax ? noisy > bestScore : noisy < bestScore) {
+        bestScore = noisy;
+        bestMoves = [m];
+      } else if (Math.abs(noisy - bestScore) < 1) {
+        bestMoves.push(m);
+      }
+    }
+
+    // At level 1: sometimes pick random
+    let chosen;
+    if (level === 1 && Math.random() < 0.4) {
+      chosen = moves[Math.floor(Math.random() * moves.length)];
+    } else {
+      chosen = bestMoves[Math.floor(Math.random() * bestMoves.length)];
+    }
+
+    const result = game.move(chosen);
+    lastMove = { from: result.from, to: result.to };
+    showThinking(false);
+    renderBoard();
+    checkGameEnd();
+  }, level >= 4 ? 600 : 300);
+}
+
+// ═══════════════════════════════
+// GAME END
+// ═══════════════════════════════
+function checkGameEnd() {
+  if (!game.game_over()) return;
+  gameOver = true;
+
+  setTimeout(() => {
+    const aiColor = playerColor === 'w' ? 'b' : 'w';
+    if (game.in_checkmate()) {
+      const winner = game.turn() === 'w' ? 'b' : 'w';
+      if (winner === playerColor) {
+        showResult('🎉', 'Bạn Thắng!', 'Xuất sắc! Bạn đã chiếu hết AI!', 'win');
+        score.win++;
+      } else {
+        showResult('😢', 'Thua Rồi!', 'Đừng nản nhé, thử lại là giỏi hơn!', 'loss');
+        score.loss++;
+      }
+    } else if (game.in_draw()) {
+      showResult('🤝', 'Hòa!', game.in_stalemate() ? 'Pat – không còn nước đi hợp lệ' : 'Hai bên hòa nhau!', 'draw');
+      score.draw++;
+    }
+    updateScoreDisplay();
+  }, 300);
+}
+
+function showResult(emoji, title, sub, type) {
+  document.getElementById('resultEmoji').textContent = emoji;
+  document.getElementById('resultTitle').textContent = title;
+  document.getElementById('resultSub').textContent = sub;
+  document.getElementById('resultModal').classList.add('show');
+}
+
+// ═══════════════════════════════
+// STATUS
+// ═══════════════════════════════
+function updateStatus() {
+  const bar = document.getElementById('statusBar');
+  bar.className = 'status-bar';
+  if (game.game_over()) {
+    if (game.in_checkmate()) {
+      bar.classList.add('win');
+      bar.textContent = '♚ Chiếu hết! Ván đấu kết thúc.';
+    } else {
+      bar.classList.add('draw');
+      bar.textContent = '🤝 Hòa!';
+    }
+    return;
+  }
+  if (game.in_check()) {
+    bar.classList.add('check');
+    bar.textContent = '⚠️ Chiếu! Hãy bảo vệ vua!';
+    return;
+  }
+  const turn = game.turn();
+  const thinking = turn !== playerColor;
+  bar.textContent = thinking
+    ? '🤖 AI đang đi…'
+    : '🎯 Đến lượt bạn!';
+  document.getElementById('thinkingDot').style.display = thinking ? 'inline' : 'none';
+}
+
+function showThinking(show) {
+  document.getElementById('thinkingBar').classList.toggle('show', show);
+  document.getElementById('thinkingDot').style.display = show ? 'inline' : 'none';
+}
+
+// ═══════════════════════════════
+// CAPTURED PIECES
+// ═══════════════════════════════
+function updateCaptured() {
+  const history = game.history({ verbose: true });
+  const wCap = [], bCap = [];
+  for (const m of history) {
+    if (m.captured) {
+      const sym = PIECES[(m.color === 'w' ? 'b' : 'w') + m.captured.toUpperCase()];
+      if (m.color === 'w') wCap.push(sym);
+      else bCap.push(sym);
+    }
+  }
+  document.getElementById('capturedWhite').textContent = wCap.join(' ');
+  document.getElementById('capturedBlack').textContent = bCap.join(' ');
+}
+
+// ═══════════════════════════════
+// MOVE HISTORY
+// ═══════════════════════════════
+function updateHistory() {
+  const hist = game.history();
+  const box = document.getElementById('historyBox');
+  let txt = '';
+  for (let i = 0; i < hist.length; i += 2) {
+    txt += `${Math.floor(i/2)+1}. ${hist[i]} ${hist[i+1]||''} `;
+  }
+  box.textContent = txt || 'Chưa có nước đi nào.';
+  box.scrollTop = box.scrollHeight;
+}
+
+function updateScoreDisplay() {
+  document.getElementById('scoreWin').textContent = score.win;
+  document.getElementById('scoreLoss').textContent = score.loss;
+  document.getElementById('scoreDraw').textContent = score.draw;
+}
+
+// ═══════════════════════════════
+// PROMOTION
+// ═══════════════════════════════
+function showPromoModal() {
+  const color = playerColor;
+  const pieces = [
+    { type:'q', sym: PIECES[color+'Q'] },
+    { type:'r', sym: PIECES[color+'R'] },
+    { type:'b', sym: PIECES[color+'B'] },
+    { type:'n', sym: PIECES[color+'N'] },
+  ];
+  const box = document.getElementById('promoChoices');
+  box.innerHTML = '';
+  for (const p of pieces) {
+    const btn = document.createElement('div');
+    btn.className = 'promo-piece';
+    btn.textContent = p.sym;
+    btn.addEventListener('click', () => {
+      document.getElementById('promoModal').classList.remove('show');
+      if (pendingPromotion) {
+        doMove(pendingPromotion.from, pendingPromotion.to, p.type);
+        pendingPromotion = null;
+      }
+    });
+    box.appendChild(btn);
+  }
+  document.getElementById('promoModal').classList.add('show');
+}
+
+// ═══════════════════════════════
+// NEW GAME
+// ═══════════════════════════════
+function newGame() {
+  game.reset();
+  selectedSq = null;
+  legalMoves = [];
+  lastMove = null;
+  gameOver = false;
+  pendingPromotion = null;
+  document.getElementById('resultModal').classList.remove('show');
+  showThinking(false);
+  renderBoard();
+
+  // If player chose black, AI goes first
+  if (playerColor === 'b') {
+    setTimeout(aiMove, 400);
+  }
+}
+
+// ═══════════════════════════════
+// EVENT LISTENERS
+// ═══════════════════════════════
+document.getElementById('btnNew').addEventListener('click', newGame);
+
+document.getElementById('btnUndo').addEventListener('click', () => {
+  if (gameOver) return;
+  game.undo(); // undo AI move
+  game.undo(); // undo player move
+  lastMove = null;
+  clearSelection();
+});
+
+document.getElementById('btnFlip').addEventListener('click', () => {
+  flipped = !flipped;
+  playerColor = playerColor === 'w' ? 'b' : 'w';
+  document.getElementById('whiteLabel').textContent = playerColor === 'w' ? '♙ Người chơi' : '♙ Máy tính';
+  document.getElementById('blackLabel').textContent = playerColor === 'b' ? '♟ Người chơi' : '♟ Máy tính';
+  clearSelection();
+  if (game.turn() !== playerColor && !gameOver) {
+    setTimeout(aiMove, 300);
+  }
+});
+
+document.getElementById('btnResign').addEventListener('click', () => {
+  if (gameOver) return;
+  gameOver = true;
+  score.loss++;
+  updateScoreDisplay();
+  showResult('🏳️', 'Đầu Hàng', 'Không sao, thử lại là tiến bộ hơn!', 'loss');
+});
+
+document.getElementById('btnPlayAgain').addEventListener('click', newGame);
+document.getElementById('btnClose').addEventListener('click', () => {
+  document.getElementById('resultModal').classList.remove('show');
+});
+
+document.querySelectorAll('.level-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    level = parseInt(btn.dataset.level);
+  });
+});
+
+document.getElementById('toggleHint').addEventListener('click', function() {
+  showHints = !showHints;
+  this.classList.toggle('on', showHints);
+  renderBoard();
+});
+
+document.getElementById('toggleCoord').addEventListener('click', function() {
+  showCoords = !showCoords;
+  this.classList.toggle('on', showCoords);
+  renderBoard();
+});
+
+// ═══════════════════════════════
+// INIT
+// ═══════════════════════════════
+renderBoard();
+</script>
+</body>
+</html>
