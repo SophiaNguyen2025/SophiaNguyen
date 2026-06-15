@@ -725,14 +725,23 @@ function evaluate(g) {
   return score;
 }
 
-// Depth per level (giảm để AI đi nhanh hơn)
-const DEPTHS = { 1: 1, 2: 1, 3: 2, 4: 2, 5: 3 };
+// Depth per level
+const DEPTHS = { 1: 1, 2: 2, 3: 2, 4: 3, 5: 3 };
 // Random noise per level (to make lower levels imperfect)
 const NOISE = { 1: 200, 2: 100, 3: 40, 4: 10, 5: 0 };
 
+// Move ordering: try captures first to improve alpha-beta pruning speed
+function orderMoves(moves) {
+  return moves.slice().sort((a, b) => {
+    const aCap = a.captured ? (PIECE_VALUES[a.captured] || 0) : 0;
+    const bCap = b.captured ? (PIECE_VALUES[b.captured] || 0) : 0;
+    return bCap - aCap;
+  });
+}
+
 function minimax(g, depth, alpha, beta, isMax) {
   if (depth === 0 || g.game_over()) return evaluate(g);
-  const moves = g.moves();
+  const moves = orderMoves(g.moves({ verbose: true }));
   if (isMax) {
     let best = -Infinity;
     for (const m of moves) {
@@ -764,7 +773,7 @@ function aiMove() {
   showThinking(true);
 
   setTimeout(() => {
-    const moves = game.moves({ verbose: true });
+    const moves = orderMoves(game.moves({ verbose: true }));
     if (!moves.length) { showThinking(false); return; }
 
     const depth = DEPTHS[level];
