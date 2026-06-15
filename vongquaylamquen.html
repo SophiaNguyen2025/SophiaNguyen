@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vòng Quay Làm Quen</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg1: #2b1055;
+    --card: #ffffff;
+    --gold: #ffc857;
+    --pink: #ff6b9d;
+    --teal: #4ecdc4;
+    --purple: #845ec2;
+    --orange: #ff9f1c;
+    --green: #6fcf97;
+    --blue: #4d96ff;
+    --text: #2b1055;
+    --muted: #8b85a8;
+    --shadow: 0 20px 50px rgba(43,16,85,0.35);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Quicksand', sans-serif;
+    background: radial-gradient(circle at 20% 20%, #4d2a8f 0%, var(--bg1) 45%, #1a0a3a 100%);
+    min-height: 100vh;
+    color: #fff;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 16px 40px;
+  }
+
+  .bg-shapes { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .bg-shape {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.12;
+    animation: float 14s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+    50% { transform: translateY(-40px) translateX(20px) rotate(180deg); }
+  }
+
+  header { text-align: center; margin-bottom: 18px; position: relative; z-index: 1; }
+  .eyebrow {
+    font-family: 'Baloo 2', cursive;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  h1 {
+    font-family: 'Baloo 2', cursive;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    font-weight: 800;
+    line-height: 1.15;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  }
+  h1 span { color: var(--gold); }
+  .subtitle { font-size: 14px; color: #d8d0f5; margin-top: 6px; }
+
+  .main-area {
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .wheel-wrap {
+    position: relative;
+    width: min(420px, 90vw);
+    height: min(420px, 90vw);
+    margin: 10px 0;
+  }
+
+  .wheel-pointer {
+    position: absolute;
+    top: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0; height: 0;
+    border-left: 18px solid transparent;
+    border-right: 18px solid transparent;
+    border-top: 32px solid var(--gold);
+    z-index: 10;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+  }
+
+  .wheel {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 0 0 8px #fff, 0 0 0 14px var(--gold), var(--shadow);
+    transition: transform 4.5s cubic-bezier(0.12, 0.78, 0.18, 1);
+    overflow: hidden;
+  }
+
+  .wheel-center {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70px; height: 70px;
+    background: #fff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+    z-index: 5;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  }
+
+  .wheel-label {
+    position: absolute;
+    font-family: 'Baloo 2', cursive;
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.35);
+    transform-origin: left center;
+    left: 50%;
+    top: 50%;
+  }
+
+  .spin-btn {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--text);
+    background: linear-gradient(135deg, var(--gold), #ffe08a);
+    border: none;
+    padding: 16px 48px;
+    border-radius: 60px;
+    cursor: pointer;
+    box-shadow: 0 8px 0 #d99e2b, 0 14px 30px rgba(0,0,0,0.25);
+    transition: transform 0.1s, box-shadow 0.1s;
+    letter-spacing: 1px;
+  }
+  .spin-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 10px 0 #d99e2b, 0 16px 30px rgba(0,0,0,0.25); }
+  .spin-btn:active:not(:disabled) { transform: translateY(4px); box-shadow: 0 4px 0 #d99e2b; }
+  .spin-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .result-card {
+    background: var(--card);
+    color: var(--text);
+    border-radius: 28px;
+    padding: 28px 30px;
+    width: 100%;
+    max-width: 540px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    display: none;
+    animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .result-card.show { display: block; }
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.7) translateY(20px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  .result-name-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .result-name {
+    font-family: 'Baloo 2', cursive;
+    font-size: clamp(1.8rem, 6vw, 2.6rem);
+    font-weight: 800;
+    color: var(--purple);
+    margin-bottom: 4px;
+    word-break: break-word;
+  }
+  .result-age { font-size: 14px; color: var(--muted); margin-bottom: 18px; }
+
+  .challenge-box {
+    background: linear-gradient(135deg, #fff4e0, #ffe9f0);
+    border-radius: 20px;
+    padding: 20px 22px;
+    margin-top: 6px;
+    border: 2px dashed var(--orange);
+  }
+  .challenge-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--orange);
+    color: #fff;
+    font-family: 'Baloo 2', cursive;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+  .challenge-text {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.45;
+  }
+  .challenge-action { margin-top: 10px; font-size: 14px; color: var(--purple); font-weight: 600; }
+
+  .controls-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; justify-content: center; }
+
+  .ghost-btn {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: #fff;
+    background: rgba(255,255,255,0.12);
+    border: 1.5px solid rgba(255,255,255,0.3);
+    padding: 10px 22px;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .ghost-btn:hover:not(:disabled) { background: rgba(255,255,255,0.22); transform: translateY(-1px); }
+  .ghost-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+  .roster { width: 100%; max-width: 1100px; margin-top: 10px; }
+  .roster-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #b9aee0;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  .roster-grid { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+  .roster-chip {
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 30px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #cfc6f0;
+    transition: all 0.3s;
+  }
+  .roster-chip.done {
+    background: rgba(111,207,151,0.18);
+    border-color: rgba(111,207,151,0.4);
+    color: var(--green);
+    text-decoration: line-through;
+    opacity: 0.7;
+  }
+
+  .celebrate {
+    display: none;
+    text-align: center;
+    color: #fff;
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-top: 6px;
+  }
+  .celebrate.show { display: block; animation: popIn 0.5s ease; }
+.logo { height: 60px; margin-bottom: 10px; }
+  @media (max-width: 480px) {
+    .result-card { padding: 22px 18px; }
+    .challenge-text { font-size: 1.05rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-shapes" id="bgShapes"></div>
+
+<header>
+  <div class="eyebrow">🎉 Khởi động buổi học</div>
+  <h1>Vòng Quay <span>Làm Quen</span></h1>
+   <img src="https://sophianguyen.com.vn/images/hinhremovenen.png" alt="Sophia Nguyễn" class="logo">
+  <p class="subtitle">Quay bánh xe – gọi tên bạn – cùng làm thử thách vui!</p>
+</header>
+
+<div class="main-area">
+  <div class="wheel-wrap">
+    <div class="wheel-pointer"></div>
+    <div class="wheel" id="wheel"></div>
+    <div class="wheel-center">🎯</div>
+  </div>
+
+  <button class="spin-btn" id="spinBtn">🎡 QUAY NÀO!</button>
+
+  <div class="result-card" id="resultCard">
+    <div class="result-name-label">Bạn được gọi tên là</div>
+    <div class="result-name" id="resultName">—</div>
+    <div class="result-age" id="resultAge"></div>
+    <div class="challenge-box">
+      <div class="challenge-tag">⚡ Thử thách</div>
+      <div class="challenge-text" id="challengeText"></div>
+      <div class="challenge-action" id="challengeAction"></div>
+    </div>
+  </div>
+
+  <div class="controls-row">
+    <button class="ghost-btn" id="resetBtn">🔄 Quay lại từ đầu</button>
+    <button class="ghost-btn" id="soundBtn">🔊 Âm thanh: BẬT</button>
+  </div>
+
+  <div class="celebrate" id="celebrate">🏆 Mọi người đã được làm quen hết rồi! Vỗ tay thật to nào! 🎉</div>
+
+  <div class="roster">
+    <div class="roster-title">Danh sách 17 bạn</div>
+    <div class="roster-grid" id="rosterGrid"></div>
+  </div>
+</div>
+
+<script>
+const students = [
+  { name: "Nguyễn Hoàng Trâm Anh", year: 2015 },
+  { name: "Ngô Bảo Châu", year: 2014 },
+  { name: "Trần Nguyễn Đức Huân", year: 2012 },
+  { name: "Vina Jarusombat", year: 2013 },
+  { name: "Trần Nguyên Khánh", year: 2014 },
+  { name: "Nguyễn Minh Khôi", year: 2015 },
+  { name: "Võ Minh Khuê", year: 2015 },
+  { name: "Nguyễn Thanh Lam", year: 2015 },
+  { name: "Nguyễn Ngọc Minh Minh", year: 2014 },
+  { name: "Đào Bá Khải Minh", year: 2016 },
+  { name: "Phan Huỳnh Kim Ngân", year: 2014 },
+  { name: "Võ Thy Bảo Ngọc", year: 2015 },
+  { name: "Nguyễn Ngọc An Phú", year: 2016 },
+  { name: "Vũ Hoàng Minh Phúc", year: 2018 },
+  { name: "Đào Nguyễn Nhật Phương", year: 2014 },
+  { name: "Dương Minh Uyên", year: 2014 },
+  { name: "Lê Vũ Nhật An", year: 2018 }
+];
+
+const challenges = [
+  { text: "Hãy hô to tên của mình và làm 1 động tác siêu nhân!", action: "💥 Cả lớp hô theo: 'Khỏe! Khỏe! Khỏe!'" },
+  { text: "Bạn hãy nói tên 1 món ăn yêu thích nhất của mình.", action: "🍜 Ai cũng thích món đó thì giơ tay!" },
+  { text: "Hãy nhảy tại chỗ 3 cái và nói 'Xin chào lớp mình!'", action: "👋 Cả lớp vỗ tay 3 cái theo nhịp." },
+  { text: "Nếu được biến thành 1 loài động vật, bạn muốn là con gì? Hãy bắt chước tiếng kêu của nó!", action: "🐾 Cả lớp đoán xem đó là con gì." },
+  { text: "Hãy kể tên 1 bộ phim hoạt hình bạn thích nhất.", action: "🎬 Ai từng xem phim đó thì giơ tay." },
+  { text: "Bạn hãy làm 1 biểu cảm khuôn mặt 'vui nhất có thể'!", action: "😄 Cả lớp bắt chước theo biểu cảm đó." },
+  { text: "Hãy nói 1 câu bằng tiếng Anh mà bạn thuộc nhất.", action: "🌟 Cả lớp vỗ tay cổ vũ." },
+  { text: "Bạn hãy giơ tay lên cao và hô 'Tôi sẵn sàng học!'", action: "✋ Cả lớp hô theo cùng lúc." },
+  { text: "Hãy đứng lên xoay 1 vòng rồi nói tên mình thật to.", action: "🔁 Cả lớp đếm '1-2-3' trước khi xoay." },
+  { text: "Bạn hãy kể 1 điều bạn giỏi nhất (vẽ, hát, chạy, vẽ tranh...).", action: "👏 Cả lớp vỗ tay khen ngợi." },
+  { text: "Hãy làm động tác 'high-five' với 2 bạn ngồi gần nhất.", action: "🙌 Mọi người cùng cười thật tươi." },
+  { text: "Bạn hãy đoán xem hôm nay cô giáo đang cảm thấy thế nào, rồi nói 1 câu chúc cô vui vẻ.", action: "💛 Cô sẽ trả lời cho cả lớp biết." },
+  { text: "Hãy hát 2 câu của 1 bài hát mà bạn thích.", action: "🎤 Cả lớp hát theo cùng nếu biết bài đó." },
+  { text: "Bạn hãy bắt chước dáng đi của 1 con vật trong 3 giây.", action: "🦒 Cả lớp đoán xem đó là con gì." },
+  { text: "Hãy nói 1 điều bạn mong chờ nhất ở khóa học này.", action: "✨ Cả lớp vỗ tay cổ vũ." },
+  { text: "Bạn hãy tạo 1 dáng pose 'siêu ngầu' và giữ trong 3 giây.", action: "📸 Cả lớp giả vờ chụp ảnh 'tách'!" },
+  { text: "Hãy nói tên 1 màu sắc bạn yêu thích và lý do.", action: "🎨 Ai thích màu giống bạn thì giơ tay." }
+];
+
+// Trộn ngẫu nhiên thứ tự thử thách 1 lần khi tải trang,
+// rồi gán tuần tự cho từng lượt quay -> không bạn nào trùng thử thách
+let challengeOrder = shuffleArray([...challenges]);
+let challengeCursor = 0;
+
+function shuffleArray(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+let remaining = [...students];
+let spinning = false;
+let soundOn = true;
+let currentRotation = 0;
+let audioCtx = null;
+
+const wheelColors = ['#ff6b9d', '#4ecdc4', '#845ec2', '#ff9f1c', '#6fcf97', '#4d96ff', '#ffc857', '#ff8c94'];
+
+function ensureAudio() {
+  if (!audioCtx) {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    audioCtx = new AC();
+  }
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+}
+
+function playTick() {
+  if (!soundOn) return;
+  ensureAudio();
+  const o = audioCtx.createOscillator();
+  const g = audioCtx.createGain();
+  o.type = 'square';
+  o.frequency.value = 1200;
+  g.gain.value = 0.06;
+  o.connect(g); g.connect(audioCtx.destination);
+  o.start();
+  g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.06);
+  o.stop(audioCtx.currentTime + 0.06);
+}
+
+function playWin() {
+  if (!soundOn) return;
+  ensureAudio();
+  const notes = [523.25, 659.25, 783.99, 1046.5];
+  notes.forEach((freq, i) => {
+    const o = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    o.type = 'triangle';
+    o.frequency.value = freq;
+    g.gain.value = 0.12;
+    o.connect(g); g.connect(audioCtx.destination);
+    const start = audioCtx.currentTime + i * 0.12;
+    o.start(start);
+    g.gain.setValueAtTime(0.12, start);
+    g.gain.exponentialRampToValueAtTime(0.0001, start + 0.35);
+    o.stop(start + 0.35);
+  });
+}
+
+function playFanfare() {
+  if (!soundOn) return;
+  ensureAudio();
+  const notes = [523.25, 587.33, 659.25, 698.46, 783.99, 880, 987.77, 1046.5];
+  notes.forEach((freq, i) => {
+    const o = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    o.type = 'sawtooth';
+    o.frequency.value = freq;
+    g.gain.value = 0.08;
+    o.connect(g); g.connect(audioCtx.destination);
+    const start = audioCtx.currentTime + i * 0.08;
+    o.start(start);
+    g.gain.setValueAtTime(0.08, start);
+    g.gain.exponentialRampToValueAtTime(0.0001, start + 0.4);
+    o.stop(start + 0.4);
+  });
+}
+
+function renderWheel() {
+  const wheel = document.getElementById('wheel');
+  const n = remaining.length;
+  wheel.innerHTML = '';
+
+  if (n === 0) {
+    wheel.style.background = '#ccc';
+    return;
+  }
+
+  const slice = 360 / n;
+  let gradientParts = [];
+  for (let i = 0; i < n; i++) {
+    const color = wheelColors[i % wheelColors.length];
+    const start = i * slice;
+    const end = (i + 1) * slice;
+    gradientParts.push(`${color} ${start}deg ${end}deg`);
+  }
+  wheel.style.background = `conic-gradient(${gradientParts.join(', ')})`;
+
+  for (let i = 0; i < n; i++) {
+    const angle = i * slice + slice / 2;
+    const label = document.createElement('div');
+    label.className = 'wheel-label';
+    label.textContent = shortName(remaining[i].name);
+    const radius = 38;
+    label.style.transform = `rotate(${angle}deg) translateX(${radius}%) rotate(0deg)`;
+    wheel.appendChild(label);
+  }
+}
+
+function shortName(fullName) {
+  const parts = fullName.trim().split(' ');
+  if (parts.length <= 2) return fullName;
+  return parts.slice(-2).join(' ');
+}
+
+function spin() {
+  if (spinning || remaining.length === 0) return;
+  spinning = true;
+  document.getElementById('spinBtn').disabled = true;
+  document.getElementById('resultCard').classList.remove('show');
+
+  ensureAudio();
+
+  const n = remaining.length;
+  const slice = 360 / n;
+  const winnerIndex = Math.floor(Math.random() * n);
+
+  let tickCount = 0;
+  const maxTicks = 28;
+  const tickInterval = setInterval(() => {
+    playTick();
+    tickCount++;
+    if (tickCount >= maxTicks) clearInterval(tickInterval);
+  }, 4500 / maxTicks);
+
+  const winnerCenterAngle = winnerIndex * slice + slice / 2;
+  const fullSpins = 5 + Math.floor(Math.random() * 3);
+  const targetRotation = currentRotation + fullSpins * 360 + (360 - winnerCenterAngle) - (currentRotation % 360);
+
+  currentRotation = targetRotation;
+  const wheel = document.getElementById('wheel');
+  wheel.style.transform = `rotate(${currentRotation}deg)`;
+
+  setTimeout(() => {
+    spinning = false;
+    document.getElementById('spinBtn').disabled = false;
+    showResult(remaining[winnerIndex]);
+    remaining.splice(winnerIndex, 1);
+    renderWheel();
+    renderRoster();
+    playWin();
+    if (remaining.length === 0) {
+      setTimeout(() => {
+        document.getElementById('celebrate').classList.add('show');
+        playFanfare();
+      }, 600);
+      document.getElementById('spinBtn').disabled = true;
+      document.getElementById('spinBtn').textContent = '🎊 Đã quay hết!';
+    }
+  }, 4600);
+}
+
+function showResult(student) {
+  const age = 2026 - student.year;
+  document.getElementById('resultName').textContent = student.name;
+  document.getElementById('resultAge').textContent = `Năm sinh ${student.year} · ${age} tuổi`;
+
+  const challenge = challengeOrder[challengeCursor % challengeOrder.length];
+  challengeCursor++;
+  document.getElementById('challengeText').textContent = challenge.text;
+  document.getElementById('challengeAction').textContent = challenge.action;
+
+  const card = document.getElementById('resultCard');
+  card.classList.remove('show');
+  void card.offsetWidth;
+  card.classList.add('show');
+}
+
+function renderRoster() {
+  const grid = document.getElementById('rosterGrid');
+  grid.innerHTML = '';
+  students.forEach(s => {
+    const chip = document.createElement('div');
+    const isDone = !remaining.find(r => r.name === s.name);
+    chip.className = 'roster-chip' + (isDone ? ' done' : '');
+    chip.textContent = shortName(s.name);
+    grid.appendChild(chip);
+  });
+}
+
+function renderBgShapes() {
+  const container = document.getElementById('bgShapes');
+  const colors = ['#ff6b9d', '#4ecdc4', '#ffc857', '#845ec2', '#6fcf97'];
+  for (let i = 0; i < 14; i++) {
+    const shape = document.createElement('div');
+    shape.className = 'bg-shape';
+    const size = 40 + Math.random() * 120;
+    shape.style.width = size + 'px';
+    shape.style.height = size + 'px';
+    shape.style.left = Math.random() * 100 + '%';
+    shape.style.top = Math.random() * 100 + '%';
+    shape.style.background = colors[i % colors.length];
+    shape.style.animationDelay = (Math.random() * 10) + 's';
+    shape.style.animationDuration = (10 + Math.random() * 10) + 's';
+    container.appendChild(shape);
+  }
+}
+
+document.getElementById('spinBtn').addEventListener('click', spin);
+
+document.getElementById('resetBtn').addEventListener('click', () => {
+  remaining = [...students];
+  currentRotation = 0;
+  document.getElementById('wheel').style.transition = 'none';
+  document.getElementById('wheel').style.transform = 'rotate(0deg)';
+  requestAnimationFrame(() => {
+    document.getElementById('wheel').style.transition = '';
+  });
+  document.getElementById('resultCard').classList.remove('show');
+  document.getElementById('celebrate').classList.remove('show');
+  document.getElementById('spinBtn').disabled = false;
+  document.getElementById('spinBtn').textContent = '🎡 QUAY NÀO!';
+  renderWheel();
+  renderRoster();
+});
+
+document.getElementById('soundBtn').addEventListener('click', () => {
+  soundOn = !soundOn;
+  document.getElementById('soundBtn').textContent = soundOn ? '🔊 Âm thanh: BẬT' : '🔇 Âm thanh: TẮT';
+});
+
+renderBgShapes();
+renderWheel();
+renderRoster();
+</script>
+</body>
+</html>
