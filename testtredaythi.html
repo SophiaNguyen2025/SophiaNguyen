@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Con bạn đang ở đâu? · Quiz tâm lý tuổi dậy thì</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --green:#0F6E56;
+  --green-mid:#1D9E75;
+  --green-light:#E1F5EE;
+  --green-pale:#F0FAF6;
+  --teal-accent:#5DCAA5;
+  --ink:#1A1A1A;
+  --ink-mid:#444;
+  --ink-muted:#888;
+  --ink-faint:#bbb;
+  --surface:#FAFAF8;
+  --white:#fff;
+  --border:#E8E6E0;
+  --amber:#FAC775;
+  --amber-dark:#633806;
+  --amber-bg:#FAEEDA;
+  --red-bg:#FCEBEB;
+  --red-dark:#791F1F;
+  --blue-bg:#E6F1FB;
+  --blue-dark:#0C447C;
+  --purple-bg:#EEEDFE;
+  --purple-dark:#3C3489;
+  --r:14px;
+  --r-lg:20px;
+}
+
+body{
+  font-family:'Be Vietnam Pro',sans-serif;
+  background:var(--surface);
+  color:var(--ink);
+  min-height:100vh;
+  line-height:1.6;
+}
+
+/* ───── HERO ───── */
+.hero{
+  background:var(--green);
+  color:var(--white);
+  padding:56px 24px 64px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse at 70% 20%, rgba(93,202,165,0.18) 0%, transparent 60%);
+  pointer-events:none;
+}
+.hero-eyebrow{
+  font-size:12px;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--teal-accent);font-weight:500;margin-bottom:16px;
+}
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(28px,6vw,46px);
+  font-weight:600;line-height:1.2;margin-bottom:12px;
+}
+.hero h1 em{font-style:italic;font-weight:400;color:var(--teal-accent)}
+.hero-sub{
+  font-size:16px;color:rgba(255,255,255,0.75);
+  max-width:480px;margin:0 auto 32px;line-height:1.7;
+}
+.tag-row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:36px}
+.tag{
+  font-size:12px;padding:5px 13px;border-radius:100px;
+  background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.85);
+  border:0.5px solid rgba(255,255,255,0.2);
+}
+.btn-start{
+  display:inline-block;
+  background:var(--white);color:var(--green);
+  font-family:'Be Vietnam Pro',sans-serif;
+  font-size:16px;font-weight:600;
+  padding:16px 40px;border-radius:100px;border:none;
+  cursor:pointer;transition:transform 0.15s,box-shadow 0.15s;
+  box-shadow:0 4px 20px rgba(0,0,0,0.18);
+}
+.btn-start:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,0.22)}
+.btn-start:active{transform:translateY(0)}
+.hero-disclaimer{
+  font-size:11px;color:rgba(255,255,255,0.45);
+  max-width:400px;margin:20px auto 0;line-height:1.6;
+}
+.author-line{
+  font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:24px;
+}
+.author-line strong{color:rgba(255,255,255,0.8)}
+
+/* ───── QUIZ WRAPPER ───── */
+.quiz-wrap{display:none;max-width:600px;margin:0 auto;padding:32px 20px 80px}
+
+/* PROGRESS */
+.prog-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:10px;
+}
+.prog-section{font-size:12px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink-muted)}
+.prog-count{font-size:13px;color:var(--ink-muted)}
+.prog-bar{height:3px;background:var(--border);border-radius:2px;margin-bottom:36px}
+.prog-fill{height:3px;background:var(--green-mid);border-radius:2px;transition:width 0.4s ease}
+
+/* BADGE */
+.section-badge{
+  display:inline-block;font-size:11px;font-weight:600;
+  letter-spacing:0.06em;text-transform:uppercase;
+  padding:4px 12px;border-radius:100px;margin-bottom:20px;
+}
+.b-sdq{background:var(--blue-bg);color:var(--blue-dark)}
+.b-faces{background:var(--green-light);color:var(--green)}
+.b-custom{background:var(--purple-bg);color:var(--purple-dark)}
+
+/* QUESTION */
+.q-text{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(19px,4vw,24px);
+  font-weight:600;line-height:1.4;
+  margin-bottom:28px;color:var(--ink);
+}
+
+/* OPTIONS */
+.options{display:flex;flex-direction:column;gap:10px;margin-bottom:36px}
+.opt{
+  display:flex;align-items:center;gap:14px;
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--r);padding:14px 18px;
+  font-size:15px;color:var(--ink);
+  cursor:pointer;transition:all 0.15s;text-align:left;
+  font-family:'Be Vietnam Pro',sans-serif;
+}
+.opt:hover{border-color:var(--teal-accent);background:var(--green-pale)}
+.opt.sel{
+  border:1.5px solid var(--green-mid);
+  background:var(--green-light);color:var(--green);
+}
+.opt-dot{
+  width:22px;height:22px;border-radius:50%;
+  border:1.5px solid var(--border);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.15s;
+}
+.opt.sel .opt-dot{
+  background:var(--green-mid);border-color:var(--green-mid);
+}
+.opt.sel .opt-dot::after{
+  content:'';width:8px;height:8px;border-radius:50%;background:white;
+}
+
+/* NAV */
+.nav-row{display:flex;align-items:center;justify-content:space-between}
+.btn-back{
+  background:transparent;border:1px solid var(--border);
+  color:var(--ink-muted);padding:12px 22px;border-radius:100px;
+  font-size:14px;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;
+  transition:all 0.15s;
+}
+.btn-back:hover{border-color:var(--ink-muted);color:var(--ink)}
+.btn-back.hidden{visibility:hidden}
+.btn-next{
+  background:var(--green-mid);color:white;
+  border:none;padding:14px 32px;border-radius:100px;
+  font-size:15px;font-weight:600;cursor:pointer;
+  font-family:'Be Vietnam Pro',sans-serif;
+  transition:all 0.15s;
+}
+.btn-next:disabled{opacity:0.3;cursor:not-allowed}
+.btn-next:not(:disabled):hover{background:var(--green);transform:translateY(-1px)}
+
+/* ───── RESULT ───── */
+.result-wrap{display:none;max-width:600px;margin:0 auto;padding:40px 20px 80px}
+
+.result-hero{
+  background:var(--green);color:white;
+  border-radius:var(--r-lg);padding:36px 28px;
+  margin-bottom:20px;text-align:center;
+}
+.result-hero .eyebrow{
+  font-size:11px;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--teal-accent);margin-bottom:12px;
+}
+.result-hero h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(20px,5vw,28px);font-weight:600;
+  line-height:1.3;margin-bottom:16px;
+}
+.level-pill{
+  display:inline-block;padding:8px 20px;border-radius:100px;
+  font-size:13px;font-weight:600;margin-bottom:16px;
+}
+.lv-ok{background:#EAF3DE;color:#27500A}
+.lv-watch{background:#FAEEDA;color:#633806}
+.lv-concern{background:#FCEBEB;color:#791F1F}
+.result-hero p{font-size:14px;color:rgba(255,255,255,0.75);line-height:1.7;max-width:440px;margin:0 auto}
+
+/* SCORES */
+.score-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.score-card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--r);padding:20px 16px;text-align:center;
+}
+.score-label{font-size:12px;color:var(--ink-muted);margin-bottom:6px;line-height:1.4}
+.score-val{font-size:28px;font-weight:600;color:var(--ink)}
+.score-sub{font-size:11px;color:var(--ink-faint);margin-top:2px}
+
+/* DETAIL CARDS */
+.detail-card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--r);padding:22px;margin-bottom:16px;
+}
+.detail-card h3{font-size:15px;font-weight:600;margin-bottom:10px;color:var(--ink)}
+.detail-card ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.detail-card li{
+  display:flex;align-items:flex-start;gap:10px;
+  font-size:14px;color:var(--ink-mid);line-height:1.6;
+}
+.detail-card li::before{
+  content:'→';color:var(--green-mid);flex-shrink:0;margin-top:1px;
+}
+
+/* UNLOCK */
+.unlock{
+  background:var(--green-pale);border:1.5px solid var(--teal-accent);
+  border-radius:var(--r-lg);padding:28px 24px;text-align:center;
+  margin-bottom:20px;
+}
+.unlock h3{
+  font-family:'Playfair Display',serif;
+  font-size:20px;font-weight:600;margin-bottom:8px;color:var(--green);
+}
+.unlock p{font-size:14px;color:var(--ink-mid);margin-bottom:20px;line-height:1.7}
+.unlock-items{
+  display:flex;flex-direction:column;gap:8px;
+  margin-bottom:24px;text-align:left;
+}
+.unlock-item{
+  display:flex;align-items:flex-start;gap:10px;
+  font-size:13px;color:var(--ink-mid);
+}
+.check{
+  width:20px;height:20px;border-radius:50%;
+  background:var(--green-mid);color:white;
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;flex-shrink:0;margin-top:1px;
+}
+.price-row{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:16px}
+.price{font-size:26px;font-weight:700;color:var(--green)}
+.price-old{font-size:15px;color:var(--ink-faint);text-decoration:line-through}
+.btn-buy{
+  display:block;width:100%;
+  background:var(--green-mid);color:white;
+  border:none;padding:16px;border-radius:100px;
+  font-size:16px;font-weight:600;cursor:pointer;
+  font-family:'Be Vietnam Pro',sans-serif;
+  transition:all 0.15s;
+}
+.btn-buy:hover{background:var(--green);transform:translateY(-1px)}
+
+/* DISCLAIMER */
+.disclaimer{
+  font-size:11px;color:var(--ink-faint);
+  line-height:1.7;text-align:center;
+  border-top:1px solid var(--border);padding-top:20px;margin-top:8px;
+}
+
+/* RETRY */
+.btn-retry{
+  display:block;width:100%;
+  background:transparent;border:1px solid var(--border);
+  color:var(--ink-muted);padding:14px;border-radius:100px;
+  font-size:14px;cursor:pointer;margin-top:12px;
+  font-family:'Be Vietnam Pro',sans-serif;
+  transition:all 0.15s;
+}
+.btn-retry:hover{border-color:var(--ink-muted);color:var(--ink)}
+
+@media(max-width:480px){
+  .hero{padding:40px 20px 52px}
+  .score-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ HERO / INTRO ═══ -->
+<section class="hero" id="intro">
+  <p class="author-line">Cùng <strong>chuyên gia tâm lý Sophia Nguyễn</strong></p>
+  <p class="hero-eyebrow">Sàng lọc tâm lý tuổi dậy thì · Miễn phí</p>
+  <h1>Con bạn đang ở <em>đâu</em><br>trong hành trình dậy thì?</h1>
+  <p class="hero-sub">20 câu hỏi có căn cứ khoa học giúp ba mẹ hiểu rõ cảm xúc, hành vi và sự kết nối của con — để không bỏ lỡ những dấu hiệu quan trọng.</p>
+  <div class="tag-row">
+    <span class="tag">Dựa trên SDQ (Goodman, 1997)</span>
+    <span class="tag">Lý thuyết Circumplex · Olson</span>
+    <span class="tag">Độ tuổi 10–15</span>
+    <span class="tag">~5 phút</span>
+  </div>
+  <button class="btn-start" onclick="startQuiz()">Bắt đầu kiểm tra miễn phí</button>
+  <p class="hero-disclaimer">Công cụ sàng lọc tham khảo — không thay thế chẩn đoán lâm sàng chuyên môn.</p>
+</section>
+
+<!-- ═══ QUIZ ═══ -->
+<div class="quiz-wrap" id="quiz">
+  <div class="prog-header">
+    <span class="prog-section" id="prog-label"></span>
+    <span class="prog-count" id="prog-count"></span>
+  </div>
+  <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+  <div id="q-body"></div>
+</div>
+
+<!-- ═══ RESULT ═══ -->
+<div class="result-wrap" id="result">
+  <div class="result-hero">
+    <p class="eyebrow">Kết quả sàng lọc của bạn</p>
+    <h2 id="res-title"></h2>
+    <span class="level-pill" id="res-level"></span>
+    <p id="res-summary"></p>
+  </div>
+
+  <div class="score-grid">
+    <div class="score-card">
+      <div class="score-label">Khó khăn tâm lý<br>(theo SDQ)</div>
+      <div class="score-val" id="sc-sdq"></div>
+      <div class="score-sub" id="sc-sdq-label"></div>
+    </div>
+    <div class="score-card">
+      <div class="score-label">Kết nối gia đình<br>(theo Olson)</div>
+      <div class="score-val" id="sc-faces"></div>
+      <div class="score-sub" id="sc-faces-label"></div>
+    </div>
+  </div>
+
+  <div class="detail-card" id="detail-card">
+    <h3>Những điều ba mẹ nên chú ý</h3>
+    <ul id="detail-list"></ul>
+  </div>
+
+  <div class="unlock">
+    <h3>Giải pháp cá nhân hóa cho gia đình bạn</h3>
+    <p>Dựa trên kết quả của bạn, chuyên gia Sophia Nguyễn sẽ cung cấp hướng dẫn riêng — không phải lời khuyên chung chung.</p>
+    <div class="unlock-items">
+      <div class="unlock-item"><span class="check">✓</span><span>Phân tích chi tiết từng nhóm dấu hiệu của con bạn</span></div>
+      <div class="unlock-item"><span class="check">✓</span><span>Các câu nói cụ thể để bắt đầu cuộc trò chuyện với con</span></div>
+      <div class="unlock-item"><span class="check">✓</span><span>Bài tập kết nối gia đình theo từng tuần</span></div>
+      <div class="unlock-item"><span class="check">✓</span><span>Video hướng dẫn của chuyên gia (15–20 phút)</span></div>
+      <div class="unlock-item"><span class="check">✓</span><span>Tài liệu in được để dùng cùng con</span></div>
+    </div>
+    <div class="price-row">
+      <span class="price-old">399.000đ</span>
+      <span class="price">199.000đ</span>
+    </div>
+    <button class="btn-buy" onclick="window.location.href='https://sophianguyen.com.vn'">Nhận giải pháp chi tiết ngay</button>
+  </div>
+
+  <button class="btn-retry" onclick="retryQuiz()">← Làm lại từ đầu</button>
+  <p class="disclaimer">Công cụ này dựa trên thang đo SDQ (Goodman, 1997) được chuẩn hóa tại Việt Nam và lý thuyết Circumplex Model (Olson, 2011). Kết quả chỉ mang tính sàng lọc tham khảo và không thay thế chẩn đoán của chuyên gia tâm lý lâm sàng. Nếu bạn lo ngại nghiêm trọng về sức khỏe tâm thần của con, hãy liên hệ chuyên gia ngay.</p>
+</div>
+
+<script>
+const questions=[
+  // ── PHẦN 1: SDQ (10 câu) ──
+  {group:'sdq',badge:'b-sdq',label:'Phần 1 · Cảm xúc & hành vi',
+   text:'Con hay phàn nàn đau đầu, đau bụng hoặc không khỏe (không do bệnh thực thể) khi căng thẳng?',
+   opts:['Không đúng','Đúng một phần','Chắc chắn đúng'],scores:[0,1,2]},
+  {group:'sdq',badge:'b-sdq',label:'Phần 1 · Cảm xúc & hành vi',
+   text:'Con thường lo lắng, hay có vẻ căng thẳng về nhiều thứ?',
+   opts:['Không đúng','Đúng một phần','Chắc chắn đúng'],scores:[0,1,2]},
+  {group:'sdq',badge:'b-sdq',label:'Phần 1 · Cảm xúc & hành vi',
+   text:'Con thường xuyên buồn bã, chán nản, hoặc hay khóc?',
+   opts:['Không đúng','Đúng một phần','Chắc chắn đúng'],scores:[0,1,2]},
+  {group:'sdq',badge:'b-sdq',label:'Phần 1 · Cảm xúc & hành vi',
+   text:'Con dễ xúc động, phản ứng cảm xúc thường mạnh hơn so với tình huống thực tế?',
+   opts:['Không đúng','Đúng một phần','Chắc chắn đúng'],scores:[0,1,2]},
+  {group:'sdq',badge:'b-sdq',label:'Phần 1 · Cảm xúc & hành vi',
+   text:'Con thường xuyên cáu kỉnh, nổi giận hoặc khó kiểm soát cảm xúc?',
+   opts:['Không đúng','Đúng một phần','Chắc chắn đúng'],scores:[0,1,2]},
+  {group:'sdq',badge:'b-sdq',label:'Phần 1 · Cảm xúc & hành vi',
+   text:'Nhìn chung con nghe lời và làm theo những điều ba mẹ yêu cầu?',
+   opts:['Chắc chắn đúng','Đúng một phần','Không đúng'],scores:[0,1,2]},
+  {group:'sdq',badge:'b-sdq',label:'Phần 1 · Cảm xúc & hành vi',
+   text:'Con thường bị bạn bè bắt nạt, loại trừ hoặc không được hòa đồng?',
+   opts:['Không đúng','Đúng một phần','Chắc chắn đúng'],scores:[0,1,2]},
+  {group:'sdq',badge:'b-sdq',label:'Phần 1 · Cảm xúc & hành vi',
+   text:'Con có ít nhất một người bạn thân mà con tin tưởng và hay chia sẻ?',
+   opts:['Chắc chắn đúng','Đúng một phần','Không đúng'],scores:[0,1,2]},
+  {group:'sdq',badge:'b-sdq',label:'Phần 1 · Cảm xúc & hành vi',
+   text:'Con thường giúp đỡ bạn bè hoặc người thân khi họ gặp khó khăn?',
+   opts:['Chắc chắn đúng','Đúng một phần','Không đúng'],scores:[0,1,2]},
+  {group:'sdq',badge:'b-sdq',label:'Phần 1 · Cảm xúc & hành vi',
+   text:'Con khó tập trung, dễ phân tâm hoặc hay bỏ dở việc đang làm?',
+   opts:['Không đúng','Đúng một phần','Chắc chắn đúng'],scores:[0,1,2]},
+
+  // ── PHẦN 2: FACES-based (5 câu) ──
+  {group:'faces',badge:'b-faces',label:'Phần 2 · Kết nối gia đình',
+   text:'Các thành viên trong gia đình cảm thấy gần gũi và quan tâm lẫn nhau?',
+   opts:['Luôn luôn','Thường thường','Thỉnh thoảng','Hiếm khi','Hầu như không bao giờ'],scores:[0,1,2,3,4]},
+  {group:'faces',badge:'b-faces',label:'Phần 2 · Kết nối gia đình',
+   text:'Con thoải mái kể chuyện buồn hoặc vấn đề cá nhân cho ba mẹ nghe?',
+   opts:['Luôn luôn','Thường thường','Thỉnh thoảng','Hiếm khi','Hầu như không bao giờ'],scores:[0,1,2,3,4]},
+  {group:'faces',badge:'b-faces',label:'Phần 2 · Kết nối gia đình',
+   text:'Gia đình có các hoạt động chung (bữa cơm, đi chơi, nói chuyện) ít nhất vài lần mỗi tuần?',
+   opts:['Luôn luôn','Thường thường','Thỉnh thoảng','Hiếm khi','Hầu như không bao giờ'],scores:[0,1,2,3,4]},
+  {group:'faces',badge:'b-faces',label:'Phần 2 · Kết nối gia đình',
+   text:'Khi con gặp khó khăn, con chủ động tìm đến ba mẹ thay vì tự giải quyết một mình?',
+   opts:['Luôn luôn','Thường thường','Thỉnh thoảng','Hiếm khi','Hầu như không bao giờ'],scores:[0,1,2,3,4]},
+  {group:'faces',badge:'b-faces',label:'Phần 2 · Kết nối gia đình',
+   text:'Khi có mâu thuẫn trong gia đình, mọi người có thể ngồi lại thương lượng và điều chỉnh cùng nhau?',
+   opts:['Luôn luôn','Thường thường','Thỉnh thoảng','Hiếm khi','Hầu như không bao giờ'],scores:[0,1,2,3,4]},
+
+  // ── PHẦN 3: Bối cảnh VN (5 câu) ──
+  {group:'custom',badge:'b-custom',label:'Phần 3 · Dấu hiệu cần chú ý',
+   text:'Gần đây con có thay đổi rõ rệt về giấc ngủ (ngủ quá nhiều hoặc quá ít so với bình thường)?',
+   opts:['Không','Đôi khi','Thường xuyên'],scores:[0,1,2]},
+  {group:'custom',badge:'b-custom',label:'Phần 3 · Dấu hiệu cần chú ý',
+   text:'Con dành hơn 4 tiếng mỗi ngày dùng điện thoại/mạng xã hội ngoài giờ học?',
+   opts:['Không','Đôi khi','Thường xuyên'],scores:[0,1,2]},
+  {group:'custom',badge:'b-custom',label:'Phần 3 · Dấu hiệu cần chú ý',
+   text:'Con có biểu hiện xa lánh gia đình, hay nhốt mình trong phòng và không muốn trò chuyện?',
+   opts:['Không','Đôi khi','Thường xuyên'],scores:[0,1,2]},
+  {group:'custom',badge:'b-custom',label:'Phần 3 · Dấu hiệu cần chú ý',
+   text:'Con có nói ra hoặc để lộ cảm giác "chán tất cả", "không ai hiểu mình" hoặc "không muốn sống"?',
+   opts:['Chưa bao giờ','1–2 lần','Khá thường xuyên'],scores:[0,1,2]},
+  {group:'custom',badge:'b-custom',label:'Phần 3 · Dấu hiệu cần chú ý',
+   text:'Nhìn tổng thể, bạn cảm thấy như thế nào về tình trạng cảm xúc của con?',
+   opts:['Tôi khá yên tâm về con','Tôi lo một chút nhưng chưa chắc','Tôi đang thực sự lo lắng về con'],scores:[0,1,2]},
+];
+
+let cur=0, answers=new Array(questions.length).fill(null);
+
+function startQuiz(){
+  document.getElementById('intro').style.display='none';
+  document.getElementById('quiz').style.display='block';
+  render();
+}
+
+function render(){
+  const q=questions[cur];
+  const pct=Math.round(((cur+1)/questions.length)*100);
+  document.getElementById('prog-fill').style.width=pct+'%';
+  document.getElementById('prog-label').textContent=q.label;
+  document.getElementById('prog-count').textContent=(cur+1)+' / '+questions.length;
+
+  let html=`<span class="section-badge ${q.badge}">${q.group==='sdq'?'SDQ — Goodman 1997':q.group==='faces'?'Kết nối gia đình':'Bối cảnh thực tế'}</span>
+  <p class="q-text">${q.text}</p>
+  <div class="options">`;
+
+  q.opts.forEach((o,i)=>{
+    const sel=answers[cur]===i?'sel':'';
+    html+=`<button class="opt ${sel}" onclick="pick(${i})">
+      <span class="opt-dot"></span>${o}
+    </button>`;
+  });
+
+  html+=`</div><div class="nav-row">
+    <button class="btn-back ${cur===0?'hidden':''}" onclick="goBack()">← Quay lại</button>
+    <button class="btn-next" id="btn-next" onclick="goNext()" ${answers[cur]===null?'disabled':''}>
+      ${cur===questions.length-1?'Xem kết quả →':'Tiếp theo →'}
+    </button>
+  </div>`;
+
+  document.getElementById('q-body').innerHTML=html;
+}
+
+function pick(i){
+  answers[cur]=i;
+  render();
+}
+
+function goNext(){
+  if(answers[cur]===null)return;
+  if(cur<questions.length-1){cur++;render();}
+  else showResult();
+}
+
+function goBack(){
+  if(cur>0){cur--;render();}
+}
+
+function showResult(){
+  document.getElementById('quiz').style.display='none';
+  document.getElementById('result').style.display='block';
+  window.scrollTo(0,0);
+
+  let sdq=0,faces=0,custom=0;
+  questions.forEach((q,i)=>{
+    const v=q.scores[answers[i]||0];
+    if(q.group==='sdq')sdq+=v;
+    else if(q.group==='faces')faces+=v;
+    else custom+=v;
+  });
+
+  const sdqPct=Math.round((sdq/20)*100);
+  const facesPct=Math.round((faces/20)*100);
+  const connectPct=100-facesPct;
+
+  let title,levelText,levelClass,summary,details;
+
+  if(sdq<=5&&faces<=6){
+    title='Con đang ổn định — tiếp tục duy trì';
+    levelText='Nhìn chung ổn định';levelClass='lv-ok';
+    summary='Các chỉ số cho thấy con không có dấu hiệu khó khăn tâm lý đáng lo ngại và gia đình đang duy trì kết nối tốt. Đây là nền tảng lành mạnh — hãy tiếp tục nuôi dưỡng.';
+    details=['Tiếp tục duy trì các bữa ăn và hoạt động chung của gia đình','Lắng nghe con mà không vội phán xét khi con chia sẻ','Tạo không gian để con tự giải quyết vấn đề nhỏ — rất quan trọng ở tuổi này'];
+  } else if(sdq<=11&&faces<=13){
+    title='Con đang có một số dấu hiệu cần ba mẹ chú ý';
+    levelText='Cần theo dõi thêm';levelClass='lv-watch';
+    summary='Có một số điểm cần quan sát thêm — đây có thể là giai đoạn khó khăn tạm thời hoặc là dấu hiệu sớm cần can thiệp kịp thời. Giải pháp cá nhân hóa sẽ giúp ba mẹ biết nên làm gì.';
+    details=['Chú ý những thay đổi nhỏ trong hành vi và cảm xúc của con trong 2–4 tuần tới','Tìm cách tạo ra ít nhất một "thời điểm kết nối" riêng với con mỗi ngày','Tránh các cuộc trò chuyện mang tính kiểm tra — hỏi về cảm xúc thay vì hỏi về kết quả học tập'];
+  } else {
+    title='Con đang có những dấu hiệu cần được hỗ trợ sớm';
+    levelText='Nên tìm hỗ trợ sớm';levelClass='lv-concern';
+    summary='Kết quả cho thấy con có thể đang trải qua giai đoạn khó khăn về tâm lý hoặc sự kết nối trong gia đình đang bị ảnh hưởng đáng kể. Can thiệp sớm sẽ tạo ra sự khác biệt lớn.';
+    details=['Không chờ đến khi có "chuyện lớn" — hãy bắt đầu tiếp cận con ngay từ bây giờ','Tránh phản ứng bằng la mắng khi con có hành vi khó — đó là dấu hiệu con đang cần giúp đỡ','Cân nhắc gặp chuyên gia tâm lý để được đánh giá chuyên sâu hơn'];
+  }
+
+  document.getElementById('res-title').textContent=title;
+  document.getElementById('res-level').textContent=levelText;
+  document.getElementById('res-level').className='level-pill '+levelClass;
+  document.getElementById('res-summary').textContent=summary;
+  document.getElementById('sc-sdq').textContent=sdqPct+'%';
+  document.getElementById('sc-sdq-label').textContent=sdq<=5?'Mức bình thường':sdq<=11?'Cần chú ý':'Cần hỗ trợ';
+  document.getElementById('sc-faces').textContent=connectPct+'%';
+  document.getElementById('sc-faces-label').textContent=faces<=6?'Gắn kết tốt':faces<=13?'Cần củng cố':'Cần cải thiện';
+
+  const ul=document.getElementById('detail-list');
+  ul.innerHTML=details.map(d=>`<li>${d}</li>`).join('');
+}
+
+function retryQuiz(){
+  cur=0;answers=new Array(questions.length).fill(null);
+  document.getElementById('result').style.display='none';
+  document.getElementById('quiz').style.display='block';
+  window.scrollTo(0,0);
+  render();
+}
+</script>
+</body>
+</html>
