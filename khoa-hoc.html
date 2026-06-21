@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Khóa học - Sophia Nguyễn</title>
+  <meta name="description" content="Các khóa học giáo dục giới tính, kỹ năng an toàn, đồng hành cùng con của Sophia Nguyễn.">
+  <link rel="stylesheet" href="main.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    .course-hero {
+      background: linear-gradient(135deg, #0A1628 0%, #1E3A5F 100%);
+      padding: 80px 24px;
+      text-align: center;
+      color: #FFFFFF;
+    }
+
+    .course-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      margin-bottom: 12px;
+    }
+
+    .course-hero h1 span {
+      color: #C9A84C;
+    }
+
+    .course-hero p {
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.8);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .course-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin: 40px 0;
+    }
+
+    .course-card {
+      background: #FFFFFF;
+      border-radius: 16px;
+      padding: 32px 28px;
+      box-shadow: 0 4px 15px rgba(10, 22, 40, 0.06);
+      border: 1px solid rgba(201, 168, 76, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .course-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 35px rgba(10, 22, 40, 0.1);
+    }
+
+    .course-card .icon {
+      font-size: 48px;
+      margin-bottom: 12px;
+    }
+
+    .course-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: #0A1628;
+      margin-bottom: 8px;
+    }
+
+    .course-card p {
+      font-size: 0.9rem;
+      color: #4A5A6A;
+      line-height: 1.7;
+    }
+
+    .course-card .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .course-card .features span {
+      background: #F5F0E8;
+      color: #0A1628;
+      font-size: 0.75rem;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+
+    .course-card .btn-gold {
+      margin-top: 16px;
+      display: inline-block;
+    }
+
+    .featured-banner-page {
+      background: linear-gradient(135deg, #0A1628 0%, #1E3A5F 100%);
+      border-radius: 20px;
+      padding: 40px 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
+      border: 1px solid #C9A84C;
+      margin: 40px 0;
+      transition: all 0.3s ease;
+    }
+
+    .featured-banner-page:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 35px rgba(10, 22, 40, 0.2);
+    }
+
+    .featured-banner-page .left {
+      flex: 2;
+      color: #FFFFFF;
+    }
+
+    .featured-banner-page .left .badge {
+      display: inline-block;
+      background: #C9A84C;
+      color: #0A1628;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+
+    .featured-banner-page .left h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      margin-bottom: 8px;
+    }
+
+    .featured-banner-page .left p {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.95rem;
+      max-width: 500px;
+      margin-bottom: 16px;
+    }
+
+    .featured-banner-page .right {
+      flex: 1;
+      text-align: center;
+      font-size: 60px;
+    }
+
+    .genz-banner {
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+      border-radius: 20px;
+      padding: 30px 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+      border: 1px solid #C9A84C;
+      margin: 40px 0;
+      transition: all 0.3s ease;
+    }
+
+    .genz-banner:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+      border-color: #D4B85C;
+    }
+
+    .genz-banner .left {
+      flex: 2;
+      color: #FFFFFF;
+    }
+
+    .genz-banner .left .badge {
+      display: inline-block;
+      background: #C9A84C;
+      color: #0A1628;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+
+    .genz-banner .left h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+      color: #FFFFFF;
+    }
+
+    .genz-banner .left p {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.95rem;
+      max-width: 500px;
+      margin-bottom: 16px;
+    }
+
+    .genz-banner .right {
+      flex: 1;
+      text-align: center;
+      font-size: 70px;
+    }
+
+    @media (max-width: 768px) {
+      .course-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .course-hero h1 {
+        font-size: 2rem;
+      }
+
+      .featured-banner-page,
+      .genz-banner {
+        flex-direction: column;
+        text-align: center;
+        padding: 28px 20px;
+      }
+
+      .featured-banner-page .left p,
+      .genz-banner .left p {
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<header class="header">
+  <div class="header-container">
+    <a href="index.html" class="logo">
+      <img src="images/hinhremovenen.png" alt="Sophia Logo" />
+    </a>
+    <div class="menu-toggle" onclick="document.querySelector('.navbar').classList.toggle('show-menu')">☰</div>
+    <nav class="navbar">
+      <ul>
+        <li><a href="index.html">Trang chủ</a></li>
+        <li><a href="about.html">Giới thiệu</a></li>
+        <li><a href="services.html">Dịch vụ</a></li>
+        <li><a href="khoa-hoc.html" class="active">Khóa học</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="test.html">Trắc nghiệm</a></li>
+        <li><a href="contact.html">Liên hệ</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- ========== HERO KHÓA HỌC ========== -->
+<section class="course-hero" data-aos="fade-up">
+  <h1>📚 <span>Khóa học</span> của Sophia</h1>
+  <p>Trang bị kiến thức và kỹ năng thiết yếu cho con bạn và gia đình</p>
+</section>
+
+<!-- ========== NỘI DUNG KHÓA HỌC ========== -->
+<section class="section-padding section-cream">
+  <div class="container">
+
+    <!-- Banner Đồng hành cùng con -->
+    <div class="featured-banner-page" data-aos="fade-up">
+      <div class="left">
+        <span class="badge">🌟 TÍNH NĂNG MỚI 🌟</span>
+        <h2>Đồng hành cùng con</h2>
+        <p>Hệ thống theo dõi phát triển toàn diện cho con — từ học tập, kỹ năng sống, giáo dục giới tính đến sức khỏe tâm lý. Miễn phí 100%!</p>
+        <a href="#" class="btn-primary" style="background:#C9A84C; color:#0A1628;">📊 BẮT ĐẦU NGAY →</a>
+      </div>
+      <div class="right">📱✨</div>
+    </div>
+
+    <!-- 4 Khóa học -->
+    <div class="course-grid" data-aos="fade-up" data-aos-delay="100">
+      <!-- Khóa học 1 -->
+      <div class="course-card" style="background: linear-gradient(135deg, #fff0f5 0%, #ffe4ec 100%); border-color: rgba(232, 62, 140, 0.2);">
+        <div class="icon">🌱</div>
+        <h3 style="color: #e83e8c;">Giáo dục giới tính toàn diện</h3>
+        <p>Đồng hành cùng con qua từng giai đoạn phát triển - Từ mầm non đến tuổi dậy thì. 6 khóa học với nội dung khoa học, phù hợp từng lứa tuổi.</p>
+        <div class="features">
+          <span>✅ 3 nhóm tuổi</span>
+          <span>✅ 6 khóa học chuyên sâu</span>
+          <span>✅ Video + Tài liệu PDF</span>
+          <span>✅ Học theo lộ trình riêng</span>
+        </div>
+        <a href="#" class="btn-gold">📚 Xem chi tiết</a>
+      </div>
+
+      <!-- Khóa học 2 -->
+      <div class="course-card" style="background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); border-color: rgba(2, 132, 199, 0.2);">
+        <div class="icon">👨‍👩‍👧‍👦</div>
+        <h3 style="color: #0369a1;">Đồng hành cùng con – Cẩm nang giới tính toàn diện</h3>
+        <p>Khóa học dành riêng cho cha mẹ: Thấu hiểu, đồng hành và bảo vệ con trong thời đại số. 6 chương học với nội dung thực tế, dễ áp dụng.</p>
+        <div class="features">
+          <span>📘 6 chương học</span>
+          <span>🎬 Video bài giảng</span>
+          <span>📄 Tài liệu + Script mẫu</span>
+        </div>
+        <a href="#" class="btn-gold">📚 Xem chi tiết</a>
+      </div>
+
+      <!-- Khóa học 3 -->
+      <div class="course-card" style="background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); border-color: rgba(220, 38, 38, 0.2);">
+        <div class="icon">🛡️</div>
+        <h3 style="color: #b91c1c;">Kỹ năng an toàn cho trẻ 5-10 tuổi</h3>
+        <p>Trang bị kỹ năng phòng tránh tai nạn, bạo lực, xâm hại, đuối nước, bắt cóc... 8 chủ đề thiết yếu giúp con tự bảo vệ bản thân.</p>
+        <div class="features">
+          <span>🛡️ 8 kỹ năng</span>
+          <span>🎬 Video sinh động</span>
+          <span>📄 Tài liệu + Thẻ bài tập</span>
+        </div>
+        <a href="#" class="btn-gold">📚 Xem chi tiết</a>
+      </div>
+
+      <!-- Khóa học 4 -->
+      <div class="course-card" style="background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%); border-color: rgba(139, 92, 246, 0.2);">
+        <div class="icon">💬</div>
+        <h3 style="color: #6d28d9;">Lắng nghe tâm giao</h3>
+        <p>Một người để lắng nghe, một điểm tựa tinh thần, một người bạn đồng hành không phán xét.</p>
+        <div class="features">
+          <span>🧑💻 Chat</span>
+          <span>☎️ Gọi thoại</span>
+          <span>🧘 Trò chuyện kết nối</span>
+          <span>📆 Đặt lịch linh hoạt</span>
+        </div>
+        <a href="#" class="btn-gold">💖 Tìm hiểu thêm</a>
+      </div>
+    </div>
+
+    <!-- Banner Bản lĩnh tuổi teen -->
+    <div class="genz-banner" data-aos="fade-up" data-aos-delay="200">
+      <div class="left">
+        <span class="badge">🔥 DÀNH CHO TUỔI TEEN</span>
+        <h2>BẢN LĨNH TUỔI TEEN</h2>
+        <p>9 bài học chốt: An toàn giao thông, sơ cấp cứu, tự vệ xã hội, an toàn mạng, sức khỏe tâm thần và pháp luật.</p>
+        <a href="#" class="btn-primary" style="background:#C9A84C; color:#0A1628;">📖 Xem chi tiết →</a>
+      </div>
+      <div class="right">🛡️</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ========== CTA ========== -->
+<section class="section-padding section-dark" style="background:#0A1628;">
+  <div class="container" style="text-align:center;">
+    <h2 style="font-family: 'Playfair Display', serif; font-size:2rem; color:#FFFFFF; margin-bottom:12px;">
+      Bắt đầu hành trình học tập ngay hôm nay
+    </h2>
+    <p style="color:rgba(255,255,255,0.8); font-size:1.05rem; margin-bottom:28px; max-width:600px; margin-left:auto; margin-right:auto;">
+      Đồng hành cùng Sophia để trang bị cho con bạn những kỹ năng thiết yếu nhất.
+    </p>
+    <div class="cta-buttons">
+      <a href="https://zalo.me/0977092182" class="btn-primary">📅 Đặt lịch tư vấn</a>
+      <a href="contact.html" class="btn-outline">📩 Gửi tin nhắn</a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-logo">
+      <img src="images/hinhremovenen.png" alt="Sophia Logo" />
+      <p>Đồng hành & Sẻ chia cùng bạn trên hành trình tâm lý – phát triển – yêu thương.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Dịch vụ</h4>
+      <ul>
+        <li><a href="tuvan-tamly1.html">Tham vấn tâm lý</a></li>
+        <li><a href="huong-nghiep.html">Định hướng nghề nghiệp</a></li>
+        <li><a href="ky-nang.html">Đào tạo kỹ năng</a></li>
+        <li><a href="van-tay.html">Sinh trắc vân tay</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Khám phá</h4>
+      <ul>
+        <li><a href="khoa-hoc.html">Khóa học</a></li>
+        <li><a href="test.html">Trắc nghiệm</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="about.html">Giới thiệu</a></li>
+      </ul>
+    </div>
+    <div class="footer-contact">
+      <h4>Liên hệ</h4>
+      <p>📧 sophianguyen2891@gmail.com</p>
+      <p>📞 0977092182</p>
+      <p>🏠 Tân Bình - TPHCM</p>
+      <div class="social-icons">
+        <a href="https://www.facebook.com/Sophiadiemhang1982"><img src="images/fb.png" alt="FB" /></a>
+        <a href="https://www.tiktok.com/@sophia.nguyen2014"><img src="images/tiktok.png" alt="TikTok" /></a>
+        <a href="https://www.youtube.com/@sophianguyen1982-dh"><img src="images/youtube.png" alt="YouTube" /></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>Copyright ©2024 Sophia Nguyễn. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- ========== SCRIPTS ========== -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({ once: true, duration: 800, easing: 'ease-out-cubic' });
+</script>
+</body>
+</html>
