@@ -3,140 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blog – Góc nhỏ của Sophia Nguyễn</title>
-  <meta name="description" content="Những bài viết chia sẻ về tâm lý, nuôi dạy con, kỹ năng an toàn, và hành trình chữa lành từ Sophia Nguyễn.">
-  <meta name="keywords" content="blog tâm lý, nuôi dạy con, kỹ năng an toàn, chữa lành, Sophia Nguyễn">
-  <meta name="author" content="Sophia Nguyễn">
+  <title>Blog - Sophia Nguyễn</title>
+  <meta name="description" content="Những bài viết chia sẻ về tâm lý, nuôi dạy con, kỹ năng an toàn từ Sophia Nguyễn.">
   <link rel="stylesheet" href="main.css" />
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    /* CSS RIÊNG CHO BLOG - KHÔNG ẢNH HƯỞNG HEADER */
-    .blog-header {
-      text-align: center;
-      margin: 60px 0 30px;
-    }
-    .blog-header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 16px;
-      color: #e83e8c;
-    }
-    .blog-header p {
-      font-size: 1.1rem;
-      color: #666;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-    .blog-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 30px;
-      margin: 50px 0 60px;
-    }
-    .blog-card {
-      background: white;
-      border-radius: 24px;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-    .blog-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-    }
-    .blog-image {
-      height: 180px;
-      background: linear-gradient(135deg, #e83e8c20, #f0629220);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 60px;
-    }
-    .blog-content {
-      padding: 24px;
-    }
-    .blog-category {
-      display: inline-block;
-      background: #fce4ec;
-      color: #e83e8c;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      margin-bottom: 12px;
-    }
-    .blog-title {
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-bottom: 12px;
-      line-height: 1.4;
-      color: #2c3e2f;
-    }
-    .blog-excerpt {
-      font-size: 0.9rem;
-      color: #666;
-      margin-bottom: 16px;
-      line-height: 1.6;
-    }
-    .blog-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.75rem;
-      color: #999;
-      border-top: 1px solid #eee;
-      padding-top: 16px;
-    }
-    .read-more {
-      color: #e83e8c;
-      font-weight: 600;
-      text-decoration: none;
-    }
-    .cta-section {
-      text-align: center;
-      padding: 40px 20px;
-      margin: 40px auto;
-    }
-    .cta-datlich {
-      display: inline-block;
-      background: linear-gradient(135deg, #e83e8c, #f06292);
-      color: white;
-      padding: 12px 28px;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: 600;
-      margin: 0 10px;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 12px rgba(232,62,140,0.2);
-    }
-    .cta-datlich:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(232,62,140,0.3);
-    }
-    .container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-    @media (max-width: 768px) {
-      .cta-datlich {
-        display: block;
-        margin: 12px auto;
-        width: fit-content;
-      }
-      .blog-header h1 {
-        font-size: 1.8rem;
-      }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<!-- ========== HEADER - COPY NGUYÊN BẢN TỪ INDEX/SERVICES ========== -->
+<!-- ========== HEADER ========== -->
 <header class="header">
-  <div class="container header-container">
+  <div class="header-container">
     <a href="index.html" class="logo">
       <img src="images/hinhremovenen.png" alt="Sophia Logo" />
     </a>
@@ -146,49 +23,91 @@
         <li><a href="index.html">Trang chủ</a></li>
         <li><a href="about.html">Giới thiệu</a></li>
         <li><a href="services.html">Dịch vụ</a></li>
-        <li><a href="blog.html">Blog</a></li>
+        <li><a href="khoa-hoc.html">Khóa học</a></li>
+        <li><a href="blog.html" class="active">Blog</a></li>
+        <li><a href="test.html">Trắc nghiệm</a></li>
         <li><a href="contact.html">Liên hệ</a></li>
       </ul>
     </nav>
   </div>
-  <div class="banner">
-    <img src="images/rs1.png" alt="Sophia Nguyễn – Đồng hành & Sẻ chia" class="banner-img" />
-  </div>
 </header>
 
-<!-- NỘI DUNG BLOG -->
-<main class="container">
-  <div class="blog-header" data-aos="fade-down">
-    <h1>📖 Góc nhỏ của Sophia</h1>
-    <p>Những câu chuyện, chia sẻ và bài viết về tâm lý, nuôi dạy con, kỹ năng an toàn – nơi bạn tìm thấy sự đồng hành và chữa lành.</p>
-  </div>
-
-  <div class="blog-grid" id="blogGrid" data-aos="fade-up"></div>
-</main>
-
-<!-- CTA -->
-<section class="cta-section" data-aos="zoom-in">
-  <a href="https://zalo.me/0977092182" class="cta-datlich">📅 Đặt lịch tư vấn</a>
-  <a href="contact.html" class="cta-datlich">📩 Gửi tin nhắn cho Sophia</a>
+<!-- ========== HERO NHỎ ========== -->
+<section style="background: linear-gradient(135deg, #0A1628 0%, #1E3A5F 100%); padding:60px 24px; text-align:center; color:#FFFFFF;">
+  <h1 style="font-family:'Playfair Display',serif; font-size:2.6rem;">📖 Góc nhỏ của Sophia</h1>
+  <p style="font-size:1.1rem; color:rgba(255,255,255,0.8); max-width:600px; margin:0 auto;">Những câu chuyện, chia sẻ và bài viết về tâm lý, nuôi dạy con, kỹ năng an toàn</p>
 </section>
 
-<!-- FOOTER - COPY NGUYÊN BẢN TỪ INDEX/SERVICES -->
+<!-- ========== BLOG ========== -->
+<section class="section-padding section-cream">
+  <div class="container">
+    <div class="blog-grid" data-aos="fade-up" id="blogGrid">
+      <!-- JS sẽ render tất cả bài viết -->
+    </div>
+  </div>
+</section>
+
+<script>
+  const allBlogs = [
+    { title: "Tiếng kêu cứu thầm lặng: Khi cơ thể con lên tiếng thay lời nói", excerpt: "Nhận diện sớm các dấu hiệu trẻ bị xâm hại: thay đổi thể chất, tâm lý và hành vi.", category: "Bảo vệ trẻ em", date: "12/04/2026", emoji: "💔", link: "blog/blog-xam-hai-tre-em.html" },
+    { title: "Bạo lực học đường ở trẻ em: Vấn nạn cần lên tiếng", excerpt: "Thực trạng đáng báo động, nguyên nhân sâu xa, hậu quả nghiêm trọng và giải pháp.", category: "Tâm lý học đường", date: "10/04/2026", emoji: "💔", link: "blog/blog-bao-luc-hoc-duong.html" },
+    { title: "5 dấu hiệu bạn đang bị thao túng tâm lý", excerpt: "Gaslighting, cô lập, kiểm soát... Nhận diện sớm để thoát khỏi mối quan hệ độc hại.", category: "Tâm lý", date: "08/04/2026", emoji: "🧠", link: "blog/blog-thao-tung-tam-ly.html" },
+    { title: "Hướng dẫn con an toàn trên mạng xã hội", excerpt: "Cha mẹ cần đồng hành cùng con trong thời đại số: bảo mật thông tin, nhận diện người lạ.", category: "An toàn số", date: "05/04/2026", emoji: "📱", link: "blog/blog-an-toan-mang-cho-con.html" },
+    { title: "Làm thế nào để nói 'KHÔNG' mà không cảm thấy có lỗi?", excerpt: "Nghệ thuật từ chối – kỹ năng quan trọng để bảo vệ ranh giới cá nhân.", category: "Kỹ năng sống", date: "24/04/2026", emoji: "🙅‍♀️", link: "blog/blog-nghe-thuat-noi-khong.html" },
+    { title: "5 dấu hiệu bạn đang bị kiệt sức cảm xúc", excerpt: "Cảm giác trống rỗng, mất động lực, dễ cáu gắt, khó ngủ...", category: "Sức khỏe tinh thần", date: "08/04/2026", emoji: "😔", link: "blog/blog-dau-hieu-bi-kiet-suc.html" },
+    { title: "Hiểu về trầm cảm ở tuổi vị thành niên", excerpt: "Dấu hiệu nhận biết và cách đồng hành cùng con khi trẻ gặp vấn đề về trầm cảm.", category: "Tâm lý tuổi teen", date: "28/03/2026", emoji: "💙", link: "blog/blog-tram-cam-vi-thanh-nien.html" },
+    { title: "Những câu nói tổn thương trẻ trầm cảm", excerpt: "Trẻ có vấn đề rối loạn về tâm trí.", category: "Tâm lý tuổi teen", date: "22/03/2026", emoji: "💔", link: "blog/blog-cau-noi-ton-thuong-tram-cam.html" }
+  ];
+
+  const grid = document.getElementById('blogGrid');
+  if (grid) {
+    grid.innerHTML = allBlogs.map(blog => `
+      <div class="blog-card" onclick="window.location.href='${blog.link}'">
+        <div class="blog-icon">${blog.emoji}</div>
+        <h3>${blog.title}</h3>
+        <p>${blog.excerpt}</p>
+        <span class="read-more">Đọc tiếp →</span>
+      </div>
+    `).join('');
+  }
+</script>
+
+<!-- ========== CTA ========== -->
+<section class="section-padding section-dark" style="background:#0A1628;">
+  <div class="container" style="text-align:center;">
+    <h2 style="font-family:'Playfair Display',serif; font-size:2rem; color:#FFFFFF; margin-bottom:12px;">Cùng Sophia đồng hành</h2>
+    <p style="color:rgba(255,255,255,0.8); font-size:1.05rem; margin-bottom:28px;">Nếu bạn cần một người lắng nghe, Sophia luôn sẵn sàng.</p>
+    <div class="cta-buttons">
+      <a href="https://zalo.me/0977092182" class="btn-primary">📅 Đặt lịch tư vấn</a>
+      <a href="contact.html" class="btn-outline">📩 Gửi tin nhắn</a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
 <footer class="footer">
-  <div class="footer-container">
+  <div class="footer-grid">
     <div class="footer-logo">
-      <img src="images/hinhremovenen.png" alt="Logo Sophia">
+      <img src="images/hinhremovenen.png" alt="Sophia Logo" />
       <p>Đồng hành & Sẻ chia cùng bạn trên hành trình tâm lý – phát triển – yêu thương.</p>
     </div>
     <div class="footer-links">
       <h4>Dịch vụ</h4>
       <ul>
-        <li><a href="#">Tham vấn tâm lý</a></li>
-        <li><a href="#">Định hướng nghề nghiệp</a></li>
-        <li><a href="#">Đào tạo kỹ năng</a></li>
-        <li><a href="#">Sinh trắc vân tay</a></li>
+        <li><a href="tuvan-tamly1.html">Tham vấn tâm lý</a></li>
+        <li><a href="huong-nghiep.html">Định hướng nghề nghiệp</a></li>
+        <li><a href="ky-nang.html">Đào tạo kỹ năng</a></li>
+        <li><a href="van-tay.html">Sinh trắc vân tay</a></li>
       </ul>
     </div>
- 
+    <div class="footer-links">
+      <h4>Khám phá</h4>
+      <ul>
+        <li><a href="khoa-hoc.html">Khóa học</a></li>
+        <li><a href="test.html">Trắc nghiệm</a></li>
+        <li><a href="blog.html">Blog</a></li>
+      </ul>
+    </div>
     <div class="footer-contact">
       <h4>Liên hệ</h4>
       <p>📧 sophianguyen2891@gmail.com</p>
@@ -208,41 +127,7 @@
 
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <script>
-  AOS.init({ duration: 1000, once: true });
-  function toggleMenu() {
-    document.querySelector(".navbar").classList.toggle("show-menu");
-  }
-
-  // 6 BÀI BLOG
-  const blogs = [
-    { id: 1, title: "Tiếng kêu cứu thầm lặng: Khi cơ thể con lên tiếng thay lời nói", excerpt: "Nhận diện sớm các dấu hiệu trẻ bị xâm hại: thay đổi thể chất, tâm lý và hành vi. Hướng dẫn cha mẹ cách lắng nghe và xử lý.", category: "Bảo vệ trẻ em", date: "12/04/2026", readTime: "7 phút", emoji: "💔", link: "blog/blog-xam-hai-tre-em.html" },
-    { id: 2, title: "Bạo lực học đường ở trẻ em: Vấn nạn cần lên tiếng", excerpt: "Thực trạng đáng báo động, nguyên nhân sâu xa, hậu quả nghiêm trọng và giải pháp phòng tránh từ gia đình, nhà trường.", category: "Tâm lý học đường", date: "10/04/2026", readTime: "8 phút", emoji: "💔", link: "blog/blog-bao-luc-hoc-duong.html" },
-    { id: 3, title: "5 dấu hiệu bạn đang bị thao túng tâm lý", excerpt: "Gaslighting, cô lập, kiểm soát... Nhận diện sớm để thoát khỏi mối quan hệ độc hại.", category: "Tâm lý", date: "08/04/2026", readTime: "5 phút", emoji: "🧠", link: "blog/blog-thao-tung-tam-ly.html" },
-    { id: 4, title: "Hướng dẫn con an toàn trên mạng xã hội", excerpt: "Cha mẹ cần đồng hành cùng con trong thời đại số: bảo mật thông tin, nhận diện người lạ, tránh bẫy lừa đảo.", category: "An toàn số", date: "05/04/2026", readTime: "6 phút", emoji: "📱", link: "blog/blog-an-toan-mang-cho-con.html" },
-       { id: 5, title: "Làm thế nào để nói 'KHÔNG' mà không cảm thấy có lỗi?", excerpt: "Nghệ thuật từ chối – kỹ năng quan trọng để bảo vệ ranh giới cá nhân và sức khỏe tinh thần.", category: "Kỹ năng sống", date: "24/04/2026", readTime: "6 phút", emoji: "🙅‍♀️", link: "blog/blog-nghe-thuat-noi-khong.html" },
-    { id: 5, title: "5 dấu hiệu bạn đang bị kiệt sức cảm xúc", excerpt: "Cảm giác trống rỗng, mất động lực, dễ cáu gắt, khó ngủ... Nhận biết sớm để chăm sóc sức khỏe tinh thần.", category: "Sức khỏe tinh thần", date: "08/04/2026", readTime: "5 phút", emoji: "😔", link: "blog/blog-dau-hieu-bi-kiet-suc.html" },
-    { id: 6, title: "Hiểu về trầm cảm ở tuổi vị thành niên", excerpt: "Dấu hiệu nhận biết và cách đồng hành cùng con khi trẻ gặp vấn đề về trầm cảm.", category: "Tâm lý tuổi teen", date: "28/03/2026", readTime: "7 phút", emoji: "💙", link: "blog/blog-tram-cam-vi-thanh-nien.html" },
-   { id: 6, title: "Những câu nói tổn thương trẻ trầm cảm", excerpt: "Trẻ có vấn đề rối loạn về tâm trí.", category: "Tâm lý tuổi teen", date: "22/03/2026", readTime: "7 phút", emoji: "💔", link: "blog/blog-cau-noi-ton-thuong-tram-cam.html" }
-  ];
-
-  const grid = document.getElementById('blogGrid');
-  if (grid) {
-    grid.innerHTML = blogs.map(blog => `
-      <div class="blog-card" onclick="window.location.href='${blog.link}'">
-        <div class="blog-image">${blog.emoji}</div>
-        <div class="blog-content">
-          <span class="blog-category">${blog.category}</span>
-          <h3 class="blog-title">${blog.title}</h3>
-          <p class="blog-excerpt">${blog.excerpt}</p>
-          <div class="blog-meta">
-            <span>📅 ${blog.date}</span>
-            <span>⏱️ ${blog.readTime}</span>
-            <a href="${blog.link}" class="read-more">Đọc tiếp →</a>
-          </div>
-        </div>
-      </div>
-    `).join('');
-  }
+  AOS.init({ once: true, duration: 800, easing: 'ease-out-cubic' });
 </script>
 </body>
 </html>
