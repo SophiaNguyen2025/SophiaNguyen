@@ -3,211 +3,506 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Khóa 6 - Chương 1: Giải mã nhịp đập trái tim | Sophia Nguyen</title>
+    <title>Khóa 6 - Chương 1: Giải mã nhịp đập trái tim | Sophia Nguyễn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: linear-gradient(135deg, #FFE4E8 0%, #FFD0D8 100%); font-family: 'Segoe UI', 'Quicksand', 'Nunito', 'Poppins', sans-serif; padding: 20px; }
-        .container { max-width: 1000px; margin: 0 auto; }
-        .header { background: white; border-radius: 32px; padding: 20px; margin-bottom: 25px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        .logo { width: 70px; margin: 0 auto 10px auto; }
-        .logo img { width: 100%; height: auto; }
-        .course-badge { background: linear-gradient(135deg, #E86A8A, #C84A6A); display: inline-block; padding: 5px 18px; border-radius: 40px; font-size: 13px; font-weight: bold; color: white; margin-bottom: 12px; }
-        .chapter-title { font-size: 32px; font-weight: bold; color: #C84A6A; text-align: center; background: #FFF0F4; display: inline-block; padding: 8px 30px; border-radius: 60px; margin-top: 5px; }
-        .video-card { background: white; border-radius: 32px; overflow: hidden; margin-bottom: 25px; box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
-        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; }
-        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
-        .video-label { background: #FFF0F4; padding: 12px 20px; font-weight: bold; color: #C84A6A; font-size: 18px; text-align: center; border-top: 2px solid #FFD0D8; }
-        .exercise-1 { background: white; border-radius: 32px; padding: 25px; margin-bottom: 25px; box-shadow: 0 8px 20px rgba(0,0,0,0.08); border-top: 6px solid #E86A8A; }
-        .exercise-2 { background: white; border-radius: 32px; padding: 25px; margin-bottom: 25px; box-shadow: 0 8px 20px rgba(0,0,0,0.08); border-top: 6px solid #D85A7A; }
-        .exercise-3 { background: white; border-radius: 32px; padding: 25px; margin-bottom: 25px; box-shadow: 0 8px 20px rgba(0,0,0,0.08); border-top: 6px solid #C84A6A; }
-        .ex-title-1 { font-size: 26px; font-weight: bold; color: #E86A8A; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
-        .ex-title-2 { font-size: 26px; font-weight: bold; color: #D85A7A; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
-        .ex-title-3 { font-size: 26px; font-weight: bold; color: #C84A6A; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
-        .ex-desc { color: #B86A8A; margin-bottom: 20px; font-size: 15px; padding-left: 22px; }
-        .situation-card { background: #FFF0F4; border-radius: 24px; padding: 20px; margin-bottom: 20px; border: 1px solid #FFD0D8; }
-        .situation-text { font-weight: bold; color: #C84A6A; margin-bottom: 15px; font-size: 16px; background: white; padding: 12px; border-radius: 16px; }
-        .situation-options { display: flex; flex-direction: column; gap: 10px; }
-        .situation-option { display: flex; align-items: center; gap: 12px; padding: 10px 15px; background: white; border-radius: 60px; cursor: pointer; transition: 0.2s; border: 1px solid #FFD0D8; }
-        .situation-option.selected { background: #E86A8A; color: white; border-color: #E86A8A; }
-        .situation-option.selected label { color: white; }
-        .situation-option input { accent-color: #E86A8A; }
-        .roleplay-card { background: #FFF0F4; border-radius: 24px; padding: 20px; margin-bottom: 20px; border: 1px solid #FFD0D8; }
-        .roleplay-text { font-weight: bold; color: #C84A6A; margin-bottom: 15px; font-size: 16px; background: white; padding: 12px; border-radius: 16px; }
-        .answer-input { width: 100%; padding: 12px; border: 1px solid #FFD0D8; border-radius: 20px; font-family: inherit; resize: vertical; background: white; margin-top: 10px; }
-        .classify-item { background: #FFF0F4; border-radius: 60px; padding: 12px 20px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
-        .classify-text { font-weight: bold; color: #5A4A6A; flex: 1; }
-        .classify-buttons { display: flex; gap: 10px; }
-        .like-btn, .love-btn { padding: 6px 18px; border-radius: 40px; border: none; cursor: pointer; font-weight: bold; transition: 0.2s; }
-        .like-btn { background: #E8D0E0; color: #E86A8A; }
-        .like-btn.selected { background: #E86A8A; color: white; }
-        .love-btn { background: #E0D0E8; color: #C84A6A; }
-        .love-btn.selected { background: #C84A6A; color: white; }
-        .check-btn { border: none; color: white; font-weight: bold; font-size: 18px; padding: 12px 28px; border-radius: 60px; cursor: pointer; margin-top: 20px; width: 100%; transition: 0.2s; }
-        .btn-1 { background: #E86A8A; }
-        .btn-1:hover { background: #D85A7A; }
-        .btn-2 { background: #D85A7A; }
-        .btn-2:hover { background: #C84A6A; }
-        .btn-3 { background: #C84A6A; }
-        .btn-3:hover { background: #B83A5A; }
-        .result-area { margin-top: 18px; border-radius: 24px; padding: 15px; text-align: center; font-weight: bold; font-size: 16px; }
-        @media (max-width: 600px) {
+        :root {
+            --navy-dark: #0A1628;
+            --navy-mid: #1E3A5F;
+            --gold: #C9A84C;
+            --gold-light: #D4B85C;
+            --cream: #F5F0E8;
+            --white: #FFFFFF;
+            --gray: #4A5A6A;
+            --light-gray: #E8E4DC;
+        }
+        body {
+            background: linear-gradient(145deg, var(--cream) 0%, #EDE8E0 100%);
+            font-family: 'Inter', 'Be Vietnam Pro', sans-serif;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container { max-width: 1100px; margin: 0 auto; }
+        
+        .header { 
+            background: var(--white); 
+            border-radius: 32px; 
+            padding: 20px; 
+            margin-bottom: 20px; 
+            text-align: center; 
+            box-shadow: 0 10px 30px rgba(10,22,40,0.08);
+            border: 1px solid var(--light-gray);
+        }
+        .logo { height: 60px; margin-bottom: 10px; }
+        .logo img { height: 60px; }
+        .header h1 { 
+            font-family: 'Playfair Display', serif;
+            color: var(--navy-dark); 
+            font-size: 1.8rem; 
+        }
+        .header h1 span { color: var(--gold); }
+        .course-badge {
+            display: inline-block;
+            background: rgba(201,168,76,0.2);
+            color: var(--gold);
+            padding: 4px 16px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .video-section { 
+            background: var(--white); 
+            border-radius: 32px; 
+            padding: 20px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 10px 30px rgba(10,22,40,0.08);
+            border: 1px solid var(--light-gray);
+        }
+        .video-wrapper { 
+            position: relative; 
+            padding-bottom: 56.25%; 
+            height: 0; 
+            border-radius: 24px; 
+            overflow: hidden; 
+        }
+        .video-wrapper iframe { 
+            position: absolute; 
+            top: 0; left: 0; 
+            width: 100%; height: 100%; 
+            border: none; 
+        }
+        .video-label {
+            background: var(--cream);
+            padding: 12px 20px;
+            font-weight: 600;
+            color: var(--navy-dark);
+            font-size: 1rem;
+            text-align: center;
+            border-top: 2px solid var(--gold);
+            border-radius: 0 0 32px 32px;
+        }
+        
+        .exercise { 
+            background: var(--white); 
+            border-radius: 32px; 
+            padding: 24px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 10px 30px rgba(10,22,40,0.08);
+            border: 1px solid var(--light-gray);
+        }
+        .ex-title { 
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem; 
+            color: var(--navy-dark); 
+            margin-bottom: 8px; 
+            padding-bottom: 8px; 
+            border-bottom: 3px solid var(--gold); 
+            display: inline-block; 
+        }
+        .ex-desc {
+            color: var(--gray);
+            margin: 12px 0 20px;
+            font-size: 0.95rem;
+        }
+        
+        .situation-card {
+            background: var(--cream);
+            border-radius: 20px;
+            padding: 18px;
+            margin-bottom: 16px;
+            border: 1px solid var(--light-gray);
+        }
+        .situation-text {
+            font-weight: 700;
+            color: var(--navy-dark);
+            margin-bottom: 12px;
+            font-size: 1rem;
+            background: rgba(201,168,76,0.08);
+            padding: 12px;
+            border-radius: 16px;
+        }
+        .situation-options { display: flex; flex-direction: column; gap: 8px; }
+        .situation-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 16px;
+            background: var(--white);
+            border-radius: 60px;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid var(--light-gray);
+        }
+        .situation-option:hover { border-color: var(--gold); }
+        .situation-option.selected {
+            background: var(--gold);
+            color: var(--navy-dark);
+            border-color: var(--gold);
+        }
+        .situation-option.selected label { color: var(--navy-dark); }
+        .situation-option input { accent-color: var(--gold); }
+        
+        .roleplay-card {
+            background: var(--cream);
+            border-radius: 20px;
+            padding: 18px;
+            margin-bottom: 16px;
+            border: 1px solid var(--light-gray);
+        }
+        .roleplay-text {
+            font-weight: 700;
+            color: var(--navy-dark);
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+        .answer-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--light-gray);
+            border-radius: 20px;
+            font-family: 'Inter', sans-serif;
+            resize: vertical;
+            background: var(--white);
+        }
+        .answer-input:focus { border-color: var(--gold); outline: none; }
+        
+        .classify-item {
+            background: var(--cream);
+            border-radius: 60px;
+            padding: 10px 16px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            border: 1px solid var(--light-gray);
+        }
+        .classify-text { font-weight: 600; color: var(--navy-dark); flex: 1; font-size: 0.9rem; }
+        .classify-buttons { display: flex; gap: 8px; }
+        .like-btn, .love-btn {
+            padding: 4px 16px;
+            border-radius: 40px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.2s;
+            font-size: 0.8rem;
+            font-family: 'Inter', sans-serif;
+        }
+        .like-btn { background: var(--cream); color: var(--gray); border: 1px solid var(--light-gray); }
+        .like-btn:hover { border-color: var(--gold); }
+        .like-btn.selected { background: var(--gold); color: var(--navy-dark); border-color: var(--gold); }
+        .love-btn { background: var(--cream); color: var(--gray); border: 1px solid var(--light-gray); }
+        .love-btn:hover { border-color: var(--gold); }
+        .love-btn.selected { background: var(--navy-dark); color: var(--white); border-color: var(--navy-dark); }
+        
+        .check-btn {
+            background: var(--gold);
+            color: var(--navy-dark);
+            border: none;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 12px 28px;
+            border-radius: 60px;
+            cursor: pointer;
+            margin-top: 16px;
+            width: 100%;
+            transition: 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .check-btn:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+        }
+        .result-area {
+            margin-top: 16px;
+            border-radius: 20px;
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1rem;
+            display: none;
+        }
+        .result-area.correct {
+            background: #E8F5E9;
+            color: #2E7D32;
+            display: block;
+        }
+        .result-area.wrong {
+            background: #FFF3E0;
+            color: #E65100;
+            display: block;
+        }
+        
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .chapter-nav a {
+            background: var(--navy-dark);
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .chapter-nav a:hover {
+            background: var(--gold);
+            color: var(--navy-dark);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) { 
+            .header h1 { font-size: 1.4rem; }
             .classify-item { flex-direction: column; align-items: stretch; }
             .classify-buttons { justify-content: center; }
-            .exercise-1, .exercise-2, .exercise-3 { padding: 18px; }
-            .chapter-title { font-size: 24px; padding: 6px 20px; }
         }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="header">
-        <div class="logo"><img src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Sophia Nguyen Logo"></div>
+        <img src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Sophia Nguyễn" class="logo">
         <div class="course-badge">💓 Khóa 6 - Dành cho tuổi teen 15+</div>
-        <div><span class="chapter-title">💓 Giải mã nhịp đập trái tim</span></div>
+        <h1>💓 Chương 1: <span>Giải mã nhịp đập trái tim</span></h1>
     </div>
-    <div class="video-card">
+
+    <div class="video-section">
         <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/0A0-d_ph_Gw" title="Bài giảng Khóa 6 Chương 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/0A0-d_ph_Gw" title="Bài giảng Khóa 6 Chương 1" frameborder="0" allowfullscreen></iframe>
         </div>
-        <div class="video-label">🎬 Bài học: Giải mã nhịp đập trái tim – Rung động hay là yêu?</div>
+        <div class="video-label">
+            🎬 Bài học: Giải mã nhịp đập trái tim – Rung động hay là yêu?
+        </div>
     </div>
 
     <!-- BÀI TẬP 1: PHÂN TÍCH TÌNH HUỐNG -->
-    <div class="exercise-1">
-        <div class="ex-title-1">📊 Bài tập 1: Phân tích tình huống</div>
+    <div class="exercise">
+        <div class="ex-title">📊 Bài tập 1: Phân tích tình huống</div>
         <div class="ex-desc">🧠 Đọc tình huống và chọn cách xử lý đúng nhất.</div>
         <div id="situationArea"></div>
-        <button class="check-btn btn-1" id="checkSitBtn">✅ Kiểm tra bài tập 1</button>
-        <div id="sitResult" class="result-area" style="display: none;"></div>
+        <button class="check-btn" id="checkSitBtn">✅ Kiểm tra bài tập 1</button>
+        <div id="sitResult" class="result-area"></div>
     </div>
 
     <!-- BÀI TẬP 2: ĐÓNG VAI -->
-    <div class="exercise-2">
-        <div class="ex-title-2">🎭 Bài tập 2: Đóng vai - Thực hành giao tiếp</div>
+    <div class="exercise">
+        <div class="ex-title">🎭 Bài tập 2: Đóng vai - Thực hành giao tiếp</div>
         <div class="ex-desc">💬 Hãy viết câu trả lời của con trong các tình huống sau.</div>
         <div id="roleplayArea"></div>
-        <button class="check-btn btn-2" id="checkRoleBtn">📝 Lưu câu trả lời & xem gợi ý</button>
-        <div id="roleResult" class="result-area" style="display: none;"></div>
+        <button class="check-btn" id="checkRoleBtn">📝 Lưu câu trả lời & xem gợi ý</button>
+        <div id="roleResult" class="result-area"></div>
     </div>
 
-    <!-- BÀI TẬP 3: PHÂN LOẠI (CLICK CHỌN) -->
-    <div class="exercise-3">
-        <div class="ex-title-3">🎯 Bài tập 3: Phân loại "Thích" và "Yêu"</div>
+    <!-- BÀI TẬP 3: PHÂN LOẠI -->
+    <div class="exercise">
+        <div class="ex-title">🎯 Bài tập 3: Phân loại "Thích" và "Yêu"</div>
         <div class="ex-desc">🔍 Click vào nút để phân loại đặc điểm thuộc về "Thích" hay "Yêu".</div>
         <div id="classifyArea"></div>
-        <button class="check-btn btn-3" id="checkClassifyBtn">✅ Kiểm tra bài tập 3</button>
-        <div id="classifyResult" class="result-area" style="display: none;"></div>
+        <button class="check-btn" id="checkClassifyBtn">✅ Kiểm tra bài tập 3</button>
+        <div id="classifyResult" class="result-area"></div>
+    </div>
+
+    <div class="chapter-nav">
+        <a href="index.html">📚 Danh sách chương</a>
+        <a href="chuong2.html">➡️ Chương tiếp theo</a>
     </div>
 </div>
+<canvas id="confetti-canvas"></canvas>
 
 <script>
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    function playSound(type) {
-        const now = audioContext.currentTime;
-        const gainNode = audioContext.createGain();
-        gainNode.connect(audioContext.destination);
-        gainNode.gain.value = 0.3;
-        const oscillator = audioContext.createOscillator();
-        oscillator.connect(gainNode);
-        if (type === 'tick') {
-            oscillator.frequency.value = 880; oscillator.type = 'sine'; gainNode.gain.value = 0.15;
-            oscillator.start(); oscillator.stop(now + 0.1);
-        } else if (type === 'plop') {
-            oscillator.frequency.value = 440; oscillator.type = 'sine'; gainNode.gain.value = 0.2;
-            oscillator.start(); oscillator.stop(now + 0.15);
-        } else if (type === 'correct') {
-            oscillator.frequency.value = 880; oscillator.type = 'sine'; gainNode.gain.value = 0.2;
-            oscillator.start(); oscillator.stop(now + 0.1);
-            setTimeout(() => {
-                const osc2 = audioContext.createOscillator();
-                osc2.connect(gainNode);
-                osc2.frequency.value = 1100; osc2.type = 'sine';
-                osc2.start(); osc2.stop(now + 0.2);
-            }, 100);
-        } else if (type === 'wrong') {
-            oscillator.frequency.value = 440; oscillator.type = 'sine'; gainNode.gain.value = 0.15;
-            oscillator.start(); oscillator.stop(now + 0.2);
+    // ==================== CONFETTI & ÂM THANH ====================
+    let ctx = null, width = window.innerWidth, height = window.innerHeight, particles = [], animationId = null;
+    function resizeCanvas() { width = window.innerWidth; height = window.innerHeight; const canvas = document.getElementById('confetti-canvas'); if(canvas){ canvas.width = width; canvas.height = height; ctx = canvas.getContext('2d'); } }
+    function createConfetti(duration = 1800) {
+        if(!ctx) return;
+        if(animationId) cancelAnimationFrame(animationId);
+        particles = [];
+        for(let i=0;i<140;i++) {
+            particles.push({ x: Math.random() * width, y: Math.random() * height - height, size: Math.random() * 7 + 3, color: `hsl(${Math.random() * 360}, 80%, 60%)`, speedY: Math.random() * 5 + 3, speedX: (Math.random() - 0.5) * 2, rotation: Math.random() * 360, rotSpeed: (Math.random() - 0.5) * 6 });
         }
+        drawConfetti();
+        setTimeout(() => { if(animationId) cancelAnimationFrame(animationId); ctx?.clearRect(0,0,width,height); particles = []; }, duration);
+    }
+    function drawConfetti() {
+        if(!ctx) return;
+        ctx.clearRect(0, 0, width, height);
+        let allFinished = true;
+        for(let i=0;i<particles.length;i++) {
+            const p = particles[i];
+            if(p.y < height + 50) {
+                allFinished = false;
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.rotation * Math.PI / 180);
+                ctx.fillStyle = p.color;
+                ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size * 0.6);
+                ctx.restore();
+                p.y += p.speedY;
+                p.x += p.speedX;
+                p.rotation += p.rotSpeed;
+            }
+        }
+        if(!allFinished) animationId = requestAnimationFrame(drawConfetti);
+        else { if(animationId) cancelAnimationFrame(animationId); particles = []; ctx.clearRect(0,0,width,height); }
+    }
+    window.addEventListener('resize', () => { resizeCanvas(); if(particles.length) drawConfetti(); });
+    
+    function playSound(type) {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            if (type === 'correct') {
+                osc.frequency.value = 880;
+                gain.gain.value = 0.2;
+                osc.type = 'sine';
+                osc.start();
+                gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                osc.stop(audioCtx.currentTime + 0.3);
+                setTimeout(() => {
+                    const osc2 = audioCtx.createOscillator();
+                    const gain2 = audioCtx.createGain();
+                    osc2.connect(gain2);
+                    gain2.connect(audioCtx.destination);
+                    osc2.frequency.value = 1100;
+                    gain2.gain.value = 0.2;
+                    osc2.type = 'sine';
+                    osc2.start();
+                    gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                    osc2.stop(audioCtx.currentTime + 0.3);
+                }, 100);
+            } else if (type === 'wrong') {
+                osc.frequency.value = 440;
+                gain.gain.value = 0.2;
+                osc.type = 'sawtooth';
+                osc.start();
+                gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                osc.stop(audioCtx.currentTime + 0.3);
+            } else {
+                osc.frequency.value = 660;
+                gain.gain.value = 0.1;
+                osc.type = 'sine';
+                osc.start();
+                gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.05);
+                osc.stop(audioCtx.currentTime + 0.05);
+            }
+        } catch(e) {}
     }
 
-    // ---------------------- BÀI TẬP 1 ----------------------
+    // ========== BÀI TẬP 1: PHÂN TÍCH TÌNH HUỐNG ==========
     const situations = [
-        { text: "💓 Con thấy tim đập nhanh mỗi khi gặp một bạn cùng lớp. Con cảm thấy bồi hồi và hay nghĩ về bạn ấy.",
-          options: ["Vội vàng tỏ tình ngay", "Quan sát cảm xúc, tự hỏi mình thích điều gì ở bạn ấy", "Kể cho cả lớp biết", "Tránh mặt bạn ấy vì xấu hổ"],
-          correct: 1, feedback: "Rung động là cảm xúc tự nhiên. Hãy quan sát và hiểu rõ cảm xúc của mình trước khi hành động." },
-        { text: "😔 Con quyết định tỏ tình với crush nhưng bạn ấy nói 'Mình chỉ coi cậu là bạn thôi.' Con rất buồn.",
-          options: ["Trách móc bạn", "Tỏ tình lại nhiều lần", "Buồn nhưng tôn trọng quyết định của bạn, dành thời gian cho bản thân", "Bỏ học"],
-          correct: 2, feedback: "Lời từ chối không phải thất bại. Hãy tôn trọng quyết định của người kia." },
-        { text: "😟 Con thấy crush thân thiết với một bạn khác giới. Con cảm thấy hơi khó chịu.",
-          options: ["Cãi nhau với crush", "Nói xấu bạn kia", "Ghen tị là bình thường, nhưng hãy tập trung vào việc của mình", "Bỏ luôn crush"],
-          correct: 2, feedback: "Cảm xúc ghen tị nhẹ là bình thường, nhưng đừng để nó chi phối hành vi." },
-        { text: "📚 Con có crush nhưng việc học bắt đầu sa sút vì cứ nghĩ về bạn ấy.",
-          options: ["Bỏ học", "Đặt lịch học cố định, tắt điện thoại khi học", "Trách crush", "Nghỉ chơi với bạn bè"],
-          correct: 1, feedback: "Crush không phải lý do để học kém. Hãy giữ sự cân bằng." }
+        { text: "💓 Con thấy tim đập nhanh mỗi khi gặp một bạn cùng lớp. Con cảm thấy bồi hồi và hay nghĩ về bạn ấy.", options: ["Vội vàng tỏ tình ngay", "Quan sát cảm xúc, tự hỏi mình thích điều gì ở bạn ấy", "Kể cho cả lớp biết", "Tránh mặt bạn ấy vì xấu hổ"], correct: 1, feedback: "Rung động là cảm xúc tự nhiên. Hãy quan sát và hiểu rõ cảm xúc của mình trước khi hành động." },
+        { text: "😔 Con quyết định tỏ tình với crush nhưng bạn ấy nói 'Mình chỉ coi cậu là bạn thôi.' Con rất buồn.", options: ["Trách móc bạn", "Tỏ tình lại nhiều lần", "Buồn nhưng tôn trọng quyết định của bạn, dành thời gian cho bản thân", "Bỏ học"], correct: 2, feedback: "Lời từ chối không phải thất bại. Hãy tôn trọng quyết định của người kia." },
+        { text: "😟 Con thấy crush thân thiết với một bạn khác giới. Con cảm thấy hơi khó chịu.", options: ["Cãi nhau với crush", "Nói xấu bạn kia", "Ghen tị là bình thường, nhưng hãy tập trung vào việc của mình", "Bỏ luôn crush"], correct: 2, feedback: "Cảm xúc ghen tị nhẹ là bình thường, nhưng đừng để nó chi phối hành vi." },
+        { text: "📚 Con có crush nhưng việc học bắt đầu sa sút vì cứ nghĩ về bạn ấy.", options: ["Bỏ học", "Đặt lịch học cố định, tắt điện thoại khi học", "Trách crush", "Nghỉ chơi với bạn bè"], correct: 1, feedback: "Crush không phải lý do để học kém. Hãy giữ sự cân bằng." }
     ];
     let sitAnswers = [null, null, null, null];
+
     function renderSituations() {
         const container = document.getElementById('situationArea');
         container.innerHTML = '';
         situations.forEach((sit, idx) => {
-            const sDiv = document.createElement('div'); sDiv.className = 'situation-card';
+            const sDiv = document.createElement('div');
+            sDiv.className = 'situation-card';
             sDiv.innerHTML = `<div class="situation-text">📖 ${sit.text}</div><div class="situation-options" id="sitOpt${idx}"></div>`;
             const optDiv = sDiv.querySelector(`#sitOpt${idx}`);
             sit.options.forEach((opt, optIdx) => {
-                const optRow = document.createElement('div'); optRow.className = 'situation-option';
-                if (sitAnswers[idx] === optIdx) optRow.classList.add('selected');
-                const radio = document.createElement('input'); radio.type = 'radio'; radio.name = `sit${idx}`; radio.value = optIdx;
+                const optRow = document.createElement('div');
+                optRow.className = 'situation-option' + (sitAnswers[idx] === optIdx ? ' selected' : '');
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = `sit${idx}`;
+                radio.value = optIdx;
                 if (sitAnswers[idx] === optIdx) radio.checked = true;
-                radio.addEventListener('change', (e) => { sitAnswers[idx] = parseInt(e.target.value); renderSituations(); playSound('tick'); });
-                const label = document.createElement('label'); label.textContent = opt; label.style.cursor = 'pointer'; label.style.flex = '1';
-                optRow.appendChild(radio); optRow.appendChild(label); optDiv.appendChild(optRow);
+                radio.addEventListener('change', (e) => {
+                    sitAnswers[idx] = parseInt(e.target.value);
+                    renderSituations();
+                    playSound('click');
+                });
+                const label = document.createElement('label');
+                label.textContent = opt;
+                label.style.cursor = 'pointer';
+                label.style.flex = '1';
+                optRow.appendChild(radio);
+                optRow.appendChild(label);
+                optDiv.appendChild(optRow);
             });
             container.appendChild(sDiv);
         });
     }
+
     function checkSituations() {
-        let correct = 0; let feedbacks = [];
-        situations.forEach((sit, idx) => { if (sitAnswers[idx] === sit.correct) correct++; else if (sitAnswers[idx] !== null) feedbacks.push(`• Tình huống ${idx+1}: ${sit.feedback}`); });
-        const resultDiv = document.getElementById('sitResult'); resultDiv.style.display = 'block';
+        let correct = 0;
+        let feedbacks = [];
+        situations.forEach((sit, idx) => {
+            if (sitAnswers[idx] === sit.correct) correct++;
+            else if (sitAnswers[idx] !== null) feedbacks.push(`• Tình huống ${idx+1}: ${sit.feedback}`);
+        });
+        const resultDiv = document.getElementById('sitResult');
         if (correct === situations.length) {
+            resultDiv.className = 'result-area correct';
             resultDiv.innerHTML = '🎉🎉🎉 Tuyệt vời! Con đã biết cách xử lý các tình huống về tình cảm thông minh! 🎉🎉🎉';
-            resultDiv.style.background = "#DFF0DF"; playSound('correct');
+            playSound('correct');
+            createConfetti(800);
         } else {
-            resultDiv.innerHTML = `💓 Bé xử lý đúng ${correct}/${situations.length} tình huống.<br>📌 Gợi ý:<br>${feedbacks.join('<br>')}<br>💪 Hãy thử lại!`;
-            resultDiv.style.background = "#FFEFE0"; playSound('wrong');
+            resultDiv.className = 'result-area wrong';
+            resultDiv.innerHTML = `💓 Bé xử lý đúng ${correct}/${situations.length} tình huống.<br><br>📌 Gợi ý:<br>${feedbacks.join('<br>')}<br><br>💪 Hãy thử lại!`;
+            playSound('wrong');
         }
     }
 
-    // ---------------------- BÀI TẬP 2 ----------------------
+    // ========== BÀI TẬP 2: ĐÓNG VAI ==========
     const roleplays = [
-        { text: "💬 Tình huống 1: Con thích một bạn trong lớp và muốn bày tỏ tình cảm nhưng không muốn làm mất tình bạn nếu bị từ chối. Hãy viết câu con sẽ nói:",
-          placeholder: "Ví dụ: 'Mình thích cậu, nhưng nếu cậu không có cảm xúc thì vẫn là bạn nhé.'" },
-        { text: "💪 Tình huống 2: Con vừa bị bạn ấy từ chối tình cảm. Hãy viết câu con sẽ nói (hoặc những việc con sẽ làm):",
-          placeholder: "Ví dụ: 'Mình hiểu và tôn trọng quyết định của cậu. Cảm ơn cậu đã thành thật.'" }
+        { text: "💬 Tình huống 1: Con thích một bạn trong lớp và muốn bày tỏ tình cảm nhưng không muốn làm mất tình bạn nếu bị từ chối. Hãy viết câu con sẽ nói:", placeholder: "Ví dụ: 'Mình thích cậu, nhưng nếu cậu không có cảm xúc thì vẫn là bạn nhé.'" },
+        { text: "💪 Tình huống 2: Con vừa bị bạn ấy từ chối tình cảm. Hãy viết câu con sẽ nói (hoặc những việc con sẽ làm):", placeholder: "Ví dụ: 'Mình hiểu và tôn trọng quyết định của cậu. Cảm ơn cậu đã thành thật.'" }
     ];
     let roleAnswers = ["", ""];
+
     function renderRoleplays() {
-        const container = document.getElementById('roleplayArea'); container.innerHTML = '';
+        const container = document.getElementById('roleplayArea');
+        container.innerHTML = '';
         roleplays.forEach((rp, idx) => {
-            const rDiv = document.createElement('div'); rDiv.className = 'roleplay-card';
-            rDiv.innerHTML = `<div class="roleplay-text">🎭 ${rp.text}</div><textarea class="answer-input" id="roleInput${idx}" rows="3" placeholder="${rp.placeholder}">${roleAnswers[idx]}</textarea>`;
+            const rDiv = document.createElement('div');
+            rDiv.className = 'roleplay-card';
+            rDiv.innerHTML = `
+                <div class="roleplay-text">🎭 ${rp.text}</div>
+                <textarea class="answer-input" id="roleInput${idx}" rows="3" placeholder="${rp.placeholder}">${roleAnswers[idx]}</textarea>
+            `;
             const ta = rDiv.querySelector(`#roleInput${idx}`);
-            ta.addEventListener('input', (e) => { roleAnswers[idx] = e.target.value; playSound('tick'); });
+            ta.addEventListener('input', (e) => { roleAnswers[idx] = e.target.value; playSound('click'); });
             container.appendChild(rDiv);
         });
     }
+
     function checkRoleplays() {
-        const resultDiv = document.getElementById('roleResult'); resultDiv.style.display = 'block';
+        const resultDiv = document.getElementById('roleResult');
         if (roleAnswers.some(ans => ans.trim().length > 0)) {
+            resultDiv.className = 'result-area correct';
             resultDiv.innerHTML = '🎉🎉🎉 Tuyệt vời! Con đã thực hành kỹ năng giao tiếp. Sự chân thành và tôn trọng là điều quan trọng nhất! 🎉🎉🎉';
-            resultDiv.style.background = "#DFF0DF"; playSound('correct');
+            playSound('correct');
+            createConfetti(800);
         } else {
+            resultDiv.className = 'result-area wrong';
             resultDiv.innerHTML = '💬 Hãy viết câu trả lời của con vào các ô trên để thực hành nhé!';
-            resultDiv.style.background = "#FFEFE0"; playSound('wrong');
+            playSound('wrong');
         }
     }
 
-    // ---------------------- BÀI TẬP 3: PHÂN LOẠI (CLICK CHỌN) ----------------------
+    // ========== BÀI TẬP 3: PHÂN LOẠI ==========
     const classifyItems = [
         { text: "Bị thu hút bởi vẻ bề ngoài", type: "like" },
         { text: "Cảm xúc đến nhanh, đi nhanh", type: "like" },
@@ -218,14 +513,14 @@
         { text: "Sẵn sàng lắng nghe và hy sinh", type: "love" },
         { text: "Nhớ và muốn được ở bên khi xa cách", type: "love" }
     ];
-    
     let userClassify = classifyItems.map(() => null);
-    
+
     function renderClassify() {
         const container = document.getElementById('classifyArea');
         container.innerHTML = '';
         classifyItems.forEach((item, idx) => {
-            const itemDiv = document.createElement('div'); itemDiv.className = 'classify-item';
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'classify-item';
             itemDiv.innerHTML = `
                 <div class="classify-text">${item.text}</div>
                 <div class="classify-buttons">
@@ -235,24 +530,27 @@
             `;
             const likeBtn = itemDiv.querySelector('.like-btn');
             const loveBtn = itemDiv.querySelector('.love-btn');
-            likeBtn.onclick = () => { userClassify[idx] = 'like'; renderClassify(); playSound('tick'); };
-            loveBtn.onclick = () => { userClassify[idx] = 'love'; renderClassify(); playSound('tick'); };
+            likeBtn.onclick = () => { userClassify[idx] = 'like'; renderClassify(); playSound('click'); };
+            loveBtn.onclick = () => { userClassify[idx] = 'love'; renderClassify(); playSound('click'); };
             container.appendChild(itemDiv);
         });
     }
-    
+
     function checkClassify() {
         let correct = 0;
         classifyItems.forEach((item, idx) => {
             if (userClassify[idx] === item.type) correct++;
         });
-        const resultDiv = document.getElementById('classifyResult'); resultDiv.style.display = 'block';
+        const resultDiv = document.getElementById('classifyResult');
         if (correct === classifyItems.length) {
+            resultDiv.className = 'result-area correct';
             resultDiv.innerHTML = '🎉🎉🎉 Xuất sắc! Con đã phân biệt được "Thích" và "Yêu" một cách chính xác! 🎉🎉🎉';
-            resultDiv.style.background = "#DFF0DF"; playSound('correct');
+            playSound('correct');
+            createConfetti(800);
         } else {
+            resultDiv.className = 'result-area wrong';
             resultDiv.innerHTML = `🎯 Con phân loại đúng ${correct}/${classifyItems.length} đặc điểm. Hãy click chọn lại cho đúng nhé! 💪`;
-            resultDiv.style.background = "#FFEFE0"; playSound('wrong');
+            playSound('wrong');
         }
     }
 
@@ -263,7 +561,7 @@
         document.getElementById('checkSitBtn').addEventListener('click', checkSituations);
         document.getElementById('checkRoleBtn').addEventListener('click', checkRoleplays);
         document.getElementById('checkClassifyBtn').addEventListener('click', checkClassify);
-        document.body.addEventListener('click', () => { if (audioContext.state === 'suspended') audioContext.resume(); }, { once: true });
+        resizeCanvas();
     }
     init();
 </script>
