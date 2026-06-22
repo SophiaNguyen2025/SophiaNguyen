@@ -3,72 +3,314 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Bài 8: Phòng chống bắt cóc - Kỹ năng an toàn | Sophia Nguyễn</title>
+    <title>Bài 8: Phòng chống bắt cóc | Sophia Nguyễn</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --navy-dark: #0A1628;
+            --navy-mid: #1E3A5F;
+            --gold: #C9A84C;
+            --gold-light: #D4B85C;
+            --cream: #F5F0E8;
+            --white: #FFFFFF;
+            --gray: #4A5A6A;
+            --light-gray: #E8E4DC;
+        }
         body {
-            background: linear-gradient(135deg, #0a4a5a, #1a6b7a);
-            font-family: 'Segoe UI', 'Be Vietnam Pro', sans-serif;
+            background: linear-gradient(145deg, var(--cream) 0%, #EDE8E0 100%);
+            font-family: 'Inter', 'Be Vietnam Pro', sans-serif;
             padding: 20px;
             min-height: 100vh;
         }
         .container { max-width: 1100px; margin: 0 auto; }
-        .header { background: white; border-radius: 32px; padding: 20px; margin-bottom: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        
+        .header { 
+            background: var(--white); 
+            border-radius: 32px; 
+            padding: 20px; 
+            margin-bottom: 20px; 
+            text-align: center; 
+            box-shadow: 0 10px 30px rgba(10,22,40,0.08);
+            border: 1px solid var(--light-gray);
+        }
         .logo { height: 60px; margin-bottom: 10px; }
-        .header h1 { color: #0a4a5a; font-size: 1.8rem; }
-        .video-section { background: white; border-radius: 32px; padding: 20px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 24px; overflow: hidden; }
-        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-        .exercise { background: white; border-radius: 32px; padding: 20px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .exercise-title { font-size: 1.5rem; color: #0a4a5a; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 3px solid #ffd700; display: inline-block; }
-        .back-btn { display: inline-block; background: #ffd700; color: #0a4a5a; padding: 12px 24px; border-radius: 40px; text-decoration: none; font-weight: bold; margin-top: 20px; transition: all 0.2s; }
-        .back-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
-        .footer { text-align: center; color: white; padding: 20px; font-size: 0.8rem; }
+        .logo img { height: 60px; }
+        .header h1 { 
+            font-family: 'Playfair Display', serif;
+            color: var(--navy-dark); 
+            font-size: 1.8rem; 
+        }
+        .header h1 span { color: var(--gold); }
+        .course-badge {
+            display: inline-block;
+            background: rgba(201,168,76,0.2);
+            color: var(--gold);
+            padding: 4px 16px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
         
-        .shake-screen { animation: shake 0.3s ease-in-out 0s 2; }
-        @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } 100% { transform: translateX(0); } }
+        .video-section { 
+            background: var(--white); 
+            border-radius: 32px; 
+            padding: 20px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 10px 30px rgba(10,22,40,0.08);
+            border: 1px solid var(--light-gray);
+        }
+        .video-wrapper { 
+            position: relative; 
+            padding-bottom: 56.25%; 
+            height: 0; 
+            border-radius: 24px; 
+            overflow: hidden; 
+        }
+        .video-wrapper iframe { 
+            position: absolute; 
+            top: 0; left: 0; 
+            width: 100%; height: 100%; 
+            border: none; 
+        }
+        .video-label {
+            background: var(--cream);
+            padding: 12px 20px;
+            font-weight: 600;
+            color: var(--navy-dark);
+            font-size: 1rem;
+            text-align: center;
+            border-top: 2px solid var(--gold);
+            border-radius: 0 0 32px 32px;
+        }
         
-        #confetti-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; }
+        .exercise { 
+            background: var(--white); 
+            border-radius: 32px; 
+            padding: 24px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 10px 30px rgba(10,22,40,0.08);
+            border: 1px solid var(--light-gray);
+        }
+        .ex-title { 
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem; 
+            color: var(--navy-dark); 
+            margin-bottom: 8px; 
+            padding-bottom: 8px; 
+            border-bottom: 3px solid var(--gold); 
+            display: inline-block; 
+        }
+        .ex-desc {
+            color: var(--gray);
+            margin: 12px 0 20px;
+            font-size: 0.95rem;
+        }
+        
+        .choice-btn {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            background: var(--white);
+            border: 2px solid var(--light-gray);
+            border-radius: 60px;
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: 0.2s;
+            min-width: 100px;
+            margin: 4px;
+        }
+        .choice-btn:hover { border-color: var(--gold); }
+        .choice-btn.selected { background: var(--gold); color: var(--navy-dark); border-color: var(--gold); }
+        .choice-btn .emoji { font-size: 32px; }
+        .choice-btn .label { font-size: 0.75rem; font-weight: 600; margin-top: 2px; }
+        
+        .question-item {
+            background: var(--cream);
+            border-radius: 20px;
+            padding: 16px 20px;
+            margin-bottom: 16px;
+            border: 1px solid var(--light-gray);
+        }
+        .question-text {
+            font-weight: 700;
+            color: var(--navy-dark);
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+        
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 8px 0;
+            padding: 8px 16px;
+            background: var(--white);
+            border-radius: 60px;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid var(--light-gray);
+        }
+        .option:hover { border-color: var(--gold); background: var(--cream); }
+        input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--gold);
+            cursor: pointer;
+        }
+        
+        .check-btn {
+            background: var(--gold);
+            color: var(--navy-dark);
+            border: none;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 12px 28px;
+            border-radius: 60px;
+            cursor: pointer;
+            margin-top: 16px;
+            width: 100%;
+            transition: 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .check-btn:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+        }
+        .result-area {
+            margin-top: 16px;
+            border-radius: 20px;
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1rem;
+            display: none;
+        }
+        .result-area.correct {
+            background: #E8F5E9;
+            color: #2E7D32;
+            display: block;
+        }
+        .result-area.wrong {
+            background: #FFF3E0;
+            color: #E65100;
+            display: block;
+        }
+        
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .chapter-nav a {
+            background: var(--navy-dark);
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .chapter-nav a:hover {
+            background: var(--gold);
+            color: var(--navy-dark);
+            transform: translateY(-2px);
+        }
+        
+        .classify-item {
+            background: var(--cream);
+            border-radius: 60px;
+            padding: 10px 16px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            border: 1px solid var(--light-gray);
+        }
+        .classify-text { font-weight: 600; color: var(--navy-dark); flex: 1; font-size: 0.9rem; }
+        .classify-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
+        .classify-btn {
+            padding: 4px 16px;
+            border-radius: 40px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.2s;
+            font-size: 0.8rem;
+            font-family: 'Inter', sans-serif;
+        }
+        .classify-btn-good { background: var(--cream); color: #2E7D32; border: 1px solid var(--light-gray); }
+        .classify-btn-good:hover { border-color: #2E7D32; }
+        .classify-btn-good.selected { background: #2E7D32; color: white; border-color: #2E7D32; }
+        .classify-btn-bad { background: var(--cream); color: #C62828; border: 1px solid var(--light-gray); }
+        .classify-btn-bad:hover { border-color: #C62828; }
+        .classify-btn-bad.selected { background: #C62828; color: white; border-color: #C62828; }
+        
+        @media (max-width: 768px) { 
+            .header h1 { font-size: 1.4rem; }
+            .classify-item { flex-direction: column; align-items: stretch; }
+            .classify-buttons { justify-content: center; }
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="header">
-        <img src="https://sophianguyen.com.vn/images/hinhremovenen.png" alt="Sophia Nguyễn" class="logo">
-        <h1>🚸 Bài 8: Phòng chống bắt cóc</h1>
+        <img src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Sophia Nguyễn" class="logo">
+        <div class="course-badge">🛡️ Bài 8 - Biệt đội bảo vệ</div>
+        <h1>🚨 Phòng chống <span>bắt cóc</span></h1>
     </div>
 
     <div class="video-section">
         <div class="video-wrapper">
             <iframe src="https://www.youtube.com/embed/O8IVAYVJQGA" frameborder="0" allowfullscreen></iframe>
         </div>
+        <div class="video-label">
+            🎬 Bài học: Phòng chống bắt cóc – Không đi theo người lạ!
+        </div>
     </div>
 
     <div class="exercise">
-        <h2 class="exercise-title">🤔 Bài tập 1: AI LÀ NGƯỜI LẠ?</h2>
-        <div id="exercise1"></div>
+        <div class="ex-title">🤔 Bài tập 1: AI LÀ NGƯỜI LẠ?</div>
+        <div class="ex-desc">🔍 Chọn ĐÚNG (nguy hiểm) hoặc SAI (an toàn) cho mỗi tình huống.</div>
+        <div id="strangerArea"></div>
+        <button class="check-btn" id="checkStrangerBtn">✅ Kiểm tra bài tập 1</button>
+        <div id="strangerResult" class="result-area"></div>
     </div>
 
     <div class="exercise">
-        <h2 class="exercise-title">📍 Bài tập 2: Nơi an toàn - Nơi nguy hiểm</h2>
-        <div id="exercise2"></div>
+        <div class="ex-title">📍 Bài tập 2: Nơi an toàn - Nơi nguy hiểm</div>
+        <div class="ex-desc">🔍 Phân loại các địa điểm là AN TOÀN hay NGUY HIỂM.</div>
+        <div id="placeArea2"></div>
+        <button class="check-btn" id="checkPlaceBtn2">✅ Kiểm tra bài tập 2</button>
+        <div id="placeResult2" class="result-area"></div>
     </div>
 
     <div class="exercise">
-        <h2 class="exercise-title">📞 Bài tập 3: Cấp cứu 113 - Bé làm gì?</h2>
-        <div id="exercise3"></div>
+        <div class="ex-title">📞 Bài tập 3: Cấp cứu 113 - Bé làm gì?</div>
+        <div class="ex-desc">🧠 Chọn hành động ĐÚNG để bảo vệ bản thân trong mỗi tình huống.</div>
+        <div id="actionArea"></div>
+        <button class="check-btn" id="checkActionBtn">✅ Kiểm tra bài tập 3</button>
+        <div id="actionResult" class="result-area"></div>
     </div>
 
-    <a href="https://sophianguyen.com.vn/khoa-hoc/ky-nang-an-toan/" class="back-btn">← Quay lại danh sách bài học</a>
-    <div class="footer">
-        <p>🐿️ Hiệp sĩ Sóc đồng hành cùng con - © 2025 Sophia Nguyễn</p>
+    <div class="chapter-nav">
+        <a href="index.html">📚 Danh sách bài học</a>
+        <a href="bai-9-so-cap-cuu.html">➡️ Bài tiếp theo</a>
     </div>
 </div>
 <canvas id="confetti-canvas"></canvas>
 
 <script>
-    // ==================== HIỆU ỨNG CONFETTI & ÂM THANH ====================
+    // ==================== CONFETTI & ÂM THANH ====================
     let ctx = null, width = window.innerWidth, height = window.innerHeight, particles = [], animationId = null;
     function resizeCanvas() { width = window.innerWidth; height = window.innerHeight; const canvas = document.getElementById('confetti-canvas'); if(canvas){ canvas.width = width; canvas.height = height; ctx = canvas.getContext('2d'); } }
     function createConfetti(duration = 1800) {
@@ -105,329 +347,236 @@
     }
     window.addEventListener('resize', () => { resizeCanvas(); if(particles.length) drawConfetti(); });
     
-    function playClickSound() {
+    function playSound(type) {
         try {
             const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
             osc.connect(gain);
             gain.connect(audioCtx.destination);
-            osc.frequency.value = 880;
-            gain.gain.value = 0.08;
-            osc.type = 'sine';
-            osc.start();
-            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.08);
-            osc.stop(audioCtx.currentTime + 0.08);
-        } catch(e) {}
-    }
-    
-    function playSuccessSound() {
-        try {
-            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            const frequencies = [880, 1046.5, 1318.5];
-            frequencies.forEach((freq, idx) => {
-                setTimeout(() => {
-                    const osc = audioCtx.createOscillator();
-                    const gain = audioCtx.createGain();
-                    osc.connect(gain);
-                    gain.connect(audioCtx.destination);
-                    osc.frequency.value = freq;
-                    gain.gain.value = 0.2;
-                    osc.type = 'sine';
-                    osc.start();
-                    gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
-                    osc.stop(audioCtx.currentTime + 0.3);
-                }, idx * 120);
-            });
-        } catch(e) {}
-        createConfetti(800);
-    }
-    
-    function playCompleteSound() {
-        try {
-            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            const gain = audioCtx.createGain();
-            gain.connect(audioCtx.destination);
-            gain.gain.value = 0.3;
-            const bufferSize = 4096;
-            const noise = audioCtx.createBufferSource();
-            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-            const data = buffer.getChannelData(0);
-            for(let i=0; i<bufferSize; i++) data[i] = Math.random() * 2 - 1;
-            noise.buffer = buffer;
-            noise.loop = true;
-            noise.connect(gain);
-            noise.start();
-            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 1.2);
-            noise.stop(audioCtx.currentTime + 1.2);
-            setTimeout(() => {
-                const osc = audioCtx.createOscillator();
-                const gain2 = audioCtx.createGain();
-                osc.connect(gain2);
-                gain2.connect(audioCtx.destination);
-                osc.frequency.value = 1046.5;
-                gain2.gain.value = 0.3;
+            if (type === 'correct') {
+                osc.frequency.value = 880;
+                gain.gain.value = 0.2;
                 osc.type = 'sine';
                 osc.start();
-                gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.5);
-                osc.stop(audioCtx.currentTime + 0.5);
-            }, 1000);
+                gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                osc.stop(audioCtx.currentTime + 0.3);
+                setTimeout(() => {
+                    const osc2 = audioCtx.createOscillator();
+                    const gain2 = audioCtx.createGain();
+                    osc2.connect(gain2);
+                    gain2.connect(audioCtx.destination);
+                    osc2.frequency.value = 1100;
+                    gain2.gain.value = 0.2;
+                    osc2.type = 'sine';
+                    osc2.start();
+                    gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                    osc2.stop(audioCtx.currentTime + 0.3);
+                }, 100);
+            } else if (type === 'wrong') {
+                osc.frequency.value = 440;
+                gain.gain.value = 0.2;
+                osc.type = 'sawtooth';
+                osc.start();
+                gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                osc.stop(audioCtx.currentTime + 0.3);
+            } else {
+                osc.frequency.value = 660;
+                gain.gain.value = 0.1;
+                osc.type = 'sine';
+                osc.start();
+                gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.05);
+                osc.stop(audioCtx.currentTime + 0.05);
+            }
         } catch(e) {}
-        createConfetti(2500);
-    }
-    
-    function playErrorSound() {
-        try {
-            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.frequency.value = 220;
-            gain.gain.value = 0.25;
-            osc.type = 'sawtooth';
-            osc.start();
-            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.4);
-            osc.stop(audioCtx.currentTime + 0.4);
-            setTimeout(() => {
-                const osc2 = audioCtx.createOscillator();
-                const gain2 = audioCtx.createGain();
-                osc2.connect(gain2);
-                gain2.connect(audioCtx.destination);
-                osc2.frequency.value = 164.81;
-                gain2.gain.value = 0.2;
-                osc2.type = 'sawtooth';
-                osc2.start();
-                gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
-                osc2.stop(audioCtx.currentTime + 0.3);
-            }, 150);
-        } catch(e) {}
-        document.body.classList.add('shake-screen');
-        setTimeout(() => document.body.classList.remove('shake-screen'), 500);
     }
 
-    // ==================== BÀI TẬP 1: AI LÀ NGƯỜI LẠ? (CÓ ÂM THANH) ====================
-    (function() {
-        const questions = [
-            { emoji: "🍬👨", text: "Một chú lạ mặt đến gần em và cho em kẹo, bảo em đi cùng chú.", correct: "dung" },
-            { emoji: "👮‍♂️", text: "Chú công an đang làm nhiệm vụ, mặc đồng phục, có phù hiệu.", correct: "sai" },
-            { emoji: "👩‍🏫", text: "Cô giáo của em đang dạy học ở trường.", correct: "sai" },
-            { emoji: "🐶🧔", text: "Một người lạ nhờ em giúp tìm chú chó bị lạc, bảo em đi vào ngõ vắng.", correct: "dung" },
-            { emoji: "🚗👨", text: "Một người lạ lái xe lại gần, bảo em lên xe để đưa đi ăn kem.", correct: "dung" },
-            { emoji: "👨‍👩‍👧", text: "Bố mẹ của em đến đón em sau giờ học.", correct: "sai" },
-            { emoji: "🎁👵", text: "Một bà lạ mặt nói: 'Bà là bạn của bà nội cháu, bà đưa cháu về nhé!'", correct: "dung" },
-            { emoji: "🛡️👨", text: "Bác bảo vệ ở trường em, mặc đồng phục, đeo thẻ.", correct: "sai" }
-        ];
-        let currentIdx = 0, userAnswers = new Array(questions.length).fill(null);
+    // ========== BÀI TẬP 1: NHẬN DIỆN NGƯỜI LẠ ==========
+    const strangerData = [
+        { id: 0, emoji: "🍬👨", text: "Một chú lạ mặt đến gần em và cho em kẹo, bảo em đi cùng chú.", correct: "danger" },
+        { id: 1, emoji: "👮‍♂️", text: "Chú công an đang làm nhiệm vụ, mặc đồng phục, có phù hiệu.", correct: "safe" },
+        { id: 2, emoji: "👩‍🏫", text: "Cô giáo của em đang dạy học ở trường.", correct: "safe" },
+        { id: 3, emoji: "🐶🧔", text: "Một người lạ nhờ em giúp tìm chú chó bị lạc, bảo em đi vào ngõ vắng.", correct: "danger" },
+        { id: 4, emoji: "🚗👨", text: "Một người lạ lái xe lại gần, bảo em lên xe để đưa đi ăn kem.", correct: "danger" },
+        { id: 5, emoji: "👨‍👩‍👧", text: "Bố mẹ của em đến đón em sau giờ học.", correct: "safe" },
+        { id: 6, emoji: "🎁👵", text: "Một bà lạ mặt nói: 'Bà là bạn của bà nội cháu, bà đưa cháu về nhé!'", correct: "danger" },
+        { id: 7, emoji: "🛡️👨", text: "Bác bảo vệ ở trường em, mặc đồng phục, đeo thẻ.", correct: "safe" }
+    ];
+    let strangerAnswers = strangerData.map(() => null);
 
-        function renderExercise1() {
-            const container = document.getElementById('exercise1');
-            if (currentIdx >= questions.length) {
-                let correct = 0;
-                for (let i = 0; i < questions.length; i++) if (userAnswers[i] === questions[i].correct) correct++;
-                let msg = correct === questions.length ? '🎉 SIÊU GIỎI! Bé biết rất rõ ai là người lạ cần tránh!' : (correct >= 5 ? '👍 Rất tốt!' : '💪 Bé cần học thêm nhé!');
-                if(correct === questions.length) playCompleteSound();
-                else if(correct >= 5) playSuccessSound();
-                else playErrorSound();
-                container.innerHTML = `<div style="background:#FFF8F0; border-radius:48px; padding:30px; text-align:center;"><div style="font-size:40px; font-weight:bold;">🏆 ${correct}/${questions.length} 🏆</div><div style="margin:20px 0;">${msg}</div><button id="resetQuiz1" style="background:#E8D8C8; border:none; padding:12px 28px; border-radius:40px; cursor:pointer;">🔄 CHƠI LẠI</button></div>`;
-                document.getElementById('resetQuiz1')?.addEventListener('click', () => { playClickSound(); currentIdx = 0; userAnswers.fill(null); renderExercise1(); });
-                return;
-            }
-            const q = questions[currentIdx];
-            let html = `<div style="background:#FFF5EA; border-radius:48px; padding:25px; border:2px solid #FFD1A4;">
-                <div style="font-size:90px; text-align:center; background:white; padding:20px; border-radius:60px; margin-bottom:15px;">${q.emoji}</div>
-                <div style="font-size:22px; font-weight:bold; text-align:center; background:white; padding:15px; border-radius:40px; margin:15px 0;">${q.text}</div>
-                <div style="display:flex; justify-content:center; gap:30px; flex-wrap:wrap; margin:20px 0;">
-                    <div class="choice-btn" data-choice="dung" style="background:white; border:3px solid #FFD1A4; border-radius:80px; padding:15px 30px; cursor:pointer; text-align:center; min-width:140px;"><span style="font-size:55px;">😊</span><div style="font-size:20px; font-weight:bold;">ĐÚNG (nguy hiểm)</div></div>
-                    <div class="choice-btn" data-choice="sai" style="background:white; border:3px solid #FFD1A4; border-radius:80px; padding:15px 30px; cursor:pointer; text-align:center; min-width:140px;"><span style="font-size:55px;">😞</span><div style="font-size:20px; font-weight:bold;">SAI (an toàn)</div></div>
+    function renderStranger() {
+        const container = document.getElementById('strangerArea');
+        container.innerHTML = '';
+        strangerData.forEach((item, idx) => {
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'classify-item';
+            const status = strangerAnswers[idx] !== null ? (strangerAnswers[idx] === item.correct ? '✅' : '❌') : '💡';
+            itemDiv.innerHTML = `
+                <div class="classify-text">${item.emoji} ${item.text} <span style="font-size:0.8rem; color:var(--gray);">${status}</span></div>
+                <div class="classify-buttons">
+                    <button class="classify-btn classify-btn-bad ${strangerAnswers[idx] === 'danger' ? 'selected' : ''}" onclick="selectStranger(${idx},'danger')">😨 NGUY HIỂM</button>
+                    <button class="classify-btn classify-btn-good ${strangerAnswers[idx] === 'safe' ? 'selected' : ''}" onclick="selectStranger(${idx},'safe')">😊 AN TOÀN</button>
                 </div>
-                <div id="feedback1" style="background:#FFF0E8; border-radius:40px; padding:15px; text-align:center;">😊 Người này có an toàn không? Hãy chọn nhé!</div>
-                <button id="nextBtn1" style="background:#FFB347; border:none; color:white; font-size:18px; font-weight:bold; padding:14px; border-radius:60px; cursor:pointer; width:100%; margin-top:15px;">${currentIdx === questions.length-1 ? '🏁 XEM KẾT QUẢ' : '➡️ CÂU TIẾP THEO'}</button>
-                <div style="text-align:center; margin-top:15px;">Câu ${currentIdx+1}/${questions.length}</div>
-            </div>`;
-            container.innerHTML = html;
-            document.querySelectorAll('.choice-btn').forEach(btn => {
-                btn.onclick = () => {
-                    playClickSound();
-                    const choice = btn.getAttribute('data-choice');
-                    userAnswers[currentIdx] = choice;
-                    const fb = document.getElementById('feedback1');
-                    if (choice === q.correct) { 
-                        fb.innerHTML = '✅ Đúng rồi! Bé giỏi quá! 🎉'; 
-                        fb.style.background = '#E8F5E9'; 
-                        fb.style.color = '#2E7D32';
-                        playSuccessSound();
-                    } else { 
-                        fb.innerHTML = `❌ Chưa đúng. ${q.correct === 'dung' ? 'Người này CÓ THỂ GÂY NGUY HIỂM' : 'Người này AN TOÀN'}.`; 
-                        fb.style.background = '#FFEBEE'; 
-                        fb.style.color = '#C62828';
-                        playErrorSound();
-                    }
-                    document.querySelectorAll('.choice-btn').forEach(b => { b.style.opacity = '0.6'; b.style.pointerEvents = 'none'; });
-                };
-            });
-            document.getElementById('nextBtn1').onclick = () => {
-                if (userAnswers[currentIdx] === null) { 
-                    document.getElementById('feedback1').innerHTML = '⚠️ Hãy chọn đáp án trước khi sang câu tiếp theo!';
-                    playErrorSound();
-                    return; 
-                }
-                playClickSound();
-                currentIdx++; renderExercise1();
-            };
+            `;
+            container.appendChild(itemDiv);
+        });
+    }
+
+    function selectStranger(idx, choice) {
+        strangerAnswers[idx] = choice;
+        if (choice === strangerData[idx].correct) playSound('correct');
+        else playSound('wrong');
+        renderStranger();
+    }
+    window.selectStranger = selectStranger;
+
+    function checkStranger() {
+        let correct = 0;
+        strangerData.forEach((item, idx) => {
+            if (strangerAnswers[idx] === item.correct) correct++;
+        });
+        const resultDiv = document.getElementById('strangerResult');
+        if (correct === strangerData.length) {
+            resultDiv.className = 'result-area correct';
+            resultDiv.innerHTML = '🎉🎉🎉 SIÊU GIỎI! Bé biết rất rõ ai là người lạ cần tránh! 🎉🎉🎉';
+            playSound('correct');
+            createConfetti(800);
+        } else {
+            resultDiv.className = 'result-area wrong';
+            resultDiv.innerHTML = `🔍 Bé phân loại đúng ${correct}/${strangerData.length} tình huống. Hãy xem lại nhé! 💪`;
+            playSound('wrong');
         }
-        renderExercise1();
-    })();
+    }
 
-    // ==================== BÀI TẬP 2: NƠI AN TOÀN - NƠI NGUY HIỂM (CÓ ÂM THANH) ====================
-    (function() {
-        const questions = [
-            { emoji: "🏫", text: "Bên trong trường học, có thầy cô và bác bảo vệ.", correct: "an_toan" },
-            { emoji: "🛍️👨‍👩‍👧", text: "Trung tâm thương mại, đi cùng bố mẹ.", correct: "an_toan" },
-            { emoji: "🌳🕳️", text: "Khu vực vắng vẻ, ít người qua lại.", correct: "nguy_hiem" },
-            { emoji: "🏘️🌃", text: "Đường phố vắng vào buổi tối, không có đèn đường.", correct: "nguy_hiem" },
-            { emoji: "🎠👨‍👩‍👧", text: "Khu vui chơi công cộng, có bố mẹ đi cùng.", correct: "an_toan" },
-            { emoji: "🚸🏫", text: "Cổng trường học khi tan học, có nhiều phụ huynh và thầy cô.", correct: "an_toan" },
-            { emoji: "🏚️🌲", text: "Nhà hoang, bãi đất trống, công trình đang xây dựng.", correct: "nguy_hiem" },
-            { emoji: "🏪🌞", text: "Cửa hàng tiện lợi đông người, có camera.", correct: "an_toan" },
-            { emoji: "🚌👤", text: "Bến xe buýt vắng người, một mình.", correct: "nguy_hiem" },
-            { emoji: "👮‍♂️🏢", text: "Đồn công an, có chú công an trực.", correct: "an_toan" }
-        ];
-        let currentIdx2 = 0, userAnswers2 = new Array(questions.length).fill(null);
+    // ========== BÀI TẬP 2: NƠI AN TOÀN - NGUY HIỂM ==========
+    const placeData2 = [
+        { id: 0, emoji: "🏫", text: "Bên trong trường học, có thầy cô và bác bảo vệ.", correct: "safe" },
+        { id: 1, emoji: "🛍️👨‍👩‍👧", text: "Trung tâm thương mại, đi cùng bố mẹ.", correct: "safe" },
+        { id: 2, emoji: "🌳🕳️", text: "Khu vực vắng vẻ, ít người qua lại.", correct: "danger" },
+        { id: 3, emoji: "🏘️🌃", text: "Đường phố vắng vào buổi tối, không có đèn đường.", correct: "danger" },
+        { id: 4, emoji: "🎠👨‍👩‍👧", text: "Khu vui chơi công cộng, có bố mẹ đi cùng.", correct: "safe" },
+        { id: 5, emoji: "🚸🏫", text: "Cổng trường học khi tan học, có nhiều phụ huynh và thầy cô.", correct: "safe" },
+        { id: 6, emoji: "🏚️🌲", text: "Nhà hoang, bãi đất trống, công trình đang xây dựng.", correct: "danger" },
+        { id: 7, emoji: "🏪🌞", text: "Cửa hàng tiện lợi đông người, có camera.", correct: "safe" },
+        { id: 8, emoji: "🚌👤", text: "Bến xe buýt vắng người, một mình.", correct: "danger" },
+        { id: 9, emoji: "👮‍♂️🏢", text: "Đồn công an, có chú công an trực.", correct: "safe" }
+    ];
+    let placeAnswers2 = placeData2.map(() => null);
 
-        function renderExercise2() {
-            const container = document.getElementById('exercise2');
-            if (currentIdx2 >= questions.length) {
-                let correct = 0;
-                for (let i = 0; i < questions.length; i++) if (userAnswers2[i] === questions[i].correct) correct++;
-                let msg = correct === questions.length ? '🎉 SIÊU GIỎI! Bé biết rất rõ nơi nào an toàn!' : (correct >= 7 ? '👍 Rất tốt!' : '💪 Bé cần học thêm nhé!');
-                if(correct === questions.length) playCompleteSound();
-                else if(correct >= 7) playSuccessSound();
-                else playErrorSound();
-                container.innerHTML = `<div style="background:#FFF8F0; border-radius:48px; padding:30px; text-align:center;"><div style="font-size:40px; font-weight:bold;">🏆 ${correct}/${questions.length} 🏆</div><div style="margin:20px 0;">${msg}</div><button id="resetQuiz2" style="background:#E8D8C8; border:none; padding:12px 28px; border-radius:40px; cursor:pointer;">🔄 CHƠI LẠI</button></div>`;
-                document.getElementById('resetQuiz2')?.addEventListener('click', () => { playClickSound(); currentIdx2 = 0; userAnswers2.fill(null); renderExercise2(); });
-                return;
-            }
-            const q = questions[currentIdx2];
-            let html = `<div style="background:#FFF5EA; border-radius:48px; padding:25px; border:2px solid #FFD1A4;">
-                <div style="font-size:90px; text-align:center; background:white; padding:20px; border-radius:60px; margin-bottom:15px;">${q.emoji}</div>
-                <div style="font-size:22px; font-weight:bold; text-align:center; background:white; padding:15px; border-radius:40px; margin:15px 0;">${q.text}</div>
-                <div style="display:flex; justify-content:center; gap:30px; flex-wrap:wrap; margin:20px 0;">
-                    <div class="choice-btn2" data-choice="an_toan" style="background:white; border:3px solid #FFD1A4; border-radius:80px; padding:15px 30px; cursor:pointer; text-align:center; min-width:140px;"><span style="font-size:55px;">😊</span><div style="font-size:20px; font-weight:bold;">AN TOÀN</div></div>
-                    <div class="choice-btn2" data-choice="nguy_hiem" style="background:white; border:3px solid #FFD1A4; border-radius:80px; padding:15px 30px; cursor:pointer; text-align:center; min-width:140px;"><span style="font-size:55px;">😞</span><div style="font-size:20px; font-weight:bold;">NGUY HIỂM</div></div>
+    function renderPlace2() {
+        const container = document.getElementById('placeArea2');
+        container.innerHTML = '';
+        placeData2.forEach((item, idx) => {
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'classify-item';
+            itemDiv.innerHTML = `
+                <div class="classify-text">${item.emoji} ${item.text}</div>
+                <div class="classify-buttons">
+                    <button class="classify-btn classify-btn-good ${placeAnswers2[idx] === 'safe' ? 'selected' : ''}" onclick="selectPlace2(${idx},'safe')">🟢 AN TOÀN</button>
+                    <button class="classify-btn classify-btn-bad ${placeAnswers2[idx] === 'danger' ? 'selected' : ''}" onclick="selectPlace2(${idx},'danger')">🔴 NGUY HIỂM</button>
                 </div>
-                <div id="feedback2" style="background:#FFF0E8; border-radius:40px; padding:15px; text-align:center;">📍 Nơi này an toàn hay nguy hiểm? Hãy chọn nhé!</div>
-                <button id="nextBtn2" style="background:#FFB347; border:none; color:white; font-size:18px; font-weight:bold; padding:14px; border-radius:60px; cursor:pointer; width:100%; margin-top:15px;">${currentIdx2 === questions.length-1 ? '🏁 XEM KẾT QUẢ' : '➡️ CÂU TIẾP THEO'}</button>
-                <div style="text-align:center; margin-top:15px;">Câu ${currentIdx2+1}/${questions.length}</div>
-            </div>`;
-            container.innerHTML = html;
-            document.querySelectorAll('.choice-btn2').forEach(btn => {
-                btn.onclick = () => {
-                    playClickSound();
-                    const choice = btn.getAttribute('data-choice');
-                    userAnswers2[currentIdx2] = choice;
-                    const fb = document.getElementById('feedback2');
-                    if (choice === q.correct) { 
-                        fb.innerHTML = '✅ Đúng rồi! Bé giỏi quá! 🎉'; 
-                        fb.style.background = '#E8F5E9'; 
-                        fb.style.color = '#2E7D32';
-                        playSuccessSound();
-                    } else { 
-                        fb.innerHTML = `❌ Chưa đúng. Nơi này ${q.correct === 'an_toan' ? 'AN TOÀN' : 'NGUY HIỂM'}.`; 
-                        fb.style.background = '#FFEBEE'; 
-                        fb.style.color = '#C62828';
-                        playErrorSound();
-                    }
-                    document.querySelectorAll('.choice-btn2').forEach(b => { b.style.opacity = '0.6'; b.style.pointerEvents = 'none'; });
-                };
-            });
-            document.getElementById('nextBtn2').onclick = () => {
-                if (userAnswers2[currentIdx2] === null) { 
-                    document.getElementById('feedback2').innerHTML = '⚠️ Hãy chọn đáp án trước khi sang câu tiếp theo!';
-                    playErrorSound();
-                    return; 
-                }
-                playClickSound();
-                currentIdx2++; renderExercise2();
-            };
-        }
-        renderExercise2();
-    })();
+            `;
+            container.appendChild(itemDiv);
+        });
+    }
 
-    // ==================== BÀI TẬP 3: CẤP CỨU 113 (CÓ ÂM THANH) ====================
-    (function() {
-        const questions = [
-            { emoji: "🍬👨", text: "Một người lạ cho em kẹo và bảo: 'Cháu đi với chú, chú cho thêm nhiều kẹo nữa!' Em sẽ làm gì?", correct: "tu_choi", choices: [{ emoji: "🍬✅", text: "Nhận kẹo và đi cùng chú", correct: false }, { emoji: "🙅‍♀️🏃", text: "Nói KHÔNG, bỏ chạy đến chỗ đông người", correct: true }] },
-            { emoji: "🚗👨", text: "Một người lạ lái xe lại gần, bảo em lên xe để đưa đi chơi. Em sẽ làm gì?", correct: "chay", choices: [{ emoji: "🚗✅", text: "Lên xe ngay vì được đi chơi", correct: false }, { emoji: "🏃‍♀️📞", text: "Chạy thật nhanh vào trường hoặc nhà dân, gọi người lớn", correct: true }] },
-            { emoji: "🐶🧔", text: "Một người lạ nhờ em giúp tìm chú chó bị lạc trong ngõ vắng. Em sẽ làm gì?", correct: "tu_choi", choices: [{ emoji: "🐶✅", text: "Đồng ý giúp vì thương chú chó", correct: false }, { emoji: "🙅‍♀️🚸", text: "Nói KHÔNG, không đi vào nơi vắng vẻ một mình", correct: true }] },
-            { emoji: "👵🎁", text: "Một bà lạ mặt nói: 'Bà là bạn của bà nội cháu, bà đưa cháu về nhé!' Em sẽ làm gì?", correct: "khong_di", choices: [{ emoji: "👵✅", text: "Tin lời và đi cùng bà", correct: false }, { emoji: "🏃‍♀️👩‍🏫", text: "Không đi, chạy đến chỗ cô giáo hoặc bác bảo vệ", correct: true }] },
-            { emoji: "😨👤", text: "Nếu có người lạ cố gắng kéo em đi, em sẽ làm gì?", correct: "la_het", choices: [{ emoji: "😶", text: "Im lặng vì sợ", correct: false }, { emoji: "📣🛡️", text: "LA THẬT TO 'CỨU VỚI! NGƯỜI LẠ BẮT CHÁU!' và chạy", correct: true }] },
-            { emoji: "👮‍♂️", text: "Em bị lạc và thấy một chú công an. Em sẽ làm gì?", correct: "tim_cong_an", choices: [{ emoji: "😭🚶", text: "Đứng khóc một mình", correct: false }, { emoji: "👮‍♂️📞", text: "Chạy đến nhờ chú công an giúp đỡ, kể số điện thoại bố mẹ", correct: true }] },
-            { emoji: "🏃‍♀️🚪", text: "Khi em có cơ hội chạy thoát khỏi kẻ xấu, em sẽ làm gì?", correct: "chay", choices: [{ emoji: "😨🦶", text: "Đứng yên vì sợ", correct: false }, { emoji: "🏃‍♀️🏪", text: "CHẠY THẬT NHANH đến nơi đông người, quán, cửa hàng", correct: true }] },
-            { emoji: "📞👨‍👩‍👧", text: "Điều quan trọng nhất em cần làm để phòng tránh bắt cóc là gì?", correct: "nho_so", choices: [{ emoji: "🎮📱", text: "Chỉ nhớ chơi game", correct: false }, { emoji: "📞❤️", text: "Thuộc lòng số điện thoại của bố mẹ", correct: true }] },
-            { emoji: "🏡🌃", text: "Buổi tối, em nên chơi ở đâu để an toàn?", correct: "trong_nha", choices: [{ emoji: "🌳🕳️", text: "Chơi ở khu đất trống vắng", correct: false }, { emoji: "🏡👨‍👩‍👧", text: "Ở trong nhà với bố mẹ hoặc nơi có người lớn trông coi", correct: true }] },
-            { emoji: "🚸👤", text: "Khi đi học về, em nên làm gì để an toàn?", correct: "di_cung", choices: [{ emoji: "🚶‍♀️🕳️", text: "Đi một mình qua đường vắng", correct: false }, { emoji: "👭🏫", text: "Đi cùng bạn hoặc người lớn, đi đường đông người", correct: true }] }
-        ];
-        let currentIdx3 = 0, userAnswers3 = new Array(questions.length).fill(null);
+    function selectPlace2(idx, choice) {
+        placeAnswers2[idx] = choice;
+        if (choice === placeData2[idx].correct) playSound('correct');
+        else playSound('wrong');
+        renderPlace2();
+    }
+    window.selectPlace2 = selectPlace2;
 
-        function renderExercise3() {
-            const container = document.getElementById('exercise3');
-            if (currentIdx3 >= questions.length) {
-                let correct = 0;
-                for (let i = 0; i < questions.length; i++) if (userAnswers3[i] === questions[i].correct) correct++;
-                let msg = correct === questions.length ? '🎉 SIÊU AN TOÀN! Bé là cao thủ phòng chống bắt cóc!' : (correct >= 7 ? '👍 Rất tốt!' : '💪 Bé cần học thêm nhé!');
-                if(correct === questions.length) playCompleteSound();
-                else if(correct >= 7) playSuccessSound();
-                else playErrorSound();
-                container.innerHTML = `<div style="background:#FFF8F0; border-radius:48px; padding:30px; text-align:center;"><div style="font-size:40px; font-weight:bold;">🏆 ${correct}/${questions.length} 🏆</div><div style="margin:20px 0;">${msg}</div><button id="resetQuiz3" style="background:#E8D8C8; border:none; padding:12px 28px; border-radius:40px; cursor:pointer;">🔄 CHƠI LẠI</button></div>`;
-                document.getElementById('resetQuiz3')?.addEventListener('click', () => { playClickSound(); currentIdx3 = 0; userAnswers3.fill(null); renderExercise3(); });
-                return;
-            }
-            const q = questions[currentIdx3];
-            let choicesHtml = '';
-            q.choices.forEach((ch, idx) => { choicesHtml += `<div class="choice-btn3" data-correct="${ch.correct}" style="background:white; border:3px solid #FFD1A4; border-radius:60px; padding:15px 20px; cursor:pointer; display:flex; align-items:center; gap:15px; margin-bottom:10px;"><div style="font-size:40px; min-width:60px; text-align:center;">${ch.emoji}</div><div style="font-size:18px; font-weight:500; flex:1;">${ch.text}</div></div>`; });
-            let html = `<div style="background:#FFF5EA; border-radius:48px; padding:25px; border:2px solid #FFD1A4;">
-                <div style="font-size:90px; text-align:center; background:white; padding:20px; border-radius:60px; margin-bottom:15px;">${q.emoji}</div>
-                <div style="font-size:22px; font-weight:bold; text-align:center; background:white; padding:15px; border-radius:40px; margin:15px 0;">${q.text}</div>
-                <div style="display:flex; flex-direction:column; gap:15px; margin:20px 0;" id="choices3">${choicesHtml}</div>
-                <div id="feedback3" style="background:#FFF0E8; border-radius:40px; padding:15px; text-align:center;">📞 Hãy chọn hành động ĐÚNG để bảo vệ bản thân nhé!</div>
-                <button id="nextBtn3" style="background:#FFB347; border:none; color:white; font-size:18px; font-weight:bold; padding:14px; border-radius:60px; cursor:pointer; width:100%; margin-top:15px;">${currentIdx3 === questions.length-1 ? '🏁 XEM KẾT QUẢ' : '➡️ CÂU TIẾP THEO'}</button>
-                <div style="text-align:center; margin-top:15px;">Câu ${currentIdx3+1}/${questions.length}</div>
-            </div>`;
-            container.innerHTML = html;
-            document.querySelectorAll('.choice-btn3').forEach(btn => {
-                btn.onclick = () => {
-                    playClickSound();
-                    const isCorrect = btn.getAttribute('data-correct') === 'true';
-                    userAnswers3[currentIdx3] = isCorrect ? q.correct : 'wrong';
-                    const fb = document.getElementById('feedback3');
-                    if (isCorrect) { 
-                        fb.innerHTML = '✅ Đúng rồi! Bé giỏi quá! 🎉'; 
-                        fb.style.background = '#E8F5E9'; 
-                        fb.style.color = '#2E7D32';
-                        playSuccessSound();
-                    } else { 
-                        fb.innerHTML = `❌ Chưa đúng. Hãy nhớ: ${q.correct === 'tu_choi' ? 'KHÔNG đi với người lạ' : q.correct === 'chay' ? 'CHẠY đến nơi an toàn' : q.correct === 'khong_di' ? 'KHÔNG đi với người lạ' : q.correct === 'la_het' ? 'LA THẬT TO' : q.correct === 'tim_cong_an' ? 'TÌM CÔNG AN' : q.correct === 'nho_so' ? 'NHỚ số điện thoại bố mẹ' : q.correct === 'trong_nha' ? 'Ở TRONG NHÀ' : 'ĐI CÙNG bạn hoặc người lớn'}.`; 
-                        fb.style.background = '#FFEBEE'; 
-                        fb.style.color = '#C62828';
-                        playErrorSound();
-                    }
-                    document.querySelectorAll('.choice-btn3').forEach(b => { b.style.opacity = '0.6'; b.style.pointerEvents = 'none'; });
-                };
-            });
-            document.getElementById('nextBtn3').onclick = () => {
-                if (userAnswers3[currentIdx3] === null) { 
-                    document.getElementById('feedback3').innerHTML = '⚠️ Hãy chọn một hành động trước khi sang câu tiếp theo!';
-                    playErrorSound();
-                    return; 
-                }
-                playClickSound();
-                currentIdx3++; renderExercise3();
-            };
+    function checkPlace2() {
+        let correct = 0;
+        placeData2.forEach((item, idx) => {
+            if (placeAnswers2[idx] === item.correct) correct++;
+        });
+        const resultDiv = document.getElementById('placeResult2');
+        if (correct === placeData2.length) {
+            resultDiv.className = 'result-area correct';
+            resultDiv.innerHTML = '🎉🎉🎉 TUYỆT VỜI! Bé biết nơi nào an toàn và nơi nào nguy hiểm! 🎉🎉🎉';
+            playSound('correct');
+            createConfetti(800);
+        } else {
+            resultDiv.className = 'result-area wrong';
+            resultDiv.innerHTML = `📍 Bé phân loại đúng ${correct}/${placeData2.length} địa điểm. Hãy xem lại nhé! 💪`;
+            playSound('wrong');
         }
-        renderExercise3();
-    })();
-    resizeCanvas();
+    }
+
+    // ========== BÀI TẬP 3: XỬ LÝ TÌNH HUỐNG ==========
+    const actionData = [
+        { text: "🍬 Một người lạ cho em kẹo và bảo: 'Cháu đi với chú, chú cho thêm nhiều kẹo nữa!'", options: ["Nhận kẹo và đi cùng chú", "Nói KHÔNG, bỏ chạy đến chỗ đông người"], correct: 1 },
+        { text: "🚗 Một người lạ lái xe lại gần, bảo em lên xe để đưa đi chơi.", options: ["Lên xe ngay vì được đi chơi", "Chạy thật nhanh vào trường hoặc nhà dân, gọi người lớn"], correct: 1 },
+        { text: "🐶 Một người lạ nhờ em giúp tìm chú chó bị lạc trong ngõ vắng.", options: ["Đồng ý giúp vì thương chú chó", "Nói KHÔNG, không đi vào nơi vắng vẻ một mình"], correct: 1 },
+        { text: "👵 Một bà lạ mặt nói: 'Bà là bạn của bà nội cháu, bà đưa cháu về nhé!'", options: ["Tin lời và đi cùng bà", "Không đi, chạy đến chỗ cô giáo hoặc bác bảo vệ"], correct: 1 },
+        { text: "😨 Nếu có người lạ cố gắng kéo em đi, em sẽ làm gì?", options: ["Im lặng vì sợ", "LA THẬT TO 'CỨU VỚI! NGƯỜI LẠ BẮT CHÁU!' và chạy"], correct: 1 },
+        { text: "👮‍♂️ Em bị lạc và thấy một chú công an. Em sẽ làm gì?", options: ["Đứng khóc một mình", "Chạy đến nhờ chú công an giúp đỡ, kể số điện thoại bố mẹ"], correct: 1 },
+        { text: "🏃‍♀️ Khi em có cơ hội chạy thoát khỏi kẻ xấu, em sẽ làm gì?", options: ["Đứng yên vì sợ", "CHẠY THẬT NHANH đến nơi đông người, quán, cửa hàng"], correct: 1 },
+        { text: "📞 Điều quan trọng nhất em cần làm để phòng tránh bắt cóc là gì?", options: ["Chỉ nhớ chơi game", "Thuộc lòng số điện thoại của bố mẹ"], correct: 1 }
+    ];
+    let actionAnswers = actionData.map(() => null);
+
+    function renderAction() {
+        const container = document.getElementById('actionArea');
+        container.innerHTML = '';
+        actionData.forEach((q, idx) => {
+            const qDiv = document.createElement('div');
+            qDiv.className = 'question-item';
+            const status = actionAnswers[idx] !== null ? (actionAnswers[idx] === q.correct ? '✅' : '❌') : '💡';
+            qDiv.innerHTML = `<div class="question-text">${idx+1}. ${q.text} <span style="font-size:0.8rem; color:var(--gray);">${status}</span></div>`;
+            q.options.forEach((opt, optIdx) => {
+                const optDiv = document.createElement('div');
+                optDiv.className = 'option';
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = `action${idx}`;
+                radio.value = optIdx;
+                if (actionAnswers[idx] === optIdx) radio.checked = true;
+                radio.addEventListener('change', (e) => {
+                    actionAnswers[idx] = parseInt(e.target.value);
+                    if (parseInt(e.target.value) === q.correct) playSound('correct');
+                    else playSound('wrong');
+                    renderAction();
+                });
+                optDiv.appendChild(radio);
+                optDiv.appendChild(document.createTextNode(opt));
+                qDiv.appendChild(optDiv);
+            });
+            container.appendChild(qDiv);
+        });
+    }
+
+    function checkAction() {
+        let correct = 0;
+        actionData.forEach((q, idx) => {
+            if (actionAnswers[idx] === q.correct) correct++;
+        });
+        const resultDiv = document.getElementById('actionResult');
+        if (correct === actionData.length) {
+            resultDiv.className = 'result-area correct';
+            resultDiv.innerHTML = '🎉🎉🎉 SIÊU AN TOÀN! Bé là cao thủ phòng chống bắt cóc! 🎉🎉🎉';
+            playSound('correct');
+            createConfetti(800);
+        } else {
+            resultDiv.className = 'result-area wrong';
+            resultDiv.innerHTML = `🛡️ Bé xử lý đúng ${correct}/${actionData.length} tình huống. Hãy xem lại nhé! 💪`;
+            playSound('wrong');
+        }
+    }
+
+    function init() {
+        renderStranger();
+        renderPlace2();
+        renderAction();
+        document.getElementById('checkStrangerBtn').addEventListener('click', checkStranger);
+        document.getElementById('checkPlaceBtn2').addEventListener('click', checkPlace2);
+        document.getElementById('checkActionBtn').addEventListener('click', checkAction);
+        resizeCanvas();
+    }
+    init();
 </script>
 </body>
 </html>
