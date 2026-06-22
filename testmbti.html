@@ -1,289 +1,585 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Trắc nghiệm MBTI - Khám phá tính cách </title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #FFCCFF, #FFCCFF);
-      color: #333;
-      margin: 0;
-      padding: 20px;
-    }
-    .container {
-      max-width: 800px;
-      margin: auto;
-      background: white;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    }
-    .logo {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .logo img {
-      width: 120px;
-    }
-    h1 {
-      text-align: center;
-      color: #2c3e50;
-    }
-    label {
-      display: block;
-      margin-top: 20px;
-      font-weight: bold;
-    }
-    .question {
-      margin: 20px 0;
-      padding: 15px;
-      border-left: 5px solid #3366CC;
-      border-radius: 10px;
-    }
-    .question:nth-child(even) {
-      background:#CCCCFF;
-    }
-    .question:nth-child(odd) {
-      background: #00CCFF;
-    }
-    .question label {
-      display: block;
-      font-weight: normal;
-      margin-bottom: 8px;
-    }
-    select, input[type="text"], input[type="email"], input[type="number"] {
-      width: 100%;
-      padding: 10px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      margin-top: 8px;
-    }
-    button {
-      margin-top: 30px;
-      padding: 12px 24px;
-      background: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      width: 100%;
-    }
-    button:hover {
-      background: #45a049;
-    }
-    .result {
-      display: none;
-      background: #ede7f6;
-      margin-top: 30px;
-      padding: 20px;
-      border-radius: 12px;
-      color: #4a148c;
-      font-weight: bold;
-    }
-    .hidden {
-      display: none;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trắc nghiệm MBTI - Khám phá tính cách | Sophia Nguyễn</title>
+    <meta name="description" content="Bài trắc nghiệm MBTI gồm 40 câu hỏi giúp bạn khám phá nhóm tính cách của mình theo hệ thống Myers-Briggs.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --navy-dark: #0A1628;
+            --navy-mid: #1E3A5F;
+            --gold: #C9A84C;
+            --gold-light: #D4B85C;
+            --cream: #F5F0E8;
+            --white: #FFFFFF;
+            --gray: #4A5A6A;
+            --light-gray: #E8E4DC;
+            --gradient: linear-gradient(135deg, #0A1628 0%, #1E3A5F 50%, #2A4A7F 100%);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--navy-dark);
+            line-height: 1.6;
+        }
+        .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+
+        /* ========== HEADER ========== */
+        .header {
+            background: var(--white);
+            padding: 12px 0;
+            box-shadow: 0 2px 20px rgba(10,22,40,0.06);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo img { height: 55px; width: auto; display: block; }
+        .navbar ul {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+            align-items: center;
+        }
+        .navbar ul li a {
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        .navbar ul li a:hover, .navbar ul li a.active { color: var(--gold); }
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--navy-dark);
+        }
+        .show-menu { display: flex !important; }
+
+        /* ========== HERO ========== */
+        .hero {
+            background: var(--gradient);
+            padding: 50px 0 40px;
+            text-align: center;
+            color: white;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+        }
+        .hero h1 span { color: var(--gold); }
+        .hero p {
+            font-size: 1rem;
+            max-width: 650px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        .hero .badge {
+            background: var(--gold);
+            color: var(--navy-dark);
+            display: inline-block;
+            padding: 6px 20px;
+            border-radius: 40px;
+            margin-top: 16px;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        /* ========== TEST CONTAINER ========== */
+        .test-wrapper {
+            background: var(--white);
+            border-radius: 32px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(10,22,40,0.06);
+            border: 1px solid var(--light-gray);
+        }
+        .test-wrapper .intro h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--navy-dark);
+            margin-bottom: 16px;
+            font-size: 1.6rem;
+        }
+        .test-wrapper .intro h2 span { color: var(--gold); }
+        .test-wrapper .intro p {
+            color: var(--gray);
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+        .test-wrapper .intro .highlight {
+            background: var(--cream);
+            padding: 16px 20px;
+            border-radius: 16px;
+            border-left: 4px solid var(--gold);
+            margin: 16px 0;
+            font-weight: 500;
+            color: var(--navy-dark);
+        }
+
+        /* ========== QUESTION ========== */
+        .question-item {
+            background: var(--cream);
+            padding: 18px 20px;
+            margin: 16px 0;
+            border-radius: 16px;
+            border-left: 4px solid var(--gold);
+            transition: 0.2s;
+        }
+        .question-item:hover { border-color: var(--navy-dark); }
+        .question-item .q-text {
+            font-weight: 600;
+            color: var(--navy-dark);
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+        .question-item .options {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .question-item .options label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: var(--gray);
+            cursor: pointer;
+        }
+        .question-item .options input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--gold);
+            cursor: pointer;
+        }
+
+        /* ========== BUTTON ========== */
+        .btn-submit {
+            background: var(--navy-dark);
+            color: var(--white);
+            border: none;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+            margin-top: 20px;
+        }
+        .btn-submit:hover {
+            background: var(--gold);
+            color: var(--navy-dark);
+            transform: translateY(-2px);
+        }
+
+        /* ========== RESULT ========== */
+        .result-box {
+            display: none;
+            background: var(--cream);
+            padding: 30px;
+            border-radius: 24px;
+            margin-top: 30px;
+            text-align: center;
+            border: 2px solid var(--gold);
+        }
+        .result-box.show { display: block; }
+        .result-box h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--navy-dark);
+        }
+        .result-box h2 span { color: var(--gold); }
+        .result-box .mbti-type {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--gold);
+            margin: 16px 0;
+            letter-spacing: 4px;
+        }
+        .result-box p { color: var(--gray); font-size: 0.95rem; margin-bottom: 16px; }
+        .result-box .btn-detail {
+            background: var(--gold);
+            color: var(--navy-dark);
+            padding: 10px 28px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-block;
+            transition: 0.2s;
+        }
+        .result-box .btn-detail:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+        }
+        .share-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+        .share-buttons .share-btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .share-buttons .share-btn:hover { transform: translateY(-2px); opacity: 0.9; }
+        .share-buttons .share-btn.fb { background: #3b5998; }
+        .share-buttons .share-btn.zalo { background: #0068ff; }
+        .share-buttons .share-btn.twitter { background: #1da1f2; }
+        .share-buttons .share-btn.tiktok { background: #000000; }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: var(--navy-dark);
+            color: rgba(255,255,255,0.7);
+            padding: 40px 0 24px;
+            margin-top: 60px;
+            border-top: 3px solid var(--gold);
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        .footer-logo img { width: 120px; margin-bottom: 12px; }
+        .footer-logo p { font-size: 0.85rem; line-height: 1.6; color: rgba(255,255,255,0.6); }
+        .footer-links h4, .footer-contact h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            margin-bottom: 16px;
+            font-size: 1rem;
+        }
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+        .footer-links ul li { margin-bottom: 8px; }
+        .footer-links ul li a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: 0.2s;
+        }
+        .footer-links ul li a:hover { color: var(--gold); }
+        .footer-contact p {
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            color: rgba(255,255,255,0.6);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .footer-contact p i { color: var(--gold); width: 18px; }
+        .social-icons {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .social-icons a {
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+        .social-icons a:hover { transform: translateY(-3px); }
+        .social-icons img { width: 30px; height: 30px; border-radius: 50%; }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .navbar {
+                display: none;
+                flex-direction: column;
+                gap: 12px;
+                padding: 16px 0;
+                background: var(--white);
+                width: 100%;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                padding: 16px 24px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+            .navbar ul { flex-direction: column; gap: 12px; }
+            .header-container { flex-wrap: wrap; position: relative; }
+            .logo img { height: 45px; }
+            .hero h1 { font-size: 1.6rem; }
+            .test-wrapper { padding: 20px; }
+            .question-item .options { flex-direction: column; gap: 8px; }
+            .footer-container { grid-template-columns: 1fr; text-align: center; }
+            .footer-contact p { justify-content: center; }
+            .social-icons { justify-content: center; }
+            .result-box h2 { font-size: 1.5rem; }
+            .result-box .mbti-type { font-size: 2rem; }
+            .share-buttons .share-btn { width: 100%; justify-content: center; }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="logo">
-      <img src="images/hinhremovenen.png" alt="Logo Sophia">
+
+<!-- ========== HEADER ========== -->
+<header class="header">
+    <div class="header-container">
+        <a href="index.html" class="logo">
+            <img src="images/hinhremovenen.png" alt="Sophia Nguyễn">
+        </a>
+        <div class="menu-toggle" onclick="document.querySelector('.navbar').classList.toggle('show-menu')">☰</div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="index.html">Trang chủ</a></li>
+                <li><a href="about.html">Giới thiệu</a></li>
+                <li><a href="services.html">Dịch vụ</a></li>
+                <li><a href="khoa-hoc.html">Khóa học</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="test.html" class="active">Trắc nghiệm</a></li>
+                <li><a href="contact.html">Liên hệ</a></li>
+            </ul>
+        </nav>
     </div>
-    <div class="intro">
-      <h2>🧠 Trắc nghiệm MBTI – Khám phá tính cách của bạn cùng Sophia</h2>
-      <p>
-        Bài trắc nghiệm MBTI gồm 40 câu hỏi được thiết kế dựa trên lý thuyết của Carl Jung và hệ thống phân loại MBTI (Myers-Briggs Type Indicator).  
-        Mỗi câu hỏi giúp bạn khám phá xu hướng tự nhiên trong cách bạn suy nghĩ, cảm nhận, ra quyết định và tương tác với thế giới xung quanh.
-      </p>
-      <p>
-        Kết quả sẽ đưa bạn đến một trong 16 nhóm tính cách MBTI – từ đó giúp bạn hiểu rõ hơn về bản thân, định hướng nghề nghiệp, và cải thiện các mối quan hệ cá nhân.
-      </p>
-      <p style="font-weight:bold; color:#0077cc;">
-        👉 Hãy trả lời một cách trung thực và tự nhiên nhất – không có đáp án đúng hay sai.  
-        Mỗi người là một bản thể độc đáo, và bài test này chỉ là một công cụ để bạn hiểu mình hơn!
-      </p>
+</header>
+
+<!-- ========== HERO ========== -->
+<section class="hero">
+    <div class="container">
+        <h1>🧠 Trắc nghiệm <span>MBTI</span></h1>
+        <p>Khám phá tính cách của bạn qua 40 câu hỏi dựa trên hệ thống phân loại Myers-Briggs</p>
+        <div class="badge">🎯 Không có đáp án đúng hay sai</div>
     </div>
-    <h1>Trắc nghiệm công cụ MBTI</h1>
-    <!-- Form cá nhân -->
-    <form id="infoForm" method="POST" action="https://formspree.io/f/mdkdvvgn">
-      <h2>Thông tin người làm test</h2>
-      <label>Họ tên:</label>
-      <input type="text" name="name" required>
-      <label>Email:</label>
-      <input type="email" name="email" required>
-      <label>Tuổi:</label>
-      <input type="number" name="age" required>
-      <label>Số điện thoại:</label>
-      <input type="text" name="phone" required>
-      <button type="submit">Gửi thông tin → nhấn Go Back → & tiếp tục</button>
-    </form>
-      
-    <div id="testForm" style="display:none;">
-  <div id="questionContainer"></div> <!-- ✅ FIXED -->
+</section>
+
+<!-- ========== TEST ========== -->
+<div class="container">
+    <div class="test-wrapper">
+        <div class="intro">
+            <h2>Khám phá <span>bản thân</span> cùng Sophia</h2>
+            <p>
+                Bài trắc nghiệm MBTI gồm 40 câu hỏi được thiết kế dựa trên lý thuyết của Carl Jung và hệ thống phân loại MBTI (Myers-Briggs Type Indicator).
+                Mỗi câu hỏi giúp bạn khám phá xu hướng tự nhiên trong cách bạn suy nghĩ, cảm nhận, ra quyết định và tương tác với thế giới xung quanh.
+            </p>
+            <p>
+                Kết quả sẽ đưa bạn đến một trong 16 nhóm tính cách MBTI – từ đó giúp bạn hiểu rõ hơn về bản thân, định hướng nghề nghiệp, và cải thiện các mối quan hệ cá nhân.
+            </p>
+            <div class="highlight">
+                👉 Hãy trả lời một cách trung thực và tự nhiên nhất – không có đáp án đúng hay sai.
+                Mỗi người là một bản thể độc đáo, và bài test này chỉ là một công cụ để bạn hiểu mình hơn!
+            </div>
+        </div>
+
+        <div id="questionContainer"></div>
+
+        <div id="result" class="result-box"></div>
+    </div>
 </div>
 
-     <div>
-    <div id="result" class="result"></div>
-  </div>
-   
-  <script>
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-logo">
+            <img src="images/hinhremovenen.png" alt="Sophia Nguyễn">
+            <p>Đồng hành & Sẻ chia cùng bạn trên hành trình tâm lý – phát triển – yêu thương.</p>
+        </div>
+        <div class="footer-links">
+            <h4>Dịch vụ</h4>
+            <ul>
+                <li><a href="tuvan-tamly1.html">Tham vấn tâm lý</a></li>
+                <li><a href="huong-nghiep.html">Định hướng nghề nghiệp</a></li>
+                <li><a href="ky-nang.html">Đào tạo kỹ năng</a></li>
+                <li><a href="van-tay.html">Sinh trắc vân tay</a></li>
+            </ul>
+        </div>
+        <div class="footer-contact">
+            <h4>Liên hệ</h4>
+            <p><i class="fas fa-envelope"></i> sophianguyen2891@gmail.com</p>
+            <p><i class="fas fa-phone"></i> 0977092182</p>
+            <p><i class="fas fa-map-marker-alt"></i> Tân Bình - TPHCM</p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/Sophiadiemhang1982"><img src="images/fb.png" alt="Facebook" /></a>
+                <a href="https://www.tiktok.com/@sophia.nguyen2014"><img src="images/tiktok.png" alt="TikTok" /></a>
+                <a href="https://www.youtube.com/@sophianguyen1982-dh"><img src="images/youtube.png" alt="YouTube" /></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>Copyright ©2025 Sophia Nguyễn. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    // ==================== DỮ LIỆU CÂU HỎI ====================
     const questions = [
-      { text: "Bạn cảm thấy tràn đầy năng lượng khi ở giữa đám đông.", a: "E", b: "I" },
-      { text: "Bạn thích giao tiếp với nhiều người hơn là làm việc một mình.", a: "E", b: "I" },
-      { text: "Bạn dễ dàng bắt chuyện với người lạ.", a: "E", b: "I" },
-      { text: "Bạn thường chủ động trong các hoạt động xã hội.", a: "E", b: "I" },
-      { text: "Bạn cảm thấy thoải mái khi chia sẻ suy nghĩ với người khác.", a: "E", b: "I" },
-      { text: "Bạn thích môi trường làm việc năng động và đông người.", a: "E", b: "I" },
-      { text: "Bạn thường nói nhiều hơn là nghe.", a: "E", b: "I" },
-      { text: "Bạn cảm thấy mệt mỏi khi ở một mình quá lâu.", a: "E", b: "I" },
-      { text: "Bạn thích tham gia các hoạt động nhóm.", a: "E", b: "I" },
-      { text: "Bạn thường tìm kiếm sự tương tác xã hội.", a: "E", b: "I" },
-      { text: "Bạn tin vào những gì bạn có thể thấy và chạm vào.", a: "S", b: "N" },
-      { text: "Bạn thích làm việc với dữ liệu thực tế hơn là ý tưởng.", a: "S", b: "N" },
-      { text: "Bạn chú trọng vào chi tiết hơn là tổng thể.", a: "S", b: "N" },
-      { text: "Bạn thường dựa vào kinh nghiệm để giải quyết vấn đề.", a: "S", b: "N" },
-      { text: "Bạn thích các hướng dẫn rõ ràng và cụ thể.", a: "S", b: "N" },
-      { text: "Bạn cảm thấy thoải mái với những gì quen thuộc.", a: "S", b: "N" },
-      { text: "Bạn thường thực tế hơn là tưởng tượng.", a: "S", b: "N" },
-      { text: "Bạn thích làm việc theo quy trình đã định.", a: "S", b: "N" },
-      { text: "Bạn thường chú ý đến hiện tại hơn là tương lai.", a: "S", b: "N" },
-      { text: "Bạn tin rằng sự thật nằm trong chi tiết.", a: "S", b: "N" },
-      { text: "Bạn đưa ra quyết định dựa trên logic hơn là cảm xúc.", a: "T", b: "F" },
-      { text: "Bạn coi trọng sự công bằng hơn là lòng trắc ẩn.", a: "T", b: "F" },
-      { text: "Bạn thường phân tích vấn đề một cách khách quan.", a: "T", b: "F" },
-      { text: "Bạn cảm thấy thoải mái khi tranh luận để bảo vệ quan điểm.", a: "T", b: "F" },
-      { text: "Bạn tin rằng sự thật quan trọng hơn cảm xúc.", a: "T", b: "F" },
-      { text: "Bạn thường không để cảm xúc ảnh hưởng đến quyết định.", a: "T", b: "F" },
-      { text: "Bạn thích giải pháp hợp lý hơn là giải pháp dễ chịu.", a: "T", b: "F" },
-      { text: "Bạn thường đánh giá người khác qua hành động hơn là cảm xúc.", a: "T", b: "F" },
-      { text: "Bạn thường gặp khó khăn trong việc hiểu phản ứng cảm xúc mạnh của người khác.", a: "T", b: "F" },
-      { text: "Bạn tin rằng lý trí là công cụ tốt nhất để giải quyết vấn đề.", a: "T", b: "F" },
-      { text: "Bạn thích lập kế hoạch trước khi bắt đầu công việc.", a: "J", b: "P" },
-      { text: "Bạn cảm thấy thoải mái khi mọi thứ được tổ chức rõ ràng.", a: "J", b: "P" },
-      { text: "Bạn thường hoàn thành công việc đúng hạn.", a: "J", b: "P" },
-      { text: "Bạn cảm thấy thoải mái hơn khi mọi việc diễn ra theo kế hoạch.", a: "J", b: "P" },
-      { text: "Bạn thích có danh sách công việc cần làm.", a: "J", b: "P" },
-      { text: "Bạn cảm thấy khó chịu khi kế hoạch bị thay đổi.", a: "J", b: "P" },
-      { text: "Bạn thường quyết định nhanh chóng và dứt khoát.", a: "J", b: "P" },
-      { text: "Bạn thích sự ổn định hơn là sự linh hoạt.", a: "J", b: "P" },
-      { text: "Bạn thường lên kế hoạch cho cả tuần.", a: "J", b: "P" },
-      { text: "Bạn cảm thấy hài lòng khi hoàn thành mọi việc theo kế hoạch.", a: "J", b: "P" }
+        { text: "Bạn cảm thấy tràn đầy năng lượng khi ở giữa đám đông.", a: "E", b: "I" },
+        { text: "Bạn thích giao tiếp với nhiều người hơn là làm việc một mình.", a: "E", b: "I" },
+        { text: "Bạn dễ dàng bắt chuyện với người lạ.", a: "E", b: "I" },
+        { text: "Bạn thường chủ động trong các hoạt động xã hội.", a: "E", b: "I" },
+        { text: "Bạn cảm thấy thoải mái khi chia sẻ suy nghĩ với người khác.", a: "E", b: "I" },
+        { text: "Bạn thích môi trường làm việc năng động và đông người.", a: "E", b: "I" },
+        { text: "Bạn thường nói nhiều hơn là nghe.", a: "E", b: "I" },
+        { text: "Bạn cảm thấy mệt mỏi khi ở một mình quá lâu.", a: "E", b: "I" },
+        { text: "Bạn thích tham gia các hoạt động nhóm.", a: "E", b: "I" },
+        { text: "Bạn thường tìm kiếm sự tương tác xã hội.", a: "E", b: "I" },
+        { text: "Bạn tin vào những gì bạn có thể thấy và chạm vào.", a: "S", b: "N" },
+        { text: "Bạn thích làm việc với dữ liệu thực tế hơn là ý tưởng.", a: "S", b: "N" },
+        { text: "Bạn chú trọng vào chi tiết hơn là tổng thể.", a: "S", b: "N" },
+        { text: "Bạn thường dựa vào kinh nghiệm để giải quyết vấn đề.", a: "S", b: "N" },
+        { text: "Bạn thích các hướng dẫn rõ ràng và cụ thể.", a: "S", b: "N" },
+        { text: "Bạn cảm thấy thoải mái với những gì quen thuộc.", a: "S", b: "N" },
+        { text: "Bạn thường thực tế hơn là tưởng tượng.", a: "S", b: "N" },
+        { text: "Bạn thích làm việc theo quy trình đã định.", a: "S", b: "N" },
+        { text: "Bạn thường chú ý đến hiện tại hơn là tương lai.", a: "S", b: "N" },
+        { text: "Bạn tin rằng sự thật nằm trong chi tiết.", a: "S", b: "N" },
+        { text: "Bạn đưa ra quyết định dựa trên logic hơn là cảm xúc.", a: "T", b: "F" },
+        { text: "Bạn coi trọng sự công bằng hơn là lòng trắc ẩn.", a: "T", b: "F" },
+        { text: "Bạn thường phân tích vấn đề một cách khách quan.", a: "T", b: "F" },
+        { text: "Bạn cảm thấy thoải mái khi tranh luận để bảo vệ quan điểm.", a: "T", b: "F" },
+        { text: "Bạn tin rằng sự thật quan trọng hơn cảm xúc.", a: "T", b: "F" },
+        { text: "Bạn thường không để cảm xúc ảnh hưởng đến quyết định.", a: "T", b: "F" },
+        { text: "Bạn thích giải pháp hợp lý hơn là giải pháp dễ chịu.", a: "T", b: "F" },
+        { text: "Bạn thường đánh giá người khác qua hành động hơn là cảm xúc.", a: "T", b: "F" },
+        { text: "Bạn thường gặp khó khăn trong việc hiểu phản ứng cảm xúc mạnh của người khác.", a: "T", b: "F" },
+        { text: "Bạn tin rằng lý trí là công cụ tốt nhất để giải quyết vấn đề.", a: "T", b: "F" },
+        { text: "Bạn thích lập kế hoạch trước khi bắt đầu công việc.", a: "J", b: "P" },
+        { text: "Bạn cảm thấy thoải mái khi mọi thứ được tổ chức rõ ràng.", a: "J", b: "P" },
+        { text: "Bạn thường hoàn thành công việc đúng hạn.", a: "J", b: "P" },
+        { text: "Bạn cảm thấy thoải mái hơn khi mọi việc diễn ra theo kế hoạch.", a: "J", b: "P" },
+        { text: "Bạn thích có danh sách công việc cần làm.", a: "J", b: "P" },
+        { text: "Bạn cảm thấy khó chịu khi kế hoạch bị thay đổi.", a: "J", b: "P" },
+        { text: "Bạn thường quyết định nhanh chóng và dứt khoát.", a: "J", b: "P" },
+        { text: "Bạn thích sự ổn định hơn là sự linh hoạt.", a: "J", b: "P" },
+        { text: "Bạn thường lên kế hoạch cho cả tuần.", a: "J", b: "P" },
+        { text: "Bạn cảm thấy hài lòng khi hoàn thành mọi việc theo kế hoạch.", a: "J", b: "P" }
     ];
 
-  
-function renderQuestions() {
-  const container = document.getElementById("questionContainer"); // ✅ FIXED
-  container.innerHTML = "";
+    // ==================== RENDER CÂU HỎI ====================
+    function renderQuestions() {
+        const container = document.getElementById('questionContainer');
+        container.innerHTML = '';
 
-  const form = document.createElement("form");
-  form.id = "quizForm";
+        const form = document.createElement('form');
+        form.id = 'quizForm';
 
-  questions.forEach((q, index) => {
-    const div = document.createElement("div");
-    div.className = "question";
+        questions.forEach((q, index) => {
+            const div = document.createElement('div');
+            div.className = 'question-item';
 
-    const p = document.createElement("p");
-    p.textContent = `Câu ${index + 1}: ${q.text}`;
-    div.appendChild(p);
+            const p = document.createElement('p');
+            p.className = 'q-text';
+            p.textContent = `Câu ${index + 1}: ${q.text}`;
+            div.appendChild(p);
 
-    const labelA = document.createElement("label");
-    labelA.innerHTML = `<input type="radio" name="q${index + 1}" value="${q.a}" required> Đồng ý `;
-    div.appendChild(labelA);
+            const optionsDiv = document.createElement('div');
+            optionsDiv.className = 'options';
 
-    const labelB = document.createElement("label");
-    labelB.innerHTML = `<input type="radio" name="q${index + 1}" value="${q.b}"> Không đồng ý `;
-    div.appendChild(labelB);
+            const labelA = document.createElement('label');
+            labelA.innerHTML = `<input type="radio" name="q${index + 1}" value="${q.a}" required> Đồng ý`;
+            optionsDiv.appendChild(labelA);
 
-    form.appendChild(div);
-  });
+            const labelB = document.createElement('label');
+            labelB.innerHTML = `<input type="radio" name="q${index + 1}" value="${q.b}"> Không đồng ý`;
+            optionsDiv.appendChild(labelB);
 
-  const submitBtn = document.createElement("button");
-  submitBtn.id = "submitBtn";
-  submitBtn.textContent = "Tính kết quả";
-  submitBtn.type = "submit";
-  form.appendChild(submitBtn);
+            div.appendChild(optionsDiv);
+            form.appendChild(div);
+        });
 
-  container.appendChild(form);
+        const submitBtn = document.createElement('button');
+        submitBtn.className = 'btn-submit';
+        submitBtn.id = 'submitBtn';
+        submitBtn.textContent = '🔍 Tính kết quả';
+        submitBtn.type = 'submit';
+        form.appendChild(submitBtn);
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const scores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+        container.appendChild(form);
 
-    for (let [key, value] of formData.entries()) {
-      scores[value]++;
+        // ==================== XỬ LÝ SUBMIT ====================
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const scores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+
+            for (let [key, value] of formData.entries()) {
+                if (scores.hasOwnProperty(value)) {
+                    scores[value]++;
+                }
+            }
+
+            const type = `${scores["E"] >= scores["I"] ? "E" : "I"}${scores["S"] >= scores["N"] ? "S" : "N"}${scores["T"] >= scores["F"] ? "T" : "F"}${scores["J"] >= scores["P"] ? "J" : "P"}`;
+
+            const typeNames = {
+                'INTJ': 'Nhà kiến trúc', 'INTP': 'Nhà tư duy', 'ENTJ': 'Nhà chỉ huy', 'ENTP': 'Nhà phát minh',
+                'INFJ': 'Người cố vấn', 'INFP': 'Người trung gian', 'ENFJ': 'Nhà giáo dục', 'ENFP': 'Nhà truyền cảm hứng',
+                'ISTJ': 'Người giám sát', 'ISFJ': 'Người bảo vệ', 'ESTJ': 'Người giám đốc', 'ESFJ': 'Người chăm sóc',
+                'ISTP': 'Nghệ nhân', 'ISFP': 'Nhà soạn nhạc', 'ESTP': 'Nhà thuyết phục', 'ESFP': 'Người trình diễn'
+            };
+
+            const typeName = typeNames[type] || 'Nhóm tính cách đặc biệt';
+
+            const resultDiv = document.getElementById('result');
+            resultDiv.className = 'result-box show';
+            resultDiv.innerHTML = `
+                <h2>🔮 Kết quả của bạn là</h2>
+                <div class="mbti-type">${type}</div>
+                <p><strong>${typeName}</strong></p>
+                <p>
+                    Đây là kiểu tính cách MBTI dựa trên trắc nghiệm.
+                    <br>
+                    <a href="mbti/${type}.html" target="_blank" class="btn-detail" style="display:inline-block; margin-top:12px;">
+                        📖 Đọc thêm về nhóm tính cách này
+                    </a>
+                </p>
+                <div style="margin-top:20px; border-top:1px solid var(--light-gray); padding-top:20px;">
+                    <p style="font-weight:600; color:var(--navy-dark);">📢 Chia sẻ bài test này:</p>
+                    <div class="share-buttons">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn fb"><i class="fab fa-facebook-f"></i> Facebook</a>
+                        <a href="https://zalo.me/share?url=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn zalo"><i class="fas fa-comment"></i> Zalo</a>
+                        <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent('MBTI của tôi là ' + type)}&url=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn twitter"><i class="fab fa-twitter"></i> Twitter</a>
+                        <a href="https://www.tiktok.com/upload?lang=vi" target="_blank" class="share-btn tiktok"><i class="fab fa-tiktok"></i> TikTok</a>
+                    </div>
+                </div>
+            `;
+
+            // Ẩn form và cuộn đến kết quả
+            form.style.display = 'none';
+            window.scrollTo({ top: resultDiv.offsetTop - 100, behavior: 'smooth' });
+        });
     }
 
-    const type = `${scores["E"] >= scores["I"] ? "E" : "I"}${scores["S"] >= scores["N"] ? "S" : "N"}${scores["T"] >= scores["F"] ? "T" : "F"}${scores["J"] >= scores["P"] ? "J" : "P"}`;
-    const resultText = `MBTI của tôi là ${type}`;
-
-    document.getElementById("testForm").style.display = "none";
-    const resultDiv = document.getElementById("result");
-    resultDiv.style.display = "block";
-    resultDiv.innerHTML = `
-      <h2>Kết quả của bạn là: ${type}</h2>
-      <p>
-        Đây là kiểu tính cách MBTI dựa trên trắc nghiệm.
-        <a href="mbti/${type}.html" target="_blank">Hãy đọc thêm để hiểu rõ hơn về nhóm tính cách này nhé!</a>
-      </p>
-    `;
-
-    const shareDiv = document.createElement("div");
-    shareDiv.className = "share-buttons";
-    shareDiv.innerHTML = `
-      <h4>📢 Chia sẻ bài test này:</h4>
-      <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank">
-        <button style="background:#3b5998; color:white;">Facebook</button>
-      </a>
-      <a href="https://zalo.me/share?url=${encodeURIComponent(window.location.href)}" target="_blank">       
-        <button style="background:#0068ff; color:white;">Zalo</button>
-      </a>
-      <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(resultText)}&url=${encodeURIComponent(window.location.href)}" target="_blank">
-        <button style="background:#1da1f2; color:white;">Twitter</button>
-      </a>
-      <a href="https://www.tiktok.com/upload?lang=vi" target="_blank">
-        <button style="background:#000000; color:white;">TikTok</button>
-      </a>
-    `;
-    resultDiv.appendChild(shareDiv);
-
-    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-  });
-}
-  </script>
-    <script>
-    document.getElementById("infoForm").addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  const form = e.target;
-  const data = new FormData(form);
-
-  fetch(form.action, {
-    method: "POST",
-    body: data,
-    headers: {
-      Accept: "application/json"
-    }
-  })
-    .then(response => {
-      if (response.ok) {
-        form.style.display = "none"; // Ẩn form thông tin
-        document.getElementById("testForm").style.display = "block"; // Hiện phần câu hỏi
-        renderQuestions(); // Gọi hàm hiển thị câu hỏi
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      } else {
-        alert("Gửi thông tin thất bại. Vui lòng thử lại.");
-      }
-    })
-    .catch(error => {
-      console.error("Lỗi gửi form:", error);
-      alert("Có lỗi xảy ra khi gửi thông tin.");
+    // ==================== KHỞI CHẠY ====================
+    document.addEventListener('DOMContentLoaded', function() {
+        renderQuestions();
     });
-});
-  </script>
+</script>
 </body>
 </html>
