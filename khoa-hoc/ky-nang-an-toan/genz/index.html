@@ -1,326 +1,378 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bản lĩnh Gen Z – Khóa học an toàn cho giới trẻ | Sophia Nguyễn</title>
-  <meta name="description" content="8 bài học chốt về an toàn giao thông, sơ cấp cứu, tự vệ xã hội, an toàn mạng, sức khỏe tâm thần và pháp luật. Trang bị kỹ năng sinh tồn và bảo vệ bản thân cho Gen Z.">
-  <meta name="keywords" content="bản lĩnh gen z, kỹ năng an toàn cho giới trẻ, tự vệ xã hội, an toàn mạng, sức khỏe tâm thần, pháp luật cho gen z">
-  <meta name="author" content="Sophia Nguyễn">
-  <!-- ... phần còn lại giữ nguyên ... -->
- <style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bản lĩnh Gen Z – Khóa học an toàn cho giới trẻ | Sophia Nguyễn</title>
+    <meta name="description" content="9 bài học chốt về an toàn giao thông, sơ cấp cứu, tự vệ xã hội, an toàn mạng, sức khỏe tâm thần và pháp luật. Trang bị kỹ năng sinh tồn và bảo vệ bản thân cho Gen Z.">
+    <meta name="keywords" content="bản lĩnh gen z, kỹ năng an toàn cho giới trẻ, tự vệ xã hội, an toàn mạng, sức khỏe tâm thần, pháp luật cho gen z">
+    <meta name="author" content="Sophia Nguyễn">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
-            --primary: #e63946;
-            --primary-dark: #c1121f;
-            --dark: #0a0a0a;
-            --gray: #888;
-            --light-gray: #2a2a2a;
-            --white: #e0e0e0;
-            --gradient: linear-gradient(135deg, #e63946 0%, #c1121f 100%);
-            --gradient-soft: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            --navy-dark: #0A1628;
+            --navy-mid: #1E3A5F;
+            --gold: #C9A84C;
+            --gold-light: #D4B85C;
+            --cream: #F5F0E8;
+            --white: #FFFFFF;
+            --gray: #4A5A6A;
+            --light-gray: #E8E4DC;
         }
-        body { font-family: 'Segoe UI', system-ui, sans-serif; line-height: 1.6; color: var(--white); background: var(--gradient-soft); min-height: 100vh; }
-        .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--gradient); display: flex; align-items: center; justify-content: center; z-index: 2000; }
-        .loading-spinner { background: #141414; padding: 2rem 3rem; border-radius: 32px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.3); border: 1px solid var(--primary); }
-        .loading-spinner i { font-size: 3rem; color: var(--primary); animation: spin 1s linear infinite; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .unlock-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--gradient); display: flex; align-items: center; justify-content: center; z-index: 1999; transition: all 0.5s ease; }
-        .unlock-box { background: #141414; padding: 2.5rem; border-radius: 48px; text-align: center; max-width: 420px; width: 90%; box-shadow: 0 30px 50px rgba(0,0,0,0.3); border: 1px solid var(--primary); animation: fadeInUp 0.5s ease; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        .unlock-box i { font-size: 4rem; color: var(--primary); margin-bottom: 1rem; }
-        .unlock-box h2 { margin-bottom: 0.5rem; color: var(--white); }
-        .unlock-box p { color: var(--gray); margin-bottom: 1.5rem; }
-        .unlock-input { display: flex; gap: 10px; margin-bottom: 1rem; flex-wrap: wrap; }
-        .unlock-input input { flex: 1; padding: 14px 20px; border: 2px solid var(--light-gray); border-radius: 60px; font-size: 1rem; outline: none; text-align: center; background: #0a0a0a; color: var(--white); }
-        .unlock-input input:focus { border-color: var(--primary); }
-        .unlock-btn { background: var(--gradient); color: white; border: none; padding: 14px 28px; border-radius: 60px; font-weight: 600; cursor: pointer; width: 100%; font-size: 1rem; transition: transform 0.2s; }
-        .unlock-btn:hover { transform: translateY(-2px); }
-        .error-msg { color: var(--primary); font-size: 0.85rem; margin-top: 1rem; display: none; }
-        .main-content { display: none; }
-        .navbar { background: #0f0f0f; border-bottom: 1px solid var(--light-gray); padding: 1rem 0; position: sticky; top: 0; z-index: 100; }
-        .nav-container { max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
-        .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary); display: flex; align-items: center; gap: 10px; }
-        .logo i { color: var(--primary); font-size: 1.8rem; }
-        .user-info { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-        #logoutBtn { background: none; border: none; color: var(--gray); cursor: pointer; font-size: 0.9rem; transition: color 0.2s; }
-        #logoutBtn:hover { color: var(--primary); }
-        .device-manager-btn { background: #1a1a2e; border: 1px solid var(--light-gray); padding: 6px 12px; border-radius: 20px; font-size: 0.7rem; cursor: pointer; color: var(--white); transition: all 0.2s; }
-        .device-manager-btn:hover { background: var(--primary); color: white; }
+        body {
+            font-family: 'Inter', 'Be Vietnam Pro', sans-serif;
+            background: var(--cream);
+            color: var(--navy-dark);
+        }
         .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
-        .hero { background: var(--gradient); padding: 60px 0 50px; text-align: center; color: white; border-radius: 0 0 40px 40px; }
-        .hero h1 { font-size: 2rem; margin-bottom: 1rem; }
-        .hero p { font-size: 1rem; max-width: 700px; margin: 0 auto; }
-        .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 28px; margin: 30px 0; }
-        .course-card { background: #141414; border-radius: 24px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transition: all 0.3s; cursor: pointer; border: 1px solid var(--light-gray); }
-        .course-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); border-color: var(--primary); }
-        .course-header { background: var(--gradient); padding: 20px; color: white; text-align: center; }
-        .course-icon { font-size: 2.5rem; margin-bottom: 8px; }
-        .course-header h3 { font-size: 1.1rem; margin-bottom: 4px; }
+        
+        /* ── HEADER ── */
+        .header { 
+            background: var(--navy-dark); 
+            padding: 12px 0; 
+            border-bottom: 1px solid rgba(201,168,76,0.2);
+        }
+        .header-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo img { height: 50px; }
+        .nav-links { display: flex; gap: 24px; list-style: none; }
+        .nav-links a { 
+            color: rgba(255,255,255,0.8); 
+            text-decoration: none; 
+            font-size: 0.9rem;
+            transition: 0.2s;
+            font-weight: 500;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+        .menu-toggle { display: none; color: white; font-size: 24px; cursor: pointer; }
+        
+        /* ── HERO ── */
+        .hero {
+            background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy-mid) 100%);
+            padding: 60px 0 50px;
+            text-align: center;
+            color: white;
+            border-radius: 0 0 40px 40px;
+            border-bottom: 3px solid var(--gold);
+        }
+        .hero h1 { 
+            font-family: 'Playfair Display', serif;
+            font-size: 2.4rem; 
+            margin-bottom: 1rem; 
+        }
+        .hero h1 span { color: var(--gold); }
+        .hero p { 
+            font-size: 1.1rem; 
+            max-width: 700px; 
+            margin: 0 auto; 
+            opacity: 0.9; 
+        }
+        .hero .free-badge { 
+            background: var(--gold); 
+            color: var(--navy-dark); 
+            display: inline-block; 
+            padding: 8px 24px; 
+            border-radius: 40px; 
+            margin-top: 20px; 
+            font-weight: bold; 
+            font-size: 1rem; 
+        }
+        
+        /* ── COURSES GRID ── */
+        .courses-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+            gap: 30px; 
+            margin: 40px 0; 
+        }
+        .course-card { 
+            background: var(--white); 
+            border-radius: 28px; 
+            overflow: hidden; 
+            box-shadow: 0 10px 30px rgba(10,22,40,0.08); 
+            transition: all 0.3s; 
+            border: 1px solid var(--light-gray); 
+        }
+        .course-card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 20px 40px rgba(10,22,40,0.12); 
+            border-color: var(--gold);
+        }
+        .course-header { 
+            background: linear-gradient(135deg, var(--navy-dark), var(--navy-mid));
+            padding: 24px; 
+            color: white; 
+            text-align: center; 
+            border-bottom: 3px solid var(--gold);
+        }
+        .course-icon { font-size: 3rem; margin-bottom: 8px; }
+        .course-header h3 { 
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem; 
+        }
         .course-content { padding: 20px; }
-        .course-desc { color: var(--gray); font-size: 0.9rem; margin-bottom: 16px; line-height: 1.5; }
-        .course-footer { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--light-gray); text-align: center; }
-        .btn-start { background: var(--gradient) !important; border: none !important; color: white !important; padding: 10px 20px !important; border-radius: 40px !important; cursor: pointer !important; font-weight: 600 !important; font-size: 0.9rem !important; transition: all 0.3s ease !important; display: inline-flex !important; align-items: center !important; gap: 6px !important; text-decoration: none !important; }
-        .btn-start:hover { transform: translateY(-2px) !important; box-shadow: 0 8px 20px rgba(230,57,70,0.4) !important; }
-        .footer { background: #0a0a0a; border-top: 1px solid var(--light-gray); color: var(--gray); padding: 40px 0 20px; margin-top: 60px; text-align: center; }
-        @media (max-width: 768px) { .hero h1 { font-size: 1.5rem; } .courses-grid { grid-template-columns: 1fr; } }
-        .loading-text { text-align: center; padding: 40px; color: var(--gray); }
-        .device-list { margin-top: 10px; }
-        .device-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid var(--light-gray); }
-        .device-item:last-child { border-bottom: none; }
-        .device-info { flex: 1; }
-        .device-name { font-weight: 600; color: var(--white); }
-        .device-time { font-size: 0.7rem; color: var(--gray); }
-        .logout-device-btn { background: #2a1a1a; border: none; padding: 4px 12px; border-radius: 20px; color: var(--primary); cursor: pointer; font-size: 0.7rem; transition: all 0.2s; }
-        .logout-device-btn:hover { background: var(--primary); color: white; }
-        .current-badge { background: var(--primary); color: white; padding: 2px 8px; border-radius: 20px; font-size: 0.6rem; margin-left: 8px; }
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1100; align-items: center; justify-content: center; }
-        .modal.active { display: flex; }
-        .modal-content { background: #141414; border-radius: 32px; max-width: 500px; width: 90%; border: 1px solid var(--light-gray); }
-        .modal-header { padding: 20px; border-bottom: 1px solid var(--light-gray); display: flex; justify-content: space-between; align-items: center; }
-        .modal-header h3 { color: var(--white); }
-        .close-modal { font-size: 24px; cursor: pointer; color: var(--gray); }
-        .close-modal:hover { color: var(--primary); }
-        .modal-body { padding: 20px; }
+        .course-desc { color: var(--gray); font-size: 0.9rem; margin-bottom: 16px; line-height: 1.6; }
+        .course-footer { 
+            margin-top: 16px; 
+            padding-top: 16px; 
+            border-top: 1px solid var(--light-gray); 
+            text-align: center; 
+        }
+        .btn-start { 
+            background: var(--navy-dark); 
+            color: var(--white); 
+            border: none; 
+            padding: 10px 24px; 
+            border-radius: 40px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            text-decoration: none; 
+            display: inline-block; 
+            transition: all 0.2s; 
+            font-size: 0.9rem; 
+        }
+        .btn-start:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 5px 15px rgba(10,22,40,0.3); 
+            background: var(--gold);
+            color: var(--navy-dark);
+        }
+        
+        .free-badge-small { 
+            background: var(--gold); 
+            color: var(--navy-dark); 
+            padding: 6px 16px; 
+            border-radius: 40px; 
+            font-weight: bold; 
+            font-size: 0.85rem; 
+            display: inline-block; 
+        }
+        
+        /* ── CTA SECTION ── */
+        .cta-section { 
+            text-align: center; 
+            padding: 50px 40px; 
+            background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy-mid) 100%);
+            color: white; 
+            border-radius: 32px; 
+            margin: 40px 0; 
+            border: 1px solid rgba(201,168,76,0.2);
+        }
+        .btn-cta { 
+            background: var(--gold); 
+            color: var(--navy-dark); 
+            padding: 14px 32px; 
+            border-radius: 50px; 
+            font-weight: 700; 
+            text-decoration: none; 
+            display: inline-block; 
+            margin: 0 8px; 
+            transition: 0.2s;
+        }
+        .btn-cta:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+        }
+        .btn-cta-outline { 
+            background: transparent; 
+            border: 2px solid var(--gold); 
+            color: var(--gold); 
+            padding: 12px 28px; 
+            border-radius: 50px; 
+            font-weight: 600; 
+            text-decoration: none; 
+            display: inline-block; 
+            margin: 0 8px; 
+            transition: 0.2s;
+        }
+        .btn-cta-outline:hover {
+            background: rgba(201,168,76,0.1);
+            transform: translateY(-2px);
+        }
+        
+        /* ── FOOTER ── */
+        .footer { 
+            background: var(--navy-dark); 
+            color: rgba(255,255,255,0.7); 
+            padding: 40px 0 20px; 
+            text-align: center; 
+            margin-top: 60px; 
+            border-top: 1px solid rgba(201,168,76,0.15);
+        }
+        .footer h4 { 
+            font-family: 'Playfair Display', serif;
+            color: var(--gold); 
+            margin-bottom: 16px; 
+        }
+        
+        .free-combo-badge {
+            background: var(--gold);
+            border-radius: 60px;
+            padding: 24px 30px;
+            margin: 30px auto 20px;
+            text-align: center;
+            max-width: 500px;
+            animation: pulse 1.5s infinite;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 2px solid var(--navy-dark);
+        }
+        .free-combo-badge:hover { transform: scale(1.02); box-shadow: 0 0 30px rgba(201,168,76,0.4); }
+        @keyframes pulse { 
+            0% { transform: scale(1); } 
+            70% { transform: scale(1.02); } 
+            100% { transform: scale(1); } 
+        }
+        .free-combo-badge h3 { 
+            font-family: 'Playfair Display', serif;
+            color: var(--navy-dark); 
+            font-size: 1.5rem; 
+            margin-bottom: 8px; 
+        }
+        .free-combo-badge .free-price { 
+            font-size: 1.5rem; 
+            font-weight: 800; 
+            color: var(--navy-dark); 
+        }
+        .btn-join { 
+            background: var(--navy-dark); 
+            color: var(--gold); 
+            border: none; 
+            padding: 10px 24px; 
+            border-radius: 40px; 
+            font-weight: 700; 
+            cursor: pointer; 
+            margin-top: 10px; 
+            transition: 0.2s;
+        }
+        .btn-join:hover { 
+            background: #1a2a3a; 
+            transform: translateY(-2px); 
+            box-shadow: 0 5px 15px rgba(10,22,40,0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .nav-links { 
+                display: none; 
+                flex-direction: column; 
+                gap: 12px; 
+                padding: 16px 0;
+                background: var(--navy-dark);
+                width: 100%;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                padding: 16px 24px;
+            }
+            .nav-links.show { display: flex; }
+            .header-inner { flex-wrap: wrap; position: relative; }
+            .hero h1 { font-size: 1.6rem; }
+            .courses-grid { grid-template-columns: 1fr; }
+            .btn-cta, .btn-cta-outline { display: block; margin: 12px auto; width: fit-content; }
+            .logo img { height: 45px; }
+            .free-combo-badge { padding: 20px; margin: 20px auto; }
+        }
     </style>
 </head>
 <body>
-    <div class="loading-overlay" id="loadingOverlay"><div class="loading-spinner"><i class="fas fa-shield-alt fa-spin"></i><p style="margin-top: 1rem;">Đang tải dữ liệu...</p></div></div>
-    <div class="unlock-screen" id="unlockScreen">
-        <div class="unlock-box">
-            <i class="fas fa-lock"></i>
-            <h2>Bản lĩnh Gen Z</h2>
-            <p>Vui lòng nhập mã khóa học để bắt đầu</p>
-            <div class="unlock-input"><input type="text" id="licenseKey" placeholder="Nhập mã khóa học" autocomplete="off"></div>
-            <button class="unlock-btn" id="unlockBtn"><i class="fas fa-unlock-alt"></i> Mở khóa khóa học</button>
-            <div class="error-msg" id="errorMsg">Mã khóa học không hợp lệ! Vui lòng liên hệ Sophia Nguyễn để được hỗ trợ.</div>
-        </div>
+
+<!-- ========== HEADER ========== -->
+<header class="header">
+    <div class="header-inner">
+        <a href="https://sophianguyen.com.vn" class="logo">
+            <img src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Sophia Nguyen">
+        </a>
+        <div class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">☰</div>
+        <ul class="nav-links">
+            <li><a href="https://sophianguyen.com.vn">Trang chủ</a></li>
+            <li><a href="https://sophianguyen.com.vn/khoa-hoc/ky-nang-an-toan/">Khóa an toàn</a></li>
+            <li><a href="https://sophianguyen.com.vn/khoa-hoc/gioi-tinh/gioi-thieu/">Khóa giới tính</a></li>
+            <li><a href="https://sophianguyen.com.vn/khoa-hoc/cha-me/gioi-thieu/">Khóa cha mẹ</a></li>
+            <li><a href="#" class="active">Bản lĩnh Gen Z</a></li>
+        </ul>
     </div>
-    <div class="main-content" id="mainContent">
-        <nav class="navbar">
-            <div class="nav-container">
-                <div class="logo"><i class="fas fa-shield-alt"></i><span>Sophia Nguyễn</span></div>
-                <div class="user-info">
-                    <span id="userNameDisplay"><i class="fas fa-user-circle"></i> Học viên</span>
-                    <button id="manageDevicesBtn" class="device-manager-btn" style="display:none;"><i class="fas fa-laptop"></i> Quản lý thiết bị</button>
-                    <button id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Thoát</button>
+</header>
+
+<!-- ========== HERO ========== -->
+<section class="hero">
+    <div class="container">
+        <h1>🛡️ Bản lĩnh <span>Gen Z</span> – Kỹ năng an toàn & sinh tồn</h1>
+        <p>9 bài học chốt: An toàn giao thông, sơ cấp cứu, tự vệ xã hội, an toàn mạng, sức khỏe tâm thần và pháp luật.</p>
+        <div class="free-badge">🎁 HOÀN TOÀN MIỄN PHÍ 🎁</div>
+    </div>
+</section>
+
+<!-- ========== NỘI DUNG ========== -->
+<div class="container">
+    <div class="courses-grid" id="coursesGrid"></div>
+
+    <div class="free-combo-badge" onclick="window.open('https://zalo.me/0977092182', '_blank')">
+        <h3>⭐ ƯU ĐÃI ĐẶC BIỆT ⭐</h3>
+        <p>TRỌN BỘ 9 BÀI HỌC BẢN LĨNH GEN Z</p>
+        <div><span class="free-price">🎯 HOÀN TOÀN MIỄN PHÍ 🎯</span></div>
+        <button class="btn-join">📝 ĐĂNG KÝ THAM GIA NHÓM NGAY</button>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-section">
+        <h2 style="font-family:'Playfair Display',serif;">🚀 Đừng bỏ lỡ kho tài liệu miễn phí cho con!</h2>
+        <p style="margin-bottom: 24px; opacity: 0.9;">Tham gia nhóm cùng Sophia để nhận thêm nhiều bài giảng hay và tài liệu bổ ích</p>
+        <a href="https://zalo.me/0977092182" class="btn-cta">📝 Tham gia nhóm ngay</a>
+        <a href="https://sophianguyen.com.vn" class="btn-cta-outline">🌐 Về trang chủ</a>
+    </div>
+</div>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+    <div class="container">
+        <h4>🛡️ Bản lĩnh Gen Z – Khóa học an toàn dành cho giới trẻ</h4>
+        <p style="margin-top: 8px;">📧 sophianguyen2891@gmail.com | 📞 0977092182</p>
+        <p style="margin-top: 16px; font-size: 0.8rem; opacity: 0.5;">Copyright ©2024 Sophia Nguyễn. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    // ========== DỮ LIỆU 9 BÀI HỌC ==========
+    const courses = [
+        { id: 1, name: "An toàn Giao thông & Sự cố dọc đường", icon: "🚛", desc: "Điểm mù, va chạm, xử lý sự cố khi hỏng xe giữa đường.", link: "../bai-1-giao-thong.html" },
+        { id: 2, name: "Sơ cấp cứu chuyên sâu", icon: "🩺", desc: "Cầm máu, gãy xương, CPR người lớn.", link: "../bai-2-so-cap-cuu.html" },
+        { id: 3, name: "Tự vệ Xã hội & Thao túng tâm lý", icon: "🧠", desc: "Gaslighting, Peer Pressure, thoát bám đuôi.", link: "../bai-3-tu-ve-xa-hoi.html" },
+        { id: 4, name: "An toàn trong Hẹn hò", icon: "💕", desc: "Sự đồng thuận, Red Flags, ranh giới cá nhân.", link: "../bai-4-hen-ho.html" },
+        { id: 5, name: "Kỹ năng Sinh tồn & Dã ngoại", icon: "🏕️", desc: "Quy tắc S.T.O.P, tìm nguồn nước, trú ẩn, phát tín hiệu SOS.", link: "../bai-5-sinh-ton.html" },
+        { id: 6, name: "An toàn Không gian mạng & Tài chính số", icon: "💻", desc: "2FA, lừa đảo việc làm/đa cấp, bảo mật OTP.", link: "../bai-6-an-toan-mang.html" },
+        { id: 7, name: "Sức khỏe tâm thần", icon: "🧘", desc: "Sơ cứu cảm xúc, quản trị stress, trầm cảm/lo âu.", link: "../bai-7-tam-than.html" },
+        { id: 8, name: "Hiểu biết Pháp luật & Trách nhiệm", icon: "⚖️", desc: "Độ tuổi hình sự, Luật An ninh mạng, Luật Giao thông.", link: "../bai-8-phap-luat.html" },
+        { id: 9, name: "Làm chủ khủng hoảng & An toàn AI", icon: "🤖", desc: "Nhận diện Deepfake, xử lý khi bị phốt, bạo lực mạng tổ chức, lá chắn pháp luật.", link: "../bai-9-lam-chu-khung-hoang.html" }
+    ];
+
+    function renderCourses() {
+        const grid = document.getElementById('coursesGrid');
+        if (!grid) return;
+        grid.innerHTML = courses.map(c => `
+            <div class="course-card">
+                <div class="course-header">
+                    <div class="course-icon">${c.icon}</div>
+                    <h3>${c.name}</h3>
                 </div>
-            </div>
-        </nav>
-        <section class="hero"><div class="container"><h1>🛡️ Bản lĩnh Gen Z – Kỹ năng an toàn & sinh tồn</h1><p>Chọn bài học để bắt đầu</p></div></section>
-        <div class="container">
-            <div class="courses-grid" id="coursesGrid"><div class="loading-text">Vui lòng chờ tải dữ liệu...</div></div>
-        </div>
-        <footer class="footer"><div class="container"><p>🛡️ Bản lĩnh Gen Z – Khóa học an toàn dành cho giới trẻ | Sophia Nguyễn</p></div></footer>
-    </div>
-    <div class="modal" id="deviceModal"><div class="modal-content"><div class="modal-header"><h3>📱 Quản lý thiết bị</h3><div class="close-modal" onclick="closeDeviceModal()">✕</div></div><div class="modal-body" id="deviceModalBody"></div></div></div>
-
-    <script>
-        // ==================== CẤU HÌNH API ====================
-        // API của chị
-        const API_URL = "https://script.google.com/macros/s/AKfycbxk3A6AFXVamgr7qlyzzuMu82IzSofNp8zNrS5YkpPmRDhmeea5s-HUlZKRoFqKwO7z/exec";
-        
-        // Danh sách 9 bài học Gen Z
-        const ALL_COURSES = [
-            { id: 1, name: "An toàn Giao thông & Sự cố dọc đường", icon: "🚛", desc: "Điểm mù, va chạm, xử lý sự cố khi hỏng xe giữa đường.", file: "bai-1-giao-thong.html" },
-            { id: 2, name: "Sơ cấp cứu chuyên sâu", icon: "🩺", desc: "Cầm máu, gãy xương, CPR người lớn.", file: "bai-2-so-cap-cuu.html" },
-            { id: 3, name: "Tự vệ Xã hội & Thao túng tâm lý", icon: "🧠", desc: "Gaslighting, Peer Pressure, thoát bám đuôi.", file: "bai-3-tu-ve-xa-hoi.html" },
-            { id: 4, name: "An toàn trong Hẹn hò", icon: "💕", desc: "Sự đồng thuận, Red Flags, ranh giới cá nhân.", file: "bai-4-hen-ho.html" },
-            { id: 5, name: "Kỹ năng Sinh tồn & Dã ngoại", icon: "🏕️", desc: "Quy tắc S.T.O.P, tìm nguồn nước, trú ẩn, phát tín hiệu SOS.", file: "bai-5-sinh-ton.html" },
-            { id: 6, name: "An toàn Không gian mạng & Tài chính số", icon: "💻", desc: "2FA, lừa đảo việc làm/đa cấp, bảo mật OTP.", file: "bai-6-an-toan-mang.html" },
-            { id: 7, name: "Sức khỏe tâm thần", icon: "🧘", desc: "Sơ cứu cảm xúc, quản trị stress, trầm cảm/lo âu.", file: "bai-7-tam-than.html" },
-            { id: 8, name: "Hiểu biết Pháp luật & Trách nhiệm", icon: "⚖️", desc: "Độ tuổi hình sự, Luật An ninh mạng, Luật Giao thông.", file: "bai-8-phap-luat.html" },
-            { id: 9, name: "Làm chủ khủng hoảng & An toàn AI", icon: "🤖", desc: "Nhận diện Deepfake, xử lý khi bị phốt, bạo lực mạng tổ chức, lá chắn pháp luật.", file: "bai-9-lam-chu-khung-hoang.html" }
-];
-        
-        let currentUser = null, currentAllowedCourseIds = [], currentLicenseKey = null, currentDeviceId = null;
-
-        function getDeviceId() { 
-            let id = localStorage.getItem('genz_deviceId'); 
-            if (!id) { 
-                id = 'dev_' + Date.now() + '_' + Math.random().toString(36).substr(2, 8); 
-                localStorage.setItem('genz_deviceId', id); 
-            } 
-            return id; 
-        }
-        
-        function getDeviceName() { 
-            const ua = navigator.userAgent; 
-            if (ua.includes('iPhone')) return 'iPhone'; 
-            if (ua.includes('Android')) return 'Android'; 
-            if (ua.includes('Windows')) return 'Windows PC'; 
-            if (ua.includes('Mac')) return 'Mac'; 
-            return 'Thiết bị khác'; 
-        }
-
-        // Gọi API xác thực (theo đúng định dạng API của chị)
-        async function authenticate(licenseKey) {
-            const url = `${API_URL}?ma=${encodeURIComponent(licenseKey)}&deviceId=${encodeURIComponent(getDeviceId())}&deviceName=${encodeURIComponent(getDeviceName())}`;
-            try { 
-                const res = await fetch(url); 
-                return await res.json(); 
-            } catch(e) { 
-                console.error("Lỗi kết nối API:", e);
-                return { status: "error", message: "Không thể kết nối đến máy chủ" }; 
-            }
-        }
-        
-        async function getDevices(licenseKey) { 
-            try { 
-                const res = await fetch(`${API_URL}?action=getDevices&ma=${encodeURIComponent(licenseKey)}`); 
-                return await res.json(); 
-            } catch(e) { 
-                return { status: "error" }; 
-            } 
-        }
-        
-        async function logoutDevice(licenseKey, deviceId) { 
-            try { 
-                const res = await fetch(`${API_URL}?action=logout&ma=${encodeURIComponent(licenseKey)}&deviceId=${encodeURIComponent(deviceId)}`); 
-                return await res.json(); 
-            } catch(e) { 
-                return { status: "error" }; 
-            } 
-        }
-
-        function renderCourses(allowedIds) {
-            const grid = document.getElementById('coursesGrid');
-            if (!grid) return;
-            let filtered = ALL_COURSES.filter(c => allowedIds.includes(c.id));
-            if (filtered.length === 0) { 
-                grid.innerHTML = '<div class="loading-text">Bạn chưa được đăng ký bài học nào. Vui lòng liên hệ Sophia để được hỗ trợ.</div>'; 
-                return; 
-            }
-            grid.innerHTML = filtered.map(course => `
-                <div class="course-card">
-                    <div class="course-header"><div class="course-icon">${course.icon}</div><h3>${course.name}</h3></div>
-                    <div class="course-content">
-                        <p class="course-desc">${course.desc}</p>
-                        <div class="course-footer">
-                            <a href="${course.file}" class="btn-start">▶ Bắt đầu học</a>
-                        </div>
+                <div class="course-content">
+                    <p class="course-desc">${c.desc}</p>
+                    <div class="course-footer">
+                        <a href="${c.link}" class="btn-start">▶ Bắt đầu học</a>
                     </div>
                 </div>
-            `).join('');
-        }
-
-        async function unlockCourse(key) {
-            const loading = document.getElementById('loadingOverlay');
-            loading.style.display = 'flex';
-            const result = await authenticate(key);
-            loading.style.display = 'none';
-            
-            if (result.status === 'success') {
-                currentUser = result.user;
-                currentAllowedCourseIds = result.courses;
-                currentLicenseKey = key;
-                currentDeviceId = getDeviceId();
-                
-                localStorage.setItem('genz_license', key);
-                localStorage.setItem('genz_user', currentUser);
-                localStorage.setItem('genz_courses', JSON.stringify(currentAllowedCourseIds));
-                
-                document.getElementById('unlockScreen').style.display = 'none';
-                document.getElementById('mainContent').style.display = 'block';
-                document.getElementById('userNameDisplay').innerHTML = `<i class="fas fa-user-circle"></i> ${currentUser}`;
-                document.getElementById('manageDevicesBtn').style.display = 'inline-block';
-                renderCourses(currentAllowedCourseIds);
-            } else {
-                const err = document.getElementById('errorMsg');
-                err.innerText = result.message || "Mã khóa không hợp lệ!";
-                err.style.display = 'block';
-                setTimeout(() => err.style.display = 'none', 3000);
-            }
-        }
-
-        function logout() {
-            localStorage.removeItem('genz_license');
-            localStorage.removeItem('genz_user');
-            localStorage.removeItem('genz_courses');
-            localStorage.removeItem('genz_deviceId');
-            document.getElementById('unlockScreen').style.display = 'flex';
-            document.getElementById('mainContent').style.display = 'none';
-            document.getElementById('licenseKey').value = '';
-            document.getElementById('manageDevicesBtn').style.display = 'none';
-        }
-
-        async function checkExistingLicense() {
-            const saved = localStorage.getItem('genz_license');
-            if (saved) {
-                const loading = document.getElementById('loadingOverlay');
-                loading.style.display = 'flex';
-                const result = await authenticate(saved);
-                loading.style.display = 'none';
-                if (result.status === 'success') {
-                    currentUser = result.user;
-                    currentAllowedCourseIds = result.courses;
-                    currentLicenseKey = saved;
-                    currentDeviceId = getDeviceId();
-                    document.getElementById('unlockScreen').style.display = 'none';
-                    document.getElementById('mainContent').style.display = 'block';
-                    document.getElementById('userNameDisplay').innerHTML = `<i class="fas fa-user-circle"></i> ${currentUser}`;
-                    document.getElementById('manageDevicesBtn').style.display = 'inline-block';
-                    renderCourses(currentAllowedCourseIds);
-                } else {
-                    localStorage.removeItem('genz_license');
-                    localStorage.removeItem('genz_user');
-                    localStorage.removeItem('genz_courses');
-                    localStorage.removeItem('genz_deviceId');
-                }
-            }
-            document.getElementById('loadingOverlay').style.display = 'none';
-        }
-
-        async function showDeviceManager() {
-            if (!currentLicenseKey) return;
-            const loading = document.getElementById('loadingOverlay');
-            loading.style.display = 'flex';
-            const result = await getDevices(currentLicenseKey);
-            loading.style.display = 'none';
-            if (result.status === 'success') {
-                const devices = result.devices || [];
-                const modalBody = document.getElementById('deviceModalBody');
-                if (devices.length === 0) modalBody.innerHTML = '<p>Không có thiết bị nào đang đăng nhập.</p>';
-                else {
-                    modalBody.innerHTML = `<p>Hiện tại tài khoản của bạn đang đăng nhập trên ${devices.length} thiết bị:</p>
-                    <div class="device-list">${devices.map(d => `<div class="device-item"><div class="device-info"><div class="device-name">${escapeHtml(d.deviceName)} ${d.deviceId === currentDeviceId ? '<span class="current-badge">Thiết bị này</span>' : ''}</div><div class="device-time">Đăng nhập: ${new Date(d.lastActive).toLocaleString('vi-VN')}</div></div>${d.deviceId !== currentDeviceId ? `<button class="logout-device-btn" onclick="removeDevice('${d.deviceId}')">Đăng xuất</button>` : ''}</div>`).join('')}</div>
-                    <p style="margin-top:16px; font-size:0.8rem; color:var(--gray);">* Giới hạn tối đa 2 thiết bị cùng lúc</p>`;
-                }
-                document.getElementById('deviceModal').classList.add('active');
-            } else alert("Không thể tải danh sách thiết bị.");
-        }
-
-        async function removeDevice(deviceId) { 
-            if (!currentLicenseKey) return; 
-            const loading = document.getElementById('loadingOverlay'); 
-            loading.style.display = 'flex'; 
-            const result = await logoutDevice(currentLicenseKey, deviceId); 
-            loading.style.display = 'none'; 
-            if (result.status === 'success') { 
-                alert("Đã đăng xuất thiết bị thành công!"); 
-                showDeviceManager(); 
-            } else alert("Không thể đăng xuất thiết bị."); 
-        }
-        
-        function escapeHtml(str) { 
-            if (!str) return ''; 
-            return str.replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m])); 
-        }
-        
-        function closeDeviceModal() { 
-            document.getElementById('deviceModal').classList.remove('active'); 
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            checkExistingLicense();
-            document.getElementById('unlockBtn').addEventListener('click', () => unlockCourse(document.getElementById('licenseKey').value));
-            document.getElementById('licenseKey').addEventListener('keypress', e => { if (e.key === 'Enter') unlockCourse(e.target.value); });
-            document.getElementById('logoutBtn').addEventListener('click', logout);
-            document.getElementById('manageDevicesBtn').addEventListener('click', showDeviceManager);
-            document.getElementById('deviceModal').addEventListener('click', e => { if (e.target === document.getElementById('deviceModal')) closeDeviceModal(); });
-            window.removeDevice = removeDevice;
-            window.closeDeviceModal = closeDeviceModal;
-        });
-    </script>
+            </div>
+        `).join('');
+    }
+    renderCourses();
+</script>
 </body>
 </html>
