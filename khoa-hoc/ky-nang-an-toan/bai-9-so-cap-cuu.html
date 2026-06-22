@@ -3,75 +3,351 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Bài 9: Siêu năng lực cứu hộ - Sơ cấp cứu | Sophia Nguyễn</title>
+    <title>Bài 9: Siêu năng lực cứu hộ | Sophia Nguyễn</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --navy-dark: #0A1628;
+            --navy-mid: #1E3A5F;
+            --gold: #C9A84C;
+            --gold-light: #D4B85C;
+            --cream: #F5F0E8;
+            --white: #FFFFFF;
+            --gray: #4A5A6A;
+            --light-gray: #E8E4DC;
+        }
         body {
-            background: linear-gradient(135deg, #0a4a5a, #1a6b7a);
-            font-family: 'Segoe UI', 'Be Vietnam Pro', sans-serif;
+            background: linear-gradient(145deg, var(--cream) 0%, #EDE8E0 100%);
+            font-family: 'Inter', 'Be Vietnam Pro', sans-serif;
             padding: 20px;
             min-height: 100vh;
         }
-        .container { max-width: 1200px; margin: 0 auto; }
-        .header { background: white; border-radius: 32px; padding: 20px; margin-bottom: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .container { max-width: 1100px; margin: 0 auto; }
+        
+        .header { 
+            background: var(--white); 
+            border-radius: 32px; 
+            padding: 20px; 
+            margin-bottom: 20px; 
+            text-align: center; 
+            box-shadow: 0 10px 30px rgba(10,22,40,0.08);
+            border: 1px solid var(--light-gray);
+        }
         .logo { height: 60px; margin-bottom: 10px; }
-        .header h1 { color: #0a4a5a; font-size: 1.8rem; }
-        .video-section { background: white; border-radius: 32px; padding: 20px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 24px; overflow: hidden; }
-        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-        .exercise { background: white; border-radius: 32px; padding: 20px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .exercise-title { font-size: 1.5rem; color: #0a4a5a; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 3px solid #ff6b6b; display: inline-block; }
-        .back-btn { display: inline-block; background: #ffd700; color: #0a4a5a; padding: 12px 24px; border-radius: 40px; text-decoration: none; font-weight: bold; margin-top: 20px; transition: all 0.2s; }
-        .back-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
-        .footer { text-align: center; color: white; padding: 20px; font-size: 0.8rem; }
+        .logo img { height: 60px; }
+        .header h1 { 
+            font-family: 'Playfair Display', serif;
+            color: var(--navy-dark); 
+            font-size: 1.8rem; 
+        }
+        .header h1 span { color: var(--gold); }
+        .course-badge {
+            display: inline-block;
+            background: rgba(201,168,76,0.2);
+            color: var(--gold);
+            padding: 4px 16px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
         
-        .shake-screen { animation: shake 0.3s ease-in-out 0s 2; }
-        @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } 100% { transform: translateX(0); } }
+        .video-section { 
+            background: var(--white); 
+            border-radius: 32px; 
+            padding: 20px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 10px 30px rgba(10,22,40,0.08);
+            border: 1px solid var(--light-gray);
+        }
+        .video-wrapper { 
+            position: relative; 
+            padding-bottom: 56.25%; 
+            height: 0; 
+            border-radius: 24px; 
+            overflow: hidden; 
+        }
+        .video-wrapper iframe { 
+            position: absolute; 
+            top: 0; left: 0; 
+            width: 100%; height: 100%; 
+            border: none; 
+        }
+        .video-label {
+            background: var(--cream);
+            padding: 12px 20px;
+            font-weight: 600;
+            color: var(--navy-dark);
+            font-size: 1rem;
+            text-align: center;
+            border-top: 2px solid var(--gold);
+            border-radius: 0 0 32px 32px;
+        }
         
-        #confetti-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; }
+        .exercise { 
+            background: var(--white); 
+            border-radius: 32px; 
+            padding: 24px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 10px 30px rgba(10,22,40,0.08);
+            border: 1px solid var(--light-gray);
+        }
+        .ex-title { 
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem; 
+            color: var(--navy-dark); 
+            margin-bottom: 8px; 
+            padding-bottom: 8px; 
+            border-bottom: 3px solid var(--gold); 
+            display: inline-block; 
+        }
+        .ex-desc {
+            color: var(--gray);
+            margin: 12px 0 20px;
+            font-size: 0.95rem;
+        }
+        
+        .seq-item {
+            background: var(--cream);
+            border: 1px solid var(--light-gray);
+            border-radius: 60px;
+            padding: 14px 20px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: move;
+            transition: 0.2s;
+        }
+        .seq-item:hover { border-color: var(--gold); }
+        .seq-item.dragging { opacity: 0.4; }
+        .seq-number {
+            width: 36px;
+            height: 36px;
+            background: var(--gold);
+            color: var(--navy-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+        .seq-text { flex: 1; color: var(--navy-dark); font-weight: 500; }
+        .seq-drag-icon { color: var(--light-gray); font-size: 20px; }
+        
+        .wound-item {
+            background: var(--cream);
+            border-radius: 20px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border: 1px solid var(--light-gray);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .wound-item .emoji { font-size: 32px; }
+        .wound-item .text { font-weight: 600; flex: 1; font-size: 0.9rem; }
+        
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 8px 0;
+            padding: 8px 16px;
+            background: var(--white);
+            border-radius: 60px;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid var(--light-gray);
+        }
+        .option:hover { border-color: var(--gold); background: var(--cream); }
+        input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--gold);
+            cursor: pointer;
+        }
+        
+        .check-btn {
+            background: var(--gold);
+            color: var(--navy-dark);
+            border: none;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 12px 28px;
+            border-radius: 60px;
+            cursor: pointer;
+            margin-top: 16px;
+            width: 100%;
+            transition: 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .check-btn:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+        }
+        .result-area {
+            margin-top: 16px;
+            border-radius: 20px;
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1rem;
+            display: none;
+        }
+        .result-area.correct {
+            background: #E8F5E9;
+            color: #2E7D32;
+            display: block;
+        }
+        .result-area.wrong {
+            background: #FFF3E0;
+            color: #E65100;
+            display: block;
+        }
+        
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .chapter-nav a {
+            background: var(--navy-dark);
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .chapter-nav a:hover {
+            background: var(--gold);
+            color: var(--navy-dark);
+            transform: translateY(-2px);
+        }
+        
+        .question-item {
+            background: var(--cream);
+            border-radius: 20px;
+            padding: 16px 20px;
+            margin-bottom: 16px;
+            border: 1px solid var(--light-gray);
+        }
+        .question-text {
+            font-weight: 700;
+            color: var(--navy-dark);
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+        
+        .phone-display {
+            background: #1E1E1E;
+            border-radius: 40px;
+            padding: 20px;
+            color: white;
+            margin-bottom: 16px;
+        }
+        .phone-display .screen {
+            background: #2A2A2A;
+            border-radius: 28px;
+            padding: 20px;
+            text-align: center;
+        }
+        .phone-display .number { font-size: 2rem; font-weight: 700; letter-spacing: 4px; color: #FFD700; }
+        .phone-display .hint { font-size: 0.85rem; color: #aaa; margin-top: 4px; }
+        
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        .key-btn {
+            background: #333;
+            border: none;
+            border-radius: 60px;
+            padding: 16px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .key-btn:hover { background: #444; }
+        .key-btn.ops { background: #FF6B6B; font-size: 1rem; }
+        .key-btn.ops:hover { background: #E55A5A; }
+        .key-btn.call { background: #4CAF50; grid-column: span 3; font-size: 1.2rem; }
+        .key-btn.call:hover { background: #45A049; }
         
         .heart-beat { animation: heartPulse 0.3s ease-in-out; }
         @keyframes heartPulse { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+        
+        @media (max-width: 768px) { 
+            .header h1 { font-size: 1.4rem; }
+            .wound-item { flex-direction: column; text-align: center; }
+            .seq-item { flex-wrap: wrap; }
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="header">
-        <img src="https://sophianguyen.com.vn/images/hinhremovenen.png" alt="Sophia Nguyễn" class="logo">
-        <h1>🦸 Bài 9: Siêu năng lực cứu hộ (Sơ cấp cứu)</h1>
+        <img src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Sophia Nguyễn" class="logo">
+        <div class="course-badge">🛡️ Bài 9 - Biệt đội bảo vệ</div>
+        <h1>🦸 Siêu năng lực <span>cứu hộ</span></h1>
     </div>
 
     <div class="video-section">
         <div class="video-wrapper">
             <iframe src="https://www.youtube.com/embed/vt3YQf_XvHw" frameborder="0" allowfullscreen></iframe>
         </div>
+        <div class="video-label">
+            🎬 Bài học: Siêu năng lực cứu hộ – Sơ cấp cứu cơ bản!
+        </div>
     </div>
 
     <div class="exercise">
-        <h2 class="exercise-title">🦸 Bài tập 1: Cứu bạn bị hóc - Sắp xếp đúng thứ tự</h2>
-        <div id="exercise1"></div>
+        <div class="ex-title">🦸 Bài tập 1: Cứu bạn bị hóc - Sắp xếp đúng thứ tự</div>
+        <div class="ex-desc">📋 Kéo thả để sắp xếp các bước cứu người bị hóc theo đúng trình tự.</div>
+        <div id="seqArea"></div>
+        <button class="check-btn" id="checkSeqBtn">✅ Kiểm tra bài tập 1</button>
+        <div id="seqResult" class="result-area"></div>
     </div>
 
     <div class="exercise">
-        <h2 class="exercise-title">🩺 Bài tập 2: Sơ cứu vết thương & Nhấn tim</h2>
-        <div id="exercise2"></div>
+        <div class="ex-title">🩺 Bài tập 2: Sơ cứu vết thương & Nhấn tim</div>
+        <div class="ex-desc">🩸 Chọn ĐÚNG/SAI cho các cách sơ cứu.</div>
+        <div id="woundArea"></div>
+        <button class="check-btn" id="checkWoundBtn">✅ Kiểm tra bài tập 2</button>
+        <div id="woundResult" class="result-area"></div>
     </div>
 
     <div class="exercise">
-        <h2 class="exercise-title">📞 Bài tập 3: Gọi biệt đội cứu hộ 115</h2>
-        <div id="exercise3"></div>
+        <div class="ex-title">📞 Bài tập 3: Gọi biệt đội cứu hộ 115</div>
+        <div class="ex-desc">📢 Nhập số đúng để gọi cấp cứu.</div>
+        <div id="phoneArea"></div>
+        <button class="check-btn" id="checkPhoneBtn">✅ Kiểm tra bài tập 3</button>
+        <div id="phoneResult" class="result-area"></div>
     </div>
 
-    <a href="https://sophianguyen.com.vn/khoa-hoc/ky-nang-an-toan/" class="back-btn">← Quay lại danh sách bài học</a>
-    <div class="footer">
-        <p>🐿️ Hiệp sĩ Sóc đồng hành cùng con - © 2025 Sophia Nguyễn</p>
+    <div class="chapter-nav">
+        <a href="index.html">📚 Danh sách bài học</a>
+        <a href="#" style="opacity:0.5; cursor:default;">🏁 Đã hoàn thành khóa</a>
     </div>
 </div>
 <canvas id="confetti-canvas"></canvas>
 
 <script>
-    // ==================== HIỆU ỨNG CONFETTI & ÂM THANH ====================
+    // ==================== CONFETTI & ÂM THANH ====================
     let ctx = null, width = window.innerWidth, height = window.innerHeight, particles = [], animationId = null;
     function resizeCanvas() { width = window.innerWidth; height = window.innerHeight; const canvas = document.getElementById('confetti-canvas'); if(canvas){ canvas.width = width; canvas.height = height; ctx = canvas.getContext('2d'); } }
     function createConfetti(duration = 1800) {
@@ -108,320 +384,288 @@
     }
     window.addEventListener('resize', () => { resizeCanvas(); if(particles.length) drawConfetti(); });
     
-    function playClickSound() {
+    function playSound(type) {
         try {
             const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
             osc.connect(gain);
             gain.connect(audioCtx.destination);
-            osc.frequency.value = 880;
-            gain.gain.value = 0.08;
-            osc.type = 'sine';
-            osc.start();
-            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.08);
-            osc.stop(audioCtx.currentTime + 0.08);
-        } catch(e) {}
-    }
-    
-    function playSuccessSound() {
-        try {
-            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            const frequencies = [880, 1046.5, 1318.5];
-            frequencies.forEach((freq, idx) => {
-                setTimeout(() => {
-                    const osc = audioCtx.createOscillator();
-                    const gain = audioCtx.createGain();
-                    osc.connect(gain);
-                    gain.connect(audioCtx.destination);
-                    osc.frequency.value = freq;
-                    gain.gain.value = 0.2;
-                    osc.type = 'sine';
-                    osc.start();
-                    gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
-                    osc.stop(audioCtx.currentTime + 0.3);
-                }, idx * 120);
-            });
-        } catch(e) {}
-        createConfetti(800);
-    }
-    
-    function playCompleteSound() {
-        try {
-            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            const gain = audioCtx.createGain();
-            gain.connect(audioCtx.destination);
-            gain.gain.value = 0.3;
-            const bufferSize = 4096;
-            const noise = audioCtx.createBufferSource();
-            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-            const data = buffer.getChannelData(0);
-            for(let i=0; i<bufferSize; i++) data[i] = Math.random() * 2 - 1;
-            noise.buffer = buffer;
-            noise.loop = true;
-            noise.connect(gain);
-            noise.start();
-            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 1.2);
-            noise.stop(audioCtx.currentTime + 1.2);
-            setTimeout(() => {
-                const osc = audioCtx.createOscillator();
-                const gain2 = audioCtx.createGain();
-                osc.connect(gain2);
-                gain2.connect(audioCtx.destination);
-                osc.frequency.value = 1046.5;
-                gain2.gain.value = 0.3;
+            if (type === 'correct') {
+                osc.frequency.value = 880;
+                gain.gain.value = 0.2;
                 osc.type = 'sine';
                 osc.start();
-                gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.5);
-                osc.stop(audioCtx.currentTime + 0.5);
-            }, 1000);
-        } catch(e) {}
-        createConfetti(2500);
-    }
-    
-    function playErrorSound() {
-        try {
-            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.frequency.value = 220;
-            gain.gain.value = 0.25;
-            osc.type = 'sawtooth';
-            osc.start();
-            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.4);
-            osc.stop(audioCtx.currentTime + 0.4);
-            setTimeout(() => {
-                const osc2 = audioCtx.createOscillator();
-                const gain2 = audioCtx.createGain();
-                osc2.connect(gain2);
-                gain2.connect(audioCtx.destination);
-                osc2.frequency.value = 164.81;
-                gain2.gain.value = 0.2;
-                osc2.type = 'sawtooth';
-                osc2.start();
-                gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
-                osc2.stop(audioCtx.currentTime + 0.3);
-            }, 150);
-        } catch(e) {}
-        document.body.classList.add('shake-screen');
-        setTimeout(() => document.body.classList.remove('shake-screen'), 500);
-    }
-    
-    function playBeepSound() {
-        try {
-            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.frequency.value = 1000;
-            gain.gain.value = 0.15;
-            osc.type = 'sine';
-            osc.start();
-            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.1);
-            osc.stop(audioCtx.currentTime + 0.1);
-        } catch(e) {}
-    }
-    
-    function playPhoneRingSound() {
-        try {
-            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            for(let i=0; i<3; i++) {
+                gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                osc.stop(audioCtx.currentTime + 0.3);
                 setTimeout(() => {
-                    const osc = audioCtx.createOscillator();
-                    const gain = audioCtx.createGain();
-                    osc.connect(gain);
-                    gain.connect(audioCtx.destination);
-                    osc.frequency.value = 880;
-                    gain.gain.value = 0.2;
-                    osc.type = 'sine';
-                    osc.start();
-                    gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.2);
-                    osc.stop(audioCtx.currentTime + 0.2);
-                }, i * 300);
+                    const osc2 = audioCtx.createOscillator();
+                    const gain2 = audioCtx.createGain();
+                    osc2.connect(gain2);
+                    gain2.connect(audioCtx.destination);
+                    osc2.frequency.value = 1100;
+                    gain2.gain.value = 0.2;
+                    osc2.type = 'sine';
+                    osc2.start();
+                    gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                    osc2.stop(audioCtx.currentTime + 0.3);
+                }, 100);
+            } else if (type === 'wrong') {
+                osc.frequency.value = 440;
+                gain.gain.value = 0.2;
+                osc.type = 'sawtooth';
+                osc.start();
+                gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                osc.stop(audioCtx.currentTime + 0.3);
+            } else {
+                osc.frequency.value = 660;
+                gain.gain.value = 0.1;
+                osc.type = 'sine';
+                osc.start();
+                gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.05);
+                osc.stop(audioCtx.currentTime + 0.05);
             }
         } catch(e) {}
     }
 
-    // ==================== BÀI TẬP 1: SẮP XẾP THỨ TỰ CỨU HÓC (CÓ ÂM THANH) ====================
-    (function() {
-        const selfSteps = [
-            { id: 0, icon: "🪑🔍", title: "Tìm điểm tựa", desc: "Tìm cạnh ghế gỗ hoặc cạnh bàn chắc chắn ngang tầm bụng" },
-            { id: 1, icon: "🧒⬇️🪑", title: "Tì bụng vào cạnh ghế", desc: "Hơi cúi người, tì phần trên rốn vào cạnh ghế" },
-            { id: 2, icon: "💪⬆️💨", title: "Thúc mạnh", desc: "Dùng lực thúc bụng vào cạnh ghế từ dưới lên, lặp lại đến khi vật lạ văng ra" }
-        ];
-        const otherSteps = [
-            { id: 0, icon: "🧍‍♀️🧍", title: "Đứng sau lưng", desc: "Đứng phía sau người bị hóc, vòng tay qua bụng họ" },
-            { id: 1, icon: "✊🎯", title: "Nắm đấm trên rốn", desc: "Một tay nắm đấm đặt vào bụng trên rốn, tay kia ôm lấy nắm đấm" },
-            { id: 2, icon: "💪🔄💨", title: "Kéo mạnh", desc: "Kéo mạnh vào trong và lên trên theo hình chữ J, lặp lại" }
-        ];
-        let currentMode = "self", selectedStepId = null, userSequence = [null, null, null], gameLocked1 = false;
+    // ========== BÀI TẬP 1: SẮP XẾP THỨ TỰ CỨU HÓC ==========
+    const seqSteps = [
+        { id: 0, text: "🔍 Tìm điểm tựa - cạnh ghế gỗ hoặc cạnh bàn chắc chắn ngang tầm bụng", order: 1 },
+        { id: 1, text: "💪 Tì bụng vào cạnh ghế, hơi cúi người", order: 2 },
+        { id: 2, text: "⬆️ Thúc mạnh bụng vào cạnh ghế từ dưới lên, lặp lại đến khi vật lạ văng ra", order: 3 }
+    ];
+    let userSeq = [0, 1, 2];
+    let seqDragIdx = null;
 
-        function renderExercise1() {
-            const container = document.getElementById('exercise1');
-            const steps = currentMode === "self" ? selfSteps : otherSteps;
-            let html = `<div style="background:#FFF0F0; border-radius:48px; padding:15px; text-align:center; margin-bottom:20px;">📢 DẤU HIỆU HÓC: "Đang ăn bỗng im bặt, mặt đỏ, tay ôm cổ"</div>
-            <div style="background:#FFF5EA; border-radius:48px; padding:20px; margin-bottom:20px; text-align:center; border:2px solid #FFD1A4;"><div style="font-size:60px;">${currentMode === "self" ? "😳🍇" : "😳🍬"}</div><div style="font-size:18px; font-weight:bold;">${currentMode === "self" ? "🧒 Bạn nhỏ đang ăn nho thì bị hóc! Không nói được, không ho được!" : "🧒 Bạn nhỏ đang ăn kẹo thì bị hóc! Mặt đỏ bừng, tay ôm cổ!"}</div></div>
-            <div style="display:flex; gap:15px; justify-content:center; margin-bottom:20px;"><button class="mode-btn" data-mode="self" style="background:#FFB347; border:none; padding:12px 24px; border-radius:40px; font-weight:bold; cursor:pointer; ${currentMode==='self'?'background:#4CAF50; color:white;':''}" ${gameLocked1 ? 'disabled' : ''}>🦸 TỰ CỨU (Bị hóc)</button><button class="mode-btn" data-mode="other" style="background:#FFB347; border:none; padding:12px 24px; border-radius:40px; font-weight:bold; cursor:pointer; ${currentMode==='other'?'background:#4CAF50; color:white;':''}" ${gameLocked1 ? 'disabled' : ''}>🦸 CỨU NGƯỜI KHÁC</button></div>
-            <div style="background:#F1F8E9; border-radius:48px; padding:20px; margin-bottom:20px; border:2px solid #8BC34A;"><div style="font-size:18px; font-weight:bold; text-align:center;">📋 THỨ TỰ CÁC BƯỚC CỨU HỘ</div><div style="display:flex; flex-wrap:wrap; gap:15px; justify-content:center; margin-top:15px;" id="slots1"></div><div style="font-size:13px; text-align:center; margin-top:10px;">💡 Click vào bước bên dưới → rồi click vào ô trống để xếp đúng thứ tự!</div></div>
-            <div style="display:flex; flex-wrap:wrap; gap:20px; justify-content:center; margin-bottom:20px;" id="stepsArea1"></div>
-            <button id="submitBtn1" style="background:#4CAF50; border:none; color:white; font-size:20px; font-weight:bold; padding:14px; border-radius:60px; cursor:pointer; width:100%; margin:10px 0;" ${gameLocked1 ? 'disabled' : ''}>🔍 KIỂM TRA THỨ TỰ</button>
-            <div id="feedback1" style="background:#F1F8E9; border-radius:40px; padding:15px; margin-top:15px; text-align:center;">💡 Hãy xếp 3 bước vào các ô theo đúng thứ tự 1 → 2 → 3 nhé!</div>`;
-            container.innerHTML = html;
-
-            const slotsDiv = document.getElementById('slots1');
-            for (let i=0; i<3; i++) {
-                const step = userSequence[i] !== null ? steps.find(s=>s.id===userSequence[i]) : null;
-                const slot = document.createElement('div');
-                slot.style.cssText = 'background:white; border:3px dashed #8BC34A; border-radius:32px; padding:15px; width:260px; min-height:140px; text-align:center; cursor:pointer;';
-                slot.innerHTML = `<div style="font-size:20px; font-weight:bold; color:#8BC34A;">Bước ${i+1}</div><div class="slot-content">${step ? `<span style="font-size:40px;">${step.icon}</span><div><strong>${step.title}</strong></div><div style="font-size:12px;">${step.desc}</div>` : '⬅️ Click vào bước bên dưới, rồi click vào đây'}</div>`;
-                if (!gameLocked1) slot.onclick = () => { if(selectedStepId !== null && userSequence[i] === null){ userSequence[i]=selectedStepId; selectedStepId=null; playClickSound(); renderExercise1(); } };
-                slotsDiv.appendChild(slot);
-            }
-
-            const usedIds = userSequence.filter(s=>s!==null);
-            const available = steps.filter(s=>!usedIds.includes(s.id));
-            const stepsArea = document.getElementById('stepsArea1');
-            available.forEach(step => {
-                const card = document.createElement('div');
-                card.style.cssText = `background:white; border-radius:32px; padding:20px; width:280px; text-align:center; cursor:pointer; border:3px solid ${selectedStepId===step.id ? '#FFB347' : '#FFDEC4'};`;
-                card.innerHTML = `<div style="font-size:50px;">${step.icon}</div><div style="font-size:18px; font-weight:bold;">${step.title}</div><div style="font-size:14px;">${step.desc}</div>`;
-                if(!gameLocked1) card.onclick = () => { playClickSound(); selectedStepId = selectedStepId===step.id ? null : step.id; renderExercise1(); };
-                stepsArea.appendChild(card);
-            });
-
-            document.querySelectorAll('.mode-btn').forEach(btn => { btn.onclick = () => { if(!gameLocked1){ playClickSound(); currentMode=btn.getAttribute('data-mode'); userSequence=[null,null,null]; selectedStepId=null; renderExercise1(); } }; });
-            document.getElementById('submitBtn1')?.addEventListener('click', () => {
-                if(userSequence.includes(null)){ playErrorSound(); document.getElementById('feedback1').innerHTML='⚠️ Hãy xếp đủ 3 bước vào các ô trống trước khi kiểm tra!'; return; }
-                const correct = [0,1,2]; let ok=true; for(let i=0;i<3;i++) if(userSequence[i]!==correct[i]) ok=false;
-                gameLocked1=true;
-                if(ok){ 
-                    document.getElementById('feedback1').innerHTML='🎉 TUYỆT VỜI! Con đã sắp xếp đúng thứ tự! 🎉'; 
-                    document.getElementById('feedback1').style.background='#E8F5E9';
-                    playCompleteSound();
-                } else { 
-                    document.getElementById('feedback1').innerHTML='❌ Chưa đúng thứ tự! Hãy xem lại quy trình!'; 
-                    document.getElementById('feedback1').style.background='#FFEBEE';
-                    playErrorSound();
-                }
-                const resetBtn=document.createElement('button'); resetBtn.className='reset-btn'; resetBtn.innerHTML='🔄 LÀM LẠI'; resetBtn.style.cssText='background:#FFB347; border:none; padding:12px 28px; border-radius:40px; cursor:pointer; margin-top:15px; width:100%;'; resetBtn.onclick=()=>{ playClickSound(); userSequence=[null,null,null]; selectedStepId=null; gameLocked1=false; renderExercise1(); }; document.getElementById('exercise1').appendChild(resetBtn);
-            });
+    function shuffleSeq(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
         }
-        renderExercise1();
-    })();
+        return arr;
+    }
+    // Shuffle ban đầu
+    userSeq = shuffleSeq([0, 1, 2]);
 
-    // ==================== BÀI TẬP 2: SƠ CỨU VẾT THƯƠNG & NHẤN TIM (CÓ ÂM THANH) ====================
-    (function() {
-        let woundAnswers = { kemDanhRang: null, nguaMat: null, khuanSach: null };
-        let cprCount = 0, cprRound = 1, patientAwake = false, isPressing = false;
-
-        function renderExercise2() {
-            const container = document.getElementById('exercise2');
-            let html = `<div style="background:#FFF5EA; border-radius:48px; padding:20px; margin-bottom:20px; border:2px solid #FFD1A4;"><div style="font-size:24px; font-weight:bold; margin-bottom:15px;">🩸 CẦM MÁU VẾT THƯƠNG</div>
-            <div style="display:flex; flex-wrap:wrap; gap:20px; justify-content:space-between;">
-                <div style="flex:1; background:white; border-radius:32px; padding:15px; text-align:center;"><div style="font-size:50px;">🪥🩸</div><div>Bôi kem đánh răng vào vết thương?</div><div style="display:flex; gap:10px; justify-content:center; margin-top:10px;"><button class="wound-btn" data-wound="kemDanhRang" data-choice="sai" style="background:#4CAF50; border:none; padding:8px 16px; border-radius:40px; color:white; cursor:pointer;">SAI</button><button class="wound-btn" data-wound="kemDanhRang" data-choice="dung" style="background:#FF6B6B; border:none; padding:8px 16px; border-radius:40px; color:white; cursor:pointer;">ĐÚNG</button></div><div id="fb-kemDanhRang" style="margin-top:10px; font-size:13px;">${woundAnswers.kemDanhRang === null ? '👉 Hãy chọn!' : (woundAnswers.kemDanhRang === 'sai' ? '✅ Đúng!' : '❌ Sai!')}</div></div>
-                <div style="flex:1; background:white; border-radius:32px; padding:15px; text-align:center;"><div style="font-size:50px;">🩸👃</div><div>Chảy máu cam thì ngửa mặt lên?</div><div style="display:flex; gap:10px; justify-content:center; margin-top:10px;"><button class="wound-btn" data-wound="nguaMat" data-choice="sai" style="background:#4CAF50; border:none; padding:8px 16px; border-radius:40px; color:white; cursor:pointer;">SAI</button><button class="wound-btn" data-wound="nguaMat" data-choice="dung" style="background:#FF6B6B; border:none; padding:8px 16px; border-radius:40px; color:white; cursor:pointer;">ĐÚNG</button></div><div id="fb-nguaMat" style="margin-top:10px; font-size:13px;">${woundAnswers.nguaMat === null ? '👉 Hãy chọn!' : (woundAnswers.nguaMat === 'sai' ? '✅ Đúng!' : '❌ Sai!')}</div></div>
-                <div style="flex:1; background:white; border-radius:32px; padding:15px; text-align:center;"><div style="font-size:50px;">🧻🩸</div><div>Dùng khăn sạch ấn chặt vào vết thương?</div><div style="display:flex; gap:10px; justify-content:center; margin-top:10px;"><button class="wound-btn" data-wound="khuanSach" data-choice="dung" style="background:#4CAF50; border:none; padding:8px 16px; border-radius:40px; color:white; cursor:pointer;">ĐÚNG</button><button class="wound-btn" data-wound="khuanSach" data-choice="sai" style="background:#FF6B6B; border:none; padding:8px 16px; border-radius:40px; color:white; cursor:pointer;">SAI</button></div><div id="fb-khuanSach" style="margin-top:10px; font-size:13px;">${woundAnswers.khuanSach === null ? '👉 Hãy chọn!' : (woundAnswers.khuanSach === 'dung' ? '✅ Đúng!' : '❌ Sai!')}</div></div>
-            </div></div>
-            <div style="background:#FFF5EA; border-radius:48px; padding:20px; border:2px solid #FFD1A4;"><div style="font-size:24px; font-weight:bold; margin-bottom:15px;">❤️ NHẤN TIM – "ĐÁNH THỨC TRÁI TIM"</div>
-            <div style="text-align:center;"><div style="background:#FDD7A4; border-radius:60px; padding:20px; display:inline-block; width:200px;"><div style="font-size:80px;" id="heartIcon">${patientAwake ? '😊💓' : '😴🫀'}</div><div style="font-size:18px; font-weight:bold;">${patientAwake ? 'NẠN NHÂN ĐÃ TỈNH! 🎉' : 'NẠN NHÂN BẤT TỈNH'}</div></div>
-            <div style="margin:20px 0;"><button id="cprBtn" class="cpr-btn" style="background:#FF6B6B; border:none; color:white; font-size:24px; font-weight:bold; padding:15px 30px; border-radius:60px; cursor:pointer;" ${patientAwake ? 'disabled' : ''}>💪 NHẤN TIM (30 nhịp)</button><div style="font-size:36px; font-weight:bold; margin:10px 0;">Nhịp đã nhấn: ${cprCount}/30 (Vòng ${cprRound})</div><div style="background:#FFF0E8; border-radius:40px; padding:10px;">🎵 NHỊP "BABY SHARK" – Nhấn theo nhịp: du-du-du-du-du 🎵</div>${!patientAwake && cprCount>0 ? '<button id="resetCprBtn" style="background:#FFB347; border:none; padding:10px 20px; border-radius:40px; cursor:pointer; margin-top:10px;">🔄 LÀM LẠI NHẤN TIM</button>' : ''}</div></div></div>`;
-            container.innerHTML = html;
-            
-            document.querySelectorAll('.wound-btn').forEach(btn => { 
-                btn.onclick = () => { 
-                    playClickSound();
-                    const w=btn.getAttribute('data-wound'); 
-                    const c=btn.getAttribute('data-choice'); 
-                    let ok=false; 
-                    if(w==='kemDanhRang') ok=(c==='sai'); 
-                    else if(w==='nguaMat') ok=(c==='sai'); 
-                    else if(w==='khuanSach') ok=(c==='dung'); 
-                    woundAnswers[w]=c;
-                    if(ok) playSuccessSound();
-                    else playErrorSound();
-                    renderExercise2(); 
-                }; 
-            });
-            
-            const cprBtn = document.getElementById('cprBtn');
-            if(cprBtn && !patientAwake) cprBtn.onclick = () => { 
-                if(isPressing) return; 
-                isPressing=true; 
-                cprCount=0; 
-                let interval = setInterval(() => { 
-                    if(cprCount<30){ 
-                        cprCount++; 
-                        playBeepSound();
-                        const heartIcon = document.getElementById('heartIcon');
-                        if(heartIcon) {
-                            heartIcon.classList.add('heart-beat');
-                            setTimeout(() => heartIcon.classList.remove('heart-beat'), 300);
-                        }
-                        renderExercise2(); 
-                    } else { 
-                        clearInterval(interval); 
-                        if(cprRound===1){ 
-                            cprRound=2; 
-                            cprCount=0; 
-                            renderExercise2(); 
-                        } else if(cprRound===2){ 
-                            patientAwake=true; 
-                            playCompleteSound();
-                            renderExercise2(); 
-                        } 
-                        isPressing=false; 
-                    } 
-                }, 100); 
+    function renderSeq() {
+        const container = document.getElementById('seqArea');
+        container.innerHTML = '';
+        userSeq.forEach((id, idx) => {
+            const step = seqSteps.find(s => s.id === id);
+            const row = document.createElement('div');
+            row.className = 'seq-item';
+            row.draggable = true;
+            row.dataset.index = idx;
+            row.innerHTML = `
+                <div class="seq-number">${idx + 1}</div>
+                <div class="seq-text">${step.text}</div>
+                <div class="seq-drag-icon">⋮⋮</div>
+            `;
+            row.ondragstart = (e) => {
+                seqDragIdx = idx;
+                e.dataTransfer.effectAllowed = 'move';
+                row.classList.add('dragging');
             };
-            
-            const resetCpr = document.getElementById('resetCprBtn');
-            if(resetCpr) resetCpr.onclick = () => { playClickSound(); cprCount=0; cprRound=1; patientAwake=false; renderExercise2(); };
-        }
-        renderExercise2();
-    })();
+            row.ondragend = (e) => {
+                row.classList.remove('dragging');
+                seqDragIdx = null;
+            };
+            row.ondragover = (e) => {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+            };
+            row.ondrop = (e) => {
+                e.preventDefault();
+                if (seqDragIdx !== null && seqDragIdx !== idx) {
+                    const newSeq = [...userSeq];
+                    const dragged = newSeq[seqDragIdx];
+                    newSeq.splice(seqDragIdx, 1);
+                    newSeq.splice(idx, 0, dragged);
+                    userSeq = newSeq;
+                    renderSeq();
+                    playSound('click');
+                }
+            };
+            container.appendChild(row);
+        });
+    }
 
-    // ==================== BÀI TẬP 3: GỌI BIỆT ĐỘI CỨU HỘ 115 (CÓ ÂM THANH) ====================
-    (function() {
-        let step3 = 1, userName = "", userAddress = "", userSituation = "";
-
-        function renderExercise3() {
-            const container = document.getElementById('exercise3');
-            let html = `<div style="background:#1E1E1E; border-radius:48px; overflow:hidden; color:white;">
-                <div style="background:#0A3D2C; padding:20px; text-align:center;"><div style="font-size:60px; background:white; width:90px; height:90px; border-radius:60px; display:flex; align-items:center; justify-content:center; margin:0 auto 10px;">📞</div><div style="font-size:24px; font-weight:bold;">115</div><div style="font-size:14px;">Đang gọi...</div></div>`;
-            if(step3===1){
-                html += `<div style="background:#2A2A2A; margin:15px; padding:20px; border-radius:28px; text-align:center;"><div style="font-size:40px;">🧒</div><div style="font-size:18px; font-weight:bold;">Chú 115 hỏi: "Cháu tên là gì?"</div><input type="text" id="nameInput" placeholder="Nhập tên của cháu..." style="width:100%; padding:14px; border-radius:40px; border:none; margin:15px 0; text-align:center;"><button id="nextBtn3" style="background:#FF8C42; border:none; padding:14px; border-radius:40px; color:white; font-size:18px; cursor:pointer; width:100%;">➡️ TIẾP THEO</button></div><div style="margin:0 20px 20px; padding:12px; background:#2A2A2A; border-radius:30px; text-align:center;">💡 Hãy nói tên của con cho chú 115 biết nhé!</div>`;
-            } else if(step3===2){
-                html += `<div style="background:#2A2A2A; margin:15px; padding:20px; border-radius:28px; text-align:center;"><div style="font-size:40px;">🏠</div><div style="font-size:18px; font-weight:bold;">Chú 115 hỏi: "Cháu đang ở đâu?"</div><input type="text" id="addressInput" placeholder="Ví dụ: Số nhà 20, đường Lê Lợi..." style="width:100%; padding:14px; border-radius:40px; border:none; margin:15px 0; text-align:center;"><button id="nextBtn3" style="background:#FF8C42; border:none; padding:14px; border-radius:40px; color:white; font-size:18px; cursor:pointer; width:100%;">➡️ TIẾP THEO</button></div><div style="margin:0 20px 20px; padding:12px; background:#2A2A2A; border-radius:30px; text-align:center;">💡 Hãy nói địa chỉ nhà con thật chính xác!</div>`;
-            } else if(step3===3){
-                html += `<div style="background:#2A2A2A; margin:15px; padding:20px; border-radius:28px; text-align:center;"><div style="font-size:40px;">🚨</div><div style="font-size:18px; font-weight:bold;">Chú 115 hỏi: "Có chuyện gì đang xảy ra?"</div><select id="situationSelect" style="width:100%; padding:14px; border-radius:40px; margin:15px 0;"><option value="">-- Chọn tình huống --</option><option value="Bố con bị ngất">Bố con bị ngất</option><option value="Mẹ con bị ngã chảy máu">Mẹ con bị ngã chảy máu</option><option value="Em con bị hóc nghẹn">Em con bị hóc nghẹn</option><option value="Có người bị tai nạn">Có người bị tai nạn</option></select><button id="nextBtn3" style="background:#FF8C42; border:none; padding:14px; border-radius:40px; color:white; font-size:18px; cursor:pointer; width:100%;">➡️ TIẾP THEO</button></div><div style="margin:0 20px 20px; padding:12px; background:#2A2A2A; border-radius:30px; text-align:center;">💡 Hãy kể rõ sự việc để được giúp đỡ nhanh nhất!</div>`;
-            } else if(step3===4){
-                html += `<div style="background:#2A2A2A; margin:15px; padding:20px; border-radius:28px; text-align:center;"><div style="font-size:40px;">📞✅</div><div style="font-size:18px; font-weight:bold;">Xác nhận thông tin:</div><div style="background:#3A3A3A; border-radius:30px; padding:15px; text-align:left; margin-bottom:15px;"><div>🧒 Tên: <strong>${userName}</strong></div><div>🏠 Địa chỉ: <strong>${userAddress}</strong></div><div>🚨 Sự việc: <strong>${userSituation}</strong></div></div><button id="callBtn3" style="background:#4CAF50; border:none; padding:14px; border-radius:40px; color:white; font-size:18px; cursor:pointer; width:100%;">📞 GỌI CẤP CỨU 115</button></div><div style="margin:0 20px 20px; padding:12px; background:#2A2A2A; border-radius:30px; text-align:center;">💡 Kiểm tra lại thông tin trước khi gọi nhé!</div>`;
-            } else if(step3===5){
-                html += `<div style="background:#2A2A2A; margin:15px; padding:20px; border-radius:28px; text-align:center;"><div style="font-size:60px;">🎉🩺</div><div style="font-size:20px; font-weight:bold;">ĐÃ GỌI THÀNH CÔNG!</div><div style="background:#3A3A3A; border-radius:30px; padding:15px; margin:15px 0;">🚑 <strong>Biệt đội cứu hộ</strong> đã nhận được cuộc gọi của con.<br>Họ sẽ đến địa chỉ: <strong>${userAddress}</strong> ngay lập tức!<br><br>🦸 Con đã làm rất tốt!</div><button id="resetBtn3" style="background:#FFB347; border:none; padding:12px 28px; border-radius:40px; cursor:pointer;">🔄 GỌI LẠI (THỰC HÀNH TIẾP)</button></div>`;
-            }
-            container.innerHTML = html;
-            
-            if(step3===1){
-                const nameInput = document.getElementById('nameInput');
-                document.getElementById('nextBtn3')?.addEventListener('click',()=>{ const val=nameInput.value.trim(); if(!val){ playErrorSound(); alert("Hãy nhập tên!"); return; } playClickSound(); userName=val; step3=2; renderExercise3(); });
-            } else if(step3===2){
-                const addrInput = document.getElementById('addressInput');
-                document.getElementById('nextBtn3')?.addEventListener('click',()=>{ const val=addrInput.value.trim(); if(!val){ playErrorSound(); alert("Hãy nhập địa chỉ!"); return; } playClickSound(); userAddress=val; step3=3; renderExercise3(); });
-            } else if(step3===3){
-                const sel = document.getElementById('situationSelect');
-                document.getElementById('nextBtn3')?.addEventListener('click',()=>{ const val=sel.value; if(!val){ playErrorSound(); alert("Hãy chọn tình huống!"); return; } playClickSound(); userSituation=val; step3=4; renderExercise3(); });
-            } else if(step3===4){
-                document.getElementById('callBtn3')?.addEventListener('click',()=>{ playPhoneRingSound(); playCompleteSound(); step3=5; renderExercise3(); });
-            } else if(step3===5){
-                document.getElementById('resetBtn3')?.addEventListener('click',()=>{ playClickSound(); step3=1; userName=""; userAddress=""; userSituation=""; renderExercise3(); });
-            }
+    function checkSeq() {
+        let correct = 0;
+        userSeq.forEach((id, idx) => {
+            if (id === idx) correct++;
+        });
+        const resultDiv = document.getElementById('seqResult');
+        if (correct === seqSteps.length) {
+            resultDiv.className = 'result-area correct';
+            resultDiv.innerHTML = '🎉🎉🎉 TUYỆT VỜI! Con đã sắp xếp đúng thứ tự cứu người bị hóc! 🎉🎉🎉';
+            playSound('correct');
+            createConfetti(800);
+        } else {
+            resultDiv.className = 'result-area wrong';
+            resultDiv.innerHTML = `📋 Bé sắp xếp đúng ${correct}/${seqSteps.length} bước. Hãy kéo thả để sắp xếp lại nhé! 💪`;
+            playSound('wrong');
         }
-        renderExercise3();
-    })();
-    resizeCanvas();
+    }
+
+    // ========== BÀI TẬP 2: SƠ CỨU VẾT THƯƠNG ==========
+    const woundData = [
+        { id: 0, emoji: "🪥🩸", text: "Bôi kem đánh răng vào vết thương hở.", correct: false },
+        { id: 1, emoji: "🩸👃", text: "Chảy máu cam thì ngửa mặt lên trời.", correct: false },
+        { id: 2, emoji: "🧻🩸", text: "Dùng khăn sạch ấn chặt vào vết thương để cầm máu.", correct: true }
+    ];
+    let woundAnswers = woundData.map(() => null);
+
+    function renderWound() {
+        const container = document.getElementById('woundArea');
+        container.innerHTML = '';
+        woundData.forEach((item, idx) => {
+            const div = document.createElement('div');
+            div.className = 'wound-item';
+            const status = woundAnswers[idx] !== null ? (woundAnswers[idx] === item.correct ? '✅' : '❌') : '💡';
+            div.innerHTML = `
+                <span class="emoji">${item.emoji}</span>
+                <span class="text">${item.text} <span style="font-size:0.8rem; color:var(--gray);">${status}</span></span>
+                <div style="display:flex; gap:8px;">
+                    <button class="option" style="border-color:${woundAnswers[idx] === true ? 'var(--gold)' : 'var(--light-gray)'}; background:${woundAnswers[idx] === true ? 'rgba(201,168,76,0.1)' : 'var(--white)'}; padding:6px 16px; border-radius:40px; border:1px solid var(--light-gray); cursor:pointer; font-weight:600;" onclick="selectWound(${idx},true)">✅ ĐÚNG</button>
+                    <button class="option" style="border-color:${woundAnswers[idx] === false ? 'var(--gold)' : 'var(--light-gray)'}; background:${woundAnswers[idx] === false ? 'rgba(201,168,76,0.1)' : 'var(--white)'}; padding:6px 16px; border-radius:40px; border:1px solid var(--light-gray); cursor:pointer; font-weight:600;" onclick="selectWound(${idx},false)">❌ SAI</button>
+                </div>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    function selectWound(idx, choice) {
+        woundAnswers[idx] = choice;
+        if (choice === woundData[idx].correct) playSound('correct');
+        else playSound('wrong');
+        renderWound();
+    }
+    window.selectWound = selectWound;
+
+    function checkWound() {
+        let correct = 0;
+        woundData.forEach((item, idx) => {
+            if (woundAnswers[idx] === item.correct) correct++;
+        });
+        const resultDiv = document.getElementById('woundResult');
+        if (correct === woundData.length) {
+            resultDiv.className = 'result-area correct';
+            resultDiv.innerHTML = '🎉🎉🎉 TUYỆT VỜI! Con đã biết cách sơ cứu đúng! 🎉🎉🎉';
+            playSound('correct');
+            createConfetti(800);
+        } else {
+            resultDiv.className = 'result-area wrong';
+            resultDiv.innerHTML = `🩺 Bé trả lời đúng ${correct}/${woundData.length} câu. Hãy xem lại nhé! 💪`;
+            playSound('wrong');
+        }
+    }
+
+    // ========== BÀI TẬP 3: GỌI 115 ==========
+    let phoneInput = "", phoneLocked = false;
+
+    function renderPhone() {
+        const container = document.getElementById('phoneArea');
+        let displayNum = phoneInput || "📞 ?";
+        if (phoneInput.length > 0) {
+            displayNum = phoneInput.replace(/(\d{4})(\d{3})(\d{4})/, '$1 $2 $3');
+        }
+        container.innerHTML = `
+            <div style="background:#1E1E1E; border-radius:48px; padding:20px; color:white;">
+                <div class="phone-display">
+                    <div class="screen">
+                        <div style="font-size:40px;">🚑</div>
+                        <div style="font-size:1rem; margin:8px 0;">📞 Gọi cấp cứu 115</div>
+                        <div class="number">${displayNum}</div>
+                        <div class="hint">💡 Nhập số 115 để gọi cấp cứu</div>
+                    </div>
+                </div>
+                <div class="keypad">
+                    ${[1,2,3,4,5,6,7,8,9,0].map(n => `
+                        <button class="key-btn" onclick="phonePress2('${n}')" ${phoneLocked ? 'disabled style="opacity:0.5;"' : ''}>${n}</button>
+                    `).join('')}
+                    <button class="key-btn ops" onclick="phoneClear2()" ${phoneLocked ? 'disabled style="opacity:0.5;"' : ''}>⌫</button>
+                    <button class="key-btn ops" onclick="phoneClearAll2()" ${phoneLocked ? 'disabled style="opacity:0.5;"' : ''}>C</button>
+                    <button class="key-btn call" onclick="phoneCall2()" ${phoneLocked ? 'disabled style="opacity:0.5;"' : ''}>📞 GỌI CẤP CỨU</button>
+                </div>
+                <div id="phoneFeedback2" style="margin-top:16px; padding:12px; background:#2A2A2A; border-radius:20px; text-align:center; font-size:0.9rem; color:#aaa;">💡 Nhập số 115 rồi bấm GỌI!</div>
+            </div>
+        `;
+    }
+
+    function phonePress2(num) {
+        if (phoneLocked) return;
+        phoneInput += num;
+        if (phoneInput.length > 10) phoneInput = phoneInput.slice(0, 10);
+        playSound('click');
+        renderPhone();
+    }
+
+    function phoneClear2() {
+        if (phoneLocked) return;
+        phoneInput = phoneInput.slice(0, -1);
+        playSound('click');
+        renderPhone();
+    }
+
+    function phoneClearAll2() {
+        if (phoneLocked) return;
+        phoneInput = "";
+        playSound('click');
+        renderPhone();
+    }
+
+    function phoneCall2() {
+        if (phoneLocked) return;
+        const fb = document.getElementById('phoneFeedback2');
+        if (!phoneInput) {
+            fb.innerHTML = '⚠️ Hãy nhập số 115 trước khi bấm GỌI!';
+            fb.style.color = '#FF6B6B';
+            playSound('wrong');
+            return;
+        }
+        if (phoneInput === "115") {
+            phoneLocked = true;
+            fb.innerHTML = '✅ ĐÚNG! Biệt đội cứu hộ 115 đã nhận được cuộc gọi của con! 🚑🎉';
+            fb.style.color = '#4CAF50';
+            playSound('correct');
+            createConfetti(800);
+        } else {
+            fb.innerHTML = '❌ SAI! Số cấp cứu là 115. Thử lại nhé!';
+            fb.style.color = '#FF6B6B';
+            phoneInput = "";
+            playSound('wrong');
+            renderPhone();
+        }
+    }
+
+    // Gắn vào window
+    window.phonePress2 = phonePress2;
+    window.phoneClear2 = phoneClear2;
+    window.phoneClearAll2 = phoneClearAll2;
+    window.phoneCall2 = phoneCall2;
+
+    function init() {
+        renderSeq();
+        renderWound();
+        renderPhone();
+        document.getElementById('checkSeqBtn').addEventListener('click', checkSeq);
+        document.getElementById('checkWoundBtn').addEventListener('click', checkWound);
+        document.getElementById('checkPhoneBtn').addEventListener('click', () => {
+            const resultDiv = document.getElementById('phoneResult');
+            if (phoneLocked && phoneInput === "115") {
+                resultDiv.className = 'result-area correct';
+                resultDiv.innerHTML = '🎉🎉🎉 Con đã biết cách gọi cấp cứu 115! 🎉🎉🎉';
+                playSound('correct');
+            } else {
+                resultDiv.className = 'result-area wrong';
+                resultDiv.innerHTML = '📞 Hãy gọi 115 thành công trước khi kiểm tra nhé! 💪';
+                playSound('wrong');
+            }
+        });
+        resizeCanvas();
+    }
+    init();
 </script>
 </body>
 </html>
