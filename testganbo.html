@@ -1,385 +1,709 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Trắc nghiệm Phong cách Gắn bó</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #f0f8ff, #fce4ec);
-      color: #333;
-      margin: 0;
-      padding: 20px;
-    }
-    .container {
-      max-width: 800px;
-      margin: auto;
-      background: white;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    }
-    .logo {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .logo img {
-      width: 120px;
-    }
-    h1 {
-      text-align: center;
-      color: #2c3e50;
-    }
-    label {
-      display: block;
-      margin-top: 20px;
-      font-weight: bold;
-    }
-    .question {
-      margin: 20px 0;
-      padding: 15px;
-      border-left: 5px solid #4CAF50;
-      background: #f1f8e9;
-      border-radius: 10px;
-    }
-    .question:nth-child(even) {
-      background: #fce4ec;
-    }
-    .question:nth-child(odd) {
-      background: #e8f5e9;
-    }
-    .question p {
-      margin: 0 0 10px;
-      font-weight: bold;
-    }
-    .question label {
-      display: block;
-      font-weight: normal;
-      margin-bottom: 8px;
-    }
-    input[type="text"],
-    input[type="email"],
-    input[type="number"] {
-      width: 100%;
-      padding: 10px;
-      margin-top: 8px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-    }
-    button {
-      margin-top: 30px;
-      padding: 12px 24px;
-      background: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      width: 100%;
-    }
-    button:hover {
-      background: #45a049;
-    }
-    .result {
-      display: none;
-      background: #ede7f6;
-      margin-top: 30px;
-      padding: 20px;
-      border-radius: 12px;
-      color: #4a148c;
-      font-weight: bold;
-    }
-.share-buttons {
-  margin-top: 20px;
-  text-align: center;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trắc nghiệm Phong cách Gắn bó | Sophia Nguyễn</title>
+    <meta name="description" content="Bài trắc nghiệm giúp bạn khám phá phong cách gắn bó của mình trong các mối quan hệ.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --navy-dark: #0A1628;
+            --navy-mid: #1E3A5F;
+            --gold: #C9A84C;
+            --gold-light: #D4B85C;
+            --cream: #F5F0E8;
+            --white: #FFFFFF;
+            --gray: #4A5A6A;
+            --light-gray: #E8E4DC;
+            --gradient: linear-gradient(135deg, #0A1628 0%, #1E3A5F 50%, #2A4A7F 100%);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--navy-dark);
+            line-height: 1.6;
+        }
+        .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
 
-.share-buttons button {
-  margin: 5px;
-  padding: 8px 14px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-}
- </style>
+        /* ========== HEADER ========== */
+        .header {
+            background: var(--white);
+            padding: 12px 0;
+            box-shadow: 0 2px 20px rgba(10,22,40,0.06);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo img { height: 55px; width: auto; display: block; }
+        .navbar ul {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+            align-items: center;
+        }
+        .navbar ul li a {
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        .navbar ul li a:hover, .navbar ul li a.active { color: var(--gold); }
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--navy-dark);
+        }
+        .show-menu { display: flex !important; }
+
+        /* ========== HERO ========== */
+        .hero {
+            background: var(--gradient);
+            padding: 50px 0 40px;
+            text-align: center;
+            color: white;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+        }
+        .hero h1 span { color: var(--gold); }
+        .hero p {
+            font-size: 1rem;
+            max-width: 650px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        .hero .badge {
+            background: var(--gold);
+            color: var(--navy-dark);
+            display: inline-block;
+            padding: 6px 20px;
+            border-radius: 40px;
+            margin-top: 16px;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        /* ========== TEST CONTAINER ========== */
+        .test-wrapper {
+            background: var(--white);
+            border-radius: 32px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(10,22,40,0.06);
+            border: 1px solid var(--light-gray);
+        }
+        .test-wrapper .intro h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--navy-dark);
+            margin-bottom: 16px;
+            font-size: 1.6rem;
+        }
+        .test-wrapper .intro h2 span { color: var(--gold); }
+        .test-wrapper .intro p {
+            color: var(--gray);
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+        .test-wrapper .intro .highlight {
+            background: var(--cream);
+            padding: 16px 20px;
+            border-radius: 16px;
+            border-left: 4px solid var(--gold);
+            margin: 16px 0;
+            font-weight: 500;
+            color: var(--navy-dark);
+        }
+
+        /* ========== QUESTION ========== */
+        .question-item {
+            background: var(--cream);
+            padding: 18px 20px;
+            margin: 16px 0;
+            border-radius: 16px;
+            border-left: 4px solid var(--gold);
+            transition: 0.2s;
+        }
+        .question-item:hover { border-color: var(--navy-dark); }
+        .question-item .q-text {
+            font-weight: 600;
+            color: var(--navy-dark);
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+        .question-item .options {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .question-item .options label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.88rem;
+            color: var(--gray);
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 8px;
+            transition: 0.2s;
+        }
+        .question-item .options label:hover {
+            background: rgba(201,168,76,0.1);
+        }
+        .question-item .options input[type="radio"] {
+            width: 17px;
+            height: 17px;
+            accent-color: var(--gold);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .question-item .options .tag {
+            font-size: 0.7rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        .tag-a { background: #4caf50; color: white; }
+        .tag-b { background: #ff9800; color: white; }
+        .tag-c { background: #2196f3; color: white; }
+        .tag-d { background: #e74c3c; color: white; }
+
+        /* ========== BUTTON ========== */
+        .btn-submit {
+            background: var(--navy-dark);
+            color: var(--white);
+            border: none;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+            margin-top: 20px;
+        }
+        .btn-submit:hover {
+            background: var(--gold);
+            color: var(--navy-dark);
+            transform: translateY(-2px);
+        }
+
+        /* ========== RESULT ========== */
+        .result-box {
+            display: none;
+            background: var(--cream);
+            padding: 30px;
+            border-radius: 24px;
+            margin-top: 30px;
+            text-align: center;
+            border: 2px solid var(--gold);
+        }
+        .result-box.show { display: block; }
+        .result-box h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--navy-dark);
+            margin-bottom: 8px;
+        }
+        .result-box h2 span { color: var(--gold); }
+        .result-box .result-type {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 12px 0;
+            padding: 12px;
+            border-radius: 16px;
+            background: var(--white);
+        }
+        .result-box .desc {
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+            line-height: 1.7;
+            text-align: left;
+        }
+        .result-box .scores {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin: 12px 0;
+        }
+        .result-box .scores .score-item {
+            background: var(--white);
+            padding: 6px 14px;
+            border-radius: 10px;
+            border: 1px solid var(--light-gray);
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        .result-box .scores .score-item .num {
+            font-size: 1.1rem;
+        }
+        .share-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+        .share-buttons .share-btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .share-buttons .share-btn:hover { transform: translateY(-2px); opacity: 0.9; }
+        .share-buttons .share-btn.fb { background: #3b5998; }
+        .share-buttons .share-btn.zalo { background: #0068ff; }
+        .share-buttons .share-btn.twitter { background: #1da1f2; }
+        .share-buttons .share-btn.tiktok { background: #000000; }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: var(--navy-dark);
+            color: rgba(255,255,255,0.7);
+            padding: 40px 0 24px;
+            margin-top: 60px;
+            border-top: 3px solid var(--gold);
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        .footer-logo img { width: 120px; margin-bottom: 12px; }
+        .footer-logo p { font-size: 0.85rem; line-height: 1.6; color: rgba(255,255,255,0.6); }
+        .footer-links h4, .footer-contact h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            margin-bottom: 16px;
+            font-size: 1rem;
+        }
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+        .footer-links ul li { margin-bottom: 8px; }
+        .footer-links ul li a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: 0.2s;
+        }
+        .footer-links ul li a:hover { color: var(--gold); }
+        .footer-contact p {
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            color: rgba(255,255,255,0.6);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .footer-contact p i { color: var(--gold); width: 18px; }
+        .social-icons {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .social-icons a {
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+        .social-icons a:hover { transform: translateY(-3px); }
+        .social-icons img { width: 30px; height: 30px; border-radius: 50%; }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .navbar {
+                display: none;
+                flex-direction: column;
+                gap: 12px;
+                padding: 16px 0;
+                background: var(--white);
+                width: 100%;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                padding: 16px 24px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+            .navbar ul { flex-direction: column; gap: 12px; }
+            .header-container { flex-wrap: wrap; position: relative; }
+            .logo img { height: 45px; }
+            .hero h1 { font-size: 1.6rem; }
+            .test-wrapper { padding: 20px; }
+            .question-item .options { flex-direction: column; gap: 4px; }
+            .result-box h2 { font-size: 1.4rem; }
+            .result-box .result-type { font-size: 1.4rem; }
+            .footer-container { grid-template-columns: 1fr; text-align: center; }
+            .footer-contact p { justify-content: center; }
+            .social-icons { justify-content: center; }
+            .share-buttons .share-btn { width: 100%; justify-content: center; }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="logo">
-      <img src="images/hinhremovenen.png" alt="Logo Sophia">
-    </div>
-    <h1>Trắc nghiệm Phong cách Gắn bó</h1>
-    <!-- Form cá nhân -->
-  <form id="userForm" action="https://formspree.io/f/mgvzqrje" method="POST">
-    <h2>Thông tin người làm test</h2>
-    <label>Họ tên:</label>
-    <input type="text" name="name" id="name" required>
-    <label>Email:</label>
-    <input type="email" name="email" id="email" required>
-    <label>Tuổi:</label>
-    <input type="number" name="age" id="age" required>
-    <label>Số điện thoại:</label>
-    <input type="text" name="phone" id="phone" required>
-    <button type="submit">Gửi thông tin---> nhấn Go Back ---> & tiếp tục</button>
-  </form>
-    
-    <div id="quizSection" style="display: none;">
-      <form id="quizForm"> 
-            <!-- Câu 1 -->
-      <div class="question">
-        <h3>1. Khi tôi cần  sự giúp đỡ, tôi thường:</h3>
-        <label><input type="radio" name="q1" value="A"> Tìm đến người thân cận nhất.</label>
-        <label><input type="radio" name="q1" value="D"> Ngại ngần, sợ làm phiền người khác.</label>
-        <label><input type="radio" name="q1" value="B"> Chỉ chia sẻ nếu thật sự không còn cách.</label>
-        <label><input type="radio" name="q1" value="C"> Tự mình giải quyết là tốt nhất.</label>
-      </div>
-      <!-- Câu 2 -->
-      <div class="question">
-        <h3>2. Trong mối quan hệ, tôi thường:</h3>
-        <label><input type="radio" name="q2" value="B"> Sợ người khác bỏ rơi mình.</label>
-        <label><input type="radio" name="q2" value="C"> Cần không gian riêng nhiều hơn.</label>
-        <label><input type="radio" name="q2" value="A"> Thoải mái chia sẻ cảm xúc.</label>
-        <label><input type="radio" name="q2" value="D"> Không dễ tin tưởng người khác.</label>
-      </div>
-      <!-- Câu 3 -->
-      <div class="question">
-        <h3>3. Khi đối phương giận dỗi, tôi:</h3>
-        <label><input type="radio" name="q3" value="C"> Cảm thấy bối rối và muốn tránh mặt.</label>
-        <label><input type="radio" name="q3" value="A"> Muốn giải thích và kết nối lại.</label>
-        <label><input type="radio" name="q3" value="B"> Lo lắng mình làm sai điều gì đó.</label>
-        <label><input type="radio" name="q3" value="D"> Không bận tâm nhiều.</label>
-      </div>
-      <!-- Câu 4 -->
-      <div class="question">
-        <h3>4. Bạn cảm thấy thế nào khi ai đó muốn gần gũi với mình?</h3>
-        <label><input type="radio" name="q4" value="D"> Thường có xu hướng né tránh.</label>
-        <label><input type="radio" name="q4" value="A"> Cảm thấy ấm áp và dễ chịu.</label>
-        <label><input type="radio" name="q4" value="B"> Vừa vui vừa lo không giữ được lâu.</label>
-        <label><input type="radio" name="q4" value="C"> Cảm thấy bị xâm phạm không gian.</label>
-      </div>
-      <!-- Câu 5 -->
-      <div class="question">
-       <h3>5. Khi đối phương không nhắn tin lại, tôi thường:</h3>
-      <label><input type="radio" name="q5" value="A"> A. Cảm thấy lo lắng và tưởng tượng những điều tồi tệ</label>
-      <label><input type="radio" name="q5" value="B"> B. Cảm thấy không sao, ai cũng có lúc bận</label>
-      <label><input type="radio" name="q5" value="C"> C. Tránh để ý, không muốn thể hiện sự quan tâm</label>
-      <label><input type="radio" name="q5" value="D"> D. Tức giận và nghĩ đến việc chấm dứt liên hệ</label>
-    </div>
-    <!-- Câu 6 -->
-      <div class="question">
-        <h3>6. Khi bắt đầu một mối quan hệ mới:</h3>
-        <label><input type="radio" name="q6" value="D"> Tôi dè chừng và giữ khoảng cách.</label>
-        <label><input type="radio" name="q6" value="A"> Tôi dễ mở lòng và chia sẻ.</label>
-        <label><input type="radio" name="q6" value="C"> Tôi thường lo sợ mất tự do.</label>
-        <label><input type="radio" name="q6" value="B"> Tôi rất sợ bị bỏ rơi.</label>
-      </div>
-      <!-- Câu 7 -->
-      <div class="question">
-        <p>7. Trong các mối quan hệ, tôi thường cảm thấy:</p>
-        <label><input type="radio" name="q7" value="A"> Tự tin và an toàn.</label>
-        <label><input type="radio" name="q7" value="B"> Hay nghi ngờ bản thân mình.</label>
-        <label><input type="radio" name="q7" value="D"> Khó đặt niềm tin nơi người khác.</label>
-        <label><input type="radio" name="q7" value="C"> Không thoải mái với sự thân mật.</label>
-      </div>
-      <!-- Câu 8 -->
-      <div class="question">
-        <p>8. Bạn thường phản ứng thế nào khi bị từ chối?</p>
-        <label><input type="radio" name="q8" value="C"> Tránh tiếp xúc và rút lui.</label>
-        <label><input type="radio" name="q8" value="B"> Rất buồn và tự trách bản thân.</label>
-        <label><input type="radio" name="q8" value="D"> Không quá ảnh hưởng đến tôi.</label>
-        <label><input type="radio" name="q8" value="A"> Dù buồn nhưng tôi chấp nhận và hiểu.</label>
-      </div>
-      <!-- Câu 9 -->
-      <div class="question">
-        <p>9. Khi ai đó quan tâm đến tôi:</p>
-        <label><input type="radio" name="q9" value="B"> Tôi lo sẽ không giữ được họ.</label>
-        <label><input type="radio" name="q9" value="C"> Tôi thường cảm thấy ngại ngùng.</label>
-        <label><input type="radio" name="q9" value="A"> Tôi vui vẻ và đón nhận.</label>
-        <label><input type="radio" name="q9" value="D"> Tôi thấy lạ và nghi ngờ động cơ họ.</label>
-      </div>
-      <!-- Câu 10 -->
-      <div class="question">
-        <p>10. Bạn mong muốn đạt được điều gì trong tình yêu?</p>
-        <label><input type="radio" name="q10" value="A"> Sự chia sẻ và tin tưởng.</label>
-        <label><input type="radio" name="q10" value="D"> Không bị kiểm soát hay ràng buộc.</label>
-        <label><input type="radio" name="q10" value="B"> Được yêu và không bị bỏ rơi.</label>
-        <label><input type="radio" name="q10" value="C"> Có không gian riêng nhiều hơn.</label>
-      </div>
 
-      <div class="question">
-       <h3>11. Khi yêu, bạn mong đợi điều gì nhất từ người kia?</h3>
-      <label><input type="radio" name="q11" value="B" required> A. Sự đồng hành và tôn trọng</label>
-      <label><input type="radio" name="q11" value="A"> B. Sự chú ý liên tục để cảm thấy an toàn</label>
-      <label><input type="radio" name="q11" value="C"> C. Không quá gần gũi, để mình được tự do</label>
-      <label><input type="radio" name="q11" value="D"> D. Người kia phải hành xử đúng theo mong muốn</label>
-    </div>
-    <div class="question">
-      <h3>12. Khi yêu, bạn cảm thấy thế nào khi phải chia sẻ cảm xúc thật?</h3>
-      <label><input type="radio" name="q12" value="D" required> A. Khó chịu, dễ nổi giận nếu đối phương không hiểu</label>
-      <label><input type="radio" name="q12" value="B"> B. Dễ dàng chia sẻ, cảm thấy được kết nối</label>
-      <label><input type="radio" name="q12" value="C"> C. Ngại chia sẻ, vì sợ bị tổn thương</label>
-      <label><input type="radio" name="q12" value="A"> D. Rất lo lắng đối phương sẽ không thích mình nữa</label>
-    </div>
-    <div class="question">
-      <h3>13. Bạn phản ứng ra sao khi đối phương muốn có không gian riêng?</h3>
-      <label><input type="radio" name="q13" value="A" required> A. Bối rối và sợ bị bỏ rơi</label>
-      <label><input type="radio" name="q13" value="B"> B. Hiểu và tôn trọng nhu cầu của họ</label>
-      <label><input type="radio" name="q13" value="C"> C. Lặng lẽ xa cách để tự bảo vệ bản thân</label>
-      <label><input type="radio" name="q13" value="D"> D. Nổi cáu vì thấy bị xúc phạm</label>
-    </div>
-    <div class="question">
-      <h3>14. Bạn thường nghĩ gì về bản thân trong mối quan hệ?</h3>
-      <label><input type="radio" name="q14" value="A" required> A. Lo sợ mình không đủ tốt</label>
-      <label><input type="radio" name="q14" value="B"> B. Biết rõ giá trị bản thân và người kia</label>
-      <label><input type="radio" name="q14" value="C"> C. Cảm thấy mình luôn phải giữ khoảng cách</label>
-      <label><input type="radio" name="q14" value="D"> D. Mình cần kiểm soát nếu không sẽ bị tổn thương</label>
-    </div>
-    <div class="question">
-      <h3>15. Khi mâu thuẫn xảy ra, bạn thường:</h3>
-      <label><input type="radio" name="q15" value="C" required> A. Im lặng và rút lui</label>
-      <label><input type="radio" name="q15" value="A"> B. Khó chịu, cảm thấy bị bỏ rơi</label>
-      <label><input type="radio" name="q15" value="D"> C. Tức giận, muốn người kia phải hiểu ngay</label>
-      <label><input type="radio" name="q15" value="B"> D. Bình tĩnh trao đổi và lắng nghe</label>
-    </div>
-    <div class="question">
-      <h3>16. quan điểm nhìn nhận của bạn trong tình yêu</h3>
-      <label><input type="radio" name="q16" value="B" required> A. Mỗi người đều có quyền riêng tư và sự gắn bó</label>
-      <label><input type="radio" name="q16" value="A"> B. Mình phải làm mọi thứ để không bị bỏ rơi</label>
-      <label><input type="radio" name="q16" value="D"> C. Nếu không kiểm soát, mình sẽ mất tất cả</label>
-      <label><input type="radio" name="q16" value="C"> D. Không ai đáng tin hoàn toàn</label>
-    </div>
-        <div class="question">
-      <h3>17. Bạn nghĩ gì về việc chia sẻ cảm xúc tiêu cực?</h3>
-      <label><input type="radio" name="q17" value="D" required> A. Dễ nổi nóng và thấy mình yếu đuối</label>
-      <label><input type="radio" name="q17" value="C"> B. Cảm thấy không ai có thể hiểu mình</label>
-      <label><input type="radio" name="q17" value="B"> C. Là cơ hội để hiểu nhau hơn</label>
-      <label><input type="radio" name="q17" value="A"> D. Lo sợ bị đánh giá, nên thường che giấu</label>
-    </div>
-    <div class="question">
-      <h3>18. Khi không được hồi đáp như kỳ vọng, bạn thường:</h3>
-      <label><input type="radio" name="q18" value="A" required> A. Tự trách và thấy mình không quan trọng</label>
-      <label><input type="radio" name="q18" value="D"> B. Trở nên căng thẳng và tức giận</label>
-      <label><input type="radio" name="q18" value="B"> C. Hiểu là mỗi người có nhịp riêng</label>
-      <label><input type="radio" name="q18" value="C"> D. Thu mình lại, không muốn tiếp xúc</label>
-    </div>
-    <div class="question">
-      <h3>19. Khi cảm thấy bị tổn thương, bạn thường:</h3>
-      <label><input type="radio" name="q19" value="C" required> A. Tránh né và không muốn đối mặt</label>
-      <label><input type="radio" name="q19" value="D"> B. Phản ứng dữ dội để bảo vệ bản thân</label>
-      <label><input type="radio" name="q19" value="B"> C. Tìm cách giải quyết để cả hai hiểu nhau</label>
-      <label><input type="radio" name="q19" value="A"> D. Nghĩ rằng mình bị bỏ rơi và không ai thương mình</label>
-    </div>
-<div class="question">
-      <h3>20. Khi kết thúc một mối quan hệ, bạn thường</h3>
-      <label><input type="radio" name="q20" value="C" required> Cố gắng giữ lại, dù biết không còn phù hợp</label>
-      <label><input type="radio" name="q20" value="D"> B. Tự trách bản thân, nghĩ rằng mình không xứng đáng</label>
-      <label><input type="radio" name="q20" value="B"> C. Buồn nhưng chấp nhận và rút ra bài học</label>
-      <label><input type="radio" name="q20" value="A"> D. Không nói rõ lý do và âm thầm rời đi</label>
-    </div>
-  </div>
-</form>
-    
-     <button id="submitBtn" type="button" onclick="calculateResult()">Tính kết quả</button>
-    </div>
-
-    <!-- 🔹 Kết quả -->
-    <div class="result" id="result">
-      <h2>Kết quả trắc nghiệm:</h2>
-      <p id="output"></p>
-    </div>
-  </div>
-
-  <!-- 🔹 Script xử lý -->
-  <script>
-    let formSubmitted = false;
-
-    document.getElementById("userForm").addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      const form = e.target;
-
-      fetch(form.action, {
-        method: "POST",
-        body: new FormData(form),
-        headers: { 'Accept': 'application/json' }
-      })
-      .then(response => {
-        if (response.ok) {
-          formSubmitted = true;
-          alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể làm bài test và xem kết quả.");
-          document.getElementById("userForm").style.display = "none";
-          document.getElementById("quizSection").style.display = "block";
-        } else {
-          alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
-        }
-      })
-      .catch(error => {
-        alert("⚠️ Lỗi kết nối. Vui lòng thử lại sau.");
-      });
-    });
-
-    function calculateResult() {
-      if (!formSubmitted) {
-        alert("⚠️ Bạn cần gửi thông tin trước khi xem kết quả.");
-        return;
-      }
-
-      let score = { A: 0, B: 0, C: 0, D: 0 };
-      let answeredCount = 0;
-
-      for (let i = 1; i <= 20; i++) {
-        let answer = document.querySelector(`input[name="q${i}"]:checked`);
-        if (answer) {
-          score[answer.value]++;
-          answeredCount++;
-        }
-      }
-
-      if (answeredCount < 20) {
-        alert("⚠️ Bạn cần hoàn thành tất cả 20 câu hỏi trước khi xem kết quả.");
-        return;
-      }
-
-      let max = Math.max(score.A, score.B, score.C, score.D);
-      let result = "";
-
-      let topStyles = Object.entries(score).filter(([key, val]) => val === max);
-      let top = topStyles[0][0];
-
-      if (top === "A")
-        result = "💚 <strong>Phong cách Gắn bó An toàn:</strong> Bạn có khả năng yêu thương lành mạnh, biết tin tưởng và duy trì ranh giới tích cực.";
-      else if (top === "B")
-        result = "💛 <strong>Phong cách Gắn bó Lo âu:</strong> Bạn thường lo lắng bị bỏ rơi, khao khát được yêu thương và cần cảm giác an toàn thường xuyên.";
-      else if (top === "C")
-        result = "💙 <strong>Phong cách Gắn bó Tránh né:</strong> Bạn có xu hướng giữ khoảng cách, sợ bị kiểm soát và khó mở lòng trong các mối quan hệ.";
-      else if (top === "D")
-        result = "❤️ <strong>Phong cách Gắn bó Bất an – Lẫn lộn:</strong> Bạn nhạy cảm, dễ tổn thương và thường có phản ứng cảm xúc mạnh, mâu thuẫn giữa cần và sợ yêu.";
-
-      document.getElementById("output").innerHTML = result;
-      document.getElementById("result").style.display = 'block';
-
-      // ✅ Gắn nút chia sẻ
-      const shareDiv = document.createElement("div");
-      shareDiv.className = "share-buttons";
-      shareDiv.innerHTML = `
-        <h4>📢 Chia sẻ bài test này:</h4>
-        <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank">
-          <button style="background:#3b5998; color:white;">Facebook</button>
+<!-- ========== HEADER ========== -->
+<header class="header">
+    <div class="header-container">
+        <a href="index.html" class="logo">
+            <img src="images/hinhremovenen.png" alt="Sophia Nguyễn">
         </a>
-        <a href="https://zalo.me/share?url=${encodeURIComponent(window.location.href)}" target="_blank">       
-          <button style="background:#0068ff; color:white;">Zalo</button>
-        </a>
-        <a href="https://twitter.com/intent/tweet?text=Kết quả trắc nghiệm của tôi là: ${encodeURIComponent(result)}&url=${encodeURIComponent(window.location.href)}" target="_blank">
-          <button style="background:#1da1f2; color:white;">Twitter</button>
-        </a>
-        <a href="https://www.tiktok.com/upload?lang=vi" target="_blank">
-    <button style="background:#000000; color:white;">TikTok</button>
-  </a>
-      `;
-      document.getElementById("result").appendChild(shareDiv);
+        <div class="menu-toggle" onclick="document.querySelector('.navbar').classList.toggle('show-menu')">☰</div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="index.html">Trang chủ</a></li>
+                <li><a href="about.html">Giới thiệu</a></li>
+                <li><a href="services.html">Dịch vụ</a></li>
+                <li><a href="khoa-hoc.html">Khóa học</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="test.html" class="active">Trắc nghiệm</a></li>
+                <li><a href="contact.html">Liên hệ</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- ========== HERO ========== -->
+<section class="hero">
+    <div class="container">
+        <h1>💕 Trắc nghiệm <span>Phong cách Gắn bó</span></h1>
+        <p>Khám phá cách bạn kết nối và xây dựng mối quan hệ yêu thương</p>
+        <div class="badge">💛 Hiểu mình để yêu thương tốt hơn</div>
+    </div>
+</section>
+
+<!-- ========== TEST ========== -->
+<div class="container">
+    <div class="test-wrapper">
+        <div class="intro">
+            <h2>Khám phá <span>cách bạn gắn bó</span></h2>
+            <p>
+                Bài trắc nghiệm này giúp bạn nhận diện phong cách gắn bó của mình trong các mối quan hệ:
+                <strong>An toàn</strong>, <strong>Lo âu</strong>, <strong>Tránh né</strong> hoặc <strong>Bất an - Lẫn lộn</strong>.
+            </p>
+            <div class="highlight">
+                👉 Hãy trả lời một cách trung thực nhất để có kết quả chính xác.
+                Không có đáp án đúng hay sai – mỗi người có một cách yêu thương riêng!
+            </div>
+        </div>
+
+        <form id="quizForm"></form>
+        <button id="submitBtn" class="btn-submit" style="display:none;">🔍 Tính kết quả</button>
+
+        <div id="result" class="result-box"></div>
+    </div>
+</div>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-logo">
+            <img src="images/hinhremovenen.png" alt="Sophia Nguyễn">
+            <p>Đồng hành & Sẻ chia cùng bạn trên hành trình tâm lý – phát triển – yêu thương.</p>
+        </div>
+        <div class="footer-links">
+            <h4>Dịch vụ</h4>
+            <ul>
+                <li><a href="tuvan-tamly1.html">Tham vấn tâm lý</a></li>
+                <li><a href="huong-nghiep.html">Định hướng nghề nghiệp</a></li>
+                <li><a href="ky-nang.html">Đào tạo kỹ năng</a></li>
+                <li><a href="van-tay.html">Sinh trắc vân tay</a></li>
+            </ul>
+        </div>
+        <div class="footer-contact">
+            <h4>Liên hệ</h4>
+            <p><i class="fas fa-envelope"></i> sophianguyen2891@gmail.com</p>
+            <p><i class="fas fa-phone"></i> 0977092182</p>
+            <p><i class="fas fa-map-marker-alt"></i> Tân Bình - TPHCM</p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/Sophiadiemhang1982"><img src="images/fb.png" alt="Facebook" /></a>
+                <a href="https://www.tiktok.com/@sophia.nguyen2014"><img src="images/tiktok.png" alt="TikTok" /></a>
+                <a href="https://www.youtube.com/@sophianguyen1982-dh"><img src="images/youtube.png" alt="YouTube" /></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>Copyright ©2025 Sophia Nguyễn. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    // ==================== DỮ LIỆU CÂU HỎI ====================
+    const questionsData = [
+        { text: "Khi tôi cần sự giúp đỡ, tôi thường:", options: [
+            { text: "Tìm đến người thân cận nhất.", type: "A", tag: "An toàn" },
+            { text: "Ngại ngần, sợ làm phiền người khác.", type: "D", tag: "Bất an" },
+            { text: "Chỉ chia sẻ nếu thật sự không còn cách.", type: "B", tag: "Lo âu" },
+            { text: "Tự mình giải quyết là tốt nhất.", type: "C", tag: "Tránh né" }
+        ]},
+        { text: "Trong mối quan hệ, tôi thường:", options: [
+            { text: "Sợ người khác bỏ rơi mình.", type: "B", tag: "Lo âu" },
+            { text: "Cần không gian riêng nhiều hơn.", type: "C", tag: "Tránh né" },
+            { text: "Thoải mái chia sẻ cảm xúc.", type: "A", tag: "An toàn" },
+            { text: "Không dễ tin tưởng người khác.", type: "D", tag: "Bất an" }
+        ]},
+        { text: "Khi đối phương giận dỗi, tôi:", options: [
+            { text: "Cảm thấy bối rối và muốn tránh mặt.", type: "C", tag: "Tránh né" },
+            { text: "Muốn giải thích và kết nối lại.", type: "A", tag: "An toàn" },
+            { text: "Lo lắng mình làm sai điều gì đó.", type: "B", tag: "Lo âu" },
+            { text: "Không bận tâm nhiều.", type: "D", tag: "Bất an" }
+        ]},
+        { text: "Bạn cảm thấy thế nào khi ai đó muốn gần gũi với mình?", options: [
+            { text: "Thường có xu hướng né tránh.", type: "D", tag: "Bất an" },
+            { text: "Cảm thấy ấm áp và dễ chịu.", type: "A", tag: "An toàn" },
+            { text: "Vừa vui vừa lo không giữ được lâu.", type: "B", tag: "Lo âu" },
+            { text: "Cảm thấy bị xâm phạm không gian.", type: "C", tag: "Tránh né" }
+        ]},
+        { text: "Khi đối phương không nhắn tin lại, tôi thường:", options: [
+            { text: "Cảm thấy lo lắng và tưởng tượng những điều tồi tệ", type: "A", tag: "An toàn" },
+            { text: "Cảm thấy không sao, ai cũng có lúc bận", type: "B", tag: "Lo âu" },
+            { text: "Tránh để ý, không muốn thể hiện sự quan tâm", type: "C", tag: "Tránh né" },
+            { text: "Tức giận và nghĩ đến việc chấm dứt liên hệ", type: "D", tag: "Bất an" }
+        ]},
+        { text: "Khi bắt đầu một mối quan hệ mới:", options: [
+            { text: "Tôi dè chừng và giữ khoảng cách.", type: "D", tag: "Bất an" },
+            { text: "Tôi dễ mở lòng và chia sẻ.", type: "A", tag: "An toàn" },
+            { text: "Tôi thường lo sợ mất tự do.", type: "C", tag: "Tránh né" },
+            { text: "Tôi rất sợ bị bỏ rơi.", type: "B", tag: "Lo âu" }
+        ]},
+        { text: "Trong các mối quan hệ, tôi thường cảm thấy:", options: [
+            { text: "Tự tin và an toàn.", type: "A", tag: "An toàn" },
+            { text: "Hay nghi ngờ bản thân mình.", type: "B", tag: "Lo âu" },
+            { text: "Khó đặt niềm tin nơi người khác.", type: "D", tag: "Bất an" },
+            { text: "Không thoải mái với sự thân mật.", type: "C", tag: "Tránh né" }
+        ]},
+        { text: "Bạn thường phản ứng thế nào khi bị từ chối?", options: [
+            { text: "Tránh tiếp xúc và rút lui.", type: "C", tag: "Tránh né" },
+            { text: "Rất buồn và tự trách bản thân.", type: "B", tag: "Lo âu" },
+            { text: "Không quá ảnh hưởng đến tôi.", type: "D", tag: "Bất an" },
+            { text: "Dù buồn nhưng tôi chấp nhận và hiểu.", type: "A", tag: "An toàn" }
+        ]},
+        { text: "Khi ai đó quan tâm đến tôi:", options: [
+            { text: "Tôi lo sẽ không giữ được họ.", type: "B", tag: "Lo âu" },
+            { text: "Tôi thường cảm thấy ngại ngùng.", type: "C", tag: "Tránh né" },
+            { text: "Tôi vui vẻ và đón nhận.", type: "A", tag: "An toàn" },
+            { text: "Tôi thấy lạ và nghi ngờ động cơ họ.", type: "D", tag: "Bất an" }
+        ]},
+        { text: "Bạn mong muốn đạt được điều gì trong tình yêu?", options: [
+            { text: "Sự chia sẻ và tin tưởng.", type: "A", tag: "An toàn" },
+            { text: "Không bị kiểm soát hay ràng buộc.", type: "D", tag: "Bất an" },
+            { text: "Được yêu và không bị bỏ rơi.", type: "B", tag: "Lo âu" },
+            { text: "Có không gian riêng nhiều hơn.", type: "C", tag: "Tránh né" }
+        ]},
+        { text: "Khi yêu, bạn mong đợi điều gì nhất từ người kia?", options: [
+            { text: "Sự đồng hành và tôn trọng", type: "B", tag: "Lo âu" },
+            { text: "Sự chú ý liên tục để cảm thấy an toàn", type: "A", tag: "An toàn" },
+            { text: "Không quá gần gũi, để mình được tự do", type: "C", tag: "Tránh né" },
+            { text: "Người kia phải hành xử đúng theo mong muốn", type: "D", tag: "Bất an" }
+        ]},
+        { text: "Khi yêu, bạn cảm thấy thế nào khi phải chia sẻ cảm xúc thật?", options: [
+            { text: "Khó chịu, dễ nổi giận nếu đối phương không hiểu", type: "D", tag: "Bất an" },
+            { text: "Dễ dàng chia sẻ, cảm thấy được kết nối", type: "B", tag: "Lo âu" },
+            { text: "Ngại chia sẻ, vì sợ bị tổn thương", type: "C", tag: "Tránh né" },
+            { text: "Rất lo lắng đối phương sẽ không thích mình nữa", type: "A", tag: "An toàn" }
+        ]},
+        { text: "Bạn phản ứng ra sao khi đối phương muốn có không gian riêng?", options: [
+            { text: "Bối rối và sợ bị bỏ rơi", type: "A", tag: "An toàn" },
+            { text: "Hiểu và tôn trọng nhu cầu của họ", type: "B", tag: "Lo âu" },
+            { text: "Lặng lẽ xa cách để tự bảo vệ bản thân", type: "C", tag: "Tránh né" },
+            { text: "Nổi cáu vì thấy bị xúc phạm", type: "D", tag: "Bất an" }
+        ]},
+        { text: "Bạn thường nghĩ gì về bản thân trong mối quan hệ?", options: [
+            { text: "Lo sợ mình không đủ tốt", type: "A", tag: "An toàn" },
+            { text: "Biết rõ giá trị bản thân và người kia", type: "B", tag: "Lo âu" },
+            { text: "Cảm thấy mình luôn phải giữ khoảng cách", type: "C", tag: "Tránh né" },
+            { text: "Mình cần kiểm soát nếu không sẽ bị tổn thương", type: "D", tag: "Bất an" }
+        ]},
+        { text: "Khi mâu thuẫn xảy ra, bạn thường:", options: [
+            { text: "Im lặng và rút lui", type: "C", tag: "Tránh né" },
+            { text: "Khó chịu, cảm thấy bị bỏ rơi", type: "A", tag: "An toàn" },
+            { text: "Tức giận, muốn người kia phải hiểu ngay", type: "D", tag: "Bất an" },
+            { text: "Bình tĩnh trao đổi và lắng nghe", type: "B", tag: "Lo âu" }
+        ]},
+        { text: "Quan điểm nhìn nhận của bạn trong tình yêu", options: [
+            { text: "Mỗi người đều có quyền riêng tư và sự gắn bó", type: "B", tag: "Lo âu" },
+            { text: "Mình phải làm mọi thứ để không bị bỏ rơi", type: "A", tag: "An toàn" },
+            { text: "Nếu không kiểm soát, mình sẽ mất tất cả", type: "D", tag: "Bất an" },
+            { text: "Không ai đáng tin hoàn toàn", type: "C", tag: "Tránh né" }
+        ]},
+        { text: "Bạn nghĩ gì về việc chia sẻ cảm xúc tiêu cực?", options: [
+            { text: "Dễ nổi nóng và thấy mình yếu đuối", type: "D", tag: "Bất an" },
+            { text: "Cảm thấy không ai có thể hiểu mình", type: "C", tag: "Tránh né" },
+            { text: "Là cơ hội để hiểu nhau hơn", type: "B", tag: "Lo âu" },
+            { text: "Lo sợ bị đánh giá, nên thường che giấu", type: "A", tag: "An toàn" }
+        ]},
+        { text: "Khi không được hồi đáp như kỳ vọng, bạn thường:", options: [
+            { text: "Tự trách và thấy mình không quan trọng", type: "A", tag: "An toàn" },
+            { text: "Trở nên căng thẳng và tức giận", type: "D", tag: "Bất an" },
+            { text: "Hiểu là mỗi người có nhịp riêng", type: "B", tag: "Lo âu" },
+            { text: "Thu mình lại, không muốn tiếp xúc", type: "C", tag: "Tránh né" }
+        ]},
+        { text: "Khi cảm thấy bị tổn thương, bạn thường:", options: [
+            { text: "Tránh né và không muốn đối mặt", type: "C", tag: "Tránh né" },
+            { text: "Phản ứng dữ dội để bảo vệ bản thân", type: "D", tag: "Bất an" },
+            { text: "Tìm cách giải quyết để cả hai hiểu nhau", type: "B", tag: "Lo âu" },
+            { text: "Nghĩ rằng mình bị bỏ rơi và không ai thương mình", type: "A", tag: "An toàn" }
+        ]},
+        { text: "Khi kết thúc một mối quan hệ, bạn thường", options: [
+            { text: "Cố gắng giữ lại, dù biết không còn phù hợp", type: "C", tag: "Tránh né" },
+            { text: "Tự trách bản thân, nghĩ rằng mình không xứng đáng", type: "D", tag: "Bất an" },
+            { text: "Buồn nhưng chấp nhận và rút ra bài học", type: "B", tag: "Lo âu" },
+            { text: "Không nói rõ lý do và âm thầm rời đi", type: "A", tag: "An toàn" }
+        ]}
+    ];
+
+    const typeNames = {
+        A: { name: "An toàn", emoji: "💚", color: "#4caf50", 
+             desc: "Bạn có khả năng yêu thương lành mạnh, biết tin tưởng và duy trì ranh giới tích cực. Bạn cảm thấy thoải mái khi gần gũi và cũng tôn trọng không gian riêng của người khác. Đây là nền tảng cho những mối quan hệ bền vững và hạnh phúc." },
+        B: { name: "Lo âu", emoji: "💛", color: "#ff9800",
+             desc: "Bạn thường lo lắng bị bỏ rơi, khao khát được yêu thương và cần cảm giác an toàn thường xuyên. Bạn có xu hướng tìm kiếm sự trấn an và xác nhận từ người khác. Hãy học cách tự trấn an và tin tưởng vào giá trị của bản thân." },
+        C: { name: "Tránh né", emoji: "💙", color: "#2196f3",
+             desc: "Bạn có xu hướng giữ khoảng cách, sợ bị kiểm soát và khó mở lòng trong các mối quan hệ. Bạn coi trọng sự độc lập và tự chủ. Hãy tập mở lòng từng bước và nhận ra rằng gần gũi không có nghĩa là mất đi tự do." },
+        D: { name: "Bất an - Lẫn lộn", emoji: "❤️", color: "#e74c3c",
+             desc: "Bạn nhạy cảm, dễ tổn thương và thường có phản ứng cảm xúc mạnh, mâu thuẫn giữa nhu cầu yêu thương và nỗi sợ bị tổn thương. Bạn có thể vừa khao khát gần gũi vừa sợ hãi điều đó. Hãy tìm sự hỗ trợ để hiểu rõ hơn về cảm xúc của mình." }
+    };
+
+    // ==================== RENDER CÂU HỎI ====================
+    function renderQuestions() {
+        const form = document.getElementById('quizForm');
+        form.innerHTML = '';
+
+        questionsData.forEach((q, index) => {
+            const div = document.createElement('div');
+            div.className = 'question-item';
+
+            const p = document.createElement('p');
+            p.className = 'q-text';
+            p.textContent = `Câu ${index + 1}: ${q.text}`;
+            div.appendChild(p);
+
+            const optionsDiv = document.createElement('div');
+            optionsDiv.className = 'options';
+
+            q.options.forEach((opt) => {
+                const label = document.createElement('label');
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = `q${index}`;
+                radio.value = opt.type;
+                radio.id = `q${index}_${opt.type}`;
+                label.appendChild(radio);
+                label.appendChild(document.createTextNode(' ' + opt.text + ' '));
+                const tag = document.createElement('span');
+                tag.className = `tag tag-${opt.type.toLowerCase()}`;
+                tag.textContent = opt.tag;
+                label.appendChild(tag);
+                optionsDiv.appendChild(label);
+            });
+
+            div.appendChild(optionsDiv);
+            form.appendChild(div);
+        });
+
+        document.getElementById('submitBtn').style.display = 'block';
     }
-  </script>
+
+    // ==================== TÍNH KẾT QUẢ ====================
+    function submitQuiz() {
+        const form = document.getElementById('quizForm');
+        const inputs = form.querySelectorAll('input[type=radio]:checked');
+        const totalQuestions = questionsData.length;
+
+        if (inputs.length < totalQuestions) {
+            alert('⚠️ Bạn cần trả lời tất cả ' + totalQuestions + ' câu hỏi!');
+            return;
+        }
+
+        const scores = { A: 0, B: 0, C: 0, D: 0 };
+        inputs.forEach(input => {
+            scores[input.value]++;
+        });
+
+        let maxType = 'A';
+        let maxScore = scores.A;
+        for (let type in scores) {
+            if (scores[type] > maxScore) {
+                maxScore = scores[type];
+                maxType = type;
+            }
+        }
+
+        const result = typeNames[maxType];
+        const resultDiv = document.getElementById('result');
+        resultDiv.className = 'result-box show';
+        resultDiv.innerHTML = `
+            <h2>💕 Kết quả của bạn</h2>
+            <div class="result-type" style="color:${result.color}; border: 2px solid ${result.color};">
+                ${result.emoji} ${result.name}
+            </div>
+            <div class="scores">
+                ${Object.keys(scores).map(key => `
+                    <div class="score-item">
+                        <span style="color:${typeNames[key].color}">●</span>
+                        ${typeNames[key].name}: <span class="num">${scores[key]}</span>
+                    </div>
+                `).join('')}
+            </div>
+            <div class="desc">${result.desc}</div>
+            <div style="margin-top:20px; border-top:1px solid var(--light-gray); padding-top:20px;">
+                <p style="font-weight:600; color:var(--navy-dark);">📢 Chia sẻ bài test này:</p>
+                <div class="share-buttons">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn fb"><i class="fab fa-facebook-f"></i> Facebook</a>
+                    <a href="https://zalo.me/share?url=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn zalo"><i class="fas fa-comment"></i> Zalo</a>
+                    <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent('Kết quả trắc nghiệm của tôi: ' + result.emoji + ' ' + result.name)}&url=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn twitter"><i class="fab fa-twitter"></i> Twitter</a>
+                    <a href="https://www.tiktok.com/upload?lang=vi" target="_blank" class="share-btn tiktok"><i class="fab fa-tiktok"></i> TikTok</a>
+                </div>
+            </div>
+        `;
+
+        // Ẩn form
+        form.style.display = 'none';
+        document.getElementById('submitBtn').style.display = 'none';
+        window.scrollTo({ top: resultDiv.offsetTop - 100, behavior: 'smooth' });
+    }
+
+    // ==================== KHỞI CHẠY ====================
+    document.addEventListener('DOMContentLoaded', function() {
+        renderQuestions();
+        document.getElementById('submitBtn').addEventListener('click', submitQuiz);
+    });
+</script>
 </body>
 </html>
