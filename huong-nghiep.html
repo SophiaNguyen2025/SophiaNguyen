@@ -5,229 +5,666 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Định hướng nghề nghiệp - Sophia Nguyễn</title>
     <meta name="description" content="Dịch vụ định hướng nghề nghiệp cá nhân hóa, giúp bạn khám phá thế mạnh, giá trị cốt lõi và lộ trình phát triển phù hợp với bản thân.">
-    <meta name="keywords" content="định hướng nghề nghiệp, tư vấn hướng nghiệp, khám phá bản thân, chọn nghề, Sophia Nguyễn">
-    <meta name="author" content="Sophia Nguyễn">
-    <link rel="stylesheet" href="main.css" />
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
-            --primary: #14b8a6;
-            --primary-dark: #0d9488;
-            --primary-light: #5eead4;
-            --dark: #1e293b;
-            --gray: #475569;
-            --light-gray: #e2e8f0;
-            --white: #ffffff;
-            --gradient: linear-gradient(135deg, #14b8a6 0%, #0d9488 50%, #5eead4 100%);
-            --gradient-soft: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%);
+            --navy-dark: #0A1628;
+            --navy-mid: #1E3A5F;
+            --gold: #C9A84C;
+            --gold-light: #D4B85C;
+            --cream: #F5F0E8;
+            --white: #FFFFFF;
+            --gray: #4A5A6A;
+            --light-gray: #E8E4DC;
+            --gradient: linear-gradient(135deg, #0A1628 0%, #1E3A5F 50%, #2A4A7F 100%);
         }
-        body { font-family: 'Be Vietnam Pro', sans-serif; line-height: 1.6; color: var(--dark); background: var(--gradient-soft); }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--navy-dark);
+            line-height: 1.6;
+        }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-        
-        .hero { background: var(--gradient); padding: 70px 0 50px; text-align: center; color: white; border-radius: 0 0 40px 40px; }
-        .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
-        .hero p { font-size: 1.15rem; max-width: 700px; margin: 0 auto; opacity: 0.95; }
-        
-        .section { padding: 60px 0; }
-        .section-title { text-align: center; font-size: 2rem; color: var(--primary); margin-bottom: 16px; }
-        
-        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+
+        /* ========== HEADER ========== */
+        .header {
+            background: var(--white);
+            padding: 12px 0;
+            box-shadow: 0 2px 20px rgba(10,22,40,0.06);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo img { height: 55px; width: auto; display: block; }
+        .navbar ul {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+            align-items: center;
+        }
+        .navbar ul li a {
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        .navbar ul li a:hover, .navbar ul li a.active { color: var(--gold); }
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--navy-dark);
+        }
+        .show-menu { display: flex !important; }
+
+        /* ========== BANNER NHỎ ========== */
+        .banner {
+            background: var(--gradient);
+            padding: 12px 0;
+            text-align: center;
+            border-bottom: 2px solid var(--gold);
+        }
+        .banner img {
+            max-height: 70px;
+            width: auto;
+            display: inline-block;
+            border-radius: 8px;
+        }
+
+        /* ========== HERO ========== */
+        .hero {
+            background: var(--gradient);
+            padding: 60px 0 50px;
+            text-align: center;
+            color: white;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .hero h1 span { color: var(--gold); }
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        .hero .badge {
+            background: var(--gold);
+            color: var(--navy-dark);
+            display: inline-block;
+            padding: 8px 24px;
+            border-radius: 40px;
+            margin-top: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        /* ========== SECTION ========== */
+        .section { padding: 50px 0; }
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            font-size: 2rem;
+            color: var(--navy-dark);
+            margin-bottom: 12px;
+        }
+        .section-title span { color: var(--gold); }
+        .section-sub {
+            text-align: center;
+            color: var(--gray);
+            max-width: 650px;
+            margin: 0 auto 40px;
+            font-size: 1rem;
+        }
+
+        /* ========== TWO COL ========== */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
         .two-col.reverse { direction: rtl; }
         .two-col.reverse > * { direction: ltr; }
-        .col-content h2 { color: var(--primary); margin-bottom: 20px; font-size: 1.8rem; }
-        .col-content p { color: var(--gray); margin-bottom: 16px; line-height: 1.7; font-size: 1rem; }
-        .col-content ul { list-style: none; padding: 0; }
-        .col-content ul li { margin-bottom: 12px; display: flex; align-items: center; gap: 12px; color: var(--gray); font-size: 1rem; }
-        .col-content ul li i { color: var(--primary); font-size: 1.2rem; width: 24px; }
-        .col-image { text-align: center; }
-        .col-image i { font-size: 7rem; color: var(--primary); opacity: 0.8; }
-        
-        .three-col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin: 40px 0; }
-        .feature-card { background: white; border-radius: 24px; padding: 32px 24px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s; border: 1px solid var(--light-gray); }
-        .feature-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-        .feature-icon { font-size: 2.5rem; color: var(--primary); margin-bottom: 20px; }
-        .feature-card h3 { font-size: 1.25rem; margin-bottom: 12px; color: var(--primary); }
-        .feature-card p { color: var(--gray); font-size: 0.95rem; line-height: 1.5; }
-        
-        .process-steps { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; margin: 40px 0; }
-        .step { flex: 1; min-width: 200px; text-align: center; padding: 25px 20px; background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .step-num { width: 45px; height: 45px; background: var(--gradient); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; margin: 0 auto 16px; }
-        .step h4 { color: var(--primary); margin-bottom: 10px; font-size: 1.1rem; }
-        .step p { color: var(--gray); font-size: 0.9rem; }
-        
-        .pricing-box { background: white; border-radius: 24px; padding: 32px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid var(--light-gray); max-width: 500px; margin: 0 auto; }
-        .pricing-box h3 { color: var(--primary); font-size: 1.5rem; margin-bottom: 20px; }
-        .pricing-box p { color: var(--gray); font-size: 1rem; margin-bottom: 12px; }
-        
-        .cta-section { text-align: center; padding: 50px 40px; background: var(--gradient); color: white; border-radius: 32px; margin: 40px 0; }
-        .cta-section h2 { font-size: 1.8rem; margin-bottom: 16px; }
-        .btn-cta { background: white; color: var(--primary); border: none; padding: 14px 36px; border-radius: 50px; font-weight: 700; font-size: 1rem; text-decoration: none; display: inline-block; margin: 0 10px; transition: all 0.2s; }
-        .btn-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
-        .btn-cta-outline { background: transparent; border: 2px solid white; color: white; padding: 12px 32px; border-radius: 50px; font-weight: 600; font-size: 1rem; text-decoration: none; display: inline-block; margin: 0 10px; transition: all 0.2s; }
-        .btn-cta-outline:hover { background: white; color: var(--primary); }
-        
-        .footer { background: #0a4a5a; color: white; padding: 40px 0 20px; margin-top: 60px; text-align: center; }
-        .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px; }
-        .footer-logo, .footer-links, .footer-contact { flex: 1; min-width: 200px; text-align: left; }
-        .footer-logo img { width: 120px; margin-bottom: 16px; }
-        .footer-logo p { font-size: 0.85rem; line-height: 1.5; color: #cbd5e0; }
-        .footer-links h4, .footer-contact h4 { color: white; margin-bottom: 16px; font-size: 1rem; }
-        .footer-links ul { list-style: none; padding: 0; }
+        .col-content h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--navy-dark);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        .col-content h2 span { color: var(--gold); }
+        .col-content p {
+            color: var(--gray);
+            margin-bottom: 16px;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+        .col-content ul {
+            list-style: none;
+            padding: 0;
+        }
+        .col-content ul li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+        .col-content ul li i {
+            color: var(--gold);
+            font-size: 1.1rem;
+            width: 24px;
+            margin-top: 3px;
+        }
+        .col-image {
+            text-align: center;
+        }
+        .col-image i {
+            font-size: 6rem;
+            color: var(--gold);
+            opacity: 0.6;
+        }
+
+        /* ========== THREE COL ========== */
+        .three-col {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 40px 0;
+        }
+        .feature-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 32px 24px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(10,22,40,0.06);
+            transition: all 0.3s;
+            border: 1px solid var(--light-gray);
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold);
+            box-shadow: 0 20px 40px rgba(10,22,40,0.1);
+        }
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+        .feature-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--navy-dark);
+            margin-bottom: 10px;
+        }
+        .feature-card p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* ========== PROCESS STEPS ========== */
+        .process-steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px 0;
+        }
+        .step {
+            flex: 1;
+            min-width: 180px;
+            max-width: 240px;
+            text-align: center;
+            padding: 24px 20px;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(10,22,40,0.06);
+            border: 1px solid var(--light-gray);
+            transition: 0.3s;
+        }
+        .step:hover {
+            border-color: var(--gold);
+            transform: translateY(-3px);
+        }
+        .step-num {
+            width: 45px;
+            height: 45px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin: 0 auto 14px;
+        }
+        .step h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--navy-dark);
+            margin-bottom: 8px;
+            font-size: 1.05rem;
+        }
+        .step p {
+            color: var(--gray);
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        /* ========== PRICING BOX ========== */
+        .pricing-box {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 36px 32px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(10,22,40,0.06);
+            border: 1px solid var(--light-gray);
+            max-width: 550px;
+            margin: 0 auto;
+        }
+        .pricing-box h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--navy-dark);
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+        }
+        .pricing-box p {
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .pricing-box p i { color: var(--gold); width: 20px; }
+        .pricing-box .price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin: 16px 0;
+        }
+        .pricing-box .note {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-top: 16px;
+            font-style: italic;
+        }
+
+        /* ========== CTA ========== */
+        .cta-section {
+            text-align: center;
+            padding: 50px 40px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 32px;
+            margin: 40px 0;
+            border: 1px solid rgba(201,168,76,0.2);
+        }
+        .cta-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 16px;
+        }
+        .cta-section p { opacity: 0.9; margin-bottom: 24px; }
+        .btn-cta {
+            background: var(--gold);
+            color: var(--navy-dark);
+            border: none;
+            padding: 14px 36px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0 10px;
+            transition: all 0.2s;
+        }
+        .btn-cta:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(201,168,76,0.3);
+        }
+        .btn-cta-outline {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0 10px;
+            transition: all 0.2s;
+        }
+        .btn-cta-outline:hover {
+            background: white;
+            color: var(--navy-dark);
+            transform: translateY(-2px);
+        }
+
+        /* ========== BACK LINK ========== */
+        .back-link {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .back-link a {
+            color: var(--gray);
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .back-link a:hover { color: var(--gold); }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: var(--navy-dark);
+            color: rgba(255,255,255,0.7);
+            padding: 40px 0 24px;
+            margin-top: 60px;
+            border-top: 3px solid var(--gold);
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        .footer-logo img { width: 120px; margin-bottom: 12px; }
+        .footer-logo p { font-size: 0.85rem; line-height: 1.6; color: rgba(255,255,255,0.6); }
+        .footer-links h4, .footer-contact h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            margin-bottom: 16px;
+            font-size: 1rem;
+        }
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
         .footer-links ul li { margin-bottom: 8px; }
-        .footer-links ul li a { color: #cbd5e0; text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
-        .footer-links ul li a:hover { color: #e83e8c; }
-        .footer-contact p { font-size: 0.85rem; margin-bottom: 8px; color: #cbd5e0; display: flex; align-items: center; gap: 8px; }
-        .social-icons { display: flex; gap: 12px; margin-top: 16px; }
-        .social-icons a { display: inline-block; transition: transform 0.2s; }
+        .footer-links ul li a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: 0.2s;
+        }
+        .footer-links ul li a:hover { color: var(--gold); }
+        .footer-contact p {
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            color: rgba(255,255,255,0.6);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .footer-contact p i { color: var(--gold); width: 18px; }
+        .social-icons {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .social-icons a {
+            display: inline-block;
+            transition: transform 0.2s;
+        }
         .social-icons a:hover { transform: translateY(-3px); }
-        .social-icons img { width: 28px; height: 28px; }
-        .footer-bottom { text-align: center; padding-top: 30px; margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.75rem; color: #94a3b8; }
-        
+        .social-icons img { width: 30px; height: 30px; border-radius: 50%; }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 992px) {
+            .three-col { grid-template-columns: repeat(2, 1fr); }
+            .footer-container { grid-template-columns: 1fr 1fr; }
+        }
+
         @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .navbar {
+                display: none;
+                flex-direction: column;
+                gap: 12px;
+                padding: 16px 0;
+                background: var(--white);
+                width: 100%;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                padding: 16px 24px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+            .navbar ul { flex-direction: column; gap: 12px; }
+            .header-container { flex-wrap: wrap; position: relative; }
+            .logo img { height: 45px; }
+
             .hero h1 { font-size: 1.8rem; }
+            .hero p { font-size: 1rem; }
             .two-col { grid-template-columns: 1fr; gap: 30px; }
+            .two-col.reverse { direction: ltr; }
             .three-col { grid-template-columns: 1fr; }
             .section-title { font-size: 1.5rem; }
-            .process-steps { flex-direction: column; }
+            .col-content h2 { font-size: 1.4rem; }
+            .process-steps { flex-direction: column; align-items: center; }
+            .step { max-width: 100%; width: 100%; }
             .btn-cta, .btn-cta-outline { display: block; margin: 12px auto; width: fit-content; }
-            .col-content h2 { font-size: 1.5rem; }
-            .footer-container { flex-direction: column; text-align: center; }
-            .footer-logo, .footer-links, .footer-contact { text-align: center; }
+            .footer-container { grid-template-columns: 1fr; text-align: center; }
             .footer-contact p { justify-content: center; }
             .social-icons { justify-content: center; }
+            .banner img { max-height: 60px; }
+            .pricing-box { padding: 24px 16px; }
+            .cta-section { padding: 30px 20px; }
+            .cta-section h2 { font-size: 1.4rem; }
+        }
+
+        @media (max-width: 480px) {
+            .pricing-box .price { font-size: 1.4rem; }
         }
     </style>
 </head>
 <body>
-    <header class="header">
-        <div class="container header-container">
-            <a href="index.html" class="logo">
-                <img src="images/hinhremovenen.png" alt="Sophia Logo" />
-            </a>
-            <div class="menu-toggle" onclick="document.querySelector('.navbar').classList.toggle('show-menu')">☰</div>
-            <nav class="navbar">
-                <ul>
-                    <li><a href="index.html">Trang chủ</a></li>
-                    <li><a href="about.html">Giới thiệu</a></li>
-                    <li><a href="services.html">Dịch vụ</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="contact.html">Liên hệ</a></li>
-                </ul>
-            </nav>
-        </div>
-        <div class="banner">
-            <img src="images/rs1.png" alt="Sophia Nguyễn – Đồng hành & Sẻ chia" class="banner-img" style="width: 100%; height: auto; display: block;" />
-        </div>
-    </header>
 
-    <section class="hero">
-        <div class="container">
-            <h1>🎯 Định hướng nghề nghiệp & Phát triển cá nhân</h1>
-            <p>Giúp bạn hiểu rõ bản thân – tìm lối đi phù hợp – sống đúng với giá trị</p>
+<!-- ========== HEADER ========== -->
+<header class="header">
+    <div class="header-container">
+        <a href="index.html" class="logo">
+            <img src="images/hinhremovenen.png" alt="Sophia Nguyễn">
+        </a>
+        <div class="menu-toggle" onclick="document.querySelector('.navbar').classList.toggle('show-menu')">☰</div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="index.html">Trang chủ</a></li>
+                <li><a href="about.html">Giới thiệu</a></li>
+                <li><a href="services.html">Dịch vụ</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html">Liên hệ</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="banner">
+        <img src="images/rs1.png" alt="Sophia Nguyễn – Đồng hành & Sẻ chia" />
+    </div>
+</header>
+
+<!-- ========== HERO ========== -->
+<section class="hero">
+    <div class="container">
+        <h1>🎯 Định hướng nghề nghiệp & <span>Phát triển cá nhân</span></h1>
+        <p>Giúp bạn hiểu rõ bản thân – tìm lối đi phù hợp – sống đúng với giá trị</p>
+        <div class="badge">🌟 Đồng hành cùng bạn</div>
+    </div>
+</section>
+
+<!-- ========== NỘI DUNG ========== -->
+<div class="container">
+
+    <!-- INTRO -->
+    <section class="section" data-aos="fade-up">
+        <div class="two-col">
+            <div class="col-content">
+                <h2>Định hướng nghề nghiệp <span>không chỉ là chọn một công việc</span></h2>
+                <p>Đó là hành trình tìm ra con đường phù hợp nhất với bản thân. Sophia sẽ cùng bạn khám phá điều đó một cách nhẹ nhàng và rõ ràng.</p>
+                <p>Không ai sinh ra đã biết mình nên đi hướng nào. Nhưng ai cũng có thể tìm được con đường phù hợp – nếu có người đồng hành đủ lắng nghe, đủ kiên nhẫn và đủ thấu cảm.</p>
+            </div>
+            <div class="col-image">
+                <i class="fas fa-compass"></i>
+            </div>
         </div>
     </section>
 
-    <div class="container">
-        <section class="section" data-aos="fade-up">
-            <div class="two-col">
-                <div class="col-content">
-                    <h2>Định hướng nghề nghiệp không chỉ là chọn một công việc</h2>
-                    <p>Đó là hành trình tìm ra con đường phù hợp nhất với bản thân. Sophia sẽ cùng bạn khám phá điều đó một cách nhẹ nhàng và rõ ràng.</p>
-                    <p>Không ai sinh ra đã biết mình nên đi hướng nào. Nhưng ai cũng có thể tìm được con đường phù hợp – nếu có người đồng hành đủ lắng nghe, đủ kiên nhẫn và đủ thấu cảm.</p>
-                </div>
-                <div class="col-image"><i class="fas fa-compass"></i></div>
+    <!-- KHI NÀO CẦN ĐỊNH HƯỚNG -->
+    <section class="section" data-aos="fade-up">
+        <h2 class="section-title">Khi nào bạn cần <span>định hướng?</span></h2>
+        <div class="three-col">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-graduation-cap"></i></div>
+                <h3>Học sinh – Sinh viên</h3>
+                <p>Đang hoang mang khi chọn ngành hoặc chuyển ngành</p>
             </div>
-        </section>
-
-        <section class="section" data-aos="fade-up">
-            <h2 class="section-title">Khi nào bạn cần định hướng?</h2>
-            <div class="three-col">
-                <div class="feature-card"><div class="feature-icon"><i class="fas fa-graduation-cap"></i></div><h3>Học sinh – Sinh viên</h3><p>Đang hoang mang khi chọn ngành hoặc chuyển ngành</p></div>
-                <div class="feature-card"><div class="feature-icon"><i class="fas fa-briefcase"></i></div><h3>Người đi làm</h3><p>Muốn thay đổi hướng đi nhưng chưa rõ điểm mạnh – điểm yếu</p></div>
-                <div class="feature-card"><div class="feature-icon"><i class="fas fa-question-circle"></i></div><h3>Người lạc lối</h3><p>Muốn sống đúng với bản thân nhưng đang lạc giữa quá nhiều lựa chọn</p></div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-briefcase"></i></div>
+                <h3>Người đi làm</h3>
+                <p>Muốn thay đổi hướng đi nhưng chưa rõ điểm mạnh – điểm yếu</p>
             </div>
-        </section>
-
-        <section class="section" data-aos="fade-up">
-            <h2 class="section-title">Quy trình tư vấn định hướng</h2>
-            <div class="process-steps">
-                <div class="step"><div class="step-num">1</div><h4>Gặp gỡ ban đầu</h4><p>Lắng nghe câu chuyện & mong muốn</p></div>
-                <div class="step"><div class="step-num">2</div><h4>Khám phá bản thân</h4><p>Qua công cụ, bài test, trò chuyện khai vấn</p></div>
-                <div class="step"><div class="step-num">3</div><h4>Phân tích & xây lộ trình</h4><p>Phù hợp với giá trị cá nhân</p></div>
-                <div class="step"><div class="step-num">4</div><h4>Duy trì động lực</h4><p>Hướng dẫn phát triển bền vững</p></div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-question-circle"></i></div>
+                <h3>Người lạc lối</h3>
+                <p>Muốn sống đúng với bản thân nhưng đang lạc giữa quá nhiều lựa chọn</p>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="section" data-aos="fade-up">
-            <div class="two-col reverse">
-                <div class="col-content">
-                    <h2>Phương pháp & phong cách làm việc</h2>
-                    <p>Kết hợp giữa công cụ tâm lý với kỹ thuật tham vấn định hướng cá nhân hóa – Sophia đồng hành bằng sự thấu cảm, không ép buộc, không phán xét.</p>
-                    <p>Sophia sẽ cùng bạn khám phá điểm mạnh, giá trị cốt lõi và những điều thực sự quan trọng với bạn.</p>
-                </div>
-                <div class="col-image"><i class="fas fa-hand-holding-heart"></i></div>
+    <!-- QUY TRÌNH -->
+    <section class="section" data-aos="fade-up">
+        <h2 class="section-title">Quy trình tư vấn <span>định hướng</span></h2>
+        <div class="process-steps">
+            <div class="step">
+                <div class="step-num">1</div>
+                <h4>Gặp gỡ ban đầu</h4>
+                <p>Lắng nghe câu chuyện & mong muốn</p>
             </div>
-        </section>
-
-        <section class="section" data-aos="fade-up">
-            <h2 class="section-title">Đặt lịch & mức phí</h2>
-            <div class="pricing-box">
-                <h3>📅 Thông tin buổi tư vấn</h3>
-                <p><i class="fas fa-video"></i> Hình thức: Online (Zoom) hoặc trực tiếp tại TP.HCM</p>
-                <p><i class="fas fa-clock"></i> Thời lượng: 60 phút / buổi</p>
-                <div class="price" style="font-size: 1.8rem; font-weight: bold; color: var(--primary); margin: 20px 0;">600.000đ / buổi</div>
-                <p>Hoặc gói 3 buổi: <strong>1.500.000đ</strong></p>
-                <p style="font-size: 0.85rem; margin-top: 16px;">* Chi phí đã bao gồm tài liệu và bài test định hướng</p>
+            <div class="step">
+                <div class="step-num">2</div>
+                <h4>Khám phá bản thân</h4>
+                <p>Qua công cụ, bài test, trò chuyện khai vấn</p>
             </div>
-        </section>
-
-        <section class="cta-section" data-aos="zoom-in-up">
-            <h2>🚀 Sẵn sàng tìm ra con đường phù hợp với bạn?</h2>
-            <p style="margin-bottom: 24px;">Đặt lịch tư vấn ngay hôm nay để được Sophia đồng hành</p>
-            <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
-                <a href="https://zalo.me/0977092182" class="btn-cta">📅 Đặt lịch tư vấn</a>
-                <a href="contact.html" class="btn-cta-outline">📩 Gửi tin nhắn cho Sophia</a>
+            <div class="step">
+                <div class="step-num">3</div>
+                <h4>Phân tích & xây lộ trình</h4>
+                <p>Phù hợp với giá trị cá nhân</p>
             </div>
-        </section>
+            <div class="step">
+                <div class="step-num">4</div>
+                <h4>Duy trì động lực</h4>
+                <p>Hướng dẫn phát triển bền vững</p>
+            </div>
+        </div>
+    </section>
 
-        <div style="text-align: center; margin: 20px 0;">
-            <a href="index.html" style="color: var(--primary); text-decoration: none; font-weight: 500;">← Quay về trang chủ</a>
+    <!-- PHƯƠNG PHÁP -->
+    <section class="section" data-aos="fade-up">
+        <div class="two-col reverse">
+            <div class="col-content">
+                <h2>Phương pháp & <span>phong cách</span> làm việc</h2>
+                <p>Kết hợp giữa công cụ tâm lý với kỹ thuật tham vấn định hướng cá nhân hóa – Sophia đồng hành bằng sự thấu cảm, không ép buộc, không phán xét.</p>
+                <p>Sophia sẽ cùng bạn khám phá điểm mạnh, giá trị cốt lõi và những điều thực sự quan trọng với bạn.</p>
+            </div>
+            <div class="col-image">
+                <i class="fas fa-hand-holding-heart"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- ĐẶT LỊCH -->
+    <section class="section" data-aos="fade-up">
+        <h2 class="section-title">Đặt lịch & <span>mức phí</span></h2>
+        <div class="pricing-box">
+            <h3>📅 Thông tin buổi tư vấn</h3>
+            <p><i class="fas fa-video"></i> Hình thức: Online (Zoom) hoặc trực tiếp tại TP.HCM</p>
+            <p><i class="fas fa-clock"></i> Thời lượng: 60 phút / buổi</p>
+            <div class="price">600.000đ / buổi</div>
+            <p>Hoặc gói 3 buổi: <strong>1.500.000đ</strong></p>
+            <p class="note">* Chi phí đã bao gồm tài liệu và bài test định hướng</p>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section" data-aos="zoom-in-up">
+        <h2>🚀 Sẵn sàng tìm ra con đường phù hợp với bạn?</h2>
+        <p>Đặt lịch tư vấn ngay hôm nay để được Sophia đồng hành</p>
+        <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+            <a href="https://zalo.me/0977092182" class="btn-cta">📅 Đặt lịch tư vấn</a>
+            <a href="contact.html" class="btn-cta-outline">📩 Gửi tin nhắn cho Sophia</a>
+        </div>
+    </section>
+
+    <!-- BACK LINK -->
+    <div class="back-link">
+        <a href="index.html"><i class="fas fa-arrow-left"></i> Quay về trang chủ</a>
+    </div>
+</div>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer" data-aos="fade-up">
+    <div class="footer-container">
+        <div class="footer-logo">
+            <img src="images/hinhremovenen.png" alt="Sophia Nguyễn">
+            <p>Đồng hành & Sẻ chia cùng bạn trên hành trình tâm lý – phát triển – yêu thương.</p>
+        </div>
+        <div class="footer-links">
+            <h4>Dịch vụ</h4>
+            <ul>
+                <li><a href="tuvan-tamly1.html">Tham vấn tâm lý</a></li>
+                <li><a href="huong-nghiep.html">Định hướng nghề nghiệp</a></li>
+                <li><a href="ky-nang.html">Đào tạo kỹ năng</a></li>
+                <li><a href="van-tay.html">Sinh trắc vân tay</a></li>
+            </ul>
+        </div>
+        <div class="footer-contact">
+            <h4>Liên hệ</h4>
+            <p><i class="fas fa-envelope"></i> sophianguyen2891@gmail.com</p>
+            <p><i class="fas fa-phone"></i> 0977092182</p>
+            <p><i class="fas fa-map-marker-alt"></i> Tân Bình - TPHCM</p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/Sophiadiemhang1982"><img src="images/fb.png" alt="Facebook" /></a>
+                <a href="https://www.tiktok.com/@sophia.nguyen2014"><img src="images/tiktok.png" alt="TikTok" /></a>
+                <a href="https://www.youtube.com/@sophianguyen1982-dh"><img src="images/youtube.png" alt="YouTube" /></a>
+            </div>
         </div>
     </div>
+    <div class="footer-bottom">
+        <p>Copyright ©2025 Sophia Nguyễn. All rights reserved.</p>
+    </div>
+</footer>
 
-    <footer class="footer" data-aos="fade-up">
-        <div class="footer-container">
-            <div class="footer-logo">
-                <img src="images/hinhremovenen.png" alt="Logo Sophia">
-                <p>Đồng hành & Sẻ chia cùng bạn trên hành trình tâm lý – phát triển – yêu thương.</p>
-            </div>
-            <div class="footer-links">
-                <h4>Dịch vụ</h4>
-                <ul><li><a href="#">Tham vấn tâm lý</a></li><li><a href="#">Định hướng nghề nghiệp</a></li><li><a href="#">Đào tạo kỹ năng</a></li><li><a href="#">Sinh trắc vân tay</a></li></ul>
-            </div>
-            <div class="footer-contact">
-                <h4>Liên hệ</h4>
-                <p>📧 sophianguyen2891@gmail.com</p>
-                <p>📞 0977092182</p>
-                <p>🏠 Tân Bình - TPHCM</p>
-                <div class="social-icons">
-                    <a href="https://www.facebook.com/Sophiadiemhang1982"><img src="images/fb.png" alt="FB" /></a>
-                    <a href="https://www.tiktok.com/@sophia.nguyen2014"><img src="images/tiktok.png" alt="TikTok" /></a>
-                    <a href="https://www.youtube.com/@sophianguyen1982-dh"><img src="images/youtube.png" alt="YouTube" /></a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>Copyright ©2024 Sophia Nguyễn. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-    <script>
-        AOS.init({ once: true, duration: 1000, easing: 'ease-out-cubic' });
-    </script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+    AOS.init({ once: true, duration: 1000, easing: 'ease-out-cubic' });
+</script>
 </body>
 </html>
