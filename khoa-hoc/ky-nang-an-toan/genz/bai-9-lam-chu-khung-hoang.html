@@ -3,125 +3,412 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Bài 9: Làm chủ khủng hoảng & An toàn AI | Bản lĩnh tuổi Teen | Sophia Nguyễn</title>
+    <title>Bài 9: Làm chủ khủng hoảng & An toàn AI | Sophia Nguyễn</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --navy-dark: #0A1628;
+            --navy-mid: #1E3A5F;
+            --gold: #C9A84C;
+            --gold-light: #D4B85C;
+            --cream: #F5F0E8;
+            --white: #FFFFFF;
+            --gray: #4A5A6A;
+            --light-gray: #E8E4DC;
+            --green: #2E7D32;
+            --red: #C62828;
+        }
         body {
-            background: #0a0a0a;
-            font-family: 'Segoe UI', 'Be Vietnam Pro', sans-serif;
+            background: linear-gradient(145deg, var(--cream) 0%, #EDE8E0 100%);
+            font-family: 'Inter', 'Be Vietnam Pro', sans-serif;
             padding: 20px;
             min-height: 100vh;
         }
         .container { max-width: 1100px; margin: 0 auto; }
-        .header { background: #141414; border-radius: 32px; padding: 20px; margin-bottom: 20px; text-align: center; border: 1px solid #2a2a2a; }
+        
+        .header { 
+            background: var(--white); 
+            border-radius: 32px; 
+            padding: 20px; 
+            margin-bottom: 20px; 
+            text-align: center; 
+            box-shadow: 0 10px 30px rgba(10,22,40,0.08);
+            border: 1px solid var(--light-gray);
+        }
         .logo { height: 60px; margin-bottom: 10px; }
-        .header h1 { color: #e0e0e0; font-size: 1.8rem; }
-        .video-section { background: #141414; border-radius: 32px; padding: 20px; margin-bottom: 20px; border: 1px solid #2a2a2a; }
-        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 24px; overflow: hidden; }
-        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-        .exercise { background: #141414; border-radius: 32px; padding: 20px; margin-bottom: 20px; border: 1px solid #2a2a2a; }
-        .exercise-title { font-size: 1.5rem; color: #e63946; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 3px solid #e63946; display: inline-block; }
-        .back-btn { display: inline-block; background: #e63946; color: white; padding: 12px 24px; border-radius: 40px; text-decoration: none; font-weight: bold; margin-top: 20px; transition: all 0.2s; }
-        .back-btn:hover { transform: translateY(-2px); background: #c1121f; }
-        .footer { text-align: center; color: #666; padding: 20px; font-size: 0.8rem; }
+        .logo img { height: 60px; }
+        .header h1 { 
+            font-family: 'Playfair Display', serif;
+            color: var(--navy-dark); 
+            font-size: 1.8rem; 
+        }
+        .header h1 span { color: var(--gold); }
+        .course-badge {
+            display: inline-block;
+            background: rgba(201,168,76,0.2);
+            color: var(--gold);
+            padding: 4px 16px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
         
-        .shake-screen { animation: shake 0.3s ease-in-out 0s 2; }
-        @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } 100% { transform: translateX(0); } }
+        .video-section { 
+            background: var(--white); 
+            border-radius: 32px; 
+            padding: 20px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 10px 30px rgba(10,22,40,0.08);
+            border: 1px solid var(--light-gray);
+        }
+        .video-wrapper { 
+            position: relative; 
+            padding-bottom: 56.25%; 
+            height: 0; 
+            border-radius: 24px; 
+            overflow: hidden; 
+        }
+        .video-wrapper iframe { 
+            position: absolute; 
+            top: 0; left: 0; 
+            width: 100%; height: 100%; 
+            border: none; 
+        }
+        .video-label {
+            background: var(--cream);
+            padding: 12px 20px;
+            font-weight: 600;
+            color: var(--navy-dark);
+            font-size: 1rem;
+            text-align: center;
+            border-top: 2px solid var(--gold);
+            border-radius: 0 0 32px 32px;
+        }
         
-        #confetti-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; }
+        .exercise { 
+            background: var(--white); 
+            border-radius: 32px; 
+            padding: 24px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 10px 30px rgba(10,22,40,0.08);
+            border: 1px solid var(--light-gray);
+        }
+        .ex-title { 
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem; 
+            color: var(--navy-dark); 
+            margin-bottom: 8px; 
+            padding-bottom: 8px; 
+            border-bottom: 3px solid var(--gold); 
+            display: inline-block; 
+        }
+        .ex-desc {
+            color: var(--gray);
+            margin: 12px 0 20px;
+            font-size: 0.95rem;
+        }
         
-        .progress-bar { background: #1a1a2e; border-radius: 20px; height: 8px; margin-bottom: 10px; overflow: hidden; }
-        .progress-fill { background: #e63946; height: 100%; border-radius: 20px; transition: width 0.3s; }
-        .progress-badge { background: #1a1a2e; padding: 6px 16px; border-radius: 40px; color: #ccc; font-weight: 600; border: 1px solid #e63946; display: inline-block; margin-bottom: 15px; }
+        .question-item {
+            background: var(--cream);
+            border-radius: 20px;
+            padding: 16px 20px;
+            margin-bottom: 16px;
+            border: 1px solid var(--light-gray);
+        }
+        .question-text {
+            font-weight: 700;
+            color: var(--navy-dark);
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 8px 0;
+            padding: 8px 16px;
+            background: var(--white);
+            border-radius: 60px;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid var(--light-gray);
+        }
+        .option:hover { border-color: var(--gold); background: var(--cream); }
+        input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--gold);
+            cursor: pointer;
+        }
         
-        .ai-tip, .crisis-tip, .law-tip { background: #1a1a2e; border-radius: 20px; padding: 15px 20px; margin-bottom: 25px; border-left: 5px solid #e63946; display: flex; align-items: center; gap: 15px; flex-wrap: wrap; }
-        .tip-icon { font-size: 32px; }
-        .tip-text { flex: 1; color: #ccc; font-size: 14px; }
-        .tip-text strong { color: #e63946; }
+        .check-btn {
+            background: var(--gold);
+            color: var(--navy-dark);
+            border: none;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 12px 28px;
+            border-radius: 60px;
+            cursor: pointer;
+            margin-top: 16px;
+            width: 100%;
+            transition: 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .check-btn:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+        }
+        .result-area {
+            margin-top: 16px;
+            border-radius: 20px;
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1rem;
+            display: none;
+        }
+        .result-area.correct {
+            background: #E8F5E9;
+            color: var(--green);
+            display: block;
+        }
+        .result-area.wrong {
+            background: #FFF3E0;
+            color: var(--red);
+            display: block;
+        }
         
-        .call-simulator { background: #1a1a2e; border-radius: 24px; padding: 20px; margin-bottom: 25px; text-align: center; border: 1px solid #2a2a3e; }
-        .call-header { display: flex; align-items: center; justify-content: space-between; background: #0a0a12; padding: 10px 15px; border-radius: 20px; margin-bottom: 15px; }
-        .caller-name { font-weight: 700; color: #e63946; }
-        .call-status { font-size: 12px; color: #2ecc71; }
-        .video-screen { background: #0a0a12; border-radius: 20px; padding: 30px; text-align: center; margin-bottom: 15px; border: 2px dashed #e63946; }
-        .video-emoji { font-size: 60px; margin-bottom: 10px; }
-        .video-text { color: #ccc; font-size: 14px; }
-        .call-buttons { display: flex; gap: 15px; justify-content: center; }
-        .call-btn { background: #e63946; border: none; padding: 10px 25px; border-radius: 40px; color: white; font-weight: 600; cursor: pointer; transition: 0.2s; }
-        .call-btn:hover { background: #c1121f; }
-        .call-btn.danger { background: #e74c3c; }
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .chapter-nav a {
+            background: var(--navy-dark);
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .chapter-nav a:hover {
+            background: var(--gold);
+            color: var(--navy-dark);
+            transform: translateY(-2px);
+        }
         
-        .rule-box { background: #1a1a2e; border-radius: 20px; padding: 15px; margin-bottom: 25px; text-align: center; border: 1px solid #2a2a3e; }
-        .rule-title { font-size: 18px; font-weight: 700; color: #e0e0e0; margin-bottom: 10px; }
-        .rule-desc { font-size: 13px; color: #aaa; line-height: 1.5; }
+        .tip-box {
+            background: var(--cream);
+            border-radius: 20px;
+            padding: 16px 20px;
+            margin-bottom: 20px;
+            border-left: 5px solid var(--gold);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .tip-box .icon { font-size: 28px; flex-shrink: 0; }
+        .tip-box .text { font-size: 0.9rem; color: var(--gray); }
+        .tip-box .text strong { color: var(--navy-dark); }
         
-        .comparison-box { display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 25px; }
-        .comparison-card { flex: 1; background: #1a1a2e; border-radius: 20px; padding: 15px; text-align: center; border: 1px solid #2a2a3e; }
-        .comparison-title { font-size: 16px; font-weight: 700; margin-bottom: 10px; }
-        .comparison-title.good { color: #2ecc71; }
-        .comparison-title.bad { color: #e74c3c; }
-        .comparison-list { text-align: left; padding-left: 20px; color: #aaa; font-size: 12px; }
-        .comparison-list li { margin: 5px 0; }
+        .comparison-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .comparison-card {
+            flex: 1;
+            min-width: 200px;
+            background: var(--cream);
+            border-radius: 20px;
+            padding: 16px 20px;
+            border: 1px solid var(--light-gray);
+        }
+        .comparison-card .title {
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+        .comparison-card .title.good { color: var(--green); }
+        .comparison-card .title.bad { color: var(--red); }
+        .comparison-card ul {
+            list-style: none;
+            padding: 0;
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+        .comparison-card ul li {
+            padding: 4px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        .comparison-card ul li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+        }
         
-        .question-card { background: #1a1a2e; border-radius: 24px; padding: 24px; margin-bottom: 25px; border: 1px solid #2a2a3e; }
-        .question-text { font-size: 17px; font-weight: 600; color: #e0e0e0; margin-bottom: 20px; line-height: 1.4; }
-        .options { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
-        .option { background: #0a0a12; border: 2px solid #2a2a3e; border-radius: 16px; padding: 12px 16px; cursor: pointer; transition: all 0.2s; color: #ccc; font-size: 13px; line-height: 1.4; }
-        .option:hover { border-color: #e63946; background: #1e1e32; }
-        .option.selected-correct { border-color: #2ecc71; background: #1a2a1a; color: #2ecc71; }
-        .option.selected-wrong { border-color: #e74c3c; background: #2a1a1a; color: #e74c3c; }
-        .feedback { background: #0a0a12; border-radius: 16px; padding: 15px; margin-top: 15px; font-size: 14px; border-left: 4px solid #e63946; color: #ccc; }
-        .feedback.correct { border-left-color: #2ecc71; color: #2ecc71; }
-        .feedback.wrong { border-left-color: #e74c3c; color: #e74c3c; }
+        .call-simulator {
+            background: var(--cream);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            border: 1px solid var(--light-gray);
+        }
+        .call-simulator .caller {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--white);
+            padding: 10px 16px;
+            border-radius: 16px;
+            margin-bottom: 12px;
+        }
+        .call-simulator .caller .name { font-weight: 700; color: var(--navy-dark); }
+        .call-simulator .caller .status { font-size: 0.8rem; color: var(--green); }
+        .call-simulator .screen {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 20px;
+            border: 2px dashed var(--gold);
+            margin-bottom: 12px;
+        }
+        .call-simulator .screen .emoji { font-size: 48px; }
+        .call-simulator .screen .text { font-size: 0.9rem; color: var(--gray); margin-top: 8px; }
+        .call-simulator .actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .call-simulator .actions button {
+            background: var(--gold);
+            border: none;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: var(--navy-dark);
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .call-simulator .actions button:hover { background: var(--gold-light); transform: translateY(-2px); }
+        .call-simulator .actions button.danger { background: var(--red); color: var(--white); }
+        .call-simulator .actions button.danger:hover { background: #B71C1C; }
         
-        .btn-next { background: #e63946; border: none; color: white; font-size: 18px; font-weight: 600; padding: 14px 28px; border-radius: 60px; cursor: pointer; width: 100%; margin: 15px 0; transition: 0.2s; }
-        .btn-next:hover { background: #c1121f; }
-        .reset-btn { background: #e63946; border: none; padding: 12px 28px; border-radius: 40px; font-weight: 600; font-size: 16px; cursor: pointer; color: white; width: 100%; margin-top: 15px; }
-        .result-area { text-align: center; padding: 30px; background: #1a1a2e; border-radius: 24px; margin-top: 20px; }
-        .final-score { font-size: 48px; font-weight: bold; color: #e63946; margin: 20px 0; }
+        .rule-box {
+            background: var(--cream);
+            border-radius: 20px;
+            padding: 16px 20px;
+            margin-bottom: 20px;
+            border: 2px solid var(--gold);
+            text-align: center;
+        }
+        .rule-box .title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--navy-dark);
+        }
+        .rule-box .sub {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin: 6px 0 12px;
+        }
+        .rule-box .steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+        .rule-box .steps .step {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 10px 14px;
+            min-width: 70px;
+            text-align: center;
+            border: 1px solid var(--light-gray);
+            flex: 1;
+            max-width: 100px;
+        }
+        .rule-box .steps .step .num {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+        .rule-box .steps .step .label { font-size: 0.65rem; color: var(--gray); font-weight: 600; }
+        
+        @media (max-width: 768px) { 
+            .header h1 { font-size: 1.4rem; }
+            .comparison-card { min-width: 100%; }
+            .rule-box .steps .step { max-width: 80px; }
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="header">
-        <img src="https://i.ibb.co/fK21mfr/z6733594850225-2f3b990b665eef085ad3928349c48c7f.jpg" alt="Sophia Nguyễn" class="logo">
-        <h1>🤖 Bài 9: Làm chủ khủng hoảng & An toàn AI</h1>
+        <img src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Sophia Nguyễn" class="logo">
+        <div class="course-badge">🤖 Bài 9 - Bản lĩnh tuổi Teen</div>
+        <h1>🤖 Làm chủ khủng hoảng & <span>An toàn AI</span></h1>
     </div>
 
     <div class="video-section">
         <div class="video-wrapper">
             <iframe src="https://www.youtube.com/embed/kwQ_AANjqig" frameborder="0" allowfullscreen></iframe>
         </div>
+        <div class="video-label">
+            🎬 Bài học: Làm chủ khủng hoảng & An toàn AI – Bảo vệ bản thân trong thời đại số!
+        </div>
     </div>
 
-    <!-- Bài tập 1: Nhận diện Deepfake -->
     <div class="exercise">
-        <h2 class="exercise-title">🤖 Bài tập 1: Nhận diện Deepfake - AI thật hay giả</h2>
+        <div class="ex-title">🤖 Bài tập 1: Nhận diện Deepfake</div>
+        <div class="ex-desc">🧠 Chọn đáp án đúng về cách nhận diện và xử lý Deepfake.</div>
         <div id="exercise1"></div>
+        <button class="check-btn" id="checkBtn1">✅ Kiểm tra bài tập 1</button>
+        <div id="result1" class="result-area"></div>
     </div>
 
-    <!-- Bài tập 2: Sơ cứu danh tiếng số -->
     <div class="exercise">
-        <h2 class="exercise-title">🔥 Bài tập 2: Sơ cứu danh tiếng số - Xử lý khi bị "phốt"</h2>
+        <div class="ex-title">🔥 Bài tập 2: Sơ cứu danh tiếng số</div>
+        <div class="ex-desc">🧠 Chọn đáp án đúng về cách xử lý khi bị "phốt".</div>
         <div id="exercise2"></div>
+        <button class="check-btn" id="checkBtn2">✅ Kiểm tra bài tập 2</button>
+        <div id="result2" class="result-area"></div>
     </div>
 
-    <!-- Bài tập 3: Bạo lực mạng tổ chức -->
     <div class="exercise">
-        <h2 class="exercise-title">⚖️ Bài tập 3: Bạo lực mạng tỴ chức - Lá chắn pháp luật</h2>
+        <div class="ex-title">⚖️ Bài tập 3: Bạo lực mạng tổ chức</div>
+        <div class="ex-desc">🧠 Chọn đáp án đúng về cách bảo vệ bản thân khỏi bạo lực mạng.</div>
         <div id="exercise3"></div>
+        <button class="check-btn" id="checkBtn3">✅ Kiểm tra bài tập 3</button>
+        <div id="result3" class="result-area"></div>
     </div>
 
-    <a href="/khoa-hoc/ky-nang-an-toan/genz/" class="back-btn">← Quay lại danh sách bài học</a>
-    <div class="footer">
-        <p>🛡️ Bản lĩnh tuổi Teen – Khóa học an toàn dành cho giới trẻ | Sophia Nguyễn</p>
+    <div class="chapter-nav">
+        <a href="bai-8-phap-luat.html">← Bài trước</a>
+        <a href="index.html">📚 Danh sách bài học</a>
     </div>
 </div>
 <canvas id="confetti-canvas"></canvas>
 
 <script>
-    // ==================== HIỆU ỨNG CONFETTI & ÂM THANH ====================
+    // ==================== CONFETTI & ÂM THANH ====================
     let ctx = null, width = window.innerWidth, height = window.innerHeight, particles = [], animationId = null;
     function resizeCanvas() { width = window.innerWidth; height = window.innerHeight; const canvas = document.getElementById('confetti-canvas'); if(canvas){ canvas.width = width; canvas.height = height; ctx = canvas.getContext('2d'); } }
     function createConfetti(duration = 1800) {
@@ -158,268 +445,278 @@
     }
     window.addEventListener('resize', () => { resizeCanvas(); if(particles.length) drawConfetti(); });
     
-    function playClickSound() {
+    function playSound(type) {
         try {
             const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
             osc.connect(gain);
             gain.connect(audioCtx.destination);
-            osc.frequency.value = 880;
-            gain.gain.value = 0.08;
-            osc.type = 'sine';
-            osc.start();
-            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.08);
-            osc.stop(audioCtx.currentTime + 0.08);
-        } catch(e) {}
-    }
-    
-    function playSuccessSound() {
-        try {
-            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            const frequencies = [880, 1046.5, 1318.5];
-            frequencies.forEach((freq, idx) => {
-                setTimeout(() => {
-                    const osc = audioCtx.createOscillator();
-                    const gain = audioCtx.createGain();
-                    osc.connect(gain);
-                    gain.connect(audioCtx.destination);
-                    osc.frequency.value = freq;
-                    gain.gain.value = 0.2;
-                    osc.type = 'sine';
-                    osc.start();
-                    gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
-                    osc.stop(audioCtx.currentTime + 0.3);
-                }, idx * 120);
-            });
-        } catch(e) {}
-        createConfetti(800);
-    }
-    
-    function playCompleteSound() {
-        try {
-            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            const gain = audioCtx.createGain();
-            gain.connect(audioCtx.destination);
-            gain.gain.value = 0.3;
-            const bufferSize = 4096;
-            const noise = audioCtx.createBufferSource();
-            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-            const data = buffer.getChannelData(0);
-            for(let i=0; i<bufferSize; i++) data[i] = Math.random() * 2 - 1;
-            noise.buffer = buffer;
-            noise.loop = true;
-            noise.connect(gain);
-            noise.start();
-            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 1.2);
-            noise.stop(audioCtx.currentTime + 1.2);
-            setTimeout(() => {
-                const osc = audioCtx.createOscillator();
-                const gain2 = audioCtx.createGain();
-                osc.connect(gain2);
-                gain2.connect(audioCtx.destination);
-                osc.frequency.value = 1046.5;
-                gain2.gain.value = 0.3;
+            if (type === 'correct') {
+                osc.frequency.value = 880;
+                gain.gain.value = 0.2;
                 osc.type = 'sine';
                 osc.start();
-                gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.5);
-                osc.stop(audioCtx.currentTime + 0.5);
-            }, 1000);
+                gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                osc.stop(audioCtx.currentTime + 0.3);
+                setTimeout(() => {
+                    const osc2 = audioCtx.createOscillator();
+                    const gain2 = audioCtx.createGain();
+                    osc2.connect(gain2);
+                    gain2.connect(audioCtx.destination);
+                    osc2.frequency.value = 1100;
+                    gain2.gain.value = 0.2;
+                    osc2.type = 'sine';
+                    osc2.start();
+                    gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                    osc2.stop(audioCtx.currentTime + 0.3);
+                }, 100);
+            } else if (type === 'wrong') {
+                osc.frequency.value = 440;
+                gain.gain.value = 0.2;
+                osc.type = 'sawtooth';
+                osc.start();
+                gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                osc.stop(audioCtx.currentTime + 0.3);
+            } else {
+                osc.frequency.value = 660;
+                gain.gain.value = 0.1;
+                osc.type = 'sine';
+                osc.start();
+                gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.05);
+                osc.stop(audioCtx.currentTime + 0.05);
+            }
         } catch(e) {}
-        createConfetti(2500);
-    }
-    
-    function playErrorSound() {
-        try {
-            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.frequency.value = 220;
-            gain.gain.value = 0.25;
-            osc.type = 'sawtooth';
-            osc.start();
-            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.4);
-            osc.stop(audioCtx.currentTime + 0.4);
-            setTimeout(() => {
-                const osc2 = audioCtx.createOscillator();
-                const gain2 = audioCtx.createGain();
-                osc2.connect(gain2);
-                gain2.connect(audioCtx.destination);
-                osc2.frequency.value = 164.81;
-                gain2.gain.value = 0.2;
-                osc2.type = 'sawtooth';
-                osc2.start();
-                gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
-                osc2.stop(audioCtx.currentTime + 0.3);
-            }, 150);
-        } catch(e) {}
-        document.body.classList.add('shake-screen');
-        setTimeout(() => document.body.classList.remove('shake-screen'), 500);
     }
 
     // ========== BÀI TẬP 1: NHẬN DIỆN DEEPFAKE ==========
-    (function() {
-        const questions = [
-            { text: "🤖 Bạn nhận được cuộc gọi video từ số máy của mẹ. Hình ảnh giống mẹ nhưng mắt ít chớp, cử động hơi cứng. Bạn nên làm gì?", options: ["A. Tin tưởng ngay", "B. Yêu cầu thực hiện hành động bất ngờ để kiểm tra", "C. Tắt máy ngay", "D. Làm theo mọi yêu cầu"], correct: 1, explanation: "✅ Deepfake thường gặp khó với hành động bất ngờ. Hãy yêu cầu đưa tay qua mặt hoặc hỏi câu hỏi riêng tư." },
-            { text: "🤖 Deepfake là gì?", options: ["A. Phần mềm diệt virus", "B. Công nghệ tạo video, hình ảnh giả mạo bằng AI", "C. Ứng dụng chỉnh ảnh thông thường", "D. Mạng xã hội mới"], correct: 1, explanation: "✅ Deepfake là công nghệ AI tạo video/hình ảnh giả mạo, có thể khiến bạn tưởng người khác đang nói/ làm điều chưa từng làm." },
-            { text: "🤖 Bạn có thói quen đăng ảnh selfie chất lượng cao lên mạng xã hội. Rủi ro tiềm ẩn là gì?", options: ["A. Không có rủi ro", "B. Ảnh có thể bị lợi dụng tạo Deepfake", "C. Chỉ bị hack mật khẩu", "D. Ảnh bị mờ đi"], correct: 1, explanation: "✅ Ảnh selfie chất lượng cao cung cấp dữ liệu khuôn mặt cho kẻ xấu tạo Deepfake." },
-            { text: "🤖 Bạn muốn dùng AI tạo bài hát mới và đăng lên mạng. Cần lưu ý gì về đạo đức và pháp luật?", options: ["A. Không cần lưu ý", "B. Kiểm tra bản quyền, không sao chép giọng hát/tác phẩm người khác khi chưa được phép", "C. Cứ đăng", "D. Chỉ cần ghi nguồn"], correct: 1, explanation: "✅ Sử dụng AI có trách nhiệm: không vi phạm bản quyền, không mạo danh, không tạo nội dung giả mạo gây hại." },
-            { text: "🤖 Người lạ gửi video 'nhạy cảm' có mặt bạn được tạo bằng Deepfake và đe dọa phát tán. Bạn nên làm gì?", options: ["A. Làm theo yêu cầu", "B. Báo công an, lưu bằng chứng, không nhượng bộ", "C. Tự giải quyết", "D. Trả tiền chuộc"], correct: 1, explanation: "✅ Deepfake bôi nhọ danh dự là hành vi phạm tội. Lưu bằng chứng và báo công an ngay." },
-            { text: "🤖 Đâu là dấu hiệu NHẬN BIẾT video Deepfake?", options: ["A. Mắt ít chớp, cử động môi không khớp", "B. Hình ảnh sắc nét hoàn hảo", "C. Âm thanh rõ ràng", "D. Màu sắc đẹp"], correct: 0, explanation: "✅ Dấu hiệu: mắt ít chớp (AI khó mô phỏng chớp mắt tự nhiên), cử động môi không khớp, ánh sáng bất thường." }
-        ];
-        let currentIdx = 0, userAnswers = new Array(questions.length).fill(null);
-        function renderQuiz1() {
-            const container = document.getElementById('exercise1');
-            if (currentIdx >= questions.length) {
-                let correct = 0;
-                for (let i=0; i<questions.length; i++) if (userAnswers[i] === questions[i].correct) correct++;
-                let msg = correct === questions.length ? '🎉 XUẤT SẮC! Bạn đã nắm vững cách nhận diện Deepfake!' : (correct >= 4 ? '👍 Khá tốt!' : '📖 Hãy học lại về Deepfake.');
-                if (correct === questions.length) playCompleteSound(); else playSuccessSound();
-                container.innerHTML = `<div class="result-area"><div class="final-score">${correct}/${questions.length}</div><div style="color:#ccc;">${msg}</div><button class="reset-btn" id="reset1">🔄 LÀM LẠI</button></div>`;
-                document.getElementById('reset1')?.addEventListener('click', () => { currentIdx = 0; userAnswers.fill(null); renderQuiz1(); });
-                return;
-            }
-            const q = questions[currentIdx];
-            let html = `<div class="progress-badge">🤖 Đã nhận diện: ${userAnswers.filter(a=>a!==null).length}/${questions.length} nguy cơ AI</div>
-                <div class="ai-tip"><div class="tip-icon">⚠️🤖</div><div class="tip-text"><strong>CẢNH BÁO DEEPFAKE:</strong> AI có thể tạo video giả mạo khuôn mặt và giọng nói của người thân. Hãy luôn kiểm tra bằng câu hỏi bất ngờ!</div></div>
-                <div class="call-simulator"><div class="call-header"><span class="caller-name">📱 MẸ</span><span class="call-status">📹 ĐANG GỌI VIDEO...</span></div>
-                <div class="video-screen"><div class="video-emoji">👩🎭🤖</div><div class="video-text">Hình ảnh trông giống mẹ, nhưng mắt ít chớp, giọng hơi lạ...</div></div>
-                <div class="call-buttons"><button class="call-btn" id="checkCallBtn">🔍 KIỂM TRA</button><button class="call-btn danger" id="endCallBtn">📞 KẾT THÚC</button></div></div>
-                <div class="question-card"><div class="question-text">❓ ${q.text}</div><div class="options" id="opts1"></div>
-                <div class="feedback" id="fb1">💡 Hãy chọn đáp án đúng!</div><button class="btn-next" id="next1">${currentIdx === questions.length-1 ? '🏁 XEM KẾT QUẢ' : '➡️ TIẾP'}</button></div>`;
-            container.innerHTML = html;
-            document.getElementById('checkCallBtn')?.addEventListener('click', () => { alert("📋 Hãy yêu cầu: 'Mẹ đưa tay qua mặt con xem nào?' Nếu là Deepfake, họ sẽ lúng túng."); playSuccessSound(); });
-            document.getElementById('endCallBtn')?.addEventListener('click', () => { alert("✅ Hãy gọi lại mẹ bằng số khác để xác nhận!"); playSuccessSound(); });
-            const optsDiv = document.getElementById('opts1');
-            q.options.forEach((opt, idx) => {
+    const q1 = [
+        { text: "🤖 Bạn nhận được cuộc gọi video từ số máy của mẹ. Hình ảnh giống mẹ nhưng mắt ít chớp, cử động hơi cứng. Bạn nên làm gì?", options: ["Tin tưởng ngay", "Yêu cầu thực hiện hành động bất ngờ để kiểm tra", "Tắt máy ngay", "Làm theo mọi yêu cầu"], correct: 1 },
+        { text: "🤖 Deepfake là gì?", options: ["Phần mềm diệt virus", "Công nghệ tạo video, hình ảnh giả mạo bằng AI", "Ứng dụng chỉnh ảnh thông thường", "Mạng xã hội mới"], correct: 1 },
+        { text: "🤖 Bạn có thói quen đăng ảnh selfie chất lượng cao lên mạng xã hội. Rủi ro tiềm ẩn là gì?", options: ["Không có rủi ro", "Ảnh có thể bị lợi dụng tạo Deepfake", "Chỉ bị hack mật khẩu", "Ảnh bị mờ đi"], correct: 1 },
+        { text: "🤖 Bạn muốn dùng AI tạo bài hát mới và đăng lên mạng. Cần lưu ý gì về đạo đức và pháp luật?", options: ["Không cần lưu ý", "Kiểm tra bản quyền, không sao chép giọng hát/tác phẩm người khác khi chưa được phép", "Cứ đăng", "Chỉ cần ghi nguồn"], correct: 1 },
+        { text: "🤖 Người lạ gửi video 'nhạy cảm' có mặt bạn được tạo bằng Deepfake và đe dọa phát tán. Bạn nên làm gì?", options: ["Làm theo yêu cầu", "Báo công an, lưu bằng chứng, không nhượng bộ", "Tự giải quyết", "Trả tiền chuộc"], correct: 1 },
+        { text: "🤖 Đâu là dấu hiệu NHẬN BIẾT video Deepfake?", options: ["Mắt ít chớp, cử động môi không khớp", "Hình ảnh sắc nét hoàn hảo", "Âm thanh rõ ràng", "Màu sắc đẹp"], correct: 0 }
+    ];
+    let ans1 = new Array(q1.length).fill(null);
+
+    function renderExercise1() {
+        const container = document.getElementById('exercise1');
+        container.innerHTML = `
+            <div class="tip-box">
+                <span class="icon">⚠️🤖</span>
+                <div class="text"><strong>CẢNH BÁO DEEPFAKE:</strong> AI có thể tạo video giả mạo khuôn mặt và giọng nói của người thân. Hãy luôn kiểm tra bằng câu hỏi bất ngờ!</div>
+            </div>
+            <div class="call-simulator">
+                <div class="caller">
+                    <span class="name">📱 MẸ</span>
+                    <span class="status">📹 ĐANG GỌI VIDEO...</span>
+                </div>
+                <div class="screen">
+                    <div class="emoji">👩🎭🤖</div>
+                    <div class="text">Hình ảnh trông giống mẹ, nhưng mắt ít chớp, giọng hơi lạ...</div>
+                </div>
+                <div class="actions">
+                    <button onclick="alert('📋 Hãy yêu cầu: Mẹ đưa tay qua mặt con xem nào? Nếu là Deepfake, họ sẽ lúng túng.'); playSound('correct');">🔍 KIỂM TRA</button>
+                    <button class="danger" onclick="alert('✅ Hãy gọi lại mẹ bằng số khác để xác nhận!'); playSound('correct');">📞 KẾT THÚC</button>
+                </div>
+            </div>
+        `;
+        q1.forEach((q, idx) => {
+            const div = document.createElement('div');
+            div.className = 'question-item';
+            div.innerHTML = `<div class="question-text">${q.text}</div>`;
+            q.options.forEach((opt, optIdx) => {
                 const optDiv = document.createElement('div');
-                optDiv.className = `option ${userAnswers[currentIdx] === idx ? (idx === q.correct ? 'selected-correct' : 'selected-wrong') : ''}`;
-                optDiv.innerText = opt;
-                optDiv.onclick = () => {
-                    if (userAnswers[currentIdx] !== null) return;
-                    userAnswers[currentIdx] = idx;
-                    const fb = document.getElementById('fb1');
-                    if (idx === q.correct) { fb.innerHTML = '✅ ' + q.explanation; fb.className = 'feedback correct'; playSuccessSound(); }
-                    else { fb.innerHTML = '❌ ' + q.explanation; fb.className = 'feedback wrong'; playErrorSound(); }
-                    renderQuiz1();
-                };
-                optsDiv.appendChild(optDiv);
+                optDiv.className = 'option';
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = `q1_${idx}`;
+                radio.value = optIdx;
+                if (ans1[idx] === optIdx) radio.checked = true;
+                radio.addEventListener('change', (e) => {
+                    ans1[idx] = parseInt(e.target.value);
+                    playSound('click');
+                });
+                optDiv.appendChild(radio);
+                optDiv.appendChild(document.createTextNode(opt));
+                div.appendChild(optDiv);
             });
-            document.getElementById('next1').onclick = () => {
-                if (userAnswers[currentIdx] === null) { document.getElementById('fb1').innerHTML = '⚠️ Hãy chọn đáp án trước!'; playErrorSound(); return; }
-                currentIdx++; renderQuiz1();
-            };
+            container.appendChild(div);
+        });
+    }
+
+    function checkExercise1() {
+        let correct = 0;
+        q1.forEach((q, idx) => { if (ans1[idx] === q.correct) correct++; });
+        const result = document.getElementById('result1');
+        if (correct === q1.length) {
+            result.className = 'result-area correct';
+            result.innerHTML = '🎉🎉🎉 XUẤT SẮC! Bạn đã nắm vững cách nhận diện Deepfake! 🎉🎉🎉';
+            playSound('correct');
+            createConfetti(800);
+        } else {
+            result.className = 'result-area wrong';
+            result.innerHTML = `🤖 Bé trả lời đúng ${correct}/${q1.length} câu. Hãy xem lại các dấu hiệu nhận biết Deepfake nhé! 💪`;
+            playSound('wrong');
         }
-        renderQuiz1();
-    })();
+    }
 
     // ========== BÀI TẬP 2: SƠ CỨU DANH TIẾNG SỐ ==========
-    (function() {
-        const questions = [
-            { text: "🔥 Bạn vừa bị 'phốt' vì bài đăng hiểu lầm. Theo quy tắc 48 giờ, bạn nên làm gì ĐẦU TIÊN?", options: ["A. Cãi lại từng bình luận", "B. Tạm khóa bình luận hoặc rời mạng xã hội để hạ nhiệt", "C. Xóa hết bạn bè", "D. Đăng bài xin lỗi ngay"], correct: 1, explanation: "✅ Quy tắc 48 giờ: Hãy hạ nhiệt trước. Phản ứng khi đang giận sẽ khiến mọi việc tệ hơn." },
-            { text: "🔥 Sau khi bình tĩnh, bạn xác định mình thực sự có lỗi. Cách xin lỗi nào thể hiện TRÁCH NHIỆM nhất?", options: ["A. 'Xin lỗi nếu có ai đó bị tổn thương'", "B. 'Tôi xin lỗi vì hành động của tôi. Tôi nhận ra mình đã sai và sẽ sửa chữa bằng cách...'", "C. 'Mọi người hiểu lầm rồi'", "D. 'Thôi bỏ qua đi'"], correct: 1, explanation: "✅ Lời xin lỗi có trách nhiệm: nhận lỗi rõ ràng, không 'nếu', có hành động sửa chữa cụ thể." },
-            { text: "🔥 Trước khi lên tiếng sau vụ 'phốt', việc quan trọng nhất cần làm là gì?", options: ["A. Xóa bằng chứng", "B. Lưu trữ bằng chứng (chụp màn hình)", "C. Khóa tài khoản", "D. Nhờ bạn cãi hộ"], correct: 1, explanation: "✅ Lưu bằng chứng để bảo vệ quyền lợi. Nếu bị vu khống, cần có bằng chứng." },
-            { text: "🔥 Bạn bị group Facebook lớn đăng bài xúc phạm, vu khống có tổ chức. Bạn nên làm gì?", options: ["A. Im lặng", "B. Vào group cãi nhau", "C. Lưu bằng chứng, báo công an", "D. Kêu gọi bạn bè tấn công lại"], correct: 2, explanation: "✅ Khi bị tấn công có tổ chức, hãy nhờ đến pháp luật. Luật An ninh mạng xử lý hành vi xúc phạm danh dự trên mạng." },
-            { text: "🔥 Phân biệt 'góp ý' và 'tấn công cá nhân', bạn nên làm gì với bình luận tiêu cực vô căn cứ?", options: ["A. Tranh luận đến cùng", "B. Phớt lờ, không phản hồi", "C. Chửi lại", "D. Kêu gọi bạn bè tấn công lại"], correct: 1, explanation: "✅ Học cách phớt lờ những bình luận tiêu cực vô căn cứ. Tập trung vào phản hồi mang tính xây dựng." },
-            { text: "🔥 Bạn thực sự có lỗi và đã đăng lời xin lỗi, nhưng vẫn có người tiếp tục chỉ trích. Bạn nên làm gì?", options: ["A. Tiếp tục xin lỗi nhiều lần", "B. Im lặng, tập trung vào hành động sửa sai thực tế", "C. Khóa tài khoản", "D. Bỏ mạng xã hội"], correct: 1, explanation: "✅ Sau lời xin lỗi chân thành, hãy để hành động thực tế chứng minh. Thời gian và sự thay đổi tích cực là câu trả lời tốt nhất." }
-        ];
-        let currentIdx = 0, userAnswers = new Array(questions.length).fill(null);
-        function renderQuiz2() {
-            const container = document.getElementById('exercise2');
-            if (currentIdx >= questions.length) {
-                let correct = 0;
-                for (let i=0; i<questions.length; i++) if (userAnswers[i] === questions[i].correct) correct++;
-                let msg = correct === questions.length ? '🎉 XUẤT SẮC! Bạn đã nắm vững kỹ năng xử lý khủng hoảng danh tiếng số!' : (correct >= 4 ? '👍 Khá tốt!' : '📖 Hãy học lại quy tắc 48 giờ!');
-                if (correct === questions.length) playCompleteSound(); else playSuccessSound();
-                container.innerHTML = `<div class="result-area"><div class="final-score">${correct}/${questions.length}</div><div style="color:#ccc;">${msg}</div><button class="reset-btn" id="reset2">🔄 LÀM LẠI</button></div>`;
-                document.getElementById('reset2')?.addEventListener('click', () => { currentIdx = 0; userAnswers.fill(null); renderQuiz2(); });
-                return;
-            }
-            const q = questions[currentIdx];
-            let html = `<div class="progress-badge">🔥 Đã xử lý: ${userAnswers.filter(a=>a!==null).length}/${questions.length} khủng hoảng</div>
-                <div class="crisis-tip"><div class="tip-icon">⏰🔥</div><div class="tip-text"><strong>QUY TẮC 48 GIỜ:</strong> Khi bị 'phốt', đừng phản ứng ngay! Hãy tạm rời mạng xã hội, hít thở, suy nghĩ. Phản ứng trong lúc giận dữ sẽ khiến mọi thứ tệ hơn gấp 10 lần.</div></div>
-                <div class="rule-box"><div class="rule-title">📋 QUY TRÌNH XỬ LÝ KHỦNG HOẢNG</div><div class="rule-desc">1️⃣ Xác định mức độ<br>2️⃣ Lưu trữ bằng chứng<br>3️⃣ Lên tiếng đúng cách</div></div>
-                <div class="question-card"><div class="question-text">❓ ${q.text}</div><div class="options" id="opts2"></div>
-                <div class="feedback" id="fb2">💡 Hãy chọn đáp án đúng!</div><button class="btn-next" id="next2">${currentIdx === questions.length-1 ? '🏁 XEM KẾT QUẢ' : '➡️ TIẾP'}</button></div>`;
-            container.innerHTML = html;
-            const optsDiv = document.getElementById('opts2');
-            q.options.forEach((opt, idx) => {
+    const q2 = [
+        { text: "🔥 Bạn vừa bị 'phốt' vì bài đăng hiểu lầm. Theo quy tắc 48 giờ, bạn nên làm gì ĐẦU TIÊN?", options: ["Cãi lại từng bình luận", "Tạm khóa bình luận hoặc rời mạng xã hội để hạ nhiệt", "Xóa hết bạn bè", "Đăng bài xin lỗi ngay"], correct: 1 },
+        { text: "🔥 Sau khi bình tĩnh, bạn xác định mình thực sự có lỗi. Cách xin lỗi nào thể hiện TRÁCH NHIỆM nhất?", options: ["'Xin lỗi nếu có ai đó bị tổn thương'", "'Tôi xin lỗi vì hành động của tôi. Tôi nhận ra mình đã sai và sẽ sửa chữa bằng cách...'", "'Mọi người hiểu lầm rồi'", "'Thôi bỏ qua đi'"], correct: 1 },
+        { text: "🔥 Trước khi lên tiếng sau vụ 'phốt', việc quan trọng nhất cần làm là gì?", options: ["Xóa bằng chứng", "Lưu trữ bằng chứng (chụp màn hình)", "Khóa tài khoản", "Nhờ bạn cãi hộ"], correct: 1 },
+        { text: "🔥 Bạn bị group Facebook lớn đăng bài xúc phạm, vu khống có tổ chức. Bạn nên làm gì?", options: ["Im lặng", "Vào group cãi nhau", "Lưu bằng chứng, báo công an", "Kêu gọi bạn bè tấn công lại"], correct: 2 },
+        { text: "🔥 Phân biệt 'góp ý' và 'tấn công cá nhân', bạn nên làm gì với bình luận tiêu cực vô căn cứ?", options: ["Tranh luận đến cùng", "Phớt lờ, không phản hồi", "Chửi lại", "Kêu gọi bạn bè tấn công lại"], correct: 1 },
+        { text: "🔥 Bạn thực sự có lỗi và đã đăng lời xin lỗi, nhưng vẫn có người tiếp tục chỉ trích. Bạn nên làm gì?", options: ["Tiếp tục xin lỗi nhiều lần", "Im lặng, tập trung vào hành động sửa sai thực tế", "Khóa tài khoản", "Bỏ mạng xã hội"], correct: 1 }
+    ];
+    let ans2 = new Array(q2.length).fill(null);
+
+    function renderExercise2() {
+        const container = document.getElementById('exercise2');
+        container.innerHTML = `
+            <div class="rule-box">
+                <div class="title">⏰ QUY TẮC 48 GIỜ</div>
+                <div class="sub">Khi bị 'phốt', đừng phản ứng ngay! Hãy tạm rời mạng xã hội, hít thở, suy nghĩ.</div>
+                <div class="steps">
+                    <div class="step"><div class="num">1</div><div class="label">Xác định mức độ</div></div>
+                    <div class="step"><div class="num">2</div><div class="label">Lưu trữ bằng chứng</div></div>
+                    <div class="step"><div class="num">3</div><div class="label">Lên tiếng đúng cách</div></div>
+                </div>
+            </div>
+            <div class="tip-box">
+                <span class="icon">🔥</span>
+                <div class="text"><strong>QUY TẮC 48 GIỜ:</strong> Phản ứng trong lúc giận dữ sẽ khiến mọi thứ tệ hơn gấp 10 lần. Hãy dành thời gian bình tĩnh trước khi lên tiếng.</div>
+            </div>
+        `;
+        q2.forEach((q, idx) => {
+            const div = document.createElement('div');
+            div.className = 'question-item';
+            div.innerHTML = `<div class="question-text">${q.text}</div>`;
+            q.options.forEach((opt, optIdx) => {
                 const optDiv = document.createElement('div');
-                optDiv.className = `option ${userAnswers[currentIdx] === idx ? (idx === q.correct ? 'selected-correct' : 'selected-wrong') : ''}`;
-                optDiv.innerText = opt;
-                optDiv.onclick = () => {
-                    if (userAnswers[currentIdx] !== null) return;
-                    userAnswers[currentIdx] = idx;
-                    const fb = document.getElementById('fb2');
-                    if (idx === q.correct) { fb.innerHTML = '✅ ' + q.explanation; fb.className = 'feedback correct'; playSuccessSound(); }
-                    else { fb.innerHTML = '❌ ' + q.explanation; fb.className = 'feedback wrong'; playErrorSound(); }
-                    renderQuiz2();
-                };
-                optsDiv.appendChild(optDiv);
+                optDiv.className = 'option';
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = `q2_${idx}`;
+                radio.value = optIdx;
+                if (ans2[idx] === optIdx) radio.checked = true;
+                radio.addEventListener('change', (e) => {
+                    ans2[idx] = parseInt(e.target.value);
+                    playSound('click');
+                });
+                optDiv.appendChild(radio);
+                optDiv.appendChild(document.createTextNode(opt));
+                div.appendChild(optDiv);
             });
-            document.getElementById('next2').onclick = () => {
-                if (userAnswers[currentIdx] === null) { document.getElementById('fb2').innerHTML = '⚠️ Hãy chọn đáp án trước!'; playErrorSound(); return; }
-                currentIdx++; renderQuiz2();
-            };
+            container.appendChild(div);
+        });
+    }
+
+    function checkExercise2() {
+        let correct = 0;
+        q2.forEach((q, idx) => { if (ans2[idx] === q.correct) correct++; });
+        const result = document.getElementById('result2');
+        if (correct === q2.length) {
+            result.className = 'result-area correct';
+            result.innerHTML = '🎉🎉🎉 XUẤT SẮC! Bạn đã nắm vững kỹ năng xử lý khủng hoảng danh tiếng số! 🎉🎉🎉';
+            playSound('correct');
+            createConfetti(800);
+        } else {
+            result.className = 'result-area wrong';
+            result.innerHTML = `🔥 Bé trả lời đúng ${correct}/${q2.length} câu. Hãy xem lại quy tắc 48 giờ nhé! 💪`;
+            playSound('wrong');
         }
-        renderQuiz2();
-    })();
+    }
 
     // ========== BÀI TẬP 3: BẠO LỰC MẠNG TỔ CHỨC ==========
-    (function() {
-        const questions = [
-            { text: "🛡️ Đâu là dấu hiệu của góp ý mang tính xây dựng?", options: ["A. Chỉ trích cá nhân, xúc phạm", "B. Tập trung vào hành vi cụ thể, có đề xuất cải thiện", "C. Kêu gọi tẩy chay", "D. Chia sẻ bài viết kèm bình luận tiêu cực"], correct: 1, explanation: "✅ Góp ý xây dựng: tập trung vào hành vi, có tính cụ thể, đề xuất giải pháp." },
-            { text: "🛡️ Bạn bị nhóm người liên tục đe dọa, chửi bới trên mạng. Hành vi này có thể bị xử lý theo luật nào?", options: ["A. Không bị xử lý", "B. Luật An ninh mạng", "C. Chỉ bị khóa tài khoản", "D. Không có luật"], correct: 1, explanation: "✅ Luật An ninh mạng nghiêm cấm hành vi xúc phạm danh dự, nhân phẩm, đe dọa trên không gian mạng." },
-            { text: "🛡️ Khi nào bạn CẦN báo công an về hành vi bạo lực mạng?", options: ["A. Có một bình luận tiêu cực", "B. Bị đe dọa tính mạng, tống tiền, hoặc tấn công có tổ chức kéo dài", "C. Bị chê ảnh xấu", "D. Có người không đồng ý với ý kiến"], correct: 1, explanation: "✅ Báo công an khi: bị đe dọa tính mạng, tống tiền, bị phát tán ảnh nhạy cảm, bị tấn công có tổ chức kéo dài." },
-            { text: "🛡️ Tin nhắn 'Mày mà không xin lỗi, tao sẽ cho mày tan tác' là hành vi gì?", options: ["A. Đùa vui", "B. Đe dọa, có thể bị xử lý hình sự", "C. Góp ý bình thường", "D. Không nghiêm trọng"], correct: 1, explanation: "✅ Đe dọa là hành vi vi phạm pháp luật. Lưu lại tin nhắn làm bằng chứng." },
-            { text: "🛡️ Bạn vô tình 'phốt' sai một người. Sau khi biết mình sai, bạn nên làm gì?", options: ["A. Xóa bài và im lặng", "B. Đăng bài xin lỗi công khai, gỡ bài gốc, đính chính", "C. Tiếp tục để bài", "D. Đổ lỗi cho người khác"], correct: 1, explanation: "✅ Xin lỗi công khai và đính chính là hành động có trách nhiệm. Hãy dũng cảm nhận sai." },
-            { text: "🛡️ Bạn thấy người nổi tiếng bị 'tấn công hội đồng' trên mạng. Bạn nên làm gì?", options: ["A. Tham gia chỉ trích", "B. Không tham gia, không chia sẻ bài tiêu cực, có thể để lại bình luận tích cực", "C. Chia sẻ bài viết", "D. Im lặng lướt qua"], correct: 1, explanation: "✅ Đừng tham gia 'tấn công hội đồng'. Hãy là người dùng mạng có văn hóa và nhân văn." }
-        ];
-        let currentIdx = 0, userAnswers = new Array(questions.length).fill(null);
-        function renderQuiz3() {
-            const container = document.getElementById('exercise3');
-            if (currentIdx >= questions.length) {
-                let correct = 0;
-                for (let i=0; i<questions.length; i++) if (userAnswers[i] === questions[i].correct) correct++;
-                let msg = correct === questions.length ? '🎉 XUẤT SẮC! Bạn đã nắm vững cách bảo vệ bản thân khỏi bạo lực mạng!' : (correct >= 4 ? '👍 Khá tốt!' : '📖 Hãy học lại về Luật An ninh mạng!');
-                if (correct === questions.length) playCompleteSound(); else playSuccessSound();
-                container.innerHTML = `<div class="result-area"><div class="final-score">${correct}/${questions.length}</div><div style="color:#ccc;">${msg}</div><button class="reset-btn" id="reset3">🔄 LÀM LẠI</button></div>`;
-                document.getElementById('reset3')?.addEventListener('click', () => { currentIdx = 0; userAnswers.fill(null); renderQuiz3(); });
-                return;
-            }
-            const q = questions[currentIdx];
-            let html = `<div class="progress-badge">🛡️ Đã xử lý: ${userAnswers.filter(a=>a!==null).length}/${questions.length} tình huống</div>
-                <div class="law-tip"><div class="tip-icon">⚖️🛡️</div><div class="tip-text"><strong>LÁ CHẮN PHÁP LUẬT:</strong> Luật An ninh mạng 2018: hành vi xúc phạm danh dự, đe dọa, vu khống trên mạng có thể bị phạt tiền hoặc phạt tù.</div></div>
-                <div class="comparison-box"><div class="comparison-card"><div class="comparison-title good">✅ GÓP Ý XÂY DỰNG</div><ul class="comparison-list"><li>Tập trung vào hành vi</li><li>Có đề xuất cải thiện</li><li>Tôn trọng người được góp ý</li></ul></div>
-                <div class="comparison-card"><div class="comparison-title bad">❌ TẤN CÔNG CÁ NHÂN</div><ul class="comparison-list"><li>Chửi bới, xúc phạm</li><li>Kêu gọi tẩy chay</li><li>Đe dọa, tống tiền</li></ul></div></div>
-                <div class="question-card"><div class="question-text">❓ ${q.text}</div><div class="options" id="opts3"></div>
-                <div class="feedback" id="fb3">💡 Hãy chọn đáp án đúng!</div><button class="btn-next" id="next3">${currentIdx === questions.length-1 ? '🏁 XEM KẾT QUẢ' : '➡️ TIẾP'}</button></div>`;
-            container.innerHTML = html;
-            const optsDiv = document.getElementById('opts3');
-            q.options.forEach((opt, idx) => {
+    const q3 = [
+        { text: "🛡️ Đâu là dấu hiệu của góp ý mang tính xây dựng?", options: ["Chỉ trích cá nhân, xúc phạm", "Tập trung vào hành vi cụ thể, có đề xuất cải thiện", "Kêu gọi tẩy chay", "Chia sẻ bài viết kèm bình luận tiêu cực"], correct: 1 },
+        { text: "🛡️ Bạn bị nhóm người liên tục đe dọa, chửi bới trên mạng. Hành vi này có thể bị xử lý theo luật nào?", options: ["Không bị xử lý", "Luật An ninh mạng", "Chỉ bị khóa tài khoản", "Không có luật"], correct: 1 },
+        { text: "🛡️ Khi nào bạn CẦN báo công an về hành vi bạo lực mạng?", options: ["Có một bình luận tiêu cực", "Bị đe dọa tính mạng, tống tiền, hoặc tấn công có tổ chức kéo dài", "Bị chê ảnh xấu", "Có người không đồng ý với ý kiến"], correct: 1 },
+        { text: "🛡️ Tin nhắn 'Mày mà không xin lỗi, tao sẽ cho mày tan tác' là hành vi gì?", options: ["Đùa vui", "Đe dọa, có thể bị xử lý hình sự", "Góp ý bình thường", "Không nghiêm trọng"], correct: 1 },
+        { text: "🛡️ Bạn vô tình 'phốt' sai một người. Sau khi biết mình sai, bạn nên làm gì?", options: ["Xóa bài và im lặng", "Đăng bài xin lỗi công khai, gỡ bài gốc, đính chính", "Tiếp tục để bài", "Đổ lỗi cho người khác"], correct: 1 },
+        { text: "🛡️ Bạn thấy người nổi tiếng bị 'tấn công hội đồng' trên mạng. Bạn nên làm gì?", options: ["Tham gia chỉ trích", "Không tham gia, không chia sẻ bài tiêu cực, có thể để lại bình luận tích cực", "Chia sẻ bài viết", "Im lặng lướt qua"], correct: 1 }
+    ];
+    let ans3 = new Array(q3.length).fill(null);
+
+    function renderExercise3() {
+        const container = document.getElementById('exercise3');
+        container.innerHTML = `
+            <div class="tip-box">
+                <span class="icon">⚖️🛡️</span>
+                <div class="text"><strong>LÁ CHẮN PHÁP LUẬT:</strong> Luật An ninh mạng 2018: hành vi xúc phạm danh dự, đe dọa, vu khống trên mạng có thể bị phạt tiền hoặc phạt tù.</div>
+            </div>
+            <div class="comparison-box">
+                <div class="comparison-card">
+                    <div class="title good">✅ GÓP Ý XÂY DỰNG</div>
+                    <ul>
+                        <li>Tập trung vào hành vi</li>
+                        <li>Có đề xuất cải thiện</li>
+                        <li>Tôn trọng người được góp ý</li>
+                    </ul>
+                </div>
+                <div class="comparison-card">
+                    <div class="title bad">❌ TẤN CÔNG CÁ NHÂN</div>
+                    <ul>
+                        <li>Chửi bới, xúc phạm</li>
+                        <li>Kêu gọi tẩy chay</li>
+                        <li>Đe dọa, tống tiền</li>
+                    </ul>
+                </div>
+            </div>
+        `;
+        q3.forEach((q, idx) => {
+            const div = document.createElement('div');
+            div.className = 'question-item';
+            div.innerHTML = `<div class="question-text">${q.text}</div>`;
+            q.options.forEach((opt, optIdx) => {
                 const optDiv = document.createElement('div');
-                optDiv.className = `option ${userAnswers[currentIdx] === idx ? (idx === q.correct ? 'selected-correct' : 'selected-wrong') : ''}`;
-                optDiv.innerText = opt;
-                optDiv.onclick = () => {
-                    if (userAnswers[currentIdx] !== null) return;
-                    userAnswers[currentIdx] = idx;
-                    const fb = document.getElementById('fb3');
-                    if (idx === q.correct) { fb.innerHTML = '✅ ' + q.explanation; fb.className = 'feedback correct'; playSuccessSound(); }
-                    else { fb.innerHTML = '❌ ' + q.explanation; fb.className = 'feedback wrong'; playErrorSound(); }
-                    renderQuiz3();
-                };
-                optsDiv.appendChild(optDiv);
+                optDiv.className = 'option';
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = `q3_${idx}`;
+                radio.value = optIdx;
+                if (ans3[idx] === optIdx) radio.checked = true;
+                radio.addEventListener('change', (e) => {
+                    ans3[idx] = parseInt(e.target.value);
+                    playSound('click');
+                });
+                optDiv.appendChild(radio);
+                optDiv.appendChild(document.createTextNode(opt));
+                div.appendChild(optDiv);
             });
-            document.getElementById('next3').onclick = () => {
-                if (userAnswers[currentIdx] === null) { document.getElementById('fb3').innerHTML = '⚠️ Hãy chọn đáp án trước!'; playErrorSound(); return; }
-                currentIdx++; renderQuiz3();
-            };
+            container.appendChild(div);
+        });
+    }
+
+    function checkExercise3() {
+        let correct = 0;
+        q3.forEach((q, idx) => { if (ans3[idx] === q.correct) correct++; });
+        const result = document.getElementById('result3');
+        if (correct === q3.length) {
+            result.className = 'result-area correct';
+            result.innerHTML = '🎉🎉🎉 XUẤT SẮC! Bạn đã nắm vững cách bảo vệ bản thân khỏi bạo lực mạng! 🎉🎉🎉';
+            playSound('correct');
+            createConfetti(800);
+        } else {
+            result.className = 'result-area wrong';
+            result.innerHTML = `🛡️ Bé trả lời đúng ${correct}/${q3.length} câu. Hãy xem lại về Luật An ninh mạng nhé! 💪`;
+            playSound('wrong');
         }
-        renderQuiz3();
-    })();
-    resizeCanvas();
+    }
+
+    function init() {
+        renderExercise1();
+        renderExercise2();
+        renderExercise3();
+        document.getElementById('checkBtn1').addEventListener('click', checkExercise1);
+        document.getElementById('checkBtn2').addEventListener('click', checkExercise2);
+        document.getElementById('checkBtn3').addEventListener('click', checkExercise3);
+        resizeCanvas();
+    }
+    init();
 </script>
 </body>
 </html>
