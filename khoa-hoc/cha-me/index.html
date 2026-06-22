@@ -1,409 +1,538 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cẩm nang giới tính cho cha mẹ – Đồng hành cùng con | Sophia Nguyễn</title>
-  <meta name="description" content="Khóa học dành riêng cho cha mẹ: Thấu hiểu, đồng hành và bảo vệ con trong thời đại số. 6 chương học với nội dung thực tế, dễ áp dụng.">
-  <meta name="keywords" content="khóa học cho cha mẹ, giáo dục giới tính, đồng hành cùng con, bảo vệ con, thời đại số">
-  <meta name="author" content="Sophia Nguyễn">
-  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cẩm nang giới tính cho cha mẹ – Đồng hành cùng con | Sophia Nguyễn</title>
+    <meta name="description" content="Khóa học dành riêng cho cha mẹ: Thấu hiểu, đồng hành và bảo vệ con trong thời đại số. 6 chương học với nội dung thực tế, dễ áp dụng.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
-            --primary: #0284c7;
-            --primary-dark: #0369a1;
-            --dark: #1e293b;
-            --gray: #475569;
-            --light-gray: #e2e8f0;
-            --white: #ffffff;
-            --gradient: linear-gradient(135deg, #0284c7 0%, #38bdf8 50%, #7dd3fc 100%);
-            --gradient-soft: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            --navy-dark: #0A1628;
+            --navy-mid: #1E3A5F;
+            --gold: #C9A84C;
+            --gold-light: #D4B85C;
+            --cream: #F5F0E8;
+            --white: #FFFFFF;
+            --gray: #4A5A6A;
+            --light-gray: #E8E4DC;
+            --gradient: linear-gradient(135deg, #0A1628 0%, #1E3A5F 50%, #2A4A7F 100%);
         }
-        body { font-family: 'Segoe UI', system-ui, sans-serif; line-height: 1.6; color: var(--dark); background: var(--gradient-soft); min-height: 100vh; }
-        .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--gradient); display: flex; align-items: center; justify-content: center; z-index: 2000; }
-        .loading-spinner { background: white; padding: 2rem 3rem; border-radius: 32px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
-        .loading-spinner i { font-size: 3rem; color: var(--primary); animation: spin 1s linear infinite; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .unlock-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--gradient); display: flex; align-items: center; justify-content: center; z-index: 1999; transition: all 0.5s ease; }
-        .unlock-box { background: var(--white); padding: 2.5rem; border-radius: 48px; text-align: center; max-width: 420px; width: 90%; box-shadow: 0 30px 50px rgba(0,0,0,0.2); animation: fadeInUp 0.5s ease; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        .unlock-box i { font-size: 4rem; color: var(--primary); margin-bottom: 1rem; }
-        .unlock-box h2 { margin-bottom: 0.5rem; color: var(--dark); }
-        .unlock-box p { color: var(--gray); margin-bottom: 1.5rem; }
-        .unlock-input { display: flex; gap: 10px; margin-bottom: 1rem; flex-wrap: wrap; }
-        .unlock-input input { flex: 1; padding: 14px 20px; border: 2px solid var(--light-gray); border-radius: 60px; font-size: 1rem; outline: none; text-align: center; letter-spacing: 1px; }
-        .unlock-input input:focus { border-color: var(--primary); }
-        .unlock-btn { background: var(--gradient); color: white; border: none; padding: 14px 28px; border-radius: 60px; font-weight: 600; cursor: pointer; width: 100%; font-size: 1rem; transition: transform 0.2s; }
-        .unlock-btn:hover { transform: translateY(-2px); }
-        .error-msg { color: #e53e3e; font-size: 0.85rem; margin-top: 1rem; display: none; }
-        .main-content { display: none; }
-        .navbar { background: var(--white); box-shadow: 0 4px 20px rgba(0,0,0,0.05); padding: 1rem 0; position: sticky; top: 0; z-index: 100; }
-        .nav-container { max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
-        .logo { font-size: 1.5rem; font-weight: bold; background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; display: flex; align-items: center; gap: 10px; }
-        .logo i { background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; font-size: 1.8rem; }
-        .user-info { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-        #logoutBtn { background: none; border: none; color: var(--gray); cursor: pointer; font-size: 0.9rem; transition: color 0.2s; }
-        #logoutBtn:hover { color: var(--primary); }
-        .device-manager-btn { background: #f0f0f0; border: none; padding: 6px 12px; border-radius: 20px; font-size: 0.7rem; cursor: pointer; color: var(--primary); transition: all 0.2s; }
-        .device-manager-btn:hover { background: var(--primary); color: white; }
-        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
-        .hero { background: var(--gradient); padding: 60px 0 50px; text-align: center; color: white; border-radius: 0 0 40px 40px; }
-        .hero h1 { font-size: 2rem; margin-bottom: 1rem; }
-        .hero p { font-size: 1rem; max-width: 700px; margin: 0 auto; }
-        .courses-grid { display: grid; grid-template-columns: 1fr; gap: 28px; margin: 30px 0; }
-        .course-card { background: var(--white); border-radius: 28px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: all 0.3s; cursor: pointer; }
-        .course-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
-        .course-header { background: var(--gradient); padding: 20px; color: white; position: relative; }
-        .course-icon { font-size: 2rem; margin-bottom: 8px; }
-        .course-header h3 { font-size: 1.1rem; margin-bottom: 4px; }
-        .course-content { padding: 20px; }
-        .course-desc { color: var(--gray); font-size: 0.9rem; margin-bottom: 16px; line-height: 1.5; }
-        .course-chapters { list-style: none; margin-bottom: 20px; }
-        .course-chapters li { font-size: 0.8rem; padding: 6px 0; display: flex; align-items: center; gap: 10px; color: var(--gray); border-bottom: 1px dashed var(--light-gray); }
-        .course-chapters li i { color: var(--primary); font-size: 0.7rem; }
-        .course-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--light-gray); }
-        .course-price { font-weight: bold; font-size: 1.2rem; color: var(--primary); }
-        .btn-start { background: var(--gradient) !important; border: none !important; color: white !important; padding: 12px 28px !important; border-radius: 50px !important; cursor: pointer !important; font-weight: 700 !important; font-size: 1rem !important; transition: all 0.3s ease !important; box-shadow: 0 4px 12px rgba(2,132,199,0.3) !important; display: inline-flex !important; align-items: center !important; gap: 8px !important; }
-        .btn-start:hover { transform: translateY(-2px) !important; box-shadow: 0 8px 20px rgba(2,132,199,0.4) !important; }
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--navy-dark);
+            min-height: 100vh;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        /* ========== HEADER ========== */
+        .header {
+            background: var(--white);
+            padding: 12px 0;
+            box-shadow: 0 2px 20px rgba(10,22,40,0.06);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo img { height: 55px; width: auto; display: block; }
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+            align-items: center;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--gold);
+        }
+        .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--navy-dark); }
+
+        /* ========== HERO ========== */
+        .hero {
+            background: var(--gradient);
+            padding: 60px 0 50px;
+            text-align: center;
+            color: white;
+            border-radius: 0 0 40px 40px;
+            border-bottom: 3px solid var(--gold);
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+        .hero h1 span { color: var(--gold); }
+        .hero p {
+            font-size: 1.05rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        .hero .badge {
+            background: var(--gold);
+            color: var(--navy-dark);
+            display: inline-block;
+            padding: 8px 24px;
+            border-radius: 40px;
+            margin-top: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        /* ========== COURSES GRID ========== */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 28px;
+            margin: 40px 0;
+        }
+        .course-card {
+            background: var(--white);
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(10,22,40,0.06);
+            transition: all 0.3s;
+            border: 1px solid var(--light-gray);
+            cursor: pointer;
+        }
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(10,22,40,0.1);
+            border-color: var(--gold);
+        }
+        .course-header {
+            background: var(--gradient);
+            padding: 20px 24px;
+            color: white;
+            border-bottom: 3px solid var(--gold);
+        }
+        .course-header .icon { font-size: 2.2rem; margin-bottom: 6px; }
+        .course-header h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+        }
+        .course-content { padding: 20px 24px; }
+        .course-desc {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+        .course-chapters {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        .course-chapters li {
+            font-size: 0.8rem;
+            padding: 6px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--gray);
+            border-bottom: 1px dashed var(--light-gray);
+        }
+        .course-chapters li:last-child { border-bottom: none; }
+        .course-chapters li i {
+            color: var(--gold);
+            font-size: 0.5rem;
+        }
+        .course-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--light-gray);
+        }
+        .course-price {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--gold);
+        }
+        .btn-start {
+            background: var(--navy-dark);
+            color: var(--white);
+            border: none;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        .btn-start:hover {
+            background: var(--gold);
+            color: var(--navy-dark);
+            transform: translateY(-2px);
+        }
+
+        /* ========== MODAL ========== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(10,22,40,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            backdrop-filter: blur(4px);
+        }
         .modal.active { display: flex; }
-        .modal-content { background: var(--white); max-width: 600px; width: 100%; max-height: 80vh; border-radius: 32px; overflow-y: auto; }
-        .modal-header { background: var(--gradient); padding: 24px; color: white; position: relative; }
-        .modal-header h3 { font-size: 1.4rem; margin-bottom: 8px; padding-right: 30px; }
-        .close-modal { position: absolute; top: 20px; right: 20px; font-size: 1.5rem; cursor: pointer; background: rgba(255,255,255,0.2); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-        .modal-body { padding: 24px; }
+        .modal-content {
+            background: var(--white);
+            max-width: 600px;
+            width: 100%;
+            max-height: 85vh;
+            border-radius: 32px;
+            overflow-y: auto;
+            animation: fadeInUp 0.3s ease;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .modal-header {
+            background: var(--gradient);
+            padding: 24px 28px;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            border-radius: 32px 32px 0 0;
+            border-bottom: 3px solid var(--gold);
+        }
+        .modal-header h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            padding-right: 30px;
+        }
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            background: rgba(255,255,255,0.15);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+        .close-modal:hover { background: rgba(255,255,255,0.3); }
+        .modal-body { padding: 24px 28px; }
         .chapter-list { list-style: none; }
-        .chapter-list li { padding: 12px 0; border-bottom: 1px solid var(--light-gray); display: flex; gap: 12px; }
-        .chapter-num { font-weight: bold; color: var(--primary); min-width: 35px; }
-        .footer { background: var(--dark); color: white; padding: 40px 0 20px; margin-top: 60px; text-align: center; }
-        @media (max-width: 768px) { .hero h1 { font-size: 1.5rem; } }
-        .loading-text { text-align: center; padding: 40px; color: var(--gray); }
-        .download-buttons { display: flex; gap: 12px; justify-content: flex-end; margin-bottom: 30px; flex-wrap: wrap; }
-        .download-btn { background: var(--primary); color: white; padding: 8px 16px; border-radius: 40px; text-decoration: none; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s; }
-        .download-btn:hover { background: var(--primary-dark); transform: translateY(-2px); }
-        .device-list { margin-top: 10px; }
-        .device-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid var(--light-gray); }
-        .device-item:last-child { border-bottom: none; }
-        .device-info { flex: 1; }
-        .device-name { font-weight: 600; color: var(--dark); }
-        .device-time { font-size: 0.7rem; color: var(--gray); }
-        .logout-device-btn { background: #fee2e2; border: none; padding: 4px 12px; border-radius: 20px; color: #e53e3e; cursor: pointer; font-size: 0.7rem; transition: all 0.2s; }
-        .logout-device-btn:hover { background: #e53e3e; color: white; }
-        .current-badge { background: var(--primary); color: white; padding: 2px 8px; border-radius: 20px; font-size: 0.6rem; margin-left: 8px; }
-   /* Header và logo */
-.header {
-    background: white;
-    padding: 15px 0;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-}
+        .chapter-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--light-gray);
+            display: flex;
+            gap: 12px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        .chapter-list li:last-child { border-bottom: none; }
+        .chapter-num {
+            font-weight: 700;
+            color: var(--gold);
+            min-width: 35px;
+        }
+        .free-badge-modal {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--navy-dark);
+            padding: 4px 16px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
 
-.header-container {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+        /* ========== FOOTER ========== */
+        .footer {
+            background: var(--navy-dark);
+            color: rgba(255,255,255,0.7);
+            padding: 40px 0 24px;
+            text-align: center;
+            margin-top: 60px;
+            border-top: 3px solid var(--gold);
+        }
+        .footer h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+        .footer p { font-size: 0.9rem; line-height: 1.8; }
 
-.logo img {
-    height: 80px;  /* Chỉnh chiều cao logo theo ý chị */
-    width: auto;
-    display: block;
-}
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                gap: 12px;
+                padding: 16px 0;
+                background: var(--white);
+                width: 100%;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                padding: 16px 24px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+            .nav-links.show { display: flex; }
+            .header-container { flex-wrap: wrap; position: relative; }
+            .logo img { height: 45px; }
+            .hero h1 { font-size: 1.6rem; }
+            .hero p { font-size: 0.95rem; }
+            .courses-grid { grid-template-columns: 1fr; }
+            .modal-content { max-width: 100%; margin: 10px; border-radius: 24px; }
+            .modal-header { padding: 20px; border-radius: 24px 24px 0 0; }
+            .modal-body { padding: 20px; }
+        }
 
-/* Responsive trên mobile */
-@media (max-width: 768px) {
-    .logo img {
-        height: 45px;
-    }
-}
+        /* Scrollbar */
+        .modal-content::-webkit-scrollbar { width: 6px; }
+        .modal-content::-webkit-scrollbar-track { background: var(--cream); }
+        .modal-content::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
     </style>
 </head>
 <body>
-    <header class="header">
+
+<!-- ========== HEADER ========== -->
+<header class="header">
     <div class="header-container">
-        <a href="https://sophianguyen.com.vn/index.html" class="logo">
-            <img src="https://sophianguyen.com.vn/images/hinhremovenen.png" alt="Sophia Logo" />
+        <a href="https://sophianguyen.com.vn" class="logo">
+            <img src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Sophia Nguyễn">
         </a>
-          </div>
+        <div class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">☰</div>
+        <ul class="nav-links">
+            <li><a href="https://sophianguyen.com.vn">Trang chủ</a></li>
+            <li><a href="https://sophianguyen.com.vn/khoa-hoc/gioi-tinh/gioi-thieu/" class="active">Khóa học</a></li>
+            <li><a href="https://zalo.me/0977092182">Liên hệ</a></li>
+        </ul>
+    </div>
 </header>
-    <div class="loading-overlay" id="loadingOverlay"><div class="loading-spinner"><i class="fas fa-heart fa-spin"></i><p style="margin-top: 1rem;">Đang tải dữ liệu...</p></div></div>
-    <div class="unlock-screen" id="unlockScreen">
-        <div class="unlock-box">
-            <i class="fas fa-lock"></i>
-            <h2>Khóa học dành cho Cha Mẹ</h2>
-            <p>Vui lòng nhập mã khóa học để bắt đầu</p>
-            <div class="unlock-input"><input type="text" id="licenseKey" placeholder="Nhập mã khóa học" autocomplete="off"></div>
-            <button class="unlock-btn" id="unlockBtn"><i class="fas fa-unlock-alt"></i> Mở khóa khóa học</button>
-            <div class="error-msg" id="errorMsg">Mã khóa học không hợp lệ! Vui lòng liên hệ Sophia Nguyễn để được hỗ trợ.</div>
-        </div>
+
+<!-- ========== HERO ========== -->
+<section class="hero">
+    <div class="container">
+        <h1>👨‍👩‍👧‍👦 Đồng hành cùng con – <span>Cẩm nang giới tính</span></h1>
+        <p>Khóa học dành riêng cho cha mẹ - Thấu hiểu, đồng hành và bảo vệ con trong thời đại số</p>
+        <div class="badge">🎁 HOÀN TOÀN MIỄN PHÍ</div>
     </div>
-    <div class="main-content" id="mainContent">
-        <nav class="navbar">
-            <div class="nav-container">
-                <div class="logo"><i class="fas fa-heart"></i><span>Sophia Nguyễn</span></div>
-                <div class="user-info">
-                    <span id="userNameDisplay"><i class="fas fa-user-circle"></i> Học viên</span>
-                    <button id="manageDevicesBtn" class="device-manager-btn" style="display:none;"><i class="fas fa-laptop"></i> Quản lý thiết bị</button>
-                    <button id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Thoát</button>
-                </div>
-            </div>
-        </nav>
-        <section class="hero"><div class="container"><h1>👨‍👩‍👧‍👦 Đồng hành cùng con – Cẩm nang giới tính toàn diện</h1><p>Khóa học dành riêng cho cha mẹ - Thấu hiểu, đồng hành và bảo vệ con</p></div></section>
-        <div class="container">
-            <div class="courses-grid" id="coursesGrid"><div class="loading-text">Vui lòng chờ tải dữ liệu...</div></div>
-        </div>
-        <footer class="footer"><div class="container"><p>❤️ Đồng hành cùng con yêu - Sophia Nguyễn</p></div></footer>
+</section>
+
+<!-- ========== COURSES ========== -->
+<div class="container">
+    <div class="courses-grid" id="coursesGrid"></div>
+</div>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+    <div class="container">
+        <h4>❤️ Đồng hành cùng con yêu – Sophia Nguyễn</h4>
+        <p>📧 sophianguyen2891@gmail.com | 📞 0977092182</p>
+        <p style="margin-top: 16px; font-size: 0.8rem; opacity: 0.5;">© 2025 Sophia Nguyễn. All rights reserved.</p>
     </div>
-    <div class="modal" id="courseModal"><div class="modal-content"><div class="modal-header"><h3 id="modalTitle"></h3><div class="close-modal" onclick="closeModal()">✕</div></div><div class="modal-body" id="modalBody"></div></div></div>
-    <div class="modal" id="deviceModal"><div class="modal-content"><div class="modal-header"><h3>📱 Quản lý thiết bị</h3><div class="close-modal" onclick="closeDeviceModal()">✕</div></div><div class="modal-body" id="deviceModalBody"></div></div></div>
+</footer>
 
-    <script>
-        // ==================== CẤU HÌNH API ====================
-        const API_URL = "https://script.google.com/macros/s/AKfycbxusgXualsUIDE3rzZxgUHyVGKAcaShMkX4RXuXoxzOKlWZv67ZxYSqapS-_SrxGH9p/exec";
-        
-        const ALL_COURSES = [
-            { id: 1, name: "Phá băng tâm lý – Ba Mẹ là Vùng an toàn đầu tiên", price: "299.000đ",
-              shortDesc: "Vượt qua sự ngại ngùng, xóa bỏ định kiến, trở thành người bạn đồng hành tin cậy của con.",
-              fullDesc: "Giúp ba mẹ vượt qua sự ngại ngùng và định kiến cũ, chữa lành đứa trẻ bên trong, hiểu rằng giáo dục giới tính không phải là 'vẽ đường cho hươu chạy'.",
-              chapters: ["Tại sao chúng ta thường 'đỏ mặt' khi con hỏi về giới tính?", "Xóa bỏ lầm tưởng về giáo dục giới tính", "Nguyên tắc vàng: Thà con nghe từ Ba Mẹ đúng cách", "Checklist Tâm thế sẵn sàng của Cha Mẹ"] },
-            { id: 2, name: "Nghệ thuật Nói chuyện ấy – Tự nhiên như hơi thở", price: "299.000đ",
-              shortDesc: "Kịch bản thực tế, cách trả lời câu hỏi 'khó đỡ' của con một cách tự nhiên.",
-              fullDesc: "Cung cấp kịch bản thực tế để ba mẹ ứng biến, gọi tên đúng các bộ phận cơ thể, biến mọi tình huống hàng ngày thành bài học giới tính nhẹ nhàng.",
-              chapters: ["Gọi tên đúng các bộ phận cơ thể", "Công thức trả lời câu hỏi 'khó đỡ'", "Biến tình huống hàng ngày thành bài học", "Script mẫu trả lời 10 câu hỏi hóc búa nhất"] },
-            { id: 3, name: "Lá chắn 4.0 – Bảo vệ con trên không gian mạng", price: "299.000đ",
-              shortDesc: "Nhận diện nguy cơ, quản lý con trong thời đại số mà không gây ức chế.",
-              fullDesc: "Nhận diện các trào lưu nguy hiểm, dạy con bảo vệ hình ảnh cá nhân, thiết lập thỏa thuận sử dụng thiết bị trong gia đình.",
-              chapters: ["Nhận diện trào lưu nguy hiểm và vùng tối trên mạng", "Quy tắc Dấu chân số", "Thiết lập Thỏa thuận sử dụng thiết bị", "Mẫu bản cam kết sử dụng Internet giữa Ba Mẹ và Con"] },
-            { id: 4, name: "Cảnh giác Sói quen – Ranh giới và Sự an toàn", price: "299.000đ",
-              shortDesc: "Nhận diện nguy cơ xâm hại từ những người xung quanh.",
-              fullDesc: "Phá bỏ định kiến 'Chỉ người lạ mới nguy hiểm', dạy con về vòng tròn quan hệ, nhận biết dấu hiệu bất thường.",
-              chapters: ["Phá bỏ định kiến về người lạ", "Dạy con về Vòng tròn quan hệ", "Nhận biết dấu hiệu tâm lý bất thường", "Sơ đồ Vòng tròn quan hệ cho Cha Mẹ"] },
-            { id: 5, name: "Quyền đồng thuận – Dạy con về Sự tôn trọng & Trách nhiệm", price: "299.000đ",
-              shortDesc: "Xây dựng tư duy văn minh về ranh giới cá nhân.",
-              fullDesc: "Hiểu về sự đồng thuận (Consent), dạy con tôn trọng cơ thể người khác, chuẩn bị tâm thế cho tuổi dậy thì.",
-              chapters: ["Sự đồng thuận là gì?", "Tôn trọng cơ thể người khác", "Chuẩn bị tâm thế cho tuổi dậy thì", "Bộ thẻ tình huống Đúng hay Sai về sự đồng thuận"] },
-            { id: 6, name: "Cầu vồng trong nhà – Thấu hiểu sự đa dạng (LGBTQ+)", price: "299.000đ",
-              shortDesc: "Mở rộng trái tim và kiến thức về bản dạng giới.",
-              fullDesc: "Phân biệt giới tính khi sinh - bản dạng giới - xu hướng tính dục, cách lắng nghe khi con chia sẻ, xử lý khi con bị bắt nạt.",
-              chapters: ["Phân biệt giới tính, bản dạng giới, xu hướng tính dục", "Khi con khác biệt: Cách lắng nghe và đồng hành", "Xử lý khi con bị bắt nạt", "Cẩm nang từ ngữ văn minh về LGBTQ+"] }
-        ];
+<!-- ========== MODAL ========== -->
+<div class="modal" id="courseModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="modalTitle"></h3>
+            <div class="close-modal" onclick="closeModal()">✕</div>
+        </div>
+        <div class="modal-body" id="modalBody"></div>
+    </div>
+</div>
 
-        let currentUser = null, currentAllowedCourseIds = [], currentLicenseKey = null, currentDeviceId = null;
-
-        function getDeviceId() {
-            let id = localStorage.getItem('parent_deviceId');
-            if (!id) {
-                id = 'dev_' + Date.now() + '_' + Math.random().toString(36).substr(2, 8);
-                localStorage.setItem('parent_deviceId', id);
-            }
-            return id;
+<script>
+    // ==================== DỮ LIỆU KHÓA HỌC ====================
+    const ALL_COURSES = [
+        {
+            id: 1,
+            name: "Phá băng tâm lý – Ba Mẹ là Vùng an toàn đầu tiên",
+            icon: "🧠",
+            shortDesc: "Vượt qua sự ngại ngùng, xóa bỏ định kiến, trở thành người bạn đồng hành tin cậy của con.",
+            fullDesc: "Giúp ba mẹ vượt qua sự ngại ngùng và định kiến cũ, chữa lành đứa trẻ bên trong, hiểu rằng giáo dục giới tính không phải là 'vẽ đường cho hươu chạy'.",
+            chapters: [
+                "Tại sao chúng ta thường 'đỏ mặt' khi con hỏi về giới tính?",
+                "Xóa bỏ lầm tưởng về giáo dục giới tính",
+                "Nguyên tắc vàng: Thà con nghe từ Ba Mẹ đúng cách",
+                "Checklist Tâm thế sẵn sàng của Cha Mẹ"
+            ],
+            link: "khoa-hoc/gioi-tinh/cha-me/bai-1.html"
+        },
+        {
+            id: 2,
+            name: "Nghệ thuật Nói chuyện ấy – Tự nhiên như hơi thở",
+            icon: "💬",
+            shortDesc: "Kịch bản thực tế, cách trả lời câu hỏi 'khó đỡ' của con một cách tự nhiên.",
+            fullDesc: "Cung cấp kịch bản thực tế để ba mẹ ứng biến, gọi tên đúng các bộ phận cơ thể, biến mọi tình huống hàng ngày thành bài học giới tính nhẹ nhàng.",
+            chapters: [
+                "Gọi tên đúng các bộ phận cơ thể",
+                "Công thức trả lời câu hỏi 'khó đỡ'",
+                "Biến tình huống hàng ngày thành bài học",
+                "Script mẫu trả lời 10 câu hỏi hóc búa nhất"
+            ],
+            link: "khoa-hoc/gioi-tinh/cha-me/bai-2.html"
+        },
+        {
+            id: 3,
+            name: "Lá chắn 4.0 – Bảo vệ con trên không gian mạng",
+            icon: "🛡️",
+            shortDesc: "Nhận diện nguy cơ, quản lý con trong thời đại số mà không gây ức chế.",
+            fullDesc: "Nhận diện các trào lưu nguy hiểm, dạy con bảo vệ hình ảnh cá nhân, thiết lập thỏa thuận sử dụng thiết bị trong gia đình.",
+            chapters: [
+                "Nhận diện trào lưu nguy hiểm và vùng tối trên mạng",
+                "Quy tắc Dấu chân số",
+                "Thiết lập Thỏa thuận sử dụng thiết bị",
+                "Mẫu bản cam kết sử dụng Internet giữa Ba Mẹ và Con"
+            ],
+            link: "khoa-hoc/gioi-tinh/cha-me/bai-3.html"
+        },
+        {
+            id: 4,
+            name: "Cảnh giác Sói quen – Ranh giới và Sự an toàn",
+            icon: "🐺",
+            shortDesc: "Nhận diện nguy cơ xâm hại từ những người xung quanh.",
+            fullDesc: "Phá bỏ định kiến 'Chỉ người lạ mới nguy hiểm', dạy con về vòng tròn quan hệ, nhận biết dấu hiệu bất thường.",
+            chapters: [
+                "Phá bỏ định kiến về người lạ",
+                "Dạy con về Vòng tròn quan hệ",
+                "Nhận biết dấu hiệu tâm lý bất thường",
+                "Sơ đồ Vòng tròn quan hệ cho Cha Mẹ"
+            ],
+            link: "khoa-hoc/gioi-tinh/cha-me/bai-4.html"
+        },
+        {
+            id: 5,
+            name: "Quyền đồng thuận – Dạy con về Sự tôn trọng & Trách nhiệm",
+            icon: "🤝",
+            shortDesc: "Xây dựng tư duy văn minh về ranh giới cá nhân.",
+            fullDesc: "Hiểu về sự đồng thuận (Consent), dạy con tôn trọng cơ thể người khác, chuẩn bị tâm thế cho tuổi dậy thì.",
+            chapters: [
+                "Sự đồng thuận là gì?",
+                "Tôn trọng cơ thể người khác",
+                "Chuẩn bị tâm thế cho tuổi dậy thì",
+                "Bộ thẻ tình huống Đúng hay Sai về sự đồng thuận"
+            ],
+            link: "khoa-hoc/gioi-tinh/cha-me/bai-5.html"
+        },
+        {
+            id: 6,
+            name: "Cầu vồng trong nhà – Thấu hiểu sự đa dạng (LGBTQ+)",
+            icon: "🌈",
+            shortDesc: "Mở rộng trái tim và kiến thức về bản dạng giới.",
+            fullDesc: "Phân biệt giới tính khi sinh - bản dạng giới - xu hướng tính dục, cách lắng nghe khi con chia sẻ, xử lý khi con bị bắt nạt.",
+            chapters: [
+                "Phân biệt giới tính, bản dạng giới, xu hướng tính dục",
+                "Khi con khác biệt: Cách lắng nghe và đồng hành",
+                "Xử lý khi con bị bắt nạt",
+                "Cẩm nang từ ngữ văn minh về LGBTQ+"
+            ],
+            link: "khoa-hoc/gioi-tinh/cha-me/bai-6.html"
         }
+    ];
 
-        function getDeviceName() {
-            const ua = navigator.userAgent;
-            if (ua.includes('iPhone')) return 'iPhone';
-            if (ua.includes('Android')) return 'Android';
-            if (ua.includes('Windows')) return 'Windows PC';
-            if (ua.includes('Mac')) return 'Mac';
-            return 'Thiết bị khác';
-        }
+    // ==================== RENDER COURSES ====================
+    function renderCourses() {
+        const grid = document.getElementById('coursesGrid');
+        if (!grid) return;
 
-        async function authenticate(licenseKey) {
-            const deviceId = getDeviceId();
-            const deviceName = getDeviceName();
-            const url = `${API_URL}?ma=${encodeURIComponent(licenseKey)}&deviceId=${encodeURIComponent(deviceId)}&deviceName=${encodeURIComponent(deviceName)}`;
-            try {
-                const response = await fetch(url);
-                return await response.json();
-            } catch(e) {
-                return { status: "error", message: "Không thể kết nối" };
-            }
-        }
-
-        async function getDevices(licenseKey) {
-            const url = `${API_URL}?action=getDevices&ma=${encodeURIComponent(licenseKey)}`;
-            try {
-                const response = await fetch(url);
-                return await response.json();
-            } catch(e) {
-                return { status: "error" };
-            }
-        }
-
-        async function logoutDevice(licenseKey, deviceId) {
-            const url = `${API_URL}?action=logout&ma=${encodeURIComponent(licenseKey)}&deviceId=${encodeURIComponent(deviceId)}`;
-            try {
-                const response = await fetch(url);
-                return await response.json();
-            } catch(e) {
-                return { status: "error" };
-            }
-        }
-
-        function showCourseDetail(course) {
-            const modal = document.getElementById('courseModal');
-            document.getElementById('modalTitle').innerHTML = `${course.name}`;
-            document.getElementById('modalBody').innerHTML = `
-                <p style="margin-bottom:20px; font-weight:500;">${course.fullDesc}</p>
-                <h4 style="margin:20px 0 12px; color:var(--primary);"><i class="fas fa-list"></i> Nội dung khóa học:</h4>
-                <ul class="chapter-list">${course.chapters.map((ch, idx) => `<li><span class="chapter-num">Phần ${idx+1}</span><span>${ch}</span></li>`).join('')}</ul>
-                <div style="margin-top:24px; padding-top:16px; border-top:1px solid var(--light-gray); display:flex; justify-content:space-between; align-items:center;">
-                    <span style="font-size:1.3rem; font-weight:bold; color:var(--primary);">${course.price}</span>
-                    <button class="btn-start" onclick="alert('Chức năng đang phát triển! Video và tài liệu sẽ sớm cập nhật.')">▶ Bắt đầu học</button>
+        grid.innerHTML = ALL_COURSES.map(course => `
+            <div class="course-card" onclick='showCourseDetail(${JSON.stringify(course).replace(/'/g, "\\'")})'>
+                <div class="course-header">
+                    <div class="icon">${course.icon}</div>
+                    <h3>${course.name}</h3>
                 </div>
-            `;
-            modal.classList.add('active');
-        }
-        function closeModal() { document.getElementById('courseModal').classList.remove('active'); }
-        function closeDeviceModal() { document.getElementById('deviceModal').classList.remove('active'); }
-
-        function renderCourses(group, allowedIds) {
-            const grid = document.getElementById('coursesGrid');
-            if (!grid) return;
-            let filtered = ALL_COURSES.filter(c => allowedIds.includes(c.id));
-            if (filtered.length === 0) { grid.innerHTML = '<div class="loading-text">Không có khóa học nào trong danh mục này.</div>'; return; }
-            grid.innerHTML = filtered.map(course => `
-                <div class="course-card" onclick='showCourseDetail(${JSON.stringify(course).replace(/'/g, "\\'")})'>
-                    <div class="course-header"><div class="course-icon">📘</div><h3>${course.name}</h3></div>
-                    <div class="course-content">
-                        <p class="course-desc">${course.shortDesc}</p>
-                        <ul class="course-chapters">${course.chapters.slice(0,2).map(ch => `<li><i class="fas fa-circle"></i> ${ch.substring(0,50)}${ch.length>50?'...':''}</li>`).join('')}${course.chapters.length>2?`<li><i class="fas fa-plus-circle"></i> +${course.chapters.length-2} phần khác</li>`:''}</ul>
-                        <div class="course-footer"><span class="course-price">${course.price}</span><button class="btn-start" onclick="event.stopPropagation(); alert('Chức năng đang phát triển!')">▶ Bắt đầu học</button></div>
+                <div class="course-content">
+                    <p class="course-desc">${course.shortDesc}</p>
+                    <ul class="course-chapters">
+                        ${course.chapters.slice(0, 2).map(ch => `
+                            <li><i class="fas fa-circle"></i> ${ch.substring(0, 50)}${ch.length > 50 ? '...' : ''}</li>
+                        `).join('')}
+                        ${course.chapters.length > 2 ? `
+                            <li><i class="fas fa-plus-circle"></i> +${course.chapters.length - 2} phần khác</li>
+                        ` : ''}
+                    </ul>
+                    <div class="course-footer">
+                        <span class="course-price">🎁 Miễn phí</span>
+                        <a href="${course.link}" class="btn-start">
+                            <i class="fas fa-play"></i> Bắt đầu học
+                        </a>
                     </div>
                 </div>
-            `).join('');
-        }
+            </div>
+        `).join('');
+    }
 
-        async function unlockCourse(key) {
-            const loading = document.getElementById('loadingOverlay');
-            loading.style.display = 'flex';
-            const result = await authenticate(key);
-            loading.style.display = 'none';
-            if (result.status === 'success') {
-                currentUser = result.user;
-                currentAllowedCourseIds = result.courses;
-                currentLicenseKey = key;
-                currentDeviceId = getDeviceId();
-                localStorage.setItem('parent_license', key);
-                localStorage.setItem('parent_user', currentUser);
-                localStorage.setItem('parent_courses', JSON.stringify(currentAllowedCourseIds));
-                document.getElementById('unlockScreen').style.display = 'none';
-                document.getElementById('mainContent').style.display = 'block';
-                document.getElementById('userNameDisplay').innerHTML = `<i class="fas fa-user-circle"></i> ${currentUser}`;
-                document.getElementById('manageDevicesBtn').style.display = 'inline-block';
-                renderCourses('all', currentAllowedCourseIds);
-            } else {
-                const err = document.getElementById('errorMsg');
-                err.innerText = result.message || "Mã khóa không hợp lệ!";
-                err.style.display = 'block';
-                setTimeout(() => err.style.display = 'none', 3000);
-            }
-        }
+    // ==================== MODAL ====================
+    function showCourseDetail(course) {
+        const modal = document.getElementById('courseModal');
+        document.getElementById('modalTitle').innerHTML = `${course.icon} ${course.name}`;
+        document.getElementById('modalBody').innerHTML = `
+            <div style="margin-bottom:16px;">
+                <span class="free-badge-modal">🎁 Miễn phí</span>
+            </div>
+            <p style="margin-bottom:20px; font-weight:500; color:var(--gray);">${course.fullDesc}</p>
+            <h4 style="margin:20px 0 12px; color:var(--gold); font-family:'Playfair Display',serif;">
+                <i class="fas fa-list"></i> Nội dung khóa học
+            </h4>
+            <ul class="chapter-list">
+                ${course.chapters.map((ch, idx) => `
+                    <li>
+                        <span class="chapter-num">${String(idx + 1).padStart(2, '0')}</span>
+                        <span>${ch}</span>
+                    </li>
+                `).join('')}
+            </ul>
+            <div style="margin-top:24px; padding-top:16px; border-top:1px solid var(--light-gray); display:flex; justify-content:center; flex-wrap:wrap; gap:12px;">
+                <a href="${course.link}" class="btn-start" style="width:100%; justify-content:center;">
+                    <i class="fas fa-play"></i> Bắt đầu học ngay
+                </a>
+            </div>
+        `;
+        modal.classList.add('active');
+    }
 
-        function logout() {
-            localStorage.removeItem('parent_license');
-            localStorage.removeItem('parent_user');
-            localStorage.removeItem('parent_courses');
-            localStorage.removeItem('parent_deviceId');
-            document.getElementById('unlockScreen').style.display = 'flex';
-            document.getElementById('mainContent').style.display = 'none';
-            document.getElementById('licenseKey').value = '';
-            document.getElementById('manageDevicesBtn').style.display = 'none';
-        }
+    function closeModal() {
+        document.getElementById('courseModal').classList.remove('active');
+    }
 
-        async function checkExistingLicense() {
-            const saved = localStorage.getItem('parent_license');
-            if (saved) {
-                const loading = document.getElementById('loadingOverlay');
-                loading.style.display = 'flex';
-                const result = await authenticate(saved);
-                loading.style.display = 'none';
-                if (result.status === 'success') {
-                    currentUser = result.user;
-                    currentAllowedCourseIds = result.courses;
-                    currentLicenseKey = saved;
-                    currentDeviceId = getDeviceId();
-                    document.getElementById('unlockScreen').style.display = 'none';
-                    document.getElementById('mainContent').style.display = 'block';
-                    document.getElementById('userNameDisplay').innerHTML = `<i class="fas fa-user-circle"></i> ${currentUser}`;
-                    document.getElementById('manageDevicesBtn').style.display = 'inline-block';
-                    renderCourses('all', currentAllowedCourseIds);
-                } else {
-                    localStorage.removeItem('parent_license');
-                    localStorage.removeItem('parent_user');
-                    localStorage.removeItem('parent_courses');
-                    localStorage.removeItem('parent_deviceId');
-                }
-            }
-            document.getElementById('loadingOverlay').style.display = 'none';
-        }
-
-        async function showDeviceManager() {
-            if (!currentLicenseKey) return;
-            const loading = document.getElementById('loadingOverlay');
-            loading.style.display = 'flex';
-            const result = await getDevices(currentLicenseKey);
-            loading.style.display = 'none';
-            if (result.status === 'success') {
-                const devices = result.devices || [];
-                const modalBody = document.getElementById('deviceModalBody');
-                if (devices.length === 0) {
-                    modalBody.innerHTML = '<p>Không có thiết bị nào đang đăng nhập.</p>';
-                } else {
-                    modalBody.innerHTML = `
-                        <p>Hiện tại tài khoản của bạn đang đăng nhập trên ${devices.length} thiết bị:</p>
-                        <div class="device-list">
-                            ${devices.map(dev => `
-                                <div class="device-item">
-                                    <div class="device-info">
-                                        <div class="device-name">${escapeHtml(dev.deviceName)} ${dev.deviceId === currentDeviceId ? '<span class="current-badge">Thiết bị này</span>' : ''}</div>
-                                        <div class="device-time">Đăng nhập: ${new Date(dev.lastActive).toLocaleString('vi-VN')}</div>
-                                    </div>
-                                    ${dev.deviceId !== currentDeviceId ? `<button class="logout-device-btn" onclick="removeDevice('${dev.deviceId}')">Đăng xuất</button>` : ''}
-                                </div>
-                            `).join('')}
-                        </div>
-                        <p style="margin-top:16px; font-size:0.8rem; color:var(--gray);">* Giới hạn tối đa 2 thiết bị cùng lúc</p>
-                    `;
-                }
-                document.getElementById('deviceModal').classList.add('active');
-            } else {
-                alert("Không thể tải danh sách thiết bị. Vui lòng thử lại.");
-            }
-        }
-
-        async function removeDevice(deviceId) {
-            if (!currentLicenseKey) return;
-            const loading = document.getElementById('loadingOverlay');
-            loading.style.display = 'flex';
-            const result = await logoutDevice(currentLicenseKey, deviceId);
-            loading.style.display = 'none';
-            if (result.status === 'success') {
-                alert("Đã đăng xuất thiết bị thành công!");
-                showDeviceManager();
-            } else {
-                alert("Không thể đăng xuất thiết bị. Vui lòng thử lại.");
-            }
-        }
-
-        function escapeHtml(str) {
-            if (!str) return '';
-            return str.replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m]));
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            checkExistingLicense();
-            document.getElementById('unlockBtn').addEventListener('click', () => unlockCourse(document.getElementById('licenseKey').value));
-            document.getElementById('licenseKey').addEventListener('keypress', e => { if (e.key === 'Enter') unlockCourse(e.target.value); });
-            document.getElementById('logoutBtn').addEventListener('click', logout);
-            document.getElementById('manageDevicesBtn').addEventListener('click', showDeviceManager);
-            document.getElementById('deviceModal').addEventListener('click', e => { if (e.target === document.getElementById('deviceModal')) closeDeviceModal(); });
-            document.getElementById('courseModal').addEventListener('click', e => { if (e.target === document.getElementById('courseModal')) closeModal(); });
-            window.removeDevice = removeDevice;
+    // ==================== INIT ====================
+    document.addEventListener('DOMContentLoaded', () => {
+        renderCourses();
+        document.getElementById('courseModal').addEventListener('click', e => {
+            if (e.target === document.getElementById('courseModal')) closeModal();
         });
-    </script>
+    });
+</script>
 </body>
 </html>
