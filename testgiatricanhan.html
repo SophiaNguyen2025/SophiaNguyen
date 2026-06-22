@@ -1,457 +1,768 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <title>Trắc nghiệm nhóm giá trị cá nhân - Personal Values Assessment</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #C0C0C0, #C0C0C0);
-      color: #333;
-      margin: 0;
-      padding: 20px;
-    }
-    .container {
-      max-width: 800px;
-      margin: auto;
-      background: white;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    }
-    .logo {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .logo img {
-      width: 120px;
-    }
-    h1 {
-      text-align: center;
-      color: #2c3e50;
-    }
-    label {
-      display: block;
-      margin-top: 20px;
-      font-weight: bold;
-    }
-    .question {
-      margin: 20px 0;
-      padding: 15px;
-      border-left: 5px solid #4CAF50;
-      background: #f1f8e9;
-      border-radius: 10px;
-    }
-    .question:nth-child(even) {
-      background: #00FFFF;
-    }
-    .question:nth-child(odd) {
-      background: #CCFFCC;
-    }
-    .question p {
-      margin: 0 0 10px;
-      font-weight: bold;
-    }
-    .question label {
-      display: block;
-      font-weight: normal;
-      margin-bottom: 8px;
-    }
-    input[type="text"],
-    input[type="email"],
-    input[type="number"] {
-      width: 100%;
-      padding: 10px;
-      margin-top: 8px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-    }
-    button {
-      margin-top: 30px;
-      padding: 12px 24px;
-      background: #FF0000;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      width: 100%;
-    }
-    button:hover {
-      background: #45a049;
-    }
-    .result {
-      display: none;
-      background: #ede7f6;
-      margin-top: 30px;
-      padding: 20px;
-      border-radius: 12px;
-      color: #4a148c;
-      font-weight: bold;
-    }
-    
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trắc nghiệm Giá trị cá nhân | Sophia Nguyễn</title>
+    <meta name="description" content="Bài trắc nghiệm giúp bạn khám phá nhóm giá trị cá nhân cốt lõi của bản thân.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --navy-dark: #0A1628;
+            --navy-mid: #1E3A5F;
+            --gold: #C9A84C;
+            --gold-light: #D4B85C;
+            --cream: #F5F0E8;
+            --white: #FFFFFF;
+            --gray: #4A5A6A;
+            --light-gray: #E8E4DC;
+            --gradient: linear-gradient(135deg, #0A1628 0%, #1E3A5F 50%, #2A4A7F 100%);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--navy-dark);
+            line-height: 1.6;
+        }
+        .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+
+        /* ========== HEADER ========== */
+        .header {
+            background: var(--white);
+            padding: 12px 0;
+            box-shadow: 0 2px 20px rgba(10,22,40,0.06);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo img { height: 55px; width: auto; display: block; }
+        .navbar ul {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+            align-items: center;
+        }
+        .navbar ul li a {
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        .navbar ul li a:hover, .navbar ul li a.active { color: var(--gold); }
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--navy-dark);
+        }
+        .show-menu { display: flex !important; }
+
+        /* ========== HERO ========== */
+        .hero {
+            background: var(--gradient);
+            padding: 50px 0 40px;
+            text-align: center;
+            color: white;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+        }
+        .hero h1 span { color: var(--gold); }
+        .hero p {
+            font-size: 1rem;
+            max-width: 650px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        .hero .badge {
+            background: var(--gold);
+            color: var(--navy-dark);
+            display: inline-block;
+            padding: 6px 20px;
+            border-radius: 40px;
+            margin-top: 16px;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        /* ========== TEST CONTAINER ========== */
+        .test-wrapper {
+            background: var(--white);
+            border-radius: 32px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(10,22,40,0.06);
+            border: 1px solid var(--light-gray);
+        }
+        .test-wrapper .intro h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--navy-dark);
+            margin-bottom: 16px;
+            font-size: 1.6rem;
+        }
+        .test-wrapper .intro h2 span { color: var(--gold); }
+        .test-wrapper .intro p {
+            color: var(--gray);
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+        .test-wrapper .intro .highlight {
+            background: var(--cream);
+            padding: 16px 20px;
+            border-radius: 16px;
+            border-left: 4px solid var(--gold);
+            margin: 16px 0;
+            font-weight: 500;
+            color: var(--navy-dark);
+        }
+
+        /* ========== QUESTION ========== */
+        .question-item {
+            background: var(--cream);
+            padding: 18px 20px;
+            margin: 16px 0;
+            border-radius: 16px;
+            border-left: 4px solid var(--gold);
+            transition: 0.2s;
+        }
+        .question-item:hover { border-color: var(--navy-dark); }
+        .question-item .q-text {
+            font-weight: 600;
+            color: var(--navy-dark);
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+        .question-item .options {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .question-item .options label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.88rem;
+            color: var(--gray);
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 8px;
+            transition: 0.2s;
+        }
+        .question-item .options label:hover {
+            background: rgba(201,168,76,0.1);
+        }
+        .question-item .options input[type="radio"] {
+            width: 17px;
+            height: 17px;
+            accent-color: var(--gold);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .question-item .options .tag {
+            font-size: 0.65rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        .tag-ket-noi { background: #4caf50; color: white; }
+        .tag-phat-trien { background: #2196f3; color: white; }
+        .tag-tam-linh { background: #9c27b0; color: white; }
+        .tag-thanh-tuu { background: #ff9800; color: white; }
+
+        /* ========== BUTTON ========== */
+        .btn-submit {
+            background: var(--navy-dark);
+            color: var(--white);
+            border: none;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+            margin-top: 20px;
+        }
+        .btn-submit:hover {
+            background: var(--gold);
+            color: var(--navy-dark);
+            transform: translateY(-2px);
+        }
+
+        /* ========== RESULT ========== */
+        .result-box {
+            display: none;
+            background: var(--cream);
+            padding: 30px;
+            border-radius: 24px;
+            margin-top: 30px;
+            text-align: center;
+            border: 2px solid var(--gold);
+        }
+        .result-box.show { display: block; }
+        .result-box h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--navy-dark);
+            margin-bottom: 8px;
+        }
+        .result-box h2 span { color: var(--gold); }
+        .result-box .result-type {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin: 12px 0;
+            padding: 12px;
+            border-radius: 16px;
+            background: var(--white);
+        }
+        .result-box .scores {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 12px 0;
+        }
+        .result-box .scores .score-item {
+            background: var(--white);
+            padding: 6px 14px;
+            border-radius: 10px;
+            border: 1px solid var(--light-gray);
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+        .result-box .scores .score-item .num {
+            font-size: 1.1rem;
+        }
+        .result-box .desc {
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin: 12px 0;
+            line-height: 1.7;
+            text-align: left;
+        }
+        .result-box .career {
+            background: var(--white);
+            padding: 16px 20px;
+            border-radius: 16px;
+            border: 1px solid var(--light-gray);
+            font-size: 0.9rem;
+            color: var(--navy-dark);
+            text-align: left;
+            margin: 12px 0;
+        }
+        .result-box .career strong { color: var(--gold); }
+        .share-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+        .share-buttons .share-btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .share-buttons .share-btn:hover { transform: translateY(-2px); opacity: 0.9; }
+        .share-buttons .share-btn.fb { background: #3b5998; }
+        .share-buttons .share-btn.zalo { background: #0068ff; }
+        .share-buttons .share-btn.twitter { background: #1da1f2; }
+        .share-buttons .share-btn.tiktok { background: #000000; }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: var(--navy-dark);
+            color: rgba(255,255,255,0.7);
+            padding: 40px 0 24px;
+            margin-top: 60px;
+            border-top: 3px solid var(--gold);
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        .footer-logo img { width: 120px; margin-bottom: 12px; }
+        .footer-logo p { font-size: 0.85rem; line-height: 1.6; color: rgba(255,255,255,0.6); }
+        .footer-links h4, .footer-contact h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            margin-bottom: 16px;
+            font-size: 1rem;
+        }
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+        .footer-links ul li { margin-bottom: 8px; }
+        .footer-links ul li a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: 0.2s;
+        }
+        .footer-links ul li a:hover { color: var(--gold); }
+        .footer-contact p {
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            color: rgba(255,255,255,0.6);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .footer-contact p i { color: var(--gold); width: 18px; }
+        .social-icons {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .social-icons a {
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+        .social-icons a:hover { transform: translateY(-3px); }
+        .social-icons img { width: 30px; height: 30px; border-radius: 50%; }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .navbar {
+                display: none;
+                flex-direction: column;
+                gap: 12px;
+                padding: 16px 0;
+                background: var(--white);
+                width: 100%;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                padding: 16px 24px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+            .navbar ul { flex-direction: column; gap: 12px; }
+            .header-container { flex-wrap: wrap; position: relative; }
+            .logo img { height: 45px; }
+            .hero h1 { font-size: 1.6rem; }
+            .test-wrapper { padding: 20px; }
+            .question-item .options { flex-direction: column; gap: 4px; }
+            .result-box h2 { font-size: 1.4rem; }
+            .result-box .result-type { font-size: 1.2rem; }
+            .footer-container { grid-template-columns: 1fr; text-align: center; }
+            .footer-contact p { justify-content: center; }
+            .social-icons { justify-content: center; }
+            .share-buttons .share-btn { width: 100%; justify-content: center; }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="logo">
-      <img src="images/hinhremovenen.png" alt="Logo Sophia">
-    </div>
-    <h1>Trắc nghiệm nhóm giá trị cá nhân - Personal Values Assessment</h1>
-    <!-- Form cá nhân -->
-    <form id="userForm" action="https://formspree.io/f/mgvzqrje" method="POST">
-      <h2>Thông tin người làm test</h2>
-      <label>Họ tên:</label>
-      <input type="text" name="name" id="name" required>
-      <label>Email:</label>
-      <input type="email" name="email" id="email" required>
-      <label>Tuổi:</label>
-      <input type="number" name="age" id="age" required>
-      <label>Số điện thoại:</label>
-      <input type="text" name="phone" id="phone" required>
-      <button type="submit">Gửi thông tin---> nhấn Go Back ---> & tiếp tục</button>
-      </form>
 
-    
-  <!-- Câu hỏi trắc nghiệm -->
-  <div id="quizSection" style="display: none;">
-    <form id="quizForm">
-     <div class="question">
-      <h2>1. Khi có thời gian rảnh, bạn thường thích làm gì nhất?</h2>
-      <label class="option"><input type="radio" name="q1" value="ket_noi"> Đi chơi với bạn bè</label>
-      <label class="option"><input type="radio" name="q1" value="phat_trien"> Đọc sách hoặc học thêm</label>
-      <label class="option"><input type="radio" name="q1" value="tam_linh"> Thiền hoặc suy ngẫm</label>
-      <label class="option"><input type="radio" name="q1" value="thanh_tuu"> Làm việc để đạt mục tiêu cá nhân</label>
+<!-- ========== HEADER ========== -->
+<header class="header">
+    <div class="header-container">
+        <a href="index.html" class="logo">
+            <img src="images/hinhremovenen.png" alt="Sophia Nguyễn">
+        </a>
+        <div class="menu-toggle" onclick="document.querySelector('.navbar').classList.toggle('show-menu')">☰</div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="index.html">Trang chủ</a></li>
+                <li><a href="about.html">Giới thiệu</a></li>
+                <li><a href="services.html">Dịch vụ</a></li>
+                <li><a href="khoa-hoc.html">Khóa học</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="test.html" class="active">Trắc nghiệm</a></li>
+                <li><a href="contact.html">Liên hệ</a></li>
+            </ul>
+        </nav>
     </div>
+</header>
 
-    <!-- Câu hỏi 2 -->
-    <div class="question">
-      <h2>2. Điều gì khiến bạn cảm thấy hạnh phúc nhất?</h2>
-      <label class="option"><input type="radio" name="q2" value="ket_noi"> Ở bên người thân yêu</label>
-      <label class="option"><input type="radio" name="q2" value="phat_trien"> Học được điều mới</label>
-      <label class="option"><input type="radio" name="q2" value="tam_linh"> Cảm thấy bình an nội tâm</label>
-      <label class="option"><input type="radio" name="q2" value="thanh_tuu"> Hoàn thành một mục tiêu lớn</label>
+<!-- ========== HERO ========== -->
+<section class="hero">
+    <div class="container">
+        <h1>💎 Trắc nghiệm <span>Giá trị cá nhân</span></h1>
+        <p>Khám phá nhóm giá trị cốt lõi của bạn theo mô hình của Richard Barrett</p>
+        <div class="badge">🌟 Hiểu mình để sống đúng giá trị</div>
     </div>
+</section>
 
-    <!-- Câu hỏi 3 -->
-    <div class="question">
-      <h2>3. Bạn thường được người khác khen vì điều gì?</h2>
-      <label class="option"><input type="radio" name="q3" value="ket_noi"> Biết quan tâm, chia sẻ</label>
-      <label class="option"><input type="radio" name="q3" value="phat_trien"> Thông minh, hiểu biết</label>
-      <label class="option"><input type="radio" name="q3" value="tam_linh"> Điềm tĩnh, sâu sắc</label>
-      <label class="option"><input type="radio" name="q3" value="thanh_tuu"> Nỗ lực, kiên trì</label>
-    </div>
+<!-- ========== TEST ========== -->
+<div class="container">
+    <div class="test-wrapper">
+        <div class="intro">
+            <h2>Khám phá <span>giá trị cốt lõi</span> của bạn</h2>
+            <p>
+                Bài trắc nghiệm này giúp bạn nhận diện nhóm giá trị cá nhân chính của mình:
+                <strong>Kết nối</strong>, <strong>Phát triển</strong>, <strong>Tâm linh</strong> hoặc <strong>Thành tựu</strong>.
+            </p>
+            <p>
+                Mô hình được phát triển bởi <strong>Richard Barrett</strong> – chuyên gia hàng đầu về phát triển con người và tổ chức.
+            </p>
+            <div class="highlight">
+                👉 Hãy trả lời một cách trung thực nhất để có kết quả chính xác.
+                Mỗi nhóm giá trị đều có vẻ đẹp riêng!
+            </div>
+        </div>
 
-    <!-- Câu hỏi 4 -->
-    <div class="question">
-      <h2>4. Nếu được chọn một món quà, bạn sẽ thích gì nhất?</h2>
-      <label class="option"><input type="radio" name="q4" value="ket_noi"> Một chuyến đi cùng người thân</label>
-      <label class="option"><input type="radio" name="q4" value="phat_trien"> Một khóa học yêu thích</label>
-      <label class="option"><input type="radio" name="q4" value="tam_linh"> Một cuốn sách truyền cảm hứng</label>
-      <label class="option"><input type="radio" name="q4" value="thanh_tuu"> Một công cụ giúp làm việc hiệu quả</label>
-    </div>
-    <!-- Câu hỏi 5 -->
-    <div class="question">
-      <h2>5. Khi gặp khó khăn, bạn thường làm gì?</h2>
-      <label class="option"><input type="radio" name="q5" value="ket_noi"> Tâm sự với người thân</label>
-      <label class="option"><input type="radio" name="q5" value="phat_trien"> Tìm hiểu cách giải quyết</label>
-      <label class="option"><input type="radio" name="q5" value="tam_linh"> Cầu nguyện hoặc thiền</label>
-      <label class="option"><input type="radio" name="q5" value="thanh_tuu"> Tự mình vượt qua bằng hành động</label>
-    </div>
+        <form id="quizForm"></form>
+        <button id="submitBtn" class="btn-submit" style="display:none;">🔍 Tính kết quả</button>
 
-    <!-- Câu hỏi 6 -->
-    <div class="question">
-      <h2>6. Bạn cảm thấy tự hào nhất khi nào?</h2>
-      <label class="option"><input type="radio" name="q6" value="ket_noi"> Khi giúp đỡ người khác</label>
-      <label class="option"><input type="radio" name="q6" value="phat_trien"> Khi học được điều mới</label>
-      <label class="option"><input type="radio" name="q6" value="tam_linh"> Khi giữ được sự bình tĩnh</label>
-      <label class="option"><input type="radio" name="q6" value="thanh_tuu"> Khi đạt được mục tiêu cá nhân</label>
+        <div id="result" class="result-box"></div>
     </div>
+</div>
 
-    <!-- Câu hỏi 7 -->
-    <div class="question">
-      <h2>7. Trong một nhóm, bạn thường đóng vai trò gì?</h2>
-      <label class="option"><input type="radio" name="q7" value="ket_noi"> Người kết nối, tạo không khí</label>
-      <label class="option"><input type="radio" name="q7" value="phat_trien"> Người đưa ra ý tưởng mới</label>
-      <label class="option"><input type="radio" name="q7" value="tam_linh"> Người giữ sự cân bằng, lắng nghe</label>
-      <label class="option"><input type="radio" name="q7" value="thanh_tuu"> Người thúc đẩy tiến độ, kết quả</label>
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-logo">
+            <img src="images/hinhremovenen.png" alt="Sophia Nguyễn">
+            <p>Đồng hành & Sẻ chia cùng bạn trên hành trình tâm lý – phát triển – yêu thương.</p>
+        </div>
+        <div class="footer-links">
+            <h4>Dịch vụ</h4>
+            <ul>
+                <li><a href="tuvan-tamly1.html">Tham vấn tâm lý</a></li>
+                <li><a href="huong-nghiep.html">Định hướng nghề nghiệp</a></li>
+                <li><a href="ky-nang.html">Đào tạo kỹ năng</a></li>
+                <li><a href="van-tay.html">Sinh trắc vân tay</a></li>
+            </ul>
+        </div>
+        <div class="footer-contact">
+            <h4>Liên hệ</h4>
+            <p><i class="fas fa-envelope"></i> sophianguyen2891@gmail.com</p>
+            <p><i class="fas fa-phone"></i> 0977092182</p>
+            <p><i class="fas fa-map-marker-alt"></i> Tân Bình - TPHCM</p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/Sophiadiemhang1982"><img src="images/fb.png" alt="Facebook" /></a>
+                <a href="https://www.tiktok.com/@sophia.nguyen2014"><img src="images/tiktok.png" alt="TikTok" /></a>
+                <a href="https://www.youtube.com/@sophianguyen1982-dh"><img src="images/youtube.png" alt="YouTube" /></a>
+            </div>
+        </div>
     </div>
+    <div class="footer-bottom">
+        <p>Copyright ©2025 Sophia Nguyễn. All rights reserved.</p>
+    </div>
+</footer>
 
-    <!-- Câu hỏi 8 -->
-    <div class="question">
-      <h2>8. Bạn mong muốn điều gì nhất trong cuộc sống?</h2>
-      <label class="option"><input type="radio" name="q8" value="ket_noi"> Có những mối quan hệ ý nghĩa</label>
-      <label class="option"><input type="radio" name="q8" value="phat_trien"> Không ngừng học hỏi và phát triển</label>
-      <label class="option"><input type="radio" name="q8" value="tam_linh"> Sống bình an, có chiều sâu</label>
-      <label class="option"><input type="radio" name="q8" value="thanh_tuu"> Đạt được thành công rõ ràng</label>
-    </div>
- <!-- Câu hỏi 9 -->
-    <div class="question">
-      <h2>9. Bạn cảm thấy được truyền cảm hứng khi nào?</h2>
-      <label class="option"><input type="radio" name="q9" value="ket_noi"> Khi nghe câu chuyện về tình bạn, tình yêu</label>
-      <label class="option"><input type="radio" name="q9" value="phat_trien"> Khi thấy ai đó vượt qua giới hạn bản thân</label>
-      <label class="option"><input type="radio" name="q9" value="tam_linh"> Khi thấy sự tỉnh thức, giác ngộ</label>
-      <label class="option"><input type="radio" name="q9" value="thanh_tuu"> Khi thấy ai đó đạt được thành tựu lớn</label>
-    </div>
-        <!-- Câu hỏi 10 -->
-    <div class="question">
-      <h2>10. Nếu được chọn một hoạt động cuối tuần, bạn sẽ chọn gì?</h2>
-      <label class="option"><input type="radio" name="q10" value="ket_noi"> Tụ họp bạn bè, gia đình</label>
-      <label class="option"><input type="radio" name="q10" value="phat_trien"> Tham gia workshop hoặc lớp học</label>
-      <label class="option"><input type="radio" name="q10" value="tam_linh"> Đi chùa, thiền, hoặc đọc sách tâm linh</label>
-      <label class="option"><input type="radio" name="q10" value="thanh_tuu"> Làm việc cho dự án cá nhân</label>
-    </div>
-
-    <!-- Câu hỏi 11 -->
-    <div class="question">
-      <h2>11. Bạn thường đặt ưu tiên cho điều gì?</h2>
-      <label class="option"><input type="radio" name="q11" value="ket_noi"> Mối quan hệ và kết nối</label>
-      <label class="option"><input type="radio" name="q11" value="phat_trien"> Học hỏi và phát triển bản thân</label>
-      <label class="option"><input type="radio" name="q11" value="tam_linh"> Sự bình an và ý nghĩa cuộc sống</label>
-      <label class="option"><input type="radio" name="q11" value="thanh_tuu"> Thành công và kết quả rõ ràng</label>
-    </div>
-
-    <!-- Câu hỏi 12 -->
-    <div class="question">
-      <h2>12. Bạn thấy điều gì là quan trọng nhất trong cuộc sống?</h2>
-      <label class="option"><input type="radio" name="q12" value="ket_noi"> Tình yêu thương và sự gắn kết</label>
-      <label class="option"><input type="radio" name="q12" value="phat_trien"> Tri thức và sự tiến bộ</label>
-      <label class="option"><input type="radio" name="q12" value="tam_linh"> Tâm hồn thanh thản</label>
-      <label class="option"><input type="radio" name="q12" value="thanh_tuu"> Sự nghiệp và thành tựu</label>
-    </div>
-
-    <!-- Câu hỏi 13 -->
-    <div class="question">
-      <h2>13. Bạn cảm thấy được là chính mình khi nào?</h2>
-      <label class="option"><input type="radio" name="q13" value="ket_noi"> Khi ở bên người thân thiết</label>
-      <label class="option"><input type="radio" name="q13" value="phat_trien"> Khi học hỏi và khám phá</label>
-      <label class="option"><input type="radio" name="q13" value="tam_linh"> Khi ở một mình và suy ngẫm</label>
-      <label class="option"><input type="radio" name="q13" value="thanh_tuu"> Khi đang làm việc hướng đến mục tiêu</label>
-    </div>
-
-    <!-- Câu hỏi 14 -->
-    <div class="question">
-      <h2>14. Bạn thường cảm thấy hài lòng khi nào?</h2>
-      <label class="option"><input type="radio" name="q14" value="ket_noi"> Khi có người lắng nghe và thấu hiểu</label>
-      <label class="option"><input type="radio" name="q14" value="phat_trien"> Khi tiến bộ hơn hôm qua</label>
-      <label class="option"><input type="radio" name="q14" value="tam_linh"> Khi cảm thấy tâm hồn nhẹ nhàng</label>
-      <label class="option"><input type="radio" name="q14" value="thanh_tuu"> Khi hoàn thành một công việc lớn</label>
-    </div>
-
-    <!-- Câu hỏi 15 -->
-    <div class="question">
-      <h2>15. Bạn thường dành thời gian cho điều gì?</h2>
-      <label class="option"><input type="radio" name="q15" value="ket_noi"> Gặp gỡ, trò chuyện với người thân</label>
-      <label class="option"><input type="radio" name="q15" value="phat_trien"> Học tập, phát triển kỹ năng</label>
-      <label class="option"><input type="radio" name="q15" value="tam_linh"> Tĩnh lặng, suy ngẫm</label>
-      <label class="option"><input type="radio" name="q15" value="thanh_tuu"> Làm việc để đạt kết quả</label>
-    </div>
-
-    <!-- Câu hỏi 16 -->
-    <div class="question">
-      <h2>16. Bạn cảm thấy được tiếp thêm năng lượng khi nào?</h2>
-      <label class="option"><input type="radio" name="q16" value="ket_noi"> Khi trò chuyện với người mình yêu quý</label>
-      <label class="option"><input type="radio" name="q16" value="phat_trien"> Khi học được điều mới mẻ</label>
-      <label class="option"><input type="radio" name="q16" value="tam_linh"> Khi có thời gian ở một mình</label>
-      <label class="option"><input type="radio" name="q16" value="thanh_tuu"> Khi đạt được một cột mốc quan trọng</label>
-    </div>
-
-    <!-- Câu hỏi 17 -->
-    <div class="question">
-      <h2>17. Bạn thường cảm thấy mất năng lượng khi nào?</h2>
-      <label class="option"><input type="radio" name="q17" value="ket_noi"> Khi bị cô lập hoặc không ai lắng nghe</label>
-      <label class="option"><input type="radio" name="q17" value="phat_trien"> Khi không được học hỏi gì mới</label>
-      <label class="option"><input type="radio" name="q17" value="tam_linh"> Khi tâm trí bị xáo trộn, lo âu</label>
-      <label class="option"><input type="radio" name="q17" value="thanh_tuu"> Khi không đạt được kết quả mong muốn</label>
-    </div>
-
-    <!-- Câu hỏi 18 -->
-    <div class="question">
-      <h2>18. Bạn thường cảm thấy ý nghĩa khi nào?</h2>
-      <label class="option"><input type="radio" name="q18" value="ket_noi"> Khi giúp người khác cảm thấy được yêu thương</label>
-      <label class="option"><input type="radio" name="q18" value="phat_trien"> Khi chia sẻ kiến thức, kinh nghiệm</label>
-      <label class="option"><input type="radio" name="q18" value="tam_linh"> Khi cảm nhận được sự kết nối với vũ trụ</label>
-      <label class="option"><input type="radio" name="q18" value="thanh_tuu"> Khi tạo ra điều gì đó có giá trị rõ ràng</label>
-    </div>
-    <!-- Câu hỏi 19 -->
-    <div class="question">
-      <h2>19. Bạn cảm thấy gắn bó nhất với điều gì?</h2>
-      <label class="option"><input type="radio" name="q19" value="ket_noi"> Những người thân yêu</label>
-      <label class="option"><input type="radio" name="q19" value="phat_trien"> Những cơ hội học hỏi</label>
-      <label class="option"><input type="radio" name="q19" value="tam_linh"> Những giá trị tinh thần</label>
-      <label class="option"><input type="radio" name="q19" value="thanh_tuu"> Những mục tiêu cá nhân</label>
-    </div>
-
-    <!-- Câu hỏi 20 -->
-    <div class="question">
-      <h2>20. Bạn thường cảm thấy mất phương hướng khi nào?</h2>
-      <label class="option"><input type="radio" name="q20" value="ket_noi"> Khi không có ai bên cạnh</label>
-      <label class="option"><input type="radio" name="q20" value="phat_trien"> Khi không biết mình đang học gì</label>
-      <label class="option"><input type="radio" name="q20" value="tam_linh"> Khi không hiểu ý nghĩa cuộc sống</label>
-      <label class="option"><input type="radio" name="q20" value="thanh_tuu"> Khi không đạt được kết quả mong muốn</label>
-    </div>
-
-    <!-- Câu hỏi 21 -->
-    <div class="question">
-      <h2>21. Bạn thường cảm thấy được là chính mình khi nào?</h2>
-      <label class="option"><input type="radio" name="q21" value="ket_noi"> Khi được chia sẻ thật lòng</label>
-      <label class="option"><input type="radio" name="q21" value="phat_trien"> Khi được học và sáng tạo</label>
-      <label class="option"><input type="radio" name="q21" value="tam_linh"> Khi được yên tĩnh và suy ngẫm</label>
-      <label class="option"><input type="radio" name="q21" value="thanh_tuu"> Khi đang hành động hướng đến mục tiêu</label>
-    </div>
-
-    <!-- Câu hỏi 22 -->
-    <div class="question">
-      <h2>22. Bạn thường cảm thấy kết nối nhất khi nào?</h2>
-      <label class="option"><input type="radio" name="q22" value="ket_noi"> Khi trò chuyện sâu sắc với ai đó</label>
-      <label class="option"><input type="radio" name="q22" value="phat_trien"> Khi cùng nhau học hỏi</label>
-      <label class="option"><input type="radio" name="q22" value="tam_linh"> Khi cùng nhau thiền hoặc cầu nguyện</label>
-      <label class="option"><input type="radio" name="q22" value="thanh_tuu"> Khi cùng nhau hoàn thành một dự án</label>
-    </div>
-
-    <!-- Câu hỏi 23 -->
-    <div class="question">
-      <h2>23. Bạn thường cảm thấy được công nhận khi nào?</h2>
-      <label class="option"><input type="radio" name="q23" value="ket_noi"> Khi người khác lắng nghe và chia sẻ</label>
-      <label class="option"><input type="radio" name="q23" value="phat_trien"> Khi người khác đánh giá cao kiến thức của bạn</label>
-      <label class="option"><input type="radio" name="q23" value="tam_linh"> Khi người khác tôn trọng chiều sâu nội tâm của bạn</label>
-      <label class="option"><input type="radio" name="q23" value="thanh_tuu"> Khi người khác ghi nhận thành tích của bạn</label>
-    </div>
-
-    <!-- Câu hỏi 24 -->
-    <div class="question">
-      <h2>24. Bạn thường cảm thấy mất kết nối khi nào?</h2>
-      <label class="option"><input type="radio" name="q24" value="ket_noi"> Khi không ai hiểu mình</label>
-      <label class="option"><input type="radio" name="q24" value="phat_trien"> Khi không được học hỏi gì mới</label>
-      <label class="option"><input type="radio" name="q24" value="tam_linh"> Khi không có thời gian cho bản thân</label>
-      <label class="option"><input type="radio" name="q24" value="thanh_tuu"> Khi không đạt được kết quả rõ ràng</label>
-    </div>
-
-    <!-- Câu hỏi 25 -->
-    <div class="question">
-      <h2>25. Bạn thường cảm thấy trọn vẹn khi nào?</h2>
-      <label class="option"><input type="radio" name="q25" value="ket_noi"> Khi được yêu thương và yêu thương</label>
-      <label class="option"><input type="radio" name="q25" value="phat_trien"> Khi phát triển bản thân mỗi ngày</label>
-      <label class="option"><input type="radio" name="q25" value="tam_linh"> Khi cảm thấy tâm hồn bình an</label>
-      <label class="option"><input type="radio" name="q25" value="thanh_tuu"> Khi đạt được điều mình mong muốn</label>
-    </div>
-
-    <!-- Câu hỏi 26 -->
-    <div class="question">
-      <h2>26. Bạn mong muốn người khác nhớ đến mình vì điều gì?</h2>
-      <label class="option"><input type="radio" name="q26" value="ket_noi"> Là người sống tình cảm, gắn bó</label>
-      <label class="option"><input type="radio" name="q26" value="phat_trien"> Là người ham học hỏi, truyền cảm hứng</label>
-      <label class="option"><input type="radio" name="q26" value="tam_linh"> Là người sâu sắc, sống có chiều sâu</label>
-      <label class="option"><input type="radio" name="q26" value="thanh_tuu"> Là người kiên trì, đạt được thành tựu</label>
-    </div>
-  </form>
-      <button id="submitBtn" type="button" onclick="calculateResult()">Tính kết quả</button>
-  </div>
- 
-    <div class="result" id="result">
-      <h2>Kết quả trắc nghiệm:</h2>
-      <p id="output"></p>
-    </div>
-  
-  <!-- Script xử lý -->
 <script>
-    let formSubmitted = false;
+    // ==================== DỮ LIỆU CÂU HỎI ====================
+    const questionsData = [
+        { text: "Khi có thời gian rảnh, bạn thường thích làm gì nhất?", options: [
+            { text: "Đi chơi với bạn bè", type: "ket_noi", tag: "Kết nối" },
+            { text: "Đọc sách hoặc học thêm", type: "phat_trien", tag: "Phát triển" },
+            { text: "Thiền hoặc suy ngẫm", type: "tam_linh", tag: "Tâm linh" },
+            { text: "Làm việc để đạt mục tiêu cá nhân", type: "thanh_tuu", tag: "Thành tựu" }
+        ]},
+        { text: "Điều gì khiến bạn cảm thấy hạnh phúc nhất?", options: [
+            { text: "Ở bên người thân yêu", type: "ket_noi", tag: "Kết nối" },
+            { text: "Học được điều mới", type: "phat_trien", tag: "Phát triển" },
+            { text: "Cảm thấy bình an nội tâm", type: "tam_linh", tag: "Tâm linh" },
+            { text: "Hoàn thành một mục tiêu lớn", type: "thanh_tuu", tag: "Thành tựu" }
+        ]},
+        { text: "Bạn thường được người khác khen vì điều gì?", options: [
+            { text: "Biết quan tâm, chia sẻ", type: "ket_noi", tag: "Kết nối" },
+            { text: "Thông minh, hiểu biết", type: "phat_trien", tag: "Phát triển" },
+            { text: "Điềm tĩnh, sâu sắc", type: "tam_linh", tag: "Tâm linh" },
+            { text: "Nỗ lực, kiên trì", type: "thanh_tuu", tag: "Thành tựu" }
+        ]},
+        { text: "Nếu được chọn một món quà, bạn sẽ thích gì nhất?", options: [
+            { text: "Một chuyến đi cùng người thân", type: "ket_noi", tag: "Kết nối" },
+            { text: "Một khóa học yêu thích", type: "phat_trien", tag: "Phát triển" },
+            { text: "Một cuốn sách truyền cảm hứng", type: "tam_linh", tag: "Tâm linh" },
+            { text: "Một công cụ giúp làm việc hiệu quả", type: "thanh_tuu", tag: "Thành tựu" }
+        ]},
+        { text: "Khi gặp khó khăn, bạn thường làm gì?", options: [
+            { text: "Tâm sự với người thân", type: "ket_noi", tag: "Kết nối" },
+            { text: "Tìm hiểu cách giải quyết", type: "phat_trien", tag: "Phát triển" },
+            { text: "Cầu nguyện hoặc thiền", type: "tam_linh", tag: "Tâm linh" },
+            { text: "Tự mình vượt qua bằng hành động", type: "thanh_tuu", tag: "Thành tựu" }
+        ]},
+        { text: "Bạn cảm thấy tự hào nhất khi nào?", options: [
+            { text: "Khi giúp đỡ người khác", type: "ket_noi", tag: "Kết nối" },
+            { text: "Khi học được điều mới", type: "phat_trien", tag: "Phát triển" },
+            { text: "Khi giữ được sự bình tĩnh", type: "tam_linh", tag: "Tâm linh" },
+            { text: "Khi đạt được mục tiêu cá nhân", type: "thanh_tuu", tag: "Thành tựu" }
+        ]},
+        { text: "Trong một nhóm, bạn thường đóng vai trò gì?", options: [
+            { text: "Người kết nối, tạo không khí", type: "ket_noi", tag: "Kết nối" },
+            { text: "Người đưa ra ý tưởng mới", type: "phat_trien", tag: "Phát triển" },
+            { text: "Người giữ sự cân bằng, lắng nghe", type: "tam_linh", tag: "Tâm linh" },
+            { text: "Người thúc đẩy tiến độ, kết quả", type: "thanh_tuu", tag: "Thành tựu" }
+        ]},
+        { text: "Bạn mong muốn điều gì nhất trong cuộc sống?", options: [
+            { text: "Có những mối quan hệ ý nghĩa", type: "ket_noi", tag: "Kết nối" },
+            { text: "Không ngừng học hỏi và phát triển", type: "phat_trien", tag: "Phát triển" },
+            { text: "Sống bình an, có chiều sâu", type: "tam_linh", tag: "Tâm linh" },
+            { text: "Đạt được thành công rõ ràng", type: "thanh_tuu", tag: "Thành tựu" }
+        ]},
+        { text: "Bạn cảm thấy được truyền cảm hứng khi nào?", options: [
+            { text: "Khi nghe câu chuyện về tình bạn, tình yêu", type: "ket_noi", tag: "Kết nối" },
+            { text: "Khi thấy ai đó vượt qua giới hạn bản thân", type: "phat_trien", tag: "Phát triển" },
+            { text: "Khi thấy sự tỉnh thức, giác ngộ", type: "tam_linh", tag: "Tâm linh" },
+            { text: "Khi thấy ai đó đạt được thành tựu lớn", type: "thanh_tuu", tag: "Thành tựu" }
+        ]},
+        { text: "Nếu được chọn một hoạt động cuối tuần, bạn sẽ chọn gì?", options: [
+            { text: "Tụ họp bạn bè, gia đình", type: "ket_noi", tag: "Kết nối" },
+            { text: "Tham gia workshop hoặc lớp học", type: "phat_trien", tag: "Phát triển" },
+            { text: "Đi chùa, thiền, hoặc đọc sách tâm linh", type: "tam_linh", tag: "Tâm linh" },
+            { text: "Làm việc cho dự án cá nhân", type: "thanh_tuu", tag: "Thành tựu" }
+        ]},
+        { text: "Bạn thường đặt ưu tiên cho điều gì?", options: [
+            { text: "Mối quan hệ và kết nối", type: "ket_noi", tag: "Kết nối" },
+            { text: "Học hỏi và phát triển bản thân", type: "phat_trien", tag: "Phát triển" },
+            { text: "Sự bình an và ý nghĩa cuộc sống", type: "tam_linh", tag: "Tâm linh" },
+            { text: "Thành công và kết quả rõ ràng", type: "thanh_tuu", tag: "Thành tựu" }
+        ]},
+        { text: "Bạn thấy điều gì là quan trọng nhất trong cuộc sống?", options: [
+            { text: "Tình yêu thương và sự gắn kết", type: "ket_noi", tag: "Kết nối" },
+            { text: "Tri thức và sự tiến bộ", type: "phat_trien", tag: "Phát triển" },
+            { text: "Tâm hồn thanh thản", type: "tam_linh", tag: "Tâm linh" },
+            { text: "Sự nghiệp và thành tựu", type: "thanh_tuu", tag: "Thành tựu" }
+        ]},
+        { text: "Bạn cảm thấy được là chính mình khi nào?", options: [
+            { text: "Khi ở bên người thân thiết", type: "ket_noi", tag: "Kết nối" },
+            { text: "Khi học hỏi và khám phá", type: "phat_trien", tag: "Phát triển" },
+            { text: "Khi ở một mình và suy ngẫm", type: "tam_linh", tag: "Tâm linh" },
+            { text: "Khi đang làm việc hướng đến mục tiêu", type: "thanh_tuu", tag: "Thành tựu" }
+        ]},
+        { text: "Bạn thường cảm thấy hài lòng khi nào?", options: [
+            { text: "Khi có người lắng nghe và thấu hiểu", type: "ket_noi", tag: "Kết nối" },
+            { text: "Khi tiến bộ hơn hôm qua", type: "phat_trien", tag: "Phát triển" },
+            { text: "Khi cảm thấy tâm hồn nhẹ nhàng", type: "tam_linh", tag: "Tâm linh" },
+            { text: "Khi hoàn thành một công việc lớn", type: "thanh_tuu", tag: "Thành tựu" }
+        ]},
+        { text: "Bạn thường dành thời gian cho điều gì?", options: [
+            { text: "Gặp gỡ, trò chuyện với người thân", type: "ket_noi", tag: "Kết nối" },
+            { text: "Học tập, phát triển kỹ năng", type: "phat_trien", tag: "Phát triển" },
+            { text: "Tĩnh lặng, suy ngẫm", type: "tam_linh", tag: "Tâm linh" },
+            { text: "Làm việc để đạt kết quả", type: "thanh_tuu", tag: "Thành tựu" }
+        ]},
+        { text: "Bạn cảm thấy được tiếp thêm năng lượng khi nào?", options: [
+            { text: "Khi trò chuyện với người mình yêu quý", type: "ket_noi", tag: "Kết nối" },
+            { text: "Khi học được điều mới mẻ", type: "phat_trien", tag: "Phát triển" },
+            { text: "Khi có thời gian ở một mình", type: "tam_linh", tag: "Tâm linh" },
+            { text: "Khi đạt được một cột mốc quan trọng", type: "thanh_tuu", tag: "Thành tựu" }
+        ]},
+        { text: "Bạn thường cảm thấy mất năng lượng khi nào?", options: [
+            { text: "Khi bị cô lập hoặc không ai lắng nghe", type: "ket_noi", tag: "Kết nối" },
+            { text: "Khi không được học hỏi gì mới", type: "phat_trien", tag: "Phát triển" },
+            { text: "Khi tâm trí bị xáo trộn, lo âu", type: "tam_linh", tag: "Tâm linh" },
+            { text: "Khi không đạt được kết quả mong muốn", type: "thanh_tuu", tag: "Thành tựu" }
+        ]},
+        { text: "Bạn thường cảm thấy ý nghĩa khi nào?", options: [
+            { text: "Khi giúp người khác cảm thấy được yêu thương", type: "ket_noi", tag: "Kết nối" },
+            { text: "Khi chia sẻ kiến thức, kinh nghiệm", type: "phat_trien", tag: "Phát triển" },
+            { text: "Khi cảm nhận được sự kết nối với vũ trụ", type: "tam_linh", tag: "Tâm linh" },
+            { text: "Khi tạo ra điều gì đó có giá trị rõ ràng", type: "thanh_tuu", tag: "Thành tựu" }
+        ]},
+        { text: "Bạn cảm thấy gắn bó nhất với điều gì?", options: [
+            { text: "Những người thân yêu", type: "ket_noi", tag: "Kết nối" },
+            { text: "Những cơ hội học hỏi", type: "phat_trien", tag: "Phát triển" },
+            { text: "Những giá trị tinh thần", type: "tam_linh", tag: "Tâm linh" },
+            { text: "Những mục tiêu cá nhân", type: "thanh_tuu", tag: "Thành tựu" }
+        ]},
+        { text: "Bạn thường cảm thấy mất phương hướng khi nào?", options: [
+            { text: "Khi không có ai bên cạnh", type: "ket_noi", tag: "Kết nối" },
+            { text: "Khi không biết mình đang học gì", type: "phat_trien", tag: "Phát triển" },
+            { text: "Khi không hiểu ý nghĩa cuộc sống", type: "tam_linh", tag: "Tâm linh" },
+            { text: "Khi không đạt được kết quả mong muốn", type: "thanh_tuu", tag: "Thành tựu" }
+        ]},
+        { text: "Bạn thường cảm thấy được là chính mình khi nào?", options: [
+            { text: "Khi được chia sẻ thật lòng", type: "ket_noi", tag: "Kết nối" },
+            { text: "Khi được học và sáng tạo", type: "phat_trien", tag: "Phát triển" },
+            { text: "Khi được yên tĩnh và suy ngẫm", type: "tam_linh", tag: "Tâm linh" },
+            { text: "Khi đang hành động hướng đến mục tiêu", type: "thanh_tuu", tag: "Thành tựu" }
+        ]},
+        { text: "Bạn thường cảm thấy kết nối nhất khi nào?", options: [
+            { text: "Khi trò chuyện sâu sắc với ai đó", type: "ket_noi", tag: "Kết nối" },
+            { text: "Khi cùng nhau học hỏi", type: "phat_trien", tag: "Phát triển" },
+            { text: "Khi cùng nhau thiền hoặc cầu nguyện", type: "tam_linh", tag: "Tâm linh" },
+            { text: "Khi cùng nhau hoàn thành một dự án", type: "thanh_tuu", tag: "Thành tựu" }
+        ]},
+        { text: "Bạn thường cảm thấy được công nhận khi nào?", options: [
+            { text: "Khi người khác lắng nghe và chia sẻ", type: "ket_noi", tag: "Kết nối" },
+            { text: "Khi người khác đánh giá cao kiến thức của bạn", type: "phat_trien", tag: "Phát triển" },
+            { text: "Khi người khác tôn trọng chiều sâu nội tâm của bạn", type: "tam_linh", tag: "Tâm linh" },
+            { text: "Khi người khác ghi nhận thành tích của bạn", type: "thanh_tuu", tag: "Thành tựu" }
+        ]},
+        { text: "Bạn thường cảm thấy mất kết nối khi nào?", options: [
+            { text: "Khi không ai hiểu mình", type: "ket_noi", tag: "Kết nối" },
+            { text: "Khi không được học hỏi gì mới", type: "phat_trien", tag: "Phát triển" },
+            { text: "Khi không có thời gian cho bản thân", type: "tam_linh", tag: "Tâm linh" },
+            { text: "Khi không đạt được kết quả rõ ràng", type: "thanh_tuu", tag: "Thành tựu" }
+        ]},
+        { text: "Bạn thường cảm thấy trọn vẹn khi nào?", options: [
+            { text: "Khi được yêu thương và yêu thương", type: "ket_noi", tag: "Kết nối" },
+            { text: "Khi phát triển bản thân mỗi ngày", type: "phat_trien", tag: "Phát triển" },
+            { text: "Khi cảm thấy tâm hồn bình an", type: "tam_linh", tag: "Tâm linh" },
+            { text: "Khi đạt được điều mình mong muốn", type: "thanh_tuu", tag: "Thành tựu" }
+        ]},
+        { text: "Bạn mong muốn người khác nhớ đến mình vì điều gì?", options: [
+            { text: "Là người sống tình cảm, gắn bó", type: "ket_noi", tag: "Kết nối" },
+            { text: "Là người ham học hỏi, truyền cảm hứng", type: "phat_trien", tag: "Phát triển" },
+            { text: "Là người sâu sắc, sống có chiều sâu", type: "tam_linh", tag: "Tâm linh" },
+            { text: "Là người kiên trì, đạt được thành tựu", type: "thanh_tuu", tag: "Thành tựu" }
+        ]}
+    ];
 
-    document.getElementById("userForm").addEventListener("submit", function (e) {
-      e.preventDefault();
+    const typeNames = {
+        ket_noi: { name: "Kết nối", emoji: "💚", color: "#4caf50",
+            desc: "Bạn đề cao tình cảm, sự gắn bó và các mối quan hệ. Bạn sống vì những kết nối ý nghĩa và luôn đặt con người lên hàng đầu.",
+            career: "Tâm lý học, giáo viên, công tác xã hội, chăm sóc khách hàng, nhân sự, hướng dẫn viên du lịch." },
+        phat_trien: { name: "Phát triển", emoji: "💙", color: "#2196f3",
+            desc: "Bạn yêu thích học hỏi, khám phá và tiến bộ. Bạn luôn khao khát tri thức và không ngừng hoàn thiện bản thân.",
+            career: "Nhà nghiên cứu, chuyên gia đào tạo, sáng tạo nội dung, lập trình viên, giảng viên, nhà khoa học." },
+        tam_linh: { name: "Tâm linh", emoji: "💜", color: "#9c27b0",
+            desc: "Bạn hướng nội, tìm kiếm sự bình an và chiều sâu. Bạn sống với những giá trị tinh thần và kết nối với điều thiêng liêng.",
+            career: "Nhà trị liệu tâm lý, nghệ sĩ, hướng dẫn thiền, người làm công việc chữa lành, nhà văn, triết gia." },
+        thanh_tuu: { name: "Thành tựu", emoji: "🧡", color: "#ff9800",
+            desc: "Bạn tập trung vào mục tiêu, kết quả và thành công. Bạn có tinh thần quyết tâm và luôn hướng đến những thành tựu rõ ràng.",
+            career: "Quản lý dự án, doanh nhân, chuyên viên tài chính, kỹ sư, lãnh đạo, chuyên gia bán hàng." }
+    };
 
-      const form = e.target;
+    // ==================== RENDER CÂU HỎI ====================
+    function renderQuestions() {
+        const form = document.getElementById('quizForm');
+        form.innerHTML = '';
 
-      fetch(form.action, {
-        method: "POST",
-        body: new FormData(form),
-        headers: { 'Accept': 'application/json' }
-      })
-      .then(response => {
-        if (response.ok) {
-          formSubmitted = true;
-          alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể làm bài test và xem kết quả.");
-          document.getElementById("userForm").style.display = "none";
-          document.getElementById("quizSection").style.display = "block";
-        } else {
-          alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
-        }
-      })
-      .catch(error => {
-        alert("⚠️ Lỗi kết nối. Vui lòng thử lại sau.");
-      });
-    });
+        questionsData.forEach((q, index) => {
+            const div = document.createElement('div');
+            div.className = 'question-item';
 
-    function calculateResult() {
-      if (!formSubmitted) {
-        alert("⚠️ Bạn cần gửi thông tin trước khi xem kết quả.");
-        return;
-      }
+            const p = document.createElement('p');
+            p.className = 'q-text';
+            p.textContent = `Câu ${index + 1}: ${q.text}`;
+            div.appendChild(p);
 
-      let score = { ket_noi: 0, phat_trien: 0, tam_linh: 0, thanh_tuu: 0 };
-      let answeredCount = 0;
+            const optionsDiv = document.createElement('div');
+            optionsDiv.className = 'options';
 
-      for (let i = 1; i <= 26; i++) {
-        let options = document.getElementsByName(`q${i}`);
-        let selected = Array.from(options).find(opt => opt.checked);
-        if (selected) {
-          score[selected.value]++;
-          answeredCount++;
-        }
-      }
+            q.options.forEach((opt) => {
+                const label = document.createElement('label');
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = `q${index}`;
+                radio.value = opt.type;
+                radio.id = `q${index}_${opt.type}`;
+                label.appendChild(radio);
+                label.appendChild(document.createTextNode(' ' + opt.text + ' '));
+                const tag = document.createElement('span');
+                const tagClass = opt.type.replace('_', '-');
+                tag.className = `tag tag-${tagClass}`;
+                tag.textContent = opt.tag;
+                label.appendChild(tag);
+                optionsDiv.appendChild(label);
+            });
 
-      if (answeredCount < 26) {
-        alert(`⚠️ Bạn cần hoàn thành tất cả 26 câu hỏi trước khi xem kết quả.`);
-        return;
-      }
+            div.appendChild(optionsDiv);
+            form.appendChild(div);
+        });
 
-      const maxGroup = Object.keys(score).reduce((a, b) => score[a] > score[b] ? a : b);
-
-      const labels = {
-        ket_noi: "<strong>Kết nối:</strong> Bạn đề cao tình cảm, sự gắn bó và các mối quan hệ.",
-        phat_trien: "<strong>Phát triển:</strong> Bạn yêu thích học hỏi, khám phá và tiến bộ.",
-        tam_linh: "<strong>Tâm linh:</strong> Bạn hướng nội, tìm kiếm sự bình an và chiều sâu.",
-        thanh_tuu: "<strong>Thành tựu:</strong> Bạn tập trung vào mục tiêu, kết quả và thành công."
-      };
-
-      const careers = {
-        ket_noi: "<strong>Nghề nghiệp phù hợp:</strong> Tâm lý học, giáo viên, công tác xã hội, chăm sóc khách hàng, nhân sự.",
-        phat_trien: "<strong>Nghề nghiệp phù hợp:</strong> Nhà nghiên cứu, chuyên gia đào tạo, sáng tạo nội dung, lập trình viên.",
-        tam_linh: "<strong>Nghề nghiệp phù hợp:</strong> Nhà trị liệu tâm lý, nghệ sĩ, hướng dẫn thiền, người làm công việc chữa lành.",
-        thanh_tuu: "<strong>Nghề nghiệp phù hợp:</strong> Quản lý dự án, doanh nhân, chuyên viên tài chính, kỹ sư, lãnh đạo."
-      };
-
-      const result = `
-        ${labels[maxGroup]}<br><br>
-        ${careers[maxGroup]}<br><br>
-        Phân tích dựa trên mô hình giá trị cá nhân của Richard Barrett – chuyên gia phát triển con người và tổ chức.
-      `;
-
-      const resultText = `${labels[maxGroup].replace(/<[^>]+>/g, '')} ${careers[maxGroup].replace(/<[^>]+>/g, '')}`;
-            document.getElementById("output").innerHTML = result;
-      document.getElementById("result").style.display = 'block';
-      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-
-      // ✅ Gắn nút chia sẻ bên trong hàm
-      const shareDiv = document.createElement("div");
-      shareDiv.className = "share-buttons";
-      shareDiv.innerHTML = `
-        <h4>📢 Chia sẻ bài test này:</h4>
-        <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank">
-          <button style="background:#3b5998; color:white;">Facebook</button>
-        </a>
-        <a href="https://zalo.me/share?url=${encodeURIComponent(window.location.href)}" target="_blank">       
-          <button style="background:#0068ff; color:white;">Zalo</button>
-        </a>
-        <a href="https://twitter.com/intent/tweet?text=Kết quả trắc nghiệm của tôi là: ${encodeURIComponent(resultText)}&url=${encodeURIComponent(window.location.href)}" target="_blank">
-          <button style="background:#1da1f2; color:white;">Twitter</button>
-        </a>
-        <a href="https://www.tiktok.com/upload?lang=vi" target="_blank">
-          <button style="background:#000000; color:white;">TikTok</button>
-        </a>
-      `;
-      document.getElementById("result").appendChild(shareDiv);
+        document.getElementById('submitBtn').style.display = 'block';
     }
-  </script>
+
+    // ==================== TÍNH KẾT QUẢ ====================
+    function submitQuiz() {
+        const form = document.getElementById('quizForm');
+        const inputs = form.querySelectorAll('input[type=radio]:checked');
+        const totalQuestions = questionsData.length;
+
+        if (inputs.length < totalQuestions) {
+            alert('⚠️ Bạn cần trả lời tất cả ' + totalQuestions + ' câu hỏi!');
+            return;
+        }
+
+        const scores = { ket_noi: 0, phat_trien: 0, tam_linh: 0, thanh_tuu: 0 };
+        inputs.forEach(input => {
+            scores[input.value]++;
+        });
+
+        let maxType = 'ket_noi';
+        let maxScore = scores.ket_noi;
+        for (let type in scores) {
+            if (scores[type] > maxScore) {
+                maxScore = scores[type];
+                maxType = type;
+            }
+        }
+
+        const result = typeNames[maxType];
+        const resultDiv = document.getElementById('result');
+        resultDiv.className = 'result-box show';
+        resultDiv.innerHTML = `
+            <h2>💎 Giá trị cốt lõi của bạn</h2>
+            <div class="result-type" style="border: 2px solid ${result.color}; color:${result.color}">
+                ${result.emoji} ${result.name}
+            </div>
+            <div class="scores">
+                ${Object.keys(scores).map(key => `
+                    <div class="score-item">
+                        <span style="color:${typeNames[key].color}">●</span>
+                        ${typeNames[key].name}: <span class="num">${scores[key]}</span>
+                    </div>
+                `).join('')}
+            </div>
+            <div class="desc">${result.desc}</div>
+            <div class="career">
+                <strong>💼 Nghề nghiệp phù hợp:</strong><br>
+                ${result.career}
+            </div>
+            <div style="margin-top:20px; border-top:1px solid var(--light-gray); padding-top:20px;">
+                <p style="font-weight:600; color:var(--navy-dark);">📢 Chia sẻ bài test này:</p>
+                <div class="share-buttons">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn fb"><i class="fab fa-facebook-f"></i> Facebook</a>
+                    <a href="https://zalo.me/share?url=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn zalo"><i class="fas fa-comment"></i> Zalo</a>
+                    <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent('Kết quả trắc nghiệm của tôi: ' + result.emoji + ' ' + result.name)}&url=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn twitter"><i class="fab fa-twitter"></i> Twitter</a>
+                    <a href="https://www.tiktok.com/upload?lang=vi" target="_blank" class="share-btn tiktok"><i class="fab fa-tiktok"></i> TikTok</a>
+                </div>
+            </div>
+        `;
+
+        // Ẩn form
+        form.style.display = 'none';
+        document.getElementById('submitBtn').style.display = 'none';
+        window.scrollTo({ top: resultDiv.offsetTop - 100, behavior: 'smooth' });
+    }
+
+    // ==================== KHỞI CHẠY ====================
+    document.addEventListener('DOMContentLoaded', function() {
+        renderQuestions();
+        document.getElementById('submitBtn').addEventListener('click', submitQuiz);
+    });
+</script>
 </body>
 </html>
