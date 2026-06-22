@@ -3,316 +3,325 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Khóa 2 - Chương 3: Hành trình kỳ diệu | Sophia Nguyen</title>
+    <title>Khóa 2 - Chương 3: Hành trình kỳ diệu | Sophia Nguyễn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --navy-dark: #0A1628;
+            --navy-mid: #1E3A5F;
+            --gold: #C9A84C;
+            --gold-light: #D4B85C;
+            --cream: #F5F0E8;
+            --white: #FFFFFF;
+            --gray: #4A5A6A;
+            --light-gray: #E8E4DC;
         }
-
         body {
-            background: #FFF0E8;
-            font-family: 'Segoe UI', 'Quicksand', 'Comic Neue', 'Nunito', 'Poppins', cursive;
+            background: linear-gradient(145deg, var(--cream) 0%, #EDE8E0 100%);
+            font-family: 'Inter', 'Be Vietnam Pro', sans-serif;
             padding: 20px;
+            min-height: 100vh;
         }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
+        .container { max-width: 1100px; margin: 0 auto; }
+        
+        .header { 
+            background: var(--white); 
+            border-radius: 32px; 
+            padding: 20px; 
+            margin-bottom: 20px; 
+            text-align: center; 
+            box-shadow: 0 10px 30px rgba(10,22,40,0.08);
+            border: 1px solid var(--light-gray);
         }
-
-        .header {
-            background: white;
-            border-radius: 32px;
-            padding: 20px;
-            margin-bottom: 25px;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        .logo { height: 60px; margin-bottom: 10px; }
+        .logo img { height: 60px; }
+        .header h1 { 
+            font-family: 'Playfair Display', serif;
+            color: var(--navy-dark); 
+            font-size: 1.8rem; 
         }
-
-        .logo {
-            width: 70px;
-            margin: 0 auto 10px auto;
-        }
-
-        .logo img {
-            width: 100%;
-            height: auto;
-        }
-
+        .header h1 span { color: var(--gold); }
         .course-badge {
-            background: #FFE0C4;
             display: inline-block;
-            padding: 5px 18px;
+            background: rgba(201,168,76,0.2);
+            color: var(--gold);
+            padding: 4px 16px;
             border-radius: 40px;
-            font-size: 13px;
-            font-weight: bold;
-            color: #A96F4A;
-            margin-bottom: 12px;
-        }
-
-        .chapter-title {
-            font-size: 32px;
-            font-weight: bold;
-            color: #C27E55;
-            text-align: center;
-            background: #FFF5F0;
-            display: inline-block;
-            padding: 8px 30px;
-            border-radius: 60px;
-            margin-top: 5px;
-        }
-
-        .video-card {
-            background: white;
-            border-radius: 32px;
-            overflow: hidden;
-            margin-bottom: 25px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-        }
-
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-        }
-
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
-        .video-label {
-            background: #FFF7F0;
-            padding: 12px 20px;
-            font-weight: bold;
-            color: #D98F62;
-            font-size: 18px;
-            text-align: center;
-            border-top: 2px solid #FFE2CA;
-        }
-
-        .exercise {
-            background: white;
-            border-radius: 32px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-        }
-
-        .ex-title {
-            font-size: 26px;
-            font-weight: bold;
-            color: #D98F62;
+            font-size: 0.8rem;
+            font-weight: 600;
             margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border-left: 6px solid #F7BC8C;
-            padding-left: 16px;
         }
-
+        
+        .video-section { 
+            background: var(--white); 
+            border-radius: 32px; 
+            padding: 20px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 10px 30px rgba(10,22,40,0.08);
+            border: 1px solid var(--light-gray);
+        }
+        .video-wrapper { 
+            position: relative; 
+            padding-bottom: 56.25%; 
+            height: 0; 
+            border-radius: 24px; 
+            overflow: hidden; 
+        }
+        .video-wrapper iframe { 
+            position: absolute; 
+            top: 0; left: 0; 
+            width: 100%; height: 100%; 
+            border: none; 
+        }
+        .video-label {
+            background: var(--cream);
+            padding: 12px 20px;
+            font-weight: 600;
+            color: var(--navy-dark);
+            font-size: 1rem;
+            text-align: center;
+            border-top: 2px solid var(--gold);
+            border-radius: 0 0 32px 32px;
+        }
+        
+        .exercise { 
+            background: var(--white); 
+            border-radius: 32px; 
+            padding: 24px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 10px 30px rgba(10,22,40,0.08);
+            border: 1px solid var(--light-gray);
+        }
+        .ex-title { 
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem; 
+            color: var(--navy-dark); 
+            margin-bottom: 8px; 
+            padding-bottom: 8px; 
+            border-bottom: 3px solid var(--gold); 
+            display: inline-block; 
+        }
         .ex-desc {
-            color: #B87A54;
-            margin-bottom: 20px;
-            font-size: 15px;
-            padding-left: 22px;
+            color: var(--gray);
+            margin: 12px 0 20px;
+            font-size: 0.95rem;
         }
-
+        
         .question-item {
-            background: #FFFBF8;
-            border-radius: 24px;
+            background: var(--cream);
+            border-radius: 20px;
             padding: 16px 20px;
             margin-bottom: 16px;
-            border: 1px solid #FFE4D4;
+            border: 1px solid var(--light-gray);
         }
-
         .question-text {
             font-weight: 700;
-            color: #784B2E;
+            color: var(--navy-dark);
             margin-bottom: 12px;
-            font-size: 18px;
+            font-size: 1rem;
         }
-
         .option {
             display: flex;
             align-items: center;
             gap: 12px;
-            margin: 10px 0;
-            padding: 8px 12px;
-            background: #FFF5EF;
+            margin: 8px 0;
+            padding: 8px 16px;
+            background: var(--white);
             border-radius: 60px;
             cursor: pointer;
             transition: 0.2s;
             border: 1px solid transparent;
         }
-
         .option:hover {
-            background: #FFEDE2;
-            border-color: #F7BC8C;
+            border-color: var(--gold);
+            background: var(--cream);
         }
-
         input[type="radio"] {
-            width: 20px;
-            height: 20px;
-            accent-color: #E58E62;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--gold);
             cursor: pointer;
         }
-
-        .emotion-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin: 20px 0;
-        }
-
+        
         .emotion-btn {
-            background: #FFF5EF;
-            border: 2px solid #FFE0D0;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            background: var(--white);
+            padding: 12px 18px;
             border-radius: 60px;
-            padding: 15px 25px;
-            text-align: center;
             cursor: pointer;
             transition: 0.2s;
-            min-width: 120px;
+            border: 2px solid var(--light-gray);
+            margin: 4px;
+            min-width: 80px;
         }
-
+        .emotion-btn:hover { border-color: var(--gold); }
         .emotion-btn.selected {
-            background: #F7BC8C;
-            border-color: #D97A48;
-            color: white;
-            transform: scale(1.05);
+            border-color: var(--gold);
+            background: rgba(201,168,76,0.1);
         }
-
-        .emotion-emoji {
-            font-size: 40px;
+        .emotion-emoji { font-size: 32px; }
+        .emotion-label { font-size: 0.75rem; color: var(--gray); margin-top: 4px; }
+        
+        .tf-btn {
+            padding: 8px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.95rem;
+            border: 2px solid var(--light-gray);
+            background: var(--white);
+            transition: 0.2s;
+            margin-right: 12px;
+            font-family: 'Inter', sans-serif;
+        }
+        .tf-btn:hover { border-color: var(--gold); }
+        .tf-btn.selected-true {
+            background: var(--gold);
+            color: var(--navy-dark);
+            border-color: var(--gold);
+        }
+        .tf-btn.selected-false {
+            background: var(--navy-dark);
+            color: var(--white);
+            border-color: var(--navy-dark);
+        }
+        
+        .check-btn {
+            background: var(--gold);
+            color: var(--navy-dark);
+            border: none;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 12px 28px;
+            border-radius: 60px;
+            cursor: pointer;
+            margin-top: 16px;
+            width: 100%;
+            transition: 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .check-btn:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+        }
+        .result-area {
+            margin-top: 16px;
+            border-radius: 20px;
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1rem;
+            display: none;
+        }
+        .result-area.correct {
+            background: #E8F5E9;
+            color: #2E7D32;
             display: block;
         }
-
-        .emotion-label {
-            font-weight: bold;
-            margin-top: 5px;
+        .result-area.wrong {
+            background: #FFF3E0;
+            color: #E65100;
+            display: block;
         }
-
+        
+        .sticker-row {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 16px 0;
+        }
+        .sticker {
+            background: var(--cream);
+            border-radius: 60px;
+            padding: 6px 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            color: var(--navy-dark);
+            border: 1px solid var(--light-gray);
+        }
+        
         .match-row {
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
-            margin: 15px 0;
+            margin: 12px 0;
             align-items: center;
         }
-
         .match-term {
-            background: #FFE4D0;
+            background: var(--cream);
             padding: 10px 16px;
             border-radius: 60px;
-            font-weight: bold;
+            font-weight: 600;
             min-width: 140px;
             text-align: center;
-            color: #7A4D2E;
+            color: var(--navy-dark);
+            border: 1px solid var(--light-gray);
         }
-
         .match-def {
             flex: 1;
-            background: #FFF3EC;
+            background: var(--cream);
             padding: 10px 16px;
             border-radius: 60px;
             cursor: pointer;
             transition: 0.2s;
-            border: 1px solid #FFDCC8;
-        }
-
-        .match-def.selected {
-            background: #F7BC8C;
-            color: white;
-            border-color: #D97A48;
-        }
-
-        .check-btn {
-            background: #D98654;
-            border: none;
-            color: white;
-            font-weight: bold;
-            font-size: 18px;
-            padding: 12px 28px;
-            border-radius: 60px;
-            cursor: pointer;
-            margin-top: 20px;
-            width: 100%;
-            transition: 0.2s;
-        }
-
-        .check-btn:hover {
-            background: #C06E42;
-        }
-
-        .result-area {
-            margin-top: 18px;
-            background: #F6F0E8;
-            border-radius: 24px;
-            padding: 15px;
+            border: 1px solid var(--light-gray);
+            min-width: 120px;
             text-align: center;
-            font-weight: bold;
-            font-size: 18px;
-            color: #A56642;
         }
-
-        .sticker-row {
+        .match-def:hover { border-color: var(--gold); }
+        .match-def.selected {
+            background: var(--gold);
+            color: var(--navy-dark);
+            border-color: var(--gold);
+        }
+        
+        .chapter-nav {
             display: flex;
-            justify-content: center;
-            gap: 15px;
+            justify-content: space-between;
+            margin: 20px 0;
+            gap: 16px;
             flex-wrap: wrap;
-            margin: 15px 0;
         }
-
-        .sticker {
-            background: #FFF7F0;
-            border-radius: 60px;
-            padding: 8px 18px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 16px;
-            color: #B85C2E;
+        .chapter-nav a {
+            background: var(--navy-dark);
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: 0.2s;
+            font-family: 'Inter', sans-serif;
         }
-
-        @media (max-width: 600px) {
-            .exercise {
-                padding: 18px;
-            }
-            .chapter-title {
-                font-size: 24px;
-                padding: 6px 20px;
-            }
-            .emotion-btn {
-                padding: 10px 15px;
-                min-width: 90px;
-            }
-            .emotion-emoji {
-                font-size: 30px;
-            }
+        .chapter-nav a:hover {
+            background: var(--gold);
+            color: var(--navy-dark);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) { 
+            .header h1 { font-size: 1.4rem; }
+            .match-term { min-width: 100px; font-size: 0.85rem; }
+            .match-def { font-size: 0.85rem; }
         }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="header">
-        <div class="logo">
-            <img src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Sophia Nguyen Logo">
-        </div>
+        <img src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Sophia Nguyễn" class="logo">
         <div class="course-badge">🌸 Khóa 2 - Dành cho bé 3-5 tuổi</div>
-        <div>
-            <span class="chapter-title">🎈 Hành trình kỳ diệu</span>
-        </div>
+        <h1>🎈 Chương 3: <span>Hành trình kỳ diệu</span></h1>
     </div>
 
-    <!-- Sticker hành trình -->
+    <!-- Sticker -->
     <div class="sticker-row">
         <div class="sticker">🤰 Sẵn sàng chào đời</div>
         <div class="sticker">🎁 Món quà tuyệt vời</div>
@@ -320,112 +329,145 @@
         <div class="sticker">💖 Vòng tay yêu thương</div>
     </div>
 
-    <div class="video-card">
+    <div class="video-section">
         <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/R4BGtBGN6NE" title="Bài giảng Khóa 2 Chương 3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/R4BGtBGN6NE" title="Bài giảng Khóa 2 Chương 3" frameborder="0" allowfullscreen></iframe>
         </div>
         <div class="video-label">
             🎬 Bài học: Hành trình kỳ diệu – Từ bụng mẹ đến vòng tay yêu thương!
         </div>
     </div>
 
-    <!-- BÀI TẬP 1: Ghép đôi sự kiện -->
+    <!-- BÀI TẬP 1: GHÉP ĐÔI -->
     <div class="exercise" id="ex1">
         <div class="ex-title">🔗 Bài tập 1: Ghép đôi kỳ diệu</div>
         <div class="ex-desc">🌸 Nhấn vào ô bên phải để ghép với sự kiện bên trái nhé!</div>
         <div id="matchingArea"></div>
         <button class="check-btn" id="checkMatchBtn">✅ Kiểm tra bài tập 1</button>
-        <div id="matchResult" class="result-area" style="display: none;"></div>
+        <div id="matchResult" class="result-area"></div>
     </div>
 
-    <!-- BÀI TẬP 2: Cảm xúc khi được ôm -->
+    <!-- BÀI TẬP 2: CẢM XÚC -->
     <div class="exercise" id="ex2">
         <div class="ex-title">💖 Bài tập 2: Con cảm thấy thế nào?</div>
         <div class="ex-desc">🎯 Khi được bố mẹ ôm ấp, con thấy thế nào? Hãy chọn nhé!</div>
-        <div id="emotionArea"></div>
+        <div id="emotionArea" style="display:flex; flex-wrap:wrap; gap:8px; justify-content:center;"></div>
         <button class="check-btn" id="checkEmotionBtn">😊 Kiểm tra bài tập 2</button>
-        <div id="emotionResult" class="result-area" style="display: none;"></div>
+        <div id="emotionResult" class="result-area"></div>
     </div>
 
-    <!-- BÀI TẬP 3: Đúng hay sai -->
+    <!-- BÀI TẬP 3: ĐÚNG/SAI -->
     <div class="exercise" id="ex3">
         <div class="ex-title">✅❌ Bài tập 3: Đúng hay sai?</div>
-        <div class="ex-desc">🐣 Đọc câu và chọn Đúng (Đ) hoặc Sai (S) nhé.</div>
+        <div class="ex-desc">🐣 Đọc câu và chọn Đúng hoặc Sai nhé.</div>
         <div id="tfQuestions"></div>
         <button class="check-btn" id="checkTfBtn">📋 Kiểm tra Đúng/Sai</button>
-        <div id="tfResult" class="result-area" style="display: none;"></div>
+        <div id="tfResult" class="result-area"></div>
+    </div>
+
+    <!-- Điều hướng -->
+    <div class="chapter-nav">
+        <a href="index.html">📚 Danh sách chương</a>
+        <a href="chuong4.html">➡️ Chương tiếp theo</a>
     </div>
 </div>
+<canvas id="confetti-canvas"></canvas>
 
 <script>
-    // Audio system
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    
-    function playSound(type, isCorrect = null) {
-        const now = audioContext.currentTime;
-        const gainNode = audioContext.createGain();
-        gainNode.connect(audioContext.destination);
-        gainNode.gain.value = 0.3;
-
-        const oscillator = audioContext.createOscillator();
-        oscillator.connect(gainNode);
-
-        if (type === 'tick') {
-            oscillator.frequency.value = 880;
-            oscillator.type = 'sine';
-            gainNode.gain.value = 0.15;
-            oscillator.start();
-            oscillator.stop(now + 0.1);
-        } else if (type === 'plop') {
-            oscillator.frequency.value = 440;
-            oscillator.type = 'sine';
-            gainNode.gain.value = 0.2;
-            oscillator.start();
-            oscillator.stop(now + 0.15);
-        } else if (type === 'correct') {
-            oscillator.frequency.value = 880;
-            oscillator.type = 'sine';
-            gainNode.gain.value = 0.2;
-            oscillator.start();
-            oscillator.stop(now + 0.1);
-            setTimeout(() => {
-                const osc2 = audioContext.createOscillator();
-                osc2.connect(gainNode);
-                osc2.frequency.value = 1100;
-                osc2.type = 'sine';
-                osc2.start();
-                osc2.stop(now + 0.2);
-            }, 100);
-        } else if (type === 'wrong') {
-            oscillator.frequency.value = 440;
-            oscillator.type = 'sine';
-            gainNode.gain.value = 0.15;
-            oscillator.start();
-            oscillator.stop(now + 0.2);
-        } else if (type === 'click') {
-            oscillator.frequency.value = 660;
-            oscillator.type = 'sine';
-            gainNode.gain.value = 0.1;
-            oscillator.start();
-            oscillator.stop(now + 0.05);
+    // ==================== CONFETTI & ÂM THANH ====================
+    let ctx = null, width = window.innerWidth, height = window.innerHeight, particles = [], animationId = null;
+    function resizeCanvas() { width = window.innerWidth; height = window.innerHeight; const canvas = document.getElementById('confetti-canvas'); if(canvas){ canvas.width = width; canvas.height = height; ctx = canvas.getContext('2d'); } }
+    function createConfetti(duration = 1800) {
+        if(!ctx) return;
+        if(animationId) cancelAnimationFrame(animationId);
+        particles = [];
+        for(let i=0;i<140;i++) {
+            particles.push({ x: Math.random() * width, y: Math.random() * height - height, size: Math.random() * 7 + 3, color: `hsl(${Math.random() * 360}, 80%, 60%)`, speedY: Math.random() * 5 + 3, speedX: (Math.random() - 0.5) * 2, rotation: Math.random() * 360, rotSpeed: (Math.random() - 0.5) * 6 });
         }
+        drawConfetti();
+        setTimeout(() => { if(animationId) cancelAnimationFrame(animationId); ctx?.clearRect(0,0,width,height); particles = []; }, duration);
+    }
+    function drawConfetti() {
+        if(!ctx) return;
+        ctx.clearRect(0, 0, width, height);
+        let allFinished = true;
+        for(let i=0;i<particles.length;i++) {
+            const p = particles[i];
+            if(p.y < height + 50) {
+                allFinished = false;
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.rotation * Math.PI / 180);
+                ctx.fillStyle = p.color;
+                ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size * 0.6);
+                ctx.restore();
+                p.y += p.speedY;
+                p.x += p.speedX;
+                p.rotation += p.rotSpeed;
+            }
+        }
+        if(!allFinished) animationId = requestAnimationFrame(drawConfetti);
+        else { if(animationId) cancelAnimationFrame(animationId); particles = []; ctx.clearRect(0,0,width,height); }
+    }
+    window.addEventListener('resize', () => { resizeCanvas(); if(particles.length) drawConfetti(); });
+    
+    function playSound(type) {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            if (type === 'correct') {
+                osc.frequency.value = 880;
+                gain.gain.value = 0.2;
+                osc.type = 'sine';
+                osc.start();
+                gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                osc.stop(audioCtx.currentTime + 0.3);
+                setTimeout(() => {
+                    const osc2 = audioCtx.createOscillator();
+                    const gain2 = audioCtx.createGain();
+                    osc2.connect(gain2);
+                    gain2.connect(audioCtx.destination);
+                    osc2.frequency.value = 1100;
+                    gain2.gain.value = 0.2;
+                    osc2.type = 'sine';
+                    osc2.start();
+                    gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                    osc2.stop(audioCtx.currentTime + 0.3);
+                }, 100);
+            } else if (type === 'wrong') {
+                osc.frequency.value = 440;
+                gain.gain.value = 0.2;
+                osc.type = 'sawtooth';
+                osc.start();
+                gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                osc.stop(audioCtx.currentTime + 0.3);
+            } else {
+                osc.frequency.value = 660;
+                gain.gain.value = 0.1;
+                osc.type = 'sine';
+                osc.start();
+                gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.05);
+                osc.stop(audioCtx.currentTime + 0.05);
+            }
+        } catch(e) {}
     }
 
-    // ---------------------- BÀI TẬP 1: GHÉP ĐÔI ----------------------
+    // ========== BÀI TẬP 1: GHÉP ĐÔI ==========
     const matchTerms = [
         { term: "🤰 Khi đến lúc chào đời", defIdx: null },
         { term: "🤱 Khoảnh khắc đầu tiên", defIdx: null },
         { term: "💕 Da kề da", defIdx: null },
         { term: "🎁 Con là...", defIdx: null }
     ];
-
     const defsList = [
         "Con sẵn sàng ra ngoài gặp bố mẹ",
         "Mẹ ôm con vào lòng",
         "Được áp sát vào lòng mẹ nghe nhịp tim",
         "Món quà tuyệt vời nhất của cả nhà"
     ];
-
     let currentMatches = [null, null, null, null];
 
     function renderMatching() {
@@ -438,109 +480,86 @@
             termSpan.className = 'match-term';
             termSpan.innerText = termObj.term;
             row.appendChild(termSpan);
-
-            const defContainer = document.createElement('div');
-            defContainer.style.flex = '1';
-            defContainer.style.display = 'flex';
-            defContainer.style.flexWrap = 'wrap';
-            defContainer.style.gap = '10px';
-
             defsList.forEach((def, dIdx) => {
                 const defBtn = document.createElement('div');
-                defBtn.className = 'match-def';
+                defBtn.className = 'match-def' + (currentMatches[tIdx] === dIdx ? ' selected' : '');
                 defBtn.innerText = def;
-                if (currentMatches[tIdx] === dIdx) {
-                    defBtn.classList.add('selected');
-                }
-                defBtn.addEventListener('click', () => {
+                defBtn.onclick = () => {
                     currentMatches[tIdx] = dIdx;
                     renderMatching();
-                    playSound('tick');
-                });
-                defContainer.appendChild(defBtn);
+                    playSound('click');
+                };
+                row.appendChild(defBtn);
             });
-            row.appendChild(defContainer);
             container.appendChild(row);
         });
     }
 
     function checkMatching() {
         let correct = 0;
-        for (let i = 0; i < currentMatches.length; i++) {
-            if (currentMatches[i] === i) correct++;
-        }
+        for (let i = 0; i < currentMatches.length; i++) { if (currentMatches[i] === i) correct++; }
         const resultDiv = document.getElementById('matchResult');
-        resultDiv.style.display = 'block';
         if (correct === matchTerms.length) {
+            resultDiv.className = 'result-area correct';
             resultDiv.innerHTML = '🎉🎉🎉 Xuất sắc! Bé ghép đúng hết 4 cặp. Con hiểu hành trình của mình quá! 🎉🎉🎉';
-            resultDiv.style.background = "#DFF0DF";
             playSound('correct');
+            createConfetti(800);
         } else {
+            resultDiv.className = 'result-area wrong';
             resultDiv.innerHTML = `🌱 Bé ghép đúng ${correct}/4 cặp. Thử lại lần nữa xem nào, con làm tốt lắm! 💖`;
-            resultDiv.style.background = "#FFEFE0";
             playSound('wrong');
         }
     }
 
-    // ---------------------- BÀI TẬP 2: CẢM XÚC ----------------------
+    // ========== BÀI TẬP 2: CẢM XÚC ==========
     const emotions = [
-        { emoji: "😊", label: "Vui vẻ", value: "happy", isGood: true },
-        { emoji: "🥰", label: "Yêu thương", value: "love", isGood: true },
-        { emoji: "😌", label: "An toàn", value: "safe", isGood: true },
-        { emoji: "😢", label: "Buồn", value: "sad", isGood: false }
+        { emoji: "😊", label: "Vui vẻ", value: "happy" },
+        { emoji: "🥰", label: "Yêu thương", value: "love" },
+        { emoji: "😌", label: "An toàn", value: "safe" },
+        { emoji: "😢", label: "Buồn", value: "sad" }
     ];
-
     let selectedEmotion = null;
 
     function renderEmotions() {
         const container = document.getElementById('emotionArea');
         container.innerHTML = '';
-        const btnWrapper = document.createElement('div');
-        btnWrapper.className = 'emotion-buttons';
-        
         emotions.forEach(em => {
             const btn = document.createElement('div');
-            btn.className = 'emotion-btn';
-            if (selectedEmotion === em.value) btn.classList.add('selected');
-            btn.innerHTML = `
-                <div class="emotion-emoji">${em.emoji}</div>
-                <div class="emotion-label">${em.label}</div>
-            `;
+            btn.className = 'emotion-btn' + (selectedEmotion === em.value ? ' selected' : '');
+            btn.innerHTML = `<div class="emotion-emoji">${em.emoji}</div><div class="emotion-label">${em.label}</div>`;
             btn.onclick = () => {
                 selectedEmotion = em.value;
                 renderEmotions();
-                playSound('tick');
+                playSound('click');
             };
-            btnWrapper.appendChild(btn);
+            container.appendChild(btn);
         });
-        container.appendChild(btnWrapper);
     }
 
     function checkEmotion() {
         const resultDiv = document.getElementById('emotionResult');
-        resultDiv.style.display = 'block';
         if (selectedEmotion === 'happy' || selectedEmotion === 'love' || selectedEmotion === 'safe') {
+            resultDiv.className = 'result-area correct';
             resultDiv.innerHTML = '🎉🎉🎉 Đúng rồi! Khi được bố mẹ ôm ấp, con cảm thấy vui vẻ, yêu thương và an toàn. Đó là cảm giác tuyệt vời nhất! 🥰🎉🎉🎉';
-            resultDiv.style.background = "#DFF0DF";
             playSound('correct');
+            createConfetti(800);
         } else if (selectedEmotion === 'sad') {
+            resultDiv.className = 'result-area wrong';
             resultDiv.innerHTML = '🌻 Con yêu à, khi được bố mẹ ôm, con sẽ thấy vui vẻ và an toàn hơn là buồn. Hãy thử chọn lại cảm xúc khác nhé! 💕';
-            resultDiv.style.background = "#FFEFE0";
             playSound('wrong');
         } else {
+            resultDiv.className = 'result-area wrong';
             resultDiv.innerHTML = '🌸 Con hãy chọn một cảm xúc mà con cảm thấy khi được bố mẹ ôm ấp nhé! 🥰';
-            resultDiv.style.background = "#FFEFE0";
         }
     }
 
-    // ---------------------- BÀI TẬP 3: ĐÚNG/SAI ----------------------
+    // ========== BÀI TẬP 3: ĐÚNG/SAI ==========
     const tfData = [
         { text: "Khi đến lúc chào đời, con đã sẵn sàng để ra ngoài gặp bố mẹ. 🤗", correct: true },
         { text: "Sau khi sinh, mẹ không ôm con ngay. 😢", correct: false },
         { text: "Da kề da giúp con ấm áp và nghe được nhịp tim của mẹ. 💓", correct: true },
         { text: "Con không phải là món quà đặc biệt của cả nhà. 🎁", correct: false }
     ];
-
     let tfAnswers = [null, null, null, null];
 
     function renderTF() {
@@ -551,48 +570,15 @@
             qDiv.className = 'question-item';
             qDiv.innerHTML = `<div class="question-text">${idx+1}. ${item.text}</div>`;
             const btnWrapper = document.createElement('div');
-            btnWrapper.style.display = 'flex';
-            btnWrapper.style.gap = '20px';
             btnWrapper.style.marginTop = '8px';
-            
             const trueBtn = document.createElement('button');
+            trueBtn.className = 'tf-btn' + (tfAnswers[idx] === true ? ' selected-true' : '');
             trueBtn.innerText = '✅ Đúng';
-            trueBtn.style.background = '#F0E1D8';
-            trueBtn.style.border = 'none';
-            trueBtn.style.padding = '8px 24px';
-            trueBtn.style.borderRadius = '40px';
-            trueBtn.style.fontWeight = 'bold';
-            trueBtn.style.cursor = 'pointer';
-            trueBtn.style.fontSize = '16px';
-            if (tfAnswers[idx] === true) {
-                trueBtn.style.background = '#9BC4A0';
-                trueBtn.style.color = 'white';
-            }
-            
             const falseBtn = document.createElement('button');
+            falseBtn.className = 'tf-btn' + (tfAnswers[idx] === false ? ' selected-false' : '');
             falseBtn.innerText = '❌ Sai';
-            falseBtn.style.background = '#F0E1D8';
-            falseBtn.style.border = 'none';
-            falseBtn.style.padding = '8px 24px';
-            falseBtn.style.borderRadius = '40px';
-            falseBtn.style.fontWeight = 'bold';
-            falseBtn.style.cursor = 'pointer';
-            falseBtn.style.fontSize = '16px';
-            if (tfAnswers[idx] === false) {
-                falseBtn.style.background = '#E6A28C';
-                falseBtn.style.color = 'white';
-            }
-
-            trueBtn.onclick = () => {
-                tfAnswers[idx] = true;
-                renderTF();
-                playSound('tick');
-            };
-            falseBtn.onclick = () => {
-                tfAnswers[idx] = false;
-                renderTF();
-                playSound('tick');
-            };
+            trueBtn.onclick = () => { tfAnswers[idx] = true; renderTF(); playSound('click'); };
+            falseBtn.onclick = () => { tfAnswers[idx] = false; renderTF(); playSound('click'); };
             btnWrapper.appendChild(trueBtn);
             btnWrapper.appendChild(falseBtn);
             qDiv.appendChild(btnWrapper);
@@ -602,22 +588,21 @@
 
     function checkTF() {
         let correctCount = 0;
-        tfData.forEach((item, idx) => {
-            if (tfAnswers[idx] === item.correct) correctCount++;
-        });
+        tfData.forEach((item, idx) => { if (tfAnswers[idx] === item.correct) correctCount++; });
         const resultDiv = document.getElementById('tfResult');
-        resultDiv.style.display = 'block';
         if (correctCount === tfData.length) {
+            resultDiv.className = 'result-area correct';
             resultDiv.innerHTML = '🎉🎉🎉 Bé giỏi quá! Con hiểu rõ hành trình chào đời của mình rồi! 🎉🎉🎉';
-            resultDiv.style.background = "#DFF0DF";
             playSound('correct');
+            createConfetti(800);
         } else {
+            resultDiv.className = 'result-area wrong';
             resultDiv.innerHTML = `💪 Bé trả lời đúng ${correctCount}/${tfData.length} câu. Cùng xem lại bài và chọn lại nha con yêu! 🧸💕`;
-            resultDiv.style.background = "#FFEFE0";
             playSound('wrong');
         }
     }
 
+    // ========== KHỞI TẠO ==========
     function init() {
         renderMatching();
         renderEmotions();
@@ -625,13 +610,7 @@
         document.getElementById('checkMatchBtn').addEventListener('click', checkMatching);
         document.getElementById('checkEmotionBtn').addEventListener('click', checkEmotion);
         document.getElementById('checkTfBtn').addEventListener('click', checkTF);
-        
-        // Resume audio context on first user interaction
-        document.body.addEventListener('click', () => {
-            if (audioContext.state === 'suspended') {
-                audioContext.resume();
-            }
-        }, { once: true });
+        resizeCanvas();
     }
     init();
 </script>
