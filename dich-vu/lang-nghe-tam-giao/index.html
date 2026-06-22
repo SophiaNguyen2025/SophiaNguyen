@@ -5,206 +5,524 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Lắng nghe tâm giao | Sophia Nguyễn</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
-            --primary: #9b4d96;
-            --primary-dark: #6a2e6a;
-            --dark: #1a1a2e;
-            --gray: #4a4a5a;
-            --light-gray: #e9e9f0;
-            --white: #ffffff;
-            --gradient: linear-gradient(135deg, #6a2e6a 0%, #9b4d96 50%, #c77dbb 100%);
-            --gradient-soft: linear-gradient(135deg, #f8f4ff 0%, #f0eaff 100%);
+            --navy-dark: #0A1628;
+            --navy-mid: #1E3A5F;
+            --gold: #C9A84C;
+            --gold-light: #D4B85C;
+            --cream: #F5F0E8;
+            --white: #FFFFFF;
+            --gray: #4A5A6A;
+            --light-gray: #E8E4DC;
+            --purple: #9b4d96;
+            --purple-dark: #6a2e6a;
         }
-        body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--gradient-soft); color: var(--dark); }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--navy-dark);
+        }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
         
-        .navbar { background: white; box-shadow: 0 2px 20px rgba(0,0,0,0.05); padding: 1rem 0; position: sticky; top: 0; z-index: 100; }
-        .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
-        .logo { font-size: 1.5rem; font-weight: bold; background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; display: flex; align-items: center; gap: 10px; }
-        .logo i { background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; font-size: 1.8rem; }
-        .nav-links { display: flex; gap: 2rem; list-style: none; }
-        .nav-links a { text-decoration: none; color: var(--gray); font-weight: 500; }
-        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
-        .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; }
+        /* ========== HEADER ========== */
+        .header {
+            background: var(--white);
+            padding: 12px 0;
+            box-shadow: 0 2px 20px rgba(10,22,40,0.06);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo img { height: 55px; width: auto; display: block; }
+        .nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--gold);
+        }
+        .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--navy-dark); }
         
-        .hero { background: var(--gradient); padding: 80px 0 60px; text-align: center; color: white; border-radius: 0 0 40px 40px; }
-        .hero h1 { font-size: 2.5rem; }
-        .hero p { font-size: 1.2rem; max-width: 700px; margin: 0 auto; }
+        /* ========== HERO ========== */
+        .hero {
+            background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy-mid) 80%);
+            padding: 70px 0 50px;
+            text-align: center;
+            color: white;
+            border-radius: 0 0 40px 40px;
+            border-bottom: 3px solid var(--gold);
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            margin-bottom: 16px;
+        }
+        .hero h1 span { color: var(--gold); }
+        .hero p {
+            font-size: 1.15rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+            line-height: 1.7;
+        }
+        .hero .badge {
+            background: var(--gold);
+            color: var(--navy-dark);
+            display: inline-block;
+            padding: 8px 24px;
+            border-radius: 40px;
+            margin-top: 24px;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
         
-        .section { padding: 60px 0; }
-        .section-title { text-align: center; font-size: 2rem; color: var(--primary); margin-bottom: 16px; }
-        .section-sub { text-align: center; color: var(--gray); margin-bottom: 48px; max-width: 700px; margin: 0 auto 48px; }
+        /* ========== QUOTE ========== */
+        .quote-box {
+            background: var(--white);
+            border-radius: 28px;
+            padding: 40px 48px;
+            margin: 40px 0;
+            text-align: center;
+            border: 1px solid var(--light-gray);
+            box-shadow: 0 10px 30px rgba(10,22,40,0.06);
+        }
+        .quote-box p {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--navy-dark);
+            line-height: 1.8;
+        }
+        .quote-box p i { color: var(--gold); }
         
-        .quote { background: white; border-radius: 32px; padding: 40px; text-align: center; margin: 40px 0; border: 1px solid var(--light-gray); }
-        .quote p { font-size: 1.3rem; font-style: italic; color: var(--primary); }
+        /* ========== SECTION ========== */
+        .section { padding: 50px 0; }
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            font-size: 2rem;
+            color: var(--navy-dark);
+            margin-bottom: 12px;
+        }
+        .section-title span { color: var(--gold); }
+        .section-sub {
+            text-align: center;
+            color: var(--gray);
+            max-width: 650px;
+            margin: 0 auto 40px;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
         
-        /* Service Grid - 4 cột đều nhau */
-        .service-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; margin: 40px 0; }
-        .service-card { background: white; border-radius: 24px; padding: 32px 20px; text-align: center; transition: all 0.3s; border: 1px solid var(--light-gray); display: flex; flex-direction: column; height: 100%; }
-        .service-card:hover { transform: translateY(-5px); border-color: var(--primary); box-shadow: 0 20px 40px rgba(106,46,106,0.1); }
-        .service-icon { font-size: 2.8rem; margin-bottom: 20px; }
-        .service-card h3 { font-size: 1.3rem; color: var(--primary); margin-bottom: 16px; }
-        .service-card p { color: var(--gray); font-size: 0.9rem; flex: 1; }
+        /* ========== SERVICE GRID ========== */
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin: 30px 0;
+        }
+        .service-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 32px 20px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid var(--light-gray);
+            box-shadow: 0 4px 15px rgba(10,22,40,0.04);
+        }
+        .service-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--gold);
+            box-shadow: 0 20px 40px rgba(10,22,40,0.08);
+        }
+        .service-icon { font-size: 3rem; margin-bottom: 16px; }
+        .service-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--navy-dark);
+            margin-bottom: 10px;
+        }
+        .service-card p {
+            color: var(--gray);
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
         
-        /* Price Grid - 4 cột đều nhau */
-        .price-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin: 40px 0; }
-        .price-card { background: white; border-radius: 24px; padding: 28px; text-align: center; transition: all 0.3s; border: 1px solid var(--light-gray); }
-        .price-card:hover { transform: translateY(-5px); border-color: var(--primary); }
-        .price-card h3 { font-size: 1.3rem; color: var(--primary); margin-bottom: 16px; }
-        .price-desc { color: var(--gray); font-size: 0.85rem; margin-bottom: 20px; min-height: 65px; }
-        .price { font-size: 1.6rem; font-weight: bold; margin-bottom: 24px; }
-        .price small { font-size: 0.8rem; font-weight: normal; }
+        /* ========== PRICE GRID ========== */
+        .price-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin: 30px 0;
+        }
+        .price-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 28px 20px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid var(--light-gray);
+            box-shadow: 0 4px 15px rgba(10,22,40,0.04);
+        }
+        .price-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--gold);
+            box-shadow: 0 20px 40px rgba(10,22,40,0.08);
+        }
+        .price-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--navy-dark);
+            margin-bottom: 12px;
+        }
+        .price-card .desc {
+            color: var(--gray);
+            font-size: 0.85rem;
+            min-height: 60px;
+            line-height: 1.5;
+        }
+        .price-card .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin: 16px 0;
+        }
+        .price-card .price small {
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: var(--gray);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--navy-dark);
+            padding: 10px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.85rem;
+            transition: 0.2s;
+        }
+        .btn-outline:hover {
+            background: var(--gold);
+            color: var(--navy-dark);
+            transform: translateY(-2px);
+        }
+        .btn-primary {
+            background: var(--navy-dark);
+            color: var(--white);
+            padding: 14px 36px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.95rem;
+            transition: 0.2s;
+        }
+        .btn-primary:hover {
+            background: var(--gold);
+            color: var(--navy-dark);
+            transform: translateY(-2px);
+        }
         
-        .btn-primary { background: var(--gradient); color: white; padding: 14px 32px; border-radius: 50px; font-weight: 600; text-decoration: none; display: inline-block; }
-        .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); padding: 12px 28px; border-radius: 50px; font-weight: 600; text-decoration: none; display: inline-block; }
-        .btn-outline:hover { background: var(--primary); color: white; }
+        /* ========== COMMITMENT ========== */
+        .commitment-box {
+            background: var(--white);
+            border-radius: 28px;
+            padding: 40px 48px;
+            margin: 30px 0;
+            border: 1px solid var(--light-gray);
+            box-shadow: 0 10px 30px rgba(10,22,40,0.06);
+        }
+        .commitment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin-top: 24px;
+        }
+        .commitment-item {
+            text-align: center;
+            padding: 16px;
+        }
+        .commitment-item i {
+            font-size: 2.2rem;
+            color: var(--gold);
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+        .commitment-item p {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.5;
+        }
         
-        .commitment { background: white; border-radius: 32px; padding: 40px; margin: 40px 0; text-align: center; border: 1px solid var(--light-gray); }
-        .commitment-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-top: 30px; }
-        .commitment-item i { font-size: 2rem; color: var(--primary); margin-bottom: 12px; display: inline-block; }
+        /* ========== CTA ========== */
+        .cta-box {
+            text-align: center;
+            padding: 40px;
+            margin: 40px 0;
+        }
+        .cta-box .btn-group {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
         
-        .footer { background: var(--dark); color: white; padding: 40px 0 20px; text-align: center; margin-top: 60px; }
+        /* ========== FOOTER ========== */
+        .footer {
+            background: var(--navy-dark);
+            color: rgba(255,255,255,0.7);
+            padding: 40px 0 24px;
+            text-align: center;
+            margin-top: 60px;
+            border-top: 3px solid var(--gold);
+        }
+        .footer h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            margin-bottom: 12px;
+        }
+        .footer p { font-size: 0.9rem; line-height: 1.8; }
         
+        /* ========== RESPONSIVE ========== */
         @media (max-width: 992px) {
             .service-grid, .price-grid { grid-template-columns: repeat(2, 1fr); }
         }
         
         @media (max-width: 768px) {
-            .nav-links { display: none; }
             .menu-toggle { display: block; }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                gap: 12px;
+                padding: 16px 0;
+                background: var(--white);
+                width: 100%;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                padding: 16px 24px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+            .nav-links.show { display: flex; }
+            .header-container { flex-wrap: wrap; position: relative; }
+            .logo img { height: 45px; }
+            
             .hero h1 { font-size: 1.8rem; }
+            .hero p { font-size: 1rem; }
             .service-grid, .price-grid { grid-template-columns: 1fr; }
             .section-title { font-size: 1.5rem; }
-            .quote p { font-size: 1rem; }
+            .quote-box p { font-size: 1rem; }
+            .commitment-box { padding: 24px; }
+            .cta-box .btn-group { flex-direction: column; align-items: center; }
         }
-        /* Header và logo */
-.header {
-    background: white;
-    padding: 15px 0;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-}
-
-.header-container {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo img {
-    height: 80px;  /* Chỉnh chiều cao logo theo ý chị */
-    width: auto;
-    display: block;
-}
-
-/* Responsive trên mobile */
-@media (max-width: 768px) {
-    .logo img {
-        height: 45px;
-    }
-}
     </style>
 </head>
+<body>
+
+<!-- ========== HEADER ========== -->
 <header class="header">
     <div class="header-container">
-        <a href="https://sophianguyen.com.vn/index.html" class="logo">
-            <img src="https://sophianguyen.com.vn/images/hinhremovenen.png" alt="Sophia Logo" />
+        <a href="https://sophianguyen.com.vn" class="logo">
+            <img src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Sophia Nguyễn">
         </a>
-        <!-- Không có menu, chỉ có logo -->
+        <div class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">☰</div>
+        <ul class="nav-links">
+            <li><a href="https://sophianguyen.com.vn">Trang chủ</a></li>
+            <li><a href="https://sophianguyen.com.vn/khoa-hoc/gioi-tinh/gioi-thieu/">Khóa học</a></li>
+            <li><a href="index.html" class="active">Lắng nghe tâm giao</a></li>
+            <li><a href="https://zalo.me/0977092182">Liên hệ</a></li>
+        </ul>
     </div>
 </header>
-    <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo"><i class="fas fa-heart"></i><span>Sophia Nguyễn</span></div>
-            <div class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">☰</div>
-            <ul class="nav-links">
-                <li><a href="https://sophianguyen.com.vn">Trang chủ</a></li>
-                <li><a href="https://sophianguyen.com.vn/khoa-hoc/gioi-tinh/gioi-thieu/">Khóa học</a></li>
-                <li><a href="index.html" class="active">Lắng nghe tâm giao</a></li>
-                <li><a href="https://sophianguyen.com.vn/contact.html">Liên hệ</a></li>
-            </ul>
-        </div>
-    </nav>
 
-    <section class="hero">
-        <div class="container">
-            <h1>💬 Lắng nghe tâm giao</h1>
-            <p>Một người để lắng nghe – Một điểm tựa tinh thần – Một người bạn đồng hành không phán xét</p>
+<!-- ========== HERO ========== -->
+<section class="hero">
+    <div class="container">
+        <h1>💬 Lắng nghe <span>tâm giao</span></h1>
+        <p>Một người để lắng nghe – Một điểm tựa tinh thần – Một người bạn đồng hành không phán xét</p>
+        <div class="badge">🤝 Đồng hành cùng bạn</div>
+    </div>
+</section>
+
+<div class="container">
+    <!-- ========== QUOTE ========== -->
+    <div class="quote-box">
+        <p><i>“Bạn cần một người để chia sẻ, không cần lời khuyên?</i></p>
+        <p><i>Bạn cảm thấy cô đơn giữa thế giới ồn ào?</i></p>
+        <p><i>Bạn đang mỏi mệt và chỉ muốn có ai đó cùng nghe bạn nói?”</i></p>
+    </div>
+
+    <!-- ========== DỊCH VỤ ========== -->
+    <section class="section">
+        <h2 class="section-title">Đây <span>không phải</span> tư vấn tâm lý</h2>
+        <p class="section-sub">Đây là một không gian an toàn để bạn được là chính mình: chia sẻ, trải lòng, cảm nhận sự kết nối.</p>
+        <div class="service-grid">
+            <div class="service-card">
+                <div class="service-icon">💬</div>
+                <h3>Chat</h3>
+                <p>Liên lạc qua mail hoặc ứng dụng tùy chọn</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📞</div>
+                <h3>Gọi thoại</h3>
+                <p>Có thể ẩn danh nếu bạn cần</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🧘</div>
+                <h3>Trò chuyện kết nối</h3>
+                <p>Trực tiếp, thư giãn và không đánh giá</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📅</div>
+                <h3>Đặt lịch</h3>
+                <p>Chủ động thời gian, linh hoạt</p>
+            </div>
         </div>
     </section>
 
-    <div class="container">
-        <div class="quote">
-            <p>“Bạn cần một người để chia sẻ, không cần lời khuyên?<br>Bạn cảm thấy cô đơn giữa thế giới ồn ào?<br>Bạn đang mỏi mệt và chỉ muốn có ai đó cùng nghe bạn nói?”</p>
+    <!-- ========== ĐỐI TƯỢNG ========== -->
+    <section class="section">
+        <h2 class="section-title">Những người <span>phù hợp</span></h2>
+        <div class="service-grid">
+            <div class="service-card">
+                <div class="service-icon">👔</div>
+                <h3>Người trưởng thành bận rộn</h3>
+                <p>Nhiều tâm sự, khó tìm người chia sẻ</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🏠</div>
+                <h3>Sống một mình / xa nhà</h3>
+                <p>Cần kết nối ấm áp, chân thành</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">😔</div>
+                <h3>Stress, mất cân bằng cảm xúc</h3>
+                <p>Lo âu nhẹ, cần được lắng nghe</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🌈</div>
+                <h3>Người LGBTQ+</h3>
+                <p>Không gian an toàn để giãi bày</p>
+            </div>
         </div>
+    </section>
 
-        <section class="section">
-            <h2 class="section-title">Đây không phải tư vấn tâm lý</h2>
-            <p class="section-sub">Đây là một không gian an toàn để bạn được là chính mình: chia sẻ, trải lòng, cảm nhận sự kết nối.</p>
-            <div class="service-grid">
-                <div class="service-card"><div class="service-icon">💬</div><h3>Chat</h3><p>Liên lạc qua mail hoặc ứng dụng tùy chọn</p></div>
-                <div class="service-card"><div class="service-icon">📞</div><h3>Gọi thoại</h3><p>Có thể ẩn danh nếu bạn cần</p></div>
-                <div class="service-card"><div class="service-icon">🧘</div><h3>Trò chuyện kết nối</h3><p>Trực tiếp, thư giãn và không đánh giá</p></div>
-                <div class="service-card"><div class="service-icon">📅</div><h3>Đặt lịch</h3><p>Chủ động thời gian, linh hoạt</p></div>
+    <!-- ========== CHI PHÍ ========== -->
+    <section class="section">
+        <h2 class="section-title">Chi phí & <span>Đặt lịch</span></h2>
+        <div class="price-grid">
+            <div class="price-card">
+                <h3>🎁 Gói trải nghiệm</h3>
+                <div class="desc">Hẹn gặp mặt cafe, free hoàn toàn nếu sau 15p bạn từ chối</div>
+                <div class="price">Miễn phí</div>
+                <a href="https://zalo.me/0977092182" class="btn-outline">Đặt lịch</a>
             </div>
-        </section>
-
-        <section class="section">
-            <h2 class="section-title">Những người phù hợp</h2>
-            <div class="service-grid">
-                <div class="service-card"><div class="service-icon">👔</div><h3>Người trưởng thành bận rộn</h3><p>Nhiều tâm sự, khó tìm người chia sẻ</p></div>
-                <div class="service-card"><div class="service-icon">🏠</div><h3>Sống một mình / xa nhà</h3><p>Cần kết nối ấm áp, chân thành</p></div>
-                <div class="service-card"><div class="service-icon">😔</div><h3>Stress, mất cân bằng cảm xúc</h3><p>Lo âu nhẹ, cần được lắng nghe</p></div>
-                <div class="service-card"><div class="service-icon">🌈</div><h3>Người LGBTQ+</h3><p>Không gian an toàn để giãi bày</p></div>
+            <div class="price-card">
+                <h3>📞 Lắng nghe sâu</h3>
+                <div class="desc">Đồng cảm nhẹ nhàng, không phán xét, không lời khuyên</div>
+                <div class="price">Liên hệ</div>
+                <a href="https://zalo.me/0977092182" class="btn-outline">Tư vấn</a>
             </div>
-        </section>
-
-        <section class="section">
-            <h2 class="section-title">Chi phí & Đặt lịch</h2>
-            <div class="price-grid">
-                <div class="price-card"><h3>🎁 Gói trải nghiệm</h3><div class="price-desc">Hẹn gặp mặt cafe, free hoàn toàn nếu sau 15p bạn từ chối</div><div class="price">Miễn phí</div><a href="https://zalo.me/0977092182" class="btn-outline">Đặt lịch</a></div>
-                <div class="price-card"><h3>📞 Lắng nghe sâu</h3><div class="price-desc">Đồng cảm nhẹ nhàng, không phán xét, không lời khuyên</div><div class="price">Liên hệ</div><a href="https://zalo.me/0977092182" class="btn-outline">Tư vấn</a></div>
-                <div class="price-card"><h3>☕ Trò chuyện thấu cảm</h3><div class="price-desc">Sẻ chia tâm sự như những người bạn cũ</div><div class="price">Liên hệ</div><a href="https://zalo.me/0977092182" class="btn-outline">Tư vấn</a></div>
-                <div class="price-card"><h3>🪑 Hộ tống cảm xúc</h3><div class="price-desc">3 buổi hỗ trợ, cùng bạn đi qua cảm xúc với một vấn đề cụ thể</div><div class="price">Liên hệ</div><a href="https://zalo.me/0977092182" class="btn-outline">Tư vấn</a></div>
+            <div class="price-card">
+                <h3>☕ Trò chuyện thấu cảm</h3>
+                <div class="desc">Sẻ chia tâm sự như những người bạn cũ</div>
+                <div class="price">Liên hệ</div>
+                <a href="https://zalo.me/0977092182" class="btn-outline">Tư vấn</a>
             </div>
-        </section>
-
-        <section class="commitment">
-            <h2 class="section-title" style="margin-bottom: 20px;">Cam kết dịch vụ</h2>
-            <div class="commitment-grid">
-                <div class="commitment-item"><i class="fas fa-heart"></i><p>Không rao giảng, không chữa lành ép buộc</p></div>
-                <div class="commitment-item"><i class="fas fa-users"></i><p>Không phân biệt giới, tôn giáo, tuổi tác</p></div>
-                <div class="commitment-item"><i class="fas fa-lock"></i><p>Mọi thông tin được bảo mật tuyệt đối</p></div>
+            <div class="price-card">
+                <h3>🪑 Hộ tống cảm xúc</h3>
+                <div class="desc">3 buổi hỗ trợ, cùng bạn đi qua cảm xúc với một vấn đề cụ thể</div>
+                <div class="price">Liên hệ</div>
+                <a href="https://zalo.me/0977092182" class="btn-outline">Tư vấn</a>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="commitment">
-            <h2 class="section-title" style="margin-bottom: 20px;">Vì sao chọn Sophia Nguyễn?</h2>
-            <div class="commitment-grid">
-                <div class="commitment-item"><i class="fas fa-clock"></i><p>Hơn 1000 giờ đồng hành 1:1</p></div>
-                <div class="commitment-item"><i class="fas fa-star"></i><p>Phản hồi tích cực từ nhiều người</p></div>
-                <div class="commitment-item"><i class="fas fa-leaf"></i><p>Năng lượng ngập tràn, nhẹ nhàng vừa đủ</p></div>
-                <div class="commitment-item"><i class="fas fa-hand-sparkles"></i><p>Không áp đặt, vững chắc như người bạn tri kỷ</p></div>
+    <!-- ========== CAM KẾT ========== -->
+    <div class="commitment-box">
+        <h2 class="section-title" style="margin-bottom: 8px;">Cam kết <span>dịch vụ</span></h2>
+        <div class="commitment-grid">
+            <div class="commitment-item">
+                <i class="fas fa-heart"></i>
+                <p>Không rao giảng, không chữa lành ép buộc</p>
             </div>
-        </section>
-
-        <div style="text-align: center; margin: 40px 0;">
-            <a href="https://zalo.me/0977092182" class="btn-primary" style="margin-right: 16px;">📩 Đăng ký ngay</a>
-            <a href="https://sophianguyen.com.vn" class="btn-outline">🏠 Về trang chủ</a>
+            <div class="commitment-item">
+                <i class="fas fa-users"></i>
+                <p>Không phân biệt giới, tôn giáo, tuổi tác</p>
+            </div>
+            <div class="commitment-item">
+                <i class="fas fa-lock"></i>
+                <p>Mọi thông tin được bảo mật tuyệt đối</p>
+            </div>
         </div>
     </div>
 
-    <footer class="footer">
-        <div class="container">
-            <p>❤️ Đồng hành & Sẻ chia - Sophia Nguyễn</p>
-            <p>📧 sophianguyen2891@gmail.com | 📞 0977092182</p>
+    <!-- ========== VÌ SAO ========== -->
+    <div class="commitment-box">
+        <h2 class="section-title" style="margin-bottom: 8px;">Vì sao chọn <span>Sophia Nguyễn</span>?</h2>
+        <div class="commitment-grid">
+            <div class="commitment-item">
+                <i class="fas fa-clock"></i>
+                <p>Hơn 1000 giờ đồng hành 1:1</p>
+            </div>
+            <div class="commitment-item">
+                <i class="fas fa-star"></i>
+                <p>Phản hồi tích cực từ nhiều người</p>
+            </div>
+            <div class="commitment-item">
+                <i class="fas fa-leaf"></i>
+                <p>Năng lượng ngập tràn, nhẹ nhàng vừa đủ</p>
+            </div>
+            <div class="commitment-item">
+                <i class="fas fa-hand-sparkles"></i>
+                <p>Không áp đặt, vững chắc như người bạn tri kỷ</p>
+            </div>
         </div>
-    </footer>
+    </div>
+
+    <!-- ========== CTA ========== -->
+    <div class="cta-box">
+        <div class="btn-group">
+            <a href="https://zalo.me/0977092182" class="btn-primary">📩 Đăng ký ngay</a>
+            <a href="https://sophianguyen.com.vn" class="btn-outline">🏠 Về trang chủ</a>
+        </div>
+    </div>
+</div>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+    <div class="container">
+        <h4>💬 Lắng nghe tâm giao – Sophia Nguyễn</h4>
+        <p>❤️ Đồng hành & Sẻ chia – Không phán xét – Không áp đặt</p>
+        <p style="margin-top: 8px;">📧 sophianguyen2891@gmail.com | 📞 0977092182</p>
+        <p style="margin-top: 16px; font-size: 0.8rem; opacity: 0.5;">© 2025 Sophia Nguyễn. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    // Menu toggle
+    document.querySelector('.menu-toggle')?.addEventListener('click', function() {
+        document.querySelector('.nav-links').classList.toggle('show');
+    });
+</script>
 </body>
 </html>
