@@ -3,72 +3,331 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Bài 1: Phòng chống tai nạn thương tích - Kỹ năng an toàn | Sophia Nguyễn</title>
+    <title>Bài 1: Phòng chống tai nạn thương tích | Sophia Nguyễn</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --navy-dark: #0A1628;
+            --navy-mid: #1E3A5F;
+            --gold: #C9A84C;
+            --gold-light: #D4B85C;
+            --cream: #F5F0E8;
+            --white: #FFFFFF;
+            --gray: #4A5A6A;
+            --light-gray: #E8E4DC;
+        }
         body {
-            background: linear-gradient(135deg, #0a4a5a, #1a6b7a);
-            font-family: 'Segoe UI', 'Be Vietnam Pro', sans-serif;
+            background: linear-gradient(145deg, var(--cream) 0%, #EDE8E0 100%);
+            font-family: 'Inter', 'Be Vietnam Pro', sans-serif;
             padding: 20px;
             min-height: 100vh;
         }
         .container { max-width: 1100px; margin: 0 auto; }
-        .header { background: white; border-radius: 32px; padding: 20px; margin-bottom: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        
+        .header { 
+            background: var(--white); 
+            border-radius: 32px; 
+            padding: 20px; 
+            margin-bottom: 20px; 
+            text-align: center; 
+            box-shadow: 0 10px 30px rgba(10,22,40,0.08);
+            border: 1px solid var(--light-gray);
+        }
         .logo { height: 60px; margin-bottom: 10px; }
-        .header h1 { color: #0a4a5a; font-size: 1.8rem; }
-        .video-section { background: white; border-radius: 32px; padding: 20px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 24px; overflow: hidden; }
-        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-        .exercise { background: white; border-radius: 32px; padding: 20px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .exercise-title { font-size: 1.5rem; color: #0a4a5a; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 3px solid #ffd700; display: inline-block; }
-        .back-btn { display: inline-block; background: #ffd700; color: #0a4a5a; padding: 12px 24px; border-radius: 40px; text-decoration: none; font-weight: bold; margin-top: 20px; transition: all 0.2s; }
-        .back-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
-        .footer { text-align: center; color: white; padding: 20px; font-size: 0.8rem; }
+        .logo img { height: 60px; }
+        .header h1 { 
+            font-family: 'Playfair Display', serif;
+            color: var(--navy-dark); 
+            font-size: 1.8rem; 
+        }
+        .header h1 span { color: var(--gold); }
+        .course-badge {
+            display: inline-block;
+            background: rgba(201,168,76,0.2);
+            color: var(--gold);
+            padding: 4px 16px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
         
-        .shake-screen { animation: shake 0.3s ease-in-out 0s 2; }
-        @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } 100% { transform: translateX(0); } }
+        .video-section { 
+            background: var(--white); 
+            border-radius: 32px; 
+            padding: 20px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 10px 30px rgba(10,22,40,0.08);
+            border: 1px solid var(--light-gray);
+        }
+        .video-wrapper { 
+            position: relative; 
+            padding-bottom: 56.25%; 
+            height: 0; 
+            border-radius: 24px; 
+            overflow: hidden; 
+        }
+        .video-wrapper iframe { 
+            position: absolute; 
+            top: 0; left: 0; 
+            width: 100%; height: 100%; 
+            border: none; 
+        }
+        .video-label {
+            background: var(--cream);
+            padding: 12px 20px;
+            font-weight: 600;
+            color: var(--navy-dark);
+            font-size: 1rem;
+            text-align: center;
+            border-top: 2px solid var(--gold);
+            border-radius: 0 0 32px 32px;
+        }
         
-        #confetti-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; }
+        .exercise { 
+            background: var(--white); 
+            border-radius: 32px; 
+            padding: 24px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 10px 30px rgba(10,22,40,0.08);
+            border: 1px solid var(--light-gray);
+        }
+        .ex-title { 
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem; 
+            color: var(--navy-dark); 
+            margin-bottom: 8px; 
+            padding-bottom: 8px; 
+            border-bottom: 3px solid var(--gold); 
+            display: inline-block; 
+        }
+        .ex-desc {
+            color: var(--gray);
+            margin: 12px 0 20px;
+            font-size: 0.95rem;
+        }
+        
+        .match-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 12px 0;
+            align-items: center;
+        }
+        .match-term {
+            background: var(--cream);
+            padding: 10px 16px;
+            border-radius: 60px;
+            font-weight: 600;
+            min-width: 200px;
+            text-align: center;
+            color: var(--navy-dark);
+            border: 1px solid var(--light-gray);
+        }
+        .match-def {
+            flex: 1;
+            background: var(--cream);
+            padding: 10px 16px;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid var(--light-gray);
+            min-width: 120px;
+            text-align: center;
+        }
+        .match-def:hover { border-color: var(--gold); }
+        .match-def.selected {
+            background: var(--gold);
+            color: var(--navy-dark);
+            border-color: var(--gold);
+        }
+        
+        .classify-item {
+            background: var(--cream);
+            border-radius: 60px;
+            padding: 10px 16px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            border: 1px solid var(--light-gray);
+        }
+        .classify-text { font-weight: 600; color: var(--navy-dark); flex: 1; font-size: 0.9rem; }
+        .classify-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
+        .classify-btn {
+            padding: 4px 16px;
+            border-radius: 40px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.2s;
+            font-size: 0.8rem;
+            font-family: 'Inter', sans-serif;
+        }
+        .classify-btn-danger { background: var(--cream); color: #C62828; border: 1px solid var(--light-gray); }
+        .classify-btn-danger:hover { border-color: #C62828; }
+        .classify-btn-danger.selected { background: #C62828; color: white; border-color: #C62828; }
+        .classify-btn-injury { background: var(--cream); color: #2E7D32; border: 1px solid var(--light-gray); }
+        .classify-btn-injury:hover { border-color: #2E7D32; }
+        .classify-btn-injury.selected { background: #2E7D32; color: white; border-color: #2E7D32; }
+        
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 8px 0;
+            padding: 8px 16px;
+            background: var(--white);
+            border-radius: 60px;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid var(--light-gray);
+        }
+        .option:hover { border-color: var(--gold); background: var(--cream); }
+        input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--gold);
+            cursor: pointer;
+        }
+        
+        .check-btn {
+            background: var(--gold);
+            color: var(--navy-dark);
+            border: none;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 12px 28px;
+            border-radius: 60px;
+            cursor: pointer;
+            margin-top: 16px;
+            width: 100%;
+            transition: 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .check-btn:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+        }
+        .result-area {
+            margin-top: 16px;
+            border-radius: 20px;
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1rem;
+            display: none;
+        }
+        .result-area.correct {
+            background: #E8F5E9;
+            color: #2E7D32;
+            display: block;
+        }
+        .result-area.wrong {
+            background: #FFF3E0;
+            color: #E65100;
+            display: block;
+        }
+        
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .chapter-nav a {
+            background: var(--navy-dark);
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .chapter-nav a:hover {
+            background: var(--gold);
+            color: var(--navy-dark);
+            transform: translateY(-2px);
+        }
+        
+        .question-item {
+            background: var(--cream);
+            border-radius: 20px;
+            padding: 16px 20px;
+            margin-bottom: 16px;
+            border: 1px solid var(--light-gray);
+        }
+        .question-text {
+            font-weight: 700;
+            color: var(--navy-dark);
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+        
+        @media (max-width: 768px) { 
+            .header h1 { font-size: 1.4rem; }
+            .match-term { min-width: 140px; font-size: 0.85rem; }
+            .match-def { font-size: 0.85rem; }
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="header">
-        <img src="https://sophianguyen.com.vn/images/hinhremovenen.png" alt="Sophia Nguyễn" class="logo">
-        <h1>🛡️ Bài 1: Phòng chống tai nạn thương tích</h1>
+        <img src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Sophia Nguyễn" class="logo">
+        <div class="course-badge">🛡️ Bài 1 - Biệt đội bảo vệ</div>
+        <h1>🩹 Phòng chống <span>tai nạn thương tích</span></h1>
     </div>
 
     <div class="video-section">
         <div class="video-wrapper">
             <iframe src="https://www.youtube.com/embed/zxhHAygr7YA" frameborder="0" allowfullscreen></iframe>
         </div>
+        <div class="video-label">
+            🎬 Bài học: Phòng chống tai nạn thương tích – Hiệp sĩ an toàn trong nhà!
+        </div>
     </div>
 
     <div class="exercise">
-        <h2 class="exercise-title">🔗 Bài tập 1: Nối đúng - Hiệp sĩ An toàn</h2>
-        <div id="exercise1"></div>
+        <div class="ex-title">🔗 Bài tập 1: Nối đúng - Hiệp sĩ An toàn</div>
+        <div class="ex-desc">🧩 Click chọn một tình huống bên trái, rồi chọn cách xử lý bên phải để ghép đôi.</div>
+        <div id="matchingArea"></div>
+        <button class="check-btn" id="checkMatchBtn">✅ Kiểm tra bài tập 1</button>
+        <div id="matchResult" class="result-area"></div>
     </div>
 
     <div class="exercise">
-        <h2 class="exercise-title">🕵️‍♂️ Bài tập 2: Phân loại thám tử</h2>
-        <div id="exercise2"></div>
+        <div class="ex-title">🕵️‍♂️ Bài tập 2: Phân loại thám tử</div>
+        <div class="ex-desc">🔍 Click chọn NGUY HIỂM hoặc THƯƠNG TÍCH cho mỗi tình huống.</div>
+        <div id="classifyArea"></div>
+        <button class="check-btn" id="checkClassifyBtn">✅ Kiểm tra bài tập 2</button>
+        <div id="classifyResult" class="result-area"></div>
     </div>
 
     <div class="exercise">
-        <h2 class="exercise-title">⚔️ Bài tập 3: Thử thách Hiệp sĩ An toàn</h2>
-        <div id="exercise3"></div>
+        <div class="ex-title">⚔️ Bài tập 3: Thử thách Hiệp sĩ An toàn</div>
+        <div class="ex-desc">🧠 Chọn đáp án đúng cho mỗi câu hỏi.</div>
+        <div id="quizArea"></div>
+        <button class="check-btn" id="checkQuizBtn">✅ Kiểm tra bài tập 3</button>
+        <div id="quizResult" class="result-area"></div>
     </div>
 
-    <a href="https://sophianguyen.com.vn/khoa-hoc/ky-nang-an-toan/" class="back-btn">← Quay lại danh sách bài học</a>
-    <div class="footer">
-        <p>🐿️ Hiệp sĩ Sóc đồng hành cùng con - © 2025 Sophia Nguyễn</p>
+    <div class="chapter-nav">
+        <a href="index.html">📚 Danh sách bài học</a>
+        <a href="bai-2-bao-luc-hoc-duong.html">➡️ Bài tiếp theo</a>
     </div>
 </div>
 <canvas id="confetti-canvas"></canvas>
 
 <script>
-    // ==================== HIỆU ỨNG CONFETTI & ÂM THANH ====================
+    // ==================== CONFETTI & ÂM THANH ====================
     let ctx = null, width = window.innerWidth, height = window.innerHeight, particles = [], animationId = null;
     function resizeCanvas() { width = window.innerWidth; height = window.innerHeight; const canvas = document.getElementById('confetti-canvas'); if(canvas){ canvas.width = width; canvas.height = height; ctx = canvas.getContext('2d'); } }
     function createConfetti(duration = 1800) {
@@ -105,313 +364,227 @@
     }
     window.addEventListener('resize', () => { resizeCanvas(); if(particles.length) drawConfetti(); });
     
-    function playClickSound() {
+    function playSound(type) {
         try {
             const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
             osc.connect(gain);
             gain.connect(audioCtx.destination);
-            osc.frequency.value = 880;
-            gain.gain.value = 0.08;
-            osc.type = 'sine';
-            osc.start();
-            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.08);
-            osc.stop(audioCtx.currentTime + 0.08);
-        } catch(e) {}
-    }
-    
-    function playSuccessSound() {
-        try {
-            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            const frequencies = [880, 1046.5, 1318.5];
-            frequencies.forEach((freq, idx) => {
-                setTimeout(() => {
-                    const osc = audioCtx.createOscillator();
-                    const gain = audioCtx.createGain();
-                    osc.connect(gain);
-                    gain.connect(audioCtx.destination);
-                    osc.frequency.value = freq;
-                    gain.gain.value = 0.2;
-                    osc.type = 'sine';
-                    osc.start();
-                    gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
-                    osc.stop(audioCtx.currentTime + 0.3);
-                }, idx * 120);
-            });
-        } catch(e) {}
-        createConfetti(1200);
-    }
-    
-    function playCompleteSound() {
-        try {
-            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            const gain = audioCtx.createGain();
-            gain.connect(audioCtx.destination);
-            gain.gain.value = 0.3;
-            const bufferSize = 4096;
-            const noise = audioCtx.createBufferSource();
-            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-            const data = buffer.getChannelData(0);
-            for(let i=0; i<bufferSize; i++) data[i] = Math.random() * 2 - 1;
-            noise.buffer = buffer;
-            noise.loop = true;
-            noise.connect(gain);
-            noise.start();
-            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 1.2);
-            noise.stop(audioCtx.currentTime + 1.2);
-            setTimeout(() => {
-                const osc = audioCtx.createOscillator();
-                const gain2 = audioCtx.createGain();
-                osc.connect(gain2);
-                gain2.connect(audioCtx.destination);
-                osc.frequency.value = 1046.5;
-                gain2.gain.value = 0.3;
+            if (type === 'correct') {
+                osc.frequency.value = 880;
+                gain.gain.value = 0.2;
                 osc.type = 'sine';
                 osc.start();
-                gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.5);
-                osc.stop(audioCtx.currentTime + 0.5);
-            }, 1000);
+                gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                osc.stop(audioCtx.currentTime + 0.3);
+                setTimeout(() => {
+                    const osc2 = audioCtx.createOscillator();
+                    const gain2 = audioCtx.createGain();
+                    osc2.connect(gain2);
+                    gain2.connect(audioCtx.destination);
+                    osc2.frequency.value = 1100;
+                    gain2.gain.value = 0.2;
+                    osc2.type = 'sine';
+                    osc2.start();
+                    gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                    osc2.stop(audioCtx.currentTime + 0.3);
+                }, 100);
+            } else if (type === 'wrong') {
+                osc.frequency.value = 440;
+                gain.gain.value = 0.2;
+                osc.type = 'sawtooth';
+                osc.start();
+                gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                osc.stop(audioCtx.currentTime + 0.3);
+            } else {
+                osc.frequency.value = 660;
+                gain.gain.value = 0.1;
+                osc.type = 'sine';
+                osc.start();
+                gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.05);
+                osc.stop(audioCtx.currentTime + 0.05);
+            }
         } catch(e) {}
-        createConfetti(2500);
-    }
-    
-    function playErrorSound() {
-        try {
-            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.frequency.value = 220;
-            gain.gain.value = 0.25;
-            osc.type = 'sawtooth';
-            osc.start();
-            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.4);
-            osc.stop(audioCtx.currentTime + 0.4);
-            setTimeout(() => {
-                const osc2 = audioCtx.createOscillator();
-                const gain2 = audioCtx.createGain();
-                osc2.connect(gain2);
-                gain2.connect(audioCtx.destination);
-                osc2.frequency.value = 164.81;
-                gain2.gain.value = 0.2;
-                osc2.type = 'sawtooth';
-                osc2.start();
-                gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
-                osc2.stop(audioCtx.currentTime + 0.3);
-            }, 150);
-        } catch(e) {}
-        document.body.classList.add('shake-screen');
-        setTimeout(() => document.body.classList.remove('shake-screen'), 500);
     }
 
-    // ==================== BÀI TẬP 1: NỐI ĐÚNG (CÓ ÂM THANH) ====================
-    (function() {
-        const pairsData = [
-            { situation: { text: "Bạn rủ ra ao hồ chơi gần bờ nước", icon: "🏞️" }, action: { text: "Khuyên bạn không nên ra đó và báo người lớn", icon: "👪" } },
-            { situation: { text: "Phát hiện ổ điện bị hở, dây điện trần", icon: "⚡" }, action: { text: "Tránh xa và báo ngay cho người lớn", icon: "🏃" } },
-            { situation: { text: "Thấy bạn đang chơi ở công trường xây dựng", icon: "🏗️" }, action: { text: "Khuyên bạn ra khỏi khu vực nguy hiểm và báo người lớn", icon: "📢" } },
-            { situation: { text: "Bị bỏng nhẹ do nước sôi", icon: "🔥" }, action: { text: "Ngâm vết bỏng vào nước lạnh sạch ngay", icon: "💧" } },
-            { situation: { text: "Bị đứt tay chảy máu", icon: "🩸" }, action: { text: "Rửa sạch vết thương dưới vòi nước và băng lại", icon: "🩹" } },
-            { situation: { text: "Nhìn thấy dao kéo để bừa bãi trong nhà", icon: "🔪" }, action: { text: "Báo người lớn cất vào nơi an toàn", icon: "🗄️" } }
-        ];
-        let situations = [], actions = [], selectedSitId = null, matchedPairs = 0;
+    // ========== BÀI TẬP 1: NỐI ĐÚNG ==========
+    const matchTerms = [
+        { term: "🏞️ Bạn rủ ra ao hồ chơi gần bờ nước", defIdx: null },
+        { term: "⚡ Phát hiện ổ điện bị hở, dây điện trần", defIdx: null },
+        { term: "🏗️ Thấy bạn đang chơi ở công trường xây dựng", defIdx: null },
+        { term: "🔥 Bị bỏng nhẹ do nước sôi", defIdx: null },
+        { term: "🩸 Bị đứt tay chảy máu", defIdx: null },
+        { term: "🔪 Nhìn thấy dao kéo để bừa bãi trong nhà", defIdx: null }
+    ];
+    const defsList = [
+        "Khuyên bạn không nên ra đó và báo người lớn 👪",
+        "Tránh xa và báo ngay cho người lớn 🏃",
+        "Khuyên bạn ra khỏi khu vực nguy hiểm và báo người lớn 📢",
+        "Ngâm vết bỏng vào nước lạnh sạch ngay 💧",
+        "Rửa sạch vết thương dưới vòi nước và băng lại 🩹",
+        "Báo người lớn cất vào nơi an toàn 🗄️"
+    ];
+    let currentMatches = [null, null, null, null, null, null];
 
-        function shuffleArray(arr) { for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [arr[i], arr[j]] = [arr[j], arr[i]]; } return arr; }
-        function initGame1() {
-            situations = pairsData.map((pair, idx) => ({ id: idx, text: pair.situation.text, icon: pair.situation.icon, pairId: idx, matched: false }));
-            actions = shuffleArray(pairsData.map((pair, idx) => ({ id: idx, text: pair.action.text, icon: pair.action.icon, pairId: idx, matched: false })));
-            selectedSitId = null; matchedPairs = 0; renderGame1();
-        }
-        function updateScore1() { 
-            const msgDiv = document.getElementById('feedbackMsg1'); 
-            if (matchedPairs === pairsData.length && msgDiv) {
-                msgDiv.innerHTML = "🎉 CHÚC MỪNG! Bạn đã nối đúng tất cả. Bạn là HIỆP SĨ AN TOÀN xuất sắc! 🎉";
-                playCompleteSound();
-            }
-        }
-        function renderGame1() {
-            const container = document.getElementById('exercise1');
-            let html = `<div style="background:#E1F5FE; border-radius:24px; padding:15px; text-align:center; margin-bottom:20px;">🧸 Click chọn một tình huống, rồi click chọn cách xử lý đúng nhất!</div>
-            <div style="display:flex; flex-wrap:wrap; gap:30px; justify-content:center;">
-                <div style="flex:1; min-width:280px; background:#FDF8F0; border-radius:40px; padding:20px; border:2px solid #FFDEC4;"><h3 style="text-align:center;">⚠️ TÌNH HUỐNG</h3><div id="situationsList1"></div></div>
-                <div style="flex:1; min-width:280px; background:#FDF8F0; border-radius:40px; padding:20px; border:2px solid #FFDEC4;"><h3 style="text-align:center;">✅ CÁCH XỬ LÝ</h3><div id="actionsList1"></div></div>
-            </div>
-            <div class="message-area" style="text-align:center; margin-top:20px;"><div id="feedbackMsg1" style="background:#FFF0E8; border-radius:40px; padding:14px; display:inline-block;">👉 Chọn một tình huống, sau đó chọn cách xử lý!</div></div>
-            <div style="text-align:center; margin-top:10px;"><button id="resetBtn1" style="background:#E8D8C8; border:none; padding:10px 24px; border-radius:40px; cursor:pointer;">🔄 Chơi lại</button></div>`;
-            container.innerHTML = html;
-
-            const situationsDiv = document.getElementById('situationsList1');
-            situations.forEach(sit => {
-                const div = document.createElement('div');
-                div.style.cssText = `background:white; border-radius:60px; padding:14px 20px; margin-bottom:12px; display:flex; align-items:center; gap:12px; cursor:pointer; border:2px solid ${sit.matched ? '#4CAF50' : '#FFDEC4'}; ${sit.matched ? 'opacity:0.7; text-decoration:line-through;' : ''} ${selectedSitId === sit.id ? 'background:#E8F5E9; border-color:#6BCB77;' : ''}`;
-                div.innerHTML = `<span style="font-size:32px;">${sit.icon}</span><span style="flex:1; font-weight:500;">${sit.text}</span>`;
-                if (!sit.matched) div.onclick = () => { playClickSound(); selectedSitId = sit.id; renderGame1(); };
-                situationsDiv.appendChild(div);
-            });
-            const actionsDiv = document.getElementById('actionsList1');
-            actions.forEach(act => {
-                const div = document.createElement('div');
-                div.style.cssText = `background:white; border-radius:60px; padding:14px 20px; margin-bottom:12px; display:flex; align-items:center; gap:12px; cursor:pointer; border:2px solid ${act.matched ? '#4CAF50' : '#FFDEC4'}; ${act.matched ? 'opacity:0.7; text-decoration:line-through;' : ''}`;
-                div.innerHTML = `<span style="font-size:32px;">${act.icon}</span><span style="flex:1; font-weight:500;">${act.text}</span>`;
-                if (!act.matched) div.onclick = () => {
-                    if (selectedSitId !== null) {
-                        const selectedSit = situations.find(s => s.id === selectedSitId);
-                        if (selectedSit && !selectedSit.matched) {
-                            if (selectedSit.pairId === act.pairId) {
-                                selectedSit.matched = true; act.matched = true; matchedPairs++;
-                                document.getElementById('feedbackMsg1').innerHTML = "✅ Chính xác! Bạn nối đúng rồi!";
-                                playSuccessSound();
-                                selectedSitId = null; renderGame1(); updateScore1();
-                            } else { 
-                                document.getElementById('feedbackMsg1').innerHTML = "❌ Chưa đúng! Hãy thử lại.";
-                                playErrorSound();
-                                selectedSitId = null; renderGame1(); 
-                            }
-                        }
-                    } else { 
-                        document.getElementById('feedbackMsg1').innerHTML = "👉 Hãy chọn một tình huống trước nhé!";
-                        playErrorSound();
-                    }
+    function renderMatching() {
+        const container = document.getElementById('matchingArea');
+        container.innerHTML = '';
+        matchTerms.forEach((termObj, tIdx) => {
+            const row = document.createElement('div');
+            row.className = 'match-row';
+            const termSpan = document.createElement('div');
+            termSpan.className = 'match-term';
+            termSpan.innerText = termObj.term;
+            row.appendChild(termSpan);
+            defsList.forEach((def, dIdx) => {
+                const defBtn = document.createElement('div');
+                defBtn.className = 'match-def' + (currentMatches[tIdx] === dIdx ? ' selected' : '');
+                defBtn.innerText = def;
+                defBtn.onclick = () => {
+                    currentMatches[tIdx] = dIdx;
+                    renderMatching();
+                    playSound('click');
                 };
-                actionsDiv.appendChild(div);
+                row.appendChild(defBtn);
             });
-            document.getElementById('resetBtn1')?.addEventListener('click', () => { initGame1(); playClickSound(); });
-        }
-        initGame1();
-    })();
+            container.appendChild(row);
+        });
+    }
 
-    // ==================== BÀI TẬP 2: PHÂN LOẠI THÁM TỬ (CÓ ÂM THANH) ====================
-    (function() {
-        const cardsData = [
-            { id: 1, text: "Leo trèo cây cao", icon: "🌳", type: "danger" }, { id: 2, text: "Chơi gần ao hồ không rào", icon: "💧", type: "danger" },
-            { id: 3, text: "Chạy chơi ở công trường", icon: "🏗️", type: "danger" }, { id: 4, text: "Nghịch dao kéo sắc nhọn", icon: "🔪", type: "danger" },
-            { id: 5, text: "Trèo lan can tầng cao", icon: "🏢", type: "danger" }, { id: 6, text: "Tay bị đứt chảy máu", icon: "🩸", type: "injury" },
-            { id: 7, text: "Trẹo chân khi chạy nhảy", icon: "🦶", type: "injury" }, { id: 8, text: "Bỏng nước sôi", icon: "🔥", type: "injury" },
-            { id: 9, text: "Bị ngã xước đầu gối", icon: "🦵", type: "injury" }, { id: 10, text: "Côn trùng cắn sưng đỏ", icon: "🐝", type: "injury" },
-            { id: 11, text: "Chơi gần ổ điện hở", icon: "⚡", type: "danger" }, { id: 12, text: "Chạy qua đường không có người lớn", icon: "🚗", type: "danger" }
-        ];
-        let classified = { danger: [], injury: [] }; let totalCards2 = cardsData.length;
-        function updateScore2() { 
-            const score = classified.danger.length + classified.injury.length; 
-            const scoreSpan = document.getElementById('scoreCount2'); 
-            if (scoreSpan) scoreSpan.innerText = score; 
-            if (score === totalCards2) {
-                document.getElementById('feedbackMsg2').innerHTML = "🎉 CHÚC MỪNG! Bạn đã phân loại đúng tất cả. Bạn là THÁM TỬ AN TOÀN xuất sắc! 🎉";
-                playCompleteSound();
-            }
+    function checkMatching() {
+        let correct = 0;
+        for (let i = 0; i < currentMatches.length; i++) { if (currentMatches[i] === i) correct++; }
+        const resultDiv = document.getElementById('matchResult');
+        if (correct === matchTerms.length) {
+            resultDiv.className = 'result-area correct';
+            resultDiv.innerHTML = '🎉🎉🎉 Tuyệt vời! Bé đã nối đúng tất cả. Bé là HIỆP SĨ AN TOÀN xuất sắc! 🎉🎉🎉';
+            playSound('correct');
+            createConfetti(800);
+        } else {
+            resultDiv.className = 'result-area wrong';
+            resultDiv.innerHTML = `🔗 Bé nối đúng ${correct}/${matchTerms.length} cặp. Hãy thử lại nhé! 💪`;
+            playSound('wrong');
         }
-        function renderGame2() {
-            const container = document.getElementById('exercise2');
-            let html = `<div style="background:#E1F5FE; border-radius:24px; padding:15px; text-align:center; margin-bottom:20px;">🔍 Click vào thẻ – xếp đúng cột NGUY HIỂM (chưa bị đau) hay THƯƠNG TÍCH (đã bị đau)</div>
-            <div style="display:flex; flex-wrap:wrap; gap:20px;"><div style="flex:1; background:#FDF8F0; border-radius:40px; padding:20px; border:2px dashed #E8C8A8;"><h3 style="text-align:center;">📦 CÁC TÌNH HUỐNG</h3><div style="display:flex; flex-wrap:wrap; justify-content:center; gap:16px;" id="cardsPool2"></div></div>
-            <div style="flex:1.5; display:flex; flex-direction:column; gap:20px;"><div style="background:#FDF8F0; border-radius:40px; padding:20px; border-left:8px solid #FF6B6B;"><h3>⚠️ NGUY HIỂM <span style="font-size:14px;">(chưa bị đau)</span></h3><div style="display:flex; flex-wrap:wrap; gap:12px;" id="dangerContainer2"></div></div>
-            <div style="background:#FDF8F0; border-radius:40px; padding:20px; border-left:8px solid #4CAF50;"><h3>🩸 THƯƠNG TÍCH <span style="font-size:14px;">(đã bị đau rồi)</span></h3><div style="display:flex; flex-wrap:wrap; gap:12px;" id="injuryContainer2"></div></div></div></div>
-            <div style="text-align:center; margin-top:20px;"><div id="feedbackMsg2" style="background:#FFF0E8; border-radius:40px; padding:14px; display:inline-block;">👉 Click vào thẻ, chọn "Nguy hiểm" hoặc "Thương tích" nhé!</div></div>
-            <div style="text-align:center; margin-top:10px;"><button id="resetBtn2" style="background:#E8D8C8; border:none; padding:10px 24px; border-radius:40px; cursor:pointer;">🔄 Chơi lại</button></div>
-            <div style="text-align:center; margin-top:10px;"><span style="background:#F0E4D8; padding:8px 20px; border-radius:40px;">🏆 Đã phân loại: <span id="scoreCount2">0</span> / <span id="totalCount2">${totalCards2}</span></span></div>`;
-            container.innerHTML = html;
-            const unclassified = cardsData.filter(c => !classified.danger.includes(c.id) && !classified.injury.includes(c.id));
-            const cardsPool = document.getElementById('cardsPool2');
-            unclassified.forEach(card => {
-                const cardEl = document.createElement('div');
-                cardEl.style.cssText = 'background:white; width:140px; padding:16px 12px; border-radius:28px; text-align:center; cursor:pointer; border:2px solid #FFDEC4;';
-                cardEl.innerHTML = `<span style="font-size:48px;">${card.icon}</span><div style="font-size:14px; font-weight:600;">${card.text}</div>`;
-                cardEl.onclick = () => {
-                    playClickSound();
-                    const isDanger = confirm(`"${card.text}" là NGUY HIỂM (chưa bị đau) hay THƯƠNG TÍCH (đã bị đau)?\n\nNhấn OK nếu là NGUY HIỂM\nNhấn Cancel nếu là THƯƠNG TÍCH`);
-                    const selectedCat = isDanger ? 'danger' : 'injury';
-                    if (selectedCat === card.type) {
-                        if (selectedCat === 'danger') classified.danger.push(card.id);
-                        else classified.injury.push(card.id);
-                        playSuccessSound();
-                        renderGame2(); updateScore2();
-                    } else { 
-                        playErrorSound();
-                        alert(`❌ Chưa đúng! "${card.text}" không phải ${selectedCat === 'danger' ? 'NGUY HIỂM' : 'THƯƠNG TÍCH'}.`); 
-                    }
-                };
-                cardsPool.appendChild(cardEl);
-            });
-            const dangerContainer = document.getElementById('dangerContainer2');
-            classified.danger.forEach(id => { const card = cardsData.find(c => c.id === id); const div = document.createElement('div'); div.style.cssText = 'background:#FFF5EA; border-radius:24px; padding:10px 14px; display:inline-flex; align-items:center; gap:10px; border:1px solid #FFDEC4;'; div.innerHTML = `<span>${card.icon}</span><span>${card.text}</span><button class="remove-btn" data-id="${card.id}" data-cat="danger" style="background:none; border:none; font-size:18px; cursor:pointer;">✖</button>`; dangerContainer.appendChild(div); });
-            const injuryContainer = document.getElementById('injuryContainer2');
-            classified.injury.forEach(id => { const card = cardsData.find(c => c.id === id); const div = document.createElement('div'); div.style.cssText = 'background:#FFF5EA; border-radius:24px; padding:10px 14px; display:inline-flex; align-items:center; gap:10px; border:1px solid #FFDEC4;'; div.innerHTML = `<span>${card.icon}</span><span>${card.text}</span><button class="remove-btn" data-id="${card.id}" data-cat="injury" style="background:none; border:none; font-size:18px; cursor:pointer;">✖</button>`; injuryContainer.appendChild(div); });
-            document.querySelectorAll('.remove-btn').forEach(btn => { btn.onclick = (e) => { e.stopPropagation(); playClickSound(); const id = parseInt(btn.getAttribute('data-id')); const cat = btn.getAttribute('data-cat'); if (cat === 'danger') classified.danger = classified.danger.filter(i => i !== id); else classified.injury = classified.injury.filter(i => i !== id); renderGame2(); updateScore2(); }; });
-            document.getElementById('resetBtn2')?.addEventListener('click', () => { playClickSound(); classified = { danger: [], injury: [] }; renderGame2(); updateScore2(); });
-            document.getElementById('totalCount2').innerText = totalCards2; updateScore2();
-        }
-        renderGame2();
-    })();
+    }
 
-    // ==================== BÀI TẬP 3: THỬ THÁCH HIỆP SĨ (CÓ ÂM THANH) ====================
-    (function() {
-        const questions = [
-            { text: "🏞️ Khi thấy bạn rủ ra ao hồ chơi gần bờ nước mà không có người lớn, em nên làm gì?", options: ["Cùng bạn ra chơi vì nước cạn", "Khuyên bạn không nên ra đó và báo người lớn", "Đứng xa nhìn bạn chơi"], correct: 1, explanation: "Không bao giờ được chơi gần ao hồ sâu khi không có người lớn." },
-            { text: "⚡ Phát hiện ổ điện bị hở, dây điện trần, em sẽ xử lý thế nào?", options: ["Dùng tay không kiểm tra", "Tránh xa và báo ngay cho người lớn", "Lấy que sắt để đẩy dây điện"], correct: 1, explanation: "Tuyệt đối không chạm vào dây điện hở." },
-            { text: "🏗️ Nếu thấy các bạn đang chơi đùa ở công trường xây dựng, em nên làm gì?", options: ["Chạy vào chơi cùng", "Đứng từ xa nhìn", "Khuyên bạn ra khỏi khu vực nguy hiểm và báo người lớn"], correct: 2, explanation: "Công trường xây dựng có nhiều nguy hiểm." },
-            { text: "🔥 Nếu chẳng may bị bỏng nhẹ do nước sôi, em sẽ sơ cứu thế nào?", options: ["Chà đá lạnh lên vết bỏng", "Ngâm vết bỏng vào nước lạnh sạch ngay", "Bôi kem đánh răng"], correct: 1, explanation: "Ngâm vết bỏng vào nước lạnh sạch là cách sơ cứu đúng." },
-            { text: "🩸 Khi bị đứt tay chảy máu, việc đầu tiên em cần làm là gì?", options: ["Rửa vết thương dưới vòi nước sạch và băng lại", "Để máu chảy tự nhiên", "Bôi thuốc đỏ ngay"], correct: 0, explanation: "Rửa sạch vết thương, sau đó băng lại để tránh nhiễm trùng." },
-            { text: "🔪 Khi nhìn thấy dao kéo để bừa bãi trong nhà, em nên làm gì?", options: ["Cầm lên chơi", "Báo người lớn cất vào nơi an toàn", "Để nguyên không quan tâm"], correct: 1, explanation: "Dao kéo sắc nhọn rất nguy hiểm." }
-        ];
-        let currentIdx = 0, score3 = 0, answered = false;
-        function renderExercise3() {
-            const container = document.getElementById('exercise3');
-            if (currentIdx >= questions.length) {
-                let msg = score3 === questions.length * 10 ? '🎉 TUYỆT VỜI! Bạn đạt điểm tối đa!' : `🏆 Bạn đạt ${score3}/${questions.length * 10} điểm.`;
-                if(score3 === questions.length * 10) playCompleteSound();
-                else playSuccessSound();
-                container.innerHTML = `<div style="background:#FDF8F0; border-radius:48px; padding:28px; text-align:center;"><div style="font-size:32px; font-weight:bold;">🎉 HOÀN THÀNH! 🎉</div><div style="margin:20px 0;">${msg}</div><button id="resetQuiz3" style="background:#E8D8C8; border:none; padding:12px 28px; border-radius:40px; cursor:pointer;">🔄 CHƠI LẠI</button></div>`;
-                document.getElementById('resetQuiz3')?.addEventListener('click', () => { playClickSound(); currentIdx = 0; score3 = 0; answered = false; renderExercise3(); });
-                return;
-            }
-            const q = questions[currentIdx];
-            let html = `<div style="background:#FDF8F0; border-radius:48px; padding:28px; border:2px solid #FFDEC4;">
-                <div style="font-size:22px; font-weight:bold; margin-bottom:24px; text-align:center;">${q.text}</div>
-                <div style="display:flex; flex-direction:column; gap:16px;" id="options3"></div>
-                <div style="text-align:center; margin-top:20px;"><div id="feedback3" style="background:#FFF0E8; border-radius:40px; padding:14px; display:inline-block;">👉 Hãy chọn đáp án đúng nhé!</div></div>
-                <div style="text-align:center; margin-top:15px;"><button id="nextBtn3" style="background:#E8D8C8; border:none; padding:10px 24px; border-radius:40px; cursor:pointer;">${currentIdx === questions.length-1 ? '🏁 HOÀN THÀNH' : '➡️ CÂU TIẾP THEO'}</button></div>
-                <div style="text-align:center; margin-top:10px;">🏆 Điểm: <span id="score3">${score3}</span> / ${questions.length * 10}</div>
-            </div>`;
-            container.innerHTML = html;
-            const optionsDiv = document.getElementById('options3');
-            q.options.forEach((opt, idx) => {
-                const btn = document.createElement('div');
-                btn.style.cssText = 'background:white; border:2px solid #FFDEC4; border-radius:60px; padding:14px 20px; cursor:pointer; display:flex; align-items:center; gap:14px;';
-                btn.innerHTML = `<span style="background:#F0E4D8; width:34px; height:34px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center;">${String.fromCharCode(65+idx)}</span><span>${opt}</span>`;
-                btn.onclick = () => {
-                    if (answered) return;
-                    playClickSound();
-                    answered = true;
-                    const fb = document.getElementById('feedback3');
-                    if (idx === q.correct) { 
-                        score3 += 10; 
-                        fb.innerHTML = `✅ Đúng rồi! ${q.explanation} +10 điểm! 🎉`; 
-                        fb.style.background = "#E8F5E9"; 
-                        playSuccessSound();
-                    } else { 
-                        fb.innerHTML = `❌ Chưa đúng! Đáp án đúng là ${String.fromCharCode(65+q.correct)}: ${q.options[q.correct]}. ${q.explanation}`; 
-                        fb.style.background = "#FFEBEE"; 
-                        playErrorSound();
-                    }
-                    document.getElementById('score3').innerText = score3;
-                };
-                optionsDiv.appendChild(btn);
-            });
-            document.getElementById('nextBtn3').onclick = () => {
-                if (!answered) { 
-                    document.getElementById('feedback3').innerHTML = "⚠️ Hãy chọn đáp án trước khi sang câu tiếp theo!";
-                    playErrorSound();
-                    return; 
-                }
-                playClickSound();
-                currentIdx++; answered = false; renderExercise3();
-            };
+    // ========== BÀI TẬP 2: PHÂN LOẠI ==========
+    const classifyItems = [
+        { text: "🌳 Leo trèo cây cao", correct: "danger" },
+        { text: "💧 Chơi gần ao hồ không rào", correct: "danger" },
+        { text: "🏗️ Chạy chơi ở công trường", correct: "danger" },
+        { text: "🔪 Nghịch dao kéo sắc nhọn", correct: "danger" },
+        { text: "🏢 Trèo lan can tầng cao", correct: "danger" },
+        { text: "🩸 Tay bị đứt chảy máu", correct: "injury" },
+        { text: "🦶 Trẹo chân khi chạy nhảy", correct: "injury" },
+        { text: "🔥 Bỏng nước sôi", correct: "injury" },
+        { text: "🦵 Bị ngã xước đầu gối", correct: "injury" },
+        { text: "🐝 Côn trùng cắn sưng đỏ", correct: "injury" }
+    ];
+    let userClassify = classifyItems.map(() => null);
+
+    function renderClassify() {
+        const container = document.getElementById('classifyArea');
+        container.innerHTML = '';
+        classifyItems.forEach((item, idx) => {
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'classify-item';
+            itemDiv.innerHTML = `
+                <div class="classify-text">${item.text}</div>
+                <div class="classify-buttons">
+                    <button class="classify-btn classify-btn-danger ${userClassify[idx] === 'danger' ? 'selected' : ''}" data-idx="${idx}" data-type="danger">⚠️ NGUY HIỂM</button>
+                    <button class="classify-btn classify-btn-injury ${userClassify[idx] === 'injury' ? 'selected' : ''}" data-idx="${idx}" data-type="injury">🩸 THƯƠNG TÍCH</button>
+                </div>
+            `;
+            const dangerBtn = itemDiv.querySelector('.classify-btn-danger');
+            const injuryBtn = itemDiv.querySelector('.classify-btn-injury');
+            dangerBtn.onclick = () => { userClassify[idx] = 'danger'; renderClassify(); playSound('click'); };
+            injuryBtn.onclick = () => { userClassify[idx] = 'injury'; renderClassify(); playSound('click'); };
+            container.appendChild(itemDiv);
+        });
+    }
+
+    function checkClassify() {
+        let correct = 0;
+        classifyItems.forEach((item, idx) => {
+            if (userClassify[idx] === item.correct) correct++;
+        });
+        const resultDiv = document.getElementById('classifyResult');
+        if (correct === classifyItems.length) {
+            resultDiv.className = 'result-area correct';
+            resultDiv.innerHTML = '🎉🎉🎉 Xuất sắc! Bé đã phân loại đúng tất cả tình huống! 🎉🎉🎉';
+            playSound('correct');
+            createConfetti(800);
+        } else {
+            resultDiv.className = 'result-area wrong';
+            resultDiv.innerHTML = `🔍 Bé phân loại đúng ${correct}/${classifyItems.length} tình huống. Hãy xem lại nhé! 💪`;
+            playSound('wrong');
         }
-        renderExercise3();
-    })();
-    resizeCanvas();
+    }
+
+    // ========== BÀI TẬP 3: TRẮC NGHIỆM ==========
+    const quizData = [
+        { text: "🏞️ Khi thấy bạn rủ ra ao hồ chơi gần bờ nước mà không có người lớn, em nên làm gì?", options: ["Cùng bạn ra chơi vì nước cạn", "Khuyên bạn không nên ra đó và báo người lớn", "Đứng xa nhìn bạn chơi"], correct: 1 },
+        { text: "⚡ Phát hiện ổ điện bị hở, dây điện trần, em sẽ xử lý thế nào?", options: ["Dùng tay không kiểm tra", "Tránh xa và báo ngay cho người lớn", "Lấy que sắt để đẩy dây điện"], correct: 1 },
+        { text: "🏗️ Nếu thấy các bạn đang chơi đùa ở công trường xây dựng, em nên làm gì?", options: ["Chạy vào chơi cùng", "Đứng từ xa nhìn", "Khuyên bạn ra khỏi khu vực nguy hiểm và báo người lớn"], correct: 2 },
+        { text: "🔥 Nếu chẳng may bị bỏng nhẹ do nước sôi, em sẽ sơ cứu thế nào?", options: ["Chà đá lạnh lên vết bỏng", "Ngâm vết bỏng vào nước lạnh sạch ngay", "Bôi kem đánh răng"], correct: 1 },
+        { text: "🩸 Khi bị đứt tay chảy máu, việc đầu tiên em cần làm là gì?", options: ["Rửa vết thương dưới vòi nước sạch và băng lại", "Để máu chảy tự nhiên", "Bôi thuốc đỏ ngay"], correct: 0 }
+    ];
+    let quizAnswers = new Array(quizData.length).fill(null);
+
+    function renderQuiz() {
+        const container = document.getElementById('quizArea');
+        container.innerHTML = '';
+        quizData.forEach((q, idx) => {
+            const qDiv = document.createElement('div');
+            qDiv.className = 'question-item';
+            qDiv.innerHTML = `<div class="question-text">${idx+1}. ${q.text}</div>`;
+            q.options.forEach((opt, optIdx) => {
+                const optDiv = document.createElement('div');
+                optDiv.className = 'option';
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = `quiz${idx}`;
+                radio.value = optIdx;
+                if (quizAnswers[idx] === optIdx) radio.checked = true;
+                radio.addEventListener('change', (e) => {
+                    quizAnswers[idx] = parseInt(e.target.value);
+                    playSound('click');
+                });
+                optDiv.appendChild(radio);
+                optDiv.appendChild(document.createTextNode(opt));
+                qDiv.appendChild(optDiv);
+            });
+            container.appendChild(qDiv);
+        });
+    }
+
+    function checkQuiz() {
+        let correct = 0;
+        quizData.forEach((q, idx) => { if (quizAnswers[idx] === q.correct) correct++; });
+        const resultDiv = document.getElementById('quizResult');
+        if (correct === quizData.length) {
+            resultDiv.className = 'result-area correct';
+            resultDiv.innerHTML = '🎉🎉🎉 Tuyệt vời! Bé đã vượt qua thử thách HIỆP SĨ AN TOÀN! 🎉🎉🎉';
+            playSound('correct');
+            createConfetti(800);
+        } else {
+            resultDiv.className = 'result-area wrong';
+            resultDiv.innerHTML = `⚔️ Bé trả lời đúng ${correct}/${quizData.length} câu. Hãy xem lại bài học nhé! 💪`;
+            playSound('wrong');
+        }
+    }
+
+    function init() {
+        renderMatching();
+        renderClassify();
+        renderQuiz();
+        document.getElementById('checkMatchBtn').addEventListener('click', checkMatching);
+        document.getElementById('checkClassifyBtn').addEventListener('click', checkClassify);
+        document.getElementById('checkQuizBtn').addEventListener('click', checkQuiz);
+        resizeCanvas();
+    }
+    init();
 </script>
 </body>
 </html>
