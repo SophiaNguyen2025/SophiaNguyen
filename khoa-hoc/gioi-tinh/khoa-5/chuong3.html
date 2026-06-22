@@ -3,402 +3,416 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Khóa 5 - Chương 3: Bản lĩnh phái mạnh | Sophia Nguyen</title>
+    <title>Khóa 5 - Chương 3: Bản lĩnh phái mạnh | Sophia Nguyễn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --navy-dark: #0A1628;
+            --navy-mid: #1E3A5F;
+            --gold: #C9A84C;
+            --gold-light: #D4B85C;
+            --cream: #F5F0E8;
+            --white: #FFFFFF;
+            --gray: #4A5A6A;
+            --light-gray: #E8E4DC;
         }
-
         body {
-            background: linear-gradient(135deg, #E0E8F0 0%, #D0D8E8 100%);
-            font-family: 'Segoe UI', 'Quicksand', 'Nunito', 'Poppins', sans-serif;
+            background: linear-gradient(145deg, var(--cream) 0%, #EDE8E0 100%);
+            font-family: 'Inter', 'Be Vietnam Pro', sans-serif;
             padding: 20px;
+            min-height: 100vh;
         }
-
-        .container {
-            max-width: 950px;
-            margin: 0 auto;
+        .container { max-width: 1100px; margin: 0 auto; }
+        
+        .header { 
+            background: var(--white); 
+            border-radius: 32px; 
+            padding: 20px; 
+            margin-bottom: 20px; 
+            text-align: center; 
+            box-shadow: 0 10px 30px rgba(10,22,40,0.08);
+            border: 1px solid var(--light-gray);
         }
-
-        .header {
-            background: white;
-            border-radius: 32px;
-            padding: 20px;
-            margin-bottom: 25px;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        .logo { height: 60px; margin-bottom: 10px; }
+        .logo img { height: 60px; }
+        .header h1 { 
+            font-family: 'Playfair Display', serif;
+            color: var(--navy-dark); 
+            font-size: 1.8rem; 
         }
-
-        .logo {
-            width: 70px;
-            margin: 0 auto 10px auto;
-        }
-
-        .logo img {
-            width: 100%;
-            height: auto;
-        }
-
+        .header h1 span { color: var(--gold); }
         .course-badge {
-            background: linear-gradient(135deg, #4A6A8A, #2A4A6A);
             display: inline-block;
-            padding: 5px 18px;
+            background: rgba(201,168,76,0.2);
+            color: var(--gold);
+            padding: 4px 16px;
             border-radius: 40px;
-            font-size: 13px;
-            font-weight: bold;
-            color: white;
-            margin-bottom: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 8px;
         }
-
-        .chapter-title {
-            font-size: 32px;
-            font-weight: bold;
-            color: #2A4A6A;
-            text-align: center;
-            background: #F0F4F8;
-            display: inline-block;
-            padding: 8px 30px;
-            border-radius: 60px;
-            margin-top: 5px;
+        
+        .video-section { 
+            background: var(--white); 
+            border-radius: 32px; 
+            padding: 20px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 10px 30px rgba(10,22,40,0.08);
+            border: 1px solid var(--light-gray);
         }
-
-        .video-card {
-            background: white;
-            border-radius: 32px;
-            overflow: hidden;
-            margin-bottom: 25px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        .video-wrapper { 
+            position: relative; 
+            padding-bottom: 56.25%; 
+            height: 0; 
+            border-radius: 24px; 
+            overflow: hidden; 
         }
-
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
+        .video-wrapper iframe { 
+            position: absolute; 
+            top: 0; left: 0; 
+            width: 100%; height: 100%; 
+            border: none; 
         }
-
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
         .video-label {
-            background: #F0F4F8;
+            background: var(--cream);
             padding: 12px 20px;
-            font-weight: bold;
-            color: #2A4A6A;
-            font-size: 18px;
+            font-weight: 600;
+            color: var(--navy-dark);
+            font-size: 1rem;
             text-align: center;
-            border-top: 2px solid #D0D8E0;
+            border-top: 2px solid var(--gold);
+            border-radius: 0 0 32px 32px;
         }
-
-        .exercise-1 {
-            background: white;
-            border-radius: 32px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-            border-top: 6px solid #4A6A8A;
+        
+        .exercise { 
+            background: var(--white); 
+            border-radius: 32px; 
+            padding: 24px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 10px 30px rgba(10,22,40,0.08);
+            border: 1px solid var(--light-gray);
         }
-
-        .exercise-2 {
-            background: white;
-            border-radius: 32px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-            border-top: 6px solid #2A5A7A;
+        .ex-title { 
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem; 
+            color: var(--navy-dark); 
+            margin-bottom: 8px; 
+            padding-bottom: 8px; 
+            border-bottom: 3px solid var(--gold); 
+            display: inline-block; 
         }
-
-        .exercise-3 {
-            background: white;
-            border-radius: 32px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-            border-top: 6px solid #5A8AAA;
-        }
-
-        .ex-title-1 { font-size: 26px; font-weight: bold; color: #4A6A8A; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
-        .ex-title-2 { font-size: 26px; font-weight: bold; color: #2A5A7A; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
-        .ex-title-3 { font-size: 26px; font-weight: bold; color: #5A8AAA; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
-
         .ex-desc {
-            color: #6A8AAA;
-            margin-bottom: 20px;
-            font-size: 15px;
-            padding-left: 22px;
+            color: var(--gray);
+            margin: 12px 0 20px;
+            font-size: 0.95rem;
         }
-
+        
         .question-item {
-            background: #FDFCFE;
-            border-radius: 24px;
+            background: var(--cream);
+            border-radius: 20px;
             padding: 16px 20px;
             margin-bottom: 16px;
-            border: 1px solid #D0D8E8;
+            border: 1px solid var(--light-gray);
         }
-
         .question-text {
             font-weight: 700;
-            color: #4A6A8A;
+            color: var(--navy-dark);
             margin-bottom: 12px;
-            font-size: 17px;
+            font-size: 1rem;
         }
-
         .option {
             display: flex;
             align-items: center;
             gap: 12px;
-            margin: 10px 0;
-            padding: 8px 12px;
-            background: #F0F4F8;
+            margin: 8px 0;
+            padding: 8px 16px;
+            background: var(--white);
             border-radius: 60px;
             cursor: pointer;
             transition: 0.2s;
             border: 1px solid transparent;
         }
-
         .option:hover {
-            background: #E8F0F8;
-            border-color: #A0C0D8;
+            border-color: var(--gold);
+            background: var(--cream);
         }
-
         input[type="radio"] {
             width: 18px;
             height: 18px;
+            accent-color: var(--gold);
             cursor: pointer;
-            accent-color: #4A6A8A;
         }
-
+        
         .match-row {
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
-            margin: 15px 0;
+            margin: 12px 0;
             align-items: center;
         }
-
         .match-term {
-            background: #F0F4F8;
+            background: var(--cream);
             padding: 10px 16px;
             border-radius: 60px;
-            font-weight: bold;
+            font-weight: 600;
             min-width: 140px;
             text-align: center;
-            color: #2A4A6A;
+            color: var(--navy-dark);
+            border: 1px solid var(--light-gray);
         }
-
         .match-def {
             flex: 1;
-            background: #F0F4F8;
+            background: var(--cream);
             padding: 10px 16px;
             border-radius: 60px;
             cursor: pointer;
             transition: 0.2s;
-            border: 1px solid #D0D8E8;
+            border: 1px solid var(--light-gray);
+            min-width: 120px;
+            text-align: center;
         }
-
+        .match-def:hover { border-color: var(--gold); }
         .match-def.selected {
-            background: #2A5A7A;
-            color: white;
-            border-color: #1A4A6A;
+            background: var(--gold);
+            color: var(--navy-dark);
+            border-color: var(--gold);
         }
-
+        
         .emotion-select {
-            background: #FDFCFE;
-            border-radius: 24px;
+            background: var(--cream);
+            border-radius: 20px;
             padding: 20px;
-            margin-bottom: 20px;
-            border: 1px solid #D0D8E8;
+            margin-bottom: 16px;
+            border: 1px solid var(--light-gray);
         }
-
         .emotion-select label {
             display: block;
-            margin: 15px 0;
-            padding: 12px 20px;
-            background: #F0F4F8;
+            margin: 10px 0;
+            padding: 10px 20px;
+            background: var(--white);
             border-radius: 60px;
             cursor: pointer;
             transition: 0.2s;
+            border: 1px solid var(--light-gray);
         }
-
+        .emotion-select label:hover { border-color: var(--gold); }
         .emotion-select label.selected {
-            background: #5A8AAA;
-            color: white;
+            background: var(--gold);
+            color: var(--navy-dark);
+            border-color: var(--gold);
         }
-
         .emotion-select input {
             margin-right: 12px;
-            accent-color: #5A8AAA;
+            accent-color: var(--gold);
         }
-
+        
         .check-btn {
+            background: var(--gold);
+            color: var(--navy-dark);
             border: none;
-            color: white;
-            font-weight: bold;
-            font-size: 18px;
+            font-weight: 700;
+            font-size: 1rem;
             padding: 12px 28px;
             border-radius: 60px;
             cursor: pointer;
-            margin-top: 20px;
+            margin-top: 16px;
             width: 100%;
             transition: 0.2s;
+            font-family: 'Inter', sans-serif;
         }
-
-        .btn-1 { background: #4A6A8A; }
-        .btn-1:hover { background: #3A5A7A; }
-        .btn-2 { background: #2A5A7A; }
-        .btn-2:hover { background: #1A4A6A; }
-        .btn-3 { background: #5A8AAA; }
-        .btn-3:hover { background: #4A7A9A; }
-
+        .check-btn:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+        }
         .result-area {
-            margin-top: 18px;
-            border-radius: 24px;
+            margin-top: 16px;
+            border-radius: 20px;
             padding: 15px;
             text-align: center;
-            font-weight: bold;
-            font-size: 16px;
+            font-weight: 600;
+            font-size: 1rem;
+            display: none;
         }
-
-        @media (max-width: 600px) {
-            .exercise-1, .exercise-2, .exercise-3 { padding: 18px; }
-            .chapter-title { font-size: 24px; padding: 6px 20px; }
-            .match-term { min-width: 110px; font-size: 13px; }
+        .result-area.correct {
+            background: #E8F5E9;
+            color: #2E7D32;
+            display: block;
+        }
+        .result-area.wrong {
+            background: #FFF3E0;
+            color: #E65100;
+            display: block;
+        }
+        
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .chapter-nav a {
+            background: var(--navy-dark);
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .chapter-nav a:hover {
+            background: var(--gold);
+            color: var(--navy-dark);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) { 
+            .header h1 { font-size: 1.4rem; }
+            .match-term { min-width: 110px; font-size: 0.85rem; }
+            .match-def { font-size: 0.85rem; }
         }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="header">
-        <div class="logo">
-            <img src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Sophia Nguyen Logo">
-        </div>
+        <img src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Sophia Nguyễn" class="logo">
         <div class="course-badge">💪 Khóa 5 - Dành cho tuổi teen 13+</div>
-        <div>
-            <span class="chapter-title">💪 Bản lĩnh phái mạnh - Bí mật tuổi dậy thì</span>
-        </div>
+        <h1>💪 Chương 3: <span>Bản lĩnh phái mạnh - Bí mật tuổi dậy thì</span></h1>
     </div>
 
-    <div class="video-card">
+    <div class="video-section">
         <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/exSr3LWJKY0" title="Bài giảng Khóa 5 Chương 3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/exSr3LWJKY0" title="Bài giảng Khóa 5 Chương 3" frameborder="0" allowfullscreen></iframe>
         </div>
         <div class="video-label">
             🎬 Bài học: Bản lĩnh phái mạnh – Hiểu và tự tin với những thay đổi của cơ thể!
         </div>
     </div>
 
-    <!-- BÀI TẬP 1: TRẮC NGHIỆM VỀ CƠ THỂ NAM -->
-    <div class="exercise-1">
-        <div class="ex-title-1">📝 Bài tập 1: Kiến thức về cơ thể nam</div>
+    <div class="exercise">
+        <div class="ex-title">📝 Bài tập 1: Kiến thức về cơ thể nam</div>
         <div class="ex-desc">🧠 Chọn đáp án đúng cho mỗi câu hỏi dưới đây.</div>
         <div id="quizArea"></div>
-        <button class="check-btn btn-1" id="checkQuizBtn">✅ Kiểm tra bài tập 1</button>
-        <div id="quizResult" class="result-area" style="display: none;"></div>
+        <button class="check-btn" id="checkQuizBtn">✅ Kiểm tra bài tập 1</button>
+        <div id="quizResult" class="result-area"></div>
     </div>
 
-    <!-- BÀI TẬP 2: GHÉP CẢM XÚC - CÁCH XỬ LÝ (ĐẢO TÙM LUM) -->
-    <div class="exercise-2">
-        <div class="ex-title-2">🔗 Bài tập 2: Ghép cảm xúc với cách xử lý</div>
+    <div class="exercise">
+        <div class="ex-title">🔗 Bài tập 2: Ghép cảm xúc với cách xử lý</div>
         <div class="ex-desc">🎯 Nhấn vào ô bên phải để ghép với cảm xúc bên trái nhé!</div>
         <div id="matchingArea"></div>
-        <button class="check-btn btn-2" id="checkMatchBtn">🔍 Kiểm tra bài tập 2</button>
-        <div id="matchResult" class="result-area" style="display: none;"></div>
+        <button class="check-btn" id="checkMatchBtn">🔍 Kiểm tra bài tập 2</button>
+        <div id="matchResult" class="result-area"></div>
     </div>
 
-    <!-- BÀI TẬP 3: NHẬT KÝ CẢM XÚC (NAM) -->
-    <div class="exercise-3">
-        <div class="ex-title-3">📔 Bài tập 3: Nhật ký cảm xúc</div>
+    <div class="exercise">
+        <div class="ex-title">📔 Bài tập 3: Nhật ký cảm xúc</div>
         <div class="ex-desc">💪 Hôm nay con cảm thấy thế nào? Hãy chọn và xem gợi ý nhé!</div>
         <div id="emotionArea"></div>
-        <button class="check-btn btn-3" id="checkEmotionBtn">💡 Xem gợi ý</button>
-        <div id="emotionResult" class="result-area" style="display: none;"></div>
+        <button class="check-btn" id="checkEmotionBtn">💡 Xem gợi ý</button>
+        <div id="emotionResult" class="result-area"></div>
+    </div>
+
+    <div class="chapter-nav">
+        <a href="index.html">📚 Danh sách chương</a>
+        <a href="chuong4.html">➡️ Chương tiếp theo</a>
     </div>
 </div>
+<canvas id="confetti-canvas"></canvas>
 
 <script>
-    // Audio system
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    let ctx = null, width = window.innerWidth, height = window.innerHeight, particles = [], animationId = null;
+    function resizeCanvas() { width = window.innerWidth; height = window.innerHeight; const canvas = document.getElementById('confetti-canvas'); if(canvas){ canvas.width = width; canvas.height = height; ctx = canvas.getContext('2d'); } }
+    function createConfetti(duration = 1800) {
+        if(!ctx) return;
+        if(animationId) cancelAnimationFrame(animationId);
+        particles = [];
+        for(let i=0;i<140;i++) {
+            particles.push({ x: Math.random() * width, y: Math.random() * height - height, size: Math.random() * 7 + 3, color: `hsl(${Math.random() * 360}, 80%, 60%)`, speedY: Math.random() * 5 + 3, speedX: (Math.random() - 0.5) * 2, rotation: Math.random() * 360, rotSpeed: (Math.random() - 0.5) * 6 });
+        }
+        drawConfetti();
+        setTimeout(() => { if(animationId) cancelAnimationFrame(animationId); ctx?.clearRect(0,0,width,height); particles = []; }, duration);
+    }
+    function drawConfetti() {
+        if(!ctx) return;
+        ctx.clearRect(0, 0, width, height);
+        let allFinished = true;
+        for(let i=0;i<particles.length;i++) {
+            const p = particles[i];
+            if(p.y < height + 50) {
+                allFinished = false;
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.rotation * Math.PI / 180);
+                ctx.fillStyle = p.color;
+                ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size * 0.6);
+                ctx.restore();
+                p.y += p.speedY;
+                p.x += p.speedX;
+                p.rotation += p.rotSpeed;
+            }
+        }
+        if(!allFinished) animationId = requestAnimationFrame(drawConfetti);
+        else { if(animationId) cancelAnimationFrame(animationId); particles = []; ctx.clearRect(0,0,width,height); }
+    }
+    window.addEventListener('resize', () => { resizeCanvas(); if(particles.length) drawConfetti(); });
     
     function playSound(type) {
-        const now = audioContext.currentTime;
-        const gainNode = audioContext.createGain();
-        gainNode.connect(audioContext.destination);
-        gainNode.gain.value = 0.3;
-
-        const oscillator = audioContext.createOscillator();
-        oscillator.connect(gainNode);
-
-        if (type === 'tick') {
-            oscillator.frequency.value = 880;
-            oscillator.type = 'sine';
-            gainNode.gain.value = 0.15;
-            oscillator.start();
-            oscillator.stop(now + 0.1);
-        } else if (type === 'plop') {
-            oscillator.frequency.value = 440;
-            oscillator.type = 'sine';
-            gainNode.gain.value = 0.2;
-            oscillator.start();
-            oscillator.stop(now + 0.15);
-        } else if (type === 'correct') {
-            oscillator.frequency.value = 880;
-            oscillator.type = 'sine';
-            gainNode.gain.value = 0.2;
-            oscillator.start();
-            oscillator.stop(now + 0.1);
-            setTimeout(() => {
-                const osc2 = audioContext.createOscillator();
-                osc2.connect(gainNode);
-                osc2.frequency.value = 1100;
-                osc2.type = 'sine';
-                osc2.start();
-                osc2.stop(now + 0.2);
-            }, 100);
-        } else if (type === 'wrong') {
-            oscillator.frequency.value = 440;
-            oscillator.type = 'sine';
-            gainNode.gain.value = 0.15;
-            oscillator.start();
-            oscillator.stop(now + 0.2);
-        }
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            if (type === 'correct') {
+                osc.frequency.value = 880;
+                gain.gain.value = 0.2;
+                osc.type = 'sine';
+                osc.start();
+                gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                osc.stop(audioCtx.currentTime + 0.3);
+                setTimeout(() => {
+                    const osc2 = audioCtx.createOscillator();
+                    const gain2 = audioCtx.createGain();
+                    osc2.connect(gain2);
+                    gain2.connect(audioCtx.destination);
+                    osc2.frequency.value = 1100;
+                    gain2.gain.value = 0.2;
+                    osc2.type = 'sine';
+                    osc2.start();
+                    gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                    osc2.stop(audioCtx.currentTime + 0.3);
+                }, 100);
+            } else if (type === 'wrong') {
+                osc.frequency.value = 440;
+                gain.gain.value = 0.2;
+                osc.type = 'sawtooth';
+                osc.start();
+                gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                osc.stop(audioCtx.currentTime + 0.3);
+            } else {
+                osc.frequency.value = 660;
+                gain.gain.value = 0.1;
+                osc.type = 'sine';
+                osc.start();
+                gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.05);
+                osc.stop(audioCtx.currentTime + 0.05);
+            }
+        } catch(e) {}
     }
 
-    // ---------------------- BÀI TẬP 1: TRẮC NGHIỆM ----------------------
     const quizData = [
-        {
-            text: "🏭 Cơ thể nam giới sản xuất tinh trùng ở đâu?",
-            options: ["Buồng trứng", "Tinh hoàn", "Tử cung", "Tuyến giáp"],
-            correct: 1
-        },
-        {
-            text: "🌙 'Mộng tinh' là hiện tượng gì?",
-            options: ["Bệnh về sinh lý", "Xuất tinh khi ngủ", "Đau bụng khi ngủ", "Mơ thấy ác mộng"],
-            correct: 1
-        },
-        {
-            text: "✅ Mộng tinh có phải là dấu hiệu bất thường không?",
-            options: ["Có, cần đi khám ngay", "Không, đó là dấu hiệu phát triển khỏe mạnh", "Chỉ xảy ra khi bị bệnh", "Hiếm gặp và bất thường"],
-            correct: 1
-        },
-        {
-            text: "🧼 Khi vệ sinh vùng kín, cần lưu ý điều gì?",
-            options: ["Chỉ rửa bằng nước", "Kéo bao quy đầu để làm sạch bên trong", "Không cần vệ sinh hàng ngày", "Dùng xà phòng thơm nồng"],
-            correct: 1
-        },
-        {
-            text: "🤝 Một chàng trai bản lĩnh nên làm gì với bạn nữ?",
-            options: ["Trêu chọc về kinh nguyệt", "Tôn trọng và giúp đỡ tinh tế", "Tránh xa", "Không quan tâm"],
-            correct: 1
-        }
+        { text: "🏭 Cơ thể nam giới sản xuất tinh trùng ở đâu?", options: ["Buồng trứng", "Tinh hoàn", "Tử cung", "Tuyến giáp"], correct: 1 },
+        { text: "🌙 'Mộng tinh' là hiện tượng gì?", options: ["Bệnh về sinh lý", "Xuất tinh khi ngủ", "Đau bụng khi ngủ", "Mơ thấy ác mộng"], correct: 1 },
+        { text: "✅ Mộng tinh có phải là dấu hiệu bất thường không?", options: ["Có, cần đi khám ngay", "Không, đó là dấu hiệu phát triển khỏe mạnh", "Chỉ xảy ra khi bị bệnh", "Hiếm gặp và bất thường"], correct: 1 },
+        { text: "🧼 Khi vệ sinh vùng kín, cần lưu ý điều gì?", options: ["Chỉ rửa bằng nước", "Kéo bao quy đầu để làm sạch bên trong", "Không cần vệ sinh hàng ngày", "Dùng xà phòng thơm nồng"], correct: 1 },
+        { text: "🤝 Một chàng trai bản lĩnh nên làm gì với bạn nữ?", options: ["Trêu chọc về kinh nguyệt", "Tôn trọng và giúp đỡ tinh tế", "Tránh xa", "Không quan tâm"], correct: 1 }
     ];
-
     let quizAnswers = new Array(quizData.length).fill(null);
 
     function renderQuiz() {
@@ -418,7 +432,7 @@
                 if (quizAnswers[idx] === optIdx) radio.checked = true;
                 radio.addEventListener('change', (e) => {
                     quizAnswers[idx] = parseInt(e.target.value);
-                    playSound('tick');
+                    playSound('click');
                 });
                 optDiv.appendChild(radio);
                 optDiv.appendChild(document.createTextNode(opt));
@@ -430,37 +444,32 @@
 
     function checkQuiz() {
         let correct = 0;
-        quizData.forEach((q, idx) => {
-            if (quizAnswers[idx] === q.correct) correct++;
-        });
+        quizData.forEach((q, idx) => { if (quizAnswers[idx] === q.correct) correct++; });
         const resultDiv = document.getElementById('quizResult');
-        resultDiv.style.display = 'block';
         if (correct === quizData.length) {
+            resultDiv.className = 'result-area correct';
             resultDiv.innerHTML = '🎉🎉🎉 Tuyệt vời! Con đã hiểu rõ về cơ thể và bản lĩnh phái mạnh! 🎉🎉🎉';
-            resultDiv.style.background = "#DFF0DF";
             playSound('correct');
+            createConfetti(800);
         } else {
+            resultDiv.className = 'result-area wrong';
             resultDiv.innerHTML = `📚 Bé trả lời đúng ${correct}/${quizData.length} câu. Hãy xem lại video và thử lại nhé! 💪`;
-            resultDiv.style.background = "#FFEFE0";
             playSound('wrong');
         }
     }
 
-    // ---------------------- BÀI TẬP 2: GHÉP CẶP (ĐẢO TÙM LUM) ----------------------
     const matchTerms = [
         { term: "😶 Bối rối", defIdx: null },
         { term: "😳 Xấu hổ (về mộng tinh)", defIdx: null },
         { term: "😟 Lo lắng (so sánh với bạn)", defIdx: null },
         { term: "🎤 Vỡ giọng", defIdx: null }
     ];
-
     const defsList = [
         "Đọc sách, hỏi bố hoặc anh trai, nhớ rằng ai cũng trải qua",
         "Mộng tinh không phải lỗi, nếu có sự cố thì bình tĩnh tự giặt quần áo",
         "Mỗi người có lộ trình riêng, tập trung vào sức khỏe và niềm vui",
         "Đừng cố nói to, giọng sẽ ổn định dần, rất nhiều bạn cũng thế"
     ];
-
     let currentMatches = [null, null, null, null];
 
     function renderMatching() {
@@ -473,51 +482,37 @@
             termSpan.className = 'match-term';
             termSpan.innerText = termObj.term;
             row.appendChild(termSpan);
-
-            const defContainer = document.createElement('div');
-            defContainer.style.flex = '1';
-            defContainer.style.display = 'flex';
-            defContainer.style.flexWrap = 'wrap';
-            defContainer.style.gap = '10px';
-
             defsList.forEach((def, dIdx) => {
                 const defBtn = document.createElement('div');
-                defBtn.className = 'match-def';
+                defBtn.className = 'match-def' + (currentMatches[tIdx] === dIdx ? ' selected' : '');
                 defBtn.innerText = def;
-                if (currentMatches[tIdx] === dIdx) {
-                    defBtn.classList.add('selected');
-                }
-                defBtn.addEventListener('click', () => {
+                defBtn.onclick = () => {
                     currentMatches[tIdx] = dIdx;
                     renderMatching();
-                    playSound('tick');
-                });
-                defContainer.appendChild(defBtn);
+                    playSound('click');
+                };
+                row.appendChild(defBtn);
             });
-            row.appendChild(defContainer);
             container.appendChild(row);
         });
     }
 
     function checkMatching() {
         let correct = 0;
-        for (let i = 0; i < currentMatches.length; i++) {
-            if (currentMatches[i] === i) correct++;
-        }
+        for (let i = 0; i < currentMatches.length; i++) { if (currentMatches[i] === i) correct++; }
         const resultDiv = document.getElementById('matchResult');
-        resultDiv.style.display = 'block';
         if (correct === matchTerms.length) {
+            resultDiv.className = 'result-area correct';
             resultDiv.innerHTML = '🎉🎉🎉 Xuất sắc! Con biết cách xử lý cảm xúc của mình rồi! 🎉🎉🎉';
-            resultDiv.style.background = "#DFF0DF";
             playSound('correct');
+            createConfetti(800);
         } else {
+            resultDiv.className = 'result-area wrong';
             resultDiv.innerHTML = `💪 Bé ghép đúng ${correct}/${matchTerms.length} cặp. Hãy thử lại lần nữa nhé! 💪`;
-            resultDiv.style.background = "#FFEFE0";
             playSound('wrong');
         }
     }
 
-    // ---------------------- BÀI TẬP 3: NHẬT KÝ CẢM XÚC ----------------------
     const emotions = [
         { emoji: "😶", name: "Bối rối", tip: "🧠 Tuổi dậy thì có nhiều thay đổi mới lạ. Hãy thử: Đọc sách, hỏi bố hoặc anh trai, nhớ rằng AI CŨNG TRẢI QUA giai đoạn này." },
         { emoji: "😳", name: "Xấu hổ", tip: "🌙 Mộng tinh là dấu hiệu cơ thể khỏe mạnh. Nếu có 'sự cố', hãy bình tĩnh tự giặt quần áo." },
@@ -526,16 +521,13 @@
         { emoji: "🎤", name: "Vỡ giọng", tip: "🗣️ Đây là giai đoạn thanh quản phát triển. Hãy thử: Đừng cố gắng nói to, giọng sẽ ổn định dần. Rất nhiều bạn đồng trang lứa cũng thế!" },
         { emoji: "💪", name: "Tự tin", tip: "🌟 Những thay đổi là minh chứng của sự trưởng thành. Hãy thử: Tự thưởng cho mình, ghi nhận những thay đổi tích cực, nói 'Mình tự hào vì mình'." }
     ];
-
     let selectedEmotion = null;
 
     function renderEmotions() {
         const container = document.getElementById('emotionArea');
         container.innerHTML = '';
-        
         const selectDiv = document.createElement('div');
         selectDiv.className = 'emotion-select';
-        
         emotions.forEach(em => {
             const label = document.createElement('label');
             if (selectedEmotion === em.name) label.classList.add('selected');
@@ -547,30 +539,25 @@
             radio.addEventListener('change', (e) => {
                 selectedEmotion = em.name;
                 renderEmotions();
-                playSound('tick');
+                playSound('click');
             });
             label.appendChild(radio);
             label.appendChild(document.createTextNode(` ${em.emoji} ${em.name}`));
             selectDiv.appendChild(label);
         });
-        
         container.appendChild(selectDiv);
     }
 
     function checkEmotion() {
         const resultDiv = document.getElementById('emotionResult');
-        resultDiv.style.display = 'block';
-        
         if (selectedEmotion) {
             const emotion = emotions.find(e => e.name === selectedEmotion);
-            if (emotion) {
-                resultDiv.innerHTML = `💡 <strong>${emotion.emoji} ${emotion.name}</strong><br><br>${emotion.tip}`;
-                resultDiv.style.background = "#F0F4F8";
-                playSound('correct');
-            }
+            resultDiv.className = 'result-area correct';
+            resultDiv.innerHTML = `💡 <strong>${emotion.emoji} ${emotion.name}</strong><br><br>${emotion.tip}`;
+            playSound('correct');
         } else {
+            resultDiv.className = 'result-area wrong';
             resultDiv.innerHTML = '💪 Hãy chọn một cảm xúc mà con đang trải qua hôm nay nhé!';
-            resultDiv.style.background = "#FFEFE0";
             playSound('wrong');
         }
     }
@@ -579,14 +566,10 @@
         renderQuiz();
         renderMatching();
         renderEmotions();
-        
         document.getElementById('checkQuizBtn').addEventListener('click', checkQuiz);
         document.getElementById('checkMatchBtn').addEventListener('click', checkMatching);
         document.getElementById('checkEmotionBtn').addEventListener('click', checkEmotion);
-        
-        document.body.addEventListener('click', () => {
-            if (audioContext.state === 'suspended') audioContext.resume();
-        }, { once: true });
+        resizeCanvas();
     }
     init();
 </script>
