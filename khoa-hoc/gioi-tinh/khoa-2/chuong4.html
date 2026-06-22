@@ -3,279 +3,291 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Khóa 2 - Chương 4: Bé là sự kết hợp hoàn hảo | Sophia Nguyen</title>
+    <title>Khóa 2 - Chương 4: Bé là sự kết hợp hoàn hảo | Sophia Nguyễn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --navy-dark: #0A1628;
+            --navy-mid: #1E3A5F;
+            --gold: #C9A84C;
+            --gold-light: #D4B85C;
+            --cream: #F5F0E8;
+            --white: #FFFFFF;
+            --gray: #4A5A6A;
+            --light-gray: #E8E4DC;
         }
-
         body {
-            background: #F0E8F0;
-            font-family: 'Segoe UI', 'Quicksand', 'Comic Neue', 'Nunito', 'Poppins', cursive;
+            background: linear-gradient(145deg, var(--cream) 0%, #EDE8E0 100%);
+            font-family: 'Inter', 'Be Vietnam Pro', sans-serif;
             padding: 20px;
+            min-height: 100vh;
         }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
+        .container { max-width: 1100px; margin: 0 auto; }
+        
+        .header { 
+            background: var(--white); 
+            border-radius: 32px; 
+            padding: 20px; 
+            margin-bottom: 20px; 
+            text-align: center; 
+            box-shadow: 0 10px 30px rgba(10,22,40,0.08);
+            border: 1px solid var(--light-gray);
         }
-
-        .header {
-            background: white;
-            border-radius: 32px;
-            padding: 20px;
-            margin-bottom: 25px;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        .logo { height: 60px; margin-bottom: 10px; }
+        .logo img { height: 60px; }
+        .header h1 { 
+            font-family: 'Playfair Display', serif;
+            color: var(--navy-dark); 
+            font-size: 1.8rem; 
         }
-
-        .logo {
-            width: 70px;
-            margin: 0 auto 10px auto;
-        }
-
-        .logo img {
-            width: 100%;
-            height: auto;
-        }
-
+        .header h1 span { color: var(--gold); }
         .course-badge {
-            background: #E0D0E8;
             display: inline-block;
-            padding: 5px 18px;
+            background: rgba(201,168,76,0.2);
+            color: var(--gold);
+            padding: 4px 16px;
             border-radius: 40px;
-            font-size: 13px;
-            font-weight: bold;
-            color: #6B4A80;
-            margin-bottom: 12px;
-        }
-
-        .chapter-title {
-            font-size: 32px;
-            font-weight: bold;
-            color: #8B5EA0;
-            text-align: center;
-            background: #F8F4FC;
-            display: inline-block;
-            padding: 8px 30px;
-            border-radius: 60px;
-            margin-top: 5px;
-        }
-
-        .video-card {
-            background: white;
-            border-radius: 32px;
-            overflow: hidden;
-            margin-bottom: 25px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-        }
-
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-        }
-
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
-        .video-label {
-            background: #F8F4FC;
-            padding: 12px 20px;
-            font-weight: bold;
-            color: #9B6EB0;
-            font-size: 18px;
-            text-align: center;
-            border-top: 2px solid #E0D0E8;
-        }
-
-        .exercise {
-            background: white;
-            border-radius: 32px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-        }
-
-        .ex-title {
-            font-size: 26px;
-            font-weight: bold;
-            color: #9B6EB0;
+            font-size: 0.8rem;
+            font-weight: 600;
             margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border-left: 6px solid #C8A8E0;
-            padding-left: 16px;
         }
-
+        
+        .video-section { 
+            background: var(--white); 
+            border-radius: 32px; 
+            padding: 20px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 10px 30px rgba(10,22,40,0.08);
+            border: 1px solid var(--light-gray);
+        }
+        .video-wrapper { 
+            position: relative; 
+            padding-bottom: 56.25%; 
+            height: 0; 
+            border-radius: 24px; 
+            overflow: hidden; 
+        }
+        .video-wrapper iframe { 
+            position: absolute; 
+            top: 0; left: 0; 
+            width: 100%; height: 100%; 
+            border: none; 
+        }
+        .video-label {
+            background: var(--cream);
+            padding: 12px 20px;
+            font-weight: 600;
+            color: var(--navy-dark);
+            font-size: 1rem;
+            text-align: center;
+            border-top: 2px solid var(--gold);
+            border-radius: 0 0 32px 32px;
+        }
+        
+        .exercise { 
+            background: var(--white); 
+            border-radius: 32px; 
+            padding: 24px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 10px 30px rgba(10,22,40,0.08);
+            border: 1px solid var(--light-gray);
+        }
+        .ex-title { 
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem; 
+            color: var(--navy-dark); 
+            margin-bottom: 8px; 
+            padding-bottom: 8px; 
+            border-bottom: 3px solid var(--gold); 
+            display: inline-block; 
+        }
         .ex-desc {
-            color: #8A6A9E;
-            margin-bottom: 20px;
-            font-size: 15px;
-            padding-left: 22px;
+            color: var(--gray);
+            margin: 12px 0 20px;
+            font-size: 0.95rem;
         }
-
+        
         .question-item {
-            background: #FDFCFE;
-            border-radius: 24px;
+            background: var(--cream);
+            border-radius: 20px;
             padding: 16px 20px;
             margin-bottom: 16px;
-            border: 1px solid #E0D0E8;
+            border: 1px solid var(--light-gray);
         }
-
         .question-text {
             font-weight: 700;
-            color: #5A4A6E;
+            color: var(--navy-dark);
             margin-bottom: 12px;
-            font-size: 18px;
+            font-size: 1rem;
         }
-
         .option {
             display: flex;
             align-items: center;
             gap: 12px;
-            margin: 10px 0;
-            padding: 8px 12px;
-            background: #F8F4FC;
+            margin: 8px 0;
+            padding: 8px 16px;
+            background: var(--white);
             border-radius: 60px;
             cursor: pointer;
             transition: 0.2s;
             border: 1px solid transparent;
         }
-
         .option:hover {
-            background: #F0E8F8;
-            border-color: #C8A8E0;
+            border-color: var(--gold);
+            background: var(--cream);
         }
-
         input[type="radio"] {
-            width: 20px;
-            height: 20px;
-            accent-color: #9B6EB0;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--gold);
             cursor: pointer;
         }
-
-        .trait-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin: 20px 0;
-        }
-
-        .trait-btn {
-            background: #F8F4FC;
-            border: 2px solid #E0D0E8;
-            border-radius: 60px;
-            padding: 15px 25px;
-            text-align: center;
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--gold);
             cursor: pointer;
+        }
+        
+        .tf-btn {
+            padding: 8px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.95rem;
+            border: 2px solid var(--light-gray);
+            background: var(--white);
             transition: 0.2s;
-            min-width: 130px;
+            margin-right: 12px;
+            font-family: 'Inter', sans-serif;
         }
-
-        .trait-btn.selected {
-            background: #C8A8E0;
-            border-color: #9B6EB0;
-            color: white;
-            transform: scale(1.05);
+        .tf-btn:hover { border-color: var(--gold); }
+        .tf-btn.selected-true {
+            background: var(--gold);
+            color: var(--navy-dark);
+            border-color: var(--gold);
         }
-
-        .trait-emoji {
-            font-size: 40px;
-            display: block;
+        .tf-btn.selected-false {
+            background: var(--navy-dark);
+            color: var(--white);
+            border-color: var(--navy-dark);
         }
-
-        .trait-label {
-            font-weight: bold;
-            margin-top: 5px;
-        }
-
+        
         .check-btn {
-            background: #9B6EB0;
+            background: var(--gold);
+            color: var(--navy-dark);
             border: none;
-            color: white;
-            font-weight: bold;
-            font-size: 18px;
+            font-weight: 700;
+            font-size: 1rem;
             padding: 12px 28px;
             border-radius: 60px;
             cursor: pointer;
-            margin-top: 20px;
+            margin-top: 16px;
             width: 100%;
             transition: 0.2s;
+            font-family: 'Inter', sans-serif;
         }
-
         .check-btn:hover {
-            background: #8B5EA0;
+            background: var(--gold-light);
+            transform: translateY(-2px);
         }
-
         .result-area {
-            margin-top: 18px;
-            background: #F4ECF8;
-            border-radius: 24px;
+            margin-top: 16px;
+            border-radius: 20px;
             padding: 15px;
             text-align: center;
-            font-weight: bold;
-            font-size: 18px;
-            color: #8B5EA0;
+            font-weight: 600;
+            font-size: 1rem;
+            display: none;
         }
-
+        .result-area.correct {
+            background: #E8F5E9;
+            color: #2E7D32;
+            display: block;
+        }
+        .result-area.wrong {
+            background: #FFF3E0;
+            color: #E65100;
+            display: block;
+        }
+        
         .sticker-row {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 12px;
             flex-wrap: wrap;
-            margin: 15px 0;
+            margin: 16px 0;
         }
-
         .sticker {
-            background: #F8F4FC;
+            background: var(--cream);
             border-radius: 60px;
-            padding: 8px 18px;
+            padding: 6px 16px;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            font-size: 16px;
-            color: #8B5EA0;
+            gap: 6px;
+            font-size: 0.85rem;
+            color: var(--navy-dark);
+            border: 1px solid var(--light-gray);
         }
-
-        @media (max-width: 600px) {
-            .exercise {
-                padding: 18px;
-            }
-            .chapter-title {
-                font-size: 24px;
-                padding: 6px 20px;
-            }
-            .trait-btn {
-                padding: 10px 15px;
-                min-width: 100px;
-            }
-            .trait-emoji {
-                font-size: 30px;
-            }
+        
+        .trait-btn {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            background: var(--white);
+            padding: 12px 18px;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 2px solid var(--light-gray);
+            margin: 4px;
+            min-width: 80px;
+        }
+        .trait-btn:hover { border-color: var(--gold); }
+        .trait-btn.selected {
+            border-color: var(--gold);
+            background: rgba(201,168,76,0.1);
+        }
+        .trait-emoji { font-size: 32px; }
+        .trait-label { font-size: 0.75rem; color: var(--gray); margin-top: 4px; }
+        
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .chapter-nav a {
+            background: var(--navy-dark);
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .chapter-nav a:hover {
+            background: var(--gold);
+            color: var(--navy-dark);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) { 
+            .header h1 { font-size: 1.4rem; }
         }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="header">
-        <div class="logo">
-            <img src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Sophia Nguyen Logo">
-        </div>
+        <img src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Sophia Nguyễn" class="logo">
         <div class="course-badge">🌸 Khóa 2 - Dành cho bé 3-5 tuổi</div>
-        <div>
-            <span class="chapter-title">👨‍👩‍👧 Bé là sự kết hợp hoàn hảo</span>
-        </div>
+        <h1>👨‍👩‍👧 Chương 4: <span>Bé là sự kết hợp hoàn hảo</span></h1>
     </div>
 
     <!-- Sticker -->
@@ -286,99 +298,139 @@
         <div class="sticker">💖 Báu vật vô giá</div>
     </div>
 
-    <div class="video-card">
+    <div class="video-section">
         <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/AsGUA_go2SU" title="Bài giảng Khóa 2 Chương 4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/AsGUA_go2SU" title="Bài giảng Khóa 2 Chương 4" frameborder="0" allowfullscreen></iframe>
         </div>
         <div class="video-label">
             🎬 Bài học: Bé là sự kết hợp hoàn hảo – Ngôi sao xanh từ ba, bông hoa hồng từ mẹ!
         </div>
     </div>
 
-    <!-- BÀI TẬP 1: Ai tặng cho con? -->
+    <!-- BÀI TẬP 1: AI TẶNG? -->
     <div class="exercise" id="ex1">
         <div class="ex-title">🌟 Bài tập 1: Ai đã tặng cho con?</div>
         <div class="ex-desc">🌸 Mỗi đặc điểm dưới đây là từ ba hay từ mẹ? Hãy chọn nhé!</div>
         <div id="traitQuiz"></div>
         <button class="check-btn" id="checkTraitBtn">✅ Kiểm tra bài tập 1</button>
-        <div id="traitResult" class="result-area" style="display: none;"></div>
+        <div id="traitResult" class="result-area"></div>
     </div>
 
-    <!-- BÀI TẬP 2: Những điều làm nên con -->
+    <!-- BÀI TẬP 2: ĐIỀU ĐẶC BIỆT -->
     <div class="exercise" id="ex2">
         <div class="ex-title">💖 Bài tập 2: Điều gì làm nên con?</div>
         <div class="ex-desc">🎯 Con có những điều đặc biệt nào? Hãy chọn tất cả những điều đúng nhé!</div>
         <div id="specialQuiz"></div>
         <button class="check-btn" id="checkSpecialBtn">✨ Kiểm tra bài tập 2</button>
-        <div id="specialResult" class="result-area" style="display: none;"></div>
+        <div id="specialResult" class="result-area"></div>
     </div>
 
-    <!-- BÀI TẬP 3: Đúng hay sai -->
+    <!-- BÀI TẬP 3: ĐÚNG/SAI -->
     <div class="exercise" id="ex3">
         <div class="ex-title">✅❌ Bài tập 3: Đúng hay sai?</div>
-        <div class="ex-desc">🐣 Đọc câu và chọn Đúng (Đ) hoặc Sai (S) nhé.</div>
+        <div class="ex-desc">🐣 Đọc câu và chọn Đúng hoặc Sai nhé.</div>
         <div id="tfQuestions"></div>
         <button class="check-btn" id="checkTfBtn">📋 Kiểm tra Đúng/Sai</button>
-        <div id="tfResult" class="result-area" style="display: none;"></div>
+        <div id="tfResult" class="result-area"></div>
+    </div>
+
+    <!-- Điều hướng -->
+    <div class="chapter-nav">
+        <a href="index.html">📚 Danh sách chương</a>
+        <a href="#" style="opacity:0.5; cursor:default;">🏁 Đã hoàn thành khóa 2</a>
     </div>
 </div>
+<canvas id="confetti-canvas"></canvas>
 
 <script>
-    // Audio system
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    
-    function playSound(type, isCorrect = null) {
-        const now = audioContext.currentTime;
-        const gainNode = audioContext.createGain();
-        gainNode.connect(audioContext.destination);
-        gainNode.gain.value = 0.3;
-
-        const oscillator = audioContext.createOscillator();
-        oscillator.connect(gainNode);
-
-        if (type === 'tick') {
-            oscillator.frequency.value = 880;
-            oscillator.type = 'sine';
-            gainNode.gain.value = 0.15;
-            oscillator.start();
-            oscillator.stop(now + 0.1);
-        } else if (type === 'correct') {
-            oscillator.frequency.value = 880;
-            oscillator.type = 'sine';
-            gainNode.gain.value = 0.2;
-            oscillator.start();
-            oscillator.stop(now + 0.1);
-            setTimeout(() => {
-                const osc2 = audioContext.createOscillator();
-                osc2.connect(gainNode);
-                osc2.frequency.value = 1100;
-                osc2.type = 'sine';
-                osc2.start();
-                osc2.stop(now + 0.2);
-            }, 100);
-        } else if (type === 'wrong') {
-            oscillator.frequency.value = 440;
-            oscillator.type = 'sine';
-            gainNode.gain.value = 0.15;
-            oscillator.start();
-            oscillator.stop(now + 0.2);
-        } else if (type === 'click') {
-            oscillator.frequency.value = 660;
-            oscillator.type = 'sine';
-            gainNode.gain.value = 0.1;
-            oscillator.start();
-            oscillator.stop(now + 0.05);
+    // ==================== CONFETTI & ÂM THANH ====================
+    let ctx = null, width = window.innerWidth, height = window.innerHeight, particles = [], animationId = null;
+    function resizeCanvas() { width = window.innerWidth; height = window.innerHeight; const canvas = document.getElementById('confetti-canvas'); if(canvas){ canvas.width = width; canvas.height = height; ctx = canvas.getContext('2d'); } }
+    function createConfetti(duration = 1800) {
+        if(!ctx) return;
+        if(animationId) cancelAnimationFrame(animationId);
+        particles = [];
+        for(let i=0;i<140;i++) {
+            particles.push({ x: Math.random() * width, y: Math.random() * height - height, size: Math.random() * 7 + 3, color: `hsl(${Math.random() * 360}, 80%, 60%)`, speedY: Math.random() * 5 + 3, speedX: (Math.random() - 0.5) * 2, rotation: Math.random() * 360, rotSpeed: (Math.random() - 0.5) * 6 });
         }
+        drawConfetti();
+        setTimeout(() => { if(animationId) cancelAnimationFrame(animationId); ctx?.clearRect(0,0,width,height); particles = []; }, duration);
+    }
+    function drawConfetti() {
+        if(!ctx) return;
+        ctx.clearRect(0, 0, width, height);
+        let allFinished = true;
+        for(let i=0;i<particles.length;i++) {
+            const p = particles[i];
+            if(p.y < height + 50) {
+                allFinished = false;
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.rotation * Math.PI / 180);
+                ctx.fillStyle = p.color;
+                ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size * 0.6);
+                ctx.restore();
+                p.y += p.speedY;
+                p.x += p.speedX;
+                p.rotation += p.rotSpeed;
+            }
+        }
+        if(!allFinished) animationId = requestAnimationFrame(drawConfetti);
+        else { if(animationId) cancelAnimationFrame(animationId); particles = []; ctx.clearRect(0,0,width,height); }
+    }
+    window.addEventListener('resize', () => { resizeCanvas(); if(particles.length) drawConfetti(); });
+    
+    function playSound(type) {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            if (type === 'correct') {
+                osc.frequency.value = 880;
+                gain.gain.value = 0.2;
+                osc.type = 'sine';
+                osc.start();
+                gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                osc.stop(audioCtx.currentTime + 0.3);
+                setTimeout(() => {
+                    const osc2 = audioCtx.createOscillator();
+                    const gain2 = audioCtx.createGain();
+                    osc2.connect(gain2);
+                    gain2.connect(audioCtx.destination);
+                    osc2.frequency.value = 1100;
+                    gain2.gain.value = 0.2;
+                    osc2.type = 'sine';
+                    osc2.start();
+                    gain2.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                    osc2.stop(audioCtx.currentTime + 0.3);
+                }, 100);
+            } else if (type === 'wrong') {
+                osc.frequency.value = 440;
+                gain.gain.value = 0.2;
+                osc.type = 'sawtooth';
+                osc.start();
+                gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                osc.stop(audioCtx.currentTime + 0.3);
+            } else {
+                osc.frequency.value = 660;
+                gain.gain.value = 0.1;
+                osc.type = 'sine';
+                osc.start();
+                gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.05);
+                osc.stop(audioCtx.currentTime + 0.05);
+            }
+        } catch(e) {}
     }
 
-    // ---------------------- BÀI TẬP 1: AI TẶNG? ----------------------
+    // ========== BÀI TẬP 1: AI TẶNG? ==========
     const traitData = [
         { text: "🌟 Vóc dáng cao lớn", correct: "ba" },
         { text: "🌸 Làn da mịn màng", correct: "me" },
         { text: "💪 Sự mạnh mẽ", correct: "ba" },
         { text: "😊 Nụ cười dịu dàng", correct: "me" }
     ];
-
     let traitAnswers = [null, null, null, null];
 
     function renderTraitQuiz() {
@@ -390,49 +442,20 @@
             qDiv.innerHTML = `<div class="question-text">${idx+1}. ${item.text}</div>`;
             const btnWrapper = document.createElement('div');
             btnWrapper.style.display = 'flex';
-            btnWrapper.style.gap = '20px';
+            btnWrapper.style.gap = '12px';
+            btnWrapper.style.flexWrap = 'wrap';
             btnWrapper.style.marginTop = '8px';
             
             const baBtn = document.createElement('button');
-            baBtn.innerText = '👨 Ba tặng';
-            baBtn.style.background = '#F8F4FC';
-            baBtn.style.border = '2px solid #E0D0E8';
-            baBtn.style.padding = '8px 20px';
-            baBtn.style.borderRadius = '40px';
-            baBtn.style.fontWeight = 'bold';
-            baBtn.style.cursor = 'pointer';
-            baBtn.style.fontSize = '14px';
-            if (traitAnswers[idx] === 'ba') {
-                baBtn.style.background = '#C8A8E0';
-                baBtn.style.color = 'white';
-                baBtn.style.borderColor = '#9B6EB0';
-            }
-            
+            baBtn.className = 'trait-btn' + (traitAnswers[idx] === 'ba' ? ' selected' : '');
+            baBtn.innerHTML = `<div class="trait-emoji">👨</div><div class="trait-label">Ba tặng</div>`;
             const meBtn = document.createElement('button');
-            meBtn.innerText = '👩 Mẹ tặng';
-            meBtn.style.background = '#F8F4FC';
-            meBtn.style.border = '2px solid #E0D0E8';
-            meBtn.style.padding = '8px 20px';
-            meBtn.style.borderRadius = '40px';
-            meBtn.style.fontWeight = 'bold';
-            meBtn.style.cursor = 'pointer';
-            meBtn.style.fontSize = '14px';
-            if (traitAnswers[idx] === 'me') {
-                meBtn.style.background = '#C8A8E0';
-                meBtn.style.color = 'white';
-                meBtn.style.borderColor = '#9B6EB0';
-            }
-
-            baBtn.onclick = () => {
-                traitAnswers[idx] = 'ba';
-                renderTraitQuiz();
-                playSound('tick');
-            };
-            meBtn.onclick = () => {
-                traitAnswers[idx] = 'me';
-                renderTraitQuiz();
-                playSound('tick');
-            };
+            meBtn.className = 'trait-btn' + (traitAnswers[idx] === 'me' ? ' selected' : '');
+            meBtn.innerHTML = `<div class="trait-emoji">👩</div><div class="trait-label">Mẹ tặng</div>`;
+            
+            baBtn.onclick = () => { traitAnswers[idx] = 'ba'; renderTraitQuiz(); playSound('click'); };
+            meBtn.onclick = () => { traitAnswers[idx] = 'me'; renderTraitQuiz(); playSound('click'); };
+            
             btnWrapper.appendChild(baBtn);
             btnWrapper.appendChild(meBtn);
             qDiv.appendChild(btnWrapper);
@@ -442,23 +465,21 @@
 
     function checkTraitQuiz() {
         let correctCount = 0;
-        traitData.forEach((item, idx) => {
-            if (traitAnswers[idx] === item.correct) correctCount++;
-        });
+        traitData.forEach((item, idx) => { if (traitAnswers[idx] === item.correct) correctCount++; });
         const resultDiv = document.getElementById('traitResult');
-        resultDiv.style.display = 'block';
         if (correctCount === traitData.length) {
+            resultDiv.className = 'result-area correct';
             resultDiv.innerHTML = '🎉🎉🎉 Tuyệt vời! Bé biết rõ những món quà từ ba và mẹ rồi! 🎉🎉🎉';
-            resultDiv.style.background = "#DFF0DF";
             playSound('correct');
+            createConfetti(800);
         } else {
+            resultDiv.className = 'result-area wrong';
             resultDiv.innerHTML = `🌻 Bé trả lời đúng ${correctCount}/${traitData.length} câu. Hãy xem lại bài và thử lại nha con yêu! 💪`;
-            resultDiv.style.background = "#FFEFE0";
             playSound('wrong');
         }
     }
 
-    // ---------------------- BÀI TẬP 2: ĐIỀU LÀM NÊN CON ----------------------
+    // ========== BÀI TẬP 2: ĐIỀU ĐẶC BIỆT ==========
     const specialItems = [
         { text: "🌟 Con có ngoại hình riêng của mình", isCorrect: true },
         { text: "💖 Con có tấm lòng nhân hậu", isCorrect: true },
@@ -466,7 +487,6 @@
         { text: "🏠 Con là báu vật của cả nhà", isCorrect: true },
         { text: "😢 Con không có gì đặc biệt", isCorrect: false }
     ];
-
     let specialAnswers = [false, false, false, false, false];
 
     function renderSpecialQuiz() {
@@ -477,15 +497,15 @@
             qDiv.className = 'question-item';
             qDiv.innerHTML = `
                 <div class="question-text">${idx+1}. ${item.text}</div>
-                <div class="option" style="justify-content: flex-start;">
+                <div class="option" style="justify-content:flex-start;">
                     <input type="checkbox" id="special${idx}" ${specialAnswers[idx] ? 'checked' : ''}>
-                    <label for="special${idx}" style="cursor: pointer;">✅ Đây là điều đúng về con</label>
+                    <label for="special${idx}" style="cursor:pointer;">✅ Đây là điều đúng về con</label>
                 </div>
             `;
             const checkbox = qDiv.querySelector('input');
             checkbox.addEventListener('change', (e) => {
                 specialAnswers[idx] = e.target.checked;
-                playSound('tick');
+                playSound('click');
             });
             container.appendChild(qDiv);
         });
@@ -493,30 +513,27 @@
 
     function checkSpecialQuiz() {
         let correctCount = 0;
-        specialItems.forEach((item, idx) => {
-            if (specialAnswers[idx] === item.isCorrect) correctCount++;
-        });
+        specialItems.forEach((item, idx) => { if (specialAnswers[idx] === item.isCorrect) correctCount++; });
         const resultDiv = document.getElementById('specialResult');
-        resultDiv.style.display = 'block';
         if (correctCount === specialItems.length) {
+            resultDiv.className = 'result-area correct';
             resultDiv.innerHTML = '🎉🎉🎉 Đúng rồi! Con là báu vật đặc biệt nhất, có ngoại hình riêng, tấm lòng nhân hậu và được cả nhà yêu thương! 🎉🎉🎉';
-            resultDiv.style.background = "#DFF0DF";
             playSound('correct');
+            createConfetti(800);
         } else {
+            resultDiv.className = 'result-area wrong';
             resultDiv.innerHTML = `🌻 Bé chọn đúng ${correctCount}/${specialItems.length} điều. Hãy suy nghĩ lại: con có những điều gì đặc biệt? Cố lên con yêu! 💪`;
-            resultDiv.style.background = "#FFEFE0";
             playSound('wrong');
         }
     }
 
-    // ---------------------- BÀI TẬP 3: ĐÚNG/SAI ----------------------
+    // ========== BÀI TẬP 3: ĐÚNG/SAI ==========
     const tfData = [
         { text: "Con là sự kết hợp của ba và mẹ. 👨‍👩‍👧", correct: true },
         { text: "Mỗi người đều có bản thiết kế giống hệt nhau. 📋", correct: false },
         { text: "Ba mẹ yêu con vì con giống ai đó. 💕", correct: false },
         { text: "Con là báu vật vô giá của cả nhà. 💎", correct: true }
     ];
-
     let tfAnswers = [null, null, null, null];
 
     function renderTF() {
@@ -527,50 +544,15 @@
             qDiv.className = 'question-item';
             qDiv.innerHTML = `<div class="question-text">${idx+1}. ${item.text}</div>`;
             const btnWrapper = document.createElement('div');
-            btnWrapper.style.display = 'flex';
-            btnWrapper.style.gap = '20px';
             btnWrapper.style.marginTop = '8px';
-            
             const trueBtn = document.createElement('button');
+            trueBtn.className = 'tf-btn' + (tfAnswers[idx] === true ? ' selected-true' : '');
             trueBtn.innerText = '✅ Đúng';
-            trueBtn.style.background = '#F8F4FC';
-            trueBtn.style.border = '2px solid #E0D0E8';
-            trueBtn.style.padding = '8px 24px';
-            trueBtn.style.borderRadius = '40px';
-            trueBtn.style.fontWeight = 'bold';
-            trueBtn.style.cursor = 'pointer';
-            trueBtn.style.fontSize = '16px';
-            if (tfAnswers[idx] === true) {
-                trueBtn.style.background = '#C8A8E0';
-                trueBtn.style.color = 'white';
-                trueBtn.style.borderColor = '#9B6EB0';
-            }
-            
             const falseBtn = document.createElement('button');
+            falseBtn.className = 'tf-btn' + (tfAnswers[idx] === false ? ' selected-false' : '');
             falseBtn.innerText = '❌ Sai';
-            falseBtn.style.background = '#F8F4FC';
-            falseBtn.style.border = '2px solid #E0D0E8';
-            falseBtn.style.padding = '8px 24px';
-            falseBtn.style.borderRadius = '40px';
-            falseBtn.style.fontWeight = 'bold';
-            falseBtn.style.cursor = 'pointer';
-            falseBtn.style.fontSize = '16px';
-            if (tfAnswers[idx] === false) {
-                falseBtn.style.background = '#C8A8E0';
-                falseBtn.style.color = 'white';
-                falseBtn.style.borderColor = '#9B6EB0';
-            }
-
-            trueBtn.onclick = () => {
-                tfAnswers[idx] = true;
-                renderTF();
-                playSound('tick');
-            };
-            falseBtn.onclick = () => {
-                tfAnswers[idx] = false;
-                renderTF();
-                playSound('tick');
-            };
+            trueBtn.onclick = () => { tfAnswers[idx] = true; renderTF(); playSound('click'); };
+            falseBtn.onclick = () => { tfAnswers[idx] = false; renderTF(); playSound('click'); };
             btnWrapper.appendChild(trueBtn);
             btnWrapper.appendChild(falseBtn);
             qDiv.appendChild(btnWrapper);
@@ -580,22 +562,21 @@
 
     function checkTF() {
         let correctCount = 0;
-        tfData.forEach((item, idx) => {
-            if (tfAnswers[idx] === item.correct) correctCount++;
-        });
+        tfData.forEach((item, idx) => { if (tfAnswers[idx] === item.correct) correctCount++; });
         const resultDiv = document.getElementById('tfResult');
-        resultDiv.style.display = 'block';
         if (correctCount === tfData.length) {
+            resultDiv.className = 'result-area correct';
             resultDiv.innerHTML = '🎉🎉🎉 Xuất sắc! Bé hiểu rõ mình là sự kết hợp hoàn hảo từ ba và mẹ! 🎉🎉🎉';
-            resultDiv.style.background = "#DFF0DF";
             playSound('correct');
+            createConfetti(800);
         } else {
+            resultDiv.className = 'result-area wrong';
             resultDiv.innerHTML = `💪 Bé trả lời đúng ${correctCount}/${tfData.length} câu. Cùng xem lại bài và chọn lại nha con yêu! 🧸💕`;
-            resultDiv.style.background = "#FFEFE0";
             playSound('wrong');
         }
     }
 
+    // ========== KHỞI TẠO ==========
     function init() {
         renderTraitQuiz();
         renderSpecialQuiz();
@@ -603,13 +584,7 @@
         document.getElementById('checkTraitBtn').addEventListener('click', checkTraitQuiz);
         document.getElementById('checkSpecialBtn').addEventListener('click', checkSpecialQuiz);
         document.getElementById('checkTfBtn').addEventListener('click', checkTF);
-        
-        // Resume audio context on first user interaction
-        document.body.addEventListener('click', () => {
-            if (audioContext.state === 'suspended') {
-                audioContext.resume();
-            }
-        }, { once: true });
+        resizeCanvas();
     }
     init();
 </script>
