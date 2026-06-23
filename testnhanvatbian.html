@@ -1,229 +1,623 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <title>Trắc nghiệm hình ảnh nhân vật bí ẩn</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #C0C0C0, #C0C0C0);
-      color: #333;
-      margin: 0;
-      padding: 20px;
-    }
-    .container {
-      max-width: 800px;
-      margin: auto;
-      background: white;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    }
-    .logo {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .logo img {
-      width: 120px;
-    }
-    h1 {
-      text-align: center;
-      color: #2c3e50;
-    }
-    label {
-      display: block;
-      margin-top: 20px;
-      font-weight: bold;
-    }
-    input[type="text"],
-    input[type="email"],
-    input[type="number"],
-    textarea {
-      width: 100%;
-      padding: 10px;
-      margin-top: 8px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-    }
-    button {
-      margin-top: 30px;
-      padding: 12px 24px;
-      background: #3366FF;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      width: 100%;
-    }
-    button:hover {
-      background: #45a049;
-    }
-    .question {
-      margin: 20px 0;
-      padding: 15px;
-      border-left: 5px solid #FFFF66;
-      background: #f1f8e9;
-      border-radius: 10px;
-    }
-    .question:nth-child(even) {
-      background: #FFCC99;
-    }
-    .question:nth-child(odd) {
-      background: #CC99FF;
-    }
-    .result {
-      display: none;
-      background: #ede7f6;
-      margin-top: 30px;
-      padding: 20px;
-      border-radius: 12px;
-      color: #4a148c;
-      font-weight: bold;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trắc nghiệm Hình ảnh Nhân vật bí ẩn | Sophia Nguyễn</title>
+    <meta name="description" content="Bài trắc nghiệm projective test giúp bạn khám phá cảm xúc và tiềm thức qua hình ảnh nhân vật bí ẩn.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --navy-dark: #0A1628;
+            --navy-mid: #1E3A5F;
+            --gold: #C9A84C;
+            --gold-light: #D4B85C;
+            --cream: #F5F0E8;
+            --white: #FFFFFF;
+            --gray: #4A5A6A;
+            --light-gray: #E8E4DC;
+            --gradient: linear-gradient(135deg, #0A1628 0%, #1E3A5F 50%, #2A4A7F 100%);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--navy-dark);
+            line-height: 1.6;
+        }
+        .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+
+        /* ========== HEADER ========== */
+        .header {
+            background: var(--white);
+            padding: 12px 0;
+            box-shadow: 0 2px 20px rgba(10,22,40,0.06);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo img { height: 55px; width: auto; display: block; }
+        .navbar ul {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+            align-items: center;
+        }
+        .navbar ul li a {
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        .navbar ul li a:hover, .navbar ul li a.active { color: var(--gold); }
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--navy-dark);
+        }
+        .show-menu { display: flex !important; }
+
+        /* ========== HERO ========== */
+        .hero {
+            background: var(--gradient);
+            padding: 50px 0 40px;
+            text-align: center;
+            color: white;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+        }
+        .hero h1 span { color: var(--gold); }
+        .hero p {
+            font-size: 1rem;
+            max-width: 650px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        .hero .badge {
+            background: var(--gold);
+            color: var(--navy-dark);
+            display: inline-block;
+            padding: 6px 20px;
+            border-radius: 40px;
+            margin-top: 16px;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        /* ========== TEST CONTAINER ========== */
+        .test-wrapper {
+            background: var(--white);
+            border-radius: 32px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(10,22,40,0.06);
+            border: 1px solid var(--light-gray);
+        }
+        .test-wrapper .intro h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--navy-dark);
+            margin-bottom: 16px;
+            font-size: 1.6rem;
+        }
+        .test-wrapper .intro h2 span { color: var(--gold); }
+        .test-wrapper .intro p {
+            color: var(--gray);
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+        .test-wrapper .intro .highlight {
+            background: var(--cream);
+            padding: 16px 20px;
+            border-radius: 16px;
+            border-left: 4px solid var(--gold);
+            margin: 16px 0;
+            font-weight: 500;
+            color: var(--navy-dark);
+        }
+        .test-wrapper .instructions {
+            background: var(--cream);
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin: 16px 0;
+        }
+        .test-wrapper .instructions h3 {
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+        .test-wrapper .instructions ul {
+            padding-left: 20px;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        .test-wrapper .instructions ul li { margin-bottom: 4px; }
+
+        /* ========== IMAGE ========== */
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .image-container img {
+            max-width: 100%;
+            max-height: 450px;
+            border-radius: 16px;
+            border: 2px solid var(--light-gray);
+            box-shadow: 0 10px 30px rgba(10,22,40,0.1);
+        }
+
+        /* ========== QUESTION ========== */
+        .question-item {
+            background: var(--cream);
+            padding: 18px 20px;
+            margin: 16px 0;
+            border-radius: 16px;
+            border-left: 4px solid var(--gold);
+            transition: 0.2s;
+        }
+        .question-item:hover { border-color: var(--navy-dark); }
+        .question-item .q-text {
+            font-weight: 600;
+            color: var(--navy-dark);
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+        .question-item textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--light-gray);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            resize: vertical;
+            min-height: 80px;
+            transition: 0.2s;
+            background: var(--white);
+            color: var(--navy-dark);
+        }
+        .question-item textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(201,168,76,0.2);
+        }
+        .question-item textarea::placeholder {
+            color: var(--gray);
+            opacity: 0.6;
+        }
+
+        /* ========== BUTTON ========== */
+        .btn-submit {
+            background: var(--navy-dark);
+            color: var(--white);
+            border: none;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+            margin-top: 20px;
+        }
+        .btn-submit:hover {
+            background: var(--gold);
+            color: var(--navy-dark);
+            transform: translateY(-2px);
+        }
+
+        /* ========== RESULT ========== */
+        .result-box {
+            display: none;
+            background: var(--cream);
+            padding: 30px;
+            border-radius: 24px;
+            margin-top: 30px;
+            border: 2px solid var(--gold);
+        }
+        .result-box.show { display: block; }
+        .result-box h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--navy-dark);
+            margin-bottom: 16px;
+        }
+        .result-box h2 span { color: var(--gold); }
+        .result-box .result-item {
+            background: var(--white);
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            border-left: 4px solid var(--gold);
+            font-size: 0.95rem;
+            color: var(--gray);
+            text-align: left;
+        }
+        .result-box .result-item .icon { font-size: 1.5rem; margin-right: 10px; }
+        .result-box .result-item strong { color: var(--navy-dark); }
+        .result-box .note {
+            font-size: 0.85rem;
+            color: var(--gray);
+            font-style: italic;
+            margin-top: 16px;
+            padding: 12px 16px;
+            background: var(--white);
+            border-radius: 12px;
+            border: 1px solid var(--light-gray);
+            text-align: left;
+        }
+        .share-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+        .share-buttons .share-btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .share-buttons .share-btn:hover { transform: translateY(-2px); opacity: 0.9; }
+        .share-buttons .share-btn.fb { background: #3b5998; }
+        .share-buttons .share-btn.zalo { background: #0068ff; }
+        .share-buttons .share-btn.twitter { background: #1da1f2; }
+        .share-buttons .share-btn.tiktok { background: #000000; }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: var(--navy-dark);
+            color: rgba(255,255,255,0.7);
+            padding: 40px 0 24px;
+            margin-top: 60px;
+            border-top: 3px solid var(--gold);
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        .footer-logo img { width: 120px; margin-bottom: 12px; }
+        .footer-logo p { font-size: 0.85rem; line-height: 1.6; color: rgba(255,255,255,0.6); }
+        .footer-links h4, .footer-contact h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            margin-bottom: 16px;
+            font-size: 1rem;
+        }
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+        .footer-links ul li { margin-bottom: 8px; }
+        .footer-links ul li a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: 0.2s;
+        }
+        .footer-links ul li a:hover { color: var(--gold); }
+        .footer-contact p {
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            color: rgba(255,255,255,0.6);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .footer-contact p i { color: var(--gold); width: 18px; }
+        .social-icons {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .social-icons a {
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+        .social-icons a:hover { transform: translateY(-3px); }
+        .social-icons img { width: 30px; height: 30px; border-radius: 50%; }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .navbar {
+                display: none;
+                flex-direction: column;
+                gap: 12px;
+                padding: 16px 0;
+                background: var(--white);
+                width: 100%;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                padding: 16px 24px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+            .navbar ul { flex-direction: column; gap: 12px; }
+            .header-container { flex-wrap: wrap; position: relative; }
+            .logo img { height: 45px; }
+            .hero h1 { font-size: 1.6rem; }
+            .test-wrapper { padding: 20px; }
+            .result-box h2 { font-size: 1.4rem; }
+            .footer-container { grid-template-columns: 1fr; text-align: center; }
+            .footer-contact p { justify-content: center; }
+            .social-icons { justify-content: center; }
+            .share-buttons .share-btn { width: 100%; justify-content: center; }
+            .image-container img { max-height: 300px; }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="logo">
-      <img src="images/hinhremovenen.png" alt="Logo Sophia">
+
+<!-- ========== HEADER ========== -->
+<header class="header">
+    <div class="header-container">
+        <a href="index.html" class="logo">
+            <img src="images/hinhremovenen.png" alt="Sophia Nguyễn">
+        </a>
+        <div class="menu-toggle" onclick="document.querySelector('.navbar').classList.toggle('show-menu')">☰</div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="index.html">Trang chủ</a></li>
+                <li><a href="about.html">Giới thiệu</a></li>
+                <li><a href="services.html">Dịch vụ</a></li>
+                <li><a href="khoa-hoc.html">Khóa học</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="test.html" class="active">Trắc nghiệm</a></li>
+                <li><a href="contact.html">Liên hệ</a></li>
+            </ul>
+        </nav>
     </div>
-    <h1>Trắc nghiệm hình ảnh nhân vật bí ẩn</h1>
+</header>
 
-    <!-- Form thông tin cá nhân -->
-    <div id="infoSection">
-      <h2>Thông tin người làm test</h2>
-      <form id="userForm" action="https://formspree.io/f/xvgqydnk" method="POST">
-        <label>Họ tên:</label>
-        <input type="text" name="name" id="name" required>
-        <label>Email:</label>
-        <input type="email" name="email" id="email" required>
-        <label>Tuổi:</label>
-        <input type="number" name="age" id="age" required>
-        <label>Số điện thoại:</label>
-        <input type="text" name="phone" id="phone" required>
-        <button type="submit">Gửi thông tin → nhấn Go Back → & tiếp tục</button>
-      </form>
+<!-- ========== HERO ========== -->
+<section class="hero">
+    <div class="container">
+        <h1>🕵️ Trắc nghiệm <span>Hình ảnh nhân vật</span></h1>
+        <p>Khám phá cảm xúc và tiềm thức của bạn qua hình ảnh nhân vật bí ẩn</p>
+        <div class="badge">🎨 Projective Test - Không có đáp án đúng hay sai</div>
     </div>
+</section>
 
-    <!-- Bài test hình ảnh -->
-    <div id="testSection" style="display: none;">
-      <div class="instructions">
-        <h3>Hướng dẫn:</h3>
-        <p>Hãy tưởng tượng bạn đang nhìn thấy một nhân vật bí ẩn từ xa. Mô tả cảm nhận của bạn về người này: họ đang cảm thấy gì, đang làm gì, và bạn nghĩ họ là ai.</p>
-        <ul>
-          <li>Bạn có thể mô tả cảm xúc, hành động, trạng thái nội tâm hoặc trí tưởng tượng của mình.</li>
-          <li>Ví dụ: “Người này có vẻ buồn, đang đứng yên, ánh mắt xa xăm như đang suy nghĩ.”</li>
-          <li>Không cần đúng – chỉ cần chân thật theo cảm nhận của bạn.</li>
-        </ul>
-      </div>
+<!-- ========== TEST ========== -->
+<div class="container">
+    <div class="test-wrapper">
+        <div class="intro">
+            <h2>Khám phá <span>bản thân</span> qua nhân vật bí ẩn</h2>
+            <p>
+                Bài test này thuộc nhóm <strong>"projective test"</strong> – bài kiểm tra gợi mở cảm xúc và tiềm thức.
+                Không có đáp án đúng hay sai. Mỗi câu trả lời phản ánh cách bạn cảm nhận thế giới xung quanh,
+                từ đó hé lộ những đặc điểm tâm lý bên trong bạn.
+            </p>
+            <div class="highlight">
+                👉 Hãy tưởng tượng bạn đang nhìn thấy một nhân vật bí ẩn từ xa.
+                Mô tả cảm nhận của bạn về người này một cách tự nhiên và chân thật nhất!
+            </div>
+        </div>
 
-      <p><em>Bài test này thuộc nhóm “projective test” – bài kiểm tra gợi mở cảm xúc và tiềm thức. 
-      Không có đáp án đúng hay sai.
-      Mỗi câu trả lời phản ánh cách bạn cảm nhận thế giới xung quanh, từ đó hé lộ những đặc điểm tâm lý bên trong bạn.</em></p>
+        <div class="instructions">
+            <h3>📋 Hướng dẫn:</h3>
+            <p>Hãy tưởng tượng bạn đang nhìn thấy một nhân vật bí ẩn từ xa. Mô tả cảm nhận của bạn về người này: họ đang cảm thấy gì, đang làm gì, và bạn nghĩ họ là ai.</p>
+            <ul>
+                <li>Bạn có thể mô tả cảm xúc, hành động, trạng thái nội tâm hoặc trí tưởng tượng của mình.</li>
+                <li>Ví dụ: "Người này có vẻ buồn, đang đứng yên, ánh mắt xa xăm như đang suy nghĩ."</li>
+                <li>Không cần đúng – chỉ cần chân thật theo cảm nhận của bạn.</li>
+            </ul>
+        </div>
 
-      <img src="images/12345.jpg" alt="Nhân vật bí ẩn">
+        <!-- Hình ảnh -->
+        <div class="image-container">
+            <img src="images/12345.jpg" alt="Nhân vật bí ẩn">
+        </div>
 
-      <div class="question">
-        <label for="q1">1. Bạn nghĩ người này đang cảm thấy gì?</label>
-        <textarea id="q1" name="q1" placeholder="Ví dụ: Buồn, lo lắng, bình tĩnh, lạnh lùng..."></textarea>
-      </div>
+        <form id="testForm">
+            <div class="question-item">
+                <p class="q-text">1. Bạn nghĩ người này đang cảm thấy gì?</p>
+                <textarea id="q1" placeholder="Ví dụ: Buồn, lo lắng, bình tĩnh, lạnh lùng..."></textarea>
+            </div>
+            <div class="question-item">
+                <p class="q-text">2. Họ đang làm gì hoặc chuẩn bị làm gì?</p>
+                <textarea id="q2" placeholder="Ví dụ: Đứng yên, quan sát, chuẩn bị rời đi..."></textarea>
+            </div>
+            <div class="question-item">
+                <p class="q-text">3. Bạn nghĩ người này là ai hoặc có câu chuyện gì?</p>
+                <textarea id="q3" placeholder="Ví dụ: Một người từng trải, một kẻ lang thang, một người đang tìm kiếm điều gì đó..."></textarea>
+            </div>
+            <button type="button" class="btn-submit" onclick="analyze()">🔍 Tính kết quả</button>
+        </form>
 
-      <div class="question">
-        <label for="q2">2. Họ đang làm gì hoặc chuẩn bị làm gì?</label>
-        <textarea id="q2" name="q2" placeholder="Ví dụ: Đứng yên, quan sát, chuẩn bị rời đi..."></textarea>
-      </div>
-
-      <div class="question">
-        <label for="q3">3. Bạn nghĩ người này là ai hoặc có câu chuyện gì?</label>
-        <textarea id="q3" name="q3" placeholder="Ví dụ: Một người từng trải, một kẻ lang thang, một người đang tìm kiếm điều gì đó..."></textarea>
-      </div>
-
-      <button onclick="calculateResult()">Tính kết quả</button>
-
-      <div id="result" class="result"></div>
+        <div id="result" class="result-box"></div>
     </div>
-  </div>
+</div>
 
-  <script>
-document.getElementById("userForm").addEventListener("submit", function (event) {
-  event.preventDefault();
-  const form = event.target;
-  const data = new FormData(form);
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-logo">
+            <img src="images/hinhremovenen.png" alt="Sophia Nguyễn">
+            <p>Đồng hành & Sẻ chia cùng bạn trên hành trình tâm lý – phát triển – yêu thương.</p>
+        </div>
+        <div class="footer-links">
+            <h4>Dịch vụ</h4>
+            <ul>
+                <li><a href="tuvan-tamly1.html">Tham vấn tâm lý</a></li>
+                <li><a href="huong-nghiep.html">Định hướng nghề nghiệp</a></li>
+                <li><a href="ky-nang.html">Đào tạo kỹ năng</a></li>
+                <li><a href="van-tay.html">Sinh trắc vân tay</a></li>
+            </ul>
+        </div>
+        <div class="footer-contact">
+            <h4>Liên hệ</h4>
+            <p><i class="fas fa-envelope"></i> sophianguyen2891@gmail.com</p>
+            <p><i class="fas fa-phone"></i> 0977092182</p>
+            <p><i class="fas fa-map-marker-alt"></i> Tân Bình - TPHCM</p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/Sophiadiemhang1982"><img src="images/fb.png" alt="Facebook" /></a>
+                <a href="https://www.tiktok.com/@sophia.nguyen2014"><img src="images/tiktok.png" alt="TikTok" /></a>
+                <a href="https://www.youtube.com/@sophianguyen1982-dh"><img src="images/youtube.png" alt="YouTube" /></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>Copyright ©2025 Sophia Nguyễn. All rights reserved.</p>
+    </div>
+</footer>
 
-  fetch(form.action, {
-    method: "POST",
-    body: data,
-    headers: {
-      'Accept': 'application/json'
+<script>
+    // ==================== PHÂN TÍCH KẾT QUẢ ====================
+    function analyze() {
+        const answers = [
+            document.getElementById("q1").value.toLowerCase().trim(),
+            document.getElementById("q2").value.toLowerCase().trim(),
+            document.getElementById("q3").value.toLowerCase().trim()
+        ];
+
+        // Kiểm tra đã nhập đủ chưa
+        const emptyAnswers = answers.filter(a => a === '');
+        if (emptyAnswers.length > 0) {
+            alert('⚠️ Bạn cần trả lời tất cả 3 câu hỏi trước khi xem kết quả!');
+            return;
+        }
+
+        const fullText = answers.join(" ");
+
+        // Định nghĩa các nhóm từ khóa
+        const groups = {
+            cam_xuc_sau: ["buồn", "lo lắng", "cô đơn", "trầm", "lạnh lùng", "cô độc", "mệt mỏi", "chán nản", "bất lực", "tổn thương"],
+            diem_tinh: ["bình tĩnh", "điềm đạm", "kiên nhẫn", "thư thái", "an nhiên", "tĩnh lặng"],
+            quan_sat: ["quan sát", "đứng yên", "suy nghĩ", "lặng lẽ", "nhìn xa", "chăm chú"],
+            sang_tao: ["bí ẩn", "tưởng tượng", "mơ mộng", "sáng tạo", "huyền bí", "lãng mạn", "kỳ lạ"],
+            hanh_trinh: ["rời đi", "tìm kiếm", "hành trình", "lang thang", "trốn chạy", "vượt qua", "hướng tới"]
+        };
+
+        const traitsMap = {
+            cam_xuc_sau: {
+                icon: "🌧️",
+                title: "Đồng cảm sâu sắc",
+                text: "Bạn có khả năng đồng cảm cao và thường cảm nhận sâu sắc trạng thái nội tâm của người khác. Bạn dễ dàng thấu hiểu những cảm xúc phức tạp và có trái tim nhạy cảm."
+            },
+            diem_tinh: {
+                icon: "🪷",
+                title: "Điềm tĩnh - Nội tâm vững vàng",
+                text: "Bạn là người điềm tĩnh, có khả năng giữ vững cảm xúc và suy nghĩ rõ ràng trong mọi tình huống. Bạn mang đến sự an yên cho những người xung quanh."
+            },
+            quan_sat: {
+                icon: "🔍",
+                title: "Tinh tế - Quan sát",
+                text: "Bạn là người tinh tế, có xu hướng phân tích và quan sát trước khi hành động. Bạn nhìn thấy những chi tiết mà người khác dễ dàng bỏ qua."
+            },
+            sang_tao: {
+                icon: "🎭",
+                title: "Sáng tạo - Giàu trí tưởng tượng",
+                text: "Bạn có trí tưởng tượng phong phú và thường nhìn thế giới qua lăng kính sáng tạo. Bạn thấy những điều kỳ diệu trong những điều bình dị."
+            },
+            hanh_trinh: {
+                icon: "🚶",
+                title: "Khám phá - Hành trình",
+                text: "Bạn có tinh thần khám phá, luôn hướng về phía trước và tìm kiếm ý nghĩa trong cuộc sống. Bạn không ngại bước vào những hành trình mới."
+            }
+        };
+
+        // Tính điểm cho từng nhóm
+        let scores = {};
+        for (let group in groups) {
+            scores[group] = groups[group].filter(keyword => fullText.includes(keyword)).length;
+        }
+
+        // Sắp xếp theo điểm số
+        const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+        const topTraits = sorted.filter(([_, score]) => score > 0).slice(0, 3);
+
+        const resultBox = document.getElementById('result');
+        resultBox.className = 'result-box show';
+
+        if (topTraits.length > 0) {
+            let html = `<h2>🔮 Kết quả <span>phân tích</span></h2>`;
+            topTraits.forEach(([key]) => {
+                const trait = traitsMap[key];
+                html += `
+                    <div class="result-item">
+                        <span class="icon">${trait.icon}</span>
+                        <strong>${trait.title}:</strong> ${trait.text}
+                    </div>
+                `;
+            });
+            // Thêm note
+            html += `
+                <div class="note">
+                    🔍 <strong>Lưu ý:</strong> Phân tích dựa trên cảm nhận của bạn về nhân vật bí ẩn – thuộc dạng bài kiểm tra chiếu cảm xúc (projective test).
+                    Mục đích là giúp bạn khám phá cảm xúc, xu hướng suy nghĩ và góc nhìn cá nhân.
+                    Không có đúng sai – chỉ có sự chân thật với chính mình.
+                </div>
+                <div style="margin-top:20px; border-top:1px solid var(--light-gray); padding-top:20px;">
+                    <p style="font-weight:600; color:var(--navy-dark);">📢 Chia sẻ bài test này:</p>
+                    <div class="share-buttons">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn fb"><i class="fab fa-facebook-f"></i> Facebook</a>
+                        <a href="https://zalo.me/share?url=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn zalo"><i class="fas fa-comment"></i> Zalo</a>
+                        <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent('🕵️ Kết quả trắc nghiệm hình ảnh nhân vật bí ẩn của tôi')}&url=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn twitter"><i class="fab fa-twitter"></i> Twitter</a>
+                        <a href="https://www.tiktok.com/upload?lang=vi" target="_blank" class="share-btn tiktok"><i class="fab fa-tiktok"></i> TikTok</a>
+                    </div>
+                </div>
+            `;
+            resultBox.innerHTML = html;
+        } else {
+            resultBox.innerHTML = `
+                <h2>✨ Kết quả <span>phân tích</span></h2>
+                <div class="result-item" style="text-align:center; border-left-color: var(--gold);">
+                    <span style="font-size:2rem;">🌟</span><br>
+                    <strong>Bạn có một cách cảm nhận rất riêng biệt!</strong>
+                    <p style="margin-top:8px;">Có thể bạn đang nhìn nhân vật theo một góc nhìn độc đáo hoặc cảm nhận bằng những từ ngữ rất cá nhân.</p>
+                </div>
+                <div class="note">
+                    🔍 <strong>Lưu ý:</strong> Phân tích dựa trên cảm nhận của bạn về nhân vật bí ẩn – thuộc dạng bài kiểm tra chiếu cảm xúc (projective test).
+                </div>
+                <div style="margin-top:20px; border-top:1px solid var(--light-gray); padding-top:20px;">
+                    <p style="font-weight:600; color:var(--navy-dark);">📢 Chia sẻ bài test này:</p>
+                    <div class="share-buttons">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn fb"><i class="fab fa-facebook-f"></i> Facebook</a>
+                        <a href="https://zalo.me/share?url=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn zalo"><i class="fas fa-comment"></i> Zalo</a>
+                        <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent('🕵️ Kết quả trắc nghiệm hình ảnh nhân vật bí ẩn của tôi')}&url=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn twitter"><i class="fab fa-twitter"></i> Twitter</a>
+                        <a href="https://www.tiktok.com/upload?lang=vi" target="_blank" class="share-btn tiktok"><i class="fab fa-tiktok"></i> TikTok</a>
+                    </div>
+                </div>
+            `;
+        }
+
+        window.scrollTo({ top: resultBox.offsetTop - 100, behavior: 'smooth' });
     }
-  }).then(response => {
-    if (response.ok) {
-      document.getElementById("infoSection").style.display = "none";
-      document.getElementById("testSection").style.display = "block";
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-      alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
-    }
-  }).catch(error => {
-    alert("⚠️ Có lỗi xảy ra khi gửi thông tin.");
-  });
-});
-
-function calculateResult() {
-  const answers = [
-    document.getElementById("q1").value.toLowerCase(),
-    document.getElementById("q2").value.toLowerCase(),
-    document.getElementById("q3").value.toLowerCase()
-  ].join(" ");
-
-  const groups = {
-    cam_xuc_sau: ["buồn", "lo lắng", "cô đơn", "trầm", "lạnh lùng"],
-    diem_tinh: ["bình tĩnh", "điềm đạm", "kiên nhẫn"],
-    quan_sat: ["quan sát", "đứng yên", "suy nghĩ", "lặng lẽ"],
-    sang_tao: ["bí ẩn", "tưởng tượng", "mơ mộng", "sáng tạo"],
-    hanh_trinh: ["rời đi", "tìm kiếm", "hành trình", "lang thang"]
-  };
-
-  const traitsMap = {
-    cam_xuc_sau: "🌧️ Bạn có khả năng đồng cảm cao và thường cảm nhận sâu sắc trạng thái nội tâm của người khác.",
-    diem_tinh: "🪷 Bạn là người điềm tĩnh, có khả năng giữ vững cảm xúc và suy nghĩ rõ ràng trong mọi tình huống.",
-    quan_sat: "🔍 Bạn là người tinh tế, có xu hướng phân tích và quan sát trước khi hành động.",
-    sang_tao: "🎭 Bạn có trí tưởng tượng phong phú và thường nhìn thế giới qua lăng kính sáng tạo.",
-    hanh_trinh: "🚶 Bạn có tinh thần khám phá, luôn hướng về phía trước và tìm kiếm ý nghĩa trong cuộc sống."
-  };
-
-  let scores = {};
-  for (let group in groups) {
-    scores[group] = 0;
-    groups[group].forEach(keyword => {
-      const regex = new RegExp(`\\b${keyword}\\b`, 'i');
-      if (regex.test(answers)) {
-        scores[group]++;
-      }
-    });
-  }
-
-  const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
-  const topTraits = sorted.filter(([_, score]) => score > 0).slice(0, 3);
-
-  let resultHTML = "<h3>Kết quả phân tích:</h3>";
-  if (topTraits.length === 0) {
-    resultHTML += "🤔 Không tìm thấy từ khóa phù hợp. Có thể bạn đang cảm nhận theo cách rất riêng!";
-  } else {
-    topTraits.forEach(([group]) => {
-      resultHTML += `<p>${traitsMap[group]}</p>`;
-    });
-  }
-
-  resultHTML += `<br><em>Phân tích dựa trên cảm nhận của bạn về nhân vật bí ẩn – thuộc dạng bài kiểm tra chiếu cảm xúc (projective test).</em>`;
-
-  const resultBox = document.getElementById("result");
-  resultBox.innerHTML = resultHTML;
-  resultBox.style.display = "block";
-  window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-}
 </script>
-
 </body>
 </html>
