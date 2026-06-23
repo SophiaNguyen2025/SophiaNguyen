@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chương 3 · Lá chắn 4.0</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #F5F0E8;
+            font-family: 'Inter', sans-serif;
+            color: #0A1628;
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #FFFFFF;
+            border-radius: 2rem;
+            box-shadow: 0 20px 60px rgba(10, 22, 40, 0.08);
+            overflow: hidden;
+            padding: 2.5rem 2rem;
+        }
+        .display-font { font-family: 'Playfair Display', serif; }
+        .accent-font { font-family: 'Cormorant Garamond', serif; }
+        .gold { color: #C9A84C; }
+        .navy { color: #0A1628; }
+        .bg-navy { background-color: #0A1628; }
+        .bg-navy-mid { background-color: #1E3A5F; }
+        .bg-cream { background-color: #F5F0E8; }
+        .text-cream { color: #F5F0E8; }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+        h1 { font-size: 2.8rem; line-height: 1.2; }
+        h2 { font-size: 2rem; margin-bottom: 1.2rem; }
+        .subhead {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-style: italic;
+            color: #1E3A5F;
+        }
+        .header-chapter {
+            border-bottom: 1px solid #e9e0d4;
+            padding-bottom: 1.2rem;
+            margin-bottom: 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+        }
+        .header-chapter .badge {
+            background: #C9A84C;
+            color: #0A1628;
+            padding: 0.2rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+        /* TV container */
+        .tv-container {
+            background: #0A1628;
+            border-radius: 2rem;
+            padding: 1.2rem 1.2rem 1.5rem 1.2rem;
+            margin: 2rem 0 2.5rem 0;
+            box-shadow: 0 16px 40px rgba(10, 22, 40, 0.25), inset 0 0 0 1px rgba(255,255,255,0.05);
+        }
+        .tv-screen {
+            background: #111827;
+            border-radius: 1.2rem;
+            padding: 0.1rem;
+            overflow: hidden;
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.6);
+            position: relative;
+        }
+        .tv-screen::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 50%, rgba(0,0,0,0.2) 100%);
+            border-radius: 1.2rem;
+            z-index: 2;
+        }
+        .tv-screen .slide-track-wrap {
+            overflow: hidden;
+            border-radius: 1.2rem;
+            position: relative;
+            z-index: 1;
+        }
+        .tv-screen .slide-track {
+            display: flex;
+            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .tv-screen .slide {
+            min-width: 100%;
+            background: #F5F0E8;
+            padding: 2rem 2.2rem;
+            border-radius: 0;
+            color: #0A1628;
+            min-height: 320px;
+        }
+        .tv-screen .slide .slide-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #C9A84C;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+        .tv-screen .slide h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+        }
+        .tv-screen .slide ul, .tv-screen .slide ol {
+            list-style: none;
+            margin-top: 0.8rem;
+            padding-left: 0;
+        }
+        .tv-screen .slide ul li, .tv-screen .slide ol li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e0d6c8;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+        .tv-screen .slide ul li:last-child, .tv-screen .slide ol li:last-child {
+            border-bottom: 0;
+        }
+        .tv-screen .slide ul li::before {
+            content: "◆";
+            color: #C9A84C;
+            font-size: 0.8rem;
+        }
+        .tv-screen .slide ol {
+            counter-reset: step-counter;
+        }
+        .tv-screen .slide ol li::before {
+            content: counter(step-counter);
+            counter-increment: step-counter;
+            background: #C9A84C;
+            color: #0A1628;
+            font-weight: 700;
+            font-size: 0.8rem;
+            width: 24px;
+            height: 24px;
+            border-radius: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .tv-screen .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+            margin: 1rem 0;
+        }
+        .tv-screen .grid-2 .col {
+            background: #FFFFFF;
+            padding: 1rem 1.2rem;
+            border-radius: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+        .tv-screen .grid-2 .col .label {
+            font-weight: 600;
+            font-size: 0.8rem;
+            letter-spacing: 0.03em;
+            display: block;
+            margin-bottom: 0.4rem;
+        }
+        .tv-screen .grid-2 .col .label.negative { color: #b13e3e; }
+        .tv-screen .grid-2 .col .label.positive { color: #1E7A5E; }
+        .tv-screen .quote-box {
+            background: #0A1628;
+            color: #F5F0E8;
+            padding: 1.2rem 2rem;
+            border-radius: 1.2rem;
+            margin: 1.2rem 0;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-style: italic;
+            text-align: center;
+        }
+        .tv-screen .quote-box small {
+            display: block;
+            font-size: 1rem;
+            font-style: normal;
+            font-family: 'Inter', sans-serif;
+            opacity: 0.7;
+            margin-top: 0.4rem;
+        }
+        .tv-screen .highlight-box {
+            background: #1E3A5F;
+            color: #F5F0E8;
+            padding: 0.8rem 1.2rem;
+            border-radius: 1rem;
+            margin: 0.8rem 0;
+            font-size: 0.95rem;
+        }
+        .tag {
+            display: inline-block;
+            background: #C9A84C20;
+            padding: 0.1rem 0.6rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #7a5f2b;
+        }
+        .tv-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.2rem;
+            padding-top: 0.8rem;
+        }
+        .tv-controls button {
+            background: transparent;
+            border: 1.5px solid #C9A84C;
+            color: #C9A84C;
+            width: 44px;
+            height: 44px;
+            border-radius: 40px;
+            font-size: 1.6rem;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(201, 168, 76, 0.08);
+        }
+        .tv-controls button:hover {
+            background: #C9A84C;
+            color: #0A1628;
+        }
+        .tv-dots {
+            display: flex;
+            gap: 0.6rem;
+        }
+        .tv-dots span {
+            width: 10px;
+            height: 10px;
+            border-radius: 20px;
+            background: #4a5568;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .tv-dots span.active {
+            background: #C9A84C;
+            width: 28px;
+        }
+
+        /* Checklist */
+        .checklist-section {
+            background: #FFFFFF;
+            border: 1px solid #e9e0d4;
+            border-radius: 1.5rem;
+            padding: 2rem 2rem 1.6rem 2rem;
+            margin: 2.5rem 0;
+        }
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.8rem;
+            margin: 1.2rem 0 1.8rem 0;
+        }
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: #F5F0E8;
+            padding: 0.6rem 1rem 0.6rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.95rem;
+            transition: 0.15s;
+        }
+        .checklist-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #C9A84C;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .checklist-item .num {
+            font-weight: 600;
+            color: #1E3A5F;
+            margin-right: 0.2rem;
+            min-width: 28px;
+        }
+        .checklist-result {
+            background: #0A1628;
+            color: #F5F0E8;
+            padding: 1.2rem 1.8rem;
+            border-radius: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.8rem;
+        }
+        .checklist-result .score {
+            font-weight: 700;
+            font-size: 1.8rem;
+            font-family: 'Playfair Display', serif;
+            color: #C9A84C;
+        }
+        .checklist-result .msg {
+            font-size: 1rem;
+            flex: 1;
+        }
+        .signature-area {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: space-between;
+            background: #F5F0E8;
+            padding: 1rem 1.5rem;
+            border-radius: 1.5rem;
+            border: 1px dashed #C9A84C;
+        }
+        .signature-area .sign-block {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            min-width: 150px;
+        }
+        .signature-area .sign-block label {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .signature-area .sign-block input {
+            border: none;
+            border-bottom: 2px solid #1E3A5F;
+            background: transparent;
+            padding: 0.3rem 0.2rem;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+        }
+        .signature-area .sign-block input:focus {
+            border-bottom-color: #C9A84C;
+        }
+
+        .btn-outline-gold {
+            background: transparent;
+            border: 1.5px solid #C9A84C;
+            color: #C9A84C;
+            padding: 0.6rem 1.8rem;
+            border-radius: 40px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .btn-outline-gold:hover {
+            background: #C9A84C;
+            color: #0A1628;
+        }
+        .btn-gold {
+            background: #C9A84C;
+            color: #0A1628;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .btn-gold:hover {
+            background: #b8953a;
+            transform: scale(0.97);
+        }
+
+        /* Quiz */
+        .quiz-section {
+            background: #F5F0E8;
+            border-radius: 1.5rem;
+            padding: 2rem 2rem 1.6rem 2rem;
+            margin: 2.5rem 0;
+        }
+        .question {
+            background: #FFFFFF;
+            border-radius: 1.2rem;
+            padding: 1.5rem 1.8rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+        .question .q-text {
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 0.8rem;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .options label {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.95rem;
+            padding: 0.3rem 0.2rem;
+            cursor: pointer;
+            border-radius: 0.5rem;
+            transition: background 0.1s;
+        }
+        .options label:hover {
+            background: #F5F0E8;
+        }
+        .options input[type="radio"] {
+            accent-color: #C9A84C;
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+        .quiz-result {
+            background: #0A1628;
+            color: #F5F0E8;
+            padding: 1.2rem 2rem;
+            border-radius: 2rem;
+            margin-top: 1.8rem;
+            display: none;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.8rem;
+        }
+        .quiz-result .score-big {
+            font-size: 2.4rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            color: #C9A84C;
+        }
+        .quiz-result .msg {
+            font-size: 1rem;
+            flex: 1;
+        }
+
+        @media (max-width: 700px) {
+            .container { padding: 1.5rem 1rem; }
+            h1 { font-size: 2rem; }
+            .tv-screen .slide { padding: 1.2rem; }
+            .tv-screen .grid-2 { grid-template-columns: 1fr; }
+            .header-chapter { flex-direction: column; align-items: flex-start; gap: 0.6rem; }
+            .signature-area { flex-direction: column; }
+        }
+        .mt-2 { margin-top: 1.5rem; }
+        .text-center { text-align: center; }
+        .flex-center { display: flex; align-items: center; justify-content: center; gap: 0.6rem; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header-chapter">
+        <div>
+            <span class="badge">Chương 3</span>
+            <h1>Lá chắn 4.0</h1>
+            <div class="subhead">Bảo vệ con trên không gian mạng</div>
+        </div>
+        <div style="font-size:0.9rem; color:#1E3A5F; background:#F5F0E8; padding:0.4rem 1.2rem; border-radius:40px;">
+            🛡️ dành cho cha mẹ
+        </div>
+    </div>
+
+    <!-- TV SLIDES (giữ nguyên) -->
+    <div class="tv-container">
+        <div class="tv-screen">
+            <div class="slide-track-wrap">
+                <div class="slide-track" id="slideTrack">
+                    <!-- SLIDE 1 -->
+                    <div class="slide">
+                        <div class="slide-label">📌 Slide 1</div>
+                        <h3>Con đang dành bao nhiêu thời gian trên mạng?</h3>
+                        <p><strong>Khảo sát:</strong> Trẻ 6-15 tuổi dùng internet trung bình <span class="gold">5-7 tiếng/ngày</span>.</p>
+                        <ul>
+                            <li>📱 Tiếp xúc với nội dung 18+ ngoài ý muốn</li>
+                            <li>🎯 Bị dụ dỗ, lừa đảo, tống tiền</li>
+                            <li>💬 Bị bắt nạt trực tuyến (cyberbullying)</li>
+                            <li>🔥 Tiếp xúc với các trào lưu nguy hiểm</li>
+                        </ul>
+                        <div class="quote-box" style="background:#1E3A5F; margin-top:0.8rem;">
+                            “Không gian mạng là ngôi nhà chung – hãy cùng con xây hàng rào bảo vệ.”
+                        </div>
+                    </div>
+                    <!-- SLIDE 2 -->
+                    <div class="slide">
+                        <div class="slide-label">📌 Slide 2</div>
+                        <h3>Nhận diện trào lưu nguy hiểm và vùng tối</h3>
+                        <ul>
+                            <li><strong>Thách thức (challenges):</strong> Cắt tóc, nuốt chất lạ, bỏng, vết cắt…</li>
+                            <li><strong>Nội dung 18+:</strong> Phim người lớn, hình ảnh khiêu dâm</li>
+                            <li><strong>Lừa đảo:</strong> Người lạ nhắn tin, tặng quà, kêu gọi gặp mặt</li>
+                            <li><strong>Bắt nạt mạng:</strong> Bình luận ác ý, chia sẻ ảnh xấu, cô lập</li>
+                        </ul>
+                        <div class="highlight-box" style="margin-top:0.6rem;">
+                            <strong>🕵️ Dấu hiệu con bị bắt nạt mạng:</strong> Con trở nên khép kín, lo lắng khi dùng điện thoại, từ chối chia sẻ, điểm học giảm, hay cáu gắt.
+                        </div>
+                    </div>
+                    <!-- SLIDE 3 -->
+                    <div class="slide">
+                        <div class="slide-label">📌 Slide 3</div>
+                        <h3>Quy tắc Dấu chân số</h3>
+                        <ul>
+                            <li>🚫 KHÔNG chia sẻ thông tin cá nhân (địa chỉ, trường học, số điện thoại).</li>
+                            <li>🚫 KHÔNG đăng ảnh nhạy cảm lên mạng xã hội.</li>
+                            <li>🚫 KHÔNG kết bạn với người lạ.</li>
+                            <li>🔎 Hãy hỏi ba/mẹ trước khi tải bất kỳ ứng dụng nào.</li>
+                            <li>📢 Nếu thấy điều gì kỳ lạ / khó chịu, hãy báo ba/mẹ ngay.</li>
+                        </ul>
+                        <div style="background:#FFFFFF; padding:0.6rem 1rem; border-radius:2rem; margin-top:0.6rem; display:inline-block; font-weight:600; border:1px solid #C9A84C;">
+                            ⭐ “Nghĩ trước khi đăng – Bảo vệ danh tính số”
+                        </div>
+                    </div>
+                    <!-- SLIDE 4 -->
+                    <div class="slide">
+                        <div class="slide-label">📌 Slide 4</div>
+                        <h3>Thiết lập Thỏa thuận sử dụng thiết bị</h3>
+                        <ul>
+                            <li>🤝 Cần có sự đồng thuận, không áp đặt.</li>
+                            <li>⏰ Giờ giới hạn: Tối đa 1-2 tiếng/ngày (trẻ nhỏ), 2-3 tiếng (trẻ lớn).</li>
+                            <li>🚫 Không sử dụng khi đang học / ăn / trước khi ngủ 1 tiếng.</li>
+                            <li>🔧 Cài đặt kiểm soát của cha mẹ (parental control).</li>
+                        </ul>
+                        <div class="highlight-box" style="background:#1E3A5F;">
+                            💡 Gợi ý: Cùng con tạo lịch sử dụng, treo ở góc học tập để cả nhà cùng nhắc nhở.
+                        </div>
+                    </div>
+                    <!-- SLIDE 5 -->
+                    <div class="slide">
+                        <div class="slide-label">📌 Slide 5</div>
+                        <h3>Cha mẹ cần làm gì khi phát hiện con xem nội dung 18+?</h3>
+                        <ol>
+                            <li><strong>Bình tĩnh, không la mắng.</strong></li>
+                            <li><strong>Hỏi chuyện con một cách nhẹ nhàng.</strong></li>
+                            <li><strong>Giải thích vì sao nội dung đó không phù hợp.</strong></li>
+                            <li><strong>Hướng dẫn lại cách dùng mạng an toàn.</strong></li>
+                            <li><strong>Thiết lập lại thỏa thuận nếu cần.</strong></li>
+                        </ol>
+                        <div style="background:#FFFFFF; padding:0.8rem 1.2rem; border-radius:1rem; margin-top:0.8rem; border-left:4px solid #C9A84C;">
+                            <strong>🌱 Xây dựng lòng tin:</strong> Luôn khẳng định với con: “Cảm ơn con đã nói thật. Ba/mẹ luôn ở đây để bảo vệ con, không phải để phạt con.”
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- TV Controls -->
+        <div class="tv-controls">
+            <button id="prevSlide" aria-label="Previous slide">‹</button>
+            <div class="tv-dots" id="slideDots">
+                <span class="active" data-index="0"></span>
+                <span data-index="1"></span>
+                <span data-index="2"></span>
+                <span data-index="3"></span>
+                <span data-index="4"></span>
+            </div>
+            <button id="nextSlide" aria-label="Next slide">›</button>
+        </div>
+    </div>
+
+    <!-- CHECKLIST: THỎA THUẬN INTERNET GIA ĐÌNH -->
+    <div class="checklist-section" id="checklistSection">
+        <h2 style="display:flex; align-items:center; gap:0.6rem;">📋 Thỏa thuận <span style="font-size:1rem; font-weight:400; font-family:'Inter', sans-serif; color:#1E3A5F;">sử dụng internet gia đình</span></h2>
+        <p style="margin-bottom:0.5rem;">Đánh dấu ✅ những điều gia đình chị ĐÃ THỐNG NHẤT với con.</p>
+
+        <div class="checklist-grid" id="checklistGrid">
+            <div class="checklist-item"><input type="checkbox" data-point="1" /> <span class="num">1</span> Thời gian sử dụng tối đa: ____ tiếng/ngày</div>
+            <div class="checklist-item"><input type="checkbox" data-point="1" /> <span class="num">2</span> Không dùng thiết bị trong giờ ăn / học</div>
+            <div class="checklist-item"><input type="checkbox" data-point="1" /> <span class="num">3</span> Tắt thiết bị trước khi ngủ ít nhất 30 phút</div>
+            <div class="checklist-item"><input type="checkbox" data-point="1" /> <span class="num">4</span> Chỉ dùng internet ở phòng khách (không ở phòng ngủ)</div>
+            <div class="checklist-item"><input type="checkbox" data-point="1" /> <span class="num">5</span> Không chia sẻ thông tin cá nhân (họ tên, địa chỉ, số điện thoại)</div>
+            <div class="checklist-item"><input type="checkbox" data-point="1" /> <span class="num">6</span> Không đăng ảnh nhạy cảm (không mặc đồ, nội dung riêng tư)</div>
+            <div class="checklist-item"><input type="checkbox" data-point="1" /> <span class="num">7</span> Không kết bạn / trò chuyện với người lạ</div>
+            <div class="checklist-item"><input type="checkbox" data-point="1" /> <span class="num">8</span> Khi thấy nội dung lạ / không thoải mái, sẽ kể cho ba/mẹ</div>
+            <div class="checklist-item"><input type="checkbox" data-point="1" /> <span class="num">9</span> Khi muốn cài đặt ứng dụng / trò chơi mới, phải hỏi ba/mẹ</div>
+            <div class="checklist-item"><input type="checkbox" data-point="1" /> <span class="num">10</span> Vi phạm thỏa thuận sẽ bị ... (hình thức xử lý đã thống nhất)</div>
+        </div>
+
+        <div class="checklist-result" id="checklistResult">
+            <span><span class="score" id="checkScore">0</span> / 10</span>
+            <span class="msg" id="checkMsg">Hãy đánh dấu các mục đã thống nhất với con.</span>
+            <button class="btn-outline-gold" id="resetChecklist" style="background:#fff; border-color:#C9A84C; color:#0A1628;">🔄 Làm lại</button>
+        </div>
+
+        <!-- Khu vực ký tên -->
+        <div class="signature-area">
+            <div class="sign-block">
+                <label>👨‍👩‍👧 Cha mẹ</label>
+                <input type="text" placeholder="Ký tên" />
+            </div>
+            <div class="sign-block">
+                <label>🧒 Con</label>
+                <input type="text" placeholder="Ký tên" />
+            </div>
+            <div class="sign-block">
+                <label>📅 Ngày thống nhất</label>
+                <input type="date" />
+            </div>
+            <div style="display:flex; align-items:flex-end; padding-bottom:0.3rem;">
+                <span style="font-size:0.8rem; color:#1E3A5F; font-style:italic;">In 2 bản, mỗi bên giữ 1 bản.</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- QUIZ: CON BẠN CÓ ĐANG AN TOÀN TRÊN MẠNG? -->
+    <div class="quiz-section" id="quizSection">
+        <h2 style="display:flex; align-items:center; gap:0.6rem;">🧩 Trắc nghiệm <span style="font-size:1rem; font-weight:400; font-family:'Inter', sans-serif; color:#1E3A5F;">“Con bạn có đang an toàn trên mạng?”</span></h2>
+
+        <div id="quizContainer">
+            <!-- Câu 1 – đáp án đúng ở A (3 điểm) -->
+            <div class="question" data-q="1">
+                <div class="q-text">Câu 1: Con bạn có thiết bị riêng dùng internet không?</div>
+                <div class="options">
+                    <label><input type="radio" name="q1" value="3" /> A. Chỉ dùng thiết bị chung của gia đình, có sự giám sát (3 điểm)</label>
+                    <label><input type="radio" name="q1" value="2" /> B. Có, nhưng ba/mẹ đặt giới hạn thời gian (2 điểm)</label>
+                    <label><input type="radio" name="q1" value="0" /> C. Có, con dùng thoải mái không giới hạn (0 điểm)</label>
+                </div>
+            </div>
+            <!-- Câu 2 – đáp án đúng ở B (3 điểm) -->
+            <div class="question" data-q="2">
+                <div class="q-text">Câu 2: Bạn có biết con đang dùng những ứng dụng / trang web nào không?</div>
+                <div class="options">
+                    <label><input type="radio" name="q2" value="1" /> A. Biết vài ứng dụng cơ bản (1 điểm)</label>
+                    <label><input type="radio" name="q2" value="3" /> B. Biết rõ mọi ứng dụng, đã cùng con tìm hiểu trước khi dùng (3 điểm)</label>
+                    <label><input type="radio" name="q2" value="0" /> C. Không rõ, con tự tìm hiểu (0 điểm)</label>
+                </div>
+            </div>
+            <!-- Câu 3 – đáp án đúng ở C (3 điểm) -->
+            <div class="question" data-q="3">
+                <div class="q-text">Câu 3: Con đã từng kể với bạn về việc bị người lạ nhắn tin / gặp nội dung không phù hợp chưa?</div>
+                <div class="options">
+                    <label><input type="radio" name="q3" value="0" /> A. Chưa từng kể, có lẽ con không dám (0 điểm)</label>
+                    <label><input type="radio" name="q3" value="1" /> B. Có kể nhưng mình chưa xử lý triệt để (1 điểm)</label>
+                    <label><input type="radio" name="q3" value="3" /> C. Có, và mình đã cùng con xử lý, cảm ơn con đã kể (3 điểm)</label>
+                </div>
+            </div>
+            <!-- Câu 4 – đáp án đúng ở A (3 điểm) -->
+            <div class="question" data-q="4">
+                <div class="q-text">Câu 4: Cha mẹ có biết các tính năng kiểm soát của thiết bị / ứng dụng đang dùng không?</div>
+                <div class="options">
+                    <label><input type="radio" name="q4" value="3" /> A. Cài đặt và thường xuyên kiểm tra cùng con (3 điểm)</label>
+                    <label><input type="radio" name="q4" value="1" /> B. Có cài nhưng không rành lắm (1 điểm)</label>
+                    <label><input type="radio" name="q4" value="0" /> C. Không biết, dùng bao nhiêu tùy con (0 điểm)</label>
+                </div>
+            </div>
+            <!-- Câu 5 – đáp án đúng ở B (3 điểm) -->
+            <div class="question" data-q="5">
+                <div class="q-text">Câu 5: Cha mẹ có thường xuyên nói chuyện với con về an toàn mạng không?</div>
+                <div class="options">
+                    <label><input type="radio" name="q5" value="0" /> A. Chưa từng (0 điểm)</label>
+                    <label><input type="radio" name="q5" value="3" /> B. Thường xuyên, như một phần của cuộc sống hàng ngày (3 điểm)</label>
+                    <label><input type="radio" name="q5" value="1" /> C. Thi thoảng (1 điểm)</label>
+                </div>
+            </div>
+            <!-- Câu 6 (bổ sung) – đáp án đúng ở C (3 điểm) -->
+            <div class="question" data-q="6">
+                <div class="q-text">Câu 6: Con nhận được tin nhắn từ một tài khoản lạ mời tham gia nhóm “bí mật”, con sẽ làm gì?</div>
+                <div class="options">
+                    <label><input type="radio" name="q6" value="0" /> A. Tò mò nhấp vào xem thử (0 điểm)</label>
+                    <label><input type="radio" name="q6" value="1" /> B. Chặn tài khoản nhưng không kể với ba/mẹ (1 điểm)</label>
+                    <label><input type="radio" name="q6" value="3" /> C. Không nhấp, chặn và báo ngay cho ba/mẹ (3 điểm)</label>
+                </div>
+            </div>
+        </div>
+
+        <div style="display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; margin:0.4rem 0 0.2rem;">
+            <button class="btn-gold" id="quizSubmit">📊 Xem kết quả</button>
+            <button class="btn-outline-gold" id="resetQuiz" style="background:#fff; border-color:#C9A84C; color:#0A1628;">🔄 Làm lại</button>
+        </div>
+
+        <div class="quiz-result" id="quizResult">
+            <span><span class="score-big" id="quizScore">0</span> / 18 điểm</span>
+            <span class="msg" id="quizMsg">🌟 Tốt! Bạn đang làm rất tốt việc bảo vệ con trên không gian mạng.</span>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <div style="margin-top:2.5rem; padding-top:1.2rem; border-top:1px solid #e9e0d4; text-align:center; font-size:0.85rem; color:#1E3A5F;">
+        <span class="accent-font" style="font-size:1.1rem;">“An toàn trên mạng – hạnh phúc trong nhà.”</span>
+        <br/>© 2026 · Chương 3 – Lá chắn 4.0
+    </div>
+
+</div>
+
+<script>
+    (function() {
+        // ----- TV SLIDES -----
+        const track = document.getElementById('slideTrack');
+        const dots = document.querySelectorAll('#slideDots span');
+        const prevBtn = document.getElementById('prevSlide');
+        const nextBtn = document.getElementById('nextSlide');
+        let currentSlide = 0;
+        const totalSlides = 5;
+
+        function updateSlide(index) {
+            if (index < 0) index = 0;
+            if (index >= totalSlides) index = totalSlides - 1;
+            currentSlide = index;
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
+            });
+        }
+
+        dots.forEach((dot, i) => {
+            dot.addEventListener('click', () => updateSlide(i));
+        });
+        prevBtn.addEventListener('click', () => updateSlide(currentSlide - 1));
+        nextBtn.addEventListener('click', () => updateSlide(currentSlide + 1));
+
+        // ----- CHECKLIST -----
+        const checkboxes = document.querySelectorAll('#checklistGrid input[type="checkbox"]');
+        const checkScoreEl = document.getElementById('checkScore');
+        const checkMsgEl = document.getElementById('checkMsg');
+
+        function updateChecklist() {
+            let checked = 0;
+            checkboxes.forEach(cb => { if (cb.checked) checked++; });
+            checkScoreEl.textContent = checked;
+            let msg = '';
+            if (checked === 10) {
+                msg = '🌟 Tuyệt vời! Gia đình đã có thỏa thuận toàn diện. Hãy cùng ký tên và thực hiện.';
+            } else if (checked >= 7) {
+                msg = '🌱 Rất tốt! Còn một vài mục cần hoàn thiện, hãy trao đổi thêm với con.';
+            } else if (checked >= 4) {
+                msg = '📌 Đã có nền tảng, hãy bổ sung các mục còn thiếu để bảo vệ con tốt hơn.';
+            } else {
+                msg = '⚠️ Gia đình cần ngồi lại cùng con để thiết lập các thỏa thuận cơ bản. Bắt đầu từ những mục đơn giản nhất.';
+            }
+            checkMsgEl.textContent = msg;
+        }
+
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', updateChecklist);
+        });
+
+        document.getElementById('resetChecklist').addEventListener('click', function() {
+            checkboxes.forEach(cb => { cb.checked = false; });
+            updateChecklist();
+        });
+
+        updateChecklist();
+
+        // ----- QUIZ -----
+        const quizQuestions = document.querySelectorAll('.question');
+        const submitBtn = document.getElementById('quizSubmit');
+        const resetQuizBtn = document.getElementById('resetQuiz');
+        const quizResultDiv = document.getElementById('quizResult');
+        const quizScoreEl = document.getElementById('quizScore');
+        const quizMsgEl = document.getElementById('quizMsg');
+
+        function getQuizScore() {
+            let total = 0;
+            quizQuestions.forEach(q => {
+                const radios = q.querySelectorAll('input[type="radio"]');
+                let selected = null;
+                radios.forEach(r => { if (r.checked) selected = r; });
+                if (selected) {
+                    total += parseInt(selected.value, 10);
+                }
+            });
+            return total;
+        }
+
+        function showQuizResult() {
+            const score = getQuizScore();
+            quizScoreEl.textContent = score;
+            let msg = '';
+            if (score <= 5) {
+                msg = '⚠️ Con bạn đang rất dễ bị tổn thương trên mạng. Cần thiết lập thỏa thuận và giám sát ngay.';
+            } else if (score <= 10) {
+                msg = '🌱 Đã có nền tảng, hãy củng cố và tăng cường kết nối với con.';
+            } else if (score <= 14) {
+                msg = '🌟 Khá tốt! Bạn đang làm tốt, hãy duy trì và nâng cao kỹ năng cho con.';
+            } else {
+                msg = '🌟 Xuất sắc! Bạn đang làm rất tốt việc bảo vệ con trên không gian mạng.';
+            }
+            quizMsgEl.textContent = msg;
+            quizResultDiv.style.display = 'flex';
+        }
+
+        submitBtn.addEventListener('click', showQuizResult);
+
+        resetQuizBtn.addEventListener('click', function() {
+            quizQuestions.forEach(q => {
+                const radios = q.querySelectorAll('input[type="radio"]');
+                radios.forEach(r => { r.checked = false; });
+            });
+            quizResultDiv.style.display = 'none';
+        });
+    })();
+</script>
+
+</body>
+</html>
