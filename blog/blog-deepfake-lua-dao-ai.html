@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deepfake và lừa đảo AI – Bảo vệ bạn và gia đình trước công nghệ mới | Sophia Nguyễn</title>
+    <meta name="description" content="Deepfake là gì, cách nhận diện, các hình thức lừa đảo phổ biến bằng AI, và cách bảo vệ thông tin cá nhân của bạn và gia đình.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --navy-dark: #0A1628;
+            --navy-mid: #1E3A5F;
+            --gold: #C9A84C;
+            --gold-light: #D4B85C;
+            --cream: #F5F0E8;
+            --white: #FFFFFF;
+            --gray: #4A5A6A;
+            --light-gray: #E8E4DC;
+            --gradient: linear-gradient(135deg, #0A1628 0%, #1E3A5F 50%, #2A4A7F 100%);
+            --gold-gradient: linear-gradient(135deg, #C9A84C 0%, #D4B85C 50%, #E8D5A0 100%);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--navy-dark);
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+        .header {
+            background: var(--white);
+            padding: 12px 0;
+            box-shadow: 0 2px 20px rgba(10,22,40,0.06);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo img { height: 55px; width: auto; display: block; }
+        .navbar ul {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+            align-items: center;
+        }
+        .navbar ul li a {
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        .navbar ul li a:hover, .navbar ul li a.active { color: var(--gold); }
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--navy-dark);
+        }
+        .show-menu { display: flex !important; }
+
+        .blog-hero {
+            background: var(--gradient);
+            padding: 50px 0 40px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .blog-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .blog-hero .blog-tag {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--navy-dark);
+            padding: 4px 18px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        .blog-hero h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4rem;
+            font-weight: 400;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+        .blog-hero .subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            opacity: 0.85;
+            margin-bottom: 16px;
+            font-style: italic;
+            -webkit-text-fill-color: white;
+        }
+        .blog-hero .meta {
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+            font-size: 0.85rem;
+            opacity: 0.8;
+            flex-wrap: wrap;
+            -webkit-text-fill-color: white;
+        }
+        .blog-hero .meta i { margin-right: 6px; }
+
+        .blog-content {
+            background: var(--white);
+            border-radius: 32px;
+            padding: 48px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(10,22,40,0.06);
+            border: 1px solid var(--light-gray);
+        }
+        .blog-content p {
+            color: var(--gray);
+            margin-bottom: 16px;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+        .blog-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--navy-dark);
+            margin: 30px 0 16px;
+            padding-bottom: 8px;
+            border-bottom: 3px solid var(--gold);
+        }
+        .blog-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            color: var(--navy-dark);
+            margin: 20px 0 12px;
+        }
+        .blog-content ul, .blog-content ol {
+            margin: 16px 0 16px 24px;
+            color: var(--gray);
+        }
+        .blog-content li {
+            margin: 8px 0;
+            line-height: 1.7;
+        }
+        .blog-content strong { color: var(--navy-dark); }
+        .blog-content a { color: var(--gold); text-decoration: none; }
+        .blog-content a:hover { text-decoration: underline; }
+
+        .callout {
+            background: var(--cream);
+            border-left: 5px solid var(--gold);
+            padding: 20px 24px;
+            border-radius: 16px;
+            margin: 24px 0;
+            color: var(--gray);
+            font-style: italic;
+        }
+        .callout strong { color: var(--navy-dark); }
+
+        .highlight-box {
+            background: rgba(201,168,76,0.12);
+            padding: 20px 24px;
+            border-radius: 16px;
+            margin: 24px 0;
+            border: 1px solid var(--gold);
+        }
+        .highlight-box strong { color: var(--navy-dark); }
+
+        .checklist {
+            list-style: none;
+            margin: 16px 0;
+            padding-left: 0;
+        }
+        .checklist li {
+            margin: 12px 0;
+            padding-left: 28px;
+            position: relative;
+            color: var(--gray);
+        }
+        .checklist li:before {
+            content: "🤖";
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .share-section {
+            text-align: center;
+            margin: 30px 0 20px;
+            padding: 16px 20px;
+            background: var(--cream);
+            border-radius: 16px;
+            border: 1px solid var(--light-gray);
+        }
+        .share-section .share-label {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.9rem;
+            color: var(--navy-dark);
+            margin-bottom: 12px;
+        }
+        .share-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+            color: white;
+        }
+        .share-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .share-btn.facebook { background: #1877f2; }
+        .share-btn.twitter { background: #1da1f2; }
+        .share-btn.linkedin { background: #0077b5; }
+        .share-btn.zalo { background: #0068ff; }
+        .share-btn.copy-link { background: var(--gray); }
+        .share-btn i { font-size: 0.9rem; }
+
+        .cta-section {
+            text-align: center;
+            padding: 40px 36px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 32px;
+            margin: 40px 0;
+            border: 1px solid rgba(201,168,76,0.2);
+        }
+        .cta-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            margin-bottom: 12px;
+        }
+        .cta-section p { opacity: 0.9; margin-bottom: 20px; }
+        .cta-datlich {
+            background: var(--gold);
+            color: var(--navy-dark);
+            padding: 12px 28px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-block;
+            margin: 0 8px;
+            transition: 0.2s;
+        }
+        .cta-datlich:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+        }
+        .cta-datlich.outline {
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+        }
+        .cta-datlich.outline:hover {
+            background: var(--gold);
+            color: var(--navy-dark);
+        }
+
+        .footer {
+            background: var(--navy-dark);
+            color: rgba(255,255,255,0.7);
+            padding: 40px 0 24px;
+            margin-top: 60px;
+            border-top: 3px solid var(--gold);
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        .footer-logo img { width: 120px; margin-bottom: 12px; }
+        .footer-logo p { font-size: 0.85rem; line-height: 1.6; color: rgba(255,255,255,0.6); }
+        .footer-links h4, .footer-contact h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            margin-bottom: 16px;
+            font-size: 1rem;
+        }
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+        .footer-links ul li { margin-bottom: 8px; }
+        .footer-links ul li a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: 0.2s;
+        }
+        .footer-links ul li a:hover { color: var(--gold); }
+        .footer-contact p {
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            color: rgba(255,255,255,0.6);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .footer-contact p i { color: var(--gold); width: 18px; }
+        .social-icons {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .social-icons a {
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+        .social-icons a:hover { transform: translateY(-3px); }
+        .social-icons img { width: 30px; height: 30px; border-radius: 50%; }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .navbar {
+                display: none;
+                flex-direction: column;
+                gap: 12px;
+                padding: 16px 0;
+                background: var(--white);
+                width: 100%;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                padding: 16px 24px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+            .navbar ul { flex-direction: column; gap: 12px; }
+            .header-container { flex-wrap: wrap; position: relative; }
+            .logo img { height: 45px; }
+            .blog-hero h1 { font-size: 2.5rem; }
+            .blog-hero .subtitle { font-size: 0.95rem; }
+            .blog-content { padding: 24px; }
+            .blog-hero .meta { gap: 12px; font-size: 0.75rem; flex-wrap: wrap; }
+            .footer-container { grid-template-columns: 1fr; text-align: center; }
+            .footer-contact p { justify-content: center; }
+            .social-icons { justify-content: center; }
+            .cta-section { padding: 30px 20px; }
+            .cta-datlich { display: block; margin: 12px auto; width: fit-content; }
+            .share-buttons { gap: 8px; }
+            .share-btn { width: 34px; height: 34px; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<header class="header">
+    <div class="header-container">
+        <a href="../index.html" class="logo">
+            <img src="../images/hinhremovenen.png" alt="Sophia Nguyễn">
+        </a>
+        <div class="menu-toggle" onclick="document.querySelector('.navbar').classList.toggle('show-menu')">☰</div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="../index.html">Trang chủ</a></li>
+                <li><a href="../about.html">Giới thiệu</a></li>
+                <li><a href="../services.html">Dịch vụ</a></li>
+                <li><a href="../blog.html" class="active">Blog</a></li>
+                <li><a href="../contact.html">Liên hệ</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- ========== BLOG HERO ========== -->
+<section class="blog-hero">
+    <div class="container">
+        <div class="blog-tag">📖 Bài viết</div>
+        <h1>Deepfake và lừa đảo AI</h1>
+        <p class="subtitle">— Bảo vệ bạn và gia đình trước công nghệ mới —</p>
+        <div class="meta">
+            <span><i class="far fa-calendar-alt"></i> 12/05/2026</span>
+            <span><i class="far fa-clock"></i> 8 phút đọc</span>
+            <span><i class="far fa-folder-open"></i> An toàn số</span>
+        </div>
+    </div>
+</section>
+
+<!-- ========== BLOG CONTENT ========== -->
+<div class="container">
+    <div class="blog-content">
+
+        <p>Bạn nhận được một cuộc gọi video từ "mẹ". Giọng nói, khuôn mặt, cách nói chuyện – tất cả đều giống hệt. Nhưng có một điều khiến bạn nghi ngờ: mẹ chưa bao giờ gọi video vào giờ này, và có gì đó hơi... không tự nhiên.</p>
+
+        <p>Đó không phải là mẹ bạn. Đó là <strong>Deepfake</strong>.</p>
+
+        <div class="callout">
+            <strong>Công nghệ đang phát triển nhanh hơn nhận thức của chúng ta. Và kẻ xấu đang tận dụng điều đó để lừa đảo theo những cách chúng ta chưa từng nghĩ đến.</strong>
+        </div>
+
+        <h2>1. Deepfake là gì?</h2>
+
+        <p><strong>Deepfake</strong> là công nghệ sử dụng trí tuệ nhân tạo (AI) để tạo ra các video, hình ảnh hoặc âm thanh giả mạo trông rất thật. Từ "deepfake" là ghép của "deep learning" (học sâu) và "fake" (giả).</p>
+
+        <p>Công nghệ này có thể:</p>
+        <ul>
+            <li>Ghép khuôn mặt của người này lên cơ thể của người khác.</li>
+            <li>Tạo ra video của một người đang nói những điều họ chưa từng nói.</li>
+            <li>Giả mạo giọng nói của ai đó một cách chính xác đến khó tin.</li>
+        </ul>
+
+        <h2>2. Các hình thức lừa đảo phổ biến sử dụng AI</h2>
+
+        <ul>
+            <li><strong>Lừa đảo giọng nói (Voice Cloning):</strong> Kẻ xấu sao chép giọng nói của người thân bạn từ các video trên mạng xã hội, sau đó gọi điện và yêu cầu chuyển tiền gấp.</li>
+            <li><strong>Video Deepfake:</strong> Kẻ xấu tạo video giả mạo người nổi tiếng hoặc người thân để thao túng, lừa đảo hoặc tống tiền.</li>
+            <li><strong>Tin nhắn do AI tạo:</strong> Sử dụng AI để viết tin nhắn giả mạo giọng văn của người thân, bạn bè, hoặc đối tác để yêu cầu chuyển tiền.</li>
+            <li><strong>Lừa đảo việc làm:</strong> Sử dụng AI để tạo hồ sơ xin việc giả, hoặc mạo danh nhà tuyển dụng để thu thập thông tin cá nhân.</li>
+        </ul>
+
+        <h2>3. Cách nhận biết Deepfake</h2>
+
+        <ul class="checklist">
+            <li><strong>Mắt ít chớp hoặc chớp không tự nhiên:</strong> AI thường gặp khó khăn khi mô phỏng chuyển động chớp mắt tự nhiên.</li>
+            <li><strong>Chuyển động môi và âm thanh không khớp:</strong> Nếu môi cử động nhưng âm thanh bị lệch vài giây, đó có thể là deepfake.</li>
+            <li><strong>Ánh sáng bất thường:</strong> Nếu khuôn mặt có ánh sáng khác với phần còn lại của khung hình, đó là dấu hiệu của chỉnh sửa.</li>
+            <li><strong>Hình ảnh không sắc nét:</strong> Deepfake thường có vùng xung quanh mặt bị mờ hoặc nhiễu.</li>
+            <li><strong>Hành động bất ngờ để kiểm tra:</strong> Nếu nghi ngờ, hãy yêu cầu người đó thực hiện một hành động bất ngờ (ví dụ: đưa tay qua mặt). Deepfake khó có thể phản ứng kịp.</li>
+        </ul>
+
+        <h2>4. Cách bảo vệ bạn và gia đình</h2>
+
+        <ul>
+            <li><strong>Hạn chế đăng tải thông tin cá nhân:</strong> Hạn chế đăng video, ảnh và giọng nói chất lượng cao lên mạng xã hội – kẻ xấu có thể sử dụng chúng để tạo deepfake.</li>
+            <li><strong>Thiết lập "mật khẩu" gia đình:</strong> Đồng ý một từ hoặc cụm từ bí mật mà chỉ gia đình bạn biết để xác nhận trong các tình huống khẩn cấp.</li>
+            <li><strong>Kiểm tra nguồn tin:</strong> Trước khi tin vào bất kỳ video hay tin nhắn nào, hãy kiểm tra từ nhiều nguồn khác nhau.</li>
+            <li><strong>Bảo mật tài khoản:</strong> Sử dụng mật khẩu mạnh, bật xác thực hai lớp (2FA), và cảnh giác với các yêu cầu thông tin cá nhân.</li>
+            <li><strong>Không gửi ảnh/video nhạy cảm:</strong> Một khi đã gửi, bạn không còn kiểm soát được nội dung đó nữa.</li>
+        </ul>
+
+        <div class="highlight-box">
+            <p><strong>💬 Lời kết:</strong> Công nghệ đang tiến bộ từng ngày. Và cùng với những lợi ích mà nó mang lại, cũng có những nguy cơ mới mà chúng ta cần chuẩn bị.</p>
+            <p style="margin-top: 12px;">Hãy nhớ: <strong>Sự tin tưởng là một món quà – và nó cần được bảo vệ bằng cả trái tim lẫn khối óc.</strong></p>
+            <p style="margin-top: 12px;">🔹 <strong>Trong khóa học "Bản lĩnh Gen Z" và "Kỹ năng an toàn cho trẻ", tôi có những bài học chuyên sâu về an toàn không gian mạng và nhận diện lừa đảo công nghệ. Nếu bạn muốn trang bị cho gia đình mình những kỹ năng cần thiết nhất, hãy tham khảo các khóa học của tôi.</strong></p>
+        </div>
+    </div>
+
+    <!-- ========== SHARE SECTION ========== -->
+    <div class="share-section">
+        <div class="share-label">✨ Chia sẻ bài viết</div>
+        <div class="share-buttons">
+            <a href="#" class="share-btn facebook" onclick="shareOnFacebook()" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="share-btn twitter" onclick="shareOnTwitter()" title="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="share-btn linkedin" onclick="shareOnLinkedIn()" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="share-btn zalo" onclick="shareOnZalo()" title="Zalo"><i class="fas fa-comment-dots"></i></a>
+            <button class="share-btn copy-link" onclick="copyPageUrl()" title="Sao chép link"><i class="fas fa-link"></i></button>
+        </div>
+    </div>
+
+    <!-- ========== CTA ========== -->
+    <div class="cta-section">
+        <h2>💬 Bạn lo lắng về an toàn số của gia đình?</h2>
+        <p>Sophia luôn sẵn sàng đồng hành cùng bạn.</p>
+        <div>
+            <a href="https://zalo.me/0977092182" class="cta-datlich">📅 Đặt lịch tư vấn</a>
+            <a href="../contact.html" class="cta-datlich outline">📩 Gửi tin nhắn</a>
+        </div>
+    </div>
+</div>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-logo">
+            <img src="../images/hinhremovenen.png" alt="Sophia Nguyễn">
+            <p>Đồng hành & Sẻ chia cùng bạn trên hành trình tâm lý – phát triển – yêu thương.</p>
+        </div>
+        <div class="footer-links">
+            <h4>Dịch vụ</h4>
+            <ul>
+                <li><a href="../tuvan-tamly1.html">Tham vấn tâm lý</a></li>
+                <li><a href="../huong-nghiep.html">Định hướng nghề nghiệp</a></li>
+                <li><a href="../ky-nang.html">Đào tạo kỹ năng</a></li>
+                <li><a href="../van-tay.html">Sinh trắc vân tay</a></li>
+            </ul>
+        </div>
+        <div class="footer-contact">
+            <h4>Liên hệ</h4>
+            <p><i class="fas fa-envelope"></i> sophianguyen2891@gmail.com</p>
+            <p><i class="fas fa-phone"></i> 0977092182</p>
+            <p><i class="fas fa-map-marker-alt"></i> Tân Bình - TPHCM</p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/Sophiadiemhang1982"><img src="../images/fb.png" alt="Facebook" /></a>
+                <a href="https://www.tiktok.com/@sophia.nguyen2014"><img src="../images/tiktok.png" alt="TikTok" /></a>
+                <a href="https://www.youtube.com/@sophianguyen1982-dh"><img src="../images/youtube.png" alt="YouTube" /></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>Copyright ©2025 Sophia Nguyễn. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    function shareOnFacebook() {
+        const url = encodeURIComponent(window.location.href);
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
+    }
+    function shareOnTwitter() {
+        const url = encodeURIComponent(window.location.href);
+        const title = encodeURIComponent(document.title);
+        window.open(`https://twitter.com/intent/tweet?text=${title}&url=${url}`, '_blank', 'width=600,height=400');
+    }
+    function shareOnLinkedIn() {
+        const url = encodeURIComponent(window.location.href);
+        window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank', 'width=600,height=400');
+    }
+    function shareOnZalo() {
+        const url = encodeURIComponent(window.location.href);
+        window.open(`https://zalo.me/share?url=${url}`, '_blank', 'width=600,height=400');
+    }
+    function copyPageUrl() {
+        navigator.clipboard.writeText(window.location.href).then(function() {
+            alert('✅ Đã sao chép link bài viết!');
+        }).catch(function() {
+            alert('❌ Không thể sao chép link. Hãy thử lại.');
+        });
+    }
+</script>
+</body>
+</html>
