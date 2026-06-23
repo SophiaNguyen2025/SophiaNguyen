@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6 dấu hiệu bạn đang trong một mối quan hệ độc hại | Sophia Nguyễn</title>
+    <meta name="description" content="Nhận diện 6 dấu hiệu của mối quan hệ độc hại: kiểm soát, hạ thấp, cô lập, dao động cảm xúc, thiếu tôn trọng ranh giới và cảm giác kiệt sức. Cách thoát khỏi và bảo vệ bản thân.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --navy-dark: #0A1628;
+            --navy-mid: #1E3A5F;
+            --gold: #C9A84C;
+            --gold-light: #D4B85C;
+            --cream: #F5F0E8;
+            --white: #FFFFFF;
+            --gray: #4A5A6A;
+            --light-gray: #E8E4DC;
+            --gradient: linear-gradient(135deg, #0A1628 0%, #1E3A5F 50%, #2A4A7F 100%);
+            --gold-gradient: linear-gradient(135deg, #C9A84C 0%, #D4B85C 50%, #E8D5A0 100%);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--navy-dark);
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+        /* ========== HEADER ========== */
+        .header {
+            background: var(--white);
+            padding: 12px 0;
+            box-shadow: 0 2px 20px rgba(10,22,40,0.06);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo img { height: 55px; width: auto; display: block; }
+        .navbar ul {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+            align-items: center;
+        }
+        .navbar ul li a {
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        .navbar ul li a:hover, .navbar ul li a.active { color: var(--gold); }
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--navy-dark);
+        }
+        .show-menu { display: flex !important; }
+
+        /* ========== BLOG HERO ========== */
+        .blog-hero {
+            background: var(--gradient);
+            padding: 50px 0 40px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .blog-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .blog-hero .blog-tag {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--navy-dark);
+            padding: 4px 18px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        .blog-hero h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4rem;
+            font-weight: 400;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+        .blog-hero .subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            opacity: 0.85;
+            margin-bottom: 16px;
+            font-style: italic;
+            -webkit-text-fill-color: white;
+        }
+        .blog-hero .meta {
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+            font-size: 0.85rem;
+            opacity: 0.8;
+            flex-wrap: wrap;
+            -webkit-text-fill-color: white;
+        }
+        .blog-hero .meta i { margin-right: 6px; }
+
+        /* ========== BLOG CONTENT ========== */
+        .blog-content {
+            background: var(--white);
+            border-radius: 32px;
+            padding: 48px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(10,22,40,0.06);
+            border: 1px solid var(--light-gray);
+        }
+        .blog-content p {
+            color: var(--gray);
+            margin-bottom: 16px;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+        .blog-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--navy-dark);
+            margin: 30px 0 16px;
+            padding-bottom: 8px;
+            border-bottom: 3px solid var(--gold);
+        }
+        .blog-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            color: var(--navy-dark);
+            margin: 20px 0 12px;
+        }
+        .blog-content ul, .blog-content ol {
+            margin: 16px 0 16px 24px;
+            color: var(--gray);
+        }
+        .blog-content li {
+            margin: 8px 0;
+            line-height: 1.7;
+        }
+        .blog-content strong { color: var(--navy-dark); }
+        .blog-content a { color: var(--gold); text-decoration: none; }
+        .blog-content a:hover { text-decoration: underline; }
+
+        .callout {
+            background: var(--cream);
+            border-left: 5px solid var(--gold);
+            padding: 20px 24px;
+            border-radius: 16px;
+            margin: 24px 0;
+            color: var(--gray);
+            font-style: italic;
+        }
+        .callout strong { color: var(--navy-dark); }
+
+        .highlight-box {
+            background: rgba(201,168,76,0.12);
+            padding: 20px 24px;
+            border-radius: 16px;
+            margin: 24px 0;
+            border: 1px solid var(--gold);
+        }
+        .highlight-box strong { color: var(--navy-dark); }
+
+        .red-flag {
+            background: rgba(231,76,60,0.08);
+            border-left: 4px solid #e74c3c;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin: 12px 0;
+        }
+        .red-flag strong { color: #e74c3c; }
+
+        .green-flag {
+            background: rgba(46,204,113,0.08);
+            border-left: 4px solid #2ecc71;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin: 12px 0;
+        }
+        .green-flag strong { color: #2ecc71; }
+
+        /* ========== SHARE SECTION ========== */
+        .share-section {
+            text-align: center;
+            margin: 30px 0 20px;
+            padding: 16px 20px;
+            background: var(--cream);
+            border-radius: 16px;
+            border: 1px solid var(--light-gray);
+        }
+        .share-section .share-label {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.9rem;
+            color: var(--navy-dark);
+            margin-bottom: 12px;
+        }
+        .share-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+            color: white;
+        }
+        .share-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .share-btn.facebook { background: #1877f2; }
+        .share-btn.twitter { background: #1da1f2; }
+        .share-btn.linkedin { background: #0077b5; }
+        .share-btn.zalo { background: #0068ff; }
+        .share-btn.copy-link { background: var(--gray); }
+        .share-btn i { font-size: 0.9rem; }
+
+        /* ========== CTA ========== */
+        .cta-section {
+            text-align: center;
+            padding: 40px 36px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 32px;
+            margin: 40px 0;
+            border: 1px solid rgba(201,168,76,0.2);
+        }
+        .cta-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            margin-bottom: 12px;
+        }
+        .cta-section p { opacity: 0.9; margin-bottom: 20px; }
+        .cta-datlich {
+            background: var(--gold);
+            color: var(--navy-dark);
+            padding: 12px 28px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-block;
+            margin: 0 8px;
+            transition: 0.2s;
+        }
+        .cta-datlich:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+        }
+        .cta-datlich.outline {
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+        }
+        .cta-datlich.outline:hover {
+            background: var(--gold);
+            color: var(--navy-dark);
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: var(--navy-dark);
+            color: rgba(255,255,255,0.7);
+            padding: 40px 0 24px;
+            margin-top: 60px;
+            border-top: 3px solid var(--gold);
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        .footer-logo img { width: 120px; margin-bottom: 12px; }
+        .footer-logo p { font-size: 0.85rem; line-height: 1.6; color: rgba(255,255,255,0.6); }
+        .footer-links h4, .footer-contact h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            margin-bottom: 16px;
+            font-size: 1rem;
+        }
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+        .footer-links ul li { margin-bottom: 8px; }
+        .footer-links ul li a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: 0.2s;
+        }
+        .footer-links ul li a:hover { color: var(--gold); }
+        .footer-contact p {
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            color: rgba(255,255,255,0.6);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .footer-contact p i { color: var(--gold); width: 18px; }
+        .social-icons {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .social-icons a {
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+        .social-icons a:hover { transform: translateY(-3px); }
+        .social-icons img { width: 30px; height: 30px; border-radius: 50%; }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .navbar {
+                display: none;
+                flex-direction: column;
+                gap: 12px;
+                padding: 16px 0;
+                background: var(--white);
+                width: 100%;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                padding: 16px 24px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+            .navbar ul { flex-direction: column; gap: 12px; }
+            .header-container { flex-wrap: wrap; position: relative; }
+            .logo img { height: 45px; }
+            .blog-hero h1 { font-size: 2.5rem; }
+            .blog-hero .subtitle { font-size: 0.95rem; }
+            .blog-content { padding: 24px; }
+            .blog-hero .meta { gap: 12px; font-size: 0.75rem; flex-wrap: wrap; }
+            .footer-container { grid-template-columns: 1fr; text-align: center; }
+            .footer-contact p { justify-content: center; }
+            .social-icons { justify-content: center; }
+            .cta-section { padding: 30px 20px; }
+            .cta-datlich { display: block; margin: 12px auto; width: fit-content; }
+            .share-buttons { gap: 8px; }
+            .share-btn { width: 34px; height: 34px; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<header class="header">
+    <div class="header-container">
+        <a href="../index.html" class="logo">
+            <img src="../images/hinhremovenen.png" alt="Sophia Nguyễn">
+        </a>
+        <div class="menu-toggle" onclick="document.querySelector('.navbar').classList.toggle('show-menu')">☰</div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="../index.html">Trang chủ</a></li>
+                <li><a href="../about.html">Giới thiệu</a></li>
+                <li><a href="../services.html">Dịch vụ</a></li>
+                <li><a href="../blog.html" class="active">Blog</a></li>
+                <li><a href="../contact.html">Liên hệ</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- ========== BLOG HERO ========== -->
+<section class="blog-hero">
+    <div class="container">
+        <div class="blog-tag">📖 Bài viết</div>
+        <h1>6 dấu hiệu bạn đang trong một mối quan hệ độc hại</h1>
+        <p class="subtitle">— Nhận diện sớm để bảo vệ bản thân —</p>
+        <div class="meta">
+            <span><i class="far fa-calendar-alt"></i> 16/04/2026</span>
+            <span><i class="far fa-clock"></i> 10 phút đọc</span>
+            <span><i class="far fa-folder-open"></i> Tâm lý học</span>
+        </div>
+    </div>
+</section>
+
+<!-- ========== BLOG CONTENT ========== -->
+<div class="container">
+    <div class="blog-content">
+
+        <p>"Chỉ cần mình cố gắng thêm một chút nữa thôi, mọi chuyện sẽ ổn."</p>
+        <p>"Có lẽ mình đang quá nhạy cảm."</p>
+        <p>"Trước đây họ đã rất tốt với mình."</p>
+
+        <p>Bạn có thấy mình trong những câu nói này không? Hàng ngàn người đang ở trong các mối quan hệ độc hại, và họ thường không nhận ra điều đó cho đến khi quá muộn.</p>
+
+        <div class="callout">
+            <strong>Mối quan hệ độc hại không phải lúc nào cũng là bạo lực thể xác. Nó thường bắt đầu bằng những vết cắt tinh thần mỗi ngày.</strong>
+        </div>
+
+        <h2>📌 Dấu hiệu 1: Kiểm soát và ghen tuông thái quá</h2>
+        <div class="red-flag">
+            <p><strong>🔴 Dấu hiệu nhận biết:</strong></p>
+            <ul>
+                <li>Họ kiểm tra điện thoại, tin nhắn, email của bạn mà không xin phép.</li>
+                <li>Họ ghen tuông với bạn bè, đồng nghiệp, thậm chí cả người thân của bạn.</li>
+                <li>Họ muốn biết bạn ở đâu mọi lúc và yêu cầu bạn phải "báo cáo".</li>
+            </ul>
+        </div>
+
+        <p>Đây thường là dấu hiệu đầu tiên và cũng là dấu hiệu dễ bị ngụy tạo nhất. Họ có thể biện minh rằng <em>"vì quá yêu nên mới ghen"</em>. Nhưng tình yêu đích thực không đi kèm với sự kiểm soát. Yêu là tin tưởng, không phải giam cầm.</p>
+
+        <h2>📌 Dấu hiệu 2: Hạ thấp và chỉ trích liên tục</h2>
+        <div class="red-flag">
+            <p><strong>🔴 Dấu hiệu nhận biết:</strong></p>
+            <ul>
+                <li>Họ thường xuyên chỉ trích ngoại hình, trí thông minh, khả năng của bạn.</li>
+                <li>Họ làm bạn cảm thấy mình "không đủ tốt".</li>
+                <li>Họ dùng những câu như: "Sao em không như ...", "Có ai yêu em ngoài anh đâu".</li>
+            </ul>
+        </div>
+
+        <p>Một mối quan hệ lành mạnh sẽ giúp bạn cảm thấy <strong>được nâng đỡ và phát triển</strong>, không phải bị thu nhỏ lại. Nếu bạn thấy mình càng ngày càng nhỏ bé và mất tự tin khi ở bên cạnh họ, đó là một hồi chuông báo động.</p>
+
+        <h2>📌 Dấu hiệu 3: Cô lập bạn khỏi người thân, bạn bè</h2>
+        <div class="red-flag">
+            <p><strong>🔴 Dấu hiệu nhận biết:</strong></p>
+            <ul>
+                <li>Họ tỏ ra khó chịu khi bạn dành thời gian cho gia đình hoặc bạn bè.</li>
+                <li>Họ nói xấu những người thân yêu của bạn.</li>
+                <li>Họ tạo ra những cuộc cãi vã vào đúng dịp bạn có kế hoạch gặp gỡ người khác.</li>
+            </ul>
+        </div>
+
+        <p>Kẻ kiểm soát muốn bạn phụ thuộc vào họ về mặt cảm xúc. Càng ít người xung quanh bạn, họ càng dễ dàng thao túng bạn. Nếu bạn thấy mình dần xa cách với những người từng thân thiết, hãy đặt câu hỏi cho chính mình.</p>
+
+        <h2>📌 Dấu hiệu 4: "Nóng - Lạnh" thất thường</h2>
+        <div class="red-flag">
+            <p><strong>🔴 Dấu hiệu nhận biết:</strong></p>
+            <ul>
+                <li>Họ có thể rất ngọt ngào và lãng mạn, rồi bỗng nhiên lạnh lùng và xa cách.</li>
+                <li>Bạn luôn trong trạng thái "chờ đợi" sự thay đổi tâm trạng của họ.</li>
+                <li>Sau mỗi lần cãi vã, họ lại tỏ ra ân hận và hứa hẹn, tạo nên vòng xoáy "căng thẳng - hòa giải".</li>
+            </ul>
+        </div>
+
+        <p>Đây là một chiêu thao túng kinh điển. Sự dao động cảm xúc này tạo ra một vòng xoáy khiến bạn luôn ở trạng thái <strong>"bất an"</strong> và <strong>"thèm khát"</strong> sự công nhận của họ. Bạn càng bất an, họ càng có sức mạnh.</p>
+
+        <h2>📌 Dấu hiệu 5: Không tôn trọng ranh giới của bạn</h2>
+        <div class="red-flag">
+            <p><strong>🔴 Dấu hiệu nhận biết:</strong></p>
+            <ul>
+                <li>Bạn nói "không" nhưng họ vẫn tiếp tục làm.</li>
+                <li>Họ xem nhẹ cảm xúc và nhu cầu của bạn.</li>
+                <li>Họ biến bạn thành người "quá nhạy cảm" khi bạn than phiền.</li>
+            </ul>
+        </div>
+
+        <p>Ranh giới cá nhân là nền tảng của mọi mối quan hệ lành mạnh. Nếu người kia không tôn trọng ranh giới của bạn ngay từ những điều nhỏ nhặt, họ sẽ không tôn trọng bạn trong những điều quan trọng hơn.</p>
+
+        <h2>📌 Dấu hiệu 6: Bạn cảm thấy kiệt sức và mất năng lượng</h2>
+        <div class="red-flag">
+            <p><strong>🔴 Dấu hiệu nhận biết:</strong></p>
+            <ul>
+                <li>Sau mỗi lần gặp gỡ hoặc nói chuyện, bạn cảm thấy mệt mỏi và trống rỗng.</li>
+                <li>Bạn thường xuyên lo lắng, căng thẳng khi nghĩ về họ.</li>
+                <li>Bạn mất hứng thú với những điều từng khiến bạn vui vẻ.</li>
+            </ul>
+        </div>
+
+        <p>Cơ thể bạn biết trước khi tâm trí bạn nhận ra. Nếu bạn thường xuyên cảm thấy kiệt sức, lo âu, hoặc "đi trên vỏ trứng" khi ở bên cạnh họ, đó là tín hiệu rõ ràng nhất: <strong>Mối quan hệ này đang rút cạn năng lượng của bạn.</strong></p>
+
+        <h2>⚖️ So sánh: Mối quan hệ lành mạnh vs Độc hại</h2>
+
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>❌ Quan hệ độc hại</th>
+                    <th>✅ Quan hệ lành mạnh</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Bạn cảm thấy nhỏ bé và bị hạ thấp</td><td>Bạn cảm thấy được tôn trọng và nâng đỡ</td></tr>
+                <tr><td>Bạn luôn lo lắng và đi trên vỏ trứng</td><td>Bạn cảm thấy an toàn và thoải mái</td></tr>
+                <tr><td>Bạn phải từ bỏ bản thân để giữ họ</td><td>Bạn được khuyến khích phát triển</td></tr>
+                <tr><td>Bạn nghi ngờ chính nhận thức của mình</td><td>Bạn tin tưởng vào trực giác của mình</td></tr>
+                <tr><td>Bạn kiệt sức và mất năng lượng</td><td>Bạn được tiếp thêm năng lượng</td></tr>
+            </tbody>
+        </table>
+
+        <h2>💪 Làm sao để thoát khỏi mối quan hệ độc hại?</h2>
+
+        <div class="highlight-box">
+            <p><strong>Bước 1: Nhìn nhận và thừa nhận</strong></p>
+            <p>Đây là bước khó khăn nhất. Hãy thừa nhận rằng bạn đang ở trong một mối quan hệ không lành mạnh. Việc thừa nhận không phải là thất bại – đó là bước đầu tiên để bảo vệ bản thân.</p>
+        </div>
+
+        <div class="highlight-box">
+            <p><strong>Bước 2: Xây dựng hệ thống hỗ trợ</strong></p>
+            <p>Kết nối lại với gia đình, bạn bè mà bạn đã xa cách. Tìm kiếm sự hỗ trợ từ chuyên gia tâm lý nếu cần. Đừng cô đơn trong hành trình này.</p>
+        </div>
+
+        <div class="highlight-box">
+            <p><strong>Bước 3: Thiết lập ranh giới rõ ràng</strong></p>
+            <p>Học cách nói "không". Bắt đầu từ những điều nhỏ nhặt. Ranh giới không phải để trừng phạt người khác – nó để bảo vệ bạn.</p>
+        </div>
+
+        <div class="highlight-box">
+            <p><strong>Bước 4: Lên kế hoạch thoát khỏi an toàn</strong></p>
+            <p>Nếu bạn cảm thấy bị đe dọa, hãy có kế hoạch cụ thể. Điều này có thể bao gồm việc tìm nơi ở tạm thời, chuẩn bị tài chính, hoặc nhờ sự can thiệp của cơ quan chức năng.</p>
+        </div>
+
+        <div class="highlight-box">
+            <p><strong>Bước 5: Cho phép bản thân chữa lành</strong></p>
+            <p>Sau khi thoát khỏi mối quan hệ, hãy dành thời gian để chữa lành. Tìm hiểu lại bản thân, làm những điều bạn yêu thích, và xây dựng lại lòng tự trọng.</p>
+        </div>
+
+        <div class="highlight-box">
+            <p><strong>💬 Lời kết:</strong> Bạn không cần phải chịu đựng một mối quan hệ khiến bạn nhỏ bé đi. Tình yêu đích thực không làm bạn tổn thương – nó làm bạn lớn hơn. Nếu bạn đang đọc những dòng này và nhận ra mình trong đó, hãy biết rằng bạn xứng đáng được yêu thương một cách lành mạnh. Và bạn đủ mạnh mẽ để bước ra khỏi điều không xứng đáng.</p>
+            <p style="margin-top: 12px;">🔹 <strong>Trong các khóa học và các buổi tham vấn tâm lý, tôi dành những bài học chuyên sâu về nhận diện thao túng tâm lý và thiết lập ranh giới. Nếu bạn đang trong một mối quan hệ độc hại và cần hỗ trợ, hãy liên hệ với tôi.</strong></p>
+        </div>
+    </div>
+
+    <!-- ========== SHARE SECTION ========== -->
+    <div class="share-section">
+        <div class="share-label">✨ Chia sẻ bài viết</div>
+        <div class="share-buttons">
+            <a href="#" class="share-btn facebook" onclick="shareOnFacebook()" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="share-btn twitter" onclick="shareOnTwitter()" title="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="share-btn linkedin" onclick="shareOnLinkedIn()" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="share-btn zalo" onclick="shareOnZalo()" title="Zalo"><i class="fas fa-comment-dots"></i></a>
+            <button class="share-btn copy-link" onclick="copyPageUrl()" title="Sao chép link"><i class="fas fa-link"></i></button>
+        </div>
+    </div>
+
+    <!-- ========== CTA ========== -->
+    <div class="cta-section">
+        <h2>💬 Bạn đang trong một mối quan hệ khiến bạn kiệt sức?</h2>
+        <p>Sophia luôn sẵn sàng lắng nghe và đồng hành cùng bạn.</p>
+        <div>
+            <a href="https://zalo.me/0977092182" class="cta-datlich">📅 Đặt lịch tư vấn</a>
+            <a href="../contact.html" class="cta-datlich outline">📩 Gửi tin nhắn</a>
+        </div>
+    </div>
+</div>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-logo">
+            <img src="../images/hinhremovenen.png" alt="Sophia Nguyễn">
+            <p>Đồng hành & Sẻ chia cùng bạn trên hành trình tâm lý – phát triển – yêu thương.</p>
+        </div>
+        <div class="footer-links">
+            <h4>Dịch vụ</h4>
+            <ul>
+                <li><a href="../tuvan-tamly1.html">Tham vấn tâm lý</a></li>
+                <li><a href="../huong-nghiep.html">Định hướng nghề nghiệp</a></li>
+                <li><a href="../ky-nang.html">Đào tạo kỹ năng</a></li>
+                <li><a href="../van-tay.html">Sinh trắc vân tay</a></li>
+            </ul>
+        </div>
+        <div class="footer-contact">
+            <h4>Liên hệ</h4>
+            <p><i class="fas fa-envelope"></i> sophianguyen2891@gmail.com</p>
+            <p><i class="fas fa-phone"></i> 0977092182</p>
+            <p><i class="fas fa-map-marker-alt"></i> Tân Bình - TPHCM</p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/Sophiadiemhang1982"><img src="../images/fb.png" alt="Facebook" /></a>
+                <a href="https://www.tiktok.com/@sophia.nguyen2014"><img src="../images/tiktok.png" alt="TikTok" /></a>
+                <a href="https://www.youtube.com/@sophianguyen1982-dh"><img src="../images/youtube.png" alt="YouTube" /></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>Copyright ©2025 Sophia Nguyễn. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    function shareOnFacebook() {
+        const url = encodeURIComponent(window.location.href);
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
+    }
+    function shareOnTwitter() {
+        const url = encodeURIComponent(window.location.href);
+        const title = encodeURIComponent(document.title);
+        window.open(`https://twitter.com/intent/tweet?text=${title}&url=${url}`, '_blank', 'width=600,height=400');
+    }
+    function shareOnLinkedIn() {
+        const url = encodeURIComponent(window.location.href);
+        window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank', 'width=600,height=400');
+    }
+    function shareOnZalo() {
+        const url = encodeURIComponent(window.location.href);
+        window.open(`https://zalo.me/share?url=${url}`, '_blank', 'width=600,height=400');
+    }
+    function copyPageUrl() {
+        navigator.clipboard.writeText(window.location.href).then(function() {
+            alert('✅ Đã sao chép link bài viết!');
+        }).catch(function() {
+            alert('❌ Không thể sao chép link. Hãy thử lại.');
+        });
+    }
+</script>
+</body>
+</html>
