@@ -1,420 +1,623 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thao túng tâm lý (Gaslighting) – Nhận diện và thoát khỏi mê hồn trận | Sophia Nguyễn</title>
-  <meta name="description" content="Thao túng tâm lý là gì? Nguồn gốc thuật ngữ Gaslighting, dấu hiệu nhận biết, các chiêu bài thao túng kinh điển và giải pháp thoát khỏi mối quan hệ độc hại.">
-  <meta name="keywords" content="thao túng tâm lý, gaslighting, manipulation, nhận diện thao túng, thoát khỏi thao túng, Sophia Nguyễn">
-  <meta name="author" content="Sophia Nguyễn">
-  <link rel="stylesheet" href="../main.css" />
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      background: #1a1a2e;
-      font-family: 'Be Vietnam Pro', sans-serif;
-      color: #e0e0e0;
-      line-height: 1.6;
-    }
-    .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thao túng tâm lý (Gaslighting) – Nhận diện và thoát khỏi mê hồn trận | Sophia Nguyễn</title>
+    <meta name="description" content="Thao túng tâm lý là gì? Nguồn gốc thuật ngữ Gaslighting, dấu hiệu nhận biết, các chiêu bài thao túng kinh điển và giải pháp thoát khỏi mối quan hệ độc hại.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --navy-dark: #0A1628;
+            --navy-mid: #1E3A5F;
+            --gold: #C9A84C;
+            --gold-light: #D4B85C;
+            --cream: #F5F0E8;
+            --white: #FFFFFF;
+            --gray: #4A5A6A;
+            --light-gray: #E8E4DC;
+            --gradient: linear-gradient(135deg, #0A1628 0%, #1E3A5F 50%, #2A4A7F 100%);
+            --gold-gradient: linear-gradient(135deg, #C9A84C 0%, #D4B85C 50%, #E8D5A0 100%);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--navy-dark);
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
 
-    .header {
-      background: #0f0f1a;
-      padding: 15px 0;
-      border-bottom: 1px solid #2a2a3e;
-    }
-    .header-container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .menu-toggle { display: none; font-size: 28px; cursor: pointer; color: white; }
-    .navbar ul { display: flex; gap: 2rem; list-style: none; }
-    .navbar a { text-decoration: none; color: #ccc; font-weight: 500; transition: 0.2s; }
-    .navbar a:hover { color: #5dade2; }
-    .banner { margin-top: 20px; text-align: center; }
-    .banner-img { width: 100%; max-height: 250px; object-fit: cover; border-radius: 28px; }
+        /* ========== HEADER ========== */
+        .header {
+            background: var(--white);
+            padding: 12px 0;
+            box-shadow: 0 2px 20px rgba(10,22,40,0.06);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo img { height: 55px; width: auto; display: block; }
+        .navbar ul {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+            align-items: center;
+        }
+        .navbar ul li a {
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        .navbar ul li a:hover, .navbar ul li a.active { color: var(--gold); }
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--navy-dark);
+        }
+        .show-menu { display: flex !important; }
 
-    .blog-header {
-      text-align: center;
-      margin: 40px 0 30px;
-    }
-    .blog-header h1 {
-      font-size: 2rem;
-      color: #ffffff;
-      margin-bottom: 16px;
-      line-height: 1.3;
-    }
-    .blog-meta {
-      display: flex;
-      justify-content: center;
-      gap: 24px;
-      color: #888;
-      font-size: 0.85rem;
-      margin-bottom: 30px;
-    }
-    .blog-content {
-      background: #0f0f1a;
-      border-radius: 32px;
-      padding: 40px;
-      border: 1px solid #2a2a3e;
-    }
-    .blog-content h2 {
-      font-size: 1.5rem;
-      color: #5dade2;
-      margin: 30px 0 16px;
-      padding-bottom: 8px;
-      border-bottom: 2px solid #2a2a3e;
-    }
-    .blog-content h3 {
-      font-size: 1.2rem;
-      color: #7dade2;
-      margin: 20px 0 12px;
-    }
-    .blog-content p {
-      margin-bottom: 16px;
-      color: #ccc;
-    }
-    .blog-content ul {
-      margin: 16px 0 16px 24px;
-      color: #ccc;
-    }
-    .blog-content li {
-      margin: 8px 0;
-    }
-    .callout {
-      background: #1a1a2e;
-      border-left: 5px solid #5dade2;
-      padding: 20px 24px;
-      border-radius: 20px;
-      font-style: italic;
-      margin: 24px 0;
-      color: #aaa;
-    }
-    .checklist {
-      list-style: none;
-      margin: 16px 0;
-      padding-left: 0;
-    }
-    .checklist li {
-      margin: 12px 0;
-      padding-left: 28px;
-      position: relative;
-    }
-    .checklist li:before {
-      content: "⚠️";
-      position: absolute;
-      left: 0;
-      top: 0;
-    }
-    .comparison-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 24px 0;
-    }
-    .comparison-table th {
-      background: #2a2a3e;
-      padding: 12px;
-      text-align: center;
-      color: #5dade2;
-      font-weight: 600;
-    }
-    .comparison-table td {
-      background: #1a1a2e;
-      padding: 16px;
-      border-bottom: 1px solid #2a2a3e;
-      vertical-align: top;
-    }
-    .comparison-table td:first-child {
-      color: #e74c3c;
-      width: 45%;
-    }
-    .comparison-table td:last-child {
-      color: #2ecc71;
-      width: 55%;
-    }
-    .highlight {
-      background: #1a1a2e;
-      padding: 20px 24px;
-      border-radius: 20px;
-      margin: 24px 0;
-      border: 1px solid #2a2a3e;
-    }
-    .highlight strong {
-      color: #5dade2;
-    }
+        /* ========== BLOG HERO ========== */
+        .blog-hero {
+            background: var(--gradient);
+            padding: 50px 0 40px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .blog-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .blog-hero .blog-tag {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--navy-dark);
+            padding: 4px 18px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        .blog-hero h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4rem;
+            font-weight: 400;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+        .blog-hero .subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            opacity: 0.85;
+            margin-bottom: 16px;
+            font-style: italic;
+            -webkit-text-fill-color: white;
+        }
+        .blog-hero .meta {
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+            font-size: 0.85rem;
+            opacity: 0.8;
+            flex-wrap: wrap;
+            -webkit-text-fill-color: white;
+        }
+        .blog-hero .meta i { margin-right: 6px; }
 
-    .cta-section {
-      text-align: center;
-      padding: 50px 40px;
-      background: #0f0f1a;
-      border: 1px solid #2a2a3e;
-      border-radius: 32px;
-      margin: 50px 0;
-    }
-    .cta-datlich {
-      background: #5dade2;
-      border: none;
-      color: #0f0f1a;
-      padding: 12px 28px;
-      border-radius: 40px;
-      text-decoration: none;
-      font-weight: 600;
-      display: inline-block;
-      margin: 0 8px;
-      transition: 0.2s;
-    }
-    .cta-datlich:hover { background: #2c3e50; color: white; transform: translateY(-2px); }
+        /* ========== BLOG CONTENT ========== */
+        .blog-content {
+            background: var(--white);
+            border-radius: 32px;
+            padding: 48px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(10,22,40,0.06);
+            border: 1px solid var(--light-gray);
+        }
+        .blog-content p {
+            color: var(--gray);
+            margin-bottom: 16px;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+        .blog-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--navy-dark);
+            margin: 30px 0 16px;
+            padding-bottom: 8px;
+            border-bottom: 3px solid var(--gold);
+        }
+        .blog-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            color: var(--navy-dark);
+            margin: 20px 0 12px;
+        }
+        .blog-content ul, .blog-content ol {
+            margin: 16px 0 16px 24px;
+            color: var(--gray);
+        }
+        .blog-content li {
+            margin: 8px 0;
+            line-height: 1.7;
+        }
+        .blog-content strong { color: var(--navy-dark); }
+        .blog-content a { color: var(--gold); text-decoration: none; }
+        .blog-content a:hover { text-decoration: underline; }
 
-    .footer {
-      background: #0a0a12;
-      border-top: 1px solid #2a2a3e;
-      color: #888;
-      padding: 50px 0 20px;
-      margin-top: 60px;
-    }
-    .footer-container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 24px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 40px;
-    }
-   
-    .footer-links ul { list-style: none; }
-    .footer-links a { color: #888; text-decoration: none; font-size: 0.85rem; }
-    .footer-links a:hover { color: #5dade2; }
-    .social-icons { display: flex; gap: 12px; margin-top: 16px; }
-    .social-icons img { width: 32px; transition: 0.2s; filter: brightness(0.7); }
-    .social-icons img:hover { transform: translateY(-3px); filter: brightness(1); }
-    .footer-bottom { text-align: center; padding-top: 30px; margin-top: 30px; border-top: 1px solid #2a2a3e; font-size: 0.75rem; }
+        .callout {
+            background: var(--cream);
+            border-left: 5px solid var(--gold);
+            padding: 20px 24px;
+            border-radius: 16px;
+            margin: 24px 0;
+            color: var(--gray);
+            font-style: italic;
+        }
+        .callout strong { color: var(--navy-dark); }
 
-    @media (max-width: 768px) {
-      .menu-toggle { display: block; }
-      .navbar ul { display: none; flex-direction: column; gap: 1rem; margin-top: 1rem; }
-      .navbar.show-menu ul { display: flex; }
-      .blog-header h1 { font-size: 1.6rem; }
-      .blog-content { padding: 24px; }
-      .comparison-table th, .comparison-table td { font-size: 0.85rem; }
-    }
-            /* Nút chia sẻ */
+        .checklist {
+            list-style: none;
+            margin: 16px 0;
+            padding-left: 0;
+        }
+        .checklist li {
+            margin: 12px 0;
+            padding-left: 28px;
+            position: relative;
+            color: var(--gray);
+        }
+        .checklist li:before {
+            content: "⚠️";
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .comparison-table th {
+            background: var(--navy-dark);
+            color: var(--gold);
+            padding: 14px;
+            text-align: center;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+        }
+        .comparison-table td {
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--light-gray);
+            vertical-align: top;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        .comparison-table td:first-child {
+            color: #e74c3c;
+            width: 45%;
+        }
+        .comparison-table td:last-child {
+            color: #2ecc71;
+            width: 55%;
+        }
+        .comparison-table tr:nth-child(even) td {
+            background: var(--cream);
+        }
+
+        .highlight-box {
+            background: rgba(201,168,76,0.12);
+            padding: 20px 24px;
+            border-radius: 16px;
+            margin: 24px 0;
+            border: 1px solid var(--gold);
+        }
+        .highlight-box strong { color: var(--navy-dark); }
+
+        /* ========== SHARE SECTION ========== */
         .share-section {
             text-align: center;
-            margin: 40px 0 20px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 20px;
+            margin: 30px 0 20px;
+            padding: 16px 20px;
+            background: var(--cream);
+            border-radius: 16px;
+            border: 1px solid var(--light-gray);
         }
-        .share-section h4 {
-            font-size: 1rem;
-            margin-bottom: 15px;
-            color: #2c3e2f;
+        .share-section .share-label {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.9rem;
+            color: var(--navy-dark);
+            margin-bottom: 12px;
         }
         .share-buttons {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
-            gap: 12px;
+            gap: 10px;
+            flex-wrap: wrap;
         }
         .share-btn {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            border-radius: 40px;
-            font-size: 0.85rem;
-            font-weight: 500;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            font-size: 0.9rem;
             text-decoration: none;
-            transition: 0.2s;
+            transition: all 0.2s;
             cursor: pointer;
             border: none;
+            color: white;
         }
-        .share-btn i {
+        .share-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .share-btn.facebook { background: #1877f2; }
+        .share-btn.twitter { background: #1da1f2; }
+        .share-btn.linkedin { background: #0077b5; }
+        .share-btn.zalo { background: #0068ff; }
+        .share-btn.copy-link { background: var(--gray); }
+        .share-btn i { font-size: 0.9rem; }
+
+        /* ========== CTA ========== */
+        .cta-section {
+            text-align: center;
+            padding: 40px 36px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 32px;
+            margin: 40px 0;
+            border: 1px solid rgba(201,168,76,0.2);
+        }
+        .cta-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            margin-bottom: 12px;
+        }
+        .cta-section p { opacity: 0.9; margin-bottom: 20px; }
+        .cta-datlich {
+            background: var(--gold);
+            color: var(--navy-dark);
+            padding: 12px 28px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-block;
+            margin: 0 8px;
+            transition: 0.2s;
+        }
+        .cta-datlich:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+        }
+        .cta-datlich.outline {
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+        }
+        .cta-datlich.outline:hover {
+            background: var(--gold);
+            color: var(--navy-dark);
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: var(--navy-dark);
+            color: rgba(255,255,255,0.7);
+            padding: 40px 0 24px;
+            margin-top: 60px;
+            border-top: 3px solid var(--gold);
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        .footer-logo img { width: 120px; margin-bottom: 12px; }
+        .footer-logo p { font-size: 0.85rem; line-height: 1.6; color: rgba(255,255,255,0.6); }
+        .footer-links h4, .footer-contact h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            margin-bottom: 16px;
             font-size: 1rem;
         }
-        .share-btn.facebook { background: #1877f2; color: white; }
-        .share-btn.twitter { background: #1da1f2; color: white; }
-        .share-btn.linkedin { background: #0077b5; color: white; }
-        .share-btn.zalo { background: #0068ff; color: white; }
-        .share-btn.copy-link { background: #6c757d; color: white; }
-        .share-btn:hover {
-            transform: translateY(-2px);
-            opacity: 0.9;
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
         }
-  </style>
+        .footer-links ul li { margin-bottom: 8px; }
+        .footer-links ul li a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: 0.2s;
+        }
+        .footer-links ul li a:hover { color: var(--gold); }
+        .footer-contact p {
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            color: rgba(255,255,255,0.6);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .footer-contact p i { color: var(--gold); width: 18px; }
+        .social-icons {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .social-icons a {
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+        .social-icons a:hover { transform: translateY(-3px); }
+        .social-icons img { width: 30px; height: 30px; border-radius: 50%; }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .navbar {
+                display: none;
+                flex-direction: column;
+                gap: 12px;
+                padding: 16px 0;
+                background: var(--white);
+                width: 100%;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                padding: 16px 24px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+            .navbar ul { flex-direction: column; gap: 12px; }
+            .header-container { flex-wrap: wrap; position: relative; }
+            .logo img { height: 45px; }
+            .blog-hero h1 { font-size: 2.5rem; }
+            .blog-hero .subtitle { font-size: 0.95rem; }
+            .blog-content { padding: 24px; }
+            .blog-hero .meta { gap: 12px; font-size: 0.75rem; flex-wrap: wrap; }
+            .footer-container { grid-template-columns: 1fr; text-align: center; }
+            .footer-contact p { justify-content: center; }
+            .social-icons { justify-content: center; }
+            .cta-section { padding: 30px 20px; }
+            .cta-datlich { display: block; margin: 12px auto; width: fit-content; }
+            .share-buttons { gap: 8px; }
+            .share-btn { width: 34px; height: 34px; font-size: 0.8rem; }
+            .comparison-table th, .comparison-table td { font-size: 0.8rem; padding: 10px; }
+            .comparison-table td:first-child, .comparison-table td:last-child { width: 50%; }
+        }
+    </style>
 </head>
 <body>
 
+<!-- ========== HEADER ========== -->
 <header class="header">
-  <div class="header-container">
-    <a href="../index.html" class="logo"><img src="../images/hinhremovenen.png" alt="Sophia Logo" /></a>
-    <div class="menu-toggle" onclick="document.querySelector('.navbar').classList.toggle('show-menu')">☰</div>
-    <nav class="navbar">
-      <ul>
-        <li><a href="../index.html">Trang chủ</a></li>
-        <li><a href="../about.html">Giới thiệu</a></li>
-        <li><a href="../services.html">Dịch vụ</a></li>
-        <li><a href="../blog.html">Blog</a></li>
-        <li><a href="../contact.html">Liên hệ</a></li>
-      </ul>
-    </nav>
-  </div>
-  <div class="banner"><img src="../images/rs1.png" alt="Sophia Nguyễn – Đồng hành & Sẻ chia" class="banner-img" /></div>
+    <div class="header-container">
+        <a href="../index.html" class="logo">
+            <img src="../images/hinhremovenen.png" alt="Sophia Nguyễn">
+        </a>
+        <div class="menu-toggle" onclick="document.querySelector('.navbar').classList.toggle('show-menu')">☰</div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="../index.html">Trang chủ</a></li>
+                <li><a href="../about.html">Giới thiệu</a></li>
+                <li><a href="../services.html">Dịch vụ</a></li>
+                <li><a href="../blog.html" class="active">Blog</a></li>
+                <li><a href="../contact.html">Liên hệ</a></li>
+            </ul>
+        </nav>
+    </div>
 </header>
 
+<!-- ========== BLOG HERO ========== -->
+<section class="blog-hero">
+    <div class="container">
+        <div class="blog-tag">📖 Bài viết</div>
+        <h1>Thao túng tâm lý (Gaslighting)</h1>
+        <p class="subtitle">— Nhận diện và thoát khỏi "mê hồn trận" —</p>
+        <div class="meta">
+            <span><i class="far fa-calendar-alt"></i> 13/04/2026</span>
+            <span><i class="far fa-clock"></i> 8 phút đọc</span>
+            <span><i class="far fa-folder-open"></i> Tâm lý học</span>
+        </div>
+    </div>
+</section>
+
+<!-- ========== BLOG CONTENT ========== -->
 <div class="container">
-  <div class="blog-header">
-    <h1>🎭 Thao túng tâm lý (Gaslighting) – Nhận diện và thoát khỏi "mê hồn trận"</h1>
-    <div class="blog-meta">
-      <span><i class="far fa-calendar-alt"></i> 13/04/2026</span>
-      <span><i class="far fa-clock"></i> 8 phút đọc</span>
-      <span><i class="far fa-folder-open"></i> Tâm lý học</span>
+    <div class="blog-content">
+        <p>Có bao giờ bạn nghe đến cụm từ <strong>"Thao túng tâm lý" (Gaslighting/Manipulation)</strong>? Và thường bạn sẽ nghe nó nhiều ở một mối quan hệ yêu đương, đúng không? Nhưng thực tế, thao túng không chỉ xảy ra trong tình yêu mà còn ở công sở, gia đình và bạn bè.</p>
+
+        <h2>1. Vậy thực chất thao túng tâm lý là gì?</h2>
+        <p>Khởi nguồn của cụm từ <strong>Gaslighting</strong> trong tiếng Anh – là một từ ghép, nguồn gốc từ vở kịch và bộ phim "Gaslight".</p>
+        <p>Thuật ngữ này bắt nguồn từ vở kịch năm 1938 mang tên "Gas Light" của nhà văn Anh Patrick Hamilton, và sau đó nổi tiếng toàn cầu nhờ bộ phim điện ảnh chuyển thể cùng tên năm 1944 (do minh tinh Ingrid Bergman thủ vai chính).</p>
+        <ul>
+            <li><strong>Cốt truyện:</strong> Trong phim, người chồng tìm cách khiến vợ mình tin rằng cô ấy đang bị điên để chiếm đoạt tài sản.</li>
+            <li><strong>Chi tiết đắt giá (Cái tên "Gaslight"):</strong> Ông chồng bí mật lên gác xép để tìm kho báu và bật đèn gas lên. Theo nguyên lý vật lý thời đó, khi đèn trên gác bật, dòng khí gas bị chia sẻ khiến những ngọn đèn gas ở tầng dưới (nơi người vợ đang ở) bị chập chờn và mờ đi.</li>
+            <li><strong>Cú lừa tâm lý:</strong> Khi người vợ thắc mắc tại sao đèn lại bị mờ và có tiếng động trên gác, ông chồng khăng khăng khẳng định rằng: "Đèn không hề mờ, tất cả chỉ là do em tưởng tượng ra thôi". Việc lặp đi lặp lại hành động này khiến người vợ dần dần nghi ngờ chính thị giác và trí nhớ của mình, cho đến khi cô thực sự tin rằng mình đang bị mất trí.</li>
+        </ul>
+
+        <p>Mặc dù xuất hiện từ thập niên 40, nhưng phải đến khoảng những năm 1960-1970, các chuyên gia tâm lý mới bắt đầu sử dụng cụm từ này để mô tả các hành vi lạm dụng cảm xúc bằng cách bóp méo sự thật. Đến năm 2022, từ "Gaslighting" đã trở thành <strong>"Từ của năm"</strong> do từ điển Merriam-Webster bình chọn vì sự bùng nổ của nó trên mạng xã hội và trong đời sống hiện đại.</p>
+
+        <div class="callout">
+            Hãy bắt đầu bằng một cảm giác: <strong>"Bạn có bao giờ cảm thấy mình luôn là người có lỗi trong mọi cuộc tranh cãi, dù ban đầu bạn biết mình đúng?"</strong>
+        </div>
+
+        <p><strong>Định nghĩa đơn giản:</strong> Thao túng tâm lý là một hình thức lạm dụng cảm xúc, dùng để kiểm soát người khác bằng cách khiến họ nghi ngờ vào chính nhận thức, trí nhớ hoặc sự tỉnh táo của bản thân.</p>
+
+        <h2>2. Các dấu hiệu nhận biết (Checklist)</h2>
+
+        <h3>📌 Nhóm 1: Cảm giác bên trong bạn (Nội tại)</h3>
+        <ul class="checklist">
+            <li><strong>Tự nghi ngờ bản thân:</strong> Bạn liên tục tự hỏi "Hay là mình quá nhạy cảm?", "Có phải mình đang làm quá lên không?"</li>
+            <li><strong>Luôn nói lời xin lỗi:</strong> Bạn thấy mình xin lỗi đối phương ngay cả khi bạn không làm gì sai, chỉ để giữ hòa khí.</li>
+            <li><strong>Mất niềm tin vào trí nhớ:</strong> Bạn chắc chắn điều gì đó đã xảy ra, nhưng họ phủ nhận quyết liệt khiến bạn hoang mang.</li>
+            <li><strong>Cảm thấy kiệt sức:</strong> Bạn thấy mệt mỏi về tinh thần mỗi khi ở cạnh người đó.</li>
+        </ul>
+
+        <h3>📌 Nhóm 2: Hành vi của kẻ thao túng (Bên ngoài)</h3>
+        <ul class="checklist">
+            <li><strong>Phủ nhận thực tế:</strong> "Tôi chưa bao giờ nói thế", "Đó là do bạn tự tưởng tượng ra thôi".</li>
+            <li><strong>Đổi trắng thay đen (Shift Blame):</strong> Khi bạn góp ý lỗi sai của họ, họ xoay chuyển tình thế để cuối cùng bạn lại là người phải đi an ủi họ.</li>
+            <li><strong>Cô lập hóa:</strong> Họ nói xấu bạn bè, người thân của bạn để bạn cảm thấy chỉ có họ là người duy nhất yêu thương và hiểu bạn.</li>
+            <li><strong>Khen - Chê xen kẽ (Hot & Cold):</strong> Lúc thì cực kỳ nồng nhiệt, lúc lại lạnh lùng tàn nhẫn để bạn luôn ở trạng thái "thèm khát" sự công nhận của họ.</li>
+        </ul>
+
+        <h2>3. Các "chiêu bài" thao túng kinh điển (Case studies)</h2>
+        <ul>
+            <li><strong>💔 Trong tình yêu:</strong> "Nếu em yêu anh, em đã không làm thế..." (Dùng tình yêu để tống tiền cảm xúc).</li>
+            <li><strong>🏢 Tại công sở:</strong> "Chị giao việc này cho em vì chị tin em nhất, mấy đứa khác không làm được đâu" (Thao túng bằng sự kỳ vọng để bóc lột sức lao động).</li>
+            <li><strong>🏠 Trong gia đình:</strong> "Bố mẹ hy sinh cả đời vì con, sao con lại bất hiếu thế?" (Dùng lòng biết ơn để kiểm soát quyết định cá nhân).</li>
+        </ul>
+
+        <h2>4. "Lời nói thao túng" vs "Lời nói lành mạnh"</h2>
+        <table class="comparison-table">
+            <thead>
+                <tr><th>❌ Kẻ thao túng thường nói</th><th>✅ Người lành mạnh nên nói</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>"Em bị điên rồi, anh chưa bao giờ nói thế."</td><td>"Anh không nhớ mình đã nói thế, nhưng hãy cùng nhau xem lại chuyện này nhé."</td></tr>
+                <tr><td>"Nếu em yêu anh, em đã không làm thế."</td><td>"Anh cảm thấy không vui về điều đó. Mình có thể nói chuyện được không?"</td></tr>
+                <tr><td>"Chỉ có anh mới thực sự hiểu và yêu em thôi."</td><td>"Em có những người bạn tốt, anh rất mừng vì điều đó."</td></tr>
+                <tr><td>"Sao em lại nhạy cảm quá vậy? Chuyện nhỏ mà."</td><td>"Cảm xúc của em là có thật và quan trọng. Anh muốn hiểu."</td></tr>
+            </tbody>
+        </table>
+
+        <h2>5. Giải pháp: Làm sao để thoát khỏi "mê hồn trận"?</h2>
+        <ul>
+            <li><strong>Tin vào trực giác:</strong> Nếu bạn cảm thấy có gì đó "sai sai", thường là nó sai thật.</li>
+            <li><strong>Thiết lập ranh giới (Boundaries):</strong> Học cách nói "Không" và kiên định với giới hạn của mình.</li>
+            <li><strong>Tìm kiếm "Nhân chứng thực tế":</strong> Kể lại sự việc cho một người bạn tin tưởng để họ giúp bạn xác nhận xem bạn có đang bị "dắt mũi" không.</li>
+            <li><strong>Ghi chép nhật ký:</strong> Lưu lại các sự kiện quan trọng để đối chiếu khi họ cố tình thay đổi tình tiết câu chuyện.</li>
+        </ul>
+
+        <div class="highlight-box">
+            <p><strong>💬 Thông điệp kết thúc:</strong> <strong>"Bạn không điên, bạn không quá nhạy cảm. Bạn chỉ đang bị đối xử không công bằng."</strong></p>
+            <p style="margin-top: 16px;">🔹 <strong>Trong khóa học "Bản lĩnh Gen Z", tôi dành hẳn một bài học chuyên sâu về nhận diện thao túng tâm lý và kỹ năng thoát khỏi các mối quan hệ độc hại. Nếu bạn hoặc người thân đang rơi vào "mê hồn trận" này, hãy liên hệ với Sophia để được đồng hành và hỗ trợ.</strong></p>
+        </div>
     </div>
-  </div>
 
-  <div class="blog-content">
-    <p>Có bao giờ bạn nghe đến cụm từ <strong>"Thao túng tâm lý" (Gaslighting/Manipulation)</strong>? Và thường bạn sẽ nghe nó nhiều ở một mối quan hệ yêu đương, đúng không? Nhưng thực tế, thao túng không chỉ xảy ra trong tình yêu mà còn ở công sở, gia đình và bạn bè.</p>
-
-    <h2>1. Vậy thực chất thao túng tâm lý là gì?</h2>
-    <p>Khởi nguồn của cụm từ <strong>Gaslighting</strong> trong tiếng Anh – là một từ ghép, nguồn gốc từ vở kịch và bộ phim "Gaslight".</p>
-    <p>Thuật ngữ này bắt nguồn từ vở kịch năm 1938 mang tên "Gas Light" của nhà văn Anh Patrick Hamilton, và sau đó nổi tiếng toàn cầu nhờ bộ phim điện ảnh chuyển thể cùng tên năm 1944 (do minh tinh Ingrid Bergman thủ vai chính).</p>
-    <ul>
-      <li><strong>Cốt truyện:</strong> Trong phim, người chồng tìm cách khiến vợ mình tin rằng cô ấy đang bị điên để chiếm đoạt tài sản.</li>
-      <li><strong>Chi tiết đắt giá (Cái tên "Gaslight"):</strong> Ông chồng bí mật lên gác xép để tìm kho báu và bật đèn gas lên. Theo nguyên lý vật lý thời đó, khi đèn trên gác bật, dòng khí gas bị chia sẻ khiến những ngọn đèn gas ở tầng dưới (nơi người vợ đang ở) bị chập chờn và mờ đi.</li>
-      <li><strong>Cú lừa tâm lý:</strong> Khi người vợ thắc mắc tại sao đèn lại bị mờ và có tiếng động trên gác, ông chồng khăng khăng khẳng định rằng: "Đèn không hề mờ, tất cả chỉ là do em tưởng tượng ra thôi". Việc lặp đi lặp lại hành động này khiến người vợ dần dần nghi ngờ chính thị giác và trí nhớ của mình, cho đến khi cô thực sự tin rằng mình đang bị mất trí.</li>
-    </ul>
-
-    <p>Mặc dù xuất hiện từ thập niên 40, nhưng phải đến khoảng những năm 1960-1970, các chuyên gia tâm lý mới bắt đầu sử dụng cụm từ này để mô tả các hành vi lạm dụng cảm xúc bằng cách bóp méo sự thật. Đến năm 2022, từ "Gaslighting" đã trở thành <strong>"Từ của năm"</strong> do từ điển Merriam-Webster bình chọn vì sự bùng nổ của nó trên mạng xã hội và trong đời sống hiện đại.</p>
-
-    <div class="callout">
-      Hãy bắt đầu bằng một cảm giác: <strong>"Bạn có bao giờ cảm thấy mình luôn là người có lỗi trong mọi cuộc tranh cãi, dù ban đầu bạn biết mình đúng?"</strong>
+    <!-- ========== SHARE SECTION ========== -->
+    <div class="share-section">
+        <div class="share-label">✨ Chia sẻ bài viết</div>
+        <div class="share-buttons">
+            <a href="#" class="share-btn facebook" onclick="shareOnFacebook()" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="share-btn twitter" onclick="shareOnTwitter()" title="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="share-btn linkedin" onclick="shareOnLinkedIn()" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="share-btn zalo" onclick="shareOnZalo()" title="Zalo"><i class="fas fa-comment-dots"></i></a>
+            <button class="share-btn copy-link" onclick="copyPageUrl()" title="Sao chép link"><i class="fas fa-link"></i></button>
+        </div>
     </div>
 
-    <p><strong>Định nghĩa đơn giản:</strong> Thao túng tâm lý là một hình thức lạm dụng cảm xúc, dùng để kiểm soát người khác bằng cách khiến họ nghi ngờ vào chính nhận thức, trí nhớ hoặc sự tỉnh táo của bản thân.</p>
-
-    <h2>2. Các dấu hiệu nhận biết (Checklist)</h2>
-
-    <h3>📌 Nhóm 1: Cảm giác bên trong bạn (Nội tại)</h3>
-    <ul class="checklist">
-      <li><strong>Tự nghi ngờ bản thân:</strong> Bạn liên tục tự hỏi "Hay là mình quá nhạy cảm?", "Có phải mình đang làm quá lên không?"</li>
-      <li><strong>Luôn nói lời xin lỗi:</strong> Bạn thấy mình xin lỗi đối phương ngay cả khi bạn không làm gì sai, chỉ để giữ hòa khí.</li>
-      <li><strong>Mất niềm tin vào trí nhớ:</strong> Bạn chắc chắn điều gì đó đã xảy ra, nhưng họ phủ nhận quyết liệt khiến bạn hoang mang.</li>
-      <li><strong>Cảm thấy kiệt sức:</strong> Bạn thấy mệt mỏi về tinh thần mỗi khi ở cạnh người đó.</li>
-    </ul>
-
-    <h3>📌 Nhóm 2: Hành vi của kẻ thao túng (Bên ngoài)</h3>
-    <ul class="checklist">
-      <li><strong>Phủ nhận thực tế:</strong> "Tôi chưa bao giờ nói thế", "Đó là do bạn tự tưởng tượng ra thôi".</li>
-      <li><strong>Đổi trắng thay đen (Shift Blame):</strong> Khi bạn góp ý lỗi sai của họ, họ xoay chuyển tình thế để cuối cùng bạn lại là người phải đi an ủi họ.</li>
-      <li><strong>Cô lập hóa:</strong> Họ nói xấu bạn bè, người thân của bạn để bạn cảm thấy chỉ có họ là người duy nhất yêu thương và hiểu bạn.</li>
-      <li><strong>Khen - Chê xen kẽ (Hot & Cold):</strong> Lúc thì cực kỳ nồng nhiệt, lúc lại lạnh lùng tàn nhẫn để bạn luôn ở trạng thái "thèm khát" sự công nhận của họ.</li>
-    </ul>
-
-    <h2>3. Các "chiêu bài" thao túng kinh điển (Case studies)</h2>
-    <ul>
-      <li><strong>💔 Trong tình yêu:</strong> "Nếu em yêu anh, em đã không làm thế..." (Dùng tình yêu để tống tiền cảm xúc).</li>
-      <li><strong>🏢 Tại công sở:</strong> "Chị giao việc này cho em vì chị tin em nhất, mấy đứa khác không làm được đâu" (Thao túng bằng sự kỳ vọng để bóc lột sức lao động).</li>
-      <li><strong>🏠 Trong gia đình:</strong> "Bố mẹ hy sinh cả đời vì con, sao con lại bất hiếu thế?" (Dùng lòng biết ơn để kiểm soát quyết định cá nhân).</li>
-    </ul>
-
-    <h2>4. "Lời nói thao túng" vs "Lời nói lành mạnh"</h2>
-    <table class="comparison-table">
-      <thead>
-        <tr><th>❌ Kẻ thao túng thường nói</th><th>✅ Người lành mạnh nên nói</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>"Em bị điên rồi, anh chưa bao giờ nói thế."</td><td>"Anh không nhớ mình đã nói thế, nhưng hãy cùng nhau xem lại chuyện này nhé."</td></tr>
-        <tr><td>"Nếu em yêu anh, em đã không làm thế."</td><td>"Anh cảm thấy không vui về điều đó. Mình có thể nói chuyện được không?"</td></tr>
-        <tr><td>"Chỉ có anh mới thực sự hiểu và yêu em thôi."</td><td>"Em có những người bạn tốt, anh rất mừng vì điều đó."</td></tr>
-        <tr><td>"Sao em lại nhạy cảm quá vậy? Chuyện nhỏ mà."</td><td>"Cảm xúc của em là có thật và quan trọng. Anh muốn hiểu."</td></tr>
-      </tbody>
-    </table>
-
-    <h2>5. Giải pháp: Làm sao để thoát khỏi "mê hồn trận"?</h2>
-    <ul>
-      <li><strong>Tin vào trực giác:</strong> Nếu bạn cảm thấy có gì đó "sai sai", thường là nó sai thật.</li>
-      <li><strong>Thiết lập ranh giới (Boundaries):</strong> Học cách nói "Không" và kiên định với giới hạn của mình.</li>
-      <li><strong>Tìm kiếm "Nhân chứng thực tế":</strong> Kể lại sự việc cho một người bạn tin tưởng để họ giúp bạn xác nhận xem bạn có đang bị "dắt mũi" không.</li>
-      <li><strong>Ghi chép nhật ký:</strong> Lưu lại các sự kiện quan trọng để đối chiếu khi họ cố tình thay đổi tình tiết câu chuyện.</li>
-    </ul>
-
-    <div class="highlight">
-      <p><strong>💬 Thông điệp kết thúc:</strong> <strong>"Bạn không điên, bạn không quá nhạy cảm. Bạn chỉ đang bị đối xử không công bằng."</strong></p>
-      <p style="margin-top: 16px;">🔹 <strong>Trong khóa học "Bản lĩnh Gen Z", tôi dành hẳn một bài học chuyên sâu về nhận diện thao túng tâm lý và kỹ năng thoát khỏi các mối quan hệ độc hại. Nếu bạn hoặc người thân đang rơi vào "mê hồn trận" này, hãy liên hệ với Sophia để được đồng hành và hỗ trợ.</strong></p>
+    <!-- ========== CTA ========== -->
+    <div class="cta-section">
+        <h2>💬 Bạn đang bị thao túng hoặc nghi ngờ bản thân?</h2>
+        <p>Sophia luôn sẵn sàng lắng nghe và đồng hành cùng bạn.</p>
+        <div>
+            <a href="https://zalo.me/0977092182" class="cta-datlich">📅 Đặt lịch tư vấn</a>
+            <a href="../contact.html" class="cta-datlich outline">📩 Gửi tin nhắn</a>
+        </div>
     </div>
-  </div>
-</div>
-<!-- Nút chia sẻ bài viết -->
-<div class="share-section">
-    <h4>📢 Chia sẻ bài viết này</h4>
-    <div class="share-buttons">
-        <a href="#" class="share-btn facebook" onclick="shareOnFacebook()"><i class="fab fa-facebook-f"></i> Facebook</a>
-        <a href="#" class="share-btn twitter" onclick="shareOnTwitter()"><i class="fab fa-twitter"></i> Twitter</a>
-        <a href="#" class="share-btn linkedin" onclick="shareOnLinkedIn()"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
-        <a href="#" class="share-btn zalo" onclick="shareOnZalo()"><i class="fas fa-comment-dots"></i> Zalo</a>
-        <button class="share-btn copy-link" onclick="copyPageUrl()"><i class="fas fa-link"></i> Sao chép link</button>
-    </div>
-</div>
-<div class="container">
-  <div class="cta-section">
-    <h2>💬 Bạn đang bị thao túng hoặc nghi ngờ bản thân?</h2>
-    <p style="margin-bottom: 24px;">Sophia luôn sẵn sàng lắng nghe và đồng hành cùng bạn.</p>
-    <div>
-      <a href="https://zalo.me/0977092182" class="cta-datlich">📅 Đặt lịch tư vấn</a>
-      <a href="../contact.html" class="cta-datlich">📩 Gửi tin nhắn cho Sophia</a>
-    </div>
-  </div>
 </div>
 
+<!-- ========== FOOTER ========== -->
 <footer class="footer">
-  <div class="footer-container">
-    <div class="footer-logo"><img src="../images/hinhremovenen.png" alt="Logo Sophia"><p>Đồng hành & Sẻ chia cùng bạn trên hành trình tâm lý – phát triển – yêu thương.</p></div>
-     <div class="footer-links"><h4>Dịch vụ</h4><ul><li><a href="tuvan-tamly1.html">Tư vấn tâm lý</a></li><li><a href="huong-nghiep.html">Định hướng nghề nghiệp</a></li><li><a href="ky-nang.html">Đào tạo kỹ năng</a></li><li><a href="van-tay">Sinh trắc vân tay</a></li></ul></div>
-    <div class="footer-contact"><h4>Liên hệ</h4><p>📧 sophianguyen2891@gmail.com</p><p>📞 0977092182</p><p>🏠 Tân Bình - TPHCM</p><div class="social-icons"><a href="https://www.facebook.com/Sophiadiemhang1982"><img src="../images/fb.png" alt="FB" /></a><a href="https://www.tiktok.com/@sophia.nguyen2014"><img src="../images/tiktok.png" alt="TikTok" /></a><a href="https://www.youtube.com/@sophianguyen1982-dh"><img src="../images/youtube.png" alt="YouTube" /></a></div></div>
-  </div>
-  <div class="footer-bottom"><p>Copyright ©2024 Sophia Nguyễn. All rights reserved.</p></div>
+    <div class="footer-container">
+        <div class="footer-logo">
+            <img src="../images/hinhremovenen.png" alt="Sophia Nguyễn">
+            <p>Đồng hành & Sẻ chia cùng bạn trên hành trình tâm lý – phát triển – yêu thương.</p>
+        </div>
+        <div class="footer-links">
+            <h4>Dịch vụ</h4>
+            <ul>
+                <li><a href="../tuvan-tamly1.html">Tham vấn tâm lý</a></li>
+                <li><a href="../huong-nghiep.html">Định hướng nghề nghiệp</a></li>
+                <li><a href="../ky-nang.html">Đào tạo kỹ năng</a></li>
+                <li><a href="../van-tay.html">Sinh trắc vân tay</a></li>
+            </ul>
+        </div>
+        <div class="footer-contact">
+            <h4>Liên hệ</h4>
+            <p><i class="fas fa-envelope"></i> sophianguyen2891@gmail.com</p>
+            <p><i class="fas fa-phone"></i> 0977092182</p>
+            <p><i class="fas fa-map-marker-alt"></i> Tân Bình - TPHCM</p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/Sophiadiemhang1982"><img src="../images/fb.png" alt="Facebook" /></a>
+                <a href="https://www.tiktok.com/@sophia.nguyen2014"><img src="../images/tiktok.png" alt="TikTok" /></a>
+                <a href="https://www.youtube.com/@sophianguyen1982-dh"><img src="../images/youtube.png" alt="YouTube" /></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>Copyright ©2025 Sophia Nguyễn. All rights reserved.</p>
+    </div>
 </footer>
 
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <script>
-  AOS.init({ once: true, duration: 1000, easing: 'ease-out-cubic' });
-  function toggleMenu() { document.querySelector(".navbar").classList.toggle("show-menu"); }
-</script>
-  <script>
-    // Hàm chia sẻ lên Facebook
+    // ========== SHARE FUNCTIONS ==========
     function shareOnFacebook() {
         const url = encodeURIComponent(window.location.href);
-        const title = encodeURIComponent(document.title);
         window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
     }
     
-    // Hàm chia sẻ lên Twitter
     function shareOnTwitter() {
         const url = encodeURIComponent(window.location.href);
         const title = encodeURIComponent(document.title);
         window.open(`https://twitter.com/intent/tweet?text=${title}&url=${url}`, '_blank', 'width=600,height=400');
     }
     
-    // Hàm chia sẻ lên LinkedIn
     function shareOnLinkedIn() {
         const url = encodeURIComponent(window.location.href);
         window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank', 'width=600,height=400');
     }
     
-    // Hàm chia sẻ lên Zalo (dùng link zalo.me)
     function shareOnZalo() {
         const url = encodeURIComponent(window.location.href);
         window.open(`https://zalo.me/share?url=${url}`, '_blank', 'width=600,height=400');
     }
     
-    // Hàm sao chép link
     function copyPageUrl() {
         navigator.clipboard.writeText(window.location.href).then(function() {
             alert('✅ Đã sao chép link bài viết!');
