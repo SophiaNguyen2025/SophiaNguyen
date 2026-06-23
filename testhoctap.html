@@ -1,249 +1,690 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Trắc nghiệm Phong cách Học Tập </title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #000000, #000000);
-      color: #333;
-      margin: 0;
-      padding: 20px;
-    }
-    .container {
-      max-width: 800px;
-      margin: auto;
-      background: white;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    }
-    .logo {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .logo img {
-      width: 120px;
-    }
-    h1 {
-      text-align: center;
-      color: #CC9900;
-    }
-    label {
-      display: block;
-      margin-top: 20px;
-      font-weight: bold;
-    }
-    .question {
-      margin: 20px 0;
-      padding: 15px;
-      border-left: 5px solid #2c3e50;
-      border-radius: 10px;
-    }
-    .question:nth-child(even) {
-      background: #00ff99;
-    }
-    .question:nth-child(odd) {
-      background:#3366CC;
-    }
-    .question p {
-      margin: 0 0 10px;
-      font-weight: bold;
-    }
-    .question label {
-      display: block;
-      font-weight: normal;
-      margin-bottom: 8px;
-    }
-    input[type="text"],
-    input[type="email"],
-    input[type="number"] {
-      width: 100%;
-      padding: 10px;
-      margin-top: 8px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-    }
-    button {
-      margin-top: 30px;
-      padding: 12px 24px;
-      background: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      width: 100%;
-    }
-    button:hover {
-      background: #45a049;
-    }
-    .result {
-      display: none;
-      background: #ede7f6;
-      margin-top: 30px;
-      padding: 20px;
-      border-radius: 12px;
-      color: #4a148c;
-      font-weight: bold;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trắc nghiệm Phong cách Học tập | Sophia Nguyễn</title>
+    <meta name="description" content="Bài trắc nghiệm giúp bạn khám phá phong cách học tập của bản thân: Thính giác, Thị giác hay Vận động.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --navy-dark: #0A1628;
+            --navy-mid: #1E3A5F;
+            --gold: #C9A84C;
+            --gold-light: #D4B85C;
+            --cream: #F5F0E8;
+            --white: #FFFFFF;
+            --gray: #4A5A6A;
+            --light-gray: #E8E4DC;
+            --gradient: linear-gradient(135deg, #0A1628 0%, #1E3A5F 50%, #2A4A7F 100%);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--navy-dark);
+            line-height: 1.6;
+        }
+        .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+
+        /* ========== HEADER ========== */
+        .header {
+            background: var(--white);
+            padding: 12px 0;
+            box-shadow: 0 2px 20px rgba(10,22,40,0.06);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo img { height: 55px; width: auto; display: block; }
+        .navbar ul {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+            align-items: center;
+        }
+        .navbar ul li a {
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        .navbar ul li a:hover, .navbar ul li a.active { color: var(--gold); }
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--navy-dark);
+        }
+        .show-menu { display: flex !important; }
+
+        /* ========== HERO ========== */
+        .hero {
+            background: var(--gradient);
+            padding: 50px 0 40px;
+            text-align: center;
+            color: white;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+        }
+        .hero h1 span { color: var(--gold); }
+        .hero p {
+            font-size: 1rem;
+            max-width: 650px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        .hero .badge {
+            background: var(--gold);
+            color: var(--navy-dark);
+            display: inline-block;
+            padding: 6px 20px;
+            border-radius: 40px;
+            margin-top: 16px;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        /* ========== TEST CONTAINER ========== */
+        .test-wrapper {
+            background: var(--white);
+            border-radius: 32px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(10,22,40,0.06);
+            border: 1px solid var(--light-gray);
+        }
+        .test-wrapper .intro h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--navy-dark);
+            margin-bottom: 16px;
+            font-size: 1.6rem;
+        }
+        .test-wrapper .intro h2 span { color: var(--gold); }
+        .test-wrapper .intro p {
+            color: var(--gray);
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+        .test-wrapper .intro .highlight {
+            background: var(--cream);
+            padding: 16px 20px;
+            border-radius: 16px;
+            border-left: 4px solid var(--gold);
+            margin: 16px 0;
+            font-weight: 500;
+            color: var(--navy-dark);
+        }
+
+        /* ========== QUESTION ========== */
+        .question-item {
+            background: var(--cream);
+            padding: 18px 20px;
+            margin: 16px 0;
+            border-radius: 16px;
+            border-left: 4px solid var(--gold);
+            transition: 0.2s;
+        }
+        .question-item:hover { border-color: var(--navy-dark); }
+        .question-item .q-text {
+            font-weight: 600;
+            color: var(--navy-dark);
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+        .question-item .options {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .question-item .options label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.88rem;
+            color: var(--gray);
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 8px;
+            transition: 0.2s;
+        }
+        .question-item .options label:hover {
+            background: rgba(201,168,76,0.1);
+        }
+        .question-item .options input[type="radio"] {
+            width: 17px;
+            height: 17px;
+            accent-color: var(--gold);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .question-item .options .tag {
+            font-size: 0.65rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        .tag-0 { background: #2196f3; color: white; }
+        .tag-1 { background: #ff9800; color: white; }
+        .tag-2 { background: #4caf50; color: white; }
+
+        /* ========== BUTTON ========== */
+        .btn-submit {
+            background: var(--navy-dark);
+            color: var(--white);
+            border: none;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+            margin-top: 20px;
+        }
+        .btn-submit:hover {
+            background: var(--gold);
+            color: var(--navy-dark);
+            transform: translateY(-2px);
+        }
+
+        /* ========== RESULT ========== */
+        .result-box {
+            display: none;
+            background: var(--cream);
+            padding: 30px;
+            border-radius: 24px;
+            margin-top: 30px;
+            text-align: center;
+            border: 2px solid var(--gold);
+        }
+        .result-box.show { display: block; }
+        .result-box h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--navy-dark);
+            margin-bottom: 16px;
+        }
+        .result-box h2 span { color: var(--gold); }
+        .result-box .result-stats {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin: 12px 0;
+        }
+        .result-box .result-stats .stat-item {
+            background: var(--white);
+            padding: 8px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--light-gray);
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        .result-box .result-stats .stat-item .num {
+            font-size: 1.2rem;
+        }
+        .result-box .dominant {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 12px 0;
+            padding: 12px;
+            border-radius: 16px;
+            background: var(--white);
+        }
+        .result-box .desc {
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+            line-height: 1.7;
+            text-align: left;
+        }
+        .chart-wrapper {
+            display: flex;
+            justify-content: center;
+            margin: 16px 0;
+        }
+        .chart-wrapper canvas {
+            max-width: 100%;
+            height: auto;
+            border-radius: 16px;
+            background: var(--white);
+        }
+        .share-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+        .share-buttons .share-btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .share-buttons .share-btn:hover { transform: translateY(-2px); opacity: 0.9; }
+        .share-buttons .share-btn.fb { background: #3b5998; }
+        .share-buttons .share-btn.zalo { background: #0068ff; }
+        .share-buttons .share-btn.twitter { background: #1da1f2; }
+        .share-buttons .share-btn.tiktok { background: #000000; }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: var(--navy-dark);
+            color: rgba(255,255,255,0.7);
+            padding: 40px 0 24px;
+            margin-top: 60px;
+            border-top: 3px solid var(--gold);
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        .footer-logo img { width: 120px; margin-bottom: 12px; }
+        .footer-logo p { font-size: 0.85rem; line-height: 1.6; color: rgba(255,255,255,0.6); }
+        .footer-links h4, .footer-contact h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            margin-bottom: 16px;
+            font-size: 1rem;
+        }
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+        .footer-links ul li { margin-bottom: 8px; }
+        .footer-links ul li a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: 0.2s;
+        }
+        .footer-links ul li a:hover { color: var(--gold); }
+        .footer-contact p {
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            color: rgba(255,255,255,0.6);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .footer-contact p i { color: var(--gold); width: 18px; }
+        .social-icons {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .social-icons a {
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+        .social-icons a:hover { transform: translateY(-3px); }
+        .social-icons img { width: 30px; height: 30px; border-radius: 50%; }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .navbar {
+                display: none;
+                flex-direction: column;
+                gap: 12px;
+                padding: 16px 0;
+                background: var(--white);
+                width: 100%;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                padding: 16px 24px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+            .navbar ul { flex-direction: column; gap: 12px; }
+            .header-container { flex-wrap: wrap; position: relative; }
+            .logo img { height: 45px; }
+            .hero h1 { font-size: 1.6rem; }
+            .test-wrapper { padding: 20px; }
+            .question-item .options { flex-direction: column; gap: 4px; }
+            .result-box h2 { font-size: 1.4rem; }
+            .result-box .dominant { font-size: 1rem; }
+            .footer-container { grid-template-columns: 1fr; text-align: center; }
+            .footer-contact p { justify-content: center; }
+            .social-icons { justify-content: center; }
+            .share-buttons .share-btn { width: 100%; justify-content: center; }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="logo">
-      <img src="images/hinhremovenen.png" alt="Logo Sophia">
+
+<!-- ========== HEADER ========== -->
+<header class="header">
+    <div class="header-container">
+        <a href="index.html" class="logo">
+            <img src="images/hinhremovenen.png" alt="Sophia Nguyễn">
+        </a>
+        <div class="menu-toggle" onclick="document.querySelector('.navbar').classList.toggle('show-menu')">☰</div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="index.html">Trang chủ</a></li>
+                <li><a href="about.html">Giới thiệu</a></li>
+                <li><a href="services.html">Dịch vụ</a></li>
+                <li><a href="khoa-hoc.html">Khóa học</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="test.html" class="active">Trắc nghiệm</a></li>
+                <li><a href="contact.html">Liên hệ</a></li>
+            </ul>
+        </nav>
     </div>
-    <h1>Trắc nghiệm Phong Cách Học Tập </h1>
-    <!-- Form cá nhân -->
-   <form id="userForm" action="https://formspree.io/f/mgvzqrje" method="POST">
-      <h2>Thông tin người làm test</h2>
-      <label>Họ tên:</label>
-      <input type="text" name="name" id="name" required>
-      <label>Email:</label>
-      <input type="email" name="email" id="email" required>
-      <label>Tuổi:</label>
-      <input type="number" name="age" id="age" required>
-      <label>Số điện thoại:</label>
-      <input type="text" name="phone" id="phone" required>
-      <button type="submit">Gửi thông tin  & tiếp tục</button>
-      </form>
+</header>
 
-<form id="quizForm" style="display: none;">
-  </form>
+<!-- ========== HERO ========== -->
+<section class="hero">
+    <div class="container">
+        <h1>📚 Trắc nghiệm <span>Phong cách Học tập</span></h1>
+        <p>Khám phá cách bạn tiếp thu kiến thức hiệu quả nhất</p>
+        <div class="badge">🎯 Học đúng cách - Đạt hiệu quả cao</div>
+    </div>
+</section>
 
-<button id="submitBtn" type="button" style="display: none;">Tính kết quả</button>
+<!-- ========== TEST ========== -->
+<div class="container">
+    <div class="test-wrapper">
+        <div class="intro">
+            <h2>Khám phá <span>phong cách học</span> của bạn</h2>
+            <p>
+                Bài trắc nghiệm này giúp bạn nhận diện phong cách học tập chính của mình:
+                <strong>Thính giác</strong> (học qua nghe),
+                <strong>Thị giác</strong> (học qua nhìn) hoặc
+                <strong>Vận động</strong> (học qua thực hành).
+            </p>
+            <div class="highlight">
+                👉 Hãy trả lời một cách trung thực nhất để có kết quả chính xác.
+                Mỗi người có một cách học riêng - không có đúng hay sai!
+            </div>
+        </div>
 
-<div id="result" class="result"></div>
-<canvas id="chart" width="400" height="400" style="margin-top:20px;"></canvas>
-<div id="description" style="margin-top:20px; font-size:16px;"></div>
+        <form id="quizForm"></form>
+        <button id="submitBtn" class="btn-submit" style="display:none;">🔍 Tính kết quả</button>
+
+        <div id="result" class="result-box"></div>
+        <div class="chart-wrapper" id="chartWrapper" style="display:none;">
+            <canvas id="chart" width="300" height="300"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-logo">
+            <img src="images/hinhremovenen.png" alt="Sophia Nguyễn">
+            <p>Đồng hành & Sẻ chia cùng bạn trên hành trình tâm lý – phát triển – yêu thương.</p>
+        </div>
+        <div class="footer-links">
+            <h4>Dịch vụ</h4>
+            <ul>
+                <li><a href="tuvan-tamly1.html">Tham vấn tâm lý</a></li>
+                <li><a href="huong-nghiep.html">Định hướng nghề nghiệp</a></li>
+                <li><a href="ky-nang.html">Đào tạo kỹ năng</a></li>
+                <li><a href="van-tay.html">Sinh trắc vân tay</a></li>
+            </ul>
+        </div>
+        <div class="footer-contact">
+            <h4>Liên hệ</h4>
+            <p><i class="fas fa-envelope"></i> sophianguyen2891@gmail.com</p>
+            <p><i class="fas fa-phone"></i> 0977092182</p>
+            <p><i class="fas fa-map-marker-alt"></i> Tân Bình - TPHCM</p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/Sophiadiemhang1982"><img src="images/fb.png" alt="Facebook" /></a>
+                <a href="https://www.tiktok.com/@sophia.nguyen2014"><img src="images/tiktok.png" alt="TikTok" /></a>
+                <a href="https://www.youtube.com/@sophianguyen1982-dh"><img src="images/youtube.png" alt="YouTube" /></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>Copyright ©2025 Sophia Nguyễn. All rights reserved.</p>
+    </div>
+</footer>
 
 <script>
-const questions = [
-  "Bạn học tốt nhất khi nào?",
-  "Khi học một kỹ năng mới, bạn thường:",
-  "Bạn nhớ thông tin tốt nhất khi:",
-  "Khi tham gia một buổi học, bạn thích:",
-  "Khi giải quyết vấn đề, bạn thường:",
-  "Bạn cảm thấy dễ hiểu nhất khi giáo viên:",
-  "Khi học từ mới, bạn thường:",
-  "Bạn thích học qua:",
-  "Khi ôn thi, bạn thường:",
-  "Bạn cảm thấy thoải mái nhất khi:",
-  "Khi học nhóm, bạn thường:",
-  "Bạn cảm thấy hứng thú nhất khi:",
-  "Khi học một môn mới, bạn thích:",
-  "Bạn cảm thấy dễ nhớ nhất khi:",
-  "Bạn thích học trong môi trường nào?",
-  "Bạn tiếp thu nhanh nhất khi:",
-  "Bạn thường ghi nhớ bằng cách:",
-  "Bạn thấy hiệu quả nhất khi:",
-  "Bạn thường phản ứng thế nào khi học điều mới?",
-  "Bạn thích tài liệu học tập dạng nào?",
-  "Bạn cảm thấy học hiệu quả nhất khi:"
-];
+    // ==================== DỮ LIỆU CÂU HỎI ====================
+    const questions = [
+        "Bạn học tốt nhất khi nào?",
+        "Khi học một kỹ năng mới, bạn thường:",
+        "Bạn nhớ thông tin tốt nhất khi:",
+        "Khi tham gia một buổi học, bạn thích:",
+        "Khi giải quyết vấn đề, bạn thường:",
+        "Bạn cảm thấy dễ hiểu nhất khi giáo viên:",
+        "Khi học từ mới, bạn thường:",
+        "Bạn thích học qua:",
+        "Khi ôn thi, bạn thường:",
+        "Bạn cảm thấy thoải mái nhất khi:",
+        "Khi học nhóm, bạn thường:",
+        "Bạn cảm thấy hứng thú nhất khi:",
+        "Khi học một môn mới, bạn thích:",
+        "Bạn cảm thấy dễ nhớ nhất khi:",
+        "Bạn thích học trong môi trường nào?",
+        "Bạn tiếp thu nhanh nhất khi:",
+        "Bạn thường ghi nhớ bằng cách:",
+        "Bạn thấy hiệu quả nhất khi:",
+        "Bạn thường phản ứng thế nào khi học điều mới?",
+        "Bạn thích tài liệu học tập dạng nào?",
+        "Bạn cảm thấy học hiệu quả nhất khi:"
+    ];
 
-const options = [
-  "Nghe giảng hoặc thảo luận nhóm",       // Thính giác
-  "Xem hình ảnh hoặc video minh họa",     // Thị giác
-  "Thực hành hoặc làm thử",               // Vận động
-];
-const quizForm = document.getElementById("quizForm");
-  questions.forEach((q, index) => {
-    const div = document.createElement("div");
-    div.className = "question";
-    div.innerHTML = `<p>Câu ${index + 1}: ${q}</p>`;
-    options.forEach((opt, i) => {
-      div.innerHTML += `
-        <label>
-          <input type="radio" name="q${index}" value="${i}" required> ${opt}
-        </label>
-      `;
-    });
-    quizForm.appendChild(div);
-  });
+    const optionLabels = [
+        "Nghe giảng hoặc thảo luận nhóm",
+        "Xem hình ảnh hoặc video minh họa",
+        "Thực hành hoặc làm thử"
+    ];
 
-  // Sau khi gửi form thông tin, hiện phần câu hỏi
-  document.getElementById("userForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-    fetch(this.action, {
-      method: "POST",
-      body: new FormData(this),
-      headers: { 'Accept': 'application/json' }
-    })
-    .then(response => {
-      if (response.ok) {
-        alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể làm bài test.");
-        document.getElementById("userForm").style.display = "none";
-        quizForm.style.display = "block";
-        document.getElementById("submitBtn").style.display = "block";
-      } else {
-        alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
-      }
-    })
-    .catch(error => {
-      alert("⚠️ Lỗi kết nối. Vui lòng thử lại sau.");
-    });
-  });
-</script>
-<script>
-const styles = ["Thính giác 🎧", "Thị giác 👁️", "Vận động 🖐️"];
-const descriptions = [
-  "Bạn có phong cách học thính giác: bạn tiếp thu tốt qua lời nói, giảng bài, thảo luận và âm thanh. Học nhóm, nghe podcast hoặc giảng trực tiếp sẽ giúp bạn ghi nhớ lâu hơn.",
-  "Bạn có phong cách học thị giác: bạn tiếp thu tốt qua hình ảnh, sơ đồ, màu sắc và video. Bạn nên dùng bản đồ tư duy, slide, hoặc video minh họa để học hiệu quả.",
-  "Bạn có phong cách học vận động: bạn học tốt nhất khi được thực hành, thao tác, trải nghiệm thực tế. Học qua dự án, mô phỏng, hoặc hoạt động sẽ giúp bạn hiểu sâu hơn."
-];
+    const optionTags = [
+        { text: "Thính giác", class: "tag-0" },
+        { text: "Thị giác", class: "tag-1" },
+        { text: "Vận động", class: "tag-2" }
+    ];
 
-function calculateResult() {
-  const formData = new FormData(document.getElementById("quizForm"));
-  let counts = [0, 0, 0];
-  let answeredCount = 0;
+    const styleNames = ["Thính giác 🎧", "Thị giác 👁️", "Vận động 🖐️"];
+    const styleColors = ["#2196f3", "#ff9800", "#4caf50"];
 
-  for (let i = 0; i < questions.length; i++) {
-    const val = formData.get(`q${i}`);
-    if (val !== null) {
-      counts[parseInt(val)]++;
-      answeredCount++;
+    const descriptions = [
+        "Bạn có phong cách học <strong>thính giác</strong>: bạn tiếp thu tốt qua lời nói, giảng bài, thảo luận và âm thanh. Học nhóm, nghe podcast hoặc giảng trực tiếp sẽ giúp bạn ghi nhớ lâu hơn. Hãy ghi âm bài giảng và nghe lại khi cần!",
+        "Bạn có phong cách học <strong>thị giác</strong>: bạn tiếp thu tốt qua hình ảnh, sơ đồ, màu sắc và video. Bạn nên dùng bản đồ tư duy, slide, hoặc video minh họa để học hiệu quả. Màu sắc và hình ảnh trực quan sẽ giúp bạn nhớ lâu hơn.",
+        "Bạn có phong cách học <strong>vận động</strong>: bạn học tốt nhất khi được thực hành, thao tác, trải nghiệm thực tế. Học qua dự án, mô phỏng, hoặc hoạt động sẽ giúp bạn hiểu sâu hơn. Đừng ngồi yên quá lâu - hãy di chuyển và thực hành!"
+    ];
+
+    // ==================== RENDER CÂU HỎI ====================
+    function renderQuestions() {
+        const form = document.getElementById('quizForm');
+        form.innerHTML = '';
+
+        questions.forEach((q, index) => {
+            const div = document.createElement('div');
+            div.className = 'question-item';
+
+            const p = document.createElement('p');
+            p.className = 'q-text';
+            p.textContent = `Câu ${index + 1}: ${q}`;
+            div.appendChild(p);
+
+            const optionsDiv = document.createElement('div');
+            optionsDiv.className = 'options';
+
+            optionLabels.forEach((opt, i) => {
+                const label = document.createElement('label');
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = `q${index}`;
+                radio.value = i;
+                radio.id = `q${index}_${i}`;
+                label.appendChild(radio);
+                label.appendChild(document.createTextNode(' ' + opt + ' '));
+                const tag = document.createElement('span');
+                tag.className = `tag ${optionTags[i].class}`;
+                tag.textContent = optionTags[i].text;
+                label.appendChild(tag);
+                optionsDiv.appendChild(label);
+            });
+
+            div.appendChild(optionsDiv);
+            form.appendChild(div);
+        });
+
+        document.getElementById('submitBtn').style.display = 'block';
     }
-  }
 
-  if (answeredCount < questions.length) {
-    alert("⚠️ Bạn cần hoàn thành tất cả câu hỏi trước khi xem kết quả.");
-    return;
-  }
+    // ==================== TÍNH KẾT QUẢ ====================
+    function submitQuiz() {
+        const form = document.getElementById('quizForm');
+        const inputs = form.querySelectorAll('input[type=radio]:checked');
+        const totalQuestions = questions.length;
 
-  const total = counts.reduce((a, b) => a + b, 0);
-  const percentages = counts.map(c => Math.round((c / total) * 100));
-  const max = Math.max(...counts);
-  const dominantIndex = counts.indexOf(max);
+        if (inputs.length < totalQuestions) {
+            alert('⚠️ Bạn cần trả lời tất cả ' + totalQuestions + ' câu hỏi!');
+            return;
+        }
 
-  document.getElementById("result").style.display = "block";
-  document.getElementById("result").innerHTML =
-    `<b>Kết quả:</b><br>` +
-    styles.map((s, i) => `${s}: ${percentages[i]}%`).join("<br>");
+        const counts = [0, 0, 0];
+        inputs.forEach(input => {
+            counts[parseInt(input.value)]++;
+        });
 
-  const ctx = document.getElementById("chart").getContext("2d");
-  const colors = ["#2196f3", "#ff9800", "#4caf50"];
-  let start = 0;
+        const total = counts.reduce((a, b) => a + b, 0);
+        const percentages = counts.map(c => Math.round((c / total) * 100));
+        const maxIndex = counts.indexOf(Math.max(...counts));
 
-  ctx.clearRect(0, 0, 400, 400);
-  percentages.forEach((p, i) => {
-    const slice = (p / 100) * 2 * Math.PI;
-    ctx.beginPath();
-    ctx.moveTo(200, 200);
-    ctx.arc(200, 200, 150, start, start + slice);
-    ctx.fillStyle = colors[i];
-    ctx.fill();
-    start += slice;
-  });
+        const resultDiv = document.getElementById('result');
+        resultDiv.className = 'result-box show';
+        resultDiv.innerHTML = `
+            <h2>📚 Kết quả phong cách học tập</h2>
+            <div class="result-stats">
+                ${styleNames.map((name, i) => `
+                    <div class="stat-item">
+                        <span class="num" style="color:${styleColors[i]}">${percentages[i]}%</span>
+                        <span class="label">${name}</span>
+                    </div>
+                `).join('')}
+            </div>
+            <div class="dominant" style="border: 2px solid ${styleColors[maxIndex]}; color:${styleColors[maxIndex]}">
+                ➤ ${styleNames[maxIndex]}
+            </div>
+            <div class="desc">${descriptions[maxIndex]}</div>
+            <div style="margin-top:20px; border-top:1px solid var(--light-gray); padding-top:20px;">
+                <p style="font-weight:600; color:var(--navy-dark);">📢 Chia sẻ bài test này:</p>
+                <div class="share-buttons">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn fb"><i class="fab fa-facebook-f"></i> Facebook</a>
+                    <a href="https://zalo.me/share?url=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn zalo"><i class="fas fa-comment"></i> Zalo</a>
+                    <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent('Kết quả trắc nghiệm của tôi: ' + styleNames[maxIndex])}&url=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn twitter"><i class="fab fa-twitter"></i> Twitter</a>
+                    <a href="https://www.tiktok.com/upload?lang=vi" target="_blank" class="share-btn tiktok"><i class="fab fa-tiktok"></i> TikTok</a>
+                </div>
+            </div>
+        `;
 
-  document.getElementById("description").style.display = "block";
-  document.getElementById("description").innerHTML =
-    `<b>Phân tích:</b><br>${descriptions[dominantIndex]}`;
-}
-  document.getElementById("submitBtn").addEventListener("click", calculateResult);
+        // ==================== VẼ BIỂU ĐỒ TRÒN ====================
+        const chartWrapper = document.getElementById('chartWrapper');
+        chartWrapper.style.display = 'flex';
+
+        const canvas = document.getElementById('chart');
+        const ctx = canvas.getContext('2d');
+        const width = canvas.width;
+        const height = canvas.height;
+        const centerX = width / 2;
+        const centerY = height / 2;
+        const radius = 120;
+
+        ctx.clearRect(0, 0, width, height);
+
+        let startAngle = -Math.PI / 2;
+        percentages.forEach((p, i) => {
+            const sliceAngle = (p / 100) * 2 * Math.PI;
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.arc(centerX, centerY, radius, startAngle, startAngle + sliceAngle);
+            ctx.closePath();
+            ctx.fillStyle = styleColors[i];
+            ctx.fill();
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            if (p > 5) {
+                const midAngle = startAngle + sliceAngle / 2;
+                const labelRadius = radius * 0.6;
+                const labelX = centerX + Math.cos(midAngle) * labelRadius;
+                const labelY = centerY + Math.sin(midAngle) * labelRadius;
+                ctx.fillStyle = 'white';
+                ctx.font = 'bold 18px Inter, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(p + '%', labelX, labelY);
+            }
+            startAngle += sliceAngle;
+        });
+
+        // Vẽ viền tròn
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+        ctx.strokeStyle = 'rgba(0,0,0,0.1)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        // Vẽ chú thích
+        const legendY = 280;
+        ctx.font = '12px Inter, sans-serif';
+        styleNames.forEach((name, i) => {
+            const x = 20 + i * 110;
+            ctx.fillStyle = styleColors[i];
+            ctx.fillRect(x, legendY, 14, 14);
+            ctx.fillStyle = '#333';
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(name.substring(0, 12) + (name.length > 12 ? '..' : ''), x + 18, legendY + 7);
+        });
+
+        // Ẩn form
+        form.style.display = 'none';
+        document.getElementById('submitBtn').style.display = 'none';
+        window.scrollTo({ top: resultDiv.offsetTop - 100, behavior: 'smooth' });
+    }
+
+    // ==================== KHỞI CHẠY ====================
+    document.addEventListener('DOMContentLoaded', function() {
+        renderQuestions();
+        document.getElementById('submitBtn').addEventListener('click', submitQuiz);
+    });
 </script>
 </body>
 </html>
