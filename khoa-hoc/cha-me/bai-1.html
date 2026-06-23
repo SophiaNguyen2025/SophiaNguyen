@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chương 1 · Phá băng tâm lý</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #F5F0E8;
+            font-family: 'Inter', sans-serif;
+            color: #0A1628;
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #FFFFFF;
+            border-radius: 2rem;
+            box-shadow: 0 20px 60px rgba(10, 22, 40, 0.08);
+            overflow: hidden;
+            padding: 2.5rem 2rem;
+        }
+
+        /* typography */
+        .display-font {
+            font-family: 'Playfair Display', serif;
+        }
+        .accent-font {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        .gold {
+            color: #C9A84C;
+        }
+        .navy {
+            color: #0A1628;
+        }
+        .bg-navy {
+            background-color: #0A1628;
+        }
+        .bg-navy-mid {
+            background-color: #1E3A5F;
+        }
+        .bg-cream {
+            background-color: #F5F0E8;
+        }
+        .text-cream {
+            color: #F5F0E8;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+        h1 {
+            font-size: 2.8rem;
+            line-height: 1.2;
+        }
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1.2rem;
+        }
+        .subhead {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-style: italic;
+            color: #1E3A5F;
+        }
+        .gold-line {
+            width: 60px;
+            height: 3px;
+            background: #C9A84C;
+            margin: 0.5rem 0 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        /* header */
+        .header-chapter {
+            border-bottom: 1px solid #e9e0d4;
+            padding-bottom: 1.2rem;
+            margin-bottom: 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+        }
+        .header-chapter .badge {
+            background: #C9A84C;
+            color: #0A1628;
+            padding: 0.2rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        /* TV SLIDE */
+        .tv-container {
+            background: #0A1628;
+            border-radius: 2rem;
+            padding: 1.2rem 1.2rem 1.5rem 1.2rem;
+            margin: 2rem 0 2.5rem 0;
+            box-shadow: 0 16px 40px rgba(10, 22, 40, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+        .tv-screen {
+            background: #111827;
+            border-radius: 1.2rem;
+            padding: 0.1rem 0.1rem 0 0.1rem;
+            overflow: hidden;
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.6);
+            position: relative;
+        }
+        .tv-screen::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 50%, rgba(0,0,0,0.2) 100%);
+            border-radius: 1.2rem;
+            z-index: 2;
+        }
+        .tv-screen .slide-track-wrap {
+            overflow: hidden;
+            border-radius: 1.2rem;
+            position: relative;
+            z-index: 1;
+        }
+        .tv-screen .slide-track {
+            display: flex;
+            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .tv-screen .slide {
+            min-width: 100%;
+            background: #F5F0E8;
+            padding: 2rem 2.2rem;
+            border-radius: 0;
+            color: #0A1628;
+            min-height: 320px;
+        }
+        .tv-screen .slide .slide-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #C9A84C;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+        .tv-screen .slide h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+        }
+        .tv-screen .slide ul {
+            list-style: none;
+            margin-top: 0.8rem;
+        }
+        .tv-screen .slide ul li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e0d6c8;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+        .tv-screen .slide ul li:last-child {
+            border-bottom: 0;
+        }
+        .tv-screen .slide ul li::before {
+            content: "◆";
+            color: #C9A84C;
+            font-size: 0.8rem;
+        }
+        .tv-screen .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+            margin: 1rem 0;
+        }
+        .tv-screen .grid-2 .col {
+            background: #FFFFFF;
+            padding: 1rem 1.2rem;
+            border-radius: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+        .tv-screen .grid-2 .col .label {
+            font-weight: 600;
+            font-size: 0.8rem;
+            letter-spacing: 0.03em;
+            display: block;
+            margin-bottom: 0.4rem;
+        }
+        .tv-screen .grid-2 .col .label.negative {
+            color: #b13e3e;
+        }
+        .tv-screen .grid-2 .col .label.positive {
+            color: #1E7A5E;
+        }
+        .tv-screen .quote-box {
+            background: #0A1628;
+            color: #F5F0E8;
+            padding: 1.6rem 2rem;
+            border-radius: 1.2rem;
+            margin: 1.2rem 0;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-style: italic;
+            text-align: center;
+        }
+        .tv-screen .quote-box small {
+            display: block;
+            font-size: 1rem;
+            font-style: normal;
+            font-family: 'Inter', sans-serif;
+            opacity: 0.7;
+            margin-top: 0.4rem;
+        }
+        .tv-screen .checklist-mini {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.4rem 1.2rem;
+            font-size: 0.9rem;
+        }
+        .tv-screen .checklist-mini span {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .tv-screen .checklist-mini .check {
+            color: #C9A84C;
+            font-weight: 700;
+        }
+
+        /* TV controls */
+        .tv-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.2rem;
+            padding-top: 0.8rem;
+        }
+        .tv-controls button {
+            background: transparent;
+            border: 1.5px solid #C9A84C;
+            color: #C9A84C;
+            width: 44px;
+            height: 44px;
+            border-radius: 40px;
+            font-size: 1.6rem;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(201, 168, 76, 0.08);
+        }
+        .tv-controls button:hover {
+            background: #C9A84C;
+            color: #0A1628;
+        }
+        .tv-dots {
+            display: flex;
+            gap: 0.6rem;
+        }
+        .tv-dots span {
+            width: 10px;
+            height: 10px;
+            border-radius: 20px;
+            background: #4a5568;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .tv-dots span.active {
+            background: #C9A84C;
+            width: 28px;
+        }
+
+        /* checklist */
+        .checklist-section {
+            background: #FFFFFF;
+            border: 1px solid #e9e0d4;
+            border-radius: 1.5rem;
+            padding: 2rem 2rem 1.6rem 2rem;
+            margin: 2.5rem 0;
+        }
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.6rem;
+            margin: 1.2rem 0 1.8rem 0;
+        }
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: #F5F0E8;
+            padding: 0.6rem 1rem 0.6rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.95rem;
+            transition: 0.15s;
+        }
+        .checklist-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #C9A84C;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .checklist-item .num {
+            font-weight: 600;
+            color: #1E3A5F;
+            margin-right: 0.2rem;
+            min-width: 28px;
+        }
+        .checklist-result {
+            background: #0A1628;
+            color: #F5F0E8;
+            padding: 1.2rem 1.8rem;
+            border-radius: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.8rem;
+        }
+        .checklist-result .score {
+            font-weight: 700;
+            font-size: 1.8rem;
+            font-family: 'Playfair Display', serif;
+            color: #C9A84C;
+        }
+        .checklist-result .msg {
+            font-size: 1rem;
+            flex: 1;
+        }
+        .btn-outline-gold {
+            background: transparent;
+            border: 1.5px solid #C9A84C;
+            color: #C9A84C;
+            padding: 0.6rem 1.8rem;
+            border-radius: 40px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .btn-outline-gold:hover {
+            background: #C9A84C;
+            color: #0A1628;
+        }
+
+        /* quiz */
+        .quiz-section {
+            background: #F5F0E8;
+            border-radius: 1.5rem;
+            padding: 2rem 2rem 1.6rem 2rem;
+            margin: 2.5rem 0;
+        }
+        .question {
+            background: #FFFFFF;
+            border-radius: 1.2rem;
+            padding: 1.5rem 1.8rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+        .question .q-text {
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 0.8rem;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .options label {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.95rem;
+            padding: 0.3rem 0.2rem;
+            cursor: pointer;
+            border-radius: 0.5rem;
+            transition: background 0.1s;
+        }
+        .options label:hover {
+            background: #F5F0E8;
+        }
+        .options input[type="radio"] {
+            accent-color: #C9A84C;
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+        .quiz-result {
+            background: #0A1628;
+            color: #F5F0E8;
+            padding: 1.2rem 2rem;
+            border-radius: 2rem;
+            margin-top: 1.8rem;
+            display: none;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.8rem;
+        }
+        .quiz-result .score-big {
+            font-size: 2.4rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            color: #C9A84C;
+        }
+        .quiz-result .msg {
+            font-size: 1rem;
+            flex: 1;
+        }
+        .btn-gold {
+            background: #C9A84C;
+            color: #0A1628;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .btn-gold:hover {
+            background: #b8953a;
+            transform: scale(0.97);
+        }
+
+        /* responsive */
+        @media (max-width: 700px) {
+            .container {
+                padding: 1.5rem 1rem;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .tv-screen .slide {
+                padding: 1.2rem;
+            }
+            .tv-screen .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            .checklist-grid {
+                grid-template-columns: 1fr;
+            }
+            .tv-screen .checklist-mini {
+                grid-template-columns: 1fr;
+            }
+            .header-chapter {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.6rem;
+            }
+        }
+        .mt-2 { margin-top: 1.5rem; }
+        .text-center { text-align: center; }
+        .flex-center { display: flex; align-items: center; justify-content: center; gap: 0.6rem; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header-chapter">
+        <div>
+            <span class="badge">Chương 1</span>
+            <h1>Phá băng tâm lý</h1>
+            <div class="subhead">Ba mẹ là vùng an toàn đầu tiên</div>
+        </div>
+        <div style="font-size:0.9rem; color:#1E3A5F; background:#F5F0E8; padding:0.4rem 1.2rem; border-radius:40px;">
+            🌱 dành cho cha mẹ
+        </div>
+    </div>
+
+    <!-- TV SLIDES -->
+    <div class="tv-container">
+        <div class="tv-screen">
+            <div class="slide-track-wrap">
+                <div class="slide-track" id="slideTrack">
+                    <!-- SLIDE 1 -->
+                    <div class="slide">
+                        <div class="slide-label">📌 Slide 1 – Khởi động</div>
+                        <h3>Tại sao chúng ta lại ngại?</h3>
+                        <p style="font-weight:500; margin-top:0.2rem;">Cha mẹ thường có 3 nỗi sợ khi nói về giới tính với con:</p>
+                        <ul>
+                            <li><strong>Sợ sai:</strong> “Không biết nói thế nào cho đúng.”</li>
+                            <li><strong>Sợ con hư:</strong> “Nói ra sợ con tò mò rồi làm bậy.”</li>
+                            <li><strong>Sợ ngại:</strong> “Tự nhiên nói chuyện này thấy kỳ kỳ.”</li>
+                        </ul>
+                        <div class="quote-box" style="margin-top:1rem; background:#1E3A5F; color:#fff;">
+                            “Nỗi sợ này là bình thường, nhưng KHÔNG để nó cản trở chúng ta.”
+                            <small>— Thông điệp</small>
+                        </div>
+                    </div>
+                    <!-- SLIDE 2 -->
+                    <div class="slide">
+                        <div class="slide-label">📌 Slide 2</div>
+                        <h3>“Giáo dục giới tính KHÔNG phải… mà LÀ…”</h3>
+                        <div class="grid-2">
+                            <div class="col"><span class="label negative">❌ KHÔNG PHẢI</span>Vẽ đường cho hươu chạy<br/>Khuyến khích quan hệ sớm<br/>Chỉ nói về “chuyện ấy”<br/>Trách nhiệm của nhà trường</div>
+                            <div class="col"><span class="label positive">✅ LÀ</span>Trang bị la bàn để con tự định hướng<br/>Bảo vệ con khỏi nguy cơ bị xâm hại<br/>Dạy con về sự tôn trọng, ranh giới, tình yêu<br/>Trách nhiệm đồng hành suốt đời của cha mẹ</div>
+                        </div>
+                    </div>
+                    <!-- SLIDE 3 -->
+                    <div class="slide">
+                        <div class="slide-label">📌 Slide 3</div>
+                        <h3>“Chữa lành đứa trẻ bên trong chính mình”</h3>
+                        <p>Hồi nhỏ, cha mẹ từng được giáo dục giới tính như thế nào?</p>
+                        <div style="display:flex; gap:1.2rem; flex-wrap:wrap; margin:0.8rem 0;">
+                            <span style="background:#1E7A5E20; padding:0.3rem 1rem; border-radius:40px;">✅ Cha mẹ cởi mở</span>
+                            <span style="background:#b13e3e20; padding:0.3rem 1rem; border-radius:40px;">❌ Bị la mắng / Lảng tránh / Bị đánh</span>
+                        </div>
+                        <div class="quote-box" style="background:#F5F0E8; color:#0A1628; border:1px solid #C9A84C;">
+                            “Hãy nhớ lại cảm xúc của mình hồi đó. Hãy cho con điều mà mình đã không có.”
+                            <small>— Bài tập</small>
+                        </div>
+                    </div>
+                    <!-- SLIDE 4 -->
+                    <div class="slide">
+                        <div class="slide-label">📌 Slide 4</div>
+                        <h3>“Thà con nghe từ cha mẹ đúng cách…”</h3>
+                        <div class="quote-box" style="background:#0A1628; color:#F5F0E8;">
+                            “…còn hơn để con nghe từ bạn bè sai lệch, hoặc tự mò mẫm trên mạng.”
+                        </div>
+                        <p style="margin-top:0.8rem;">Cha mẹ chính là nguồn thông tin đáng tin cậy nhất nếu mình tạo được lòng tin.</p>
+                        <div style="background:#F5F0E8; padding:0.8rem 1.2rem; border-radius:2rem; margin-top:0.8rem; display:inline-block;">
+                            💬 “Con có câu hỏi gì mà ba/mẹ có thể giúp con không?”
+                        </div>
+                    </div>
+                    <!-- SLIDE 5 -->
+                    <div class="slide">
+                        <div class="slide-label">📌 Slide 5</div>
+                        <h3>Checklist “Tâm thế sẵn sàng”</h3>
+                        <p style="margin-bottom:0.6rem;">Xem chi tiết bên dưới ⬇️</p>
+                        <div class="checklist-mini">
+                            <span><span class="check">✔</span> Chấp nhận giới tính là bình thường</span>
+                            <span><span class="check">✔</span> Tự hỏi mình sợ điều gì</span>
+                            <span><span class="check">✔</span> Cam kết không la mắng</span>
+                            <span><span class="check">✔</span> Trả lời sự thật phù hợp</span>
+                            <span><span class="check">✔</span> Sẵn sàng nói “chưa biết”</span>
+                            <span><span class="check">✔</span> Hiểu là quá trình</span>
+                            <span><span class="check">✔</span> Chuẩn bị tinh thần cho câu hỏi bất ngờ</span>
+                        </div>
+                        <div style="margin-top:1rem; font-size:0.9rem; color:#1E3A5F;">👇 Hãy đánh dấu checklist phía dưới để tự đánh giá.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- TV Controls -->
+        <div class="tv-controls">
+            <button id="prevSlide" aria-label="Previous slide">‹</button>
+            <div class="tv-dots" id="slideDots">
+                <span class="active" data-index="0"></span>
+                <span data-index="1"></span>
+                <span data-index="2"></span>
+                <span data-index="3"></span>
+                <span data-index="4"></span>
+            </div>
+            <button id="nextSlide" aria-label="Next slide">›</button>
+        </div>
+    </div>
+
+    <!-- CHECKLIST -->
+    <div class="checklist-section" id="checklistSection">
+        <h2 style="display:flex; align-items:center; gap:0.6rem;">📋 Checklist <span style="font-size:1rem; font-weight:400; font-family:'Inter', sans-serif; color:#1E3A5F;">“Tâm thế sẵn sàng”</span></h2>
+        <p style="margin-bottom:0.5rem;">Hãy đánh dấu ✅ vào những điều bạn cảm thấy mình ĐÃ LÀM ĐƯỢC:</p>
+
+        <div class="checklist-grid" id="checklistGrid">
+            <div class="checklist-item"><input type="checkbox" data-point="1" /> <span class="num">1</span> Tôi chấp nhận rằng nói về giới tính là điều BÌNH THƯỜNG, không phải “cấm kỵ”</div>
+            <div class="checklist-item"><input type="checkbox" data-point="1" /> <span class="num">2</span> Tôi đã tự hỏi bản thân: “Mình sợ điều gì nhất khi nói về chủ đề này?”</div>
+            <div class="checklist-item"><input type="checkbox" data-point="1" /> <span class="num">3</span> Tôi cam kết KHÔNG LA MẮNG khi con hỏi về giới tính</div>
+            <div class="checklist-item"><input type="checkbox" data-point="1" /> <span class="num">4</span> Tôi sẽ trả lời con bằng sự thật, phù hợp với lứa tuổi</div>
+            <div class="checklist-item"><input type="checkbox" data-point="1" /> <span class="num">5</span> Tôi sẵn sàng nói “Mẹ/Ba chưa biết, để ba/mẹ tìm hiểu rồi nói với con sau”</div>
+            <div class="checklist-item"><input type="checkbox" data-point="1" /> <span class="num">6</span> Tôi hiểu rằng giáo dục giới tính là QUÁ TRÌNH, không phải một lần nói</div>
+            <div class="checklist-item"><input type="checkbox" data-point="1" /> <span class="num">7</span> Tôi đã chuẩn bị tinh thần cho những câu hỏi “bất ngờ” của con</div>
+        </div>
+
+        <div class="checklist-result" id="checklistResult">
+            <span><span class="score" id="checkScore">0</span> / 7</span>
+            <span class="msg" id="checkMsg">Hãy đánh dấu các mục bạn đã làm được.</span>
+            <button class="btn-outline-gold" id="resetChecklist" style="background:#fff; border-color:#C9A84C; color:#0A1628;">🔄 Làm lại</button>
+        </div>
+    </div>
+
+    <!-- QUIZ -->
+    <div class="quiz-section" id="quizSection">
+        <h2 style="display:flex; align-items:center; gap:0.6rem;">🧩 Trắc nghiệm <span style="font-size:1rem; font-weight:400; font-family:'Inter', sans-serif; color:#1E3A5F;">“Bạn có đang là vùng an toàn của con?”</span></h2>
+
+        <div id="quizContainer">
+            <!-- Câu 1 (xáo trộn đáp án) -->
+            <div class="question" data-q="1">
+                <div class="q-text">Câu 1: Bé hỏi: “Mẹ ơi, con sinh ra từ đâu ạ? Sao con ở trong bụng mẹ?” – Mẹ sẽ:</div>
+                <div class="options">
+                    <label><input type="radio" name="q1" value="2" /> A. Ôm con và nói: “Con lớn lên từ bụng mẹ, khi con muốn biết thêm mẹ sẽ kể.” (2 điểm)</label>
+                    <label><input type="radio" name="q1" value="0" /> B. Cười trừ: “Lớn lên con sẽ hiểu.” (0 điểm)</label>
+                    <label><input type="radio" name="q1" value="0" /> C. Ngại ngùng đổi chủ đề: “Con hỏi làm gì?” (0 điểm)</label>
+                </div>
+            </div>
+            <!-- Câu 2 -->
+            <div class="question" data-q="2">
+                <div class="q-text">Câu 2: Khi xem phim thấy cảnh hôn nhau, con chỉ vào màn hình, cha mẹ sẽ:</div>
+                <div class="options">
+                    <label><input type="radio" name="q2" value="0" /> A. Tắt phim ngay, quát: “Xem gì kỳ quá!” (0 điểm)</label>
+                    <label><input type="radio" name="q2" value="2" /> B. Nói nhẹ nhàng: “Đó là cách người lớn thể hiện yêu thương đấy con.” (2 điểm)</label>
+                    <label><input type="radio" name="q2" value="0" /> C. Lặng lẽ đổi kênh, không nói gì. (0 điểm)</label>
+                </div>
+            </div>
+            <!-- Câu 3 -->
+            <div class="question" data-q="3">
+                <div class="q-text">Câu 3: Con 8 tuổi hỏi “Thế nào là quan hệ tình dục?” – Cha mẹ sẽ:</div>
+                <div class="options">
+                    <label><input type="radio" name="q3" value="0" /> A. Nói: “Con hư rồi, ai dạy con câu đấy?” rồi đi tìm người để trách. (0 điểm)</label>
+                    <label><input type="radio" name="q3" value="0" /> B. Tát hoặc mắng con “hư”. (0 điểm)</label>
+                    <label><input type="radio" name="q3" value="2" /> C. Bình tĩnh nói: “Đó là một phần của tình yêu người lớn, khi con lớn hơn ba/mẹ sẽ giải thích kỹ hơn.” (2 điểm)</label>
+                </div>
+            </div>
+            <!-- Câu 4 -->
+            <div class="question" data-q="4">
+                <div class="q-text">Câu 4: Con bắt đầu có những thay đổi cơ thể ở tuổi dậy thì, thái độ của cha mẹ:</div>
+                <div class="options">
+                    <label><input type="radio" name="q4" value="2" /> A. Chủ động nói chuyện: “Con đang lớn, cơ thể thay đổi là bình thường, có gì thắc mắc hỏi ba/mẹ nhé.” (2 điểm)</label>
+                    <label><input type="radio" name="q4" value="0" /> B. Không đề cập gì, để tự con tìm hiểu. (0 điểm)</label>
+                    <label><input type="radio" name="q4" value="0" /> C. Nói sơ sài: “Con lớn rồi, tự biết đi.” (0 điểm)</label>
+                </div>
+            </div>
+            <!-- Câu 5 -->
+            <div class="question" data-q="5">
+                <div class="q-text">Câu 5: Cha mẹ có sẵn sàng nói “Ba/Mẹ không biết” khi con hỏi khó không?</div>
+                <div class="options">
+                    <label><input type="radio" name="q5" value="0" /> A. Không, vì sợ mất uy. (0 điểm)</label>
+                    <label><input type="radio" name="q5" value="2" /> B. Có, và sẽ nói: “Ba/Mẹ chưa biết, để ba/mẹ tìm hiểu rồi nói với con.” (2 điểm)</label>
+                    <label><input type="radio" name="q5" value="0" /> C. Có, nhưng sẽ tìm cách né tránh. (0 điểm)</label>
+                </div>
+            </div>
+        </div>
+
+        <div style="display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; margin:0.4rem 0 0.2rem;">
+            <button class="btn-gold" id="quizSubmit">📊 Xem kết quả</button>
+            <button class="btn-outline-gold" id="resetQuiz" style="background:#fff; border-color:#C9A84C; color:#0A1628;">🔄 Làm lại</button>
+        </div>
+
+        <div class="quiz-result" id="quizResult">
+            <span><span class="score-big" id="quizScore">0</span> / 10 điểm</span>
+            <span class="msg" id="quizMsg">🌟 Ba mẹ là “Vùng an toàn tuyệt vời”!</span>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <div style="margin-top:2.5rem; padding-top:1.2rem; border-top:1px solid #e9e0d4; text-align:center; font-size:0.85rem; color:#1E3A5F;">
+        <span class="accent-font" style="font-size:1.1rem;">“Hãy là vùng an toàn đầu tiên của con.”</span>
+        <br/>© 2026 · Chương 1 – Phá băng tâm lý
+    </div>
+
+</div>
+
+<script>
+    (function() {
+        // ----- TV SLIDES -----
+        const track = document.getElementById('slideTrack');
+        const dots = document.querySelectorAll('#slideDots span');
+        const prevBtn = document.getElementById('prevSlide');
+        const nextBtn = document.getElementById('nextSlide');
+        let currentSlide = 0;
+        const totalSlides = 5;
+
+        function updateSlide(index) {
+            if (index < 0) index = 0;
+            if (index >= totalSlides) index = totalSlides - 1;
+            currentSlide = index;
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
+            });
+        }
+
+        dots.forEach((dot, i) => {
+            dot.addEventListener('click', () => updateSlide(i));
+        });
+        prevBtn.addEventListener('click', () => updateSlide(currentSlide - 1));
+        nextBtn.addEventListener('click', () => updateSlide(currentSlide + 1));
+
+        // ----- CHECKLIST -----
+        const checkboxes = document.querySelectorAll('#checklistGrid input[type="checkbox"]');
+        const checkScoreEl = document.getElementById('checkScore');
+        const checkMsgEl = document.getElementById('checkMsg');
+
+        function updateChecklist() {
+            let checked = 0;
+            checkboxes.forEach(cb => { if (cb.checked) checked++; });
+            checkScoreEl.textContent = checked;
+            let msg = '';
+            if (checked === 7) {
+                msg = '🌟 Tuyệt vời! Ba mẹ đã sẵn sàng về tâm thế. Hãy tự tin đồng hành cùng con.';
+            } else if (checked === 6) {
+                msg = '🌱 Rất tốt! Ba mẹ gần như đã sẵn sàng, hãy xem lại mục chưa đạt để hoàn thiện.';
+            } else if (checked >= 4) {
+                msg = '🌱 Khá tốt, Ba mẹ đã có nền tảng. Hãy xem lại những mục chưa đạt để tiến bộ hơn.';
+            } else if (checked >= 1) {
+                msg = '💡 Ba mẹ đang bắt đầu. Hãy đọc lại SLIDE 2 & 3 để thay đổi tư duy, từng bước xây dựng vùng an toàn.';
+            } else {
+                msg = '💡 Ba mẹ chưa đánh dấu mục nào. Hãy bắt đầu từ những việc nhỏ nhất, mỗi bước đều quan trọng.';
+            }
+            checkMsgEl.textContent = msg;
+        }
+
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', updateChecklist);
+        });
+
+        document.getElementById('resetChecklist').addEventListener('click', function() {
+            checkboxes.forEach(cb => { cb.checked = false; });
+            updateChecklist();
+        });
+
+        updateChecklist();
+
+        // ----- QUIZ -----
+        const quizQuestions = document.querySelectorAll('.question');
+        const submitBtn = document.getElementById('quizSubmit');
+        const resetQuizBtn = document.getElementById('resetQuiz');
+        const quizResultDiv = document.getElementById('quizResult');
+        const quizScoreEl = document.getElementById('quizScore');
+        const quizMsgEl = document.getElementById('quizMsg');
+
+        function getQuizScore() {
+            let total = 0;
+            quizQuestions.forEach(q => {
+                const radios = q.querySelectorAll('input[type="radio"]');
+                let selected = null;
+                radios.forEach(r => { if (r.checked) selected = r; });
+                if (selected) {
+                    total += parseInt(selected.value, 10);
+                }
+            });
+            return total;
+        }
+
+        function showQuizResult() {
+            const score = getQuizScore();
+            quizScoreEl.textContent = score;
+            let msg = '';
+            if (score <= 4) {
+                msg = '⚠️ Con đang thiếu một vùng an toàn thực sự. Ba mẹ cần thay đổi cách tiếp cận ngay từ hôm nay.';
+            } else if (score <= 7) {
+                msg = '🌱 Ba mẹ đang trên đúng hướng, nhưng còn ngần ngại. Hãy cởi mở hơn nữa nhé!';
+            } else {
+                msg = '🌟 Ba mẹ là “Vùng an toàn tuyệt vời”! Con sẽ luôn tìm đến Ba mẹ khi cần.';
+            }
+            quizMsgEl.textContent = msg;
+            quizResultDiv.style.display = 'flex';
+        }
+
+        submitBtn.addEventListener('click', showQuizResult);
+
+        resetQuizBtn.addEventListener('click', function() {
+            quizQuestions.forEach(q => {
+                const radios = q.querySelectorAll('input[type="radio"]');
+                radios.forEach(r => { r.checked = false; });
+            });
+            quizResultDiv.style.display = 'none';
+        });
+
+        // Show result if all answered (optional)
+        // but we keep manual
+    })();
+</script>
+
+</body>
+</html>
