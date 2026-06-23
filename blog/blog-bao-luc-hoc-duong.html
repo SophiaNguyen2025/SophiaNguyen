@@ -1,369 +1,559 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bạo lực học đường ở trẻ em: Vấn nạn cần lên tiếng | Sophia Nguyễn</title>
-  <meta name="description" content="Bạo lực học đường - thực trạng đáng báo động, nguyên nhân sâu xa, hậu quả nghiêm trọng và giải pháp phòng tránh từ gia đình, nhà trường và xã hội.">
-  <meta name="keywords" content="bạo lực học đường, trẻ em, bắt nạt học đường, tâm lý học đường, phòng chống bạo lực">
-  <meta name="author" content="Sophia Nguyễn">
-  <link rel="stylesheet" href="../main.css" />
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      background: linear-gradient(145deg, #fff5f0 0%, #ffe8e0 100%);
-      font-family: 'Be Vietnam Pro', sans-serif;
-      color: #2c3e2f;
-      line-height: 1.6;
-    }
-    .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
-    /* Header */
-    .header {
-      background: white;
-      padding: 15px 0;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    }
-    .header-container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .menu-toggle { display: none; font-size: 28px; cursor: pointer; }
-    .navbar ul { display: flex; gap: 2rem; list-style: none; }
-    .navbar a { text-decoration: none; color: #000000 !important; font-weight: 500; transition: 0.2s; }
-    .navbar a:hover { color: #e83e8c; }
-    .banner { margin-top: 20px; text-align: center; }
-    .banner-img { width: 100%; max-height: 250px; object-fit: cover; border-radius: 28px; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bạo lực học đường ở trẻ em: Vấn nạn cần lên tiếng | Sophia Nguyễn</title>
+    <meta name="description" content="Bạo lực học đường - thực trạng đáng báo động, nguyên nhân sâu xa, hậu quả nghiêm trọng và giải pháp phòng tránh từ gia đình, nhà trường và xã hội.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --navy-dark: #0A1628;
+            --navy-mid: #1E3A5F;
+            --gold: #C9A84C;
+            --gold-light: #D4B85C;
+            --cream: #F5F0E8;
+            --white: #FFFFFF;
+            --gray: #4A5A6A;
+            --light-gray: #E8E4DC;
+            --gradient: linear-gradient(135deg, #0A1628 0%, #1E3A5F 50%, #2A4A7F 100%);
+            --gold-gradient: linear-gradient(135deg, #C9A84C 0%, #D4B85C 50%, #E8D5A0 100%);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--navy-dark);
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
 
-    /* Blog content */
-    .blog-header {
-      text-align: center;
-      margin: 40px 0 30px;
-    }
-    .blog-header h1 {
-      font-size: 2rem;
-      color: #2c3e2f;
-      margin-bottom: 16px;
-      line-height: 1.3;
-    }
-    .blog-meta {
-      display: flex;
-      justify-content: center;
-      gap: 24px;
-      color: #888;
-      font-size: 0.85rem;
-      margin-bottom: 30px;
-    }
-    .blog-content {
-      background: white;
-      border-radius: 32px;
-      padding: 40px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    }
-    .blog-content h2 {
-      font-size: 1.5rem;
-      color: #e83e8c;
-      margin: 30px 0 16px;
-      padding-bottom: 8px;
-      border-bottom: 2px solid #f0c0d0;
-    }
-    .blog-content h3 {
-      font-size: 1.2rem;
-      color: #c06c7a;
-      margin: 20px 0 12px;
-    }
-    .blog-content p {
-      margin-bottom: 16px;
-      color: #4a4a4a;
-    }
-    .blog-content ul, .blog-content ol {
-      margin: 16px 0 16px 24px;
-      color: #4a4a4a;
-    }
-    .blog-content li {
-      margin: 8px 0;
-    }
-    .callout {
-      background: #fef5f0;
-      border-left: 5px solid #e83e8c;
-      padding: 20px 24px;
-      border-radius: 20px;
-      font-style: italic;
-      margin: 24px 0;
-      display: block;
-      color: #5a3e3a;
-    }
-    .highlight {
-      background: #fef0f0;
-      padding: 20px 24px;
-      border-radius: 20px;
-      margin: 24px 0;
-    }
-    .highlight strong {
-      color: #e83e8c;
-    }
+        /* ========== HEADER ========== */
+        .header {
+            background: var(--white);
+            padding: 12px 0;
+            box-shadow: 0 2px 20px rgba(10,22,40,0.06);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo img { height: 55px; width: auto; display: block; }
+        .navbar ul {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+            align-items: center;
+        }
+        .navbar ul li a {
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        .navbar ul li a:hover, .navbar ul li a.active { color: var(--gold); }
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--navy-dark);
+        }
+        .show-menu { display: flex !important; }
 
-    /* CTA */
-    .cta-section {
-      text-align: center;
-      padding: 50px 40px;
-      background: linear-gradient(135deg, #e83e8c, #f06292);
-      color: white;
-      border-radius: 32px;
-      margin: 50px 0;
-    }
-    .cta-datlich {
-      background: transparent;
-      border: 2px solid white;
-      color: white;
-      padding: 12px 28px;
-      border-radius: 40px;
-      text-decoration: none;
-      font-weight: 600;
-      display: inline-block;
-      margin: 0 8px;
-      transition: 0.2s;
-    }
-    .cta-datlich:hover { background: white; color: #e83e8c; }
+        /* ========== BLOG HERO ========== */
+        .blog-hero {
+            background: var(--gradient);
+            padding: 50px 0 40px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .blog-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .blog-hero .blog-tag {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--navy-dark);
+            padding: 4px 18px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        .blog-hero h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4.2rem;
+            font-weight: 400;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+        .blog-hero .subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            opacity: 0.85;
+            margin-bottom: 16px;
+            font-style: italic;
+            -webkit-text-fill-color: white;
+        }
+        .blog-hero .meta {
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+            font-size: 0.85rem;
+            opacity: 0.8;
+            flex-wrap: wrap;
+            -webkit-text-fill-color: white;
+        }
+        .blog-hero .meta i { margin-right: 6px; }
 
-    /* Footer */
-    .footer {
-      background: #1a2a3a;
-      color: white;
-      padding: 50px 0 20px;
-      margin-top: 60px;
-    }
-    .footer-container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 24px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 40px;
-    }
- 
-    .footer-links ul { list-style: none; }
-    .footer-links a { color: #cbd5e0; text-decoration: none; font-size: 0.85rem; }
-    .footer-links a:hover { color: #e83e8c; }
-    .social-icons { display: flex; gap: 12px; margin-top: 16px; }
-    .social-icons img { width: 32px; transition: 0.2s; }
-    .social-icons img:hover { transform: translateY(-3px); }
-    .footer-bottom { text-align: center; padding-top: 30px; margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.75rem; }
+        /* ========== BLOG CONTENT ========== */
+        .blog-content {
+            background: var(--white);
+            border-radius: 32px;
+            padding: 48px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(10,22,40,0.06);
+            border: 1px solid var(--light-gray);
+        }
+        .blog-content p {
+            color: var(--gray);
+            margin-bottom: 16px;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+        .blog-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--navy-dark);
+            margin: 30px 0 16px;
+            padding-bottom: 8px;
+            border-bottom: 3px solid var(--gold);
+        }
+        .blog-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            color: var(--navy-dark);
+            margin: 20px 0 12px;
+        }
+        .blog-content ul, .blog-content ol {
+            margin: 16px 0 16px 24px;
+            color: var(--gray);
+        }
+        .blog-content li {
+            margin: 8px 0;
+            line-height: 1.7;
+        }
+        .blog-content strong { color: var(--navy-dark); }
+        .blog-content a { color: var(--gold); text-decoration: none; }
+        .blog-content a:hover { text-decoration: underline; }
 
-    @media (max-width: 768px) {
-      .menu-toggle { display: block; }
-      .navbar ul { display: none; flex-direction: column; gap: 1rem; margin-top: 1rem; }
-      .navbar.show-menu ul { display: flex; }
-      .blog-header h1 { font-size: 1.6rem; }
-      .blog-content { padding: 24px; }
-    }
-        /* Nút chia sẻ */
+        .callout {
+            background: var(--cream);
+            border-left: 5px solid var(--gold);
+            padding: 20px 24px;
+            border-radius: 16px;
+            margin: 24px 0;
+            color: var(--gray);
+            font-style: italic;
+        }
+        .callout strong { color: var(--navy-dark); }
+
+        .highlight-box {
+            background: rgba(201,168,76,0.12);
+            padding: 20px 24px;
+            border-radius: 16px;
+            margin: 24px 0;
+            border: 1px solid var(--gold);
+        }
+        .highlight-box strong { color: var(--navy-dark); }
+
+        /* ========== SHARE SECTION ========== */
         .share-section {
             text-align: center;
-            margin: 40px 0 20px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 20px;
+            margin: 30px 0 20px;
+            padding: 16px 20px;
+            background: var(--cream);
+            border-radius: 16px;
+            border: 1px solid var(--light-gray);
         }
-        .share-section h4 {
-            font-size: 1rem;
-            margin-bottom: 15px;
-            color: #2c3e2f;
+        .share-section .share-label {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.9rem;
+            color: var(--navy-dark);
+            margin-bottom: 12px;
         }
         .share-buttons {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
-            gap: 12px;
+            gap: 10px;
+            flex-wrap: wrap;
         }
         .share-btn {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            border-radius: 40px;
-            font-size: 0.85rem;
-            font-weight: 500;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            font-size: 0.9rem;
             text-decoration: none;
-            transition: 0.2s;
+            transition: all 0.2s;
             cursor: pointer;
             border: none;
+            color: white;
         }
-        .share-btn i {
+        .share-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .share-btn.facebook { background: #1877f2; }
+        .share-btn.twitter { background: #1da1f2; }
+        .share-btn.linkedin { background: #0077b5; }
+        .share-btn.zalo { background: #0068ff; }
+        .share-btn.copy-link { background: var(--gray); }
+        .share-btn i { font-size: 0.9rem; }
+
+        /* ========== CTA ========== */
+        .cta-section {
+            text-align: center;
+            padding: 40px 36px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 32px;
+            margin: 40px 0;
+            border: 1px solid rgba(201,168,76,0.2);
+        }
+        .cta-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            margin-bottom: 12px;
+        }
+        .cta-section p { opacity: 0.9; margin-bottom: 20px; }
+        .cta-datlich {
+            background: var(--gold);
+            color: var(--navy-dark);
+            padding: 12px 28px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-block;
+            margin: 0 8px;
+            transition: 0.2s;
+        }
+        .cta-datlich:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+        }
+        .cta-datlich.outline {
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+        }
+        .cta-datlich.outline:hover {
+            background: var(--gold);
+            color: var(--navy-dark);
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: var(--navy-dark);
+            color: rgba(255,255,255,0.7);
+            padding: 40px 0 24px;
+            margin-top: 60px;
+            border-top: 3px solid var(--gold);
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        .footer-logo img { width: 120px; margin-bottom: 12px; }
+        .footer-logo p { font-size: 0.85rem; line-height: 1.6; color: rgba(255,255,255,0.6); }
+        .footer-links h4, .footer-contact h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            margin-bottom: 16px;
             font-size: 1rem;
         }
-        .share-btn.facebook { background: #1877f2; color: white; }
-        .share-btn.twitter { background: #1da1f2; color: white; }
-        .share-btn.linkedin { background: #0077b5; color: white; }
-        .share-btn.zalo { background: #0068ff; color: white; }
-        .share-btn.copy-link { background: #6c757d; color: white; }
-        .share-btn:hover {
-            transform: translateY(-2px);
-            opacity: 0.9;
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
         }
-  </style>
+        .footer-links ul li { margin-bottom: 8px; }
+        .footer-links ul li a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: 0.2s;
+        }
+        .footer-links ul li a:hover { color: var(--gold); }
+        .footer-contact p {
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            color: rgba(255,255,255,0.6);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .footer-contact p i { color: var(--gold); width: 18px; }
+        .social-icons {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .social-icons a {
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+        .social-icons a:hover { transform: translateY(-3px); }
+        .social-icons img { width: 30px; height: 30px; border-radius: 50%; }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .navbar {
+                display: none;
+                flex-direction: column;
+                gap: 12px;
+                padding: 16px 0;
+                background: var(--white);
+                width: 100%;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                padding: 16px 24px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+            .navbar ul { flex-direction: column; gap: 12px; }
+            .header-container { flex-wrap: wrap; position: relative; }
+            .logo img { height: 45px; }
+            .blog-hero h1 { font-size: 2.2rem; }
+            .blog-hero .subtitle { font-size: 0.95rem; }
+            .blog-content { padding: 24px; }
+            .blog-hero .meta { gap: 12px; font-size: 0.75rem; flex-wrap: wrap; }
+            .footer-container { grid-template-columns: 1fr; text-align: center; }
+            .footer-contact p { justify-content: center; }
+            .social-icons { justify-content: center; }
+            .cta-section { padding: 30px 20px; }
+            .cta-datlich { display: block; margin: 12px auto; width: fit-content; }
+            .share-buttons { gap: 8px; }
+            .share-btn { width: 34px; height: 34px; font-size: 0.8rem; }
+        }
+    </style>
 </head>
 <body>
 
+<!-- ========== HEADER ========== -->
 <header class="header">
-  <div class="header-container">
-    <a href="../index.html" class="logo"><img src="../images/hinhremovenen.png" alt="Sophia Logo" /></a>
-    <div class="menu-toggle" onclick="document.querySelector('.navbar').classList.toggle('show-menu')">☰</div>
-    <nav class="navbar">
-      <ul>
-        <li><a href="../index.html">Trang chủ</a></li>
-        <li><a href="../about.html">Giới thiệu</a></li>
-        <li><a href="../services.html">Dịch vụ</a></li>
-        <li><a href="../blog.html">Blog</a></li>
-        <li><a href="../contact.html">Liên hệ</a></li>
-      </ul>
-    </nav>
-  </div>
-  <div class="banner"><img src="../images/rs1.png" alt="Sophia Nguyễn – Đồng hành & Sẻ chia" class="banner-img" /></div>
+    <div class="header-container">
+        <a href="../index.html" class="logo">
+            <img src="../images/hinhremovenen.png" alt="Sophia Nguyễn">
+        </a>
+        <div class="menu-toggle" onclick="document.querySelector('.navbar').classList.toggle('show-menu')">☰</div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="../index.html">Trang chủ</a></li>
+                <li><a href="../about.html">Giới thiệu</a></li>
+                <li><a href="../services.html">Dịch vụ</a></li>
+                <li><a href="../blog.html" class="active">Blog</a></li>
+                <li><a href="../contact.html">Liên hệ</a></li>
+            </ul>
+        </nav>
+    </div>
 </header>
 
+<!-- ========== BLOG HERO ========== -->
+<section class="blog-hero">
+    <div class="container">
+        <div class="blog-tag">📖 Bài viết</div>
+        <h1>Bạo lực học đường ở trẻ em</h1>
+        <p class="subtitle">— Vấn nạn cần lên tiếng —</p>
+        <div class="meta">
+            <span><i class="far fa-calendar-alt"></i> 10/04/2026</span>
+            <span><i class="far fa-clock"></i> 8 phút đọc</span>
+            <span><i class="far fa-folder-open"></i> Tâm lý học đường</span>
+        </div>
+    </div>
+</section>
+
+<!-- ========== BLOG CONTENT ========== -->
 <div class="container">
-  <div class="blog-header">
-    <h1>💔 Bạo lực học đường ở trẻ em: Vấn nạn cần lên tiếng</h1>
-    <div class="blog-meta">
-      <span><i class="far fa-calendar-alt"></i> 10/04/2026</span>
-      <span><i class="far fa-clock"></i> 8 phút đọc</span>
-      <span><i class="far fa-folder-open"></i> Tâm lý học đường</span>
+    <div class="blog-content">
+        <p><span class="callout">Khi một đứa trẻ bị đánh, bị xúc phạm, bị cô lập trong chính môi trường học tập của mình</span> đó không chỉ là một hành vi sai trái — đó là một lời cảnh báo về sự đổ vỡ trong hệ thống giáo dục và xã hội.</p>
+
+        <h2>📌 Bạo lực học đường là gì?</h2>
+        <p>Bạo lực học đường không chỉ là những cú đấm hay lời chửi rủa. Đó là tất cả những hành vi gây tổn thương thể chất, tinh thần, cảm xúc cho học sinh trong môi trường học tập:</p>
+        <ul>
+            <li><strong>Thể chất</strong>: đánh nhau, xô đẩy, lột đồ, dùng vật dụng gây thương tích.</li>
+            <li><strong>Tâm lý</strong>: xúc phạm, chế giễu, cô lập, đe dọa.</li>
+            <li><strong>Tình dục</strong>: quấy rối, sàm sỡ, xâm hại.</li>
+            <li><strong>Trên mạng</strong>: tung tin sai lệch, bình luận ác ý, phát tán hình ảnh riêng tư.</li>
+        </ul>
+
+        <h2>📊 Thực trạng đáng báo động</h2>
+        <div class="highlight-box">
+            <ul>
+                <li>Mỗi năm có gần <strong>1.600 vụ học sinh đánh nhau</strong>, trung bình <strong>5 vụ/ngày</strong> (theo Bộ GD&ĐT).</li>
+                <li><strong>50% trẻ từ 13–15 tuổi</strong> từng là nạn nhân (theo UNICEF).</li>
+                <li>Hậu quả: <strong>tự tử, rối loạn tâm lý, bỏ học</strong>.</li>
+            </ul>
+        </div>
+
+        <h2>🔍 Nguyên nhân sâu xa</h2>
+        <h3>1. Tâm lý tuổi vị thành niên</h3>
+        <ul><li>Dễ bị ảnh hưởng bởi bạn bè, mạng xã hội.</li><li>Thiếu kỹ năng kiểm soát cảm xúc, giải quyết mâu thuẫn.</li></ul>
+        <h3>2. Gia đình thiếu kết nối</h3>
+        <ul><li>Cha mẹ bận rộn, ít trò chuyện, thậm chí dùng bạo lực với con.</li><li>Trẻ học cách “giải quyết vấn đề” bằng cách bắt chước người lớn.</li></ul>
+        <h3>3. Mạng xã hội và văn hóa bạo lực</h3>
+        <ul><li>Clip đánh nhau, bắt nạt được chia sẻ rộng rãi.</li><li>Trẻ muốn gây chú ý bằng hành vi tiêu cực.</li></ul>
+        <h3>4. Nhà trường thiếu hỗ trợ tâm lý</h3>
+        <ul><li>Nhiều trường chưa có phòng tham vấn tâm lý.</li><li>Giáo viên thiếu kỹ năng nhận diện và can thiệp sớm.</li></ul>
+
+        <h2>⚠️ Hậu quả nghiêm trọng</h2>
+        <ul>
+            <li><strong>Thể chất</strong>: chấn thương, mất ngủ, suy nhược.</li>
+            <li><strong>Tâm lý</strong>: trầm cảm, lo âu, ám ảnh.</li>
+            <li><strong>Học tập</strong>: giảm sút thành tích, bỏ học.</li>
+            <li><strong>Xã hội</strong>: mất lòng tin, dễ trở thành người gây bạo lực.</li>
+        </ul>
+
+        <h2>🛡️ Làm gì để phòng tránh?</h2>
+        <h3>🏠 Gia đình</h3>
+        <ul><li>Tạo môi trường yêu thương, không dùng bạo lực.</li><li>Trò chuyện thường xuyên, lắng nghe cảm xúc của con.</li><li>Dạy con kỹ năng sống, cách xử lý mâu thuẫn.</li></ul>
+        <h3>🏫 Nhà trường</h3>
+        <ul><li>Thiết lập quy tắc ứng xử rõ ràng.</li><li>Tổ chức hoạt động tăng kết nối giữa học sinh.</li><li>Thành lập phòng tham vấn tâm lý.</li></ul>
+        <h3>👩‍🏫 Giáo viên</h3>
+        <ul><li>Quan sát, nhận diện sớm dấu hiệu trẻ bị bắt nạt.</li><li>Can thiệp kịp thời.</li><li>Tạo môi trường lớp học thân thiện.</li></ul>
+        <h3>👧 Học sinh</h3>
+        <ul><li>Nói không với bạo lực, tố cáo hành vi sai trái.</li><li>Học cách kiểm soát cảm xúc.</li><li>Tìm kiếm sự giúp đỡ từ người lớn.</li></ul>
+
+        <h2>🌍 Vai trò của cộng đồng</h2>
+        <ul>
+            <li>Truyền thông cần đưa tin có trách nhiệm.</li>
+            <li>Chính quyền cần kiểm soát nội dung độc hại.</li>
+            <li>Tổ chức xã hội hỗ trợ tâm lý, pháp lý cho nạn nhân.</li>
+        </ul>
+
+        <div class="highlight-box">
+            <strong>💬 Bạo lực học đường không phải là chuyện riêng của một đứa trẻ — đó là chuyện của cả xã hội.</strong><br>
+            Mỗi người lớn cần là một tấm gương, một người bảo vệ, một người đồng hành để trẻ em được lớn lên trong môi trường an toàn, tử tế và đầy yêu thương. Hãy chia sẻ cho trẻ bằng cách cho trẻ tham gia các lớp hoặc kỹ năng, workshop, thực hiện tình huống thực tế... Trong khóa học "kỹ năng an toàn" cho trẻ trên website của Sophia cũng có đề cập đến nội dung này, ba mẹ có thể cùng tìm hiểu nhé.
+        </div>
     </div>
-  </div>
 
-  <div class="blog-content">
-    <p><span class="callout">Khi một đứa trẻ bị đánh, bị xúc phạm, bị cô lập trong chính môi trường học tập của mình</span> đó không chỉ là một hành vi sai trái — đó là một lời cảnh báo về sự đổ vỡ trong hệ thống giáo dục và xã hội.</p>
-
-    <h2>📌 Bạo lực học đường là gì?</h2>
-    <p>Bạo lực học đường không chỉ là những cú đấm hay lời chửi rủa. Đó là tất cả những hành vi gây tổn thương thể chất, tinh thần, cảm xúc cho học sinh trong môi trường học tập:</p>
-    <ul>
-      <li><strong>Thể chất</strong>: đánh nhau, xô đẩy, lột đồ, dùng vật dụng gây thương tích.</li>
-      <li><strong>Tâm lý</strong>: xúc phạm, chế giễu, cô lập, đe dọa.</li>
-      <li><strong>Tình dục</strong>: quấy rối, sàm sỡ, xâm hại.</li>
-      <li><strong>Trên mạng</strong>: tung tin sai lệch, bình luận ác ý, phát tán hình ảnh riêng tư.</li>
-    </ul>
-
-    <h2>📊 Thực trạng đáng báo động</h2>
-    <div class="highlight">
-      <ul>
-        <li>Mỗi năm có gần <strong>1.600 vụ học sinh đánh nhau</strong>, trung bình <strong>5 vụ/ngày</strong> (theo Bộ GD&ĐT).</li>
-        <li><strong>50% trẻ từ 13–15 tuổi</strong> từng là nạn nhân (theo UNICEF).</li>
-        <li>Hậu quả: <strong>tự tử, rối loạn tâm lý, bỏ học</strong>.</li>
-      </ul>
+    <!-- ========== SHARE SECTION ========== -->
+    <div class="share-section">
+        <div class="share-label">✨ Chia sẻ bài viết</div>
+        <div class="share-buttons">
+            <a href="#" class="share-btn facebook" onclick="shareOnFacebook()" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="share-btn twitter" onclick="shareOnTwitter()" title="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="share-btn linkedin" onclick="shareOnLinkedIn()" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="share-btn zalo" onclick="shareOnZalo()" title="Zalo"><i class="fas fa-comment-dots"></i></a>
+            <button class="share-btn copy-link" onclick="copyPageUrl()" title="Sao chép link"><i class="fas fa-link"></i></button>
+        </div>
     </div>
 
-    <h2>🔍 Nguyên nhân sâu xa</h2>
-    <h3>1. Tâm lý tuổi vị thành niên</h3>
-    <ul><li>Dễ bị ảnh hưởng bởi bạn bè, mạng xã hội.</li><li>Thiếu kỹ năng kiểm soát cảm xúc, giải quyết mâu thuẫn.</li></ul>
-    <h3>2. Gia đình thiếu kết nối</h3>
-    <ul><li>Cha mẹ bận rộn, ít trò chuyện, thậm chí dùng bạo lực với con.</li><li>Trẻ học cách “giải quyết vấn đề” bằng cách bắt chước người lớn.</li></ul>
-    <h3>3. Mạng xã hội và văn hóa bạo lực</h3>
-    <ul><li>Clip đánh nhau, bắt nạt được chia sẻ rộng rãi.</li><li>Trẻ muốn gây chú ý bằng hành vi tiêu cực.</li></ul>
-    <h3>4. Nhà trường thiếu hỗ trợ tâm lý</h3>
-    <ul><li>Nhiều trường chưa có phòng tham vấn tâm lý.</li><li>Giáo viên thiếu kỹ năng nhận diện và can thiệp sớm.</li></ul>
-
-    <h2>⚠️ Hậu quả nghiêm trọng</h2>
-    <ul>
-      <li><strong>Thể chất</strong>: chấn thương, mất ngủ, suy nhược.</li>
-      <li><strong>Tâm lý</strong>: trầm cảm, lo âu, ám ảnh.</li>
-      <li><strong>Học tập</strong>: giảm sút thành tích, bỏ học.</li>
-      <li><strong>Xã hội</strong>: mất lòng tin, dễ trở thành người gây bạo lực.</li>
-    </ul>
-
-    <h2>🛡️ Làm gì để phòng tránh?</h2>
-    <h3>🏠 Gia đình</h3>
-    <ul><li>Tạo môi trường yêu thương, không dùng bạo lực.</li><li>Trò chuyện thường xuyên, lắng nghe cảm xúc của con.</li><li>Dạy con kỹ năng sống, cách xử lý mâu thuẫn.</li></ul>
-    <h3>🏫 Nhà trường</h3>
-    <ul><li>Thiết lập quy tắc ứng xử rõ ràng.</li><li>Tổ chức hoạt động tăng kết nối giữa học sinh.</li><li>Thành lập phòng tham vấn tâm lý.</li></ul>
-    <h3>👩‍🏫 Giáo viên</h3>
-    <ul><li>Quan sát, nhận diện sớm dấu hiệu trẻ bị bắt nạt.</li><li>Can thiệp kịp thời.</li><li>Tạo môi trường lớp học thân thiện.</li></ul>
-    <h3>👧 Học sinh</h3>
-    <ul><li>Nói không với bạo lực, tố cáo hành vi sai trái.</li><li>Học cách kiểm soát cảm xúc.</li><li>Tìm kiếm sự giúp đỡ từ người lớn.</li></ul>
-
-    <h2>🌍 Vai trò của cộng đồng</h2>
-    <ul>
-      <li>Truyền thông cần đưa tin có trách nhiệm.</li>
-      <li>Chính quyền cần kiểm soát nội dung độc hại.</li>
-      <li>Tổ chức xã hội hỗ trợ tâm lý, pháp lý cho nạn nhân.</li>
-    </ul>
-
-    <div class="highlight">
-      <strong>💬 Bạo lực học đường không phải là chuyện riêng của một đứa trẻ — đó là chuyện của cả xã hội.</strong><br>
-      Mỗi người lớn cần là một tấm gương, một người bảo vệ, một người đồng hành để trẻ em được lớn lên trong môi trường an toàn, tử tế và đầy yêu thương. Hãy chia sẻ cho trẻ bằng cách cho trẻ tham gia các lớp hoặc kỹ năng, workshop, thực hiện tình huống thực tế... Trong khóa học "kỹ năng an toàn" cho trẻ trên website của Sophia cũng có đề cập đến nội dung này, ba mẹ có thể cùng tìm hiểu nhé.
+    <!-- ========== CTA ========== -->
+    <div class="cta-section">
+        <h2>💬 Bạn muốn chia sẻ câu chuyện của mình?</h2>
+        <p>Sophia luôn lắng nghe và đồng hành cùng bạn.</p>
+        <div>
+            <a href="https://zalo.me/0977092182" class="cta-datlich">📅 Đặt lịch tư vấn</a>
+            <a href="../contact.html" class="cta-datlich outline">📩 Gửi tin nhắn</a>
+        </div>
     </div>
-  </div>
-</div>
-<!-- Nút chia sẻ bài viết -->
-<div class="share-section">
-    <h4>📢 Chia sẻ bài viết này</h4>
-    <div class="share-buttons">
-        <a href="#" class="share-btn facebook" onclick="shareOnFacebook()"><i class="fab fa-facebook-f"></i> Facebook</a>
-        <a href="#" class="share-btn twitter" onclick="shareOnTwitter()"><i class="fab fa-twitter"></i> Twitter</a>
-        <a href="#" class="share-btn linkedin" onclick="shareOnLinkedIn()"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
-        <a href="#" class="share-btn zalo" onclick="shareOnZalo()"><i class="fas fa-comment-dots"></i> Zalo</a>
-        <button class="share-btn copy-link" onclick="copyPageUrl()"><i class="fas fa-link"></i> Sao chép link</button>
-    </div>
-</div>
-<div class="container">
-  <div class="cta-section">
-    <h2>💬 Bạn muốn chia sẻ câu chuyện của mình?</h2>
-    <p style="margin-bottom: 24px;">Sophia luôn lắng nghe và đồng hành cùng bạn.</p>
-    <div>
-      <a href="https://zalo.me/0977092182" class="cta-datlich">📅 Đặt lịch tư vấn</a>
-      <a href="../contact.html" class="cta-datlich">📩 Gửi tin nhắn</a>
-    </div>
-  </div>
 </div>
 
+<!-- ========== FOOTER ========== -->
 <footer class="footer">
-  <div class="footer-container">
-    <div class="footer-logo"><img src="../images/hinhremovenen.png" alt="Logo Sophia"><p>Đồng hành & Sẻ chia cùng bạn trên hành trình tâm lý – phát triển – yêu thương.</p></div>
-        <div class="footer-links"><h4>Dịch vụ</h4><ul><li><a href="tuvan-tamly1.html">Tư vấn tâm lý</a></li><li><a href="huong-nghiep.html">Định hướng nghề nghiệp</a></li><li><a href="ky-nang.html">Đào tạo kỹ năng</a></li><li><a href="van-tay">Sinh trắc vân tay</a></li></ul></div>
-    <div class="footer-contact"><h4>Liên hệ</h4><p>📧 sophianguyen2891@gmail.com</p><p>📞 0977092182</p><p>🏠 Tân Bình - TPHCM</p><div class="social-icons"><a href="https://www.facebook.com/Sophiadiemhang1982"><img src="../images/fb.png" alt="FB" /></a><a href="https://www.tiktok.com/@sophia.nguyen2014"><img src="../images/tiktok.png" alt="TikTok" /></a><a href="https://www.youtube.com/@sophianguyen1982-dh"><img src="../images/youtube.png" alt="YouTube" /></a></div></div>
-  </div>
-  <div class="footer-bottom"><p>Copyright ©2024 Sophia Nguyễn. All rights reserved.</p></div>
+    <div class="footer-container">
+        <div class="footer-logo">
+            <img src="../images/hinhremovenen.png" alt="Sophia Nguyễn">
+            <p>Đồng hành & Sẻ chia cùng bạn trên hành trình tâm lý – phát triển – yêu thương.</p>
+        </div>
+        <div class="footer-links">
+            <h4>Dịch vụ</h4>
+            <ul>
+                <li><a href="../tuvan-tamly1.html">Tham vấn tâm lý</a></li>
+                <li><a href="../huong-nghiep.html">Định hướng nghề nghiệp</a></li>
+                <li><a href="../ky-nang.html">Đào tạo kỹ năng</a></li>
+                <li><a href="../van-tay.html">Sinh trắc vân tay</a></li>
+            </ul>
+        </div>
+        <div class="footer-contact">
+            <h4>Liên hệ</h4>
+            <p><i class="fas fa-envelope"></i> sophianguyen2891@gmail.com</p>
+            <p><i class="fas fa-phone"></i> 0977092182</p>
+            <p><i class="fas fa-map-marker-alt"></i> Tân Bình - TPHCM</p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/Sophiadiemhang1982"><img src="../images/fb.png" alt="Facebook" /></a>
+                <a href="https://www.tiktok.com/@sophia.nguyen2014"><img src="../images/tiktok.png" alt="TikTok" /></a>
+                <a href="https://www.youtube.com/@sophianguyen1982-dh"><img src="../images/youtube.png" alt="YouTube" /></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>Copyright ©2025 Sophia Nguyễn. All rights reserved.</p>
+    </div>
 </footer>
 
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <script>
-  AOS.init({ once: true, duration: 1000, easing: 'ease-out-cubic' });
-  function toggleMenu() { document.querySelector(".navbar").classList.toggle("show-menu"); }
-</script>
-  <script>
-    // Hàm chia sẻ lên Facebook
+    // ========== SHARE FUNCTIONS ==========
     function shareOnFacebook() {
         const url = encodeURIComponent(window.location.href);
-        const title = encodeURIComponent(document.title);
         window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
     }
     
-    // Hàm chia sẻ lên Twitter
     function shareOnTwitter() {
         const url = encodeURIComponent(window.location.href);
         const title = encodeURIComponent(document.title);
         window.open(`https://twitter.com/intent/tweet?text=${title}&url=${url}`, '_blank', 'width=600,height=400');
     }
     
-    // Hàm chia sẻ lên LinkedIn
     function shareOnLinkedIn() {
         const url = encodeURIComponent(window.location.href);
         window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank', 'width=600,height=400');
     }
     
-    // Hàm chia sẻ lên Zalo (dùng link zalo.me)
     function shareOnZalo() {
         const url = encodeURIComponent(window.location.href);
         window.open(`https://zalo.me/share?url=${url}`, '_blank', 'width=600,height=400');
     }
     
-    // Hàm sao chép link
     function copyPageUrl() {
         navigator.clipboard.writeText(window.location.href).then(function() {
             alert('✅ Đã sao chép link bài viết!');
