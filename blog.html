@@ -48,15 +48,178 @@
 
 <script>
   const allBlogs = [
-    { title: "Tiếng kêu cứu thầm lặng: Khi cơ thể con lên tiếng thay lời nói", excerpt: "Nhận diện sớm các dấu hiệu trẻ bị xâm hại: thay đổi thể chất, tâm lý và hành vi.", category: "Bảo vệ trẻ em", date: "12/04/2026", emoji: "💔", link: "blog/blog-xam-hai-tre-em.html" },
-    { title: "Bạo lực học đường ở trẻ em: Vấn nạn cần lên tiếng", excerpt: "Thực trạng đáng báo động, nguyên nhân sâu xa, hậu quả nghiêm trọng và giải pháp.", category: "Tâm lý học đường", date: "10/04/2026", emoji: "💔", link: "blog/blog-bao-luc-hoc-duong.html" },
-    { title: "5 dấu hiệu bạn đang bị thao túng tâm lý", excerpt: "Gaslighting, cô lập, kiểm soát... Nhận diện sớm để thoát khỏi mối quan hệ độc hại.", category: "Tâm lý", date: "08/04/2026", emoji: "🧠", link: "blog/blog-thao-tung-tam-ly.html" },
-    { title: "Hướng dẫn con an toàn trên mạng xã hội", excerpt: "Cha mẹ cần đồng hành cùng con trong thời đại số: bảo mật thông tin, nhận diện người lạ.", category: "An toàn số", date: "05/04/2026", emoji: "📱", link: "blog/blog-an-toan-mang-cho-con.html" },
-    { title: "Làm thế nào để nói 'KHÔNG' mà không cảm thấy có lỗi?", excerpt: "Nghệ thuật từ chối – kỹ năng quan trọng để bảo vệ ranh giới cá nhân.", category: "Kỹ năng sống", date: "24/04/2026", emoji: "🙅‍♀️", link: "blog/blog-nghe-thuat-noi-khong.html" },
-    { title: "5 dấu hiệu bạn đang bị kiệt sức cảm xúc", excerpt: "Cảm giác trống rỗng, mất động lực, dễ cáu gắt, khó ngủ...", category: "Sức khỏe tinh thần", date: "08/04/2026", emoji: "😔", link: "blog/blog-dau-hieu-bi-kiet-suc.html" },
-    { title: "Hiểu về trầm cảm ở tuổi vị thành niên", excerpt: "Dấu hiệu nhận biết và cách đồng hành cùng con khi trẻ gặp vấn đề về trầm cảm.", category: "Tâm lý tuổi teen", date: "28/03/2026", emoji: "💙", link: "blog/blog-tram-cam-vi-thanh-nien.html" },
-    { title: "Những câu nói tổn thương trẻ trầm cảm", excerpt: "Trẻ có vấn đề rối loạn về tâm trí.", category: "Tâm lý tuổi teen", date: "22/03/2026", emoji: "💔", link: "blog/blog-cau-noi-ton-thuong-tram-cam.html" }
-  ];
+    // ========== BÀI CŨ (8 bài) ==========
+    { 
+        title: "Tiếng kêu cứu thầm lặng: Khi cơ thể con lên tiếng thay lời nói", 
+        excerpt: "Nhận diện sớm các dấu hiệu trẻ bị xâm hại: thay đổi thể chất, tâm lý và hành vi.", 
+        category: "Bảo vệ trẻ em", 
+        date: "12/04/2026", 
+        emoji: "💔", 
+        link: "blog/blog-xam-hai-tre-em.html" 
+    },
+    { 
+        title: "Bạo lực học đường ở trẻ em: Vấn nạn cần lên tiếng", 
+        excerpt: "Thực trạng đáng báo động, nguyên nhân sâu xa, hậu quả nghiêm trọng và giải pháp.", 
+        category: "Tâm lý học đường", 
+        date: "10/04/2026", 
+        emoji: "💔", 
+        link: "blog/blog-bao-luc-hoc-duong.html" 
+    },
+    { 
+        title: "5 dấu hiệu bạn đang bị thao túng tâm lý", 
+        excerpt: "Gaslighting, cô lập, kiểm soát... Nhận diện sớm để thoát khỏi mối quan hệ độc hại.", 
+        category: "Tâm lý", 
+        date: "15/04/2026", 
+        emoji: "🧠", 
+        link: "blog/blog-thao-tung-tam-ly.html" 
+    },
+    { 
+        title: "Hướng dẫn con an toàn trên mạng xã hội", 
+        excerpt: "Cha mẹ cần đồng hành cùng con trong thời đại số: bảo mật thông tin, nhận diện người lạ.", 
+        category: "An toàn số", 
+        date: "05/04/2026", 
+        emoji: "📱", 
+        link: "blog/blog-an-toan-mang-cho-con.html" 
+    },
+    { 
+        title: "Làm thế nào để nói 'KHÔNG' mà không cảm thấy có lỗi?", 
+        excerpt: "Nghệ thuật từ chối – kỹ năng quan trọng để bảo vệ ranh giới cá nhân.", 
+        category: "Kỹ năng sống", 
+        date: "24/04/2026", 
+        emoji: "🙅‍♀️", 
+        link: "blog/blog-nghe-thuat-noi-khong.html" 
+    },
+    { 
+        title: "5 dấu hiệu bạn đang bị kiệt sức cảm xúc", 
+        excerpt: "Cảm giác trống rỗng, mất động lực, dễ cáu gắt, khó ngủ...", 
+        category: "Sức khỏe tinh thần", 
+        date: "08/04/2026", 
+        emoji: "😔", 
+        link: "blog/blog-dau-hieu-bi-kiet-suc.html" 
+    },
+    { 
+        title: "Hiểu về trầm cảm ở tuổi vị thành niên", 
+        excerpt: "Dấu hiệu nhận biết và cách đồng hành cùng con khi trẻ gặp vấn đề về trầm cảm.", 
+        category: "Tâm lý tuổi teen", 
+        date: "28/03/2026", 
+        emoji: "💙", 
+        link: "blog/blog-tram-cam-vi-thanh-nien.html" 
+    },
+    { 
+        title: "Những câu nói tổn thương trẻ trầm cảm", 
+        excerpt: "Trẻ có vấn đề rối loạn về tâm trí.", 
+        category: "Tâm lý tuổi teen", 
+        date: "22/03/2026", 
+        emoji: "💔", 
+        link: "blog/blog-cau-noi-ton-thuong-tram-cam.html" 
+    },
+
+    // ========== BÀI MỚI (13 bài) ==========
+    { 
+        title: "Nghệ thuật tha thứ – Hành trình chữa lành vết thương lòng", 
+        excerpt: "Tha thứ không phải là quên đi, mà là học cách đặt xuống gánh nặng để bước tiếp.", 
+        category: "Sức khỏe tinh thần", 
+        date: "15/06/2026", 
+        emoji: "🕊️", 
+        link: "blog/blog-nghe-thuat-tha-thu.html" 
+    },
+    { 
+        title: "6 dấu hiệu bạn đang trong một mối quan hệ độc hại", 
+        excerpt: "Kiểm soát, hạ thấp, cô lập, dao động cảm xúc, thiếu tôn trọng ranh giới và cảm giác kiệt sức.", 
+        category: "Tâm lý", 
+        date: "1/06/2026", 
+        emoji: "⚠️", 
+        link: "blog/blog-quan-he-doc-hai.html" 
+    },
+    { 
+        title: "Làm thế nào để vượt qua cảm giác tự ti và sống tự tin hơn?", 
+        excerpt: "Nguồn gốc của sự tự ti, bài tập xây dựng lòng tự trọng, chuyển từ so sánh sang phát triển.", 
+        category: "Kỹ năng sống", 
+        date: "27/05/2026", 
+        emoji: "🌟", 
+        link: "blog/blog-vuot-qua-tu-ti.html" 
+    },
+    { 
+        title: "Quản lý căng thẳng trong thời đại số – Lấy lại sự bình an", 
+        excerpt: "Tác động của mạng xã hội lên sức khỏe tinh thần, phương pháp Digital Detox và kỹ thuật thư giãn.", 
+        category: "Sức khỏe tinh thần", 
+        date: "20/06/2026", 
+        emoji: "🧘", 
+        link: "blog/blog-quan-ly-cang-thang.html" 
+    },
+    { 
+        title: "Dạy con tự bảo vệ bản thân – Những điều cha mẹ cần biết", 
+        excerpt: "Bài học về sự đồng thuận (Consent) cho từng độ tuổi, cách dạy con nhận diện cảm xúc và nói 'KHÔNG'.", 
+        category: "Bảo vệ trẻ em", 
+        date: "22/04/2026", 
+        emoji: "🛡️", 
+        link: "blog/blog-day-con-tu-bao-ve.html" 
+    },
+    { 
+        title: "Ranh giới trong gia đình – Khi yêu thương cần có giới hạn", 
+        excerpt: "Vì sao ranh giới là biểu hiện của yêu thương, cách thiết lập ranh giới với con mà không tạo khoảng cách.", 
+        category: "Nuôi dạy con", 
+        date: "25/04/2026", 
+        emoji: "🏠", 
+        link: "blog/blog-ranh-gioi-gia-dinh.html" 
+    },
+    { 
+        title: "Bí mật 'Tuổi khủng hoảng' – Hiểu con để đồng hành", 
+        excerpt: "Thay đổi tâm sinh lý tuổi dậy thì, những điều cha mẹ nên tránh nói với con, xây dựng mối quan hệ tin tưởng.", 
+        category: "Tâm lý tuổi teen", 
+        date: "28/04/2026", 
+        emoji: "🌱", 
+        link: "blog/blog-tuoi-khung-hoang.html" 
+    },
+    { 
+        title: "Làm sao để con không trở thành nạn nhân của bắt nạt học đường?", 
+        excerpt: "Các dấu hiệu con đang bị bắt nạt, trang bị kỹ năng ứng phó, vai trò của cha mẹ và nhà trường.", 
+        category: "Tâm lý học đường", 
+        date: "30/04/2026", 
+        emoji: "🏫", 
+        link: "blog/blog-bat-nat-hoc-duong.html" 
+    },
+    { 
+        title: "Xây dựng thương hiệu cá nhân – Bí quyết để Gen Z tỏa sáng", 
+        excerpt: "Thương hiệu cá nhân là gì, cách xây dựng hình ảnh trên mạng xã hội có trách nhiệm, câu chuyện thương hiệu.", 
+        category: "Phát triển bản thân", 
+        date: "02/05/2026", 
+        emoji: "✨", 
+        link: "blog/blog-thuong-hieu-ca-nhan.html" 
+    },
+    { 
+        title: "Kỹ năng giải quyết mâu thuẫn trong tình bạn và tình yêu", 
+        excerpt: "Các lỗi giao tiếp thường gặp, phương pháp lắng nghe chủ động, cách xin lỗi và tha thứ đúng cách.", 
+        category: "Kỹ năng sống", 
+        date: "05/05/2026", 
+        emoji: "🤝", 
+        link: "blog/blog-giai-quyet-mau-thuan.html" 
+    },
+    { 
+        title: "Làm thế nào để đạt được mục tiêu mà không bị kiệt sức?", 
+        excerpt: "Đặt mục tiêu thông minh (SMART), quản lý năng lượng thay vì quản lý thời gian, tự thưởng và duy trì động lực.", 
+        category: "Phát triển bản thân", 
+        date: "08/05/2026", 
+        emoji: "🎯", 
+        link: "blog/blog-dat-muc-tieu.html" 
+    },
+    { 
+        title: "Deepfake và lừa đảo AI – Bảo vệ bạn và gia đình trước công nghệ mới", 
+        excerpt: "Deepfake là gì, cách nhận diện, các hình thức lừa đảo phổ biến và cách bảo vệ thông tin cá nhân.", 
+        category: "An toàn số", 
+        date: "12/05/2026", 
+        emoji: "🤖", 
+        link: "blog/blog-deepfake-lua-dao-ai.html" 
+    },
+    { 
+        title: "Gen Z và áp lực đồng trang lứa: Làm sao để là chính mình?", 
+        excerpt: "Peer pressure trong học tập, ngoại hình, cuộc sống. Tìm kiếm giá trị cốt lõi và làm bạn với chính mình.", 
+        category: "Tâm lý tuổi teen", 
+        date: "15/05/2026", 
+        emoji: "💪", 
+        link: "blog/blog-ap-luc-dong-trang-lua.html" 
+    }
+];
 
   const grid = document.getElementById('blogGrid');
   if (grid) {
