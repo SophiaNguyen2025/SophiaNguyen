@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trắc nghiệm Tự Quan Tâm | Sophia Nguyễn</title>
-    <meta name="description" content="Bài trắc nghiệm giúp bạn đánh giá mức độ tự chấp nhận và quan tâm bản thân.">
+    <title>Trắc nghiệm Tự Chấp Nhận | Sophia Nguyễn</title>
+    <meta name="description" content="Bài trắc nghiệm dựa trên thang đo Self-Compassion Scale của Tiến sĩ Kristin Neff, giúp bạn đánh giá mức độ lòng trắc ẩn với bản thân.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -147,26 +147,34 @@
         }
         .question-item .options {
             display: flex;
-            flex-direction: column;
-            gap: 4px;
+            flex-wrap: wrap;
+            gap: 8px;
         }
         .question-item .options label {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 0.88rem;
+            gap: 6px;
+            font-size: 0.85rem;
             color: var(--gray);
             cursor: pointer;
-            padding: 6px 12px;
-            border-radius: 8px;
+            padding: 6px 14px;
+            border-radius: 40px;
+            border: 1px solid var(--light-gray);
             transition: 0.2s;
+            background: var(--white);
         }
         .question-item .options label:hover {
+            border-color: var(--gold);
             background: rgba(201,168,76,0.1);
         }
+        .question-item .options label.selected {
+            background: var(--navy-dark);
+            color: var(--white);
+            border-color: var(--navy-dark);
+        }
         .question-item .options input[type="radio"] {
-            width: 17px;
-            height: 17px;
+            width: 16px;
+            height: 16px;
             accent-color: var(--gold);
             cursor: pointer;
             flex-shrink: 0;
@@ -361,6 +369,7 @@
             .hero h1 { font-size: 1.6rem; }
             .test-wrapper { padding: 20px; }
             .question-item .options { flex-direction: column; gap: 4px; }
+            .question-item .options label { width: 100%; }
             .result-box h2 { font-size: 1.4rem; }
             .result-box .score { font-size: 2rem; }
             .result-box .level { font-size: 1rem; }
@@ -397,9 +406,9 @@
 <!-- ========== HERO ========== -->
 <section class="hero">
     <div class="container">
-        <h1>💖 Trắc nghiệm <span>Tự Quan Tâm</span></h1>
-        <p>Đánh giá mức độ tự chấp nhận và lòng trắc ẩn với bản thân</p>
-        <div class="badge">🌿 Yêu thương bản thân - Hành trình chữa lành</div>
+        <h1>💖 Trắc nghiệm <span>Tự Chấp Nhận</span></h1>
+        <p>Đánh giá lòng trắc ẩn với bản thân dựa trên thang đo của Tiến sĩ Kristin Neff</p>
+        <div class="badge">🌿 Học cách yêu thương chính mình</div>
     </div>
 </section>
 
@@ -407,12 +416,19 @@
 <div class="container">
     <div class="test-wrapper">
         <div class="intro">
-            <h2>Đánh giá <span>mức độ tự quan tâm</span></h2>
+            <h2>Đánh giá <span>lòng trắc ẩn với bản thân</span></h2>
             <p>
-                Bài trắc nghiệm này giúp bạn nhận diện mức độ tự chấp nhận, lòng trắc ẩn và cách bạn đối diện với cảm xúc của chính mình.
+                Bài trắc nghiệm này dựa trên <strong>Self-Compassion Scale (SCS)</strong> của
+                <strong>Tiến sĩ Kristin Neff</strong> - nhà nghiên cứu hàng đầu về lòng trắc ẩn với bản thân.
+                Thang đo đánh giá 3 yếu tố tích cực và 3 yếu tố tiêu cực:
             </p>
+            <ul style="color:var(--gray); font-size:0.9rem; margin:12px 0 0 20px; list-style:disc;">
+                <li><strong>Lòng tốt với bản thân</strong> (Self-Kindness) vs <strong>Tự phán xét</strong> (Self-Judgment)</li>
+                <li><strong>Cảm nhận về sự kết nối chung</strong> (Common Humanity) vs <strong>Cảm giác cô lập</strong> (Isolation)</li>
+                <li><strong>Chánh niệm</strong> (Mindfulness) vs <strong>Đồng nhất hóa quá mức</strong> (Over-Identification)</li>
+            </ul>
             <div class="highlight">
-                👉 Hãy trả lời một cách trung thực dựa trên những tình huống thực tế bạn đã trải qua.
+                👉 Hãy trả lời một cách trung thực dựa trên những tình huống khó khăn bạn đã trải qua.
                 Không có đáp án đúng hay sai!
             </div>
         </div>
@@ -458,128 +474,46 @@
 </footer>
 
 <script>
-    // ==================== DỮ LIỆU CÂU HỎI ====================
+    // ==================== DỮ LIỆU CÂU HỎI (Dựa trên thang đo SCS - Kristin Neff) ====================
+    // 3 yếu tố tích cực + 3 yếu tố tiêu cực (đảo ngược điểm)
     const questionsData = [
-        { text: "Bạn từng có sai lầm làm người khác tổn thương. Giờ nhớ lại, bạn:", options: [
-            { text: "Thành thật với bản thân và học cách chuộc lỗi, buông bỏ", value: 3 },
-            { text: "Né tránh nghĩ về điều đó", value: 2 },
-            { text: "Tự thấy mình là người xấu", value: 0 },
-            { text: "Tự trách không nguôi", value: 1 }
-        ]},
-        { text: "Một người thành công hơn bạn. Bạn:", options: [
-            { text: "Biết mỗi người có hành trình riêng", value: 3 },
-            { text: "Nghĩ mình sẽ không bao giờ như họ", value: 0 },
-            { text: "Đố kỵ và khó chịu", value: 2 },
-            { text: "Tự trách vì lười biếng", value: 1 }
-        ]},
-        { text: "Bạn bị từ chối sau khi bày tỏ cảm xúc thật. Bạn:", options: [
-            { text: "Cố gắng thay đổi để được chấp nhận", value: 2 },
-            { text: "Tôn trọng phản hồi và vẫn yêu chính mình", value: 3 },
-            { text: "Tránh bộc lộ cảm xúc lần sau", value: 1 },
-            { text: "Nghĩ mình đáng bị từ chối", value: 0 }
-        ]},
-        { text: "Bạn cảm thấy bản thân không giỏi như người khác. Bạn:", options: [
-            { text: "Nhìn vào thế mạnh riêng của mình và tiếp tục phát triển", value: 3 },
-            { text: "Tìm cách bắt chước người ta", value: 2 },
-            { text: "Tự ti và thu mình lại", value: 0 },
-            { text: "Tự so sánh và ghen tị", value: 1 }
-        ]},
-        { text: "Bạn soi gương và thấy điều mình không thích. Bạn:", options: [
-            { text: "Thừa nhận cảm xúc và tập trung vào mặt tích cực", value: 3 },
-            { text: "Cố phớt lờ nhưng thấy không thoải mái", value: 1 },
-            { text: "Chỉ trích bản thân", value: 0 },
-            { text: "Buồn bã và né tránh nhìn vào gương", value: 2 }
-        ]},
-        { text: "Bạn nhận ra mình làm sai điều gì đó. Bạn:", options: [
-            { text: "Nhận lỗi và học cách tha thứ cho mình", value: 3 },
-            { text: "Tự phạt bằng cách không cho phép mình nghỉ ngơi", value: 2 },
-            { text: "Xấu hổ và không dám nói ra", value: 1 },
-            { text: "Giận bản thân suốt cả ngày", value: 0 }
-        ]},
-        { text: "Một phần tính cách bạn bị người khác chê. Bạn:", options: [
-            { text: "Im lặng và buồn", value: 2 },
-            { text: "Ghi nhận góp ý và cân nhắc điều chỉnh nếu cần", value: 3 },
-            { text: "Giận dữ và né tránh suy nghĩ", value: 0 },
-            { text: "Thấy họ đúng và muốn thay đổi hoàn toàn", value: 1 }
-        ]},
-        { text: "Bạn không đạt kỳ vọng của người khác. Bạn:", options: [
-            { text: "Ghi nhận sự khác biệt giữa người và bản thân, giữ giá trị riêng", value: 3 },
-            { text: "Cố gắng làm lại để được công nhận", value: 2 },
-            { text: "Tránh tiếp xúc vì sợ bị đánh giá", value: 1 },
-            { text: "Tự xem mình là thất bại", value: 0 }
-        ]},
-        { text: "Bạn có một nỗi đau quá khứ chưa chữa lành. Bạn:", options: [
-            { text: "Nhìn nhận như một phần cuộc sống và học cách đối diện", value: 3 },
-            { text: "Ép bản thân 'quên đi'", value: 1 },
-            { text: "Cảm thấy bất lực, không muốn nhớ lại", value: 0 },
-            { text: "Trốn tránh nói đến nó", value: 2 }
-        ]},
-        { text: "Bạn cảm thấy mình không giống ai cả. Bạn:", options: [
-            { text: "Chấp nhận sự độc đáo như một phần bản sắc", value: 3 },
-            { text: "Tự ti và rút lui khỏi xã hội", value: 1 },
-            { text: "Cố gắng thay đổi để hòa nhập", value: 2 },
-            { text: "Nghĩ rằng mình không thuộc về đâu cả", value: 0 }
-        ]},
-        { text: "Bạn có một phần quá khứ khiến bạn xấu hổ. Bạn đối diện ra sao?", options: [
-            { text: "Nhìn nhận quá khứ như một phần hành trình sống", value: 3 },
-            { text: "Tự trách vì 'sao mình lại như vậy'", value: 2 },
-            { text: "Nghĩ rằng mình không xứng đáng có hạnh phúc", value: 0 },
-            { text: "Giấu đi và không bao giờ nhắc đến", value: 1 }
-        ]},
-        { text: "Bạn có cảm xúc tiêu cực bất ngờ xuất hiện. Bạn làm gì?", options: [
-            { text: "Quan sát cảm xúc và cho phép nó tồn tại", value: 3 },
-            { text: "Tự trách vì 'sao mình lại yếu đuối thế'", value: 1 },
-            { text: "Né tránh bằng cách lướt mạng hoặc làm việc", value: 2 },
-            { text: "Giấu đi và giả vờ ổn", value: 0 }
-        ]},
-        { text: "Bạn bị người thân không ủng hộ lựa chọn cá nhân. Bạn:", options: [
-            { text: "Chấp nhận sự khác biệt và giữ vững giá trị bản thân", value: 3 },
-            { text: "Giấu đi và làm trong âm thầm", value: 2 },
-            { text: "Từ bỏ mong muốn để làm vừa lòng họ", value: 0 },
-            { text: "Cảm thấy mình sai khi không giống họ", value: 1 }
-        ]},
-        { text: "Bạn có cảm xúc tiêu cực khi nhìn lại bản thân. Bạn làm gì?", options: [
-            { text: "Quan sát cảm xúc và học cách đồng hành với chính mình", value: 3 },
-            { text: "Né tránh nội tâm bằng cách làm việc liên tục", value: 2 },
-            { text: "So sánh với người khác để thấy mình 'tệ hơn'", value: 1 },
-            { text: "Tự công kích và phủ nhận giá trị bản thân", value: 0 }
-        ]},
-        { text: "Bạn bị người khác hiểu sai. Bạn:", options: [
-            { text: "Hiểu rằng người khác có góc nhìn riêng", value: 3 },
-            { text: "Giận họ nhưng không nói ra", value: 2 },
-            { text: "Tránh giao tiếp để không bị tổn thương", value: 0 },
-            { text: "Tự trách vì không diễn đạt tốt", value: 1 }
-        ]},
-        { text: "Bạn có một điểm yếu mà bạn không thích. Bạn:", options: [
-            { text: "Ghi nhận điểm yếu như một phần con người mình", value: 3 },
-            { text: "Tự giận bản thân vì không hoàn hảo", value: 2 },
-            { text: "Phủ nhận và cố che giấu", value: 1 },
-            { text: "So sánh với người khác và thấy mình kém cỏi", value: 0 }
-        ]},
-        { text: "Bạn có cảm xúc tiêu cực kéo dài. Bạn:", options: [
-            { text: "Quan sát cảm xúc mà không phán xét", value: 3 },
-            { text: "Tự trách vì 'yếu đuối'", value: 2 },
-            { text: "Tránh đối diện bằng cách lao vào công việc", value: 1 },
-            { text: "Giấu đi và giả vờ ổn", value: 0 }
-        ]},
-        { text: "Bạn không đạt được kỳ vọng của bản thân. Bạn:", options: [
-            { text: "Thừa nhận nỗi buồn và học cách tha thứ cho bản thân", value: 3 },
-            { text: "Né tránh suy nghĩ về điều đó", value: 2 },
-            { text: "Cố gắng làm quá mức để bù đắp", value: 1 },
-            { text: "Tự trách và cảm thấy thất bại", value: 0 }
-        ]},
-        { text: "Bạn cảm thấy không đủ tốt so với người khác. Bạn:", options: [
-            { text: "Nhận ra mỗi người có hành trình riêng", value: 3 },
-            { text: "Cố gắng làm quá mức để chứng minh bản thân", value: 2 },
-            { text: "Tránh tiếp xúc để không bị tổn thương", value: 1 },
-            { text: "So sánh và thấy mình kém cỏi", value: 0 }
-        ]},
-        { text: "Bạn có một quyết định sai lầm trong quá khứ. Bạn:", options: [
-            { text: "Nhìn nhận như một bài học trưởng thành", value: 3 },
-            { text: "Giấu đi và không bao giờ nhắc lại", value: 2 },
-            { text: "Nghĩ rằng mình không nên ra quyết định nữa", value: 1 },
-            { text: "Tự trách và không thể tha thứ", value: 0 }
-        ]}
+        // Lòng tốt với bản thân (Self-Kindness) - Tích cực
+        { text: "Tôi cố gắng đối xử với bản thân một cách kiên nhẫn và thấu hiểu khi gặp khó khăn.", type: "positive" },
+        { text: "Tôi dành cho bản thân sự ấm áp và quan tâm khi đang trải qua những thời điểm khó khăn.", type: "positive" },
+        { text: "Tôi nhẹ nhàng với bản thân khi cảm thấy đau khổ.", type: "positive" },
+
+        // Tự phán xét (Self-Judgment) - Tiêu cực (đảo ngược điểm)
+        { text: "Tôi thường chỉ trích và phán xét bản thân khi mắc sai lầm.", type: "negative" },
+        { text: "Tôi trở nên khắc nghiệt với bản thân khi thất bại.", type: "negative" },
+        { text: "Tôi thường tự trách mình khi có chuyện không như ý.", type: "negative" },
+
+        // Cảm nhận về sự kết nối chung (Common Humanity) - Tích cực
+        { text: "Tôi nhận ra rằng mọi người đều có lúc thất bại và không hoàn hảo.", type: "positive" },
+        { text: "Tôi hiểu rằng những khó khăn là một phần bình thường của cuộc sống.", type: "positive" },
+        { text: "Tôi cảm thấy mình không cô đơn trong những trải nghiệm khó khăn.", type: "positive" },
+
+        // Cảm giác cô lập (Isolation) - Tiêu cực (đảo ngược điểm)
+        { text: "Tôi cảm thấy bị cô lập và không ai hiểu mình khi gặp chuyện buồn.", type: "negative" },
+        { text: "Tôi nghĩ rằng người khác không bao giờ trải qua những gì tôi đã trải qua.", type: "negative" },
+        { text: "Tôi cảm thấy mình là người duy nhất gặp phải những vấn đề này.", type: "negative" },
+
+        // Chánh niệm (Mindfulness) - Tích cực
+        { text: "Tôi giữ được sự cân bằng cảm xúc khi đối mặt với những điều khó khăn.", type: "positive" },
+        { text: "Tôi có khả năng nhìn nhận cảm xúc tiêu cực một cách khách quan.", type: "positive" },
+        { text: "Tôi không bị cuốn theo những cảm xúc tiêu cực một cách quá mức.", type: "positive" },
+
+        // Đồng nhất hóa quá mức (Over-Identification) - Tiêu cực (đảo ngược điểm)
+        { text: "Tôi dễ dàng bị cuốn vào những cảm xúc tiêu cực và không thể thoát ra.", type: "negative" },
+        { text: "Tôi thường bị ám ảnh bởi những suy nghĩ tiêu cực về bản thân.", type: "negative" },
+        { text: "Tôi để những cảm xúc tiêu cực chi phối hoàn toàn suy nghĩ của mình.", type: "negative" }
+    ];
+
+    const options = [
+        { value: 5, label: "Rất đúng" },
+        { value: 4, label: "Đúng" },
+        { value: 3, label: "Trung lập" },
+        { value: 2, label: "Sai" },
+        { value: 1, label: "Rất sai" }
     ];
 
     // ==================== RENDER CÂU HỎI ====================
@@ -593,21 +527,29 @@
 
             const p = document.createElement('p');
             p.className = 'q-text';
-            p.textContent = `Câu ${index + 1}: ${q.text}`;
+            const tag = q.type === 'positive' ? '⭐' : '🔄';
+            p.textContent = `Câu ${index + 1}: ${tag} ${q.text}`;
             div.appendChild(p);
 
             const optionsDiv = document.createElement('div');
             optionsDiv.className = 'options';
 
-            q.options.forEach((opt) => {
+            options.forEach(opt => {
                 const label = document.createElement('label');
                 const radio = document.createElement('input');
                 radio.type = 'radio';
                 radio.name = `q${index}`;
                 radio.value = opt.value;
                 radio.id = `q${index}_${opt.value}`;
+
+                radio.addEventListener('change', function() {
+                    const parent = this.closest('.options');
+                    parent.querySelectorAll('label').forEach(lbl => lbl.classList.remove('selected'));
+                    this.parentElement.classList.add('selected');
+                });
+
                 label.appendChild(radio);
-                label.appendChild(document.createTextNode(' ' + opt.text));
+                label.appendChild(document.createTextNode(' ' + opt.label));
                 optionsDiv.appendChild(label);
             });
 
@@ -630,54 +572,95 @@
         }
 
         let totalScore = 0;
-        inputs.forEach(input => {
-            totalScore += parseInt(input.value);
+        let positiveSum = 0;
+        let negativeSum = 0;
+
+        inputs.forEach((input, idx) => {
+            let value = parseInt(input.value);
+            const q = questionsData[idx];
+
+            // Đảo ngược điểm cho câu hỏi tiêu cực
+            if (q.type === 'negative') {
+                value = 6 - value;
+            }
+
+            if (q.type === 'positive') {
+                positiveSum += value;
+            } else {
+                negativeSum += value;
+            }
+
+            totalScore += value;
         });
 
-        const maxScore = totalQuestions * 3; // 20 * 3 = 60
+        const maxScore = totalQuestions * 5; // 18 * 5 = 90
+        const percentage = Math.round((totalScore / maxScore) * 100);
 
+        // Mức độ
         let level = '';
         let emoji = '';
         let color = '';
         let desc = '';
 
-        if (totalScore >= 50) {
+        // Đánh giá dựa trên 3 yếu tố
+        const positiveAvg = positiveSum / 9; // 9 câu tích cực
+        const negativeAvg = negativeSum / 9; // 9 câu tiêu cực
+        const balance = positiveAvg - negativeAvg;
+
+        if (totalScore >= 72) {
+            level = 'RẤT CAO';
+            emoji = '🌟';
+            color = '#2ecc71';
+            desc = 'Bạn có lòng trắc ẩn với bản thân rất cao. Bạn biết cách đối xử tử tế với chính mình trong những lúc khó khăn, nhận ra rằng mình không cô đơn và giữ được sự cân bằng cảm xúc. Hãy tiếp tục duy trì điều này!';
+        } else if (totalScore >= 54) {
             level = 'CAO';
             emoji = '💖';
-            color = '#2ecc71';
-            desc = 'Bạn có mức độ Tự Chấp Nhận rất cao! Bạn biết cách đồng hành với chính mình, chấp nhận cảm xúc và khuyết điểm một cách lành mạnh. Bạn có lòng trắc ẩn với bản thân và biết cách tha thứ cho những sai lầm. Hãy tiếp tục duy trì điều này!';
-        } else if (totalScore >= 30) {
+            color = '#4caf50';
+            desc = 'Bạn có lòng trắc ẩn với bản thân ở mức tốt. Bạn thường đối xử nhẹ nhàng với bản thân, nhưng đôi khi vẫn còn những lúc tự phán xét hoặc bị cuốn vào cảm xúc tiêu cực. Hãy tiếp tục rèn luyện để cân bằng hơn.';
+        } else if (totalScore >= 36) {
             level = 'TRUNG BÌNH';
             emoji = '🌿';
             color = '#f39c12';
-            desc = 'Bạn đang trên hành trình học cách Tự Chấp Nhận. Bạn đã có những bước tiến tốt, nhưng vẫn còn những lúc bạn khắt khe với bản thân. Hãy tiếp tục thực hành lòng trắc ẩn với chính mình mỗi ngày, học cách quan sát cảm xúc mà không phán xét.';
+            desc = 'Bạn có lòng trắc ẩn với bản thân ở mức trung bình. Có những lúc bạn đối xử tốt với bản thân, nhưng cũng có những lúc bạn tự phán xét và chỉ trích. Hãy thực hành chánh niệm và lòng tốt với chính mình nhiều hơn.';
         } else {
             level = 'THẤP';
             emoji = '🧩';
             color = '#e74c3c';
-            desc = 'Bạn có thể đang thiếu sự Tự Chấp Nhận. Bạn có xu hướng tự trách và phán xét bản thân một cách khắc nghiệt. Hãy thử quan sát cảm xúc mà không phán xét, và học cách tha thứ cho chính mình. Bạn xứng đáng được yêu thương và trân trọng!';
+            desc = 'Bạn có lòng trắc ẩn với bản thân ở mức thấp. Bạn có xu hướng tự phán xét và chỉ trích bản thân một cách khắc nghiệt. Hãy bắt đầu bằng việc quan sát cảm xúc mà không phán xét, và học cách đối xử với bản thân như bạn đối xử với một người bạn thân.';
         }
+
+        // Thêm phân tích chi tiết theo 3 yếu tố
+        const detail = `
+            <div style="margin:12px 0; padding:12px 16px; background:var(--white); border-radius:12px; text-align:left; font-size:0.9rem; color:var(--gray);">
+                <p><strong>📊 Phân tích chi tiết:</strong></p>
+                <p>🌸 Lòng tốt với bản thân: ${Math.round(positiveSum/3*10)/10}/15 điểm</p>
+                <p>🌍 Cảm nhận kết nối chung: ${Math.round(negativeSum/3*10)/10}/15 điểm</p>
+                <p>🧘 Chánh niệm: ${Math.round((positiveSum + negativeSum)/6*10)/10}/30 điểm</p>
+            </div>
+        `;
 
         const resultDiv = document.getElementById('result');
         resultDiv.className = 'result-box show';
         resultDiv.innerHTML = `
             <h2>💖 Kết quả đánh giá</h2>
             <div class="score" style="color:${color}">
-                ${totalScore}/${maxScore}
+                ${totalScore}/${maxScore} <small>(${percentage}%)</small>
             </div>
             <div class="level" style="border: 2px solid ${color}; color:${color}">
-                ${emoji} Mức độ Tự Quan Tâm ${level}
+                ${emoji} Lòng trắc ẩn với bản thân ${level}
             </div>
+            ${detail}
             <div class="desc">${desc}</div>
             <div class="note">
-                ⚕️ <strong>Lưu ý:</strong> Tự quan tâm và chấp nhận bản thân là một hành trình, không phải đích đến. Hãy kiên nhẫn với bản thân và thực hành lòng trắc ẩn mỗi ngày!
+                ⚕️ <strong>Nguồn tham khảo:</strong> Thang đo Self-Compassion Scale (SCS) của Tiến sĩ Kristin Neff, Đại học Texas tại Austin.
+                Bài test này chỉ mang tính tham khảo, không thay thế cho chẩn đoán chuyên môn.
             </div>
             <div style="margin-top:20px; border-top:1px solid var(--light-gray); padding-top:20px;">
                 <p style="font-weight:600; color:var(--navy-dark);">📢 Chia sẻ bài test này:</p>
                 <div class="share-buttons">
                     <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn fb"><i class="fab fa-facebook-f"></i> Facebook</a>
                     <a href="https://zalo.me/share?url=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn zalo"><i class="fas fa-comment"></i> Zalo</a>
-                    <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent('💖 Kết quả trắc nghiệm Tự Quan Tâm của tôi: ' + level)}&url=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn twitter"><i class="fab fa-twitter"></i> Twitter</a>
+                    <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent('💖 Kết quả trắc nghiệm Tự Chấp Nhận của tôi: ' + level)}&url=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn twitter"><i class="fab fa-twitter"></i> Twitter</a>
                     <a href="https://www.tiktok.com/upload?lang=vi" target="_blank" class="share-btn tiktok"><i class="fab fa-tiktok"></i> TikTok</a>
                 </div>
             </div>
