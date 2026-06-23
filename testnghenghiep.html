@@ -3,324 +3,491 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Bài Test Định Hướng Nghề Nghiệp | Holland RIASEC & Career Explorer</title>
+    <title>Trắc nghiệm Định hướng Nghề nghiệp | Holland RIASEC | Sophia Nguyễn</title>
+    <meta name="description" content="Bài trắc nghiệm Holland RIASEC + Career Explorer giúp bạn khám phá nhóm tính cách và định hướng nghề nghiệp phù hợp.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --navy-dark: #0A1628;
+            --navy-mid: #1E3A5F;
+            --gold: #C9A84C;
+            --gold-light: #D4B85C;
+            --cream: #F5F0E8;
+            --white: #FFFFFF;
+            --gray: #4A5A6A;
+            --light-gray: #E8E4DC;
+            --gradient: linear-gradient(135deg, #0A1628 0%, #1E3A5F 50%, #2A4A7F 100%);
         }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e9edf2 100%);
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--navy-dark);
+            line-height: 1.6;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
         }
+        .container { max-width: 800px; margin: 0 auto; width: 100%; }
 
-        /* Container chính */
+        /* ========== HEADER ========== */
+        .header {
+            background: var(--white);
+            padding: 12px 0;
+            box-shadow: 0 2px 20px rgba(10,22,40,0.06);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-radius: 32px 32px 0 0;
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo img { height: 55px; width: auto; display: block; }
+        .navbar ul {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+            align-items: center;
+        }
+        .navbar ul li a {
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        .navbar ul li a:hover, .navbar ul li a.active { color: var(--gold); }
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--navy-dark);
+        }
+        .show-menu { display: flex !important; }
+
+        /* ========== APP CONTAINER ========== */
         .app-container {
-            max-width: 800px;
-            width: 100%;
-            background: white;
+            background: var(--white);
             border-radius: 32px;
-            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 20px 35px rgba(10,22,40,0.1);
             overflow: hidden;
             transition: all 0.3s ease;
+            width: 100%;
         }
 
-        /* Header */
+        /* ========== TEST HEADER ========== */
         .test-header {
-            background: #2c3e66;
+            background: var(--gradient);
             color: white;
-            padding: 20px 30px;
+            padding: 24px 30px;
             text-align: center;
+            border-bottom: 3px solid var(--gold);
         }
-
-        .test-header h1 {
-            font-size: 1.8rem;
-            margin-bottom: 8px;
+        .test-header .logo-header {
+            margin-bottom: 12px;
         }
-
-        /* Logo trong header */
-        .logo-header {
-            text-align: center;
-            margin-bottom: 15px;
-        }
-        .logo-header img {
-            max-width: 100px;
+        .test-header .logo-header img {
+            max-width: 80px;
             height: auto;
             border-radius: 12px;
         }
+        .test-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 4px;
+        }
+        .test-header h1 span { color: var(--gold); }
+        .test-header p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+        .test-header .badge {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--navy-dark);
+            padding: 4px 16px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            margin-top: 8px;
+        }
 
+        /* ========== STEP INDICATOR ========== */
         .step-indicator {
-            background: #eef2f7;
+            background: var(--cream);
             padding: 12px 20px;
             display: flex;
             justify-content: space-between;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid var(--light-gray);
             font-weight: 600;
+            font-size: 0.85rem;
         }
-
         .step {
-            color: #aaa;
+            color: var(--gray);
             transition: 0.3s;
         }
-
         .step.active {
-            color: #2c3e66;
-            border-bottom: 3px solid #2c3e66;
+            color: var(--navy-dark);
+            border-bottom: 3px solid var(--gold);
             padding-bottom: 6px;
         }
 
-        /* Phần nội dung câu hỏi */
+        /* ========== QUIZ PANEL ========== */
         .quiz-panel {
-            padding: 30px 30px 20px;
+            padding: 30px;
             display: none;
             animation: fadeIn 0.4s ease;
         }
-
-        .quiz-panel.active-panel {
-            display: block;
-        }
-
-        /* Form thông tin ban đầu */
-        .info-panel {
-            padding: 30px;
-            background: white;
-        }
-        .info-panel label {
-            display: block;
-            margin-top: 15px;
-            font-weight: 600;
-            color: #1e2a3a;
-        }
-        .info-panel input {
-            width: 100%;
-            padding: 12px;
-            margin-top: 6px;
-            border-radius: 24px;
-            border: 1px solid #ccc;
-            font-size: 1rem;
-        }
-        .info-panel button {
-            margin-top: 25px;
-            width: 100%;
-        }
+        .quiz-panel.active-panel { display: block; }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px);}
-            to { opacity: 1; transform: translateY(0);}
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
+        .quiz-panel h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--navy-dark);
+            margin-bottom: 16px;
+            font-size: 1.3rem;
+        }
+        .quiz-panel .sub-text {
+            color: var(--gray);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        /* ========== QUESTION ========== */
         .question-item {
-            margin-bottom: 28px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 20px;
+            background: var(--cream);
+            padding: 16px 20px;
+            margin-bottom: 16px;
+            border-radius: 16px;
+            border-left: 4px solid var(--gold);
+            transition: 0.2s;
         }
-
+        .question-item:hover { border-color: var(--navy-dark); }
         .question-text {
             font-weight: 600;
-            font-size: 1.1rem;
-            margin-bottom: 12px;
-            color: #1e2a3a;
+            color: var(--navy-dark);
+            margin-bottom: 10px;
+            font-size: 0.95rem;
         }
-
         .rating-group {
             display: flex;
-            gap: 15px;
+            gap: 10px;
             flex-wrap: wrap;
             align-items: center;
         }
-
         .rating-label {
             display: flex;
             align-items: center;
             gap: 6px;
-            background: #f1f5f9;
-            padding: 6px 12px;
+            background: var(--white);
+            padding: 6px 14px;
             border-radius: 40px;
             cursor: pointer;
             transition: 0.2s;
+            border: 1px solid var(--light-gray);
+            font-size: 0.85rem;
         }
-
+        .rating-label:hover { border-color: var(--gold); }
         .rating-label.selected {
-            background: #2c3e66;
-            color: white;
+            background: var(--navy-dark);
+            color: var(--white);
+            border-color: var(--navy-dark);
         }
-
+        .rating-label.selected input[type="radio"] { accent-color: var(--gold); }
         input[type="radio"] {
-            accent-color: #2c3e66;
-            width: 18px;
-            height: 18px;
+            accent-color: var(--navy-dark);
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
         }
 
+        /* ========== BUTTONS ========== */
         .btn-group {
             display: flex;
             justify-content: space-between;
-            margin-top: 30px;
+            margin-top: 24px;
+            gap: 12px;
+            flex-wrap: wrap;
         }
-
-        button {
-            background: #2c3e66;
-            color: white;
+        .btn-group .btn {
+            background: var(--navy-dark);
+            color: var(--white);
             border: none;
             padding: 12px 28px;
             border-radius: 40px;
-            font-size: 1rem;
-            font-weight: bold;
+            font-weight: 700;
+            font-size: 0.95rem;
             cursor: pointer;
-            transition: 0.2s;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+        }
+        .btn-group .btn:hover {
+            background: var(--gold);
+            color: var(--navy-dark);
+            transform: translateY(-2px);
+        }
+        .btn-group .btn-secondary {
+            background: var(--gray);
+        }
+        .btn-group .btn-secondary:hover {
+            background: var(--navy-dark);
+            color: var(--white);
         }
 
-        button:hover {
-            background: #1f2c4b;
-            transform: scale(0.97);
+        /* ========== RESULT ========== */
+        .result-container { padding: 0; }
+        .result-container h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--navy-dark);
+            margin-bottom: 16px;
+            font-size: 1.5rem;
         }
-
-        .btn-secondary {
-            background: #8a99b4;
-        }
-
-        /* Kết quả */
-        .result-container {
-            padding: 20px 30px 30px;
-        }
-
-        .chart-bars {
-            margin: 20px 0;
-        }
-
+        .result-container h2 span { color: var(--gold); }
+        .chart-bars { margin: 16px 0; }
         .bar-item {
-            margin-bottom: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-
         .bar-label {
-            display: inline-block;
-            width: 40px;
-            font-weight: bold;
+            font-weight: 700;
+            width: 30px;
+            font-size: 0.9rem;
         }
-
         .bar-bg {
-            display: inline-block;
-            width: calc(100% - 60px);
-            background: #e2e8f0;
+            flex: 1;
+            background: var(--cream);
             border-radius: 20px;
             overflow: hidden;
-            vertical-align: middle;
-        }
-
-        .bar-fill {
-            background: #2c6e9e;
             height: 28px;
-            width: 0%;
+        }
+        .bar-fill {
+            background: var(--navy-dark);
+            height: 100%;
             border-radius: 20px;
             text-align: right;
-            padding-right: 8px;
+            padding-right: 10px;
             color: white;
             line-height: 28px;
-            font-size: 0.8rem;
-            transition: width 0.5s;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: width 0.8s ease;
         }
+        .bar-fill.career { background: var(--gold); color: var(--navy-dark); }
 
         .correlation-box {
-            background: #eef2ff;
-            padding: 20px;
-            border-radius: 24px;
-            margin: 20px 0;
-            border-left: 6px solid #2c3e66;
+            background: var(--cream);
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin: 16px 0;
+            border-left: 4px solid var(--gold);
         }
+        .correlation-box strong { color: var(--navy-dark); }
 
         .job-suggest {
-            background: #fef9e3;
-            padding: 15px;
-            border-radius: 20px;
-            margin-top: 15px;
+            background: rgba(201,168,76,0.12);
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin: 12px 0;
+            border: 1px solid var(--gold);
+        }
+        .job-suggest strong { color: var(--navy-dark); }
+
+        .result-note {
+            background: var(--cream);
+            padding: 14px 18px;
+            border-radius: 16px;
+            margin-top: 16px;
+            font-size: 0.9rem;
+            color: var(--gray);
+            border: 1px solid var(--light-gray);
         }
 
-        footer {
+        /* ========== SHARE BUTTONS ========== */
+        .share-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+        .share-buttons .share-btn {
+            padding: 8px 18px;
+            border: none;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .share-buttons .share-btn:hover { transform: translateY(-2px); opacity: 0.9; }
+        .share-buttons .share-btn.fb { background: #3b5998; }
+        .share-buttons .share-btn.zalo { background: #0068ff; }
+        .share-buttons .share-btn.twitter { background: #1da1f2; }
+        .share-buttons .share-btn.tiktok { background: #000000; }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: var(--navy-dark);
+            color: rgba(255,255,255,0.6);
+            padding: 16px 24px;
             text-align: center;
             font-size: 0.75rem;
-            color: #6c757d;
-            padding: 16px;
-            border-top: 1px solid #e2e8f0;
+            border-top: 2px solid var(--gold);
         }
 
-        @media (max-width: 550px) {
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .navbar {
+                display: none;
+                flex-direction: column;
+                gap: 12px;
+                padding: 16px 0;
+                background: var(--white);
+                width: 100%;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                padding: 16px 24px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+            .navbar ul { flex-direction: column; gap: 12px; }
+            .header-container { flex-wrap: wrap; position: relative; }
+            .logo img { height: 45px; }
+            .test-header h1 { font-size: 1.4rem; }
             .quiz-panel { padding: 20px; }
-            .rating-group { gap: 8px; }
+            .rating-group { gap: 6px; }
+            .rating-label { font-size: 0.75rem; padding: 4px 10px; }
+            .btn-group .btn { font-size: 0.85rem; padding: 10px 18px; min-width: 100px; }
+            .step-indicator { font-size: 0.7rem; flex-wrap: wrap; gap: 8px; }
+            .bar-item { flex-wrap: wrap; }
+            .bar-label { width: 30px; }
+            .share-buttons .share-btn { font-size: 0.7rem; padding: 6px 14px; }
+        }
+
+        @media (max-width: 480px) {
+            .test-header { padding: 16px 20px; }
+            .test-header h1 { font-size: 1.2rem; }
+            .quiz-panel { padding: 16px; }
+            .question-item { padding: 12px 16px; }
+            .btn-group { flex-direction: column; }
+            .btn-group .btn { width: 100%; }
         }
     </style>
 </head>
 <body>
-<div class="app-container">
-    <div class="test-header">
-        <div class="logo-header">
-            <!-- Thay đường dẫn logo của chị vào đây -->
-            <img src="images/hinhremovenen.png" alt="Logo Sophia" onerror="this.style.display='none'">
+
+<div class="container">
+    <!-- ========== HEADER ========== -->
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <img src="images/hinhremovenen.png" alt="Sophia Nguyễn">
+            </a>
+            <div class="menu-toggle" onclick="document.querySelector('.navbar').classList.toggle('show-menu')">☰</div>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="index.html">Trang chủ</a></li>
+                    <li><a href="about.html">Giới thiệu</a></li>
+                    <li><a href="services.html">Dịch vụ</a></li>
+                    <li><a href="khoa-hoc.html">Khóa học</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="test.html" class="active">Trắc nghiệm</a></li>
+                    <li><a href="contact.html">Liên hệ</a></li>
+                </ul>
+            </nav>
         </div>
-        <h1>🎯 Khám phá sự nghiệp tương lai</h1>
-        <p>Test Holland RIASEC + Career Explorer</p>
-    </div>
+    </header>
 
-    <!-- PHẦN NHẬP THÔNG TIN BAN ĐẦU (tùy chọn, không lưu dữ liệu) -->
-    <div id="infoPanel" class="info-panel">
-        <label>Họ và tên (tùy chọn):</label>
-        <input type="text" id="userName" placeholder="Nhập tên của bạn">
-        <label>Email (tùy chọn):</label>
-        <input type="email" id="userEmail" placeholder="Nhập email">
-        <button id="startTestBtn">Bắt đầu làm bài →</button>
-    </div>
+    <!-- ========== APP ========== -->
+    <div class="app-container">
+        <!-- TEST HEADER -->
+        <div class="test-header">
+            <div class="logo-header">
+                <img src="images/hinhremovenen.png" alt="Sophia Nguyễn">
+            </div>
+            <h1>🎯 Khám phá <span>sự nghiệp tương lai</span></h1>
+            <p>Test Holland RIASEC + Career Explorer</p>
+            <div class="badge">🌟 Định hướng nghề nghiệp cho bạn</div>
+        </div>
 
-    <!-- CÁC BƯỚC TEST (ban đầu ẩn) -->
-    <div id="testSteps" style="display: none;">
+        <!-- STEP INDICATOR -->
         <div class="step-indicator">
-            <span class="step" id="step1Label">❶ Holland (6 nhóm)</span>
+            <span class="step active" id="step1Label">❶ Holland (6 nhóm)</span>
             <span class="step" id="step2Label">❷ Career Explorer</span>
             <span class="step" id="step3Label">❸ Kết quả & Tương quan</span>
         </div>
 
-        <!-- MÀN 1: HOLLAND RIASEC TEST -->
+        <!-- MÀN 1: HOLLAND -->
         <div id="panelHolland" class="quiz-panel active-panel">
-            <h3 style="margin-bottom: 20px;">🔍 Bạn thuộc nhóm tính cách nào?</h3>
+            <h3>🔍 Bạn thuộc nhóm tính cách nào?</h3>
+            <p class="sub-text">Đánh giá mức độ đồng ý của bạn với từng câu hỏi dưới đây.</p>
             <div id="hollandQuestions"></div>
             <div class="btn-group">
-                <button class="btn-secondary" disabled style="visibility: hidden;">Quay lại</button>
-                <button id="nextToCareerBtn">Tiếp theo → Khám phá nghề</button>
+                <button class="btn" id="nextToCareerBtn">Tiếp theo → Khám phá nghề</button>
             </div>
         </div>
 
         <!-- MÀN 2: CAREER EXPLORER -->
         <div id="panelCareer" class="quiz-panel">
-            <h3 style="margin-bottom: 8px;">💼 Career Explorer</h3>
-            <p style="margin-bottom: 20px; color: #4b5563;">Hãy chọn phong cách làm việc bạn yêu thích</p>
+            <h3>💼 Career Explorer</h3>
+            <p class="sub-text">Hãy chọn phong cách làm việc bạn yêu thích.</p>
             <div id="careerQuestions"></div>
             <div class="btn-group">
-                <button id="backToHollandBtn" class="btn-secondary">← Quay lại Holland</button>
-                <button id="showResultBtn">Xem kết quả & Định hướng →</button>
+                <button class="btn btn-secondary" id="backToHollandBtn">← Quay lại Holland</button>
+                <button class="btn" id="showResultBtn">Xem kết quả & Định hướng →</button>
             </div>
         </div>
 
-        <!-- MÀN 3: KẾT QUẢ TỔNG HỢP -->
+        <!-- MÀN 3: KẾT QUẢ -->
         <div id="panelResult" class="quiz-panel">
             <div class="result-container">
-                <h2>📊 Kết quả trắc nghiệm của bạn</h2>
+                <h2>📊 Kết quả <span>trắc nghiệm</span></h2>
                 <div id="resultContent"></div>
-                <div class="btn-group" style="margin-top: 20px;">
-                    <button id="resetBtn">⟳ Làm lại bài test</button>
+                <div class="share-buttons" id="shareButtons" style="display:none;">
+                    <a href="#" target="_blank" class="share-btn fb"><i class="fab fa-facebook-f"></i> Facebook</a>
+                    <a href="#" target="_blank" class="share-btn zalo"><i class="fas fa-comment"></i> Zalo</a>
+                    <a href="#" target="_blank" class="share-btn twitter"><i class="fab fa-twitter"></i> Twitter</a>
+                    <a href="#" target="_blank" class="share-btn tiktok"><i class="fab fa-tiktok"></i> TikTok</a>
+                </div>
+                <div class="btn-group">
+                    <button class="btn" id="resetBtn">⟳ Làm lại bài test</button>
                 </div>
             </div>
         </div>
-    </div>
 
-    <footer>Dựa trên mô hình Holland RIASEC và Career Explorer - Đối chiếu mức độ tương quan</footer>
+        <!-- FOOTER -->
+        <div class="footer">
+            Dựa trên mô hình Holland RIASEC và Career Explorer - Đối chiếu mức độ tương quan
+        </div>
+    </div>
 </div>
 
 <script>
-    // ---------- DỮ LIỆU CÂU HỎI HOLLAND (R-I-A-S-E-C) ----------
+    // ==================== DỮ LIỆU ====================
     const hollandQuestions = [
         { text: "Tôi thích làm việc với máy móc, công cụ hoặc sửa chữa thiết bị.", type: "R" },
         { text: "Tôi thích nghiên cứu, tìm tòi, phân tích dữ liệu và giải quyết vấn đề khoa học.", type: "I" },
@@ -330,7 +497,6 @@
         { text: "Tôi thích làm việc có tổ chức, dữ liệu chi tiết, quy trình rõ ràng và kế hoạch.", type: "C" }
     ];
 
-    // Dữ liệu Career Explorer: 5 câu hỏi về sở thích nghề nghiệp
     const careerQuestions = [
         { text: "Bạn thích môi trường làm việc linh hoạt, sáng tạo, không gò bó?", options: ["Không thích", "Bình thường", "Rất thích"] },
         { text: "Bạn có hứng thú với việc phân tích số liệu, nghiên cứu thị trường không?", options: ["Không thích", "Bình thường", "Rất thích"] },
@@ -339,7 +505,6 @@
         { text: "Bạn ưa chuộng công việc có quy trình rõ ràng, kiểm soát chặt chẽ?", options: ["Không thích", "Bình thường", "Rất thích"] }
     ];
 
-    // Ánh xạ điểm Career Explorer sang nhóm Holland
     const careerMapping = [
         { dimension: "A", weights: { "Không thích": 0, "Bình thường": 1, "Rất thích": 2 } },
         { dimension: "I", weights: { "Không thích": 0, "Bình thường": 1, "Rất thích": 2 } },
@@ -348,9 +513,24 @@
         { dimension: "C", weights: { "Không thích": 0, "Bình thường": 1, "Rất thích": 2 } }
     ];
 
+    const jobMap = {
+        R: ['Kỹ sư cơ khí', 'Thợ điện', 'Kiến trúc sư xây dựng', 'Chuyên viên kỹ thuật'],
+        I: ['Nhà khoa học', 'Lập trình viên', 'Nghiên cứu viên', 'Dược sĩ'],
+        A: ['Nhà thiết kế đồ họa', 'Nhà văn', 'Đạo diễn', 'Nhạc sĩ'],
+        S: ['Giáo viên', 'Tư vấn tâm lý', 'Nhân viên công tác xã hội', 'Y tá'],
+        E: ['Giám đốc kinh doanh', 'Doanh nhân', 'Luật sư', 'Quản lý dự án'],
+        C: ['Kế toán', 'Thủ quỹ', 'Chuyên viên hành chính', 'Kiểm soát viên']
+    };
+
+    const typeColors = {
+        R: '#e74c3c', I: '#3498db', A: '#e67e22',
+        S: '#2ecc71', E: '#9b59b6', C: '#1abc9c'
+    };
+
     let hollandScores = { R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 };
     let careerAnswers = [];
 
+    // ==================== RENDER ====================
     function renderHolland() {
         const container = document.getElementById("hollandQuestions");
         if (!container) return;
@@ -362,10 +542,18 @@
                 <div class="question-item">
                     <div class="question-text">${idx+1}. ${q.text}</div>
                     <div class="rating-group" data-qtype="${type}">
-                        <label class="rating-label ${savedVal === 0 ? 'selected' : ''}"><input type="radio" name="holland_${type}" value="0" ${savedVal === 0 ? 'checked' : ''}> ❌ Không thích</label>
-                        <label class="rating-label ${savedVal === 1 ? 'selected' : ''}"><input type="radio" name="holland_${type}" value="1" ${savedVal === 1 ? 'checked' : ''}> 😐 Hơi thích</label>
-                        <label class="rating-label ${savedVal === 2 ? 'selected' : ''}"><input type="radio" name="holland_${type}" value="2" ${savedVal === 2 ? 'checked' : ''}> 👍 Thích</label>
-                        <label class="rating-label ${savedVal === 3 ? 'selected' : ''}"><input type="radio" name="holland_${type}" value="3" ${savedVal === 3 ? 'checked' : ''}> ❤️ Rất thích</label>
+                        <label class="rating-label ${savedVal === 0 ? 'selected' : ''}">
+                            <input type="radio" name="holland_${type}" value="0" ${savedVal === 0 ? 'checked' : ''}> ❌ Không
+                        </label>
+                        <label class="rating-label ${savedVal === 1 ? 'selected' : ''}">
+                            <input type="radio" name="holland_${type}" value="1" ${savedVal === 1 ? 'checked' : ''}> 😐 Hơi
+                        </label>
+                        <label class="rating-label ${savedVal === 2 ? 'selected' : ''}">
+                            <input type="radio" name="holland_${type}" value="2" ${savedVal === 2 ? 'checked' : ''}> 👍 Thích
+                        </label>
+                        <label class="rating-label ${savedVal === 3 ? 'selected' : ''}">
+                            <input type="radio" name="holland_${type}" value="3" ${savedVal === 3 ? 'checked' : ''}> ❤️ Rất
+                        </label>
                     </div>
                 </div>
             `;
@@ -396,10 +584,18 @@
         let html = '';
         careerQuestions.forEach((q, idx) => {
             const selectedVal = careerAnswers[idx];
-            html += `<div class="question-item"><div class="question-text">${idx+1}. ${q.text}</div><div class="rating-group" data-careeridx="${idx}">`;
+            html += `
+                <div class="question-item">
+                    <div class="question-text">${idx+1}. ${q.text}</div>
+                    <div class="rating-group" data-careeridx="${idx}">
+            `;
             q.options.forEach(opt => {
                 const isChecked = (selectedVal === opt);
-                html += `<label class="rating-label ${isChecked ? 'selected' : ''}"><input type="radio" name="career_${idx}" value="${opt}" ${isChecked ? 'checked' : ''}> ${opt}</label>`;
+                html += `
+                    <label class="rating-label ${isChecked ? 'selected' : ''}">
+                        <input type="radio" name="career_${idx}" value="${opt}" ${isChecked ? 'checked' : ''}> ${opt}
+                    </label>
+                `;
             });
             html += `</div></div>`;
         });
@@ -422,6 +618,7 @@
         }
     }
 
+    // ==================== COMPUTE ====================
     function computeCareerDimensionScores() {
         let careerDim = { R:0, I:0, A:0, S:0, E:0, C:0 };
         for (let i=0; i<careerAnswers.length; i++) {
@@ -453,99 +650,88 @@
         return Math.min(100, Math.max(0, Math.round(similarity)));
     }
 
-    function getJobSuggestions(hollandScores) {
+    function getTopType(scores) {
         let maxScore = -1;
-        let topType = '';
-        for (let [key, val] of Object.entries(hollandScores)) {
+        let topType = 'R';
+        for (let [key, val] of Object.entries(scores)) {
             if (val > maxScore) { maxScore = val; topType = key; }
         }
-        const jobMap = {
-            R: ['Kỹ sư cơ khí', 'Thợ điện', 'Kiến trúc sư xây dựng', 'Chuyên viên kỹ thuật'],
-            I: ['Nhà khoa học', 'Lập trình viên', 'Nghiên cứu viên', 'Dược sĩ'],
-            A: ['Nhà thiết kế đồ họa', 'Nhà văn', 'Đạo diễn', 'Nhạc sĩ'],
-            S: ['Giáo viên', 'Tư vấn tâm lý', 'Nhân viên công tác xã hội', 'Y tá'],
-            E: ['Giám đốc kinh doanh', 'Doanh nhân', 'Luật sư', 'Quản lý dự án'],
-            C: ['Kế toán', 'Thủ quỹ', 'Chuyên viên hành chính', 'Kiểm soát viên']
-        };
-        return jobMap[topType] || ['Chuyên viên tư vấn', 'Trợ lý quản lý'];
+        return topType;
     }
 
+    // ==================== SHOW RESULT ====================
     function showFinalResult() {
         const careerDimScores = computeCareerDimensionScores();
         const correlationPercent = calculateCorrelation(hollandScores, careerDimScores);
-        const topHollandCodes = Object.entries(hollandScores).sort((a,b)=>b[1]-a[1]).slice(0,2);
-        const suggestions = getJobSuggestions(hollandScores);
-
-        let resultHtml = `
-            <div class="chart-bars">
-                <h3>🎨 Điểm 6 nhóm tính cách Holland (RIASEC)</h3>
-        `;
-        for (let [code, score] of Object.entries(hollandScores)) {
-            const percent = (score / 3) * 100;
-            resultHtml += `
-                <div class="bar-item">
-                    <span class="bar-label"><strong>${code}</strong></span>
-                    <div class="bar-bg"><div class="bar-fill" style="width: ${percent}%;">${score.toFixed(1)}</div></div>
-                </div>
-            `;
-        }
-
-        resultHtml += `<h3 style="margin-top: 25px;">🧭 Career Explorer - Phong cách nghề nghiệp</h3>`;
-        for (let [code, score] of Object.entries(careerDimScores)) {
-            const percent = (score / 3) * 100;
-            resultHtml += `
-                <div class="bar-item">
-                    <span class="bar-label"><strong>${code}</strong></span>
-                    <div class="bar-bg"><div class="bar-fill" style="width: ${percent}%; background-color: #4791b0;">${score.toFixed(1)}</div></div>
-                </div>
-            `;
-        }
+        const topHolland = getTopType(hollandScores);
+        const topCareer = getTopType(careerDimScores);
+        const suggestions = jobMap[topHolland] || ['Chuyên viên tư vấn', 'Trợ lý quản lý'];
 
         let correlationMessage = "";
         if (correlationPercent >= 70) {
             correlationMessage = "🎉 Tương quan rất cao! Sở thích khám phá nghề của bạn cực kỳ phù hợp với nhóm tính cách nổi trội. Đây là hướng đi bền vững.";
         } else if (correlationPercent >= 45) {
-            correlationMessage = "👍 Tương quan khá tốt. Bạn có sự nhất quát giữa con người và mong muốn nghề nghiệp, hãy phát huy thế mạnh.";
+            correlationMessage = "👍 Tương quan khá tốt. Bạn có sự nhất quán giữa con người và mong muốn nghề nghiệp, hãy phát huy thế mạnh.";
         } else {
             correlationMessage = "🔄 Tương quan trung bình – thấp. Có thể bạn đang phân vân giữa nhiều hướng. Hãy thử tìm hiểu thêm về những nghề kết hợp cả hai nhóm.";
         }
 
-        resultHtml += `
+        const resultHtml = `
+            <h3>🎨 Điểm 6 nhóm tính cách Holland (RIASEC)</h3>
+            ${['R','I','A','S','E','C'].map(code => `
+                <div class="bar-item">
+                    <span class="bar-label" style="color:${typeColors[code]}"><strong>${code}</strong></span>
+                    <div class="bar-bg"><div class="bar-fill" style="width: ${(hollandScores[code]/3*100)}%; background:${typeColors[code]}">${hollandScores[code].toFixed(1)}</div></div>
+                </div>
+            `).join('')}
+
+            <h3 style="margin-top: 20px;">🧭 Career Explorer - Phong cách nghề nghiệp</h3>
+            ${['R','I','A','S','E','C'].map(code => `
+                <div class="bar-item">
+                    <span class="bar-label" style="color:${typeColors[code]}"><strong>${code}</strong></span>
+                    <div class="bar-bg"><div class="bar-fill career" style="width: ${(careerDimScores[code]/3*100)}%;">${careerDimScores[code].toFixed(1)}</div></div>
+                </div>
+            `).join('')}
+
             <div class="correlation-box">
-                <strong>📈 Mức độ tương quan giữa Holland (bản chất bạn) và Career Explorer (sở thích nghề):</strong> ${correlationPercent}% <br>
+                <strong>📈 Mức độ tương quan:</strong> ${correlationPercent}% <br>
                 ✨ ${correlationMessage}
             </div>
+
             <div class="job-suggest">
                 <strong>💼 Định hướng nghề nghiệp gợi ý:</strong><br>
-                Dựa trên nhóm trội nhất: <strong>${topHollandCodes[0][0]} - ${topHollandCodes[0][1].toFixed(1)} điểm</strong><br>
-                Các nghề phù hợp: ${suggestions.join(', ')}.<br>
+                Nhóm trội nhất: <strong style="color:${typeColors[topHolland]}">${topHolland}</strong> (${hollandScores[topHolland].toFixed(1)} điểm)<br>
+                Các nghề phù hợp: <strong>${suggestions.join(', ')}</strong>.<br>
                 <small>📌 Kết hợp với Career Explorer: Nếu bạn thích lãnh đạo (E) hoặc sáng tạo (A) hãy tìm kiếm công việc có tính thử thách và tự chủ.</small>
             </div>
-            <p style="margin-top: 20px; background:#f0f4fc; padding:12px; border-radius:16px;"><strong>✅ Kết luận:</strong> Hãy chọn nghề nghiệp nơi giao thoa giữa nhóm tính cách chính (Holland) và môi trường làm việc bạn yêu thích (Career). Sự tương quan càng cao, khả năng gắn bó lâu dài càng lớn.</p>
+
+            <div class="result-note">
+                <strong>✅ Kết luận:</strong> Hãy chọn nghề nghiệp nơi giao thoa giữa nhóm tính cách chính (Holland) và môi trường làm việc bạn yêu thích (Career). Sự tương quan càng cao, khả năng gắn bó lâu dài càng lớn.
+            </div>
         `;
 
         document.getElementById("resultContent").innerHTML = resultHtml;
-        document.querySelectorAll('.quiz-panel').forEach(p => p.classList.remove('active-panel'));
-        document.getElementById('panelResult').classList.add('active-panel');
-        updateStep(3);
+
+        // Cập nhật share buttons
+        const shareDiv = document.getElementById('shareButtons');
+        shareDiv.style.display = 'flex';
+        const url = encodeURIComponent(window.location.href);
+        const text = encodeURIComponent(`🎯 Kết quả trắc nghiệm định hướng nghề nghiệp của tôi: Nhóm ${topHolland} - Tương quan ${correlationPercent}%`);
+        shareDiv.querySelector('.fb').href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+        shareDiv.querySelector('.zalo').href = `https://zalo.me/share?url=${url}`;
+        shareDiv.querySelector('.twitter').href = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+        shareDiv.querySelector('.tiktok').href = `https://www.tiktok.com/upload?lang=vi`;
+
+        showPanel('panelResult', 3);
     }
 
-    function updateStep(step) {
-        const step1 = document.getElementById('step1Label');
-        const step2 = document.getElementById('step2Label');
-        const step3 = document.getElementById('step3Label');
-        step1.classList.remove('active');
-        step2.classList.remove('active');
-        step3.classList.remove('active');
-        if (step === 1) step1.classList.add('active');
-        else if (step === 2) step2.classList.add('active');
-        else if (step === 3) step3.classList.add('active');
-    }
-
+    // ==================== NAVIGATION ====================
     function showPanel(panelId, stepNumber) {
         document.querySelectorAll('.quiz-panel').forEach(p => p.classList.remove('active-panel'));
         document.getElementById(panelId).classList.add('active-panel');
-        updateStep(stepNumber);
+        document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+        document.getElementById(`step${stepNumber}Label`).classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function resetTest() {
@@ -553,45 +739,33 @@
         careerAnswers = careerQuestions.map(() => "Bình thường");
         renderHolland();
         renderCareer();
+        document.getElementById('shareButtons').style.display = 'none';
         showPanel('panelHolland', 1);
     }
 
-    // Xử lý khi bắt đầu test (ẩn form nhập thông tin, hiện các bước test)
-    document.getElementById('startTestBtn').addEventListener('click', () => {
-        const userName = document.getElementById('userName').value.trim();
-        if (userName) {
-            // Có thể thêm lời chào nếu muốn (không bắt buộc)
-            console.log(`Chào ${userName}, bắt đầu test nhé!`);
-        }
-        // Ẩn panel nhập thông tin
-        document.getElementById('infoPanel').style.display = 'none';
-        // Hiện phần test steps
-        document.getElementById('testSteps').style.display = 'block';
-        // Khởi tạo lại các câu hỏi (đảm bảo hiển thị)
+    // ==================== EVENT LISTENERS ====================
+    document.addEventListener('DOMContentLoaded', () => {
         renderHolland();
         renderCareer();
-        showPanel('panelHolland', 1);
-    });
 
-    // Gắn sự kiện cho các nút trong test
-    document.addEventListener('DOMContentLoaded', () => {
-        // Các nút điều hướng
         document.getElementById('nextToCareerBtn').addEventListener('click', () => {
             showPanel('panelCareer', 2);
         });
+
         document.getElementById('backToHollandBtn').addEventListener('click', () => {
             showPanel('panelHolland', 1);
         });
+
         document.getElementById('showResultBtn').addEventListener('click', () => {
-            for (let i=0; i<careerQuestions.length; i++) {
-                const selectedRadio = document.querySelector(`input[name="career_${i}"]:checked`);
-                if (selectedRadio) careerAnswers[i] = selectedRadio.value;
+            // Cập nhật career answers từ form
+            for (let i = 0; i < careerQuestions.length; i++) {
+                const selected = document.querySelector(`input[name="career_${i}"]:checked`);
+                if (selected) careerAnswers[i] = selected.value;
             }
             showFinalResult();
         });
-        document.getElementById('resetBtn').addEventListener('click', () => {
-            resetTest();
-        });
+
+        document.getElementById('resetBtn').addEventListener('click', resetTest);
     });
 </script>
 </body>
