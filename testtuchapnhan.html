@@ -1,350 +1,699 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Trắc nghiệm Tự Quan Tâm bản thân</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #FFCCFF, #FFCCFF);
-      color: #333;
-      margin: 0;
-      padding: 20px;
-    }
-    .container {
-      max-width: 800px;
-      margin: auto;
-      background: white;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    }
-    .logo {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .logo img {
-      width: 120px;
-    }
-    h1 {
-      text-align: center;
-      color: #2c3e50;
-    }
-    label {
-      display: block;
-      margin-top: 20px;
-      font-weight: bold;
-    }
-    .question {
-      margin: 20px 0;
-      padding: 15px;
-      border-left: 5px solid #3366CC;
-      border-radius: 10px;
-    }
-    .question:nth-child(even) {
-      background:#009900;
-    }
-    .question:nth-child(odd) {
-      background: #CCCC99;
-    }
-    .question p {
-      margin: 0 0 10px;
-      font-weight: bold;
-    }
-    .question label {
-      display: block;
-      font-weight: normal;
-      margin-bottom: 8px;
-    }
-    input[type="text"],
-    input[type="email"],
-    input[type="number"] {
-      width: 100%;
-      padding: 10px;
-      margin-top: 8px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-    }
-    button {
-      margin-top: 30px;
-      padding: 12px 24px;
-      background: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      width: 100%;
-    }
-    button:hover {
-      background: #45a049;
-    }
-    .result {
-      display: none;
-      background: #ede7f6;
-      margin-top: 30px;
-      padding: 20px;
-      border-radius: 12px;
-      color: #4a148c;
-      font-weight: bold;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trắc nghiệm Tự Quan Tâm | Sophia Nguyễn</title>
+    <meta name="description" content="Bài trắc nghiệm giúp bạn đánh giá mức độ tự chấp nhận và quan tâm bản thân.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --navy-dark: #0A1628;
+            --navy-mid: #1E3A5F;
+            --gold: #C9A84C;
+            --gold-light: #D4B85C;
+            --cream: #F5F0E8;
+            --white: #FFFFFF;
+            --gray: #4A5A6A;
+            --light-gray: #E8E4DC;
+            --gradient: linear-gradient(135deg, #0A1628 0%, #1E3A5F 50%, #2A4A7F 100%);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--navy-dark);
+            line-height: 1.6;
+        }
+        .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+
+        /* ========== HEADER ========== */
+        .header {
+            background: var(--white);
+            padding: 12px 0;
+            box-shadow: 0 2px 20px rgba(10,22,40,0.06);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo img { height: 55px; width: auto; display: block; }
+        .navbar ul {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+            align-items: center;
+        }
+        .navbar ul li a {
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        .navbar ul li a:hover, .navbar ul li a.active { color: var(--gold); }
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--navy-dark);
+        }
+        .show-menu { display: flex !important; }
+
+        /* ========== HERO ========== */
+        .hero {
+            background: var(--gradient);
+            padding: 50px 0 40px;
+            text-align: center;
+            color: white;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+        }
+        .hero h1 span { color: var(--gold); }
+        .hero p {
+            font-size: 1rem;
+            max-width: 650px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        .hero .badge {
+            background: var(--gold);
+            color: var(--navy-dark);
+            display: inline-block;
+            padding: 6px 20px;
+            border-radius: 40px;
+            margin-top: 16px;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        /* ========== TEST CONTAINER ========== */
+        .test-wrapper {
+            background: var(--white);
+            border-radius: 32px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(10,22,40,0.06);
+            border: 1px solid var(--light-gray);
+        }
+        .test-wrapper .intro h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--navy-dark);
+            margin-bottom: 16px;
+            font-size: 1.6rem;
+        }
+        .test-wrapper .intro h2 span { color: var(--gold); }
+        .test-wrapper .intro p {
+            color: var(--gray);
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+        .test-wrapper .intro .highlight {
+            background: var(--cream);
+            padding: 16px 20px;
+            border-radius: 16px;
+            border-left: 4px solid var(--gold);
+            margin: 16px 0;
+            font-weight: 500;
+            color: var(--navy-dark);
+        }
+
+        /* ========== QUESTION ========== */
+        .question-item {
+            background: var(--cream);
+            padding: 18px 20px;
+            margin: 16px 0;
+            border-radius: 16px;
+            border-left: 4px solid var(--gold);
+            transition: 0.2s;
+        }
+        .question-item:hover { border-color: var(--navy-dark); }
+        .question-item .q-text {
+            font-weight: 600;
+            color: var(--navy-dark);
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+        .question-item .options {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .question-item .options label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.88rem;
+            color: var(--gray);
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 8px;
+            transition: 0.2s;
+        }
+        .question-item .options label:hover {
+            background: rgba(201,168,76,0.1);
+        }
+        .question-item .options input[type="radio"] {
+            width: 17px;
+            height: 17px;
+            accent-color: var(--gold);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        /* ========== BUTTON ========== */
+        .btn-submit {
+            background: var(--navy-dark);
+            color: var(--white);
+            border: none;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+            margin-top: 20px;
+        }
+        .btn-submit:hover {
+            background: var(--gold);
+            color: var(--navy-dark);
+            transform: translateY(-2px);
+        }
+
+        /* ========== RESULT ========== */
+        .result-box {
+            display: none;
+            background: var(--cream);
+            padding: 30px;
+            border-radius: 24px;
+            margin-top: 30px;
+            text-align: center;
+            border: 2px solid var(--gold);
+        }
+        .result-box.show { display: block; }
+        .result-box h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--navy-dark);
+            margin-bottom: 8px;
+        }
+        .result-box h2 span { color: var(--gold); }
+        .result-box .score {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--gold);
+            margin: 8px 0;
+        }
+        .result-box .score small {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--gray);
+        }
+        .result-box .level {
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 12px;
+            border-radius: 16px;
+            background: var(--white);
+            margin: 12px 0;
+        }
+        .result-box .desc {
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin: 12px 0;
+            line-height: 1.7;
+            text-align: left;
+        }
+        .result-box .note {
+            font-size: 0.85rem;
+            color: var(--gray);
+            font-style: italic;
+            padding: 12px 16px;
+            background: var(--white);
+            border-radius: 12px;
+            border: 1px solid var(--light-gray);
+            text-align: left;
+        }
+        .share-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+        .share-buttons .share-btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .share-buttons .share-btn:hover { transform: translateY(-2px); opacity: 0.9; }
+        .share-buttons .share-btn.fb { background: #3b5998; }
+        .share-buttons .share-btn.zalo { background: #0068ff; }
+        .share-buttons .share-btn.twitter { background: #1da1f2; }
+        .share-buttons .share-btn.tiktok { background: #000000; }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: var(--navy-dark);
+            color: rgba(255,255,255,0.7);
+            padding: 40px 0 24px;
+            margin-top: 60px;
+            border-top: 3px solid var(--gold);
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        .footer-logo img { width: 120px; margin-bottom: 12px; }
+        .footer-logo p { font-size: 0.85rem; line-height: 1.6; color: rgba(255,255,255,0.6); }
+        .footer-links h4, .footer-contact h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            margin-bottom: 16px;
+            font-size: 1rem;
+        }
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+        .footer-links ul li { margin-bottom: 8px; }
+        .footer-links ul li a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: 0.2s;
+        }
+        .footer-links ul li a:hover { color: var(--gold); }
+        .footer-contact p {
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            color: rgba(255,255,255,0.6);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .footer-contact p i { color: var(--gold); width: 18px; }
+        .social-icons {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .social-icons a {
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+        .social-icons a:hover { transform: translateY(-3px); }
+        .social-icons img { width: 30px; height: 30px; border-radius: 50%; }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .navbar {
+                display: none;
+                flex-direction: column;
+                gap: 12px;
+                padding: 16px 0;
+                background: var(--white);
+                width: 100%;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                padding: 16px 24px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+            .navbar ul { flex-direction: column; gap: 12px; }
+            .header-container { flex-wrap: wrap; position: relative; }
+            .logo img { height: 45px; }
+            .hero h1 { font-size: 1.6rem; }
+            .test-wrapper { padding: 20px; }
+            .question-item .options { flex-direction: column; gap: 4px; }
+            .result-box h2 { font-size: 1.4rem; }
+            .result-box .score { font-size: 2rem; }
+            .result-box .level { font-size: 1rem; }
+            .footer-container { grid-template-columns: 1fr; text-align: center; }
+            .footer-contact p { justify-content: center; }
+            .social-icons { justify-content: center; }
+            .share-buttons .share-btn { width: 100%; justify-content: center; }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="logo">
-      <img src="images/hinhremovenen.png" alt="Logo Sophia">
+
+<!-- ========== HEADER ========== -->
+<header class="header">
+    <div class="header-container">
+        <a href="index.html" class="logo">
+            <img src="images/hinhremovenen.png" alt="Sophia Nguyễn">
+        </a>
+        <div class="menu-toggle" onclick="document.querySelector('.navbar').classList.toggle('show-menu')">☰</div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="index.html">Trang chủ</a></li>
+                <li><a href="about.html">Giới thiệu</a></li>
+                <li><a href="services.html">Dịch vụ</a></li>
+                <li><a href="khoa-hoc.html">Khóa học</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="test.html" class="active">Trắc nghiệm</a></li>
+                <li><a href="contact.html">Liên hệ</a></li>
+            </ul>
+        </nav>
     </div>
-    <h1>Trắc nghiệm Tự Quan Tâm </h1>
-    <!-- Form cá nhân -->
-   <form id="userForm" action="https://formspree.io/f/mgvzqrje" method="POST">
-      <h2>Thông tin người làm test</h2>
-      <label>Họ tên:</label>
-      <input type="text" name="name" id="name" required>
-      <label>Email:</label>
-      <input type="email" name="email" id="email" required>
-      <label>Tuổi:</label>
-      <input type="number" name="age" id="age" required>
-      <label>Số điện thoại:</label>
-      <input type="text" name="phone" id="phone" required>
-      <button type="submit">Gửi thông tin  & tiếp tục</button>
-      </form>
- 
-  
- <div id="quizSection" style="display: none;">
-  <form id="quizForm">
-    <fieldset>
-      <legend>1. Bạn từng có sai lầm làm người khác tổn thương. Giờ nhớ lại, bạn:</legend>
-      <label><input type="radio" name="q1" value="3"> A. Thành thật với bản thân và học cách chuộc lỗi, buông bỏ</label>
-      <label><input type="radio" name="q1" value="2"> B. Né tránh nghĩ về điều đó</label>
-      <label><input type="radio" name="q1" value="0"> C. Tự thấy mình là người xấu</label>
-      <label><input type="radio" name="q1" value="1"> D. Tự trách không nguôi</label>
-    </fieldset>
+</header>
 
-    <fieldset>
-      <legend>2. Một người thành công hơn bạn. Bạn:</legend>
-      <label><input type="radio" name="q2" value="3"> A. Biết mỗi người có hành trình riêng</label>
-      <label><input type="radio" name="q2" value="0"> B. Nghĩ mình sẽ không bao giờ như họ</label>
-      <label><input type="radio" name="q2" value="2"> C. Đố kỵ và khó chịu</label>
-      <label><input type="radio" name="q2" value="1"> D. Tự trách vì lười biếng</label>
-    </fieldset>
-
-    <fieldset>
-      <legend>3. Bạn bị từ chối sau khi bày tỏ cảm xúc thật. Bạn:</legend>
-      <label><input type="radio" name="q3" value="2"> A. Cố gắng thay đổi để được chấp nhận</label>
-      <label><input type="radio" name="q3" value="3"> B. Tôn trọng phản hồi và vẫn yêu chính mình</label>
-      <label><input type="radio" name="q3" value="1"> C. Tránh bộc lộ cảm xúc lần sau</label>
-      <label><input type="radio" name="q3" value="0"> D. Nghĩ mình đáng bị từ chối</label>
-    </fieldset>
-
-    <fieldset>
-      <legend>4. Bạn cảm thấy bản thân không giỏi như người khác. Bạn:</legend>
-      <label><input type="radio" name="q4" value="3"> A. Nhìn vào thế mạnh riêng của mình và tiếp tục phát triển</label>
-      <label><input type="radio" name="q4" value="2"> B. Tìm cách bắt chước người ta</label>
-      <label><input type="radio" name="q4" value="0"> C. Tự ti và thu mình lại</label>
-      <label><input type="radio" name="q4" value="1"> D. Tự so sánh và ghen tị</label>
-    </fieldset>
-
-    <fieldset>
-      <legend>5. Bạn soi gương và thấy điều mình không thích. Bạn:</legend>
-      <label><input type="radio" name="q5" value="3"> A. Thừa nhận cảm xúc và tập trung vào mặt tích cực</label>
-      <label><input type="radio" name="q5" value="1"> B. Cố phớt lờ nhưng thấy không thoải mái</label>
-      <label><input type="radio" name="q5" value="0"> C. Chỉ trích bản thân</label>
-      <label><input type="radio" name="q5" value="2"> D. Buồn bã và né tránh nhìn vào gương</label>
-    </fieldset>
-
-    <fieldset>
-      <legend>6. Bạn nhận ra mình làm sai điều gì đó. Bạn:</legend>
-      <label><input type="radio" name="q6" value="3"> A. Nhận lỗi và học cách tha thứ cho mình</label>
-      <label><input type="radio" name="q6" value="2"> B. Tự phạt bằng cách không cho phép mình nghỉ ngơi</label>
-      <label><input type="radio" name="q6" value="1"> C. Xấu hổ và không dám nói ra</label>
-      <label><input type="radio" name="q6" value="0"> D. Giận bản thân suốt cả ngày</label>
-    </fieldset>
-
-    <fieldset>
-      <legend>7. Một phần tính cách bạn bị người khác chê. Bạn:</legend>
-      <label><input type="radio" name="q7" value="2"> A. Im lặng và buồn</label>
-      <label><input type="radio" name="q7" value="3"> B. Ghi nhận góp ý và cân nhắc điều chỉnh nếu cần</label>
-      <label><input type="radio" name="q7" value="0"> C. Giận dữ và né tránh suy nghĩ</label>
-      <label><input type="radio" name="q7" value="1"> D. Thấy họ đúng và muốn thay đổi hoàn toàn</label>
-    </fieldset>
-    <fieldset>
-      <legend>8. Bạn không đạt kỳ vọng của người khác. Bạn:</legend>
-      <label><input type="radio" name="q8" value="3"> A. Ghi nhận sự khác biệt giữa người và bản thân, giữ giá trị riêng</label>
-      <label><input type="radio" name="q8" value="2"> B. Cố gắng làm lại để được công nhận</label>
-      <label><input type="radio" name="q8" value="1"> C. Tránh tiếp xúc vì sợ bị đánh giá</label>
-      <label><input type="radio" name="q8" value="0"> D. Tự xem mình là thất bại</label>
-    </fieldset>
-
-    <fieldset>
-      <legend>9. Bạn có một nỗi đau quá khứ chưa chữa lành. Bạn:</legend>
-      <label><input type="radio" name="q9" value="3"> A. Nhìn nhận như một phần cuộc sống và học cách đối diện</label>
-      <label><input type="radio" name="q9" value="1"> B. Ép bản thân “quên đi”</label>
-      <label><input type="radio" name="q9" value="0"> C. Cảm thấy bất lực, không muốn nhớ lại</label>
-      <label><input type="radio" name="q9" value="2"> D. Trốn tránh nói đến nó</label>
-    </fieldset>
-
-    <fieldset>
-      <legend>10. Bạn cảm thấy mình không giống ai cả. Bạn:</legend>
-      <label><input type="radio" name="q10" value="3"> A. Chấp nhận sự độc đáo như một phần bản sắc</label>
-      <label><input type="radio" name="q10" value="1"> B. Tự ti và rút lui khỏi xã hội</label>
-      <label><input type="radio" name="q10" value="2"> C. Cố gắng thay đổi để hòa nhập</label>
-      <label><input type="radio" name="q10" value="0"> D. Nghĩ rằng mình không thuộc về đâu cả</label>
-    </fieldset>
-
-    <fieldset>
-      <legend>11. Bạn có một phần quá khứ khiến bạn xấu hổ. Bạn đối diện ra sao?</legend>
-      <label><input type="radio" name="q11" value="3"> A. Nhìn nhận quá khứ như một phần hành trình sống</label>
-      <label><input type="radio" name="q11" value="2"> B. Tự trách vì “sao mình lại như vậy”</label>
-      <label><input type="radio" name="q11" value="0"> C. Nghĩ rằng mình không xứng đáng có hạnh phúc</label>
-      <label><input type="radio" name="q11" value="1"> D. Giấu đi và không bao giờ nhắc đến</label>
-    </fieldset>
-
-    <fieldset>
-      <legend>12. Bạn có cảm xúc tiêu cực bất ngờ xuất hiện. Bạn làm gì?</legend>
-      <label><input type="radio" name="q12" value="3"> A. Quan sát cảm xúc và cho phép nó tồn tại</label>
-      <label><input type="radio" name="q12" value="1"> B. Tự trách vì “sao mình lại yếu đuối thế”</label>
-      <label><input type="radio" name="q12" value="2"> C. Né tránh bằng cách lướt mạng hoặc làm việc</label>
-      <label><input type="radio" name="q12" value="0"> D. Giấu đi và giả vờ ổn</label>
-    </fieldset>
-
-    <fieldset>
-      <legend>13. Bạn bị người thân không ủng hộ lựa chọn cá nhân. Bạn:</legend>
-      <label><input type="radio" name="q13" value="3"> A. Chấp nhận sự khác biệt và giữ vững giá trị bản thân</label>
-      <label><input type="radio" name="q13" value="2"> B. Giấu đi và làm trong âm thầm</label>
-      <label><input type="radio" name="q13" value="0"> C. Từ bỏ mong muốn để làm vừa lòng họ</label>
-      <label><input type="radio" name="q13" value="1"> D. Cảm thấy mình sai khi không giống họ</label>
-    </fieldset>
-
-    <fieldset>
-      <legend>14. Bạn có cảm xúc tiêu cực khi nhìn lại bản thân. Bạn làm gì?</legend>
-      <label><input type="radio" name="q14" value="3"> A. Quan sát cảm xúc và học cách đồng hành với chính mình</label>
-      <label><input type="radio" name="q14" value="2"> B. Né tránh nội tâm bằng cách làm việc liên tục</label>
-      <label><input type="radio" name="q14" value="1"> C. So sánh với người khác để thấy mình “tệ hơn”</label>
-      <label><input type="radio" name="q14" value="0"> D. Tự công kích và phủ nhận giá trị bản thân</label>
-    </fieldset>
-    <fieldset>
-      <legend>15. Bạn bị người khác hiểu sai. Bạn:</legend>
-      <label><input type="radio" name="q15" value="3"> A. Hiểu rằng người khác có góc nhìn riêng</label>
-      <label><input type="radio" name="q15" value="2"> B. Giận họ nhưng không nói ra</label>
-      <label><input type="radio" name="q15" value="0"> C. Tránh giao tiếp để không bị tổn thương</label>
-      <label><input type="radio" name="q15" value="1"> D. Tự trách vì không diễn đạt tốt</label>
-    </fieldset>
-
-    <fieldset>
-      <legend>16. Bạn có một điểm yếu mà bạn không thích. Bạn:</legend>
-      <label><input type="radio" name="q16" value="3"> A. Ghi nhận điểm yếu như một phần con người mình</label>
-      <label><input type="radio" name="q16" value="2"> B. Tự giận bản thân vì không hoàn hảo</label>
-      <label><input type="radio" name="q16" value="1"> C. Phủ nhận và cố che giấu</label>
-      <label><input type="radio" name="q16" value="0"> D. So sánh với người khác và thấy mình kém cỏi</label>
-    </fieldset>
-
-    <fieldset>
-      <legend>17. Bạn có cảm xúc tiêu cực kéo dài. Bạn:</legend>
-      <label><input type="radio" name="q17" value="3"> A. Quan sát cảm xúc mà không phán xét</label>
-      <label><input type="radio" name="q17" value="2"> B. Tự trách vì “yếu đuối”</label>
-      <label><input type="radio" name="q17" value="1"> C. Tránh đối diện bằng cách lao vào công việc</label>
-      <label><input type="radio" name="q17" value="0"> D. Giấu đi và giả vờ ổn</label>
-    </fieldset>
-
-    <fieldset>
-      <legend>18. Bạn không đạt được kỳ vọng của bản thân. Bạn:</legend>
-      <label><input type="radio" name="q18" value="3"> A. Thừa nhận nỗi buồn và học cách tha thứ cho bản thân</label>
-      <label><input type="radio" name="q18" value="2"> B. Né tránh suy nghĩ về điều đó</label>
-      <label><input type="radio" name="q18" value="1"> C. Cố gắng làm quá mức để bù đắp</label>
-      <label><input type="radio" name="q18" value="0"> D. Tự trách và cảm thấy thất bại</label>
-    </fieldset>
-
-    <fieldset>
-      <legend>19. Bạn cảm thấy không đủ tốt so với người khác. Bạn:</legend>
-      <label><input type="radio" name="q19" value="3"> A. Nhận ra mỗi người có hành trình riêng</label>
-      <label><input type="radio" name="q19" value="2"> B. Cố gắng làm quá mức để chứng minh bản thân</label>
-      <label><input type="radio" name="q19" value="1"> C. Tránh tiếp xúc để không bị tổn thương</label>
-      <label><input type="radio" name="q19" value="0"> D. So sánh và thấy mình kém cỏi</label>
-    </fieldset>
-
-    <fieldset>
-      <legend>20. Bạn có một quyết định sai lầm trong quá khứ. Bạn:</legend>
-      <label><input type="radio" name="q20" value="3"> A. Nhìn nhận như một bài học trưởng thành</label>
-      <label><input type="radio" name="q20" value="2"> B. Giấu đi và không bao giờ nhắc lại</label>
-      <label><input type="radio" name="q20" value="1"> C. Nghĩ rằng mình không nên ra quyết định nữa</label>
-      <label><input type="radio" name="q20" value="0"> D. Tự trách và không thể tha thứ</label>
-    </fieldset>
- </form>
-      <button id="submitBtn" type="button" onclick="calculateResult()">Tính kết quả</button>
-  </div>
-  
-    <div class="result" id="result">
-      <h2>Kết quả trắc nghiệm:</h2>
-      <p id="output"></p>
+<!-- ========== HERO ========== -->
+<section class="hero">
+    <div class="container">
+        <h1>💖 Trắc nghiệm <span>Tự Quan Tâm</span></h1>
+        <p>Đánh giá mức độ tự chấp nhận và lòng trắc ẩn với bản thân</p>
+        <div class="badge">🌿 Yêu thương bản thân - Hành trình chữa lành</div>
     </div>
+</section>
 
-  <script>
-     let formSubmitted = false;
+<!-- ========== TEST ========== -->
+<div class="container">
+    <div class="test-wrapper">
+        <div class="intro">
+            <h2>Đánh giá <span>mức độ tự quan tâm</span></h2>
+            <p>
+                Bài trắc nghiệm này giúp bạn nhận diện mức độ tự chấp nhận, lòng trắc ẩn và cách bạn đối diện với cảm xúc của chính mình.
+            </p>
+            <div class="highlight">
+                👉 Hãy trả lời một cách trung thực dựa trên những tình huống thực tế bạn đã trải qua.
+                Không có đáp án đúng hay sai!
+            </div>
+        </div>
 
-  document.getElementById("userForm").addEventListener("submit", function (e) {
-    e.preventDefault();
+        <form id="quizForm"></form>
+        <button id="submitBtn" class="btn-submit" style="display:none;">🔍 Tính kết quả</button>
 
-    const form = e.target;
+        <div id="result" class="result-box"></div>
+    </div>
+</div>
 
-    fetch(form.action, {
-      method: "POST",
-      body: new FormData(form),
-      headers: { 'Accept': 'application/json' }
-    })
-    .then(response => {
-      if (response.ok) {
-        formSubmitted = true;
-        alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể làm bài test và xem kết quả.");
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-logo">
+            <img src="images/hinhremovenen.png" alt="Sophia Nguyễn">
+            <p>Đồng hành & Sẻ chia cùng bạn trên hành trình tâm lý – phát triển – yêu thương.</p>
+        </div>
+        <div class="footer-links">
+            <h4>Dịch vụ</h4>
+            <ul>
+                <li><a href="tuvan-tamly1.html">Tham vấn tâm lý</a></li>
+                <li><a href="huong-nghiep.html">Định hướng nghề nghiệp</a></li>
+                <li><a href="ky-nang.html">Đào tạo kỹ năng</a></li>
+                <li><a href="van-tay.html">Sinh trắc vân tay</a></li>
+            </ul>
+        </div>
+        <div class="footer-contact">
+            <h4>Liên hệ</h4>
+            <p><i class="fas fa-envelope"></i> sophianguyen2891@gmail.com</p>
+            <p><i class="fas fa-phone"></i> 0977092182</p>
+            <p><i class="fas fa-map-marker-alt"></i> Tân Bình - TPHCM</p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/Sophiadiemhang1982"><img src="images/fb.png" alt="Facebook" /></a>
+                <a href="https://www.tiktok.com/@sophia.nguyen2014"><img src="images/tiktok.png" alt="TikTok" /></a>
+                <a href="https://www.youtube.com/@sophianguyen1982-dh"><img src="images/youtube.png" alt="YouTube" /></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>Copyright ©2025 Sophia Nguyễn. All rights reserved.</p>
+    </div>
+</footer>
 
-        // Hiện phần câu hỏi và nút tính kết quả
-        document.getElementById("userForm").style.display = "none";
-        document.getElementById("quizSection").style.display = "block";
-        document.getElementById("submitBtn").style.display = "block";
-      } else {
-        alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
-      }
-    })
-    .catch(error => {
-      alert("⚠️ Lỗi kết nối. Vui lòng thử lại sau.");
+<script>
+    // ==================== DỮ LIỆU CÂU HỎI ====================
+    const questionsData = [
+        { text: "Bạn từng có sai lầm làm người khác tổn thương. Giờ nhớ lại, bạn:", options: [
+            { text: "Thành thật với bản thân và học cách chuộc lỗi, buông bỏ", value: 3 },
+            { text: "Né tránh nghĩ về điều đó", value: 2 },
+            { text: "Tự thấy mình là người xấu", value: 0 },
+            { text: "Tự trách không nguôi", value: 1 }
+        ]},
+        { text: "Một người thành công hơn bạn. Bạn:", options: [
+            { text: "Biết mỗi người có hành trình riêng", value: 3 },
+            { text: "Nghĩ mình sẽ không bao giờ như họ", value: 0 },
+            { text: "Đố kỵ và khó chịu", value: 2 },
+            { text: "Tự trách vì lười biếng", value: 1 }
+        ]},
+        { text: "Bạn bị từ chối sau khi bày tỏ cảm xúc thật. Bạn:", options: [
+            { text: "Cố gắng thay đổi để được chấp nhận", value: 2 },
+            { text: "Tôn trọng phản hồi và vẫn yêu chính mình", value: 3 },
+            { text: "Tránh bộc lộ cảm xúc lần sau", value: 1 },
+            { text: "Nghĩ mình đáng bị từ chối", value: 0 }
+        ]},
+        { text: "Bạn cảm thấy bản thân không giỏi như người khác. Bạn:", options: [
+            { text: "Nhìn vào thế mạnh riêng của mình và tiếp tục phát triển", value: 3 },
+            { text: "Tìm cách bắt chước người ta", value: 2 },
+            { text: "Tự ti và thu mình lại", value: 0 },
+            { text: "Tự so sánh và ghen tị", value: 1 }
+        ]},
+        { text: "Bạn soi gương và thấy điều mình không thích. Bạn:", options: [
+            { text: "Thừa nhận cảm xúc và tập trung vào mặt tích cực", value: 3 },
+            { text: "Cố phớt lờ nhưng thấy không thoải mái", value: 1 },
+            { text: "Chỉ trích bản thân", value: 0 },
+            { text: "Buồn bã và né tránh nhìn vào gương", value: 2 }
+        ]},
+        { text: "Bạn nhận ra mình làm sai điều gì đó. Bạn:", options: [
+            { text: "Nhận lỗi và học cách tha thứ cho mình", value: 3 },
+            { text: "Tự phạt bằng cách không cho phép mình nghỉ ngơi", value: 2 },
+            { text: "Xấu hổ và không dám nói ra", value: 1 },
+            { text: "Giận bản thân suốt cả ngày", value: 0 }
+        ]},
+        { text: "Một phần tính cách bạn bị người khác chê. Bạn:", options: [
+            { text: "Im lặng và buồn", value: 2 },
+            { text: "Ghi nhận góp ý và cân nhắc điều chỉnh nếu cần", value: 3 },
+            { text: "Giận dữ và né tránh suy nghĩ", value: 0 },
+            { text: "Thấy họ đúng và muốn thay đổi hoàn toàn", value: 1 }
+        ]},
+        { text: "Bạn không đạt kỳ vọng của người khác. Bạn:", options: [
+            { text: "Ghi nhận sự khác biệt giữa người và bản thân, giữ giá trị riêng", value: 3 },
+            { text: "Cố gắng làm lại để được công nhận", value: 2 },
+            { text: "Tránh tiếp xúc vì sợ bị đánh giá", value: 1 },
+            { text: "Tự xem mình là thất bại", value: 0 }
+        ]},
+        { text: "Bạn có một nỗi đau quá khứ chưa chữa lành. Bạn:", options: [
+            { text: "Nhìn nhận như một phần cuộc sống và học cách đối diện", value: 3 },
+            { text: "Ép bản thân 'quên đi'", value: 1 },
+            { text: "Cảm thấy bất lực, không muốn nhớ lại", value: 0 },
+            { text: "Trốn tránh nói đến nó", value: 2 }
+        ]},
+        { text: "Bạn cảm thấy mình không giống ai cả. Bạn:", options: [
+            { text: "Chấp nhận sự độc đáo như một phần bản sắc", value: 3 },
+            { text: "Tự ti và rút lui khỏi xã hội", value: 1 },
+            { text: "Cố gắng thay đổi để hòa nhập", value: 2 },
+            { text: "Nghĩ rằng mình không thuộc về đâu cả", value: 0 }
+        ]},
+        { text: "Bạn có một phần quá khứ khiến bạn xấu hổ. Bạn đối diện ra sao?", options: [
+            { text: "Nhìn nhận quá khứ như một phần hành trình sống", value: 3 },
+            { text: "Tự trách vì 'sao mình lại như vậy'", value: 2 },
+            { text: "Nghĩ rằng mình không xứng đáng có hạnh phúc", value: 0 },
+            { text: "Giấu đi và không bao giờ nhắc đến", value: 1 }
+        ]},
+        { text: "Bạn có cảm xúc tiêu cực bất ngờ xuất hiện. Bạn làm gì?", options: [
+            { text: "Quan sát cảm xúc và cho phép nó tồn tại", value: 3 },
+            { text: "Tự trách vì 'sao mình lại yếu đuối thế'", value: 1 },
+            { text: "Né tránh bằng cách lướt mạng hoặc làm việc", value: 2 },
+            { text: "Giấu đi và giả vờ ổn", value: 0 }
+        ]},
+        { text: "Bạn bị người thân không ủng hộ lựa chọn cá nhân. Bạn:", options: [
+            { text: "Chấp nhận sự khác biệt và giữ vững giá trị bản thân", value: 3 },
+            { text: "Giấu đi và làm trong âm thầm", value: 2 },
+            { text: "Từ bỏ mong muốn để làm vừa lòng họ", value: 0 },
+            { text: "Cảm thấy mình sai khi không giống họ", value: 1 }
+        ]},
+        { text: "Bạn có cảm xúc tiêu cực khi nhìn lại bản thân. Bạn làm gì?", options: [
+            { text: "Quan sát cảm xúc và học cách đồng hành với chính mình", value: 3 },
+            { text: "Né tránh nội tâm bằng cách làm việc liên tục", value: 2 },
+            { text: "So sánh với người khác để thấy mình 'tệ hơn'", value: 1 },
+            { text: "Tự công kích và phủ nhận giá trị bản thân", value: 0 }
+        ]},
+        { text: "Bạn bị người khác hiểu sai. Bạn:", options: [
+            { text: "Hiểu rằng người khác có góc nhìn riêng", value: 3 },
+            { text: "Giận họ nhưng không nói ra", value: 2 },
+            { text: "Tránh giao tiếp để không bị tổn thương", value: 0 },
+            { text: "Tự trách vì không diễn đạt tốt", value: 1 }
+        ]},
+        { text: "Bạn có một điểm yếu mà bạn không thích. Bạn:", options: [
+            { text: "Ghi nhận điểm yếu như một phần con người mình", value: 3 },
+            { text: "Tự giận bản thân vì không hoàn hảo", value: 2 },
+            { text: "Phủ nhận và cố che giấu", value: 1 },
+            { text: "So sánh với người khác và thấy mình kém cỏi", value: 0 }
+        ]},
+        { text: "Bạn có cảm xúc tiêu cực kéo dài. Bạn:", options: [
+            { text: "Quan sát cảm xúc mà không phán xét", value: 3 },
+            { text: "Tự trách vì 'yếu đuối'", value: 2 },
+            { text: "Tránh đối diện bằng cách lao vào công việc", value: 1 },
+            { text: "Giấu đi và giả vờ ổn", value: 0 }
+        ]},
+        { text: "Bạn không đạt được kỳ vọng của bản thân. Bạn:", options: [
+            { text: "Thừa nhận nỗi buồn và học cách tha thứ cho bản thân", value: 3 },
+            { text: "Né tránh suy nghĩ về điều đó", value: 2 },
+            { text: "Cố gắng làm quá mức để bù đắp", value: 1 },
+            { text: "Tự trách và cảm thấy thất bại", value: 0 }
+        ]},
+        { text: "Bạn cảm thấy không đủ tốt so với người khác. Bạn:", options: [
+            { text: "Nhận ra mỗi người có hành trình riêng", value: 3 },
+            { text: "Cố gắng làm quá mức để chứng minh bản thân", value: 2 },
+            { text: "Tránh tiếp xúc để không bị tổn thương", value: 1 },
+            { text: "So sánh và thấy mình kém cỏi", value: 0 }
+        ]},
+        { text: "Bạn có một quyết định sai lầm trong quá khứ. Bạn:", options: [
+            { text: "Nhìn nhận như một bài học trưởng thành", value: 3 },
+            { text: "Giấu đi và không bao giờ nhắc lại", value: 2 },
+            { text: "Nghĩ rằng mình không nên ra quyết định nữa", value: 1 },
+            { text: "Tự trách và không thể tha thứ", value: 0 }
+        ]}
+    ];
+
+    // ==================== RENDER CÂU HỎI ====================
+    function renderQuestions() {
+        const form = document.getElementById('quizForm');
+        form.innerHTML = '';
+
+        questionsData.forEach((q, index) => {
+            const div = document.createElement('div');
+            div.className = 'question-item';
+
+            const p = document.createElement('p');
+            p.className = 'q-text';
+            p.textContent = `Câu ${index + 1}: ${q.text}`;
+            div.appendChild(p);
+
+            const optionsDiv = document.createElement('div');
+            optionsDiv.className = 'options';
+
+            q.options.forEach((opt) => {
+                const label = document.createElement('label');
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = `q${index}`;
+                radio.value = opt.value;
+                radio.id = `q${index}_${opt.value}`;
+                label.appendChild(radio);
+                label.appendChild(document.createTextNode(' ' + opt.text));
+                optionsDiv.appendChild(label);
+            });
+
+            div.appendChild(optionsDiv);
+            form.appendChild(div);
+        });
+
+        document.getElementById('submitBtn').style.display = 'block';
+    }
+
+    // ==================== TÍNH KẾT QUẢ ====================
+    function submitQuiz() {
+        const form = document.getElementById('quizForm');
+        const inputs = form.querySelectorAll('input[type=radio]:checked');
+        const totalQuestions = questionsData.length;
+
+        if (inputs.length < totalQuestions) {
+            alert('⚠️ Bạn cần trả lời tất cả ' + totalQuestions + ' câu hỏi!');
+            return;
+        }
+
+        let totalScore = 0;
+        inputs.forEach(input => {
+            totalScore += parseInt(input.value);
+        });
+
+        const maxScore = totalQuestions * 3; // 20 * 3 = 60
+
+        let level = '';
+        let emoji = '';
+        let color = '';
+        let desc = '';
+
+        if (totalScore >= 50) {
+            level = 'CAO';
+            emoji = '💖';
+            color = '#2ecc71';
+            desc = 'Bạn có mức độ Tự Chấp Nhận rất cao! Bạn biết cách đồng hành với chính mình, chấp nhận cảm xúc và khuyết điểm một cách lành mạnh. Bạn có lòng trắc ẩn với bản thân và biết cách tha thứ cho những sai lầm. Hãy tiếp tục duy trì điều này!';
+        } else if (totalScore >= 30) {
+            level = 'TRUNG BÌNH';
+            emoji = '🌿';
+            color = '#f39c12';
+            desc = 'Bạn đang trên hành trình học cách Tự Chấp Nhận. Bạn đã có những bước tiến tốt, nhưng vẫn còn những lúc bạn khắt khe với bản thân. Hãy tiếp tục thực hành lòng trắc ẩn với chính mình mỗi ngày, học cách quan sát cảm xúc mà không phán xét.';
+        } else {
+            level = 'THẤP';
+            emoji = '🧩';
+            color = '#e74c3c';
+            desc = 'Bạn có thể đang thiếu sự Tự Chấp Nhận. Bạn có xu hướng tự trách và phán xét bản thân một cách khắc nghiệt. Hãy thử quan sát cảm xúc mà không phán xét, và học cách tha thứ cho chính mình. Bạn xứng đáng được yêu thương và trân trọng!';
+        }
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.className = 'result-box show';
+        resultDiv.innerHTML = `
+            <h2>💖 Kết quả đánh giá</h2>
+            <div class="score" style="color:${color}">
+                ${totalScore}/${maxScore}
+            </div>
+            <div class="level" style="border: 2px solid ${color}; color:${color}">
+                ${emoji} Mức độ Tự Quan Tâm ${level}
+            </div>
+            <div class="desc">${desc}</div>
+            <div class="note">
+                ⚕️ <strong>Lưu ý:</strong> Tự quan tâm và chấp nhận bản thân là một hành trình, không phải đích đến. Hãy kiên nhẫn với bản thân và thực hành lòng trắc ẩn mỗi ngày!
+            </div>
+            <div style="margin-top:20px; border-top:1px solid var(--light-gray); padding-top:20px;">
+                <p style="font-weight:600; color:var(--navy-dark);">📢 Chia sẻ bài test này:</p>
+                <div class="share-buttons">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn fb"><i class="fab fa-facebook-f"></i> Facebook</a>
+                    <a href="https://zalo.me/share?url=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn zalo"><i class="fas fa-comment"></i> Zalo</a>
+                    <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent('💖 Kết quả trắc nghiệm Tự Quan Tâm của tôi: ' + level)}&url=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn twitter"><i class="fab fa-twitter"></i> Twitter</a>
+                    <a href="https://www.tiktok.com/upload?lang=vi" target="_blank" class="share-btn tiktok"><i class="fab fa-tiktok"></i> TikTok</a>
+                </div>
+            </div>
+        `;
+
+        // Ẩn form
+        form.style.display = 'none';
+        document.getElementById('submitBtn').style.display = 'none';
+        window.scrollTo({ top: resultDiv.offsetTop - 100, behavior: 'smooth' });
+    }
+
+    // ==================== KHỞI CHẠY ====================
+    document.addEventListener('DOMContentLoaded', function() {
+        renderQuestions();
+        document.getElementById('submitBtn').addEventListener('click', submitQuiz);
     });
-  });
-
-  function calculateResult() {
-    if (!formSubmitted) {
-      alert("⚠️ Bạn cần gửi thông tin trước khi xem kết quả.");
-      return;
-    }
-
-    let total = 0;
-    let answeredCount = 0;
-
-    for (let i = 1; i <= 20; i++) {
-      const selected = document.querySelector(`input[name="q${i}"]:checked`);
-      if (selected) {
-        total += parseInt(selected.value);
-        answeredCount++;
-      }
-    }
-
-    if (answeredCount < 20) {
-      alert(`⚠️ Bạn cần hoàn thành tất cả 20 câu hỏi trước khi xem kết quả.`);
-      return;
-    }
-
-    let resultText = "";
-    if (total >= 50) {
-      resultText = "💖 Bạn có mức độ Tự Chấp Nhận cao! Bạn biết cách đồng hành với chính mình, chấp nhận cảm xúc và khuyết điểm một cách lành mạnh.";
-    } else if (total >= 30) {
-      resultText = "🌿 Bạn đang trên hành trình học cách Tự Chấp Nhận. Hãy tiếp tục thực hành lòng trắc ẩn với chính mình mỗi ngày.";
-    } else {
-      resultText = "🧩 Bạn có thể đang thiếu sự Tự Chấp Nhận. Hãy thử quan sát cảm xúc mà không phán xét, và học cách tha thứ cho chính mình.";
-    }
-
-    document.getElementById("output").innerText = resultText;
-    document.getElementById("result").style.display = "block";
-  }
 </script>
 </body>
 </html>
