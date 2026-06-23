@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Làm thế nào để vượt qua cảm giác tự ti và sống tự tin hơn? | Sophia Nguyễn</title>
+    <meta name="description" content="Nguồn gốc của sự tự ti, bài tập xây dựng lòng tự trọng, chuyển từ so sánh sang phát triển. Hướng dẫn thực tế để sống tự tin hơn.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --navy-dark: #0A1628;
+            --navy-mid: #1E3A5F;
+            --gold: #C9A84C;
+            --gold-light: #D4B85C;
+            --cream: #F5F0E8;
+            --white: #FFFFFF;
+            --gray: #4A5A6A;
+            --light-gray: #E8E4DC;
+            --gradient: linear-gradient(135deg, #0A1628 0%, #1E3A5F 50%, #2A4A7F 100%);
+            --gold-gradient: linear-gradient(135deg, #C9A84C 0%, #D4B85C 50%, #E8D5A0 100%);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--navy-dark);
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+        /* ========== HEADER ========== */
+        .header {
+            background: var(--white);
+            padding: 12px 0;
+            box-shadow: 0 2px 20px rgba(10,22,40,0.06);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo img { height: 55px; width: auto; display: block; }
+        .navbar ul {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+            align-items: center;
+        }
+        .navbar ul li a {
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        .navbar ul li a:hover, .navbar ul li a.active { color: var(--gold); }
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--navy-dark);
+        }
+        .show-menu { display: flex !important; }
+
+        /* ========== BLOG HERO ========== */
+        .blog-hero {
+            background: var(--gradient);
+            padding: 50px 0 40px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .blog-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .blog-hero .blog-tag {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--navy-dark);
+            padding: 4px 18px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        .blog-hero h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4rem;
+            font-weight: 400;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+        .blog-hero .subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            opacity: 0.85;
+            margin-bottom: 16px;
+            font-style: italic;
+            -webkit-text-fill-color: white;
+        }
+        .blog-hero .meta {
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+            font-size: 0.85rem;
+            opacity: 0.8;
+            flex-wrap: wrap;
+            -webkit-text-fill-color: white;
+        }
+        .blog-hero .meta i { margin-right: 6px; }
+
+        /* ========== BLOG CONTENT ========== */
+        .blog-content {
+            background: var(--white);
+            border-radius: 32px;
+            padding: 48px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(10,22,40,0.06);
+            border: 1px solid var(--light-gray);
+        }
+        .blog-content p {
+            color: var(--gray);
+            margin-bottom: 16px;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+        .blog-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--navy-dark);
+            margin: 30px 0 16px;
+            padding-bottom: 8px;
+            border-bottom: 3px solid var(--gold);
+        }
+        .blog-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            color: var(--navy-dark);
+            margin: 20px 0 12px;
+        }
+        .blog-content ul, .blog-content ol {
+            margin: 16px 0 16px 24px;
+            color: var(--gray);
+        }
+        .blog-content li {
+            margin: 8px 0;
+            line-height: 1.7;
+        }
+        .blog-content strong { color: var(--navy-dark); }
+        .blog-content a { color: var(--gold); text-decoration: none; }
+        .blog-content a:hover { text-decoration: underline; }
+
+        .callout {
+            background: var(--cream);
+            border-left: 5px solid var(--gold);
+            padding: 20px 24px;
+            border-radius: 16px;
+            margin: 24px 0;
+            color: var(--gray);
+            font-style: italic;
+        }
+        .callout strong { color: var(--navy-dark); }
+
+        .highlight-box {
+            background: rgba(201,168,76,0.12);
+            padding: 20px 24px;
+            border-radius: 16px;
+            margin: 24px 0;
+            border: 1px solid var(--gold);
+        }
+        .highlight-box strong { color: var(--navy-dark); }
+
+        .step-list {
+            list-style: none;
+            margin: 16px 0;
+            padding-left: 0;
+        }
+        .step-list li {
+            margin: 16px 0;
+            padding: 16px 20px;
+            background: var(--cream);
+            border-radius: 12px;
+            border-left: 4px solid var(--gold);
+        }
+        .step-list li strong { color: var(--navy-dark); }
+
+        /* ========== SHARE SECTION ========== */
+        .share-section {
+            text-align: center;
+            margin: 30px 0 20px;
+            padding: 16px 20px;
+            background: var(--cream);
+            border-radius: 16px;
+            border: 1px solid var(--light-gray);
+        }
+        .share-section .share-label {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.9rem;
+            color: var(--navy-dark);
+            margin-bottom: 12px;
+        }
+        .share-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+            color: white;
+        }
+        .share-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .share-btn.facebook { background: #1877f2; }
+        .share-btn.twitter { background: #1da1f2; }
+        .share-btn.linkedin { background: #0077b5; }
+        .share-btn.zalo { background: #0068ff; }
+        .share-btn.copy-link { background: var(--gray); }
+        .share-btn i { font-size: 0.9rem; }
+
+        /* ========== CTA ========== */
+        .cta-section {
+            text-align: center;
+            padding: 40px 36px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 32px;
+            margin: 40px 0;
+            border: 1px solid rgba(201,168,76,0.2);
+        }
+        .cta-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            margin-bottom: 12px;
+        }
+        .cta-section p { opacity: 0.9; margin-bottom: 20px; }
+        .cta-datlich {
+            background: var(--gold);
+            color: var(--navy-dark);
+            padding: 12px 28px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-block;
+            margin: 0 8px;
+            transition: 0.2s;
+        }
+        .cta-datlich:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+        }
+        .cta-datlich.outline {
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+        }
+        .cta-datlich.outline:hover {
+            background: var(--gold);
+            color: var(--navy-dark);
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: var(--navy-dark);
+            color: rgba(255,255,255,0.7);
+            padding: 40px 0 24px;
+            margin-top: 60px;
+            border-top: 3px solid var(--gold);
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        .footer-logo img { width: 120px; margin-bottom: 12px; }
+        .footer-logo p { font-size: 0.85rem; line-height: 1.6; color: rgba(255,255,255,0.6); }
+        .footer-links h4, .footer-contact h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            margin-bottom: 16px;
+            font-size: 1rem;
+        }
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+        .footer-links ul li { margin-bottom: 8px; }
+        .footer-links ul li a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: 0.2s;
+        }
+        .footer-links ul li a:hover { color: var(--gold); }
+        .footer-contact p {
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            color: rgba(255,255,255,0.6);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .footer-contact p i { color: var(--gold); width: 18px; }
+        .social-icons {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .social-icons a {
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+        .social-icons a:hover { transform: translateY(-3px); }
+        .social-icons img { width: 30px; height: 30px; border-radius: 50%; }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .navbar {
+                display: none;
+                flex-direction: column;
+                gap: 12px;
+                padding: 16px 0;
+                background: var(--white);
+                width: 100%;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                padding: 16px 24px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+            .navbar ul { flex-direction: column; gap: 12px; }
+            .header-container { flex-wrap: wrap; position: relative; }
+            .logo img { height: 45px; }
+            .blog-hero h1 { font-size: 2.5rem; }
+            .blog-hero .subtitle { font-size: 0.95rem; }
+            .blog-content { padding: 24px; }
+            .blog-hero .meta { gap: 12px; font-size: 0.75rem; flex-wrap: wrap; }
+            .footer-container { grid-template-columns: 1fr; text-align: center; }
+            .footer-contact p { justify-content: center; }
+            .social-icons { justify-content: center; }
+            .cta-section { padding: 30px 20px; }
+            .cta-datlich { display: block; margin: 12px auto; width: fit-content; }
+            .share-buttons { gap: 8px; }
+            .share-btn { width: 34px; height: 34px; font-size: 0.8rem; }
+            .step-list li { padding: 12px 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<header class="header">
+    <div class="header-container">
+        <a href="../index.html" class="logo">
+            <img src="../images/hinhremovenen.png" alt="Sophia Nguyễn">
+        </a>
+        <div class="menu-toggle" onclick="document.querySelector('.navbar').classList.toggle('show-menu')">☰</div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="../index.html">Trang chủ</a></li>
+                <li><a href="../about.html">Giới thiệu</a></li>
+                <li><a href="../services.html">Dịch vụ</a></li>
+                <li><a href="../blog.html" class="active">Blog</a></li>
+                <li><a href="../contact.html">Liên hệ</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- ========== BLOG HERO ========== -->
+<section class="blog-hero">
+    <div class="container">
+        <div class="blog-tag">📖 Bài viết</div>
+        <h1>Vượt qua cảm giác tự ti</h1>
+        <p class="subtitle">— Hành trình tìm lại sự tự tin đích thực —</p>
+        <div class="meta">
+            <span><i class="far fa-calendar-alt"></i> 18/04/2026</span>
+            <span><i class="far fa-clock"></i> 9 phút đọc</span>
+            <span><i class="far fa-folder-open"></i> Kỹ năng sống</span>
+        </div>
+    </div>
+</section>
+
+<!-- ========== BLOG CONTENT ========== -->
+<div class="container">
+    <div class="blog-content">
+
+        <p>"Tôi không đủ giỏi."</p>
+        <p>"Tại sao người ta làm được mà mình thì không?"</p>
+        <p>"Chắc mình không có năng khiếu."</p>
+
+        <p>Những câu nói này có quen thuộc với bạn không? Nếu có, bạn không hề đơn độc. Hàng triệu người trên thế giới đang vật lộn với cảm giác tự ti mỗi ngày – và điều trớ trêu là họ thường giỏi giấu nó đi rất tốt.</p>
+
+        <p>Nhưng tôi muốn bạn biết một điều: <strong>Tự ti không phải là bản chất của bạn. Nó chỉ là một câu chuyện bạn đã tin quá lâu.</strong></p>
+
+        <h2>1. Nguồn gốc của sự tự ti</h2>
+
+        <p>Trước khi tìm cách vượt qua tự ti, chúng ta cần hiểu nó đến từ đâu. Sự tự ti thường bắt nguồn từ:</p>
+
+        <ul>
+            <li><strong>Những lời phán xét từ thời thơ ấu:</strong> Một câu nói vô tình của cha mẹ, thầy cô, hay bạn bè có thể in sâu vào tâm trí và trở thành "tiếng nói nội tâm" tiêu cực của bạn suốt nhiều năm.</li>
+            <li><strong>So sánh xã hội:</strong> Mạng xã hội đã trở thành "sân khấu" nơi mọi người chỉ khoe những phần hoàn hảo nhất của cuộc đời. Bạn so sánh "hậu trường" của mình với "màn trình diễn" của người khác – và đương nhiên bạn thua.</li>
+            <li><strong>Áp lực thành tích:</strong> Chúng ta lớn lên trong một nền văn hóa đề cao thành tích. Nếu không đạt được những "cột mốc" xã hội kỳ vọng, chúng ta tự đánh giá mình là thất bại.</li>
+        </ul>
+
+        <div class="callout">
+            <strong>Sự thật là:</strong> Không ai sinh ra đã tự ti. Đó là một cái "áo" chúng ta được mặc vào từ rất sớm – và hoàn toàn có thể cởi bỏ.
+        </div>
+
+        <h2>2. Dấu hiệu bạn đang bị tự ti chi phối</h2>
+
+        <ul>
+            <li>Bạn thường xuyên so sánh bản thân với người khác.</li>
+            <li>Bạn khó chấp nhận lời khen – thường nghĩ người ta chỉ "khách sáo".</li>
+            <li>Bạn nói "xin lỗi" quá nhiều, ngay cả khi không có lỗi.</li>
+            <li>Bạn trì hoãn những việc quan trọng vì sợ không làm tốt.</li>
+            <li>Bạn cảm thấy mình là kẻ giả mạo – rằng một ngày nào đó mọi người sẽ phát hiện ra bạn "không xứng đáng".</li>
+        </ul>
+
+        <p>Nếu bạn nhận ra mình trong vài dấu hiệu trên, đừng lo. <strong>Nhận ra là bước đầu tiên để thay đổi.</strong></p>
+
+        <h2>3. 7 Bước xây dựng sự tự tin đích thực</h2>
+
+        <ul class="step-list">
+            <li>
+                <strong>Bước 1: Nhận diện và thách thức "tiếng nói nội tâm" tiêu cực</strong><br>
+                Hãy bắt đầu để ý những câu bạn tự nói với mình. Mỗi khi nghĩ "Mình không đủ tốt", hãy hỏi lại: "Dựa trên bằng chứng nào?" Thường thì không có bằng chứng thực tế – chỉ là một thói quen suy nghĩ.
+            </li>
+            <li>
+                <strong>Bước 2: Ngừng so sánh – bắt đầu phát triển</strong><br>
+                Cách duy nhất để hạnh phúc là so sánh bản thân hôm nay với chính mình ngày hôm qua. Bạn không cần phải giỏi hơn người khác. Bạn chỉ cần tốt hơn phiên bản cũ của mình.
+            </li>
+            <li>
+                <strong>Bước 3: Tập trung vào điểm mạnh, không phải điểm yếu</strong><br>
+                Hãy viết ra 5 điều bạn làm tốt. Không cần phải là điều gì vĩ đại – có thể chỉ là "Tôi là người bạn tốt" hoặc "Tôi nấu ăn ngon". Đọc lại nó mỗi sáng.
+            </li>
+            <li>
+                <strong>Bước 4: Đặt mục tiêu nhỏ và ăn mừng từng bước</strong><br>
+                Tự tin được xây dựng từ những chiến thắng nhỏ. Hãy đặt những mục tiêu thực tế và tự thưởng cho bản thân khi hoàn thành. Mỗi lần hoàn thành là một lần bạn chứng minh cho chính mình thấy: "Tôi có thể làm được."
+            </li>
+            <li>
+                <strong>Bước 5: Học cách chấp nhận lời khen</strong><br>
+                Khi ai đó khen bạn, đừng gạt đi. Hãy nói "Cảm ơn" và để nó ngấm vào. Bạn xứng đáng được khen.
+            </li>
+            <li>
+                <strong>Bước 6: Bao quanh mình bằng những người nâng đỡ bạn</strong><br>
+                Những người bạn chọn để ở bên sẽ ảnh hưởng đến cách bạn nhìn nhận bản thân. Hãy ở gần những người nhìn thấy giá trị của bạn – ngay cả khi bạn chưa nhìn thấy nó.
+            </li>
+            <li>
+                <strong>Bước 7: Hành động trước – cảm thấy tự tin sau</strong><br>
+                Đừng đợi đến khi cảm thấy tự tin mới hành động. Hành động trước, sự tự tin sẽ đến sau. Mỗi lần bạn bước ra khỏi vùng an toàn, bạn đang mở rộng ranh giới của bản thân.
+            </li>
+        </ul>
+
+        <h2>4. Bài tập thực hành 30 ngày</h2>
+
+        <ul class="step-list">
+            <li>
+                <strong>📌 Tuần 1 – Nhật ký tự trò chuyện:</strong><br>
+                Mỗi tối, viết 3 điều tốt về bản thân bạn đã làm trong ngày. Không được phép viết điều tiêu cực.
+            </li>
+            <li>
+                <strong>📌 Tuần 2 – Thách thức lời nói tiêu cực:</strong><br>
+                Mỗi khi bạn nghĩ một điều tiêu cực về mình, hãy viết nó ra và phản bác lại với 2 bằng chứng ngược lại.
+            </li>
+            <li>
+                <strong>📌 Tuần 3 – Hành động nhỏ:</strong><br>
+                Mỗi ngày, làm một điều bạn từng sợ hoặc trì hoãn. Bắt đầu từ những việc nhỏ nhất.
+            </li>
+            <li>
+                <strong>📌 Tuần 4 – Tổng kết và tạo thói quen:</strong><br>
+                Nhìn lại hành trình 3 tuần. Viết một bức thư cho bản thân – từ người bạn của hiện tại gửi cho người bạn của quá khứ.
+            </li>
+        </ul>
+
+        <div class="highlight-box">
+            <p><strong>💬 Lời kết:</strong> Tự tin không phải là bạn luôn cảm thấy mình tuyệt vời. Tự tin là bạn biết rằng dù thất bại hay thành công, bạn vẫn có giá trị. Bạn không cần phải hoàn hảo để xứng đáng. Bạn xứng đáng chỉ vì bạn là bạn.</p>
+            <p style="margin-top: 12px;">Hãy nhớ: <strong>Bạn không phải là một người ít giá trị. Bạn chỉ đang ở một giai đoạn mà bạn chưa nhìn thấy hết giá trị của mình.</strong> Hành trình vượt qua tự ti không phải là một đường thẳng. Sẽ có những ngày bạn cảm thấy mạnh mẽ, sẽ có những ngày bạn lùi bước. Nhưng mỗi bước bạn đi đều là một chiến thắng.</p>
+            <p style="margin-top: 12px;">🔹 <strong>Trong các khóa học của tôi, tôi luôn dành thời gian để giúp học viên nhận diện và thay đổi những niềm tin giới hạn về bản thân. Nếu bạn cần một người đồng hành trên hành trình tìm lại sự tự tin, hãy liên hệ với tôi.</strong></p>
+        </div>
+    </div>
+
+    <!-- ========== SHARE SECTION ========== -->
+    <div class="share-section">
+        <div class="share-label">✨ Chia sẻ bài viết</div>
+        <div class="share-buttons">
+            <a href="#" class="share-btn facebook" onclick="shareOnFacebook()" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="share-btn twitter" onclick="shareOnTwitter()" title="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="share-btn linkedin" onclick="shareOnLinkedIn()" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="share-btn zalo" onclick="shareOnZalo()" title="Zalo"><i class="fas fa-comment-dots"></i></a>
+            <button class="share-btn copy-link" onclick="copyPageUrl()" title="Sao chép link"><i class="fas fa-link"></i></button>
+        </div>
+    </div>
+
+    <!-- ========== CTA ========== -->
+    <div class="cta-section">
+        <h2>💬 Bạn đang vật lộn với cảm giác tự ti?</h2>
+        <p>Sophia luôn sẵn sàng lắng nghe và đồng hành cùng bạn.</p>
+        <div>
+            <a href="https://zalo.me/0977092182" class="cta-datlich">📅 Đặt lịch tư vấn</a>
+            <a href="../contact.html" class="cta-datlich outline">📩 Gửi tin nhắn</a>
+        </div>
+    </div>
+</div>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-logo">
+            <img src="../images/hinhremovenen.png" alt="Sophia Nguyễn">
+            <p>Đồng hành & Sẻ chia cùng bạn trên hành trình tâm lý – phát triển – yêu thương.</p>
+        </div>
+        <div class="footer-links">
+            <h4>Dịch vụ</h4>
+            <ul>
+                <li><a href="../tuvan-tamly1.html">Tham vấn tâm lý</a></li>
+                <li><a href="../huong-nghiep.html">Định hướng nghề nghiệp</a></li>
+                <li><a href="../ky-nang.html">Đào tạo kỹ năng</a></li>
+                <li><a href="../van-tay.html">Sinh trắc vân tay</a></li>
+            </ul>
+        </div>
+        <div class="footer-contact">
+            <h4>Liên hệ</h4>
+            <p><i class="fas fa-envelope"></i> sophianguyen2891@gmail.com</p>
+            <p><i class="fas fa-phone"></i> 0977092182</p>
+            <p><i class="fas fa-map-marker-alt"></i> Tân Bình - TPHCM</p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/Sophiadiemhang1982"><img src="../images/fb.png" alt="Facebook" /></a>
+                <a href="https://www.tiktok.com/@sophia.nguyen2014"><img src="../images/tiktok.png" alt="TikTok" /></a>
+                <a href="https://www.youtube.com/@sophianguyen1982-dh"><img src="../images/youtube.png" alt="YouTube" /></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>Copyright ©2025 Sophia Nguyễn. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    function shareOnFacebook() {
+        const url = encodeURIComponent(window.location.href);
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
+    }
+    function shareOnTwitter() {
+        const url = encodeURIComponent(window.location.href);
+        const title = encodeURIComponent(document.title);
+        window.open(`https://twitter.com/intent/tweet?text=${title}&url=${url}`, '_blank', 'width=600,height=400');
+    }
+    function shareOnLinkedIn() {
+        const url = encodeURIComponent(window.location.href);
+        window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank', 'width=600,height=400');
+    }
+    function shareOnZalo() {
+        const url = encodeURIComponent(window.location.href);
+        window.open(`https://zalo.me/share?url=${url}`, '_blank', 'width=600,height=400');
+    }
+    function copyPageUrl() {
+        navigator.clipboard.writeText(window.location.href).then(function() {
+            alert('✅ Đã sao chép link bài viết!');
+        }).catch(function() {
+            alert('❌ Không thể sao chép link. Hãy thử lại.');
+        });
+    }
+</script>
+</body>
+</html>
