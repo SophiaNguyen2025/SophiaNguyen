@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chương 6 · Cầu vồng trong nhà</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #F5F0E8;
+            font-family: 'Inter', sans-serif;
+            color: #0A1628;
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #FFFFFF;
+            border-radius: 2rem;
+            box-shadow: 0 20px 60px rgba(10, 22, 40, 0.08);
+            overflow: hidden;
+            padding: 2.5rem 2rem;
+        }
+        .display-font { font-family: 'Playfair Display', serif; }
+        .accent-font { font-family: 'Cormorant Garamond', serif; }
+        .gold { color: #C9A84C; }
+        .navy { color: #0A1628; }
+        .bg-navy { background-color: #0A1628; }
+        .bg-navy-mid { background-color: #1E3A5F; }
+        .bg-cream { background-color: #F5F0E8; }
+        .text-cream { color: #F5F0E8; }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+        h1 { font-size: 2.8rem; line-height: 1.2; }
+        h2 { font-size: 2rem; margin-bottom: 1.2rem; }
+        .subhead {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-style: italic;
+            color: #1E3A5F;
+        }
+        .header-chapter {
+            border-bottom: 1px solid #e9e0d4;
+            padding-bottom: 1.2rem;
+            margin-bottom: 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+        }
+        .header-chapter .badge {
+            background: #C9A84C;
+            color: #0A1628;
+            padding: 0.2rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        /* TV container */
+        .tv-container {
+            background: #0A1628;
+            border-radius: 2rem;
+            padding: 1.2rem 1.2rem 1.5rem 1.2rem;
+            margin: 2rem 0 2.5rem 0;
+            box-shadow: 0 16px 40px rgba(10, 22, 40, 0.25), inset 0 0 0 1px rgba(255,255,255,0.05);
+        }
+        .tv-screen {
+            background: #111827;
+            border-radius: 1.2rem;
+            padding: 0.1rem;
+            overflow: hidden;
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.6);
+            position: relative;
+        }
+        .tv-screen::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 50%, rgba(0,0,0,0.2) 100%);
+            border-radius: 1.2rem;
+            z-index: 2;
+        }
+        .tv-screen .slide-track-wrap {
+            overflow: hidden;
+            border-radius: 1.2rem;
+            position: relative;
+            z-index: 1;
+        }
+        .tv-screen .slide-track {
+            display: flex;
+            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .tv-screen .slide {
+            min-width: 100%;
+            background: #F5F0E8;
+            padding: 2rem 2.2rem;
+            border-radius: 0;
+            color: #0A1628;
+            min-height: 320px;
+        }
+        .tv-screen .slide .slide-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #C9A84C;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+        .tv-screen .slide h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+        }
+        .tv-screen .slide ul, .tv-screen .slide ol {
+            list-style: none;
+            margin-top: 0.8rem;
+            padding-left: 0;
+        }
+        .tv-screen .slide ul li, .tv-screen .slide ol li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e0d6c8;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+        .tv-screen .slide ul li:last-child, .tv-screen .slide ol li:last-child {
+            border-bottom: 0;
+        }
+        .tv-screen .slide ul li::before {
+            content: "◆";
+            color: #C9A84C;
+            font-size: 0.8rem;
+        }
+        .tv-screen .slide ol {
+            counter-reset: step-counter;
+        }
+        .tv-screen .slide ol li::before {
+            content: counter(step-counter);
+            counter-increment: step-counter;
+            background: #C9A84C;
+            color: #0A1628;
+            font-weight: 700;
+            font-size: 0.8rem;
+            width: 24px;
+            height: 24px;
+            border-radius: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .tv-screen .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+            margin: 1rem 0;
+        }
+        .tv-screen .grid-2 .col {
+            background: #FFFFFF;
+            padding: 1rem 1.2rem;
+            border-radius: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+        .tv-screen .grid-2 .col .label {
+            font-weight: 600;
+            font-size: 0.8rem;
+            letter-spacing: 0.03em;
+            display: block;
+            margin-bottom: 0.4rem;
+        }
+        .tv-screen .grid-2 .col .label.negative { color: #b13e3e; }
+        .tv-screen .grid-2 .col .label.positive { color: #1E7A5E; }
+        .tv-screen .quote-box {
+            background: #0A1628;
+            color: #F5F0E8;
+            padding: 1.2rem 2rem;
+            border-radius: 1.2rem;
+            margin: 1.2rem 0;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-style: italic;
+            text-align: center;
+        }
+        .tv-screen .quote-box small {
+            display: block;
+            font-size: 1rem;
+            font-style: normal;
+            font-family: 'Inter', sans-serif;
+            opacity: 0.7;
+            margin-top: 0.4rem;
+        }
+        .tv-screen .highlight-box {
+            background: #1E3A5F;
+            color: #F5F0E8;
+            padding: 0.8rem 1.2rem;
+            border-radius: 1rem;
+            margin: 0.8rem 0;
+            font-size: 0.95rem;
+        }
+        .tv-screen .highlight-box.gold-bg {
+            background: #C9A84C;
+            color: #0A1628;
+        }
+        .tv-screen .highlight-box.rainbow {
+            background: linear-gradient(135deg, #e84393, #6c5ce7, #00b894, #fdcb6e, #e17055);
+            color: #fff;
+        }
+        .tv-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.2rem;
+            padding-top: 0.8rem;
+        }
+        .tv-controls button {
+            background: transparent;
+            border: 1.5px solid #C9A84C;
+            color: #C9A84C;
+            width: 44px;
+            height: 44px;
+            border-radius: 40px;
+            font-size: 1.6rem;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(201, 168, 76, 0.08);
+        }
+        .tv-controls button:hover {
+            background: #C9A84C;
+            color: #0A1628;
+        }
+        .tv-dots {
+            display: flex;
+            gap: 0.6rem;
+        }
+        .tv-dots span {
+            width: 10px;
+            height: 10px;
+            border-radius: 20px;
+            background: #4a5568;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .tv-dots span.active {
+            background: #C9A84C;
+            width: 28px;
+        }
+
+        /* Checklist - Từ ngữ văn minh */
+        .checklist-section {
+            background: #FFFFFF;
+            border: 1px solid #e9e0d4;
+            border-radius: 1.5rem;
+            padding: 2rem 2rem 1.6rem 2rem;
+            margin: 2.5rem 0;
+        }
+        .term-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.2rem 0 1.8rem 0;
+            font-size: 0.95rem;
+        }
+        .term-table th {
+            background: #1E3A5F;
+            color: #F5F0E8;
+            padding: 0.8rem 1rem;
+            text-align: left;
+        }
+        .term-table td {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid #e0d6c8;
+            background: #F5F0E8;
+        }
+        .term-table tr:last-child td {
+            border-bottom: none;
+        }
+        .term-table .wrong { color: #b13e3e; font-weight: 500; }
+        .term-table .right { color: #1E7A5E; font-weight: 500; }
+
+        .checklist-result {
+            background: #0A1628;
+            color: #F5F0E8;
+            padding: 1.2rem 1.8rem;
+            border-radius: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.8rem;
+        }
+        .checklist-result .msg {
+            font-size: 1rem;
+            flex: 1;
+        }
+        .btn-outline-gold {
+            background: transparent;
+            border: 1.5px solid #C9A84C;
+            color: #C9A84C;
+            padding: 0.6rem 1.8rem;
+            border-radius: 40px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .btn-outline-gold:hover {
+            background: #C9A84C;
+            color: #0A1628;
+        }
+        .btn-gold {
+            background: #C9A84C;
+            color: #0A1628;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .btn-gold:hover {
+            background: #b8953a;
+            transform: scale(0.97);
+        }
+
+        /* Quiz */
+        .quiz-section {
+            background: #F5F0E8;
+            border-radius: 1.5rem;
+            padding: 2rem 2rem 1.6rem 2rem;
+            margin: 2.5rem 0;
+        }
+        .question {
+            background: #FFFFFF;
+            border-radius: 1.2rem;
+            padding: 1.5rem 1.8rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+        .question .q-text {
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 0.8rem;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .options label {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.95rem;
+            padding: 0.3rem 0.2rem;
+            cursor: pointer;
+            border-radius: 0.5rem;
+            transition: background 0.1s;
+        }
+        .options label:hover {
+            background: #F5F0E8;
+        }
+        .options input[type="radio"] {
+            accent-color: #C9A84C;
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+        .quiz-result {
+            background: #0A1628;
+            color: #F5F0E8;
+            padding: 1.2rem 2rem;
+            border-radius: 2rem;
+            margin-top: 1.8rem;
+            display: none;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.8rem;
+        }
+        .quiz-result .score-big {
+            font-size: 2.4rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            color: #C9A84C;
+        }
+        .quiz-result .msg {
+            font-size: 1rem;
+            flex: 1;
+        }
+
+        /* Support section */
+        .support-box {
+            background: linear-gradient(135deg, #f8f0ff, #f0f4ff);
+            border-radius: 1.5rem;
+            padding: 1.5rem 2rem;
+            margin-top: 1.5rem;
+            border-left: 6px solid #C9A84C;
+        }
+        .support-box h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        .support-box ul {
+            list-style: none;
+            padding-left: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem 1.5rem;
+        }
+        .support-box ul li {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.95rem;
+        }
+        .support-box ul li::before {
+            content: "🌈";
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 700px) {
+            .container { padding: 1.5rem 1rem; }
+            h1 { font-size: 2rem; }
+            .tv-screen .slide { padding: 1.2rem; }
+            .tv-screen .grid-2 { grid-template-columns: 1fr; }
+            .header-chapter { flex-direction: column; align-items: flex-start; gap: 0.6rem; }
+            .term-table { font-size: 0.8rem; }
+            .term-table th, .term-table td { padding: 0.5rem 0.6rem; }
+        }
+        .mt-2 { margin-top: 1.5rem; }
+        .text-center { text-align: center; }
+        .flex-center { display: flex; align-items: center; justify-content: center; gap: 0.6rem; }
+        .rainbow-text {
+            background: linear-gradient(135deg, #e84393, #6c5ce7, #00b894, #fdcb6e, #e17055);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header-chapter">
+        <div>
+            <span class="badge">Chương 6</span>
+            <h1 class="rainbow-text">Cầu vồng trong nhà</h1>
+            <div class="subhead">Thấu hiểu sự đa dạng (LGBTQ+)</div>
+        </div>
+        <div style="font-size:0.9rem; color:#1E3A5F; background:#F5F0E8; padding:0.4rem 1.2rem; border-radius:40px;">
+            🌈 dành cho cha mẹ
+        </div>
+    </div>
+
+    <!-- TV SLIDES -->
+    <div class="tv-container">
+        <div class="tv-screen">
+            <div class="slide-track-wrap">
+                <div class="slide-track" id="slideTrack">
+                    <!-- SLIDE 1 -->
+                    <div class="slide">
+                        <div class="slide-label">📌 Slide 1</div>
+                        <h3>Phân biệt giới tính khi sinh – Bản dạng giới – Xu hướng tính dục</h3>
+                        <div class="table-wrap" style="overflow-x:auto;">
+                            <table style="width:100%; border-collapse:collapse; font-size:0.9rem; background:#FFFFFF; border-radius:0.8rem; overflow:hidden;">
+                                <thead>
+                                    <tr style="background:#1E3A5F; color:#F5F0E8;">
+                                        <th style="padding:0.6rem 0.8rem; text-align:left;">Thuật ngữ</th>
+                                        <th style="padding:0.6rem 0.8rem; text-align:left;">Định nghĩa</th>
+                                        <th style="padding:0.6rem 0.8rem; text-align:left;">Ví dụ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td style="padding:0.6rem 0.8rem; border-bottom:1px solid #e0d6c8;"><strong>Giới tính khi sinh</strong></td><td style="padding:0.6rem 0.8rem; border-bottom:1px solid #e0d6c8;">Xác định dựa trên cơ quan sinh sản khi sinh</td><td style="padding:0.6rem 0.8rem; border-bottom:1px solid #e0d6c8;">Nam / Nữ</td></tr>
+                                    <tr><td style="padding:0.6rem 0.8rem; border-bottom:1px solid #e0d6c8;"><strong>Bản dạng giới</strong></td><td style="padding:0.6rem 0.8rem; border-bottom:1px solid #e0d6c8;">Cảm nhận bên trong về việc mình là nam, nữ, hay phi nhị nguyên</td><td style="padding:0.6rem 0.8rem; border-bottom:1px solid #e0d6c8;">Tự nhận là nam / nữ / cả hai / không thuộc giới nào</td></tr>
+                                    <tr><td style="padding:0.6rem 0.8rem;"><strong>Xu hướng tính dục</strong></td><td style="padding:0.6rem 0.8rem;">Ai là người mình bị hấp dẫn về mặt tình cảm / tình dục</td><td style="padding:0.6rem 0.8rem;">Dị tính, Đồng tính, Song tính, Vô tính</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="highlight-box rainbow" style="margin-top:0.8rem;">
+                            🌈 <strong>Điều quan trọng nhất:</strong> Mọi người đều có quyền yêu và được yêu theo cách của riêng mình.
+                        </div>
+                    </div>
+                    <!-- SLIDE 2 -->
+                    <div class="slide">
+                        <div class="slide-label">📌 Slide 2</div>
+                        <h3>Khi con khác biệt: Cách lắng nghe và đồng hành</h3>
+                        <ul>
+                            <li>👂 Lắng nghe không ngắt lời.</li>
+                            <li>💖 Cảm ơn con vì đã tin tưởng.</li>
+                            <li>🤗 Ôm con (nếu con muốn).</li>
+                            <li>🚫 Không phán xét – không nói "Con bị bệnh", "Tại con hư".</li>
+                            <li>😌 Không hoảng loạn – Tình yêu thương là điều quan trọng nhất.</li>
+                            <li>❤️ Nói con biết: "Ba/mẹ yêu con vô điều kiện."</li>
+                            <li>🔍 Tìm kiếm sự hỗ trợ nếu cần (bác sĩ, chuyên gia tâm lý, nhóm hỗ trợ).</li>
+                        </ul>
+                        <div class="quote-box" style="background:#1E3A5F; font-size:1.2rem; margin-top:0.4rem;">
+                            “Con được là chính mình – và ba/mẹ luôn ở đây, bên cạnh con.”
+                        </div>
+                    </div>
+                    <!-- SLIDE 3 -->
+                    <div class="slide">
+                        <div class="slide-label">📌 Slide 3</div>
+                        <h3>Những điều KHÔNG NÊN nói</h3>
+                        <ul style="list-style:none;">
+                            <li style="color:#b13e3e;">❌ "Con bị bệnh à?"</li>
+                            <li style="color:#b13e3e;">❌ "Ai dạy con thế? Bạn bè xấu đúng không?"</li>
+                            <li style="color:#b13e3e;">❌ "Nhà mình không có người như thế!"</li>
+                            <li style="color:#b13e3e;">❌ "Con làm mất mặt gia đình!"</li>
+                            <li style="color:#b13e3e;">❌ "Đó chỉ là giai đoạn thôi, qua rồi hết."</li>
+                            <li style="color:#b13e3e;">❌ "Đừng nói với ai, xấu hổ lắm!"</li>
+                        </ul>
+                        <div class="highlight-box" style="background:#b13e3e; margin-top:0.6rem;">
+                            ⚠️ Những câu nói này có thể gây tổn thương sâu sắc và làm con khép kín mãi mãi.
+                        </div>
+                    </div>
+                    <!-- SLIDE 4 -->
+                    <div class="slide">
+                        <div class="slide-label">📌 Slide 4</div>
+                        <h3>Những điều NÊN nói</h3>
+                        <ul style="list-style:none;">
+                            <li style="color:#1E7A5E;">✅ "Cảm ơn con đã tin tưởng và chia sẻ với ba/mẹ."</li>
+                            <li style="color:#1E7A5E;">✅ "Ba/mẹ yêu con, không có gì thay đổi tình yêu của ba/mẹ dành cho con."</li>
+                            <li style="color:#1E7A5E;">✅ "Con có thể kể cho ba/mẹ nghe con cảm thấy thế nào về điều này không?"</li>
+                            <li style="color:#1E7A5E;">✅ "Con muốn ba/mẹ làm gì để đồng hành cùng con?"</li>
+                            <li style="color:#1E7A5E;">✅ "Con không cô đơn. Ba/mẹ luôn ở đây."</li>
+                        </ul>
+                        <div class="highlight-box gold-bg" style="margin-top:0.6rem;">
+                            💛 Những câu nói này xây dựng niềm tin và giúp con cảm thấy an toàn.
+                        </div>
+                    </div>
+                    <!-- SLIDE 5 -->
+                    <div class="slide">
+                        <div class="slide-label">📌 Slide 5</div>
+                        <h3>Xử lý khi con bị bắt nạt vì khác biệt</h3>
+                        <ol>
+                            <li><strong>Tin con và an ủi con.</strong></li>
+                            <li><strong>Hỏi chi tiết</strong> (ở đâu? Ai? Khi nào? Nói gì? Làm gì?).</li>
+                            <li><strong>Liên hệ nhà trường</strong> để báo cáo và yêu cầu xử lý.</li>
+                            <li><strong>Đồng hành</strong> với con trong quá trình giải quyết.</li>
+                            <li><strong>Hỗ trợ tâm lý</strong> cho con (nếu cần).</li>
+                            <li><strong>Dạy con kỹ năng ứng phó:</strong> không phản ứng bạo lực, tìm sự giúp đỡ từ người lớn tin cậy, tự tin vào bản thân.</li>
+                        </ol>
+                        <div style="margin-top:0.8rem; background:#FFFFFF; padding:0.8rem 1rem; border-radius:1rem; border-left:4px solid #C9A84C;">
+                            💪 <strong>Khẳng định con:</strong> "Con mạnh mẽ hơn con nghĩ. Sự khác biệt làm nên vẻ đẹp của con."
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- TV Controls -->
+        <div class="tv-controls">
+            <button id="prevSlide" aria-label="Previous slide">‹</button>
+            <div class="tv-dots" id="slideDots">
+                <span class="active" data-index="0"></span>
+                <span data-index="1"></span>
+                <span data-index="2"></span>
+                <span data-index="3"></span>
+                <span data-index="4"></span>
+            </div>
+            <button id="nextSlide" aria-label="Next slide">›</button>
+        </div>
+    </div>
+
+    <!-- CHECKLIST: CẨM NANG TỪ NGỮ VĂN MINH -->
+    <div class="checklist-section" id="checklistSection">
+        <h2 style="display:flex; align-items:center; gap:0.6rem;">📋 Cẩm nang từ ngữ <span style="font-size:1rem; font-weight:400; font-family:'Inter', sans-serif; color:#1E3A5F;">văn minh về LGBTQ+</span></h2>
+        <p style="margin-bottom:0.5rem;">Cha mẹ tham khảo những thuật ngữ dưới đây để sử dụng một cách tôn trọng:</p>
+
+        <table class="term-table">
+            <thead><tr><th style="width:45%;">❌ Không nên dùng</th><th style="width:55%;">✅ Nên dùng</th></tr></thead>
+            <tbody>
+                <tr><td class="wrong">Bê đê, bóng, pê đê, tệ...</td><td class="right">Đồng tính nam / Nữ đồng tính (Gay / Lesbian)</td></tr>
+                <tr><td class="wrong">Kỳ lạ, không bình thường</td><td class="right">Đa dạng giới / Phi nhị nguyên / Không thuộc giới tính nhị nguyên</td></tr>
+                <tr><td class="wrong">Bệnh hoạn, điên</td><td class="right">Xu hướng tính dục khác biệt / Bản dạng giới đa dạng</td></tr>
+                <tr><td class="wrong">Chị/em gái (chỉ nam có vẻ nữ tính)</td><td class="right">Gọi tên của họ, hoặc "bạn", "anh", "chị" theo họ mong muốn</td></tr>
+                <tr><td class="wrong">"Con thích con trai hay con gái?" (hỏi trẻ nhỏ)</td><td class="right">"Con có muốn chia sẻ về ai con yêu thích không? Ba/mẹ sẵn sàng lắng nghe."</td></tr>
+                <tr><td class="wrong">"Theo đạo" (ám chỉ lối sống sai trái)</td><td class="right">"Xu hướng tính dục" / "Bản dạng giới"</td></tr>
+            </tbody>
+        </table>
+
+        <div class="checklist-result" style="background:#1E3A5F;">
+            <span style="display:flex; align-items:center; gap:0.5rem;">📖 <span style="font-weight:600;">Nguyên tắc vàng</span></span>
+            <span class="msg">Hãy gọi mọi người theo cách họ muốn được gọi và tôn trọng sự khác biệt.</span>
+            <span style="font-size:0.85rem; opacity:0.8;">🌈 Yêu thương không phân biệt</span>
+        </div>
+
+        <!-- Support organizations -->
+        <div class="support-box">
+            <h4>🤝 Các tổ chức hỗ trợ LGBTQ+ tại Việt Nam</h4>
+            <ul>
+                <li>ICS (Trung tâm ICS) – Hỗ trợ sức khỏe và tư vấn</li>
+                <li>MSD (Trung tâm MSD) – Nghiên cứu và hỗ trợ cộng đồng</li>
+                <li>GAL (Gặp gỡ và Lắng nghe) – Nhóm hỗ trợ thanh thiếu niên</li>
+                <li>Viện Nghiên cứu Xã hội, Kinh tế và Môi trường (iSEE)</li>
+                <li>Đường dây nóng tư vấn: <strong>1900 633 063</strong> (miễn phí)</li>
+            </ul>
+            <p style="margin-top:0.6rem; font-size:0.9rem; color:#1E3A5F;">
+                💬 <strong>Lời khuyên cho cha mẹ:</strong> Nếu chưa sẵn sàng, hãy nói "Ba/mẹ cần thời gian để hiểu, nhưng ba/mẹ yêu con và sẽ luôn ở bên con." – điều đó vẫn là một câu trả lời tuyệt vời.
+            </p>
+        </div>
+    </div>
+
+    <!-- QUIZ -->
+    <div class="quiz-section" id="quizSection">
+        <h2 style="display:flex; align-items:center; gap:0.6rem;">🧩 Trắc nghiệm <span style="font-size:1rem; font-weight:400; font-family:'Inter', sans-serif; color:#1E3A5F;">“Cha mẹ có đủ tinh tế?”</span></h2>
+        <p style="margin-bottom:1rem; font-size:0.95rem;">Chọn cách xử lý mà chị cho là đúng đắn và thấu hiểu nhất.</p>
+
+        <div id="quizContainer">
+            <!-- Câu 1 – đáp án đúng (3đ) ở B -->
+            <div class="question" data-q="1">
+                <div class="q-text">Câu 1: Con 12 tuổi chia sẻ: "Con nghĩ con thích bạn cùng giới."</div>
+                <div class="options">
+                    <label><input type="radio" name="q1" value="0" /> A. "Con còn nhỏ, đừng nghĩ mấy chuyện đó." (0 điểm)</label>
+                    <label><input type="radio" name="q1" value="3" /> B. "Cảm ơn con đã nói với ba/mẹ. Con có muốn chia sẻ thêm không?" (3 điểm)</label>
+                    <label><input type="radio" name="q1" value="0" /> C. "Chắc tại bạn bè ảnh hưởng, con đừng chơi với nó nữa." (0 điểm)</label>
+                </div>
+            </div>
+            <!-- Câu 2 – đáp án đúng (3đ) ở C -->
+            <div class="question" data-q="2">
+                <div class="q-text">Câu 2: Con hỏi: "Gay/les là gì ạ?"</div>
+                <div class="options">
+                    <label><input type="radio" name="q2" value="0" /> A. "Chuyện người lớn, con không cần biết." (0 điểm)</label>
+                    <label><input type="radio" name="q2" value="0" /> B. "Đó là một căn bệnh, con đừng bao giờ như thế." (0 điểm)</label>
+                    <label><input type="radio" name="q2" value="3" /> C. "Đó là khi hai người cùng giới yêu nhau, giống như bố mẹ nhưng khác giới vậy." (3 điểm)</label>
+                </div>
+            </div>
+            <!-- Câu 3 – đáp án đúng (3đ) ở A -->
+            <div class="question" data-q="3">
+                <div class="q-text">Câu 3: Cha mẹ phát hiện con lén lên các trang tìm hiểu về LGBTQ+.</div>
+                <div class="options">
+                    <label><input type="radio" name="q3" value="3" /> A. Bình tĩnh, nhẹ nhàng hỏi con: "Ba/mẹ thấy con quan tâm đến chủ đề này. Con có điều gì muốn nói không?" (3 điểm)</label>
+                    <label><input type="radio" name="q3" value="0" /> B. Tức giận, quát mắng, cấm con dùng máy tính. (0 điểm)</label>
+                    <label><input type="radio" name="q3" value="1" /> C. Lặng lẽ, không đề cập, đợi con lớn rồi nói sau. (1 điểm)</label>
+                </div>
+            </div>
+            <!-- Câu 4 – đáp án đúng (3đ) ở B -->
+            <div class="question" data-q="4">
+                <div class="q-text">Câu 4: Con ở trường bị bạn trêu chọc là "bê đê" (dù con có thể không thuộc LGBTQ+).</div>
+                <div class="options">
+                    <label><input type="radio" name="q4" value="0" /> A. "Kệ người ta, đừng quan tâm." (0 điểm)</label>
+                    <label><input type="radio" name="q4" value="3" /> B. Gặp nhà trường, yêu cầu xử lý các bạn bắt nạt, đồng thời an ủi và động viên con. (3 điểm)</label>
+                    <label><input type="radio" name="q4" value="0" /> C. "Sao con lại để người ta trêu? Con yếu đuối quá." (0 điểm)</label>
+                </div>
+            </div>
+            <!-- Câu 5 – đáp án đúng (3đ) ở C -->
+            <div class="question" data-q="5">
+                <div class="q-text">Câu 5: Cha mẹ có sẵn sàng thay đổi cách gọi đại từ (he/she/they) nếu con yêu cầu?</div>
+                <div class="options">
+                    <label><input type="radio" name="q5" value="0" /> A. Không, vì đó là do con "bị ảnh hưởng". (0 điểm)</label>
+                    <label><input type="radio" name="q5" value="1" /> B. Có, nhưng chỉ khi con nói rõ ràng. (1 điểm)</label>
+                    <label><input type="radio" name="q5" value="3" /> C. Có thể cân nhắc và tìm hiểu, và nếu con thực sự mong muốn, sẽ làm theo để tôn trọng con. (3 điểm)</label>
+                </div>
+            </div>
+            <!-- Câu 6 (bổ sung – tình huống thực tế) – đáp án đúng (3đ) ở A -->
+            <div class="question" data-q="6">
+                <div class="q-text">Câu 6: Con khoe với bạn "Ba mẹ mình ủng hộ người đồng tính", bạn con nói "Ba mẹ bạn kỳ lạ". Con về kể lại, cha mẹ nên:</div>
+                <div class="options">
+                    <label><input type="radio" name="q6" value="3" /> A. Ôm con và nói: "Cảm ơn con đã bảo vệ gia đình. Mỗi người có cách nghĩ khác nhau, điều quan trọng là gia đình mình yêu thương nhau." (3 điểm)</label>
+                    <label><input type="radio" name="q6" value="1" /> B. Cười và nói "Kệ bạn ấy đi con." (1 điểm)</label>
+                    <label><input type="radio" name="q6" value="0" /> C. Tức giận và muốn gặp phụ huynh bạn con để nói chuyện. (0 điểm)</label>
+                </div>
+            </div>
+        </div>
+
+        <div style="display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; margin:0.4rem 0 0.2rem;">
+            <button class="btn-gold" id="quizSubmit">📊 Xem kết quả</button>
+            <button class="btn-outline-gold" id="resetQuiz" style="background:#fff; border-color:#C9A84C; color:#0A1628;">🔄 Làm lại</button>
+        </div>
+
+        <div class="quiz-result" id="quizResult">
+            <span><span class="score-big" id="quizScore">0</span> / 18 điểm</span>
+            <span class="msg" id="quizMsg">🌟 Cha mẹ đã xây dựng một "mái nhà cầu vồng" ấm áp và an toàn cho con.</span>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <div style="margin-top:2.5rem; padding-top:1.2rem; border-top:1px solid #e9e0d4; text-align:center; font-size:0.85rem; color:#1E3A5F;">
+        <span class="accent-font" style="font-size:1.1rem;">“Yêu thương là ngôn ngữ chung của mọi trái tim.”</span>
+        <br/>© 2026 · Chương 6 – Cầu vồng trong nhà
+    </div>
+
+</div>
+
+<script>
+    (function() {
+        // ----- TV SLIDES -----
+        const track = document.getElementById('slideTrack');
+        const dots = document.querySelectorAll('#slideDots span');
+        const prevBtn = document.getElementById('prevSlide');
+        const nextBtn = document.getElementById('nextSlide');
+        let currentSlide = 0;
+        const totalSlides = 5;
+
+        function updateSlide(index) {
+            if (index < 0) index = 0;
+            if (index >= totalSlides) index = totalSlides - 1;
+            currentSlide = index;
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
+            });
+        }
+
+        dots.forEach((dot, i) => {
+            dot.addEventListener('click', () => updateSlide(i));
+        });
+        prevBtn.addEventListener('click', () => updateSlide(currentSlide - 1));
+        nextBtn.addEventListener('click', () => updateSlide(currentSlide + 1));
+
+        // ----- QUIZ -----
+        const quizQuestions = document.querySelectorAll('.question');
+        const submitBtn = document.getElementById('quizSubmit');
+        const resetQuizBtn = document.getElementById('resetQuiz');
+        const quizResultDiv = document.getElementById('quizResult');
+        const quizScoreEl = document.getElementById('quizScore');
+        const quizMsgEl = document.getElementById('quizMsg');
+
+        function getQuizScore() {
+            let total = 0;
+            quizQuestions.forEach(q => {
+                const radios = q.querySelectorAll('input[type="radio"]');
+                let selected = null;
+                radios.forEach(r => { if (r.checked) selected = r; });
+                if (selected) {
+                    total += parseInt(selected.value, 10);
+                }
+            });
+            return total;
+        }
+
+        function showQuizResult() {
+            const score = getQuizScore();
+            quizScoreEl.textContent = score;
+            let msg = '';
+            if (score <= 5) {
+                msg = '⚠️ Cha mẹ cần cải thiện sự thấu hiểu và đồng cảm với sự đa dạng. Hãy đọc kỹ các slide và bảng từ ngữ.';
+            } else if (score <= 10) {
+                msg = '🌱 Cha mẹ đã có kiến thức cơ bản, hãy cởi mở và chủ động tìm hiểu thêm.';
+            } else {
+                msg = '🌟 Cha mẹ đã xây dựng một "mái nhà cầu vồng" ấm áp và an toàn cho con.';
+            }
+            quizMsgEl.textContent = msg;
+            quizResultDiv.style.display = 'flex';
+        }
+
+        submitBtn.addEventListener('click', showQuizResult);
+
+        resetQuizBtn.addEventListener('click', function() {
+            quizQuestions.forEach(q => {
+                const radios = q.querySelectorAll('input[type="radio"]');
+                radios.forEach(r => { r.checked = false; });
+            });
+            quizResultDiv.style.display = 'none';
+        });
+    })();
+</script>
+
+</body>
+</html>
