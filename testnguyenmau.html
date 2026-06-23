@@ -1,306 +1,709 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Trắc nghiệm Nguyên Mẫu Tính Cách </title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #000000, #000000);
-      color: #333;
-      margin: 0;
-      padding: 20px;
-    }
-    .container {
-      max-width: 800px;
-      margin: auto;
-      background: white;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    }
-    .logo {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .logo img {
-      width: 120px;
-    }
-    h1 {
-      text-align: center;
-      color: #CC9900;
-    }
-    label {
-      display: block;
-      margin-top: 20px;
-      font-weight: bold;
-    }
-    .question {
-      margin: 20px 0;
-      padding: 15px;
-      border-left: 5px solid #2c3e50;
-      border-radius: 10px;
-    }
-    .question:nth-child(even) {
-      background: #ccff33;
-    }
-    .question:nth-child(odd) {
-      background:#33cc00;
-    }
-    .question p {
-      margin: 0 0 10px;
-      font-weight: bold;
-    }
-    .question label {
-      display: block;
-      font-weight: normal;
-      margin-bottom: 8px;
-    }
-    input[type="text"],
-    input[type="email"],
-    input[type="number"] {
-      width: 100%;
-      padding: 10px;
-      margin-top: 8px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-    }
-    button {
-      margin-top: 30px;
-      padding: 12px 24px;
-      background: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      width: 100%;
-    }
-    button:hover {
-      background: #45a049;
-    }
-    .result {
-  display: none;
-  background: #ede7f6;
-  margin-top: 30px;
-  padding: 20px;
-  border-radius: 12px;
-  color: #4a148c;
-  font-weight: bold;
-}
-#result {
-  margin-bottom: 10px; /* cho nó sát với description */
-}
-#description {
-  font-size: 16px;
-  font-weight: normal; /* mô tả nhìn nhẹ nhàng hơn */
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trắc nghiệm Nguyên mẫu Tính cách | Sophia Nguyễn</title>
+    <meta name="description" content="Bài trắc nghiệm giúp bạn khám phá nguyên mẫu tính cách (Archetype) chi phối con người bạn.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --navy-dark: #0A1628;
+            --navy-mid: #1E3A5F;
+            --gold: #C9A84C;
+            --gold-light: #D4B85C;
+            --cream: #F5F0E8;
+            --white: #FFFFFF;
+            --gray: #4A5A6A;
+            --light-gray: #E8E4DC;
+            --gradient: linear-gradient(135deg, #0A1628 0%, #1E3A5F 50%, #2A4A7F 100%);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--navy-dark);
+            line-height: 1.6;
+        }
+        .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
 
-    }
-  </style>
+        /* ========== HEADER ========== */
+        .header {
+            background: var(--white);
+            padding: 12px 0;
+            box-shadow: 0 2px 20px rgba(10,22,40,0.06);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo img { height: 55px; width: auto; display: block; }
+        .navbar ul {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+            align-items: center;
+        }
+        .navbar ul li a {
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        .navbar ul li a:hover, .navbar ul li a.active { color: var(--gold); }
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--navy-dark);
+        }
+        .show-menu { display: flex !important; }
+
+        /* ========== HERO ========== */
+        .hero {
+            background: var(--gradient);
+            padding: 50px 0 40px;
+            text-align: center;
+            color: white;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+        }
+        .hero h1 span { color: var(--gold); }
+        .hero p {
+            font-size: 1rem;
+            max-width: 650px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        .hero .badge {
+            background: var(--gold);
+            color: var(--navy-dark);
+            display: inline-block;
+            padding: 6px 20px;
+            border-radius: 40px;
+            margin-top: 16px;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        /* ========== TEST CONTAINER ========== */
+        .test-wrapper {
+            background: var(--white);
+            border-radius: 32px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(10,22,40,0.06);
+            border: 1px solid var(--light-gray);
+        }
+        .test-wrapper .intro h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--navy-dark);
+            margin-bottom: 16px;
+            font-size: 1.6rem;
+        }
+        .test-wrapper .intro h2 span { color: var(--gold); }
+        .test-wrapper .intro p {
+            color: var(--gray);
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+        .test-wrapper .intro .highlight {
+            background: var(--cream);
+            padding: 16px 20px;
+            border-radius: 16px;
+            border-left: 4px solid var(--gold);
+            margin: 16px 0;
+            font-weight: 500;
+            color: var(--navy-dark);
+        }
+
+        /* ========== QUESTION ========== */
+        .question-item {
+            background: var(--cream);
+            padding: 18px 20px;
+            margin: 16px 0;
+            border-radius: 16px;
+            border-left: 4px solid var(--gold);
+            transition: 0.2s;
+        }
+        .question-item:hover { border-color: var(--navy-dark); }
+        .question-item .q-text {
+            font-weight: 600;
+            color: var(--navy-dark);
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+        .question-item .options {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .question-item .options label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.88rem;
+            color: var(--gray);
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 8px;
+            transition: 0.2s;
+        }
+        .question-item .options label:hover {
+            background: rgba(201,168,76,0.1);
+        }
+        .question-item .options input[type="radio"] {
+            width: 17px;
+            height: 17px;
+            accent-color: var(--gold);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        /* ========== BUTTON ========== */
+        .btn-submit {
+            background: var(--navy-dark);
+            color: var(--white);
+            border: none;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+            margin-top: 20px;
+        }
+        .btn-submit:hover {
+            background: var(--gold);
+            color: var(--navy-dark);
+            transform: translateY(-2px);
+        }
+
+        /* ========== RESULT ========== */
+        .result-box {
+            display: none;
+            background: var(--cream);
+            padding: 30px;
+            border-radius: 24px;
+            margin-top: 30px;
+            border: 2px solid var(--gold);
+        }
+        .result-box.show { display: block; }
+        .result-box h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--navy-dark);
+            margin-bottom: 8px;
+        }
+        .result-box h2 span { color: var(--gold); }
+        .result-box .result-type {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin: 12px 0;
+            padding: 12px;
+            border-radius: 16px;
+            background: var(--white);
+            border: 2px solid var(--gold);
+        }
+        .result-box .desc {
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin: 12px 0;
+            line-height: 1.7;
+            text-align: left;
+        }
+        .result-box .chart-container {
+            margin: 16px 0;
+            background: var(--white);
+            border-radius: 16px;
+            padding: 16px;
+        }
+        .result-box .chart-container canvas {
+            max-height: 300px;
+        }
+        .result-box .note {
+            font-size: 0.85rem;
+            color: var(--gray);
+            font-style: italic;
+            padding: 12px 16px;
+            background: var(--white);
+            border-radius: 12px;
+            border: 1px solid var(--light-gray);
+            text-align: left;
+        }
+        .share-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+        .share-buttons .share-btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .share-buttons .share-btn:hover { transform: translateY(-2px); opacity: 0.9; }
+        .share-buttons .share-btn.fb { background: #3b5998; }
+        .share-buttons .share-btn.zalo { background: #0068ff; }
+        .share-buttons .share-btn.twitter { background: #1da1f2; }
+        .share-buttons .share-btn.tiktok { background: #000000; }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: var(--navy-dark);
+            color: rgba(255,255,255,0.7);
+            padding: 40px 0 24px;
+            margin-top: 60px;
+            border-top: 3px solid var(--gold);
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        .footer-logo img { width: 120px; margin-bottom: 12px; }
+        .footer-logo p { font-size: 0.85rem; line-height: 1.6; color: rgba(255,255,255,0.6); }
+        .footer-links h4, .footer-contact h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            margin-bottom: 16px;
+            font-size: 1rem;
+        }
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+        .footer-links ul li { margin-bottom: 8px; }
+        .footer-links ul li a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: 0.2s;
+        }
+        .footer-links ul li a:hover { color: var(--gold); }
+        .footer-contact p {
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            color: rgba(255,255,255,0.6);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .footer-contact p i { color: var(--gold); width: 18px; }
+        .social-icons {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .social-icons a {
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+        .social-icons a:hover { transform: translateY(-3px); }
+        .social-icons img { width: 30px; height: 30px; border-radius: 50%; }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .navbar {
+                display: none;
+                flex-direction: column;
+                gap: 12px;
+                padding: 16px 0;
+                background: var(--white);
+                width: 100%;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                padding: 16px 24px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+            .navbar ul { flex-direction: column; gap: 12px; }
+            .header-container { flex-wrap: wrap; position: relative; }
+            .logo img { height: 45px; }
+            .hero h1 { font-size: 1.6rem; }
+            .test-wrapper { padding: 20px; }
+            .result-box h2 { font-size: 1.4rem; }
+            .result-box .result-type { font-size: 1.2rem; }
+            .footer-container { grid-template-columns: 1fr; text-align: center; }
+            .footer-contact p { justify-content: center; }
+            .social-icons { justify-content: center; }
+            .share-buttons .share-btn { width: 100%; justify-content: center; }
+            .result-box .chart-container canvas { max-height: 200px; }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="logo">
-      <img src="images/hinhremovenen.png" alt="Logo Sophia">
+
+<!-- ========== HEADER ========== -->
+<header class="header">
+    <div class="header-container">
+        <a href="index.html" class="logo">
+            <img src="images/hinhremovenen.png" alt="Sophia Nguyễn">
+        </a>
+        <div class="menu-toggle" onclick="document.querySelector('.navbar').classList.toggle('show-menu')">☰</div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="index.html">Trang chủ</a></li>
+                <li><a href="about.html">Giới thiệu</a></li>
+                <li><a href="services.html">Dịch vụ</a></li>
+                <li><a href="khoa-hoc.html">Khóa học</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="test.html" class="active">Trắc nghiệm</a></li>
+                <li><a href="contact.html">Liên hệ</a></li>
+            </ul>
+        </nav>
     </div>
-    <h1>Trắc nghiệm Nguyên Mẫu Tính Cách </h1>
-    <!-- Form cá nhân -->
-   <form id="userForm" action="https://formspree.io/f/mgvzqrje" method="POST">
-      <h2>Thông tin người làm test</h2>
-      <label>Họ tên:</label>
-      <input type="text" name="name" id="name" required>
-      <label>Email:</label>
-      <input type="email" name="email" id="email" required>
-      <label>Tuổi:</label>
-      <input type="number" name="age" id="age" required>
-      <label>Số điện thoại:</label>
-      <input type="text" name="phone" id="phone" required>
-      <button type="submit">Gửi thông tin  & tiếp tục</button>
-      </form>
+</header>
 
-<form id="quizForm" style="display: none;">
-  </form>
+<!-- ========== HERO ========== -->
+<section class="hero">
+    <div class="container">
+        <h1>🔮 Trắc nghiệm <span>Nguyên mẫu Tính cách</span></h1>
+        <p>Khám phá nguyên mẫu (Archetype) chi phối con người bạn</p>
+        <div class="badge">🌟 12 nguyên mẫu - 12 con người khác nhau</div>
+    </div>
+</section>
 
-<button id="submitBtn" type="button" style="display: none;">Tính kết quả</button>
+<!-- ========== TEST ========== -->
+<div class="container">
+    <div class="test-wrapper">
+        <div class="intro">
+            <h2>Khám phá <span>nguyên mẫu</span> của bạn</h2>
+            <p>
+                Bài trắc nghiệm này dựa trên lý thuyết 12 nguyên mẫu (Archetypes) của Carl Jung,
+                giúp bạn hiểu rõ hơn về động lực, điểm mạnh và cách bạn tương tác với thế giới.
+            </p>
+            <div class="highlight">
+                👉 Hãy trả lời một cách trung thực nhất để có kết quả chính xác.
+                Không có đúng hay sai – chỉ có sự khám phá bản thân!
+            </div>
+        </div>
 
-<div id="result" class="result"></div>
-<canvas id="chart" width="400" height="400" style="margin-top:20px;"></canvas>
-<div id="description" style="margin-top:20px; font-size:16px;"></div>
-    
-<div id="resultBox" style="display: none;" class="result">
-    <div id="result"></div>
-    <div id="description"></div>
-  </div>
-    <script>
-  const questions = [
-  {
-    text: "Khi bắt đầu một dự án mới, bạn thường:",
-    options: ["Tìm cách làm khác biệt, sáng tạo nhất có thể", "Lên kế hoạch rõ ràng, phân công vai trò cụ thể", "Tìm hiểu kỹ lưỡng trước khi hành động"],
-    scores: [8, 6, 10] // Creator, Ruler, Sage
-  },
-  {
-    text: "Trong nhóm bạn bè, bạn thường là người:",
-    options: ["Luôn tạo tiếng cười, phá vỡ không khí căng thẳng", "Lắng nghe và chăm sóc người khác", "Truyền cảm hứng bằng hành động mạnh mẽ"],
-    scores: [5, 4, 7] // Jester, Caregiver, Hero
-  },
-  {
-    text: "Khi gặp điều bất công, bạn thường:",
-    options: ["Muốn phá vỡ quy tắc và thay đổi hệ thống", "Tìm cách bảo vệ người yếu thế", "Phân tích nguyên nhân và tìm giải pháp"],
-    scores: [2, 4, 10] // Outlaw, Caregiver, Sage
-  },
-  {
-    text: "Bạn cảm thấy hạnh phúc nhất khi:",
-    options: ["Khám phá điều mới mẻ và tự do trải nghiệm", "Kết nối sâu sắc với người mình yêu thương", "Giúp người khác vượt qua khó khăn"],
-    scores: [1, 3, 4] // Explorer, Lover, Caregiver
-  },
-  {
-    text: "Khi làm việc nhóm, bạn thường:",
-    options: ["Đưa ra chiến lược và dẫn dắt mọi người", "Tạo không khí vui vẻ và gắn kết", "Lặng lẽ đóng góp và hỗ trợ người khác"],
-    scores: [6, 5, 4] // Ruler, Jester, Caregiver
-  },
-  {
-    text: "Bạn thường bị thu hút bởi:",
-    options: ["Những điều kỳ bí và có chiều sâu", "Những thử thách để chứng minh bản thân", "Những trải nghiệm mới và chưa từng thử"],
-    scores: [11, 7, 1] // Magician, Hero, Explorer
-  },
-  {
-    text: "Khi có thời gian rảnh, bạn thích:",
-    options: ["Tìm hiểu kiến thức mới và đọc sách", "Sáng tạo nội dung hoặc làm thủ công", "Giao lưu và tạo tiếng cười với bạn bè"],
-    scores: [10, 8, 5] // Sage, Creator, Jester
-  },
-  {
-    text: "Bạn cảm thấy an toàn nhất khi:",
-    options: ["Mọi người xung quanh thân thiện và gần gũi", "Có người dẫn dắt rõ ràng và có quy tắc", "Bạn được tự do làm điều mình thích"],
-    scores: [12, 6, 1] // Everyman, Ruler, Explorer
-  },
-  {
-    text: "Bạn thường đưa ra quyết định dựa trên:",
-    options: ["Trực giác và cảm xúc cá nhân", "Phân tích logic và dữ liệu", "Giá trị đạo đức và lòng trắc ẩn"],
-    scores: [11, 10, 4] // Magician, Sage, Caregiver
-  },
-  {
-    text: "Bạn thấy bản thân giống với:",
-    options: ["Người luôn tìm kiếm sự thật", "Người luôn muốn tạo ra điều mới", "Người luôn muốn giúp đỡ người khác"],
-    scores: [10, 8, 4] // Sage, Creator, Caregiver
-  },
-  {
-    text: "Bạn thường cảm thấy hài lòng khi:",
-    options: ["Được công nhận là người có năng lực", "Được sống đúng với giá trị của mình", "Được chia sẻ niềm vui với người khác"],
-    scores: [7, 3, 5] // Hero, Innocent, Jester
-  },
-  {
-    text: "Nếu phải chọn một vai trò trong xã hội, bạn sẽ là:",
-    options: ["Người truyền cảm hứng và thay đổi", "Người bảo vệ và chăm sóc cộng đồng", "Người khám phá và mở rộng giới hạn"],
-    scores: [11, 4, 1] // Magician, Caregiver, Explorer
-  }
-];
+        <form id="quizForm"></form>
+        <button id="submitBtn" class="btn-submit" style="display:none;">🔍 Tính kết quả</button>
 
-  // Render câu hỏi sau khi gửi thông tin
-document.getElementById("userForm").addEventListener("submit", function (e) {
-  e.preventDefault();
-  fetch(this.action, {
-    method: "POST",
-    body: new FormData(this),
-    headers: { 'Accept': 'application/json' }
-  })
-  .then(response => {
-    if (response.ok) {
-      alert("🟢 Gửi thông tin thành công! Bây giờ bạn có thể làm bài test.");
-      document.getElementById("userForm").style.display = "none";
-      quizForm.style.display = "block";
-      document.getElementById("submitBtn").style.display = "block";
+        <div id="result" class="result-box"></div>
+    </div>
+</div>
 
-      // ✅ Render câu hỏi đúng cách
-      questions.forEach((q, index) => {
-        const div = document.createElement("div");
-        div.className = "question";
-        div.innerHTML = `<p>Câu ${index + 1}: ${q.text}</p>`;
-        q.options.forEach((opt, i) => {
-          div.innerHTML += `
-            <label>
-              <input type="radio" name="q${index}" value="${q.scores[i]}" required> ${opt}
-            </label>
-          `;
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-logo">
+            <img src="images/hinhremovenen.png" alt="Sophia Nguyễn">
+            <p>Đồng hành & Sẻ chia cùng bạn trên hành trình tâm lý – phát triển – yêu thương.</p>
+        </div>
+        <div class="footer-links">
+            <h4>Dịch vụ</h4>
+            <ul>
+                <li><a href="tuvan-tamly1.html">Tham vấn tâm lý</a></li>
+                <li><a href="huong-nghiep.html">Định hướng nghề nghiệp</a></li>
+                <li><a href="ky-nang.html">Đào tạo kỹ năng</a></li>
+                <li><a href="van-tay.html">Sinh trắc vân tay</a></li>
+            </ul>
+        </div>
+        <div class="footer-contact">
+            <h4>Liên hệ</h4>
+            <p><i class="fas fa-envelope"></i> sophianguyen2891@gmail.com</p>
+            <p><i class="fas fa-phone"></i> 0977092182</p>
+            <p><i class="fas fa-map-marker-alt"></i> Tân Bình - TPHCM</p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/Sophiadiemhang1982"><img src="images/fb.png" alt="Facebook" /></a>
+                <a href="https://www.tiktok.com/@sophia.nguyen2014"><img src="images/tiktok.png" alt="TikTok" /></a>
+                <a href="https://www.youtube.com/@sophianguyen1982-dh"><img src="images/youtube.png" alt="YouTube" /></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>Copyright ©2025 Sophia Nguyễn. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    // ==================== DỮ LIỆU CÂU HỎI ====================
+    const questions = [
+        {
+            text: "Khi bắt đầu một dự án mới, bạn thường:",
+            options: ["Tìm cách làm khác biệt, sáng tạo nhất có thể", "Lên kế hoạch rõ ràng, phân công vai trò cụ thể", "Tìm hiểu kỹ lưỡng trước khi hành động"],
+            scores: [8, 6, 10]
+        },
+        {
+            text: "Trong nhóm bạn bè, bạn thường là người:",
+            options: ["Luôn tạo tiếng cười, phá vỡ không khí căng thẳng", "Lắng nghe và chăm sóc người khác", "Truyền cảm hứng bằng hành động mạnh mẽ"],
+            scores: [5, 4, 7]
+        },
+        {
+            text: "Khi gặp điều bất công, bạn thường:",
+            options: ["Muốn phá vỡ quy tắc và thay đổi hệ thống", "Tìm cách bảo vệ người yếu thế", "Phân tích nguyên nhân và tìm giải pháp"],
+            scores: [2, 4, 10]
+        },
+        {
+            text: "Bạn cảm thấy hạnh phúc nhất khi:",
+            options: ["Khám phá điều mới mẻ và tự do trải nghiệm", "Kết nối sâu sắc với người mình yêu thương", "Giúp người khác vượt qua khó khăn"],
+            scores: [1, 3, 4]
+        },
+        {
+            text: "Khi làm việc nhóm, bạn thường:",
+            options: ["Đưa ra chiến lược và dẫn dắt mọi người", "Tạo không khí vui vẻ và gắn kết", "Lặng lẽ đóng góp và hỗ trợ người khác"],
+            scores: [6, 5, 4]
+        },
+        {
+            text: "Bạn thường bị thu hút bởi:",
+            options: ["Những điều kỳ bí và có chiều sâu", "Những thử thách để chứng minh bản thân", "Những trải nghiệm mới và chưa từng thử"],
+            scores: [11, 7, 1]
+        },
+        {
+            text: "Khi có thời gian rảnh, bạn thích:",
+            options: ["Tìm hiểu kiến thức mới và đọc sách", "Sáng tạo nội dung hoặc làm thủ công", "Giao lưu và tạo tiếng cười với bạn bè"],
+            scores: [10, 8, 5]
+        },
+        {
+            text: "Bạn cảm thấy an toàn nhất khi:",
+            options: ["Mọi người xung quanh thân thiện và gần gũi", "Có người dẫn dắt rõ ràng và có quy tắc", "Bạn được tự do làm điều mình thích"],
+            scores: [12, 6, 1]
+        },
+        {
+            text: "Bạn thường đưa ra quyết định dựa trên:",
+            options: ["Trực giác và cảm xúc cá nhân", "Phân tích logic và dữ liệu", "Giá trị đạo đức và lòng trắc ẩn"],
+            scores: [11, 10, 4]
+        },
+        {
+            text: "Bạn thấy bản thân giống với:",
+            options: ["Người luôn tìm kiếm sự thật", "Người luôn muốn tạo ra điều mới", "Người luôn muốn giúp đỡ người khác"],
+            scores: [10, 8, 4]
+        },
+        {
+            text: "Bạn thường cảm thấy hài lòng khi:",
+            options: ["Được công nhận là người có năng lực", "Được sống đúng với giá trị của mình", "Được chia sẻ niềm vui với người khác"],
+            scores: [7, 3, 5]
+        },
+        {
+            text: "Nếu phải chọn một vai trò trong xã hội, bạn sẽ là:",
+            options: ["Người truyền cảm hứng và thay đổi", "Người bảo vệ và chăm sóc cộng đồng", "Người khám phá và mở rộng giới hạn"],
+            scores: [11, 4, 1]
+        }
+    ];
+
+    const archetypes = [
+        { name: "Nhà Thám Hiểm", emoji: "🧭", color: "#e74c3c" },
+        { name: "Kẻ Nổi Loạn", emoji: "🔥", color: "#e67e22" },
+        { name: "Kẻ Ngây Thơ", emoji: "🌼", color: "#f1c40f" },
+        { name: "Người Chữa Lành", emoji: "🤝", color: "#2ecc71" },
+        { name: "Người Yêu", emoji: "❤️", color: "#e91e63" },
+        { name: "Kẻ Khôi Hài", emoji: "🎭", color: "#9b59b6" },
+        { name: "Nhà Lãnh Đạo", emoji: "👑", color: "#3498db" },
+        { name: "Người Anh Hùng", emoji: "🛡️", color: "#1abc9c" },
+        { name: "Người Sáng Tạo", emoji: "🎨", color: "#ff6b6b" },
+        { name: "Nhà Hiền Triết", emoji: "📚", color: "#4a90d9" },
+        { name: "Nhà Phù Thủy", emoji: "✨", color: "#6c5ce7" },
+        { name: "Người Thường", emoji: "👥", color: "#636e72" }
+    ];
+
+    const descriptions = [
+        "Bạn là <strong>Nhà Thám Hiểm</strong>: yêu tự do, thích trải nghiệm, luôn tìm kiếm điều mới mẻ. Bạn không ngại bước ra khỏi vùng an toàn để khám phá thế giới.",
+        "Bạn là <strong>Kẻ Nổi Loạn</strong>: muốn phá vỡ giới hạn, tạo ra sự thay đổi mạnh mẽ. Bạn không chấp nhận những điều bất công và sẵn sàng đứng lên vì chính nghĩa.",
+        "Bạn là <strong>Kẻ Ngây Thơ</strong>: lạc quan, tin vào điều tốt đẹp, mong muốn sự an toàn. Bạn nhìn thế giới bằng đôi mắt trong sáng và tin vào lòng tốt của con người.",
+        "Bạn là <strong>Người Chữa Lành</strong>: sống vì người khác, giàu lòng trắc ẩn và hỗ trợ. Bạn có khả năng xoa dịu và chăm sóc những người xung quanh.",
+        "Bạn là <strong>Người Yêu</strong>: sống bằng cảm xúc, tìm kiếm sự hòa hợp và kết nối. Bạn trân trọng những mối quan hệ sâu sắc và vẻ đẹp trong cuộc sống.",
+        "Bạn là <strong>Kẻ Khôi Hài</strong>: vui vẻ, truyền cảm hứng qua tiếng cười, sống trong hiện tại. Bạn có khả năng xua tan căng thẳng và mang lại niềm vui cho mọi người.",
+        "Bạn là <strong>Nhà Lãnh Đạo</strong>: thích kiểm soát, tổ chức, tạo ra trật tự và định hướng. Bạn có tầm nhìn và khả năng dẫn dắt người khác.",
+        "Bạn là <strong>Người Anh Hùng</strong>: quyết tâm vượt qua thử thách, chứng minh năng lực. Bạn luôn sẵn sàng đối mặt với khó khăn để bảo vệ những điều quan trọng.",
+        "Bạn là <strong>Người Sáng Tạo</strong>: yêu cái đẹp, thích sáng tạo, để lại dấu ấn cá nhân. Bạn có khả năng biến những ý tưởng thành hiện thực.",
+        "Bạn là <strong>Nhà Hiền Triết</strong>: tìm kiếm tri thức, phân tích logic, hiểu sâu vấn đề. Bạn luôn khao khát học hỏi và truyền đạt kiến thức cho người khác.",
+        "Bạn là <strong>Nhà Phù Thủy</strong>: kết nối điều kỳ diệu, biến đổi thực tại bằng trí tuệ. Bạn có khả năng nhìn thấy tiềm năng và biến nó thành hiện thực.",
+        "Bạn là <strong>Người Thường</strong>: sống giản dị, muốn thuộc về, kết nối cộng đồng. Bạn trân trọng những giá trị bình dị và kết nối với mọi người xung quanh."
+    ];
+
+    // ==================== RENDER CÂU HỎI ====================
+    function renderQuestions() {
+        const form = document.getElementById('quizForm');
+        form.innerHTML = '';
+
+        questions.forEach((q, index) => {
+            const div = document.createElement('div');
+            div.className = 'question-item';
+
+            const p = document.createElement('p');
+            p.className = 'q-text';
+            p.textContent = `Câu ${index + 1}: ${q.text}`;
+            div.appendChild(p);
+
+            const optionsDiv = document.createElement('div');
+            optionsDiv.className = 'options';
+
+            q.options.forEach((opt, i) => {
+                const label = document.createElement('label');
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = `q${index}`;
+                radio.value = q.scores[i];
+                radio.id = `q${index}_${i}`;
+                label.appendChild(radio);
+                label.appendChild(document.createTextNode(' ' + opt));
+                optionsDiv.appendChild(label);
+            });
+
+            div.appendChild(optionsDiv);
+            form.appendChild(div);
         });
-        document.getElementById("quizForm").appendChild(div);
-      });
 
-    } else {
-      alert("❌ Gửi thông tin thất bại. Vui lòng thử lại.");
+        document.getElementById('submitBtn').style.display = 'block';
     }
-  })
-  .catch(error => {
-    alert("⚠️ Lỗi kết nối. Vui lòng thử lại sau.");
-  });
-});
-    </script>
-    <script>
-const archetypes = [
-  "Nhà Thám Hiểm 🧭", "Kẻ Nổi Loạn 🔥", "Kẻ Ngây Thơ 🌼", "Người Chữa Lành 🤝", "Người Yêu ❤️", "Kẻ Khôi Hài 🎭",
-  "Nhà Lãnh Đạo 👑", "Người Anh Hùng 🛡️", "Người Sáng Tạo 🎨", "Nhà Hiền Triết 📚", "Nhà Phù Thủy✨", "Người Thường 👥"
-];
-const descriptions = [
-  "Bạn là Nhà Thám Hiểm: yêu tự do, thích trải nghiệm, luôn tìm kiếm điều mới mẻ.",
-  "Bạn là Kẻ Nổi Loạn: muốn phá vỡ giới hạn, tạo ra sự thay đổi mạnh mẽ.",
-  "Bạn là Kẻ Ngây Thơ: lạc quan, tin vào điều tốt đẹp, mong muốn sự an toàn.",
-  "Bạn là Người Chữa Lành: sống vì người khác, giàu lòng trắc ẩn và hỗ trợ.",
-  "Bạn là Người Yêu: sống bằng cảm xúc, tìm kiếm sự hòa hợp và kết nối.",
-  "Bạn là Kẻ Khôi Hài: vui vẻ, truyền cảm hứng qua tiếng cười, sống trong hiện tại.",
-  "Bạn là Nhà Lãnh Đạo: thích kiểm soát, tổ chức, tạo ra trật tự và định hướng.",
-  "Bạn là Người Anh Hùng: quyết tâm vượt qua thử thách, chứng minh năng lực.",
-  "Bạn là Người Sáng Tạo: yêu cái đẹp, thích sáng tạo, để lại dấu ấn cá nhân.",
-  "Bạn là Nhà Hiền Triết: tìm kiếm tri thức, phân tích logic, hiểu sâu vấn đề.",
-  "Bạn là Nhà Phù Thủy: kết nối điều kỳ diệu, biến đổi thực tại bằng trí tuệ.",
-  "Bạn là Người Thường: sống giản dị, muốn thuộc về, kết nối cộng đồng."
-];
 
-// Tính kết quả
-document.getElementById("submitBtn").addEventListener("click", function () {
-  const formData = new FormData(document.getElementById("quizForm"));
-  let scores = Array(archetypes.length).fill(0);
+    // ==================== TÍNH KẾT QUẢ ====================
+    function submitQuiz() {
+        const form = document.getElementById('quizForm');
+        const inputs = form.querySelectorAll('input[type=radio]:checked');
+        const totalQuestions = questions.length;
 
-  for (let i = 0; i < questions.length; i++) {
-    const val = formData.get(`q${i}`);
-    if (val) {
-      const score = parseInt(val);
-      scores[score - 1] += 1; // vì score là từ 1–12
+        if (inputs.length < totalQuestions) {
+            alert('⚠️ Bạn cần trả lời tất cả ' + totalQuestions + ' câu hỏi!');
+            return;
+        }
+
+        // Tạo mảng điểm cho 12 nguyên mẫu (index 0-11)
+        const scores = Array(12).fill(0);
+
+        inputs.forEach(input => {
+            const value = parseInt(input.value);
+            if (value >= 1 && value <= 12) {
+                scores[value - 1] += 1;
+            }
+        });
+
+        // Tìm nguyên mẫu có điểm cao nhất
+        const maxScore = Math.max(...scores);
+        const topIndex = scores.indexOf(maxScore);
+
+        // Tìm các nguyên mẫu có điểm cao nhất (nếu có nhiều)
+        const topIndices = scores.map((s, i) => s === maxScore ? i : -1).filter(i => i !== -1);
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.className = 'result-box show';
+
+        const topArchetype = archetypes[topIndex];
+
+        // Tạo HTML kết quả
+        let html = `
+            <h2>🔮 Nguyên mẫu <span>chi phối</span></h2>
+            <div class="result-type" style="border-color: ${topArchetype.color}; color: ${topArchetype.color};">
+                ${topArchetype.emoji} ${topArchetype.name}
+            </div>
+            <div class="desc">${descriptions[topIndex]}</div>
+        `;
+
+        // Thêm biểu đồ
+        html += `
+            <div class="chart-container">
+                <canvas id="archetypeChart"></canvas>
+            </div>
+        `;
+
+        // Thêm note
+        html += `
+            <div class="note">
+                ⚕️ <strong>Lưu ý:</strong> Mỗi người có thể có nhiều nguyên mẫu khác nhau.
+                Nguyên mẫu chi phối là bản chất sâu thẳm nhất của bạn, nhưng bạn vẫn có thể thể hiện nhiều khía cạnh khác trong cuộc sống.
+            </div>
+            <div style="margin-top:20px; border-top:1px solid var(--light-gray); padding-top:20px;">
+                <p style="font-weight:600; color:var(--navy-dark);">📢 Chia sẻ bài test này:</p>
+                <div class="share-buttons">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn fb"><i class="fab fa-facebook-f"></i> Facebook</a>
+                    <a href="https://zalo.me/share?url=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn zalo"><i class="fas fa-comment"></i> Zalo</a>
+                    <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent('🔮 Nguyên mẫu của tôi: ' + topArchetype.emoji + ' ' + topArchetype.name)}&url=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn twitter"><i class="fab fa-twitter"></i> Twitter</a>
+                    <a href="https://www.tiktok.com/upload?lang=vi" target="_blank" class="share-btn tiktok"><i class="fab fa-tiktok"></i> TikTok</a>
+                </div>
+            </div>
+        `;
+
+        resultDiv.innerHTML = html;
+
+        // ==================== VẼ BIỂU ĐỒ ====================
+        setTimeout(() => {
+            const ctx = document.getElementById('archetypeChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: archetypes.map(a => a.emoji + ' ' + a.name),
+                    datasets: [{
+                        label: 'Điểm số',
+                        data: scores,
+                        backgroundColor: archetypes.map(a => a.color),
+                        borderColor: archetypes.map(a => a.color),
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: Math.max(3, Math.max(...scores) + 1),
+                            ticks: { stepSize: 1 }
+                        },
+                        x: {
+                            ticks: {
+                                font: { size: 10 }
+                            }
+                        }
+                    }
+                }
+            });
+        }, 100);
+
+        // Ẩn form
+        form.style.display = 'none';
+        document.getElementById('submitBtn').style.display = 'none';
+        window.scrollTo({ top: resultDiv.offsetTop - 100, behavior: 'smooth' });
     }
-  }
 
-  // Tìm nguyên mẫu có điểm cao nhất
-  const maxScore = Math.max(...scores);
-  const topIndex = scores.indexOf(maxScore);
-  const resultText = `🔮 Nguyên mẫu chi phối bạn là: <strong>${archetypes[topIndex]}</strong>`;
-  const descriptionText = descriptions[topIndex];
-
-  // Hiển thị kết quả
-  document.getElementById("result").innerHTML = resultText;
-  document.getElementById("result").style.display = "block";
-  document.getElementById("description").innerHTML = descriptionText;
-  document.getElementById("description").style.display = "block";
-
-  // Vẽ biểu đồ (nếu muốn)
-  const ctx = document.getElementById("chart").getContext("2d");
-  new Chart(ctx, {
-    type: "bar",
-    data: {
-      labels: archetypes,
-      datasets: [{
-        label: "Điểm từng nguyên mẫu",
-        data: scores,
-        backgroundColor: "#cc9900"
-      }]
-    },
-    options: {
-      responsive: true,
-      scales: {
-        y: { beginAtZero: true }
-      }
-    }
-  });
-}); 
+    // ==================== KHỞI CHẠY ====================
+    document.addEventListener('DOMContentLoaded', function() {
+        renderQuestions();
+        document.getElementById('submitBtn').addEventListener('click', submitQuiz);
+    });
 </script>
 </body>
 </html>
