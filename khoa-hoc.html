@@ -242,115 +242,119 @@
       margin-bottom: 12px;
     }
     .featured-banner-khoahoc .right { flex: 1; text-align: center; font-size: 48px; }
-/* ===== CTA ĐĂNG KÝ KHÓA HỌC (THÊM MỚI) ===== */
-        .cta-register {
-            background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy-mid) 100%);
-            border-radius: 20px;
-            padding: 40px 48px;
-            border: 1px solid var(--gold);
-            margin: 40px 0;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .cta-register::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-        .cta-register:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 35px rgba(10,22,40,0.15);
-        }
-        .cta-register-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 30px;
-            position: relative;
-            z-index: 1;
-        }
-        .cta-register .cta-left {
-            flex: 2;
-            color: #FFFFFF;
-        }
-        .cta-register .cta-left .badge {
-            display: inline-block;
-            background: var(--gold);
-            color: var(--navy-dark);
-            font-size: 0.7rem;
-            font-weight: 700;
-            padding: 4px 14px;
-            border-radius: 20px;
-            letter-spacing: 0.5px;
-            margin-bottom: 12px;
-        }
-        .cta-register .cta-left h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.6rem;
-            margin-bottom: 10px;
-        }
-        .cta-register .cta-left h2 span { color: var(--gold); }
-        .cta-register .cta-left p {
-            color: rgba(255,255,255,0.8);
-            font-size: 0.95rem;
-            max-width: 550px;
-            margin-bottom: 20px;
-            line-height: 1.7;
-        }
-        .btn-cta-register {
-            display: inline-block;
-            background: var(--gold);
-            color: var(--navy-dark);
-            padding: 12px 32px;
-            border-radius: 40px;
-            font-weight: 700;
-            font-size: 0.95rem;
-            text-decoration: none;
-            transition: all 0.2s;
-            border: none;
-            cursor: pointer;
-        }
-        .btn-cta-register:hover {
-            background: var(--gold-light);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(201,168,76,0.3);
-        }
-        .cta-register .cta-right {
-            flex: 1;
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-            min-width: 200px;
-        }
-        .cta-register .cta-right .stat-item {
-            text-align: center;
-            background: rgba(255,255,255,0.06);
-            padding: 16px 24px;
-            border-radius: 16px;
-            border: 1px solid rgba(255,255,255,0.08);
-            min-width: 100px;
-            flex: 1;
-        }
-        .cta-register .cta-right .stat-item .number {
-            display: block;
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--gold);
-            line-height: 1.2;
-        }
-        .cta-register .cta-right .stat-item .label {
-            font-size: 0.75rem;
-            color: rgba(255,255,255,0.7);
-        }
+/* ===== CTA ĐĂNG KÝ KHÓA HỌC ===== */
+.cta-register {
+    background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy-mid) 100%);
+    border-radius: 20px;
+    padding: 40px 48px;
+    border: 2px solid var(--gold); /* Tăng viền cho nổi bật */
+    margin: 40px 0;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+.cta-register::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+}
+.cta-register:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 35px rgba(10,22,40,0.15);
+}
+.cta-register-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+    position: relative;
+    z-index: 1;
+}
+.cta-register .cta-left {
+    flex: 2;
+    color: #FFFFFF;
+}
+.cta-register .cta-left .badge {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--navy-dark); /* Chữ đậm trên nền vàng */
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+}
+.cta-register .cta-left h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+    color: #FFFFFF; /* Chữ trắng trên nền tối */
+}
+.cta-register .cta-left h2 span { 
+    color: var(--gold); /* Từ khóa màu vàng nổi bật */
+}
+.cta-register .cta-left p {
+    color: rgba(255,255,255,0.85); /* Tăng độ sáng cho chữ */
+    font-size: 0.95rem;
+    max-width: 550px;
+    margin-bottom: 20px;
+    line-height: 1.7;
+}
+.btn-cta-register {
+    display: inline-block;
+    background: var(--gold); /* Nền vàng nổi bật */
+    color: var(--navy-dark); /* CHỮ ĐẬM MÀU NAVY để rõ trên nền vàng */
+    padding: 14px 36px;
+    border-radius: 40px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(201,168,76,0.3);
+}
+.btn-cta-register:hover {
+    background: var(--gold-light);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(201,168,76,0.4);
+}
+.cta-register .cta-right {
+    flex: 1;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    min-width: 200px;
+}
+.cta-register .cta-right .stat-item {
+    text-align: center;
+    background: rgba(255,255,255,0.08); /* Tăng độ trong suốt để nhìn rõ hơn */
+    padding: 16px 24px;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.15);
+    min-width: 100px;
+    flex: 1;
+}
+.cta-register .cta-right .stat-item .number {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold); /* Số vàng nổi bật */
+    line-height: 1.2;
+}
+.cta-register .cta-right .stat-item .label {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.8); /* Chữ sáng hơn */
+}
     /* Responsive */
     @media (max-width: 992px) {
       .grid-4 { grid-template-columns: repeat(2, 1fr); }
