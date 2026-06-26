@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>✨ Đồng hành cùng con tuổi dậy thì cùng mẹ Katie xinh đẹp</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #F5F0E8;
+            font-family: 'Inter', sans-serif;
+            color: #0A1628;
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #FFFFFF;
+            border-radius: 2rem;
+            box-shadow: 0 20px 60px rgba(10, 22, 40, 0.08);
+            padding: 2.5rem 2rem;
+        }
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            font-weight: 700;
+            color: #0A1628;
+            margin-bottom: 0.2rem;
+        }
+        h1 span {
+            background: linear-gradient(135deg, #C9A84C, #b8953a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .subhead {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #1E3A5F;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #e9e0d4;
+            padding-bottom: 1rem;
+        }
+        .gold-badge {
+            display: inline-block;
+            background: #C9A84C;
+            color: #0A1628;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-top: 2.5rem;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: #0A1628;
+        }
+        .section-title .emoji {
+            font-size: 1.8rem;
+        }
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1.2rem 0;
+        }
+        .card {
+            background: #F5F0E8;
+            border-radius: 1.2rem;
+            padding: 1.5rem 1.8rem;
+            border-left: 5px solid #C9A84C;
+            transition: 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(10, 22, 40, 0.06);
+        }
+        .card h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1E3A5F;
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .card p, .card li {
+            font-size: 0.95rem;
+            color: #1E2A3A;
+        }
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 0.4rem;
+        }
+        .card ul li {
+            padding: 0.3rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            border-bottom: 1px solid rgba(0,0,0,0.04);
+        }
+        .card ul li:last-child {
+            border-bottom: none;
+        }
+        .card ul li::before {
+            content: "•";
+            color: #C9A84C;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .checklist-group {
+            background: #FFFFFF;
+            border-radius: 1.2rem;
+            padding: 1.5rem 2rem;
+            margin: 1.2rem 0;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+            border: 1px solid #e9e0d4;
+        }
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid #f0ebe3;
+        }
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+        .checklist-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #C9A84C;
+            margin-top: 0.2rem;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+        .checklist-item .label {
+            font-size: 0.95rem;
+        }
+        .checklist-item .label strong {
+            color: #0A1628;
+        }
+        .highlight-gold {
+            background: #FDF8EE;
+            padding: 0.1rem 0.4rem;
+            border-radius: 6px;
+            font-weight: 500;
+            color: #7a5f2b;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 1.5rem 0;
+        }
+        .col-box {
+            background: #F5F0E8;
+            border-radius: 1.2rem;
+            padding: 1.8rem;
+        }
+        .col-box h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            color: #0A1628;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .col-box .badge-pink {
+            display: inline-block;
+            background: #e84393;
+            color: #fff;
+            font-size: 0.6rem;
+            padding: 0.1rem 0.8rem;
+            border-radius: 30px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            margin-left: 0.4rem;
+        }
+        .col-box .badge-blue {
+            display: inline-block;
+            background: #0984e3;
+            color: #fff;
+            font-size: 0.6rem;
+            padding: 0.1rem 0.8rem;
+            border-radius: 30px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            margin-left: 0.4rem;
+        }
+        .col-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .col-box ul li {
+            padding: 0.4rem 0;
+            display: flex;
+            gap: 0.6rem;
+            align-items: flex-start;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .col-box ul li:last-child {
+            border-bottom: none;
+        }
+        .col-box ul li::before {
+            content: "✨";
+            font-size: 1rem;
+        }
+
+        .quote-box {
+            background: #0A1628;
+            color: #F5F0E8;
+            padding: 1.8rem 2rem;
+            border-radius: 1.5rem;
+            margin: 2rem 0;
+            text-align: center;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-style: italic;
+        }
+        .quote-box small {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-style: normal;
+            opacity: 0.8;
+            margin-top: 0.3rem;
+        }
+
+        .footer-note {
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid #e9e0d4;
+            text-align: center;
+            color: #1E3A5F;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 1.5rem 1rem; }
+            h1 { font-size: 2rem; }
+            .card-grid { grid-template-columns: 1fr; }
+            .two-col { grid-template-columns: 1fr; }
+            .section-title { font-size: 1.5rem; }
+            .col-box { padding: 1.2rem; }
+        }
+        @media print {
+            body { background: #fff; padding: 0.5in; }
+            .container { box-shadow: none; padding: 0; }
+            .card:hover { transform: none; box-shadow: none; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- Header -->
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem; margin-bottom:0.5rem;">
+        <div>
+            <span class="gold-badge">📘 Đồng hành cùng con</span>
+            <h1>Hành trang <span>cho tuổi dậy thì</span></h1>
+            <div class="subhead">Dành riêng cho con gái Megan &amp; con trai sinh Nolan· Sống tại Úc</div>
+        </div>
+        <div style="background:#F5F0E8; padding:0.3rem 1.2rem; border-radius:40px; font-size:0.8rem; color:#1E3A5F;">
+            🌏 Úc · 2026
+        </div>
+    </div>
+
+    <!-- Phần A: Checklist chung -->
+    <div class="section-title"><span class="emoji">🌟</span> A. Checklist chung cho cả hai con</div>
+    <div class="checklist-group">
+        <div class="checklist-item">
+            <input type="checkbox" />
+            <span class="label"><strong>Sự đồng thuận (Consent) trong từng hành động nhỏ</strong> – Dạy con xin phép khi mượn đồ, ôm, vào phòng riêng. Tập thói quen hỏi "Con có thể...?" và tôn trọng câu trả lời.</span>
+        </div>
+        <div class="checklist-item">
+            <input type="checkbox" />
+            <span class="label"><strong>Xử lý khi bị bắt nạt hoặc thấy người khác bị bắt nạt</strong> – Ở Úc, "bystander intervention" rất quan trọng. Dạy con: nếu chứng kiến, hãy cùng bạn đến tìm giáo viên hoặc nói to "Dừng lại!"</span>
+        </div>
+        <div class="checklist-item">
+            <input type="checkbox" />
+            <span class="label"><strong>An toàn mạng và "dấu chân số"</strong> – Cùng con xem lại cài đặt quyền riêng tư trên Instagram, Snapchat, TikTok. Hỏi: "Nếu ai đó đăng ảnh con không thích, con sẽ làm gì?"</span>
+        </div>
+        <div class="checklist-item">
+            <input type="checkbox" />
+            <span class="label"><strong>Sức khỏe tâm thần – nhận biết cảm xúc</strong> – Giới thiệu các chương trình như "Be You", "Headspace". Dạy con gọi tên cảm xúc (không chỉ "buồn" mà là "thất vọng", "cô đơn", "lo lắng").</span>
+        </div>
+        <div class="checklist-item">
+            <input type="checkbox" />
+            <span class="label"><strong>Quản lý thời gian màn hình và giấc ngủ</strong> – Thống nhất "giờ vàng" tắt thiết bị 60 phút trước khi ngủ, để điện thoại ở phòng khách qua đêm.</span>
+        </div>
+        <div class="checklist-item">
+            <input type="checkbox" />
+            <span class="label"><strong>Tôn trọng sự khác biệt – văn hóa đa dạng</strong> – "Mỗi gia đình có cách sống khác nhau. Điều quan trọng là con tôn trọng bạn bè dù họ có nền tảng, tôn giáo hay xu hướng tính dục nào."</span>
+        </div>
+    </div>
+
+    <!-- Phần B + C: riêng cho từng con -->
+    <div class="two-col">
+        <!-- Cột con gái -->
+        <div class="col-box">
+            <h3>👧 Dành cho bé gái <span class="badge-pink">14 tuổi</span></h3>
+            <p style="font-weight:600; margin-bottom:0.4rem; color:#1E3A5F;">💬 Cơ thể và sức khỏe</p>
+            <ul>
+                <li><strong>Chu kỳ kinh nguyệt</strong> – Theo dõi bằng ứng dụng (Clue, Flo) để hiểu cơ thể, ghi nhận triệu chứng của việc kinh nguyệt có thể có.</li>
+                <li><strong>Vệ sinh vùng kín</strong> – Dùng sản phẩm không mùi, thay băng/tampon đúng cách. Tìm hiểu về cốc nguyệt san nếu con muốn.</li>
+                <li><strong>Thay đổi vóc dáng</strong> – "Cơ thể con đang tự thiết kế để trở thành một người phụ nữ khỏe mạnh. Không có khuôn mẫu nào là 'đẹp nhất'."</li>
+            </ul>
+            <p style="font-weight:600; margin:0.8rem 0 0.4rem; color:#1E3A5F;">💬 Cảm xúc và bạn bè</p>
+            <ul>
+                <li><strong>Áp lực bạn bè</strong> – Hỏi: "Con cảm thấy thế nào khi bạn nói điều đó?" Dạy con đặt ranh giới với bạn không tôn trọng mình.</li>
+                <li><strong>Rung động đầu đời</strong> – "Yêu ai đó không có nghĩa là phải làm gì nếu chưa sẵn sàng."</li>
+                <li><strong>Hình ảnh cơ thể và mạng xã hội</strong> – Nói về filter (bộ lọc): rất nhiều bạn đăng ảnh đã chỉnh sửa. So sánh bản thân với chính mình ngày hôm qua.</li>
+            </ul>
+            <p style="font-weight:600; margin:0.8rem 0 0.4rem; color:#1E3A5F;">💬 Định hướng và trách nhiệm</p>
+            <ul>
+                <li><strong>Quan hệ tình dục an toàn</strong> – Ở Úc có thể mua bao cao su miễn phí tại trung tâm y tế. "Nếu con quyết định, con phải biết cách bảo vệ mình."</li>
+                <li><strong>Tránh thai và bệnh lây qua đường tình dục</strong> – Bao cao su là cách duy nhất ngừa cả hai. Nhấn mạnh: thuốc tránh thai không ngừa bệnh.</li>
+                <li><strong>Kỹ năng từ chối</strong> – Thực hành: "Mình cần về nhà ngay", "Mình chưa sẵn sàng". Có mã số bí mật để nhắn tin cho ba mẹ khi cần giúp.</li>
+            </ul>
+        </div>
+
+        <!-- Cột con trai -->
+        <div class="col-box">
+            <h3>👦 Dành cho bé trai <span class="badge-blue">11 tuổi</span></h3>
+            <p style="font-weight:600; margin-bottom:0.4rem; color:#1E3A5F;">💬 Cơ thể và sức khỏe</p>
+            <ul>
+                <li><strong>Những thay đổi sắp tới</strong> – "Giọng trầm hơn, vai rộng hơn. Có thể sẽ có những ngày con thấy lạ lẫm."</li>
+                <li><strong>Xuất tinh không tự chủ (giấc mơ ướt)</strong> – Giải thích đơn giản, nhẹ nhàng: đó là dấu hiệu cơ thể đang trưởng thành.</li>
+                <li><strong>Vệ sinh vùng kín và bao quy đầu</strong> – Hướng dẫn rửa bên ngoài và lau khô để tránh viêm nhiễm.</li>
+            </ul>
+            <p style="font-weight:600; margin:0.8rem 0 0.4rem; color:#1E3A5F;">💬 Cảm xúc và bạn bè</p>
+            <ul>
+                <li><strong>Bạn bè và sự cạnh tranh</strong> – Hỏi: "Hôm nay có gì vui? Có gì khó khăn?" Không ép con nói nếu chưa sẵn sàng.</li>
+                <li><strong>Rung động và tò mò</strong> – "Có thích ai đó là chuyện đẹp. Con muốn biết gì về tình cảm đó?"</li>
+                <li><strong>Hình mẫu đàn ông và sự nhạy cảm</strong> – Khuyến khích con thể hiện cảm xúc, biết nói "xin lỗi" và "cảm ơn", quan tâm đến người khác.</li>
+            </ul>
+            <p style="font-weight:600; margin:0.8rem 0 0.4rem; color:#1E3A5F;">💬 Kiến thức giới tính và trách nhiệm</p>
+            <ul>
+                <li><strong>Sự khác biệt giới tính và tôn trọng</strong> – Giải thích khoa học, nhấn mạnh: "Ai cũng có quyền không bị chạm vào cơ thể khi không muốn."</li>
+                <li><strong>Tác hại của nội dung khiêu dâm</strong> – "Nếu con thấy, hãy tắt ngay và nói với ba mẹ. Chúng không phản ánh tình yêu thật."</li>
+                <li><strong>Xử lý khi bạn bè "khoe" nội dung xấu</strong> – Dạy con nói: "Tớ không muốn xem", và rời khỏi đó. Ở Úc, chia sẻ ảnh nhạy cảm của người dưới 18 tuổi là bất hợp pháp.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Phần C: Những cuộc trò chuyện đặc thù Úc -->
+    <div class="section-title"><span class="emoji">🇦🇺</span> C. Những cuộc trò chuyện "không thể bỏ qua" ở Úc</div>
+    <div class="card-grid">
+        <div class="card">
+            <h4>🔒 Quyền riêng tư và pháp luật</h4>
+            <p>Ở Úc, trẻ em có quyền riêng tư rất lớn. Cùng con đọc và hiểu điều khoản sử dụng mạng xã hội (độ tuổi tối thiểu thường là 13). "Luật pháp bảo vệ con, nhưng con cũng có trách nhiệm không xâm phạm quyền riêng tư của người khác."</p>
+        </div>
+        <div class="card">
+            <h4>🧠 Sức khỏe tinh thần &amp; dịch vụ hỗ trợ</h4>
+            <p><strong>Kids Helpline:</strong> 1800 55 1800 – con có thể gọi 24/7 mà không cần xin phép. Viết số này vào danh bạ của con. Trường học có chuyên gia tư vấn (school counsellor) – khuyến khích con sử dụng.</p>
+        </div>
+        <div class="card">
+            <h4>🌏 Văn hóa và gia đình đa văn hóa</h4>
+            <p>Dạy con tự hào về cội nguồn Việt Nam, đồng thời tôn trọng các nền văn hóa khác. "Ở nhà mình nói tiếng Việt, ở trường con nói tiếng Anh. Cả hai đều đẹp."</p>
+        </div>
+        <div class="card">
+            <h4>☕ Duy trì kết nối gia đình</h4>
+            <p>Tạo <strong>"buổi cà phê tháng"</strong> – một buổi đi uống nước riêng với mỗi con (không có em, không có điện thoại) để con có không gian an toàn để kể những điều con muốn.</p>
+        </div>
+    </div>
+
+    <!-- Lời khuyên đặc biệt -->
+    <div class="quote-box">
+        “Dậy thì không chỉ là thay đổi sinh học, mà là cuộc cách mạng tâm hồn.”
+        <small>— Con gái chị sẽ cần một người mẹ biết lắng nghe không phán xét. Con trai sẽ cần một người mẹ biết chấp nhận sự trầm lặng và những câu hỏi ngớ ngẩn. Và cả hai đều cần một người mẹ tin tưởng vào bản năng của mình.</small>
+    </div>
+
+    <!-- Chủ đề xương sống cho bữa cơm gia đình -->
+    <div class="section-title"><span class="emoji">🍽️</span> Chủ đề "xương sống" cho bữa cơm gia đình</div>
+    <div class="checklist-group" style="background:#FDF8EE;">
+        <div class="checklist-item">
+            <span style="font-size:1.2rem;">🗣️</span>
+            <span class="label"><strong>Nếu con thấy một người bạn bị trêu chọc, con sẽ làm gì?</strong> – Thực hành sự can thiệp, đưa quan điểm cá nhân nhưng không đưa ra giải pháp nếu con không cần nha.</span>
+        </div>
+        <div class="checklist-item">
+            <span style="font-size:1.2rem;">📱</span>
+            <span class="label"><strong>Nếu con thấy một bài đăng trên mạng làm con khó chịu, con sẽ làm gì?</strong> – Kỹ năng xử lý nội dung độc hại. Cái này chủ yếu mày sẽ dựa vào bối cảnh văn hóa sống để chia sẻ, nếu cần thì nhắn tao nói chuyện </span>
+        </div>
+        <div class="checklist-item">
+            <span style="font-size:1.2rem;">🆘</span>
+            <span class="label"><strong>Nếu con đang ở trong một tình huống mà con cảm thấy không an toàn, con sẽ gọi cho ai?</strong> – Mày làm gì thì làm, luôn khẳng định với tụi nhỏ, ba mẹ luôn là lựa chọn số một.</span>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer-note">
+        ✨ Mỗi cuộc trò chuyện đều có thể bắt đầu lại. Dù lỡ mất một cơ hội, hãy nói: “Mẹ đã suy nghĩ về điều con hỏi hôm trước, mẹ có vài điều muốn chia sẻ.” – con sẽ thấy sự thành thật và tình yêu thương của chị. <br/>
+        <span style="font-family:'Playfair Display', serif; font-size:1.1rem; color:#C9A84C;">🌸 Mày cứ cứ thong thả, một bước một bước. Tao tin mày sẽ là một bà mẹ tuyệt vời.</span>
+    </div>
+
+</div>
+</body>
+</html>
