@@ -470,29 +470,43 @@ async function nextDictSentence(){
   if(dictLoading)return;
   dictLoading=true;
   const playBtn=document.getElementById('play-btn');
-  playBtn.disabled=true; playBtn.textContent='⏳ Đang tạo câu mới…';
+  playBtn.disabled=true; 
+  playBtn.textContent='⏳ Đang tạo câu mới…';
 
-  // fallback pool first (instant), then try AI for variety
-  const pool=DICT_SENTENCES[dictDiff];
-  dictCurrent=pool[Math.floor(Math.random()*pool.length)];
+  const pool = DICT_SENTENCES[dictDiff];
+  let newSentence = pool[Math.floor(Math.random() * pool.length)];
 
   try{
     const diffGuide={easy:'very simple, short (6-9 words), everyday situations (ordering food, greetings, directions)',medium:'moderate complexity (10-16 words), common daily-life topics (work, travel, plans, opinions)',hard:'complex sentence structure (16-24 words), advanced vocabulary, professional or abstract topics'};
-    const avoidList=dictUsed.slice(-15).join(' | ');
+    const avoidList=dictUsed.slice(-20).join(' | ');
     const raw=await callGroq(
       `You generate ONE single English practice sentence for dictation (listening + typing) practice, for a Vietnamese learner. Difficulty: ${diffGuide[dictDiff]}. Reply with ONLY the sentence, no quotes, no extra text, no explanation. Make it different from these recent ones: ${avoidList||'(none yet)'}`,
       [{role:'user',content:'Generate one new practice sentence.'}],100
     );
     const clean=raw.trim().replace(/^["']|["']$/g,'');
     if(clean && clean.length>5 && clean.length<200){
-      dictCurrent=clean;
+      newSentence=clean;
     }
   }catch(e){
-    // silently fall back to pool sentence already set above
+    console.log('AI error, using fallback sentence');
   }
 
-  dictUsed.push(dictCurrent);
-  playBtn.disabled=false; playBtn.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg> Nghe câu';
+  // Kiểm tra nếu câu đã dùng gần đây thì thay bằng câu khác
+  if(dictUsed.includes(newSentence)){
+    const available = pool.filter(s => !dictUsed.includes(s));
+    if(available.length > 0){
+      newSentence = available[Math.floor(Math.random() * available.length)];
+    }
+  }
+  
+  dictUsed.push(newSentence);
+  if(dictUsed.length > 30){
+    dictUsed = dictUsed.slice(-30);
+  }
+
+  dictCurrent = newSentence;
+  playBtn.disabled=false; 
+  playBtn.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg> Nghe câu';
   dictLoading=false;
 }
 
@@ -584,12 +598,13 @@ async function nextShadow(){
   document.getElementById('shadow-phonetic').textContent='';
   document.getElementById('shadow-sent').textContent='⏳ Đang tạo câu mới…';
 
-  const fallback=SHADOW_SENTENCES[Math.floor(Math.random()*SHADOW_SENTENCES.length)];
-  shadowCurrent=fallback.s; let tipText=fallback.tip;
+  let fallback = SHADOW_SENTENCES[Math.floor(Math.random() * SHADOW_SENTENCES.length)];
+  let newSentence = fallback.s;
+  let tipText = fallback.tip;
 
   try{
     const levelGuide={beginner:'very simple, short conversational phrase (5-8 words)',elementary:'everyday conversational sentence (8-12 words)',intermediate:'natural conversational sentence with linking sounds (10-15 words)',advanced:'natural, idiomatic conversational sentence (12-18 words)'};
-    const avoidList=shadowUsed.slice(-15).join(' | ');
+    const avoidList=shadowUsed.slice(-20).join(' | ');
     const raw=await callGroq(
       `You generate ONE short, natural spoken English sentence for shadowing/pronunciation practice, for a Vietnamese learner at ${userLevel} level (${levelGuide[userLevel]}). Pick everyday conversational language with natural linking sounds (like "I'd like to", "want to", "going to"). Then give ONE short pronunciation tip in Vietnamese about linking sounds or stress in that sentence. Reply in EXACTLY this format with no extra text:
 SENTENCE: [the sentence]
@@ -600,14 +615,29 @@ Avoid repeating these recent sentences: ${avoidList||'(none yet)'}`,
     const sMatch=raw.match(/SENTENCE:\s*(.+)/);
     const tMatch=raw.match(/TIP:\s*(.+)/);
     if(sMatch&&sMatch[1].trim().length>3){
-      shadowCurrent=sMatch[1].trim().replace(/^["']|["']$/g,'');
+      newSentence=sMatch[1].trim().replace(/^["']|["']$/g,'');
       tipText=tMatch?tMatch[1].trim():tipText;
     }
   }catch(e){
-    // fallback already set
+    console.log('AI error, using fallback shadow sentence');
   }
 
-  shadowUsed.push(shadowCurrent);
+  // Kiểm tra nếu câu đã dùng gần đây thì thay bằng câu khác
+  if(shadowUsed.includes(newSentence)){
+    const available = SHADOW_SENTENCES.filter(s => !shadowUsed.includes(s.s));
+    if(available.length > 0){
+      const chosen = available[Math.floor(Math.random() * available.length)];
+      newSentence = chosen.s;
+      tipText = chosen.tip;
+    }
+  }
+
+  shadowUsed.push(newSentence);
+  if(shadowUsed.length > 30){
+    shadowUsed = shadowUsed.slice(-30);
+  }
+
+  shadowCurrent = newSentence;
   document.getElementById('shadow-sent').textContent=shadowCurrent;
   const tip=document.querySelector('.tip-box');
   if(tip) tip.querySelector('strong').nextSibling.textContent=' '+tipText;
@@ -723,7 +753,6 @@ async function chatSend(){
       chat=raw.substring(0,s).trim(); corr=raw.substring(s+16,en).trim();
     }
     addBotBubble(chat,corr,isOk);
-    // Auto-save new vocab from corrections
     if(corr){const m=corr.match(/✅ Better: (.+)/);if(m)maybeLearnPhrase(m[1])}
   }catch(e){rmThinking();addBotBubble(`⚠️ Lỗi: ${e.message}. Kiểm tra API key và kết nối mạng.`)}
   document.getElementById('chat-send').disabled=false;
@@ -741,7 +770,6 @@ function setupMics(){
     document.getElementById('chat-mic-btn').title='Dùng Chrome để dùng mic';
     return;
   }
-  // Chat mic
   chatRec=new SR(); chatRec.lang='en-US'; chatRec.interimResults=true; chatRec.continuous=false;
   const cmb=document.getElementById('chat-mic-btn');
   const hint=document.getElementById('chat-mic-hint');
