@@ -166,6 +166,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);min-
 .dot:nth-child(3){animation-delay:.4s}
 @keyframes blink{0%,80%,100%{opacity:.3;transform:translateY(0)}40%{opacity:1;transform:translateY(-4px)}}
 
+/* API status banner */
+.api-warn{background:var(--red-l);color:var(--red);border:1px solid #f0c0c0;border-radius:var(--r-sm);padding:.6rem .9rem;font-size:12.5px;line-height:1.6;margin-bottom:0}
+
 /* Shared */
 .chat-area::-webkit-scrollbar,.dict-body::-webkit-scrollbar,.vocab-body::-webkit-scrollbar,.shadow-body::-webkit-scrollbar{width:4px}
 .chat-area::-webkit-scrollbar-thumb,.dict-body::-webkit-scrollbar-thumb,.vocab-body::-webkit-scrollbar-thumb,.shadow-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
@@ -217,6 +220,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);min-
     <!-- ── PANEL 1: DICTATION ── -->
     <div class="panel active" id="panel-dictation">
       <div class="dict-body" id="dict-body">
+        <div id="dict-api-warn"></div>
         <div class="module-intro">
           <strong>🎧 Luyện nghe – Dictation</strong>
           Nghe câu tiếng Anh, gõ lại những gì bạn nghe được. Bot sẽ highlight từng từ đúng/sai và giải thích.
@@ -263,6 +267,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);min-
     <!-- ── PANEL 3: SHADOWING ── -->
     <div class="panel" id="panel-shadow">
       <div class="shadow-body">
+        <div id="shadow-api-warn"></div>
         <div class="module-intro">
           <strong>🗣️ Shadowing – Luyện phát âm</strong>
           Nghe câu mẫu → bắt chước → ghi âm → bot so sánh bạn nói có khớp không và phân tích từng từ.
@@ -323,7 +328,12 @@ let dictDiff='easy', dictCurrent='', shadowCurrent='';
 
 const LEVEL_LABELS={beginner:'A1–A2',elementary:'B1',intermediate:'B2',advanced:'C1–C2'};
 
-// ── DICTATION DATA ──
+// Model hiện tại còn hoạt động trên Groq (cập nhật 07/2026).
+// Nếu sau này Groq lại đổi/khai tử model, xem danh sách mới nhất tại:
+// https://console.groq.com/docs/models
+const GROQ_MODEL='openai/gpt-oss-120b';
+
+// ── DICTATION DATA (kho dự phòng khi API lỗi) ──
 const DICT_SENTENCES = {
   easy:[
     "I would like a cup of coffee, please.",
@@ -363,7 +373,7 @@ const DICT_SENTENCES = {
   ]
 };
 
-// ── SHADOWING DATA ──
+// ── SHADOWING DATA (kho dự phòng khi API lỗi) ──
 const SHADOW_SENTENCES = [
   {s:"I'd like to order a latte, please.",tip:"Chú ý nối âm: 'I'd like to' đọc nhanh như 'Ayd-like-to'"},
   {s:"Can I get some help over here?",tip:"'Can I' đọc như 'Can-I' nối nhau, không nhả âm 'I'"},
@@ -419,13 +429,13 @@ async function callGroq(system, messages, maxTokens=800){
       'Authorization':`Bearer ${apiKey}`
     },
     body:JSON.stringify({
-      model:'llama-3.1-70b-versatile',
+      model:GROQ_MODEL,
       messages:[
         {role:'system',content:system},
         ...messages
       ],
       max_tokens:maxTokens,
-      temperature:0.7
+      temperature:0.9
     })
   });
   if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e.error?.message||`HTTP ${res.status}`)}
@@ -475,6 +485,7 @@ async function nextDictSentence(){
   // fallback pool first (instant), then try AI for variety
   const pool=DICT_SENTENCES[dictDiff];
   dictCurrent=pool[Math.floor(Math.random()*pool.length)];
+  let usedFallback=true;
 
   try{
     const diffGuide={easy:'very simple, short (6-9 words), everyday situations (ordering food, greetings, directions)',medium:'moderate complexity (10-16 words), common daily-life topics (work, travel, plans, opinions)',hard:'complex sentence structure (16-24 words), advanced vocabulary, professional or abstract topics'};
@@ -487,10 +498,12 @@ async function nextDictSentence(){
     const parsed=JSON.parse(jsonStr);
     if(parsed.sentence && parsed.sentence.length>5 && parsed.sentence.length<200){
       dictCurrent=parsed.sentence;
+      usedFallback=false;
+      document.getElementById('dict-api-warn').innerHTML='';
     }
   }catch(e){
     console.warn('Dictation AI generation failed, using fallback:',e.message);
-    // fallback pool sentence already set above
+    document.getElementById('dict-api-warn').innerHTML=`<div class="api-warn">⚠️ AI tạo câu mới đang lỗi (${esc(e.message)}) — đang dùng câu trong kho dự phòng. Kiểm tra lại API key hoặc thử lại sau.</div>`;
   }
 
   dictUsed.push(dictCurrent);
@@ -601,10 +614,11 @@ async function nextShadow(){
     if(parsed.sentence && parsed.sentence.length>3){
       shadowCurrent=parsed.sentence;
       tipText=parsed.tip||tipText;
+      document.getElementById('shadow-api-warn').innerHTML='';
     }
   }catch(e){
     console.warn('Shadowing AI generation failed, using fallback:',e.message);
-    // fallback already set
+    document.getElementById('shadow-api-warn').innerHTML=`<div class="api-warn">⚠️ AI tạo câu mới đang lỗi (${esc(e.message)}) — đang dùng câu trong kho dự phòng. Kiểm tra lại API key hoặc thử lại sau.</div>`;
   }
 
   shadowUsed.push(shadowCurrent);
