@@ -459,13 +459,41 @@ function setDiff(btn,diff){
   btn.classList.add('active'); dictDiff=diff; nextDictSentence();
 }
 
+let dictUsed=[]; // track recently used sentences to avoid repeats
+let dictLoading=false;
+
 function initDictation(){nextDictSentence()}
 
-function nextDictSentence(){
-  const pool=DICT_SENTENCES[dictDiff];
-  dictCurrent=pool[Math.floor(Math.random()*pool.length)];
+async function nextDictSentence(){
   document.getElementById('dict-input').value='';
   document.getElementById('dict-result').innerHTML='';
+  if(dictLoading)return;
+  dictLoading=true;
+  const playBtn=document.getElementById('play-btn');
+  playBtn.disabled=true; playBtn.textContent='⏳ Đang tạo câu mới…';
+
+  // fallback pool first (instant), then try AI for variety
+  const pool=DICT_SENTENCES[dictDiff];
+  dictCurrent=pool[Math.floor(Math.random()*pool.length)];
+
+  try{
+    const diffGuide={easy:'very simple, short (6-9 words), everyday situations (ordering food, greetings, directions)',medium:'moderate complexity (10-16 words), common daily-life topics (work, travel, plans, opinions)',hard:'complex sentence structure (16-24 words), advanced vocabulary, professional or abstract topics'};
+    const avoidList=dictUsed.slice(-15).join(' | ');
+    const raw=await callGroq(
+      `You generate ONE single English practice sentence for dictation (listening + typing) practice, for a Vietnamese learner. Difficulty: ${diffGuide[dictDiff]}. Reply with ONLY the sentence, no quotes, no extra text, no explanation. Make it different from these recent ones: ${avoidList||'(none yet)'}`,
+      [{role:'user',content:'Generate one new practice sentence.'}],100
+    );
+    const clean=raw.trim().replace(/^["']|["']$/g,'');
+    if(clean && clean.length>5 && clean.length<200){
+      dictCurrent=clean;
+    }
+  }catch(e){
+    // silently fall back to pool sentence already set above
+  }
+
+  dictUsed.push(dictCurrent);
+  playBtn.disabled=false; playBtn.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg> Nghe câu';
+  dictLoading=false;
 }
 
 function playAudio(){
@@ -544,15 +572,46 @@ async function askAI(){
 }
 
 // ══ MODULE 3: SHADOWING ══
+let shadowUsed=[];
+let shadowLoading=false;
+
 function initShadow(){nextShadow()}
-function nextShadow(){
-  const item=SHADOW_SENTENCES[Math.floor(Math.random()*SHADOW_SENTENCES.length)];
-  shadowCurrent=item.s;
-  document.getElementById('shadow-sent').textContent=item.s;
-  document.getElementById('shadow-phonetic').textContent='';
+
+async function nextShadow(){
+  if(shadowLoading)return;
+  shadowLoading=true;
   document.getElementById('shadow-feedback').innerHTML='';
+  document.getElementById('shadow-phonetic').textContent='';
+  document.getElementById('shadow-sent').textContent='⏳ Đang tạo câu mới…';
+
+  const fallback=SHADOW_SENTENCES[Math.floor(Math.random()*SHADOW_SENTENCES.length)];
+  shadowCurrent=fallback.s; let tipText=fallback.tip;
+
+  try{
+    const levelGuide={beginner:'very simple, short conversational phrase (5-8 words)',elementary:'everyday conversational sentence (8-12 words)',intermediate:'natural conversational sentence with linking sounds (10-15 words)',advanced:'natural, idiomatic conversational sentence (12-18 words)'};
+    const avoidList=shadowUsed.slice(-15).join(' | ');
+    const raw=await callGroq(
+      `You generate ONE short, natural spoken English sentence for shadowing/pronunciation practice, for a Vietnamese learner at ${userLevel} level (${levelGuide[userLevel]}). Pick everyday conversational language with natural linking sounds (like "I'd like to", "want to", "going to"). Then give ONE short pronunciation tip in Vietnamese about linking sounds or stress in that sentence. Reply in EXACTLY this format with no extra text:
+SENTENCE: [the sentence]
+TIP: [one short tip in Vietnamese]
+Avoid repeating these recent sentences: ${avoidList||'(none yet)'}`,
+      [{role:'user',content:'Generate one new shadowing sentence.'}],150
+    );
+    const sMatch=raw.match(/SENTENCE:\s*(.+)/);
+    const tMatch=raw.match(/TIP:\s*(.+)/);
+    if(sMatch&&sMatch[1].trim().length>3){
+      shadowCurrent=sMatch[1].trim().replace(/^["']|["']$/g,'');
+      tipText=tMatch?tMatch[1].trim():tipText;
+    }
+  }catch(e){
+    // fallback already set
+  }
+
+  shadowUsed.push(shadowCurrent);
+  document.getElementById('shadow-sent').textContent=shadowCurrent;
   const tip=document.querySelector('.tip-box');
-  if(tip) tip.querySelector('strong').nextSibling.textContent=' '+item.tip;
+  if(tip) tip.querySelector('strong').nextSibling.textContent=' '+tipText;
+  shadowLoading=false;
 }
 
 function toggleShadowMic(){
