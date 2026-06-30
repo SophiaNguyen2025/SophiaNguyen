@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Lab – Sophia Nguyễn</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --teal:#1a7a5e;
+  --teal-d:#125c47;
+  --teal-l:#e3f4ef;
+  --teal-mid:#8dcab5;
+  --amber:#c47d2a;
+  --amber-l:#fdf3e3;
+  --red:#c94040;
+  --red-l:#fdf0f0;
+  --ink:#18181b;
+  --ink2:#52525b;
+  --ink3:#a1a1aa;
+  --bg:#f5f4f0;
+  --white:#fff;
+  --border:#e4e4e7;
+  --r:12px;
+  --r-sm:8px;
+}
+
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;display:flex;flex-direction:column}
+
+/* ── SETUP ── */
+#setup{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1.5rem;background:var(--bg)}
+.setup-wrap{background:var(--white);border:1px solid var(--border);border-radius:20px;padding:2.5rem 2rem;max-width:420px;width:100%}
+.brand{font-family:'DM Serif Display',serif;font-size:24px;color:var(--teal);margin-bottom:2px}
+.brand-sub{font-size:13px;color:var(--ink3);margin-bottom:2rem}
+.field-label{font-size:12.5px;font-weight:600;color:var(--ink2);display:block;margin-bottom:5px;letter-spacing:.02em}
+.field{width:100%;padding:10px 13px;border:1px solid var(--border);border-radius:var(--r-sm);font:14px 'DM Sans',sans-serif;color:var(--ink);background:var(--bg);outline:none;margin-bottom:1rem;transition:border .15s}
+.field:focus{border-color:var(--teal)}
+.go-btn{width:100%;padding:12px;background:var(--teal);color:#fff;border:none;border-radius:var(--r-sm);font:500 15px 'DM Sans',sans-serif;cursor:pointer;transition:background .15s}
+.go-btn:hover{background:var(--teal-d)}
+.setup-note{font-size:12px;color:var(--ink3);margin-top:1rem;line-height:1.7;text-align:center}
+.setup-note a{color:var(--teal)}
+
+/* ── APP SHELL ── */
+#app{display:none;flex-direction:column;height:100vh}
+
+/* Header */
+.hdr{background:var(--white);border-bottom:1px solid var(--border);padding:.75rem 1.25rem;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.hdr-brand{font-family:'DM Serif Display',serif;font-size:17px;color:var(--teal);line-height:1.1}
+.hdr-brand small{display:block;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:400;color:var(--ink3)}
+.hdr-right{margin-left:auto;display:flex;gap:8px;align-items:center}
+.pill{font-size:11px;padding:3px 9px;border-radius:20px;border:1px solid var(--border);color:var(--ink2);background:var(--bg);cursor:pointer;font-family:'DM Sans',sans-serif}
+.pill:hover{border-color:var(--teal);color:var(--teal)}
+
+/* Tab bar */
+.tabs{background:var(--white);border-bottom:1px solid var(--border);display:flex;flex-shrink:0;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:1;min-width:80px;padding:.65rem .5rem;text-align:center;font-size:11.5px;font-weight:500;color:var(--ink3);cursor:pointer;border-bottom:2.5px solid transparent;transition:all .15s;white-space:nowrap}
+.tab .tab-icon{display:block;font-size:18px;margin-bottom:2px}
+.tab.active{color:var(--teal);border-bottom-color:var(--teal)}
+
+/* Panels */
+.panels{flex:1;overflow:hidden;position:relative}
+.panel{display:none;height:100%;flex-direction:column;overflow:hidden}
+.panel.active{display:flex}
+
+/* ── MODULE 1: DICTATION ── */
+.dict-body{flex:1;overflow-y:auto;padding:1.25rem;display:flex;flex-direction:column;gap:1rem}
+.module-intro{background:var(--teal-l);border-radius:var(--r);padding:1rem;font-size:13.5px;color:var(--teal-d);line-height:1.6}
+.module-intro strong{display:block;margin-bottom:4px;font-size:13px}
+.sentence-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem}
+.sentence-card .label{font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);margin-bottom:.5rem}
+.play-btn{display:flex;align-items:center;gap:8px;background:var(--teal);color:#fff;border:none;border-radius:var(--r-sm);padding:9px 16px;font:500 13.5px 'DM Sans',sans-serif;cursor:pointer;margin-bottom:1rem;transition:background .15s}
+.play-btn:hover{background:var(--teal-d)}
+.dict-input{width:100%;padding:10px 13px;border:1px solid var(--border);border-radius:var(--r-sm);font:14px 'DM Sans',sans-serif;color:var(--ink);outline:none;transition:border .15s}
+.dict-input:focus{border-color:var(--teal)}
+.dict-input::placeholder{color:var(--ink3)}
+.check-btn{margin-top:.75rem;padding:9px 20px;background:var(--amber);color:#fff;border:none;border-radius:var(--r-sm);font:500 13.5px 'DM Sans',sans-serif;cursor:pointer}
+.result-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:.75rem}
+.w-ok{color:var(--teal);font-weight:500}
+.w-miss{background:var(--red-l);color:var(--red);padding:1px 5px;border-radius:4px;font-weight:500}
+.w-extra{background:#fff0f0;color:#999;text-decoration:line-through;font-size:13px}
+.dict-score{margin-top:.75rem;font-size:13px;color:var(--ink2);line-height:1.6}
+.next-btn{margin-top:.75rem;padding:9px 20px;background:var(--teal);color:#fff;border:none;border-radius:var(--r-sm);font:500 13.5px 'DM Sans',sans-serif;cursor:pointer}
+.diff-bar{display:flex;gap:6px;margin-bottom:1rem;flex-wrap:wrap}
+.diff-btn{font-size:12px;padding:4px 11px;border-radius:20px;border:1px solid var(--border);background:var(--white);color:var(--ink2);cursor:pointer;font-family:'DM Sans',sans-serif}
+.diff-btn.active{background:var(--teal);border-color:var(--teal);color:#fff}
+
+/* ── MODULE 2: VOCAB NOTEBOOK ── */
+.vocab-body{flex:1;overflow-y:auto;padding:1.25rem;display:flex;flex-direction:column;gap:1rem}
+.vocab-add{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1rem}
+.vocab-add .label{font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);margin-bottom:.75rem}
+.vocab-row{display:flex;gap:8px}
+.vocab-row .field{margin:0;flex:1}
+.add-vocab-btn{padding:10px 16px;background:var(--teal);color:#fff;border:none;border-radius:var(--r-sm);font:500 13.5px 'DM Sans',sans-serif;cursor:pointer;white-space:nowrap}
+.vocab-ask-btn{width:100%;margin-top:.75rem;padding:9px;background:var(--amber-l);color:var(--amber);border:1px solid #f0d99a;border-radius:var(--r-sm);font:500 13px 'DM Sans',sans-serif;cursor:pointer}
+.notebook{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1rem}
+.notebook .label{font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);margin-bottom:.75rem}
+.vocab-item{display:flex;align-items:flex-start;gap:10px;padding:.6rem 0;border-bottom:1px solid var(--border)}
+.vocab-item:last-child{border:none}
+.vocab-phrase{font-weight:500;font-size:14px;color:var(--ink);min-width:120px}
+.vocab-meaning{font-size:13px;color:var(--ink2);flex:1;line-height:1.5}
+.vocab-del{background:none;border:none;color:var(--ink3);cursor:pointer;font-size:16px;padding:0 4px;flex-shrink:0}
+.vocab-del:hover{color:var(--red)}
+.empty-note{font-size:13px;color:var(--ink3);text-align:center;padding:1.5rem 0}
+.ai-explain{background:var(--teal-l);border-radius:var(--r-sm);padding:.75rem 1rem;font-size:13.5px;color:var(--teal-d);line-height:1.7;margin-top:.75rem;white-space:pre-wrap}
+
+/* ── MODULE 3: SHADOWING ── */
+.shadow-body{flex:1;overflow-y:auto;padding:1.25rem;display:flex;flex-direction:column;gap:1rem}
+.shadow-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem}
+.shadow-sentence{font-size:18px;font-weight:500;color:var(--ink);line-height:1.5;margin:1rem 0;font-family:'DM Serif Display',serif}
+.phonetic{font-size:13px;color:var(--ink3);margin-bottom:.75rem;font-style:italic}
+.shadow-actions{display:flex;gap:8px;flex-wrap:wrap}
+.shadow-actions button{padding:9px 16px;border-radius:var(--r-sm);font:500 13.5px 'DM Sans',sans-serif;cursor:pointer;border:1px solid var(--border);background:var(--white);color:var(--ink2);transition:all .15s}
+.shadow-actions .btn-primary{background:var(--teal);border-color:var(--teal);color:#fff}
+.shadow-actions .btn-primary:hover{background:var(--teal-d)}
+.shadow-actions .btn-rec{background:var(--red-l);border-color:var(--red);color:var(--red)}
+.shadow-feedback{background:var(--teal-l);border-radius:var(--r-sm);padding:.75rem 1rem;font-size:13.5px;color:var(--teal-d);line-height:1.7;margin-top:.75rem}
+.shadow-feedback.bad{background:var(--red-l);color:var(--red)}
+.tip-box{background:var(--amber-l);border:1px solid #f0d99a;border-radius:var(--r-sm);padding:.75rem 1rem;font-size:13px;color:#7a5000;line-height:1.6}
+.tip-box strong{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--amber);margin-bottom:4px}
+.shadow-transcript{font-size:13px;color:var(--ink2);margin-top:.5rem;font-style:italic}
+.word-comparison{display:flex;gap:4px;flex-wrap:wrap;margin-top:.75rem}
+.wc-ok{background:var(--teal-l);color:var(--teal);padding:2px 8px;border-radius:4px;font-size:13px;font-weight:500}
+.wc-miss{background:var(--red-l);color:var(--red);padding:2px 8px;border-radius:4px;font-size:13px;font-weight:500}
+
+/* ── MODULE 4: CHAT ── */
+.chat-area{flex:1;overflow-y:auto;padding:1.25rem;display:flex;flex-direction:column;gap:10px}
+.sc-scroll{background:var(--white);border-bottom:1px solid var(--border);padding:.5rem 1rem;display:flex;gap:6px;overflow-x:auto;flex-shrink:0;scrollbar-width:none}
+.sc-scroll::-webkit-scrollbar{display:none}
+.sc-pill{font-size:12px;padding:4px 12px;border-radius:20px;border:1px solid var(--border);background:var(--white);color:var(--ink2);cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif}
+.sc-pill.active{background:var(--teal);border-color:var(--teal);color:#fff}
+
+.msg-wrap{display:flex;flex-direction:column;gap:5px;max-width:84%}
+.msg-wrap.bot{align-self:flex-start}
+.msg-wrap.user{align-self:flex-end}
+.bubble{padding:10px 14px;border-radius:16px;font-size:14px;line-height:1.65}
+.msg-wrap.bot .bubble{background:var(--white);border:1px solid var(--border);color:var(--ink);border-bottom-left-radius:4px}
+.msg-wrap.user .bubble{background:var(--teal);color:#fff;border-bottom-right-radius:4px}
+.corr-card{background:var(--amber-l);border:1px solid #f0d99a;border-radius:var(--r-sm);padding:9px 13px;font-size:13.5px;line-height:1.7;margin-top:3px}
+.corr-card .ctag{font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:4px}
+.ok-card{background:var(--teal-l);border:1px solid var(--teal-mid);border-radius:var(--r-sm);padding:9px 13px;font-size:13.5px;color:var(--teal-d);margin-top:3px}
+.c-err{color:var(--red)}
+.c-ok{color:var(--teal);font-weight:600}
+.c-tip{color:var(--ink2);font-style:italic}
+
+.chat-input-zone{background:var(--white);border-top:1px solid var(--border);padding:.9rem 1.25rem;flex-shrink:0}
+.chat-input-row{display:flex;gap:8px;align-items:flex-end}
+.chat-textarea{flex:1;min-height:44px;max-height:100px;resize:none;padding:10px 13px;border:1px solid var(--border);border-radius:12px;font:14px 'DM Sans',sans-serif;color:var(--ink);background:var(--bg);outline:none;transition:border .15s;overflow-y:auto}
+.chat-textarea:focus{border-color:var(--teal)}
+.chat-textarea::placeholder{color:var(--ink3)}
+.icon-btn{width:44px;height:44px;border-radius:50%;border:1px solid var(--border);background:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;color:var(--ink2)}
+.icon-btn:hover{border-color:var(--teal);color:var(--teal)}
+.icon-btn.rec{background:var(--red-l);border-color:var(--red);color:var(--red)}
+.icon-btn.send-ic{background:var(--teal);border-color:var(--teal);color:#fff}
+.icon-btn.send-ic:hover{background:var(--teal-d)}
+.icon-btn:disabled{opacity:.4;cursor:default}
+.icon-btn svg{width:18px;height:18px;fill:currentColor}
+.mic-hint{font-size:11.5px;color:var(--ink3);text-align:center;margin-top:6px;min-height:15px}
+
+/* Thinking dots */
+.thinking{background:var(--white);border:1px solid var(--border);border-radius:16px;border-bottom-left-radius:4px;padding:12px 16px;display:flex;gap:5px;align-items:center}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--ink3);animation:blink 1.2s infinite}
+.dot:nth-child(2){animation-delay:.2s}
+.dot:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:.3;transform:translateY(0)}40%{opacity:1;transform:translateY(-4px)}}
+
+/* Shared */
+.chat-area::-webkit-scrollbar,.dict-body::-webkit-scrollbar,.vocab-body::-webkit-scrollbar,.shadow-body::-webkit-scrollbar{width:4px}
+.chat-area::-webkit-scrollbar-thumb,.dict-body::-webkit-scrollbar-thumb,.vocab-body::-webkit-scrollbar-thumb,.shadow-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+.chat-area::-webkit-scrollbar-track,.dict-body::-webkit-scrollbar-track,.vocab-body::-webkit-scrollbar-track,.shadow-body::-webkit-scrollbar-track{background:transparent}
+</style>
+</head>
+<body>
+
+<!-- SETUP -->
+<div id="setup">
+  <div class="setup-wrap">
+    <div class="brand">Sophia Nguyễn</div>
+    <div class="brand-sub">English Lab · 4 kỹ năng · Hoàn toàn miễn phí</div>
+    <label class="field-label">Anthropic API Key</label>
+    <input id="api-in" class="field" type="password" placeholder="sk-ant-api03-…" autocomplete="off">
+    <label class="field-label">Trình độ</label>
+    <select id="lvl-in" class="field" style="cursor:pointer">
+      <option value="beginner">Beginner (A1–A2)</option>
+      <option value="elementary" selected>Elementary (B1)</option>
+      <option value="intermediate">Intermediate (B2)</option>
+      <option value="advanced">Advanced (C1+)</option>
+    </select>
+    <button class="go-btn" onclick="startApp()">Bắt đầu →</button>
+    <p class="setup-note">Key lưu trên máy, không đi đâu khác.<br>Tạo miễn phí tại <a href="https://console.anthropic.com/settings/keys" target="_blank">console.anthropic.com</a></p>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <!-- Header -->
+  <div class="hdr">
+    <div class="hdr-brand">English Lab <small id="lvl-badge">B1</small></div>
+    <div class="hdr-right">
+      <button class="pill" onclick="location.reload()">Đổi API key</button>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <div class="tab active" data-tab="dictation"><span class="tab-icon">🎧</span>Dictation</div>
+    <div class="tab" data-tab="vocab"><span class="tab-icon">📓</span>Từ vựng</div>
+    <div class="tab" data-tab="shadow"><span class="tab-icon">🗣️</span>Shadowing</div>
+    <div class="tab" data-tab="chat"><span class="tab-icon">💬</span>Hội thoại</div>
+  </div>
+
+  <!-- Panels -->
+  <div class="panels">
+
+    <!-- ── PANEL 1: DICTATION ── -->
+    <div class="panel active" id="panel-dictation">
+      <div class="dict-body" id="dict-body">
+        <div class="module-intro">
+          <strong>🎧 Luyện nghe – Dictation</strong>
+          Nghe câu tiếng Anh, gõ lại những gì bạn nghe được. Bot sẽ highlight từng từ đúng/sai và giải thích.
+        </div>
+        <div class="diff-bar">
+          <button class="diff-btn active" data-diff="easy" onclick="setDiff(this,'easy')">Dễ</button>
+          <button class="diff-btn" data-diff="medium" onclick="setDiff(this,'medium')">Vừa</button>
+          <button class="diff-btn" data-diff="hard" onclick="setDiff(this,'hard')">Khó</button>
+        </div>
+        <div class="sentence-card" id="dict-card">
+          <div class="label">Câu luyện tập</div>
+          <button class="play-btn" id="play-btn" onclick="playAudio()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+            Nghe câu
+          </button>
+          <input class="dict-input" id="dict-input" type="text" placeholder="Gõ những gì bạn vừa nghe…" autocomplete="off" autocorrect="off" spellcheck="false">
+          <br>
+          <button class="check-btn" onclick="checkDict()">Kiểm tra ✓</button>
+          <div id="dict-result"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PANEL 2: VOCAB ── -->
+    <div class="panel" id="panel-vocab">
+      <div class="vocab-body">
+        <div class="vocab-add">
+          <div class="label">Thêm cụm từ mới</div>
+          <div class="vocab-row">
+            <input class="field" id="v-phrase" placeholder="Cụm từ (VD: make up for…)" autocomplete="off">
+            <input class="field" id="v-meaning" placeholder="Nghĩa / ghi chú">
+            <button class="add-vocab-btn" onclick="addVocab()">+ Thêm</button>
+          </div>
+          <button class="vocab-ask-btn" onclick="askAI()">✨ Hỏi AI giải thích cụm từ này</button>
+          <div id="ai-explain-box"></div>
+        </div>
+        <div class="notebook">
+          <div class="label">Sổ tay từ vựng <span id="vocab-count"></span></div>
+          <div id="vocab-list"><div class="empty-note">Chưa có cụm từ nào. Thêm từ mới để lưu vào sổ tay!</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PANEL 3: SHADOWING ── -->
+    <div class="panel" id="panel-shadow">
+      <div class="shadow-body">
+        <div class="module-intro">
+          <strong>🗣️ Shadowing – Luyện phát âm</strong>
+          Nghe câu mẫu → bắt chước → ghi âm → bot so sánh bạn nói có khớp không và phân tích từng từ.
+        </div>
+        <div class="shadow-card">
+          <div class="label">Câu luyện tập</div>
+          <div class="shadow-sentence" id="shadow-sent">Loading…</div>
+          <div class="phonetic" id="shadow-phonetic"></div>
+          <div class="shadow-actions">
+            <button class="btn-primary" onclick="playShadow()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="white" style="vertical-align:-2px;margin-right:4px"><path d="M8 5v14l11-7z"/></svg>Nghe mẫu
+            </button>
+            <button id="shadow-mic-btn" onclick="toggleShadowMic()">🎙 Ghi âm giọng tôi</button>
+            <button onclick="nextShadow()">Câu mới →</button>
+          </div>
+          <div id="shadow-feedback"></div>
+        </div>
+        <div class="tip-box">
+          <strong>💡 Mẹo Shadowing</strong>
+          Nghe 3 lần trước khi nói. Tập trung vào <em>nhịp điệu</em> và <em>nối âm</em>, không cần hoàn hảo từng chữ. Lặp lại 5 lần/câu rồi chuyển sang câu tiếp.
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PANEL 4: CHAT ── -->
+    <div class="panel" id="panel-chat">
+      <div class="sc-scroll" id="sc-bar">
+        <button class="sc-pill active" data-sc="free">💬 Free chat</button>
+        <button class="sc-pill" data-sc="cafe">☕ Café</button>
+        <button class="sc-pill" data-sc="interview">💼 Phỏng vấn</button>
+        <button class="sc-pill" data-sc="hotel">🏨 Hotel</button>
+        <button class="sc-pill" data-sc="doctor">🏥 Bác sĩ</button>
+        <button class="sc-pill" data-sc="airport">✈️ Sân bay</button>
+        <button class="sc-pill" data-sc="shopping">🛍️ Shopping</button>
+      </div>
+      <div class="chat-area" id="chat-area"></div>
+      <div class="chat-input-zone">
+        <div class="chat-input-row">
+          <button class="icon-btn" id="chat-mic-btn" onclick="toggleChatMic()">
+            <svg viewBox="0 0 24 24"><path d="M12 1a4 4 0 0 1 4 4v6a4 4 0 0 1-8 0V5a4 4 0 0 1 4-4zm-6.5 9a.5.5 0 0 1 .5.5A6.5 6.5 0 0 0 18.5 10a.5.5 0 0 1 1 0 7.5 7.5 0 0 1-7 7.472V20h2.5a.5.5 0 0 1 0 1h-6a.5.5 0 0 1 0-1H11v-2.528A7.5 7.5 0 0 1 4 10.5a.5.5 0 0 1 .5-.5z"/></svg>
+          </button>
+          <textarea class="chat-textarea" id="chat-input" placeholder="Gõ hoặc nói câu tiếng Anh…" rows="1"></textarea>
+          <button class="icon-btn send-ic" id="chat-send" onclick="chatSend()" disabled>
+            <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+          </button>
+        </div>
+        <div class="mic-hint" id="chat-mic-hint"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── STATE ──
+let apiKey='', userLevel='elementary', vocabList=[], chatHistory=[], currentSc='free';
+let chatRec=null, shadowRec=null, chatRecording=false, shadowRecording=false;
+let dictDiff='easy', dictCurrent='', shadowCurrent='';
+
+const LEVEL_LABELS={beginner:'A1–A2',elementary:'B1',intermediate:'B2',advanced:'C1–C2'};
+
+// ── DICTATION DATA ──
+const DICT_SENTENCES = {
+  easy:[
+    "I would like a cup of coffee, please.",
+    "Could you help me find the bathroom?",
+    "What time does the store close?",
+    "I'm looking for a good restaurant nearby.",
+    "Can I have the bill, please?",
+    "How much does this cost?",
+    "I need to make a reservation.",
+    "Where is the nearest bus stop?",
+    "Do you speak English?",
+    "I don't understand. Could you repeat that?"
+  ],
+  medium:[
+    "I've been living in Ho Chi Minh City for about three years now.",
+    "Could you recommend a good place to try local Vietnamese food?",
+    "I was wondering if you could help me with something.",
+    "She told me she would be late because of the traffic.",
+    "By the time we arrived, the meeting had already started.",
+    "I'm really interested in improving my English pronunciation.",
+    "Would you mind turning down the music a little bit?",
+    "He didn't realize how important it was until it was too late.",
+    "If I had known about the event, I would have come earlier.",
+    "The presentation went really well, and everyone was impressed."
+  ],
+  hard:[
+    "Despite the challenging circumstances, she managed to complete the project ahead of schedule.",
+    "The company's quarterly earnings significantly exceeded analysts' expectations this year.",
+    "It's not just about what you say, but how you say it that makes all the difference.",
+    "Having been trained in psychology, she approached the problem from a completely different angle.",
+    "The proposed legislation is expected to have far-reaching implications for small businesses.",
+    "Although the technology has improved considerably, there are still a number of outstanding issues.",
+    "He attributed his success to persistence, adaptability, and a willingness to embrace failure.",
+    "The seminar provided participants with practical strategies for navigating workplace conflict.",
+    "Rather than focusing on the problem itself, they chose to explore potential solutions collaboratively.",
+    "The research findings suggest a strong correlation between sleep quality and cognitive performance."
+  ]
+};
+
+// ── SHADOWING DATA ──
+const SHADOW_SENTENCES = [
+  {s:"I'd like to order a latte, please.",tip:"Chú ý nối âm: 'I'd like to' đọc nhanh như 'Ayd-like-to'"},
+  {s:"Can I get some help over here?",tip:"'Can I' đọc như 'Can-I' nối nhau, không nhả âm 'I'"},
+  {s:"I'm really sorry about that.",tip:"'really' nhấn vào 'REA-lly', âm 'r' người Mỹ cuộn lưỡi"},
+  {s:"What time does the meeting start?",tip:"'does the' nối âm thành 'duz-thuh' rất nhanh"},
+  {s:"I've been working on this for a while.",tip:"'I've been' đọc như 'Ayvbin' — âm 've' và 'been' nối liền"},
+  {s:"Could you please speak more slowly?",tip:"'please' nhấn mạnh, 'slowly' kéo dài âm 'o'"},
+  {s:"That sounds like a great idea!",tip:"'sounds like' nối thành 'sounds-like', không ngắt"},
+  {s:"I'm not sure I understand what you mean.",tip:"'I'm not sure' — nhấn vào 'SURE', không phải 'not'"},
+  {s:"Would you like me to help you with that?",tip:"'Would you' đọc như 'Wudjuh' trong giọng tự nhiên"},
+  {s:"Let me know if you need anything else.",tip:"'Let me know' — 'me' và 'know' gần như nối nhau"},
+  {s:"I really appreciate your patience.",tip:"'appreciate' nhấn vào âm thứ 2: a-PRE-ci-ate"},
+  {s:"How long have you been learning English?",tip:"'have you' đọc nhanh như 'havyuh' trong hội thoại thường"}
+];
+
+// ── SCENARIOS ──
+const SCENARIOS = {
+  free:{open:"Hi! I'm your conversation partner. Tell me about yourself — what do you do for work, and why are you learning English? 😊"},
+  cafe:{open:"Good morning! Welcome to The Daily Cup. What can I get started for you today?"},
+  interview:{open:"Good morning, come on in! Thank you for coming. Let's start — could you tell me a bit about your background and experience?"},
+  hotel:{open:"Good afternoon! Welcome to The Grand. Do you have a reservation with us today?"},
+  doctor:{open:"Hello, I'm Dr. Lee. Come in, please have a seat. What seems to be the trouble today?"},
+  airport:{open:"Good morning! Next please. May I see your passport and your flight booking?"},
+  shopping:{open:"Hi there! Welcome. Are you looking for something specific today, or just browsing?"}
+};
+
+function buildChatSystem(sc,level){
+  const guides={beginner:'Use very simple vocabulary (A1-A2 level). Short, clear sentences.',elementary:'Use everyday B1-level English. Natural but not too complex.',intermediate:'Use natural B2-level English with idioms and varied sentence structures.',advanced:'Use sophisticated C1+ English. Be precise and professional.'};
+  const roles={free:'You are a friendly native English speaker having a warm casual conversation.',cafe:'You are a cheerful barista at a modern café.',interview:'You are a professional but friendly HR interviewer.',hotel:'You are a polite hotel front-desk receptionist.',doctor:'You are a warm, caring family doctor.',airport:'You are an efficient airline check-in agent.',shopping:'You are a helpful retail store assistant.'};
+  return `${roles[sc]||roles.free}
+
+You are also an English coach. The user is a Vietnamese adult at ${level} level. ${guides[level]}
+
+After EVERY user message:
+1. Respond naturally in character (2-3 sentences max, then ask a follow-up question).
+2. Check for grammar/vocabulary/word-order errors.
+3. If errors exist, add EXACTLY this block after your reply:
+---CORRECTION---
+❌ You said: [exact user text]
+✅ Better: [corrected version]
+💡 Why: [one short plain-English explanation]
+---END---
+4. If no errors, add: ---CORRECT---
+5. Never use Vietnamese. Reply in English only.`;
+}
+
+// ── API CALL ──
+async function callClaude(system, messages, maxTokens=800){
+  const res=await fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01'},
+    body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:maxTokens,system,messages})
+  });
+  if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e.error?.message||`HTTP ${res.status}`)}
+  const d=await res.json();
+  return d.content.map(b=>b.text||'').join('');
+}
+
+// ── SETUP ──
+function startApp(){
+  const k=document.getElementById('api-in').value.trim();
+  if(!k.startsWith('sk-')){alert('API key không hợp lệ. Key bắt đầu bằng "sk-ant-…"');return}
+  apiKey=k; userLevel=document.getElementById('lvl-in').value;
+  localStorage.setItem('sn_lab_key',k); localStorage.setItem('sn_lab_lvl',userLevel);
+  document.getElementById('lvl-badge').textContent=LEVEL_LABELS[userLevel];
+  document.getElementById('setup').style.display='none';
+  document.getElementById('app').style.display='flex';
+  initDictation(); initShadow(); initChat(); setupMics(); loadVocab();
+}
+
+// ── TABS ──
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+  t.classList.add('active');
+  document.getElementById('panel-'+t.dataset.tab).classList.add('active');
+}));
+
+// ══ MODULE 1: DICTATION ══
+function setDiff(btn,diff){
+  document.querySelectorAll('.diff-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active'); dictDiff=diff; nextDictSentence();
+}
+
+function initDictation(){nextDictSentence()}
+
+function nextDictSentence(){
+  const pool=DICT_SENTENCES[dictDiff];
+  dictCurrent=pool[Math.floor(Math.random()*pool.length)];
+  document.getElementById('dict-input').value='';
+  document.getElementById('dict-result').innerHTML='';
+}
+
+function playAudio(){
+  if(!dictCurrent)return;
+  const u=new SpeechSynthesisUtterance(dictCurrent);
+  u.lang='en-US'; u.rate=dictDiff==='easy'?0.8:dictDiff==='medium'?0.9:1.0;
+  speechSynthesis.cancel(); speechSynthesis.speak(u);
+}
+
+function playShadow(){
+  if(!shadowCurrent)return;
+  const u=new SpeechSynthesisUtterance(shadowCurrent);
+  u.lang='en-US'; u.rate=0.85; speechSynthesis.cancel(); speechSynthesis.speak(u);
+}
+
+function checkDict(){
+  const userText=document.getElementById('dict-input').value.trim();
+  if(!userText){alert('Hãy gõ câu bạn nghe được trước!');return}
+  const target=dictCurrent.toLowerCase().replace(/[^a-z\s']/g,'').split(/\s+/);
+  const user=userText.toLowerCase().replace(/[^a-z\s']/g,'').split(/\s+/);
+  let correct=0; const targetSet=new Set(target);
+  const resultHTML=target.map(w=>{
+    const found=user.includes(w);
+    if(found)correct++;
+    return found?`<span class="w-ok">${w}</span>`:`<span class="w-miss">${w}</span>`;
+  }).join(' ');
+  const pct=Math.round((correct/target.length)*100);
+  const comment=pct===100?'🎉 Hoàn hảo!':pct>=80?'👍 Rất tốt! Chỉ sót một vài từ.':pct>=60?'💪 Khá ổn! Luyện thêm nhé.':'🔄 Cần nghe lại thêm lần nữa.';
+  document.getElementById('dict-result').innerHTML=`
+    <div class="result-row">${resultHTML}</div>
+    <div class="dict-score"><strong>${pct}% chính xác</strong> — ${comment}<br><em>Câu đúng: "${dictCurrent}"</em></div>
+    <button class="next-btn" onclick="nextDictSentence()">Câu tiếp theo →</button>`;
+}
+
+// ══ MODULE 2: VOCAB ══
+function loadVocab(){
+  const saved=localStorage.getItem('sn_vocab');
+  vocabList=saved?JSON.parse(saved):[];
+  renderVocab();
+}
+function saveVocab(){localStorage.setItem('sn_vocab',JSON.stringify(vocabList))}
+function renderVocab(){
+  const el=document.getElementById('vocab-list');
+  const count=document.getElementById('vocab-count');
+  count.textContent=vocabList.length?`(${vocabList.length})`: '';
+  if(!vocabList.length){el.innerHTML='<div class="empty-note">Chưa có cụm từ nào. Thêm từ mới để lưu vào sổ tay!</div>';return}
+  el.innerHTML=vocabList.map((v,i)=>`
+    <div class="vocab-item">
+      <div class="vocab-phrase">${esc(v.phrase)}</div>
+      <div class="vocab-meaning">${esc(v.meaning)}</div>
+      <button class="vocab-del" onclick="delVocab(${i})">×</button>
+    </div>`).join('');
+}
+function addVocab(){
+  const p=document.getElementById('v-phrase').value.trim();
+  const m=document.getElementById('v-meaning').value.trim();
+  if(!p){alert('Nhập cụm từ trước nhé!');return}
+  vocabList.unshift({phrase:p,meaning:m||'(chưa có ghi chú)'});
+  saveVocab(); renderVocab();
+  document.getElementById('v-phrase').value=''; document.getElementById('v-meaning').value='';
+}
+function delVocab(i){vocabList.splice(i,1);saveVocab();renderVocab()}
+async function askAI(){
+  const p=document.getElementById('v-phrase').value.trim();
+  if(!p){alert('Nhập cụm từ vào ô trên rồi hỏi AI nhé!');return}
+  const box=document.getElementById('ai-explain-box');
+  box.innerHTML='<div class="ai-explain">⏳ Đang hỏi AI…</div>';
+  try{
+    const reply=await callClaude(
+      'You are a concise English vocabulary coach for Vietnamese learners. Explain the phrase in a clear, practical way with: meaning, example sentence, and a tip on when to use it. Keep it under 100 words. Reply in Vietnamese.',
+      [{role:'user',content:`Explain this phrase for a Vietnamese learner: "${p}"`}],600
+    );
+    box.innerHTML=`<div class="ai-explain">${esc(reply)}</div>`;
+    if(!document.getElementById('v-meaning').value) document.getElementById('v-meaning').value=reply.substring(0,60)+'…';
+  }catch(e){box.innerHTML=`<div class="ai-explain" style="color:var(--red)">Lỗi: ${e.message}</div>`}
+}
+
+// ══ MODULE 3: SHADOWING ══
+function initShadow(){nextShadow()}
+function nextShadow(){
+  const item=SHADOW_SENTENCES[Math.floor(Math.random()*SHADOW_SENTENCES.length)];
+  shadowCurrent=item.s;
+  document.getElementById('shadow-sent').textContent=item.s;
+  document.getElementById('shadow-phonetic').textContent='';
+  document.getElementById('shadow-feedback').innerHTML='';
+  const tip=document.querySelector('.tip-box');
+  if(tip) tip.querySelector('strong').nextSibling.textContent=' '+item.tip;
+}
+
+function toggleShadowMic(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){document.getElementById('shadow-feedback').innerHTML='<div class="shadow-feedback bad">Mic không được hỗ trợ. Dùng Chrome nhé!</div>';return}
+  if(shadowRecording){shadowRec&&shadowRec.stop();return}
+  shadowRec=new SR(); shadowRec.lang='en-US'; shadowRec.interimResults=false; shadowRec.continuous=false;
+  const btn=document.getElementById('shadow-mic-btn');
+  shadowRec.onstart=()=>{shadowRecording=true;btn.classList.add('btn-rec');btn.textContent='⏹ Đang ghi…'};
+  shadowRec.onend=()=>{shadowRecording=false;btn.classList.remove('btn-rec');btn.textContent='🎙 Ghi âm giọng tôi'};
+  shadowRec.onerror=(e)=>{document.getElementById('shadow-feedback').innerHTML=`<div class="shadow-feedback bad">Lỗi mic: ${e.error}</div>`};
+  shadowRec.onresult=(e)=>{
+    const spoken=e.results[0][0].transcript.trim();
+    document.getElementById('shadow-phonetic').textContent='Bạn nói: "'+spoken+'"';
+    analyzeShadow(spoken);
+  };
+  shadowRec.start();
+}
+
+function analyzeShadow(spoken){
+  const target=shadowCurrent.toLowerCase().replace(/[^a-z\s']/g,'').split(/\s+/);
+  const spokenW=spoken.toLowerCase().replace(/[^a-z\s']/g,'').split(/\s+/);
+  let matches=0;
+  const wc=target.map(w=>{
+    const ok=spokenW.includes(w);
+    if(ok)matches++;
+    return ok?`<span class="wc-ok">${w}</span>`:`<span class="wc-miss">${w}</span>`;
+  });
+  const pct=Math.round((matches/target.length)*100);
+  const comment=pct===100?'🎉 Phát âm chuẩn!':pct>=80?'👍 Rất tốt! Gần chuẩn rồi.':pct>=60?'💪 Khá ổn. Luyện thêm vài lần nữa!':'🔄 Thử nghe lại và đọc chậm hơn nhé.';
+  const fb=document.getElementById('shadow-feedback');
+  fb.className='shadow-feedback'+(pct<60?' bad':'');
+  fb.innerHTML=`<strong>${pct}% khớp</strong> — ${comment}<div class="word-comparison" style="margin-top:.5rem">${wc.join(' ')}</div>`;
+}
+
+// ══ MODULE 4: CHAT ══
+function initChat(){
+  document.getElementById('sc-bar').addEventListener('click',e=>{
+    const p=e.target.closest('.sc-pill');
+    if(!p)return;
+    document.querySelectorAll('.sc-pill').forEach(x=>x.classList.remove('active'));
+    p.classList.add('active'); currentSc=p.dataset.sc; resetChat();
+  });
+  resetChat();
+}
+
+function resetChat(){
+  chatHistory=[];
+  const ca=document.getElementById('chat-area'); ca.innerHTML='';
+  const open=SCENARIOS[currentSc]?.open||SCENARIOS.free.open;
+  chatHistory.push({role:'assistant',content:open});
+  addBotBubble(open);
+}
+
+function addBotBubble(text, corr, isOk){
+  const w=document.createElement('div'); w.className='msg-wrap bot';
+  const b=document.createElement('div'); b.className='bubble';
+  b.innerHTML=text.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+  w.appendChild(b);
+  if(corr){
+    const c=document.createElement('div'); c.className='corr-card';
+    c.innerHTML=`<span class="ctag">Correction</span>${formatCorr(corr)}`;
+    w.appendChild(c);
+  } else if(isOk){
+    const c=document.createElement('div'); c.className='ok-card';
+    c.innerHTML='<span class="c-ok">✅ Perfect sentence!</span> Great job — keep it up!';
+    w.appendChild(c);
+  }
+  document.getElementById('chat-area').appendChild(w);
+  scrollChat();
+}
+
+function formatCorr(t){
+  return t.replace(/❌ You said:/g,'<span class="c-err">❌ You said:</span>')
+    .replace(/✅ Better:/g,'<span class="c-ok">✅ Better:</span>')
+    .replace(/💡 Why:/g,'<span class="c-tip">💡 Why:</span>')
+    .replace(/\n/g,'<br>');
+}
+
+function addUserBubble(t){
+  const w=document.createElement('div'); w.className='msg-wrap user';
+  w.innerHTML=`<div class="bubble">${esc(t)}</div>`;
+  document.getElementById('chat-area').appendChild(w); scrollChat();
+}
+
+function showThinking(){
+  const w=document.createElement('div'); w.className='msg-wrap bot'; w.id='thinking';
+  w.innerHTML='<div class="thinking"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';
+  document.getElementById('chat-area').appendChild(w); scrollChat();
+}
+function rmThinking(){const t=document.getElementById('thinking');if(t)t.remove()}
+function scrollChat(){const c=document.getElementById('chat-area');c.scrollTop=c.scrollHeight}
+
+async function chatSend(){
+  const input=document.getElementById('chat-input');
+  const text=input.value.trim(); if(!text)return;
+  input.value=''; input.style.height='auto';
+  document.getElementById('chat-send').disabled=true;
+  addUserBubble(text);
+  chatHistory.push({role:'user',content:text});
+  showThinking();
+  try{
+    const raw=await callClaude(buildChatSystem(currentSc,userLevel),chatHistory);
+    rmThinking(); chatHistory.push({role:'assistant',content:raw});
+    let chat=raw, corr=null, isOk=false;
+    if(raw.includes('---CORRECT---')){chat=raw.replace('---CORRECT---','').trim();isOk=true}
+    else if(raw.includes('---CORRECTION---')&&raw.includes('---END---')){
+      const s=raw.indexOf('---CORRECTION---'), en=raw.indexOf('---END---');
+      chat=raw.substring(0,s).trim(); corr=raw.substring(s+16,en).trim();
+    }
+    addBotBubble(chat,corr,isOk);
+    // Auto-save new vocab from corrections
+    if(corr){const m=corr.match(/✅ Better: (.+)/);if(m)maybeLearnPhrase(m[1])}
+  }catch(e){rmThinking();addBotBubble(`⚠️ Lỗi: ${e.message}. Kiểm tra API key và kết nối mạng.`)}
+  document.getElementById('chat-send').disabled=false;
+}
+
+function maybeLearnPhrase(corrected){
+  // silently note corrected phrases — user can manually save to vocab
+}
+
+// ── MICS ──
+function setupMics(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){
+    document.getElementById('chat-mic-btn').disabled=true;
+    document.getElementById('chat-mic-btn').title='Dùng Chrome để dùng mic';
+    return;
+  }
+  // Chat mic
+  chatRec=new SR(); chatRec.lang='en-US'; chatRec.interimResults=true; chatRec.continuous=false;
+  const cmb=document.getElementById('chat-mic-btn');
+  const hint=document.getElementById('chat-mic-hint');
+  chatRec.onstart=()=>{chatRecording=true;cmb.classList.add('rec');hint.textContent='🔴 Đang nghe… nói tiếng Anh'};
+  chatRec.onend=()=>{chatRecording=false;cmb.classList.remove('rec');hint.textContent=''};
+  chatRec.onerror=(e)=>{hint.textContent='Lỗi mic: '+e.error};
+  chatRec.onresult=(e)=>{
+    let f='',interim='';
+    for(let i=e.resultIndex;i<e.results.length;i++){if(e.results[i].isFinal)f+=e.results[i][0].transcript;else interim+=e.results[i][0].transcript}
+    document.getElementById('chat-input').value=f||interim;
+    if(f){hint.textContent='✅ Nhấn Send để gửi';document.getElementById('chat-send').disabled=false}
+  };
+}
+
+function toggleChatMic(){
+  if(!chatRec){alert('Dùng Chrome để dùng mic nhé!');return}
+  if(chatRecording){chatRec.stop()}else{document.getElementById('chat-input').value='';chatRec.start()}
+}
+
+// ── CHAT INPUT ──
+const ci=document.getElementById('chat-input');
+ci.addEventListener('input',()=>{
+  ci.style.height='auto'; ci.style.height=ci.scrollHeight+'px';
+  document.getElementById('chat-send').disabled=!ci.value.trim();
+});
+ci.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();chatSend()}});
+
+// ── UTILS ──
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>')}
+
+// ── AUTO LOGIN ──
+window.addEventListener('DOMContentLoaded',()=>{
+  const k=localStorage.getItem('sn_lab_key');
+  const l=localStorage.getItem('sn_lab_lvl');
+  if(k){document.getElementById('api-in').value=k}
+  if(l){document.getElementById('lvl-in').value=l}
+});
+</script>
+</body>
+</html>
