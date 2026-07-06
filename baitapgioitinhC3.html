@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🎮 Lớp Lớn 16-18 · 6 buổi · Game đa dạng</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #F5F0E8;
+            font-family: 'Inter', sans-serif;
+            color: #0A1628;
+            line-height: 1.6;
+            padding: 1.5rem 1rem;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #FFFFFF;
+            border-radius: 2rem;
+            box-shadow: 0 20px 60px rgba(10, 22, 40, 0.08);
+            padding: 2rem 2rem 2.5rem 2rem;
+        }
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: #0A1628;
+            margin-bottom: 0.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+        h1 span {
+            background: linear-gradient(135deg, #C9A84C, #b8953a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .subhead {
+            font-size: 1rem;
+            color: #1E3A5F;
+            margin-bottom: 1.8rem;
+            border-bottom: 2px solid #e9e0d4;
+            padding-bottom: 0.8rem;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .subhead .badge {
+            background: #C9A84C;
+            color: #0A1628;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            letter-spacing: 0.3px;
+        }
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #e9e0d4;
+            padding-bottom: 0.6rem;
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #1E3A5F;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: 0.2s;
+            border: 2px solid transparent;
+        }
+        .tab-btn:hover { background: #F5F0E8; }
+        .tab-btn.active {
+            background: #C9A84C;
+            color: #0A1628;
+            border-color: #C9A84C;
+        }
+        .tab-content { display: none; animation: fade 0.3s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fade { 0% { opacity: 0.4; transform: translateY(8px); } 100% { opacity: 1; transform: translateY(0); } }
+
+        .session-header {
+            display: flex;
+            align-items: baseline;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.2rem;
+        }
+        .session-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: #0A1628;
+        }
+        .session-header .tag {
+            background: #1E3A5F;
+            color: #F5F0E8;
+            font-size: 0.65rem;
+            font-weight: 600;
+            padding: 0.1rem 1rem;
+            border-radius: 30px;
+        }
+
+        .game-box {
+            background: #F5F0E8;
+            border-radius: 1.5rem;
+            padding: 1.5rem 1.8rem;
+            margin-bottom: 2rem;
+            border-left: 6px solid #C9A84C;
+        }
+        .game-box .game-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1E3A5F;
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .game-box .game-desc {
+            font-size: 0.9rem;
+            color: #2a3f5f;
+            margin-bottom: 1rem;
+        }
+
+        /* Quiz chung */
+        .quiz-question {
+            background: #FFFFFF;
+            border-radius: 1rem;
+            padding: 1rem 1.5rem;
+            margin-bottom: 0.8rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+        .quiz-question .q-text { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.4rem; }
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+        .quiz-options label {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.92rem;
+            padding: 0.2rem 0.4rem;
+            cursor: pointer;
+            border-radius: 0.4rem;
+            transition: background 0.1s;
+        }
+        .quiz-options label:hover { background: #F5F0E8; }
+        .quiz-options input[type="radio"] { accent-color: #C9A84C; width: 17px; height: 17px; flex-shrink: 0; }
+
+        /* Ghép nối */
+        .match-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+        .match-col {
+            flex: 1;
+            min-width: 200px;
+            background: #FFFFFF;
+            border-radius: 1rem;
+            padding: 0.8rem 1rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+        .match-col h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1E3A5F;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+        .match-item {
+            background: #F5F0E8;
+            padding: 0.5rem 0.8rem;
+            margin-bottom: 0.4rem;
+            border-radius: 0.6rem;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: 0.15s;
+            font-size: 0.9rem;
+            text-align: center;
+            user-select: none;
+        }
+        .match-item:hover { background: #e9e0d4; }
+        .match-item.selected { border-color: #C9A84C; background: #FDF8EE; }
+        .match-item.matched {
+            background: #c8e6d9;
+            border-color: #1E7A5E;
+            cursor: default;
+            opacity: 0.7;
+        }
+        .match-item.wrong {
+            background: #f8d7da;
+            border-color: #b13e3e;
+            animation: shake 0.3s;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-6px); }
+            75% { transform: translateX(6px); }
+        }
+
+        /* Sắp xếp (drag & drop) */
+        .sort-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            max-width: 600px;
+            margin: 0.8rem 0;
+        }
+        .sort-item {
+            background: #FFFFFF;
+            padding: 0.7rem 1.2rem;
+            border-radius: 0.8rem;
+            border: 2px solid #d4cdc2;
+            cursor: grab;
+            transition: 0.15s;
+            font-size: 0.95rem;
+            user-select: none;
+            position: relative;
+        }
+        .sort-item:active { cursor: grabbing; }
+        .sort-item.dragging {
+            opacity: 0.5;
+            border-style: dashed;
+            border-color: #C9A84C;
+        }
+        .sort-item.drag-over {
+            border-color: #1E7A5E;
+            background: #e6f5ed;
+        }
+        .sort-item.placed { border-color: #1E7A5E; background: #e6f5ed; }
+        .sort-item .drag-handle {
+            display: inline-block;
+            margin-right: 0.8rem;
+            color: #b0a89a;
+            font-size: 1.2rem;
+            cursor: grab;
+        }
+
+        /* Phân loại */
+        .category-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+        .category-box {
+            flex: 1;
+            min-width: 180px;
+            background: #FFFFFF;
+            border-radius: 1rem;
+            padding: 0.8rem 1rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+            min-height: 120px;
+        }
+        .category-box h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1E3A5F;
+            margin-bottom: 0.5rem;
+            text-align: center;
+            border-bottom: 2px solid #e9e0d4;
+            padding-bottom: 0.3rem;
+        }
+        .category-item {
+            background: #F5F0E8;
+            padding: 0.4rem 0.8rem;
+            margin-bottom: 0.4rem;
+            border-radius: 0.6rem;
+            font-size: 0.9rem;
+            text-align: center;
+            cursor: grab;
+            border: 2px solid transparent;
+            user-select: none;
+        }
+        .category-item:active { cursor: grabbing; }
+        .category-item.dragging { opacity: 0.5; }
+        .category-item.placed-cat {
+            background: #c8e6d9;
+            border-color: #1E7A5E;
+            cursor: default;
+            opacity: 0.8;
+        }
+        .category-item.drag-over-cat { border-color: #C9A84C; background: #FDF8EE; }
+
+        /* Điền từ */
+        .fill-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin: 1rem 0;
+        }
+        .fill-item {
+            background: #FFFFFF;
+            padding: 0.7rem 1.2rem;
+            border-radius: 0.8rem;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+        .fill-item select {
+            padding: 0.2rem 0.6rem;
+            border-radius: 0.4rem;
+            border: 2px solid #d4cdc2;
+            background: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        .fill-item select:focus { outline: none; border-color: #C9A84C; }
+
+        /* Nút */
+        .btn-gold {
+            background: #C9A84C;
+            color: #0A1628;
+            border: none;
+            padding: 0.5rem 1.6rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Inter', sans-serif;
+            margin-right: 0.5rem;
+            margin-top: 0.4rem;
+        }
+        .btn-gold:hover { background: #b8953a; transform: scale(0.97); }
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid #C9A84C;
+            color: #0A1628;
+            padding: 0.5rem 1.6rem;
+            border-radius: 40px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Inter', sans-serif;
+            margin-top: 0.4rem;
+        }
+        .btn-outline:hover { background: #C9A84C; color: #0A1628; }
+
+        .game-result {
+            background: #0A1628;
+            color: #F5F0E8;
+            padding: 0.6rem 1.5rem;
+            border-radius: 2rem;
+            margin-top: 1rem;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+        .game-result .score-big {
+            font-size: 1.8rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            color: #C9A84C;
+        }
+        .game-result .msg { font-size: 0.95rem; flex: 1; }
+        .flex-center { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-top: 0.6rem; }
+
+        @media (max-width: 768px) {
+            .container { padding: 1.2rem; }
+            h1 { font-size: 1.8rem; }
+            .tab-btn { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
+            .game-box { padding: 1.2rem; }
+            .match-container, .category-container { flex-direction: column; gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <header>
+        <h1>🎮 Lớp Lớn <span>16–18</span></h1>
+        <div class="subhead">
+            <span>6 buổi · Mỗi buổi 2 game khác nhau</span>
+            <span class="badge">Trắc nghiệm · Đ/S · Ghép · Sắp xếp · Điền từ · Phân loại</span>
+        </div>
+    </header>
+
+    <div class="tabs" id="tabHeaders">
+        <button class="tab-btn active" data-tab="1">Buổi 1</button>
+        <button class="tab-btn" data-tab="2">Buổi 2</button>
+        <button class="tab-btn" data-tab="3">Buổi 3</button>
+        <button class="tab-btn" data-tab="4">Buổi 4</button>
+        <button class="tab-btn" data-tab="5">Buổi 5</button>
+        <button class="tab-btn" data-tab="6">Buổi 6</button>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- BUỔI 1: Trắc nghiệm + Đúng/Sai -->
+    <!-- ============================================================ -->
+    <div class="tab-content active" id="session1">
+        <div class="session-header"><h2>🧬 Buổi 1: Cơ thể – Trách nhiệm</h2><span class="tag">2 game</span></div>
+
+        <!-- GAME 1.1: TRẮC NGHIỆM -->
+        <div class="game-box" id="game1_1">
+            <div class="game-title">📝 Game 1 · Trắc nghiệm</div>
+            <div class="game-desc">Chọn đáp án đúng.</div>
+            <div class="quiz-container">
+                <div class="quiz-question"><div class="q-text">1. Chu kỳ kinh nguyệt 28 ngày diễn ra theo thứ tự nào?</div>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="g1_1_q1" value="0" /> A. Rụng trứng → Hoàng thể → Hành kinh → Nang trứng</label>
+                        <label><input type="radio" name="g1_1_q1" value="1" /> B. Nang trứng → Rụng trứng → Hoàng thể → Hành kinh</label>
+                        <label><input type="radio" name="g1_1_q1" value="0" /> C. Hành kinh → Nang trứng → Rụng trứng → Hoàng thể</label>
+                        <label><input type="radio" name="g1_1_q1" value="0" /> D. Hoàng thể → Hành kinh → Nang trứng → Rụng trứng</label>
+                    </div>
+                </div>
+                <div class="quiz-question"><div class="q-text">2. Thời điểm nào dễ thụ thai nhất?</div>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="g1_1_q2" value="0" /> A. Ngày đầu hành kinh</label>
+                        <label><input type="radio" name="g1_1_q2" value="0" /> B. Giai đoạn hoàng thể</label>
+                        <label><input type="radio" name="g1_1_q2" value="1" /> C. Ngày rụng trứng</label>
+                        <label><input type="radio" name="g1_1_q2" value="0" /> D. Cuối chu kỳ</label>
+                    </div>
+                </div>
+                <div class="quiz-question"><div class="q-text">3. Vắc xin HPV phòng ngừa bệnh gì?</div>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="g1_1_q3" value="1" /> A. Ung thư cổ tử cung, dương vật, hậu môn, sùi mào gà</label>
+                        <label><input type="radio" name="g1_1_q3" value="0" /> B. Chỉ ung thư cổ tử cung</label>
+                        <label><input type="radio" name="g1_1_q3" value="0" /> C. HIV và STD</label>
+                        <label><input type="radio" name="g1_1_q3" value="0" /> D. Tất cả ung thư</label>
+                    </div>
+                </div>
+                <div class="flex-center">
+                    <button class="btn-gold" onclick="submitQuiz('game1_1')">📊 Xem kết quả</button>
+                    <button class="btn-outline" onclick="resetQuiz('game1_1')">🔄 Làm lại</button>
+                </div>
+                <div class="game-result" id="result_game1_1">
+                    <span><span class="score-big" id="score_game1_1">0</span> / 3</span>
+                    <span class="msg" id="msg_game1_1">🌱 Chọn đáp án.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- GAME 1.2: ĐÚNG / SAI -->
+        <div class="game-box" id="game1_2">
+            <div class="game-title">⚡ Game 2 · Đúng hay Sai</div>
+            <div class="game-desc">Chọn Đúng hoặc Sai cho mỗi câu.</div>
+            <div class="quiz-container">
+                <div class="quiz-question" data-answer="true">
+                    <div class="q-text">1. "Có kinh rồi có nghĩa là CÓ THỂ CÓ THAI."</div>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="g1_2_q1" value="true" /> ✅ Đúng</label>
+                        <label><input type="radio" name="g1_2_q1" value="false" /> ❌ Sai</label>
+                    </div>
+                </div>
+                <div class="quiz-question" data-answer="false">
+                    <div class="q-text">2. "Màng trinh là bằng chứng duy nhất để xác định 'trinh tiết'."</div>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="g1_2_q2" value="true" /> ✅ Đúng</label>
+                        <label><input type="radio" name="g1_2_q2" value="false" /> ❌ Sai</label>
+                    </div>
+                </div>
+                <div class="quiz-question" data-answer="true">
+                    <div class="q-text">3. "Tinh trùng mất khoảng 72-74 ngày để trưởng thành."</div>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="g1_2_q3" value="true" /> ✅ Đúng</label>
+                        <label><input type="radio" name="g1_2_q3" value="false" /> ❌ Sai</label>
+                    </div>
+                </div>
+                <div class="flex-center">
+                    <button class="btn-gold" onclick="submitTrueFalse('game1_2')">📊 Xem kết quả</button>
+                    <button class="btn-outline" onclick="resetQuiz('game1_2')">🔄 Làm lại</button>
+                </div>
+                <div class="game-result" id="result_game1_2">
+                    <span><span class="score-big" id="score_game1_2">0</span> / 3</span>
+                    <span class="msg" id="msg_game1_2">🌱 Chọn Đúng/Sai.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- BUỔI 2: Ghép nối + Điền từ -->
+    <!-- ============================================================ -->
+    <div class="tab-content" id="session2">
+        <div class="session-header"><h2>💓 Buổi 2: Rung động – Tình yêu</h2><span class="tag">2 game</span></div>
+
+        <!-- GAME 2.1: GHÉP NỐI -->
+        <div class="game-box" id="game2_1">
+            <div class="game-title">🧩 Game 1 · Ghép nối</div>
+            <div class="game-desc">Ghép câu nói với tình huống phù hợp.</div>
+            <div class="match-container" id="match2_1">
+                <div class="match-col"><h4>🔴 Tình huống</h4>
+                    <div class="match-item" data-pair="0">Bạn trai muốn đi xa hơn, bạn chưa sẵn sàng</div>
+                    <div class="match-item" data-pair="1">Bạn trai ghen với bạn khác giới</div>
+                </div>
+                <div class="match-col"><h4>🟢 Cách ứng xử</h4>
+                    <div class="match-item" data-pair="0">"Em rất thích anh nhưng em chưa sẵn sàng."</div>
+                    <div class="match-item" data-pair="1">Đây là "cờ đỏ" (Red flag) của sự kiểm soát</div>
+                </div>
+            </div>
+            <div class="flex-center">
+                <button class="btn-gold" onclick="checkMatch('match2_1')">✅ Kiểm tra</button>
+                <button class="btn-outline" onclick="resetMatch('match2_1')">🔄 Làm lại</button>
+            </div>
+            <div class="game-result" id="result_match2_1">
+                <span><span class="score-big" id="score_match2_1">0</span> / 2</span>
+                <span class="msg" id="msg_match2_1">🌱 Ghép cặp.</span>
+            </div>
+        </div>
+
+        <!-- GAME 2.2: ĐIỀN TỪ -->
+        <div class="game-box" id="game2_2">
+            <div class="game-title">✏️ Game 2 · Điền từ còn thiếu</div>
+            <div class="game-desc">Chọn từ đúng để điền vào chỗ trống.</div>
+            <div class="fill-container" id="fill2_2">
+                <div class="fill-item" data-answer="tôn trọng">
+                    <span>1. Trong một mối quan hệ lành mạnh, hai người luôn ___________ ranh giới của nhau.</span>
+                    <select>
+                        <option value="">-- Chọn --</option>
+                        <option value="kiểm soát">kiểm soát</option>
+                        <option value="tôn trọng">tôn trọng</option>
+                        <option value="phớt lờ">phớt lờ</option>
+                    </select>
+                </div>
+                <div class="fill-item" data-answer="tự nguyện">
+                    <span>2. Sự đồng thuận (consent) là một sự đồng ý ___________ và minh mẫn.</span>
+                    <select>
+                        <option value="">-- Chọn --</option>
+                        <option value="ép buộc">ép buộc</option>
+                        <option value="tự nguyện">tự nguyện</option>
+                        <option value="lưỡng lự">lưỡng lự</option>
+                    </select>
+                </div>
+            </div>
+            <div class="flex-center">
+                <button class="btn-gold" onclick="checkFill('fill2_2')">📊 Kiểm tra</button>
+                <button class="btn-outline" onclick="resetFill('fill2_2')">🔄 Làm lại</button>
+            </div>
+            <div class="game-result" id="result_fill2_2">
+                <span><span class="score-big" id="score_fill2_2">0</span> / 2</span>
+                <span class="msg" id="msg_fill2_2">🌱 Chọn từ và bấm "Kiểm tra".</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- BUỔI 3: Sắp xếp (drag-drop) + Phân loại -->
+    <!-- ============================================================ -->
+    <div class="tab-content" id="session3">
+        <div class="session-header"><h2>🛡️ Buổi 3: Tình dục &amp; Bảo vệ</h2><span class="tag">2 game</span></div>
+
+        <!-- GAME 3.1: SẮP XẾP (drag-drop) -->
+        <div class="game-box" id="game3_1">
+            <div class="game-title">🔢 Game 1 · Sắp xếp đúng thứ tự</div>
+            <div class="game-desc">Kéo thả các bước để sắp xếp <strong>ĐEO BAO CAO SU ĐÚNG CÁCH</strong>.</div>
+            <div class="sort-container" id="sort3_1">
+                <div class="sort-item" data-order="3">Sau khi xuất tinh, giữ vành bao khi rút ra (khi còn cương)</div>
+                <div class="sort-item" data-order="2">Đặt lên đầu dương vật đang cương và lăn xuống hết gốc</div>
+                <div class="sort-item" data-order="0">Kiểm tra hạn sử dụng và xé nhẹ theo mép bao</div>
+                <div class="sort-item" data-order="1">Bóp đầu bao để loại bỏ không khí</div>
+            </div>
+            <div class="flex-center">
+                <button class="btn-gold" onclick="checkSort('sort3_1')">✅ Kiểm tra</button>
+                <button class="btn-outline" onclick="resetSort('sort3_1')">🔄 Làm lại</button>
+            </div>
+            <div class="game-result" id="result_sort3_1">
+                <span><span class="score-big" id="score_sort3_1">0</span> / 4</span>
+                <span class="msg" id="msg_sort3_1">🌱 Kéo thả để sắp xếp đúng.</span>
+            </div>
+        </div>
+
+        <!-- GAME 3.2: PHÂN LOẠI -->
+        <div class="game-box" id="game3_2">
+            <div class="game-title">📂 Game 2 · Phân loại</div>
+            <div class="game-desc">Kéo thả các biện pháp vào nhóm đúng: <strong>Tránh thai</strong> hoặc <strong>Phòng bệnh</strong>.</div>
+            <div class="category-container" id="cat3_2">
+                <div class="category-box" data-cat="tranhthai"><h4>🟢 Tránh thai</h4></div>
+                <div class="category-box" data-cat="phongbenh"><h4>🔴 Phòng bệnh (STD)</h4></div>
+                <div style="flex:0 0 100%; display:flex; flex-wrap:wrap; gap:0.5rem; justify-content:center; padding:0.5rem; background:#FFFFFF; border-radius:1rem; min-height:60px;" id="catPool3_2">
+                    <div class="category-item" data-cat="tranhthai">Thuốc tránh thai hàng ngày</div>
+                    <div class="category-item" data-cat="phongbenh">Bao cao su</div>
+                    <div class="category-item" data-cat="tranhthai">Que cấy tránh thai</div>
+                    <div class="category-item" data-cat="phongbenh">Xét nghiệm STD định kỳ</div>
+                </div>
+            </div>
+            <div class="flex-center">
+                <button class="btn-gold" onclick="checkCategory('cat3_2')">✅ Kiểm tra</button>
+                <button class="btn-outline" onclick="resetCategory('cat3_2')">🔄 Làm lại</button>
+            </div>
+            <div class="game-result" id="result_cat3_2">
+                <span><span class="score-big" id="score_cat3_2">0</span> / 4</span>
+                <span class="msg" id="msg_cat3_2">🌱 Kéo thả vào đúng nhóm.</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- BUỔI 4: Trắc nghiệm + Tình huống -->
+    <!-- ============================================================ -->
+    <div class="tab-content" id="session4">
+        <div class="session-header"><h2>🧠 Buổi 4: Xâm hại &amp; Tâm lý</h2><span class="tag">2 game</span></div>
+
+        <!-- GAME 4.1: TRẮC NGHIỆM -->
+        <div class="game-box" id="game4_1">
+            <div class="game-title">📝 Game 1 · Trắc nghiệm</div>
+            <div class="game-desc">Chọn đáp án đúng.</div>
+            <div class="quiz-container">
+                <div class="quiz-question"><div class="q-text">1. Điều nào đúng về xâm hại tình dục?</div>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="g4_1_q1" value="0" /> A. Hầu hết xảy ra với người lạ</label>
+                        <label><input type="radio" name="g4_1_q1" value="1" /> B. Khoảng 80% do người quen thực hiện</label>
+                        <label><input type="radio" name="g4_1_q1" value="0" /> C. Chỉ xảy ra với nữ giới</label>
+                        <label><input type="radio" name="g4_1_q1" value="0" /> D. Phải có bạo lực mới là xâm hại</label>
+                    </div>
+                </div>
+                <div class="quiz-question"><div class="q-text">2. Dấu hiệu nào KHÔNG phải là trầm cảm?</div>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="g4_1_q2" value="0" /> A. Buồn kéo dài trên 2 tuần</label>
+                        <label><input type="radio" name="g4_1_q2" value="0" /> B. Mất hứng thú với mọi thứ</label>
+                        <label><input type="radio" name="g4_1_q2" value="1" /> C. Cảm thấy vui vẻ tràn đầy năng lượng liên tục</label>
+                        <label><input type="radio" name="g4_1_q2" value="0" /> D. Có ý nghĩ tự làm hại bản thân</label>
+                    </div>
+                </div>
+                <div class="flex-center">
+                    <button class="btn-gold" onclick="submitQuiz('game4_1')">📊 Xem kết quả</button>
+                    <button class="btn-outline" onclick="resetQuiz('game4_1')">🔄 Làm lại</button>
+                </div>
+                <div class="game-result" id="result_game4_1">
+                    <span><span class="score-big" id="score_game4_1">0</span> / 2</span>
+                    <span class="msg" id="msg_game4_1">🌱 Chọn đáp án.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- GAME 4.2: TÌNH HUỐNG -->
+        <div class="game-box" id="game4_2">
+            <div class="game-title">🎭 Game 2 · Xử lý tình huống</div>
+            <div class="game-desc">Chọn hành động đúng cho mỗi tình huống.</div>
+            <div class="quiz-container">
+                <div class="quiz-question"><div class="q-text">Bạn nhận được tin nhắn đe dọa từ kẻ lạ, yêu cầu gửi ảnh nhạy cảm nếu không sẽ bị phát tán ảnh cũ. Bạn nên làm gì?</div>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="g4_2_q1" value="0" /> A. Gửi ảnh để khỏi bị đe dọa</label>
+                        <label><input type="radio" name="g4_2_q1" value="1" /> B. Chụp màn hình, báo công an và không trả lời</label>
+                        <label><input type="radio" name="g4_2_q1" value="0" /> C. Cãi lại và đe dọa ngược</label>
+                        <label><input type="radio" name="g4_2_q1" value="0" /> D. Im lặng và hy vọng mọi chuyện qua</label>
+                    </div>
+                </div>
+                <div class="quiz-question"><div class="q-text">Bạn thấy bạn thân có dấu hiệu trầm cảm và nói về cái chết. Bạn nên làm gì?</div>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="g4_2_q2" value="0" /> A. Nói "Đừng nghĩ linh tinh" và bỏ đi</label>
+                        <label><input type="radio" name="g4_2_q2" value="0" /> B. Khuyên bạn đi chơi cho khuây</label>
+                        <label><input type="radio" name="g4_2_q2" value="1" /> C. Ở bên cạnh, hỏi thẳng và liên hệ người lớn hỗ trợ</label>
+                        <label><input type="radio" name="g4_2_q2" value="0" /> D. Nói với bạn là mọi chuyện rồi sẽ ổn</label>
+                    </div>
+                </div>
+                <div class="flex-center">
+                    <button class="btn-gold" onclick="submitQuiz('game4_2')">📊 Xem kết quả</button>
+                    <button class="btn-outline" onclick="resetQuiz('game4_2')">🔄 Làm lại</button>
+                </div>
+                <div class="game-result" id="result_game4_2">
+                    <span><span class="score-big" id="score_game4_2">0</span> / 2</span>
+                    <span class="msg" id="msg_game4_2">🌱 Chọn đáp án.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- BUỔI 5: Đúng/Sai + Ghép nối -->
+    <!-- ============================================================ -->
+    <div class="tab-content" id="session5">
+        <div class="session-header"><h2>📱 Buổi 5: Mạng xã hội</h2><span class="tag">2 game</span></div>
+
+        <!-- GAME 5.1: ĐÚNG / SAI -->
+        <div class="game-box" id="game5_1">
+            <div class="game-title">⚡ Game 1 · Đúng hay Sai</div>
+            <div class="game-desc">Chọn Đúng hoặc Sai.</div>
+            <div class="quiz-container">
+                <div class="quiz-question" data-answer="true">
+                    <div class="q-text">1. "Gửi ảnh nhạy cảm khi chưa đủ 18 tuổi có thể bị truy cứu trách nhiệm hình sự."</div>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="g5_1_q1" value="true" /> ✅ Đúng</label>
+                        <label><input type="radio" name="g5_1_q1" value="false" /> ❌ Sai</label>
+                    </div>
+                </div>
+                <div class="quiz-question" data-answer="false">
+                    <div class="q-text">2. "Nếu bị đe dọa phát tán ảnh, cách tốt nhất là trả tiền cho kẻ đe dọa."</div>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="g5_1_q2" value="true" /> ✅ Đúng</label>
+                        <label><input type="radio" name="g5_1_q2" value="false" /> ❌ Sai</label>
+                    </div>
+                </div>
+                <div class="quiz-question" data-answer="true">
+                    <div class="q-text">3. "Một bức ảnh đã đăng lên có thể ảnh hưởng đến cơ hội xin việc sau này."</div>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="g5_1_q3" value="true" /> ✅ Đúng</label>
+                        <label><input type="radio" name="g5_1_q3" value="false" /> ❌ Sai</label>
+                    </div>
+                </div>
+                <div class="flex-center">
+                    <button class="btn-gold" onclick="submitTrueFalse('game5_1')">📊 Xem kết quả</button>
+                    <button class="btn-outline" onclick="resetQuiz('game5_1')">🔄 Làm lại</button>
+                </div>
+                <div class="game-result" id="result_game5_1">
+                    <span><span class="score-big" id="score_game5_1">0</span> / 3</span>
+                    <span class="msg" id="msg_game5_1">🌱 Chọn Đúng/Sai.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- GAME 5.2: GHÉP NỐI -->
+        <div class="game-box" id="game5_2">
+            <div class="game-title">🧩 Game 2 · Ghép nối</div>
+            <div class="game-desc">Ghép bước xử lý với hành động tương ứng.</div>
+            <div class="match-container" id="match5_2">
+                <div class="match-col"><h4>🔴 Bước</h4>
+                    <div class="match-item" data-pair="0">Bước 1</div>
+                    <div class="match-item" data-pair="1">Bước 2</div>
+                    <div class="match-item" data-pair="2">Bước 3</div>
+                    <div class="match-item" data-pair="3">Bước 4</div>
+                </div>
+                <div class="match-col"><h4>🟢 Hành động</h4>
+                    <div class="match-item" data-pair="1">Báo cáo trên nền tảng mạng xã hội</div>
+                    <div class="match-item" data-pair="3">Chia sẻ với người thân/giáo viên</div>
+                    <div class="match-item" data-pair="0">Chặn tài khoản ngay</div>
+                    <div class="match-item" data-pair="2">Không phản ứng, không trả lời</div>
+                </div>
+            </div>
+            <div class="flex-center">
+                <button class="btn-gold" onclick="checkMatch('match5_2')">✅ Kiểm tra</button>
+                <button class="btn-outline" onclick="resetMatch('match5_2')">🔄 Làm lại</button>
+            </div>
+            <div class="game-result" id="result_match5_2">
+                <span><span class="score-big" id="score_match5_2">0</span> / 4</span>
+                <span class="msg" id="msg_match5_2">🌱 Ghép cặp.</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- BUỔI 6: Sắp xếp (drag-drop) + Điền từ -->
+    <!-- ============================================================ -->
+    <div class="tab-content" id="session6">
+        <div class="session-header"><h2>🏆 Buổi 6: Tổng kết</h2><span class="tag">2 game</span></div>
+
+        <!-- GAME 6.1: SẮP XẾP (drag-drop) -->
+        <div class="game-box" id="game6_1">
+            <div class="game-title">🔢 Game 1 · Sắp xếp thứ tự</div>
+            <div class="game-desc">Kéo thả các bước <strong>XỬ LÝ KHI BỊ XÂM HẠI</strong> đúng trình tự.</div>
+            <div class="sort-container" id="sort6_1">
+                <div class="sort-item" data-order="0">Không tắm rửa, không giặt quần áo để giữ bằng chứng</div>
+                <div class="sort-item" data-order="1">Đến bệnh viện ngay để làm xét nghiệm và thu thập bằng chứng pháp y</div>
+                <div class="sort-item" data-order="2">Gọi tổng đài bảo vệ trẻ em 111 hoặc công an 113</div>
+                <div class="sort-item" data-order="3">Nhận hỗ trợ tâm lý từ chuyên gia</div>
+            </div>
+            <div class="flex-center">
+                <button class="btn-gold" onclick="checkSort('sort6_1')">✅ Kiểm tra</button>
+                <button class="btn-outline" onclick="resetSort('sort6_1')">🔄 Làm lại</button>
+            </div>
+            <div class="game-result" id="result_sort6_1">
+                <span><span class="score-big" id="score_sort6_1">0</span> / 4</span>
+                <span class="msg" id="msg_sort6_1">🌱 Kéo thả để sắp xếp đúng.</span>
+            </div>
+        </div>
+
+        <!-- GAME 6.2: ĐIỀN TỪ -->
+        <div class="game-box" id="game6_2">
+            <div class="game-title">✏️ Game 2 · Điền từ còn thiếu</div>
+            <div class="game-desc">Chọn từ đúng để hoàn thành câu.</div>
+            <div class="fill-container" id="fill6_2">
+                <div class="fill-item" data-answer="bao cao su">
+                    <span>1. Biện pháp duy nhất vừa tránh thai vừa phòng ngừa STD là ___________ .</span>
+                    <select>
+                        <option value="">-- Chọn --</option>
+                        <option value="thuốc tránh thai">thuốc tránh thai</option>
+                        <option value="bao cao su">bao cao su</option>
+                        <option value="que cấy">que cấy</option>
+                    </select>
+                </div>
+                <div class="fill-item" data-answer="không có lỗi">
+                    <span>2. Khi bị xâm hại, nạn nhân ___________ .</span>
+                    <select>
+                        <option value="">-- Chọn --</option>
+                        <option value="có lỗi">có lỗi</option>
+                        <option value="không có lỗi">không có lỗi</option>
+                        <option value="cũng có một phần lỗi">cũng có một phần lỗi</option>
+                    </select>
+                </div>
+            </div>
+            <div class="flex-center">
+                <button class="btn-gold" onclick="checkFill('fill6_2')">📊 Kiểm tra</button>
+                <button class="btn-outline" onclick="resetFill('fill6_2')">🔄 Làm lại</button>
+            </div>
+            <div class="game-result" id="result_fill6_2">
+                <span><span class="score-big" id="score_fill6_2">0</span> / 2</span>
+                <span class="msg" id="msg_fill6_2">🌱 Chọn từ và bấm "Kiểm tra".</span>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 2.5rem; padding-top: 1.2rem; border-top: 2px solid #e9e0d4; text-align: center; color: #1E3A5F; font-size: 0.9rem;">
+        🌟 <span style="font-family:'Playfair Display', serif;">"Học mà chơi – chơi mà học"</span>
+        <br/>© 2026 · Lớp Lớn 16–18 · 6 buổi · 12 game đa dạng
+    </div>
+</div>
+
+<script>
+    // ======== TAB ========
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const tabId = this.dataset.tab;
+            tabBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            tabContents.forEach(c => c.classList.remove('active'));
+            document.getElementById('session' + tabId).classList.add('active');
+        });
+    });
+
+    // ======== QUIZ THƯỜNG ========
+    function submitQuiz(gameId) {
+        const container = document.querySelector(`#${gameId} .quiz-container`);
+        const questions = container.querySelectorAll('.quiz-question');
+        let correct = 0, total = questions.length;
+        questions.forEach(q => {
+            const radios = q.querySelectorAll('input[type="radio"]');
+            let selected = null;
+            radios.forEach(r => { if (r.checked) selected = r; });
+            if (selected && selected.value === '1') correct++;
+        });
+        const resultDiv = document.getElementById('result_' + gameId);
+        document.getElementById('score_' + gameId).textContent = correct;
+        let msg = '';
+        if (correct === total) msg = '🌟 Xuất sắc!';
+        else if (correct >= total * 0.7) msg = '🌱 Tốt!';
+        else if (correct >= total * 0.4) msg = '📌 Khá ổn.';
+        else msg = '⚠️ Hãy xem lại bài.';
+        document.getElementById('msg_' + gameId).textContent = msg;
+        resultDiv.style.display = 'flex';
+    }
+
+    function resetQuiz(gameId) {
+        const container = document.querySelector(`#${gameId} .quiz-container`);
+        container.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+        document.getElementById('result_' + gameId).style.display = 'none';
+    }
+
+    // ======== ĐÚNG/SAI ========
+    function submitTrueFalse(gameId) {
+        const container = document.querySelector(`#${gameId} .quiz-container`);
+        const questions = container.querySelectorAll('.quiz-question');
+        let correct = 0, total = questions.length;
+        questions.forEach(q => {
+            const radios = q.querySelectorAll('input[type="radio"]');
+            let selected = null;
+            radios.forEach(r => { if (r.checked) selected = r; });
+            if (selected && selected.value === q.dataset.answer) correct++;
+        });
+        const resultDiv = document.getElementById('result_' + gameId);
+        document.getElementById('score_' + gameId).textContent = correct;
+        let msg = '';
+        if (correct === total) msg = '🌟 Xuất sắc!';
+        else if (correct >= total * 0.7) msg = '🌱 Tốt!';
+        else if (correct >= total * 0.4) msg = '📌 Khá ổn.';
+        else msg = '⚠️ Hãy xem lại bài.';
+        document.getElementById('msg_' + gameId).textContent = msg;
+        resultDiv.style.display = 'flex';
+    }
+
+    // ======== GHÉP NỐI ========
+    let matchSelected = {};
+    function initMatch(containerId) {
+        const container = document.getElementById(containerId);
+        container.querySelectorAll('.match-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (this.classList.contains('matched')) return;
+                const col = this.closest('.match-col');
+                const colIndex = Array.from(col.parentElement.children).indexOf(col);
+                if (matchSelected[containerId] && matchSelected[containerId].col === colIndex) {
+                    const prev = matchSelected[containerId].el;
+                    if (prev) prev.classList.remove('selected');
+                    delete matchSelected[containerId];
+                    return;
+                }
+                if (matchSelected[containerId] && matchSelected[containerId].col !== colIndex) {
+                    const prev = matchSelected[containerId].el;
+                    if (prev.dataset.pair === this.dataset.pair) {
+                        prev.classList.add('matched');
+                        this.classList.add('matched');
+                        prev.classList.remove('selected');
+                        this.classList.remove('selected');
+                        delete matchSelected[containerId];
+                    } else {
+                        this.classList.add('wrong');
+                        prev.classList.add('wrong');
+                        setTimeout(() => {
+                            this.classList.remove('wrong');
+                            prev.classList.remove('wrong');
+                            prev.classList.remove('selected');
+                            this.classList.remove('selected');
+                            delete matchSelected[containerId];
+                        }, 400);
+                    }
+                } else {
+                    this.classList.add('selected');
+                    matchSelected[containerId] = { el: this, col: colIndex };
+                }
+            });
+        });
+    }
+
+    function checkMatch(containerId) {
+        const container = document.getElementById(containerId);
+        const items = container.querySelectorAll('.match-item');
+        let matched = 0, total = 0;
+        const pairs = {};
+        items.forEach(item => {
+            const p = item.dataset.pair;
+            if (!pairs[p]) pairs[p] = [];
+            pairs[p].push(item);
+        });
+        for (let p in pairs) {
+            if (pairs[p].length === 2) {
+                total++;
+                const [a, b] = pairs[p];
+                if (a.classList.contains('matched') && b.classList.contains('matched')) matched++;
+            }
+        }
+        const resultDiv = document.getElementById('result_' + containerId);
+        document.getElementById('score_' + containerId).textContent = matched;
+        let msg = '';
+        if (matched === total) msg = '🌟 Tuyệt vời!';
+        else if (matched >= total * 0.6) msg = '🌱 Tốt!';
+        else msg = '📌 Hãy thử lại.';
+        document.getElementById('msg_' + containerId).textContent = msg;
+        resultDiv.style.display = 'flex';
+        if (matchSelected[containerId]) {
+            const prev = matchSelected[containerId].el;
+            if (prev) prev.classList.remove('selected');
+            delete matchSelected[containerId];
+        }
+    }
+
+    function resetMatch(containerId) {
+        const container = document.getElementById(containerId);
+        container.querySelectorAll('.match-item').forEach(item => {
+            item.classList.remove('selected', 'matched', 'wrong');
+        });
+        if (matchSelected[containerId]) {
+            const prev = matchSelected[containerId].el;
+            if (prev) prev.classList.remove('selected');
+            delete matchSelected[containerId];
+        }
+        document.getElementById('result_' + containerId).style.display = 'none';
+    }
+
+    // ======== SẮP XẾP (DRAG & DROP) ========
+    function initSort(containerId) {
+        const container = document.getElementById(containerId);
+        const items = container.querySelectorAll('.sort-item');
+        let draggedItem = null;
+
+        items.forEach(item => {
+            item.setAttribute('draggable', 'true');
+            item.addEventListener('dragstart', function(e) {
+                draggedItem = this;
+                this.classList.add('dragging');
+                e.dataTransfer.effectAllowed = 'move';
+            });
+            item.addEventListener('dragend', function() {
+                this.classList.remove('dragging');
+                document.querySelectorAll('.sort-item.drag-over').forEach(el => el.classList.remove('drag-over'));
+            });
+            item.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                if (!draggedItem || draggedItem === this) return;
+                this.classList.add('drag-over');
+            });
+            item.addEventListener('dragleave', function() {
+                this.classList.remove('drag-over');
+            });
+            item.addEventListener('drop', function(e) {
+                e.preventDefault();
+                this.classList.remove('drag-over');
+                if (!draggedItem || draggedItem === this) return;
+                const parent = this.parentElement;
+                const children = Array.from(parent.children);
+                const draggedIdx = children.indexOf(draggedItem);
+                const targetIdx = children.indexOf(this);
+                if (draggedIdx < targetIdx) {
+                    parent.insertBefore(draggedItem, this.nextSibling);
+                } else {
+                    parent.insertBefore(draggedItem, this);
+                }
+                // Reset placed status
+                children.forEach(c => c.classList.remove('placed'));
+            });
+        });
+    }
+
+    function checkSort(containerId) {
+        const container = document.getElementById(containerId);
+        const items = container.querySelectorAll('.sort-item');
+        let correct = 0, total = items.length;
+        items.forEach((item, idx) => {
+            if (parseInt(item.dataset.order) === idx) {
+                correct++;
+                item.classList.add('placed');
+            } else {
+                item.classList.remove('placed');
+            }
+        });
+        const resultDiv = document.getElementById('result_' + containerId);
+        document.getElementById('score_' + containerId).textContent = correct;
+        let msg = '';
+        if (correct === total) msg = '🌟 Sắp xếp hoàn hảo!';
+        else if (correct >= total * 0.6) msg = '🌱 Gần đúng rồi!';
+        else msg = '📌 Hãy xem lại thứ tự.';
+        document.getElementById('msg_' + containerId).textContent = msg;
+        resultDiv.style.display = 'flex';
+    }
+
+    function resetSort(containerId) {
+        const container = document.getElementById(containerId);
+        const items = Array.from(container.querySelectorAll('.sort-item'));
+        items.sort((a, b) => parseInt(a.dataset.order) - parseInt(b.dataset.order));
+        items.forEach(item => container.appendChild(item));
+        items.forEach(item => item.classList.remove('placed'));
+        document.getElementById('result_' + containerId).style.display = 'none';
+    }
+
+    // ======== PHÂN LOẠI (DRAG & DROP) ========
+    let catDragged = null;
+    function initCategory(containerId) {
+        const container = document.getElementById(containerId);
+        const pool = container.querySelector('#catPool' + containerId.slice(-3));
+        const boxes = container.querySelectorAll('.category-box');
+
+        pool.querySelectorAll('.category-item').forEach(item => {
+            item.setAttribute('draggable', 'true');
+            item.addEventListener('dragstart', function(e) {
+                catDragged = this;
+                this.classList.add('dragging');
+                e.dataTransfer.effectAllowed = 'move';
+            });
+            item.addEventListener('dragend', function() {
+                this.classList.remove('dragging');
+                document.querySelectorAll('.category-box.drag-over-cat').forEach(el => el.classList.remove('drag-over-cat'));
+            });
+        });
+
+        boxes.forEach(box => {
+            box.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                this.classList.add('drag-over-cat');
+            });
+            box.addEventListener('dragleave', function() {
+                this.classList.remove('drag-over-cat');
+            });
+            box.addEventListener('drop', function(e) {
+                e.preventDefault();
+                this.classList.remove('drag-over-cat');
+                if (!catDragged) return;
+                const cat = this.dataset.cat;
+                if (catDragged.dataset.cat === cat) {
+                    this.appendChild(catDragged);
+                    catDragged.classList.add('placed-cat');
+                    catDragged.setAttribute('draggable', 'false');
+                } else {
+                    // Sai nhóm: nháy đỏ
+                    catDragged.style.borderColor = '#b13e3e';
+                    setTimeout(() => catDragged.style.borderColor = '', 400);
+                }
+                catDragged = null;
+            });
+        });
+    }
+
+    function checkCategory(containerId) {
+        const container = document.getElementById(containerId);
+        const pool = container.querySelector('#catPool' + containerId.slice(-3));
+        const boxes = container.querySelectorAll('.category-box');
+        let correct = 0, total = 0;
+        boxes.forEach(box => {
+            const items = box.querySelectorAll('.category-item');
+            total += items.length;
+            items.forEach(item => {
+                if (item.dataset.cat === box.dataset.cat) correct++;
+            });
+        });
+        // Kiểm tra các item còn lại trong pool
+        const poolItems = pool.querySelectorAll('.category-item');
+        poolItems.forEach(item => {
+            total++;
+            // Những item chưa được xếp đúng
+            if (item.dataset.cat === 'none') correct++;
+        });
+
+        const resultDiv = document.getElementById('result_' + containerId);
+        document.getElementById('score_' + containerId).textContent = correct;
+        let msg = '';
+        if (correct === total) msg = '🌟 Phân loại hoàn hảo!';
+        else if (correct >= total * 0.6) msg = '🌱 Tốt!';
+        else msg = '📌 Hãy thử lại.';
+        document.getElementById('msg_' + containerId).textContent = msg;
+        resultDiv.style.display = 'flex';
+    }
+
+    function resetCategory(containerId) {
+        const container = document.getElementById(containerId);
+        const pool = container.querySelector('#catPool' + containerId.slice(-3));
+        const items = pool.querySelectorAll('.category-item');
+        items.forEach(item => {
+            pool.appendChild(item);
+            item.classList.remove('placed-cat');
+            item.setAttribute('draggable', 'true');
+            item.style.borderColor = '';
+        });
+        document.getElementById('result_' + containerId).style.display = 'none';
+    }
+
+    // ======== ĐIỀN TỪ ========
+    function checkFill(containerId) {
+        const container = document.getElementById(containerId);
+        const items = container.querySelectorAll('.fill-item');
+        let correct = 0, total = items.length;
+        items.forEach(item => {
+            const select = item.querySelector('select');
+            if (select.value === item.dataset.answer) correct++;
+        });
+        const resultDiv = document.getElementById('result_' + containerId);
+        document.getElementById('score_' + containerId).textContent = correct;
+        let msg = '';
+        if (correct === total) msg = '🌟 Hoàn hảo!';
+        else if (correct >= total * 0.7) msg = '🌱 Tốt!';
+        else msg = '📌 Hãy xem lại.';
+        document.getElementById('msg_' + containerId).textContent = msg;
+        resultDiv.style.display = 'flex';
+    }
+
+    function resetFill(containerId) {
+        const container = document.getElementById(containerId);
+        container.querySelectorAll('select').forEach(sel => sel.value = '');
+        document.getElementById('result_' + containerId).style.display = 'none';
+    }
+
+    // ======== KHỞI TẠO ========
+    document.querySelectorAll('.match-container').forEach(c => initMatch(c.id));
+    document.querySelectorAll('.sort-container').forEach(c => initSort(c.id));
+    document.querySelectorAll('.category-container').forEach(c => initCategory(c.id));
+</script>
+</body>
+</html>
