@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập tổng kết - Giáo dục giới tính</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+            background: linear-gradient(145deg, #f9f3e6 0%, #ffe8d6 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #ff9a56, #ff6f3c);
+            padding: 25px 20px;
+            border-radius: 30px 30px 30px 30px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 8px 0 #c94f1e;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            text-shadow: 2px 2px 0 #c94f1e;
+            letter-spacing: 2px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            margin-top: 5px;
+        }
+
+        /* Game selector */
+        .game-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .game-tabs button {
+            background: white;
+            border: 3px solid #ff9a56;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #5a3e2b;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 0 #d9c5b0;
+            flex: 1 1 auto;
+            min-width: 120px;
+        }
+
+        .game-tabs button:hover {
+            transform: translateY(-2px);
+            background: #fff5eb;
+        }
+
+        .game-tabs button.active {
+            background: #ff9a56;
+            color: white;
+            border-color: #e07c3a;
+            box-shadow: 0 4px 0 #b85f2a;
+        }
+
+        /* Game panel */
+        .game-panel {
+            display: none;
+            background: white;
+            border-radius: 40px 40px 40px 40px;
+            padding: 30px 25px;
+            box-shadow: 0 12px 0 #d9c5b0;
+            border: 2px solid #f0d5b0;
+            animation: fadeUp 0.4s ease;
+        }
+
+        .game-panel.active {
+            display: block;
+        }
+
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .game-panel h2 {
+            color: #5a3e2b;
+            font-size: 1.6rem;
+            border-bottom: 4px dashed #ffcc99;
+            padding-bottom: 12px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .game-panel .sub {
+            text-align: center;
+            color: #7a5e4b;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        /* CÂU HỎI TRẮC NGHIỆM */
+        .question {
+            background: #fdf6ed;
+            padding: 18px 20px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            border-left: 8px solid #ff9a56;
+        }
+
+        .question .q-text {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #3d2b1e;
+            margin-bottom: 12px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .options label {
+            background: white;
+            padding: 12px 18px;
+            border-radius: 15px;
+            border: 2px solid #efdecb;
+            cursor: pointer;
+            transition: all 0.15s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1rem;
+        }
+
+        .options label:hover {
+            background: #fff5eb;
+            border-color: #ff9a56;
+        }
+
+        .options input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #ff6f3c;
+            flex-shrink: 0;
+        }
+
+        .options label.correct {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+
+        .options label.wrong {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+
+        .btn-check {
+            background: #ff9a56;
+            border: none;
+            color: white;
+            padding: 14px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 0 #c94f1e;
+            transition: 0.05s linear;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .btn-check:active {
+            transform: translateY(5px);
+            box-shadow: 0 0px 0 #c94f1e;
+        }
+
+        .result-feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 20px;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
+
+        .result-feedback.show {
+            display: block;
+        }
+
+        .result-feedback.good {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #28a745;
+        }
+
+        .result-feedback.tryagain {
+            background: #fff3cd;
+            color: #856404;
+            border: 2px solid #ffc107;
+        }
+
+        /* GHÉP NỐI TỪ */
+        .match-area {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .match-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 15px;
+            background: #fdf6ed;
+            padding: 15px 18px;
+            border-radius: 20px;
+            justify-content: center;
+        }
+
+        .match-row .left {
+            font-weight: bold;
+            color: #3d2b1e;
+            min-width: 120px;
+            font-size: 1.05rem;
+        }
+
+        .match-row select {
+            padding: 10px 18px;
+            border-radius: 15px;
+            border: 2px solid #efdecb;
+            font-size: 1rem;
+            background: white;
+            min-width: 180px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .match-row select.correct {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+
+        .match-row select.wrong {
+            border-color: #dc3545;
+            background: #f8d7da;
+        }
+
+        .match-row .right-label {
+            font-style: italic;
+            color: #7a5e4b;
+            font-size: 0.95rem;
+        }
+
+        /* ĐIỀN TỪ */
+        .fill-group {
+            background: #fdf6ed;
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        .fill-group p {
+            font-size: 1.1rem;
+            line-height: 2;
+            color: #3d2b1e;
+        }
+
+        .fill-group input {
+            border: none;
+            border-bottom: 3px solid #ff9a56;
+            background: transparent;
+            padding: 5px 12px;
+            font-size: 1rem;
+            width: 140px;
+            text-align: center;
+            font-weight: bold;
+            color: #3d2b1e;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        .fill-group input:focus {
+            border-bottom-color: #e07c3a;
+            background: #fff5eb;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .fill-group input.correct {
+            border-bottom-color: #28a745;
+            background: #d4edda;
+            border-radius: 8px;
+        }
+
+        .fill-group input.wrong {
+            border-bottom-color: #dc3545;
+            background: #f8d7da;
+            border-radius: 8px;
+        }
+
+        .fill-hint {
+            font-size: 0.9rem;
+            color: #a0846b;
+            margin-top: 5px;
+        }
+
+        .btn-secondary {
+            background: #e0c9b2;
+            border: none;
+            color: #3d2b1e;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 0 #b89d86;
+            transition: 0.05s linear;
+            margin-top: 10px;
+            margin-right: 10px;
+        }
+
+        .btn-secondary:active {
+            transform: translateY(4px);
+            box-shadow: 0 0px 0 #b89d86;
+        }
+
+        .btn-primary {
+            background: #ff9a56;
+            border: none;
+            color: white;
+            padding: 14px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 0 #c94f1e;
+            transition: 0.05s linear;
+            margin-top: 10px;
+        }
+
+        .btn-primary:active {
+            transform: translateY(5px);
+            box-shadow: 0 0px 0 #c94f1e;
+        }
+
+        .flex-center {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        /* ĐÚNG SAI */
+        .tf-question {
+            background: #fdf6ed;
+            padding: 18px 20px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            border-left: 8px solid #ff9a56;
+        }
+
+        .tf-question .q-text {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #3d2b1e;
+            margin-bottom: 10px;
+        }
+
+        .tf-options {
+            display: flex;
+            gap: 20px;
+        }
+
+        .tf-options label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 8px 18px;
+            border-radius: 30px;
+            border: 2px solid #efdecb;
+            transition: 0.1s;
+        }
+
+        .tf-options label:hover {
+            background: #fff5eb;
+        }
+
+        .tf-options input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #ff6f3c;
+        }
+
+        .tf-options label.correct {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+
+        .tf-options label.wrong {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+
+        /* responsive */
+        @media (max-width: 600px) {
+            .header h1 { font-size: 1.6rem; }
+            .game-tabs button { min-width: 100px; font-size: 0.9rem; padding: 10px 16px; }
+            .game-panel { padding: 20px 15px; }
+            .match-row { flex-direction: column; align-items: stretch; }
+            .match-row .left { min-width: unset; }
+            .fill-group input { width: 100px; }
+        }
+
+        /* Score */
+        .score-badge {
+            display: inline-block;
+            background: #ff6f3c;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- HEADER -->
+    <div class="header">
+        <h1>🧩 CÙNG ÔN TẬP NHÉ!</h1>
+        <p>Con đã rất dũng cảm học hôm nay — giờ chơi game để nhớ bài lâu hơn nhé! 🌟</p>
+    </div>
+
+    <!-- TABS -->
+    <div class="game-tabs">
+        <button class="active" data-game="game1">📝 Trắc nghiệm</button>
+        <button data-game="game2">🔗 Nối từ</button>
+        <button data-game="game3">✏️ Điền từ</button>
+        <button data-game="game4">✅ Đúng / Sai</button>
+    </div>
+
+    <!-- ========================== GAME 1: TRẮC NGHIỆM ========================== -->
+    <div id="game1" class="game-panel active">
+        <h2>📝 Câu hỏi trắc nghiệm</h2>
+        <p class="sub">Chọn đáp án đúng nhất nhé!</p>
+
+        <div id="quizContainer">
+            <!-- Câu 1 -->
+            <div class="question" data-index="0">
+                <div class="q-text">1. Khi con tò mò về cơ thể hoặc tình yêu, điều nào sau đây là ĐÚNG nhất?</div>
+                <div class="options">
+                    <label><input type="radio" name="q1" value="A"> A. Con không nên hỏi ai vì sẽ bị la.</label>
+                    <label><input type="radio" name="q1" value="B"> B. Tò mò là bình thường, con nên hỏi người lớn tin cậy.</label>
+                    <label><input type="radio" name="q1" value="C"> C. Con nên tự tìm trên mạng để khỏi ngại.</label>
+                </div>
+            </div>
+
+            <!-- Câu 2 -->
+            <div class="question" data-index="1">
+                <div class="q-text">2. Phim "người lớn" giống như điều gì?</div>
+                <div class="options">
+                    <label><input type="radio" name="q2" value="A"> A. Phim tài liệu khoa học dạy về tình yêu.</label>
+                    <label><input type="radio" name="q2" value="B"> B. Phim hành động giả lập — không phải thật.</label>
+                    <label><input type="radio" name="q2" value="C"> C. Phim hoạt hình vui nhộn cho trẻ em.</label>
+                </div>
+            </div>
+
+            <!-- Câu 3 -->
+            <div class="question" data-index="2">
+                <div class="q-text">3. Một "Quý Ông" thường làm gì sau khi tắm?</div>
+                <div class="options">
+                    <label><input type="radio" name="q3" value="A"> A. Mặc quần áo chỉnh tề trước khi ra ngoài.</label>
+                    <label><input type="radio" name="q3" value="B"> B. Không mặc gì vì ở nhà thoải mái.</label>
+                    <label><input type="radio" name="q3" value="C"> C. Chạy nhảy khắp nhà để mọi người thấy.</label>
+                </div>
+            </div>
+
+            <!-- Câu 4 -->
+            <div class="question" data-index="3">
+                <div class="q-text">4. Khi có suy nghĩ muốn xem nội dung không lành mạnh, con nên làm gì?</div>
+                <div class="options">
+                    <label><input type="radio" name="q4" value="A"> A. Xem thử một chút xem thế nào.</label>
+                    <label><input type="radio" name="q4" value="B"> B. Tự nhủ câu "Mình là chủ của chính mình" và chuyển sang hoạt động khác.</label>
+                    <label><input type="radio" name="q4" value="C"> C. Rủ bạn bè xem cùng.</label>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn-check" onclick="checkQuiz()">✅ Nộp bài trắc nghiệm</button>
+        <div id="quizFeedback" class="result-feedback"></div>
+    </div>
+
+    <!-- ========================== GAME 2: NỐI TỪ ========================== -->
+    <div id="game2" class="game-panel">
+        <h2>🔗 Ghép nối đúng – sai</h2>
+        <p class="sub">Chọn từ thích hợp ở cột bên phải cho mỗi câu bên trái.</p>
+
+        <div class="match-area">
+            <div class="match-row">
+                <span class="left">📌 Tò mò là...</span>
+                <select class="match-select" data-answer="B">
+                    <option value="">-- Chọn --</option>
+                    <option value="A">Điều xấu hổ, không nên nói</option>
+                    <option value="B">Điều bình thường, không có lỗi</option>
+                    <option value="C">Dấu hiệu hư hỏng</option>
+                </select>
+                <span class="right-label">(chọn đáp án đúng)</span>
+            </div>
+
+            <div class="match-row">
+                <span class="left">📌 Vùng đồ lót là...</span>
+                <select class="match-select" data-answer="B">
+                    <option value="">-- Chọn --</option>
+                    <option value="A">Nơi có thể phơi bày trước mặt người khác</option>
+                    <option value="B">Vùng riêng tư, chỉ mình con và bác sĩ khi cần</option>
+                    <option value="C">Không quan trọng</option>
+                </select>
+                <span class="right-label">(chọn đáp án đúng)</span>
+            </div>
+
+            <div class="match-row">
+                <span class="left">📌 Xem phim người lớn có thể gây...</span>
+                <select class="match-select" data-answer="C">
+                    <option value="">-- Chọn --</option>
+                    <option value="A">Hiểu biết đúng về tình yêu</option>
+                    <option value="B">Cảm giác vui vẻ kéo dài</option>
+                    <option value="C">Nghiện, lo lắng và cảm giác tội lỗi</option>
+                </select>
+                <span class="right-label">(chọn đáp án đúng)</span>
+            </div>
+        </div>
+
+        <button class="btn-primary" onclick="checkMatch()">🔍 Kiểm tra ghép nối</button>
+        <div id="matchFeedback" class="result-feedback"></div>
+    </div>
+
+    <!-- ========================== GAME 3: ĐIỀN TỪ ========================== -->
+    <div id="game3" class="game-panel">
+        <h2>✏️ Điền từ vào chỗ trống</h2>
+        <p class="sub">Gợi ý: "Quý Ông", "Tự nhủ", "An toàn", "Tôn trọng"</p>
+
+        <div class="fill-group">
+            <p>1. Con chọn phong cách của một <input type="text" id="fill1" class="fill-input" data-answer="quý ông">, thể hiện sự chỉn chu và lịch sự.</p>
+            <div class="fill-hint">* Gợi ý: 2 chữ, thường đi với "Quý..."</div>
+        </div>
+
+        <div class="fill-group">
+            <p>2. Khi có suy nghĩ tò mò, con dùng câu <input type="text" id="fill2" class="fill-input" data-answer="tự nhủ"> mới để thay đổi hành vi.</p>
+            <div class="fill-hint">* Gợi ý: 2 chữ, nghĩa là "tự nói với chính mình"</div>
+        </div>
+
+        <div class="fill-group">
+            <p>3. Bật chế độ tìm kiếm <input type="text" id="fill3" class="fill-input" data-answer="an toàn"> trên máy để bảo vệ tâm trí.</p>
+            <div class="fill-hint">* Gợi ý: 2 chữ, trái nghĩa với "nguy hiểm"</div>
+        </div>
+
+        <div class="fill-group">
+            <p>4. Con luôn <input type="text" id="fill4" class="fill-input" data-answer="tôn trọng"> không gian riêng tư của người khác.</p>
+            <div class="fill-hint">* Gợi ý: 2 chữ, nghĩa là "coi trọng, quý mến"</div>
+        </div>
+
+        <button class="btn-primary" onclick="checkFill()">📝 Kiểm tra điền từ</button>
+        <div id="fillFeedback" class="result-feedback"></div>
+    </div>
+
+    <!-- ========================== GAME 4: ĐÚNG SAI ========================== -->
+    <div id="game4" class="game-panel">
+        <h2>✅ Đúng hay Sai?</h2>
+        <p class="sub">Con hãy đọc kỹ và chọn Đúng hoặc Sai nhé!</p>
+
+        <div class="tf-question" data-index="0">
+            <div class="q-text">1. Tò mò về cơ thể khi lớn lên là điều hoàn toàn bình thường.</div>
+            <div class="tf-options">
+                <label><input type="radio" name="tf1" value="true"> ✅ Đúng</label>
+                <label><input type="radio" name="tf1" value="false"> ❌ Sai</label>
+            </div>
+        </div>
+
+        <div class="tf-question" data-index="1">
+            <div class="q-text">2. Phim người lớn là cách tốt nhất để học về tình yêu thật.</div>
+            <div class="tf-options">
+                <label><input type="radio" name="tf2" value="true"> ✅ Đúng</label>
+                <label><input type="radio" name="tf2" value="false"> ❌ Sai</label>
+            </div>
+        </div>
+
+        <div class="tf-question" data-index="2">
+            <div class="q-text">3. Sau khi tắm, một quý ông sẽ mặc quần áo ngay trước khi ra khỏi phòng tắm.</div>
+            <div class="tf-options">
+                <label><input type="radio" name="tf3" value="true"> ✅ Đúng</label>
+                <label><input type="radio" name="tf3" value="false"> ❌ Sai</label>
+            </div>
+        </div>
+
+        <div class="tf-question" data-index="3">
+            <div class="q-text">4. Nếu con cảm thấy bối rối, con nên giữ im và tự giải quyết một mình.</div>
+            <div class="tf-options">
+                <label><input type="radio" name="tf4" value="true"> ✅ Đúng</label>
+                <label><input type="radio" name="tf4" value="false"> ❌ Sai</label>
+            </div>
+        </div>
+
+        <button class="btn-primary" onclick="checkTF()">✅ Kiểm tra Đúng/Sai</button>
+        <div id="tfFeedback" class="result-feedback"></div>
+    </div>
+
+</div>
+
+<script>
+    // ========== CHUYỂN TAB ==========
+    const tabs = document.querySelectorAll('.game-tabs button');
+    const panels = {
+        game1: document.getElementById('game1'),
+        game2: document.getElementById('game2'),
+        game3: document.getElementById('game3'),
+        game4: document.getElementById('game4')
+    };
+
+    tabs.forEach(btn => {
+        btn.addEventListener('click', function() {
+            tabs.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+
+            const target = this.dataset.game;
+            Object.keys(panels).forEach(key => {
+                panels[key].classList.toggle('active', key === target);
+            });
+
+            // reset feedbacks khi đổi tab
+            document.querySelectorAll('.result-feedback').forEach(fb => {
+                fb.classList.remove('show', 'good', 'tryagain');
+            });
+        });
+    });
+
+    // ========== GAME 1: TRẮC NGHIỆM ==========
+    function checkQuiz() {
+        const answers = {
+            q1: 'B',
+            q2: 'B',
+            q3: 'A',
+            q4: 'B'
+        };
+        let correct = 0;
+        let total = 4;
+
+        // clear old styles
+        document.querySelectorAll('#quizContainer .options label').forEach(lb => {
+            lb.classList.remove('correct', 'wrong');
+        });
+
+        for (let i = 1; i <= total; i++) {
+            const name = 'q' + i;
+            const selected = document.querySelector(`input[name="${name}"]:checked`);
+            const questionDiv = document.querySelector(`.question[data-index="${i-1}"]`);
+            const allLabels = questionDiv.querySelectorAll('.options label');
+
+            if (selected) {
+                const isCorrect = selected.value === answers[name];
+                if (isCorrect) correct++;
+                // highlight selected
+                allLabels.forEach(lb => {
+                    const radio = lb.querySelector('input');
+                    if (radio.checked) {
+                        lb.classList.add(isCorrect ? 'correct' : 'wrong');
+                    }
+                });
+            } else {
+                // chưa chọn -> highlight đáp án đúng để gợi ý
+                allLabels.forEach(lb => {
+                    const radio = lb.querySelector('input');
+                    if (radio.value === answers[name]) {
+                        lb.classList.add('correct');
+                    }
+                });
+            }
+        }
+
+        const fb = document.getElementById('quizFeedback');
+        fb.classList.add('show');
+        if (correct === total) {
+            fb.className = 'result-feedback show good';
+            fb.textContent = '🎉 Tuyệt vời! Con đã trả lời đúng tất cả! Chị tự hào về con! 🌟';
+        } else if (correct >= 2) {
+            fb.className = 'result-feedback show tryagain';
+            fb.textContent = `💪 Con được ${correct}/${total} câu đúng. Cố thêm chút nữa nhé! Gợi ý: xem lại các câu chị đã tô màu xanh nhé!`;
+        } else {
+            fb.className = 'result-feedback show tryagain';
+            fb.textContent = `🤗 Con được ${correct}/${total}. Không sao đâu! Chúng ta cùng xem lại những câu đã tô màu để nhớ kỹ hơn nhé!`;
+        }
+    }
+
+    // ========== GAME 2: NỐI TỪ ==========
+    function checkMatch() {
+        const selects = document.querySelectorAll('.match-select');
+        let correct = 0;
+        let total = selects.length;
+
+        selects.forEach(sel => {
+            sel.classList.remove('correct', 'wrong');
+            if (sel.value === sel.dataset.answer) {
+                sel.classList.add('correct');
+                correct++;
+            } else if (sel.value !== '') {
+                sel.classList.add('wrong');
+            }
+        });
+
+        const fb = document.getElementById('matchFeedback');
+        fb.classList.add('show');
+        if (correct === total) {
+            fb.className = 'result-feedback show good';
+            fb.textContent = '🧩 Ghép nối siêu đỉnh! Con đã hiểu bài quá rõ! 🌟';
+        } else {
+            fb.className = 'result-feedback show tryagain';
+            fb.textContent = `🔗 Con đúng ${correct}/${total}. Hãy thử lại và xem đáp án màu xanh nhé!`;
+        }
+    }
+
+    // ========== GAME 3: ĐIỀN TỪ ==========
+    function checkFill() {
+        const inputs = document.querySelectorAll('.fill-input');
+        const answers = {
+            fill1: 'quý ông',
+            fill2: 'tự nhủ',
+            fill3: 'an toàn',
+            fill4: 'tôn trọng'
+        };
+        let correct = 0;
+        let total = inputs.length;
+
+        inputs.forEach(inp => {
+            inp.classList.remove('correct', 'wrong');
+            const val = inp.value.trim().toLowerCase();
+            const key = inp.id;
+            if (val === answers[key]) {
+                inp.classList.add('correct');
+                correct++;
+            } else if (val !== '') {
+                inp.classList.add('wrong');
+            }
+        });
+
+        const fb = document.getElementById('fillFeedback');
+        fb.classList.add('show');
+        if (correct === total) {
+            fb.className = 'result-feedback show good';
+            fb.textContent = '✍️ Con điền từ quá giỏi! Chị biết con đã học rất chăm chỉ! 🌟';
+        } else {
+            fb.className = 'result-feedback show tryagain';
+            fb.textContent = `📝 Con đúng ${correct}/${total}. Hãy xem gợi ý và điền lại nhé! Cố lên! 💪`;
+        }
+    }
+
+    // ========== GAME 4: ĐÚNG SAI ==========
+    function checkTF() {
+        const tfAnswers = {
+            tf1: 'true',
+            tf2: 'false',
+            tf3: 'true',
+            tf4: 'false'
+        };
+        let correct = 0;
+        let total = 4;
+
+        // reset styles
+        document.querySelectorAll('.tf-options label').forEach(lb => {
+            lb.classList.remove('correct', 'wrong');
+        });
+
+        for (let i = 1; i <= total; i++) {
+            const name = 'tf' + i;
+            const selected = document.querySelector(`input[name="${name}"]:checked`);
+            const questionDiv = document.querySelector(`.tf-question[data-index="${i-1}"]`);
+            const allLabels = questionDiv.querySelectorAll('.tf-options label');
+
+            if (selected) {
+                const isCorrect = selected.value === tfAnswers[name];
+                if (isCorrect) correct++;
+                allLabels.forEach(lb => {
+                    const radio = lb.querySelector('input');
+                    if (radio.checked) {
+                        lb.classList.add(isCorrect ? 'correct' : 'wrong');
+                    }
+                });
+            } else {
+                // highlight correct answer if no selection
+                allLabels.forEach(lb => {
+                    const radio = lb.querySelector('input');
+                    if (radio.value === tfAnswers[name]) {
+                        lb.classList.add('correct');
+                    }
+                });
+            }
+        }
+
+        const fb = document.getElementById('tfFeedback');
+        fb.classList.add('show');
+        if (correct === total) {
+            fb.className = 'result-feedback show good';
+            fb.textContent = '🎯 Xuất sắc! Con đã phân biệt Đúng – Sai cực kỳ chính xác! 🌟';
+        } else {
+            fb.className = 'result-feedback show tryagain';
+            fb.textContent = `✅ Con đúng ${correct}/${total}. Đừng nản, hãy thử lại và xem gợi ý màu xanh nhé!`;
+        }
+    }
+
+    // Enter key support for fill
+    document.querySelectorAll('.fill-input').forEach(inp => {
+        inp.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkFill();
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
