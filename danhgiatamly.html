@@ -1,0 +1,1726 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vineland-II - Thực hành tính điểm toàn diện</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            margin: 0;
+            padding: 15px;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        h1 { color: #1a3a5c; border-bottom: 3px solid #2a7de1; padding-bottom: 8px; margin-top: 0; }
+        .desc {
+            background: #e9f2fa;
+            padding: 12px 18px;
+            border-radius: 6px;
+            border-left: 5px solid #2a7de1;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+        .info-panel {
+            background: #f8fbff;
+            border: 1px solid #c5d9e8;
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-end;
+            gap: 15px 25px;
+        }
+        .info-panel .field {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        .info-panel .field label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #1a3a5c;
+        }
+        .info-panel .field input {
+            padding: 6px 10px;
+            border: 1px solid #b8c9da;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            width: 140px;
+        }
+        .info-panel .field input.date-input { width: 120px; }
+        .info-panel .field .age-result {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1a5fb0;
+            padding: 6px 12px;
+            background: #e6f0fa;
+            border-radius: 4px;
+            min-width: 200px;
+            text-align: center;
+        }
+        .age-calculation {
+            background: #fef9e7;
+            border: 1px solid #f9e79f;
+            border-radius: 6px;
+            padding: 10px 15px;
+            margin: 10px 0 15px 0;
+            font-size: 0.9rem;
+            display: none;
+            font-family: 'Courier New', monospace;
+        }
+        .age-calculation .step {
+            padding: 3px 0;
+            border-bottom: 1px dashed #f0e0b0;
+        }
+        .age-calculation .step:last-child { border-bottom: none; }
+        .age-calculation .highlight { color: #1a5fb0; font-weight: 700; }
+        .age-calculation .result { font-weight: 700; color: #c0392b; font-size: 1.1rem; }
+        .domain-block, .maladaptive-block {
+            border: 1px solid #d4dfe8;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            padding: 0 15px 15px 15px;
+            background: #fafcfe;
+        }
+        .domain-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1a3a5c;
+            padding: 12px 0 6px 0;
+            border-bottom: 2px solid #b8d0e0;
+            margin-bottom: 10px;
+        }
+        .subdomain, .mal-sub {
+            margin: 12px 0 8px 0;
+            background: #f7faff;
+            border-radius: 6px;
+            padding: 8px 12px 12px 12px;
+            border: 1px solid #e2ecf5;
+        }
+        .subdomain-title {
+            font-weight: 600;
+            color: #1f4e79;
+            margin: 0 0 8px 0;
+            font-size: 1.05rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .subdomain-title small {
+            font-weight: 400;
+            color: #5a7a9a;
+            font-size: 0.85rem;
+        }
+        .start-info {
+            font-size: 0.85rem;
+            color: #1a5fb0;
+            background: #e6f0fa;
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+        .question-grid, .mal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 6px;
+        }
+        .question-item, .mal-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: white;
+            border: 1px solid #dde6ef;
+            border-radius: 4px;
+            padding: 4px 6px;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+        .question-item.hidden {
+            display: none;
+        }
+        .question-item.revealed {
+            background: #fff3cd !important;
+            border-color: #ffc107 !important;
+        }
+        .question-item .qnum, .mal-item .qnum {
+            color: #3a5a7a;
+            font-weight: 600;
+            min-width: 28px;
+            font-size: 0.75rem;
+        }
+        .question-item .qtext, .mal-item .qtext {
+            flex: 1;
+            color: #1a2a3a;
+            line-height: 1.3;
+        }
+        .question-item select, .mal-item select {
+            padding: 2px 4px;
+            font-size: 0.8rem;
+            border: 1px solid #b8c9da;
+            border-radius: 3px;
+            background: white;
+            min-width: 55px;
+        }
+        .sub-result, .mal-result {
+            margin-top: 12px;
+            padding: 10px 14px;
+            background: #f0f7ff;
+            border: 1px solid #b8d4e8;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            display: none;
+        }
+        .sub-result .highlight { font-weight: 700; color: #1a5276; }
+        .sub-result .warning { color: #c0392b; font-weight: 600; }
+        .sub-result .raw-detail { font-size: 0.8rem; color: #5a7a9a; margin-top: 4px; }
+        .sub-result .score-breakdown { 
+            background: #e8f0fe; 
+            padding: 6px 10px; 
+            border-radius: 4px; 
+            margin: 4px 0;
+            font-weight: 600;
+        }
+        .sub-result .reveal-info {
+            background: #fff3cd;
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin: 4px 0;
+            border-left: 4px solid #ffc107;
+        }
+        .btn {
+            background: #2a7de1;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin: 10px 5px 0 0;
+            transition: 0.15s;
+        }
+        .btn:hover { background: #1a5fb0; }
+        .btn-reset { background: #7a8a9a; }
+        .btn-reset:hover { background: #5a6a7a; }
+        .btn-calc-sub {
+            background: #27ae60;
+            padding: 6px 16px;
+            font-size: 0.85rem;
+            margin: 8px 0 0 0;
+        }
+        .btn-calc-sub:hover { background: #1e8449; }
+        .result-area {
+            background: #f0f7ff;
+            border: 2px solid #b8d4e8;
+            border-radius: 8px;
+            padding: 18px 22px;
+            margin-top: 20px;
+            display: none;
+            overflow-x: auto;
+        }
+        .summary {
+            margin-top: 15px;
+            padding: 10px 15px;
+            background: #e6f0fa;
+            border-radius: 6px;
+        }
+        .note { font-size: 0.8rem; color: #5a7a9a; margin-top: 8px; }
+        .footer {
+            margin-top: 25px;
+            font-size: 0.8rem;
+            color: #5a7a9a;
+            text-align: center;
+            border-top: 1px solid #d4dfe8;
+            padding-top: 15px;
+        }
+        .hidden { display: none; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+        th, td {
+            border: 1px solid #b0c8dc;
+            padding: 5px 8px;
+            text-align: center;
+        }
+        th {
+            background: #dce8f2;
+            font-weight: 600;
+            color: #1a3a5c;
+        }
+        .domain-total {
+            background: #d9e9f7;
+            font-weight: 700;
+        }
+        .mal-table td {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>📋 Vineland‑II – Thực hành tính điểm toàn diện</h1>
+    <div class="desc">
+        <strong>Hướng dẫn:</strong> Nhập thông tin và ngày tháng để tính tuổi.
+        <br>• <strong>2</strong> = Thường xuyên  • <strong>1</strong> = Đôi khi  • <strong>0</strong> = Không bao giờ  • <strong>KB</strong> = Không biết (quy về 1 điểm)
+        <br>• <strong>Sàn</strong> = 4 câu <strong>2</strong> liên tiếp, tìm từ mục bắt đầu trở xuống.
+        <br>• <strong>Trần</strong> = 4 câu <strong>0</strong> liên tiếp, tìm từ mục bắt đầu trở xuống.
+        <br>• <strong>⚠️ Lưu ý:</strong> Sau khi nhập ngày tháng, bấm "Cập nhật" để tính tuổi và ẩn/hiện câu hỏi phù hợp.
+        <br>• <strong>Công thức tính điểm thô:</strong> (Số câu dưới sàn × 2) + (Tổng điểm 2 và 1 từ Sàn đến Trần)
+        <br>• <strong>🔄 Nếu thiếu câu 2 điểm:</strong> Hệ thống tự động hiện thêm câu phía trên và đánh dấu màu vàng.
+        <br>• <strong>👉 Sau khi hiện thêm câu, hãy chọn điểm cho câu đó rồi bấm "Tính điểm tiểu mục" lại!</strong>
+    </div>
+
+    <!-- ===== PHẦN THÔNG TIN & TÍNH TUỔI ===== -->
+    <div class="info-panel">
+        <div class="field">
+            <label>Họ và tên:</label>
+            <input type="text" id="fullName" placeholder="Nhập họ tên" style="width:200px;">
+        </div>
+        <div class="field">
+            <label>Giới tính:</label>
+            <select id="gender" style="width:100px;padding:6px 10px;border:1px solid #b8c9da;border-radius:4px;">
+                <option value="">--</option>
+                <option value="Nam">Nam</option>
+                <option value="Nữ">Nữ</option>
+            </select>
+        </div>
+        <div class="field">
+            <label>Ngày sinh:</label>
+            <input type="date" id="dob" class="date-input">
+        </div>
+        <div class="field">
+            <label>Ngày làm test:</label>
+            <input type="date" id="testDate" class="date-input">
+        </div>
+        <div class="field">
+            <label>👉 Tuổi:</label>
+            <div class="age-result" id="ageDisplay">-- năm -- tháng -- ngày</div>
+        </div>
+        <div class="field" style="margin-left:auto;">
+            <button class="btn" id="btnCalcAge" style="padding:8px 20px;font-size:0.95rem;">Cập nhật</button>
+        </div>
+    </div>
+
+    <!-- ===== PHẦN HIỂN THỊ CHI TIẾT CÁCH TÍNH TUỔI ===== -->
+    <div class="age-calculation" id="ageCalculation">
+        <div style="font-weight:700;margin-bottom:6px;">📐 CHI TIẾT CÁCH TÍNH TUỔI:</div>
+        <div id="ageSteps"></div>
+    </div>
+
+    <div id="domainsContainer"></div>
+    
+    <!-- ===== PHẦN HÀNH VI KÉM THÍCH ỨNG ===== -->
+    <div class="maladaptive-block" id="maladaptiveBlock">
+        <div class="domain-title">⚠️ Chỉ báo hành vi kém thích ứng</div>
+        <p style="font-size:0.9rem; color:#5a7a9a; margin: -5px 0 10px 0;">Điểm: 2 = Thường xuyên, 1 = Đôi khi, 0 = Không bao giờ. KB/KP không áp dụng cho phần này.</p>
+        <div id="maladaptiveContainer"></div>
+        <button class="btn btn-calc-sub" id="btnCalcMal">📊 Tính điểm hành vi kém thích ứng</button>
+        <div id="malResult" class="mal-result" style="display:none;"></div>
+    </div>
+
+    <div style="margin-top:15px;">
+        <button class="btn" id="btnCalcAll">▶ Tính điểm tất cả</button>
+        <button class="btn btn-reset" id="btnReset">⟲ Đặt lại tất cả về 0</button>
+        <button class="btn" id="btnShowSummary">📋 Tổng hợp kết quả</button>
+    </div>
+
+    <div id="resultArea" class="result-area"></div>
+
+    <div class="footer">
+        Dựa trên Vineland‑II (Sparrow, Cicchetti &amp; Balla). Điểm thô chưa quy đổi sang V‑scale / Standard score.
+        <br>Phần tính Mạnh/Yếu và Z-score dựa trên hướng dẫn sử dụng (Mean Tiểu mục = 15, SD = 3; Mean Lĩnh vực = 100, SD = 15).
+    </div>
+</div>
+
+<script>
+// ============================================================
+// 1. DỮ LIỆU CÂU HỎI & MỐC BẮT ĐẦU THEO TUỔI
+// ============================================================
+const questionData = [
+    // Lĩnh vực 0: Giao tiếp
+    {
+        name: "Giao tiếp",
+        subdomains: [
+            {
+                name: "Tiếp nhận",
+                startByAge: [
+                    { maxMonths: 36, start: 1 },
+                    { maxMonths: 72, start: 11 },
+                    { maxMonths: 120, start: 14 },
+                    { maxMonths: 9999, start: 16 }
+                ],
+                questions: [
+                    "Hướng mắt và quay đầu về phía có âm thanh.",
+                    "Nhìn về phía cha mẹ, hoặc người chăm sóc khi nghe thấy tiếng nói của họ.",
+                    "Có phản ứng khi nghe nói đến tên của mình (ví dụ: hướng về phía người nói, cười mỉm…).",
+                    "Có những biểu hiện chứng tỏ đã hiểu được nghĩa của từ “không”, hoặc những cử chỉ tương đồng với nghĩa của từ này (ví dụ: ngừng hành động khi nghe nói “không”).",
+                    "Có những biểu hiện chứng tỏ đã hiểu được nghĩa của từ “có”, “được”, hoặc những cử chỉ tương đồng với nghĩa của từ này. (ví dụ: tiếp tục hành động, mỉm cười…khi nghe nói “được” hoặc “có”).",
+                    "Lắng nghe một câu chuyện trong vòng ít nhất 5 phút (nghĩa là, luôn giữ yên lặng và hướng chú ý đến người kể, hoặc người đọc trong vòng 5 phút).",
+                    "Chỉ đúng ít nhất 3 bộ phận chính trên cơ thể khi được yêu cầu (ví dụ: mũi, miệng, tay, chân…).",
+                    "Chỉ đúng những thứ thường thấy trong sách báo, hoặc tạp chí, khi người khác gọi tên chúng (ví dụ: chó, ô tô, chìa khóa…).",
+                    "Lắng nghe những chỉ dẫn.",
+                    "Thực hiện được những chỉ dẫn về một hành động với một đồ vật cụ thể (ví dụ: “mang cuốn sách lại đây”, “đóng cửa lại”…).",
+                    "Chỉ đúng ít nhất 5 bộ phận nhỏ trên cơ thể, khi được yêu cầu (ví dụ: ngón tay, khuỷu tay, răng, ngón chân…).",
+                    "Thực hiện được những chỉ dẫn về hai hành động, hoặc một hành động với hai đồ vật cụ thể (ví dụ: “hãy mang giấy và màu vẽ lại đây”, “hãy ngồi xuống và ăn đi”…).",
+                    "Thực hiện được những chỉ dẫn mang tính điều kiện (ví dụ: “nếu muốn đi chơi, hãy bỏ những thứ đó lại”…).",
+                    "Lắng nghe một câu chuyện trong vòng ít nhất 15 phút.",
+                    "Lắng nghe một câu chuyện trong vòng ít nhất 30 phút.",
+                    "Thực hiện được những chỉ dẫn về ba hành động kế tục (ví dụ: “đánh răng, mặc quần áo, rồi thu dọn giường ngủ đi”…).",
+                    "Thực hiện được những chỉ dẫn, hoặc hướng dẫn được nghe trước đó 5 phút.",
+                    "Hiểu được hàm nghĩa những câu “nói bóng” (ví dụ: “cho leo cây”, “ngậm hột thị”…).",
+                    "Lắng nghe những thông tin được truyền đạt trong vòng ít nhất 15 phút.",
+                    "Lắng nghe những thông tin được truyền đạt trong vòng ít nhất 30 phút."
+                ]
+            },
+            {
+                name: "Diễn đạt",
+                startByAge: [
+                    { maxMonths: 36, start: 1 },
+                    { maxMonths: 72, start: 29 },
+                    { maxMonths: 120, start: 33 },
+                    { maxMonths: 9999, start: 42 }
+                ],
+                questions: [
+                    "Khóc hoặc quấy khi đói hoặc bị ướt.",
+                    "Cười đáp lại nụ cười của bạn.",
+                    "Tạo ra những âm thanh thể hiện sự thích thú (ví dụ: gư gư, cười thành tiếng).",
+                    "Tạo ra những âm thanh phi ngôn ngữa đặc trưng của trẻ nhỏ (nghĩa là bập bẹ, bi bô).",
+                    "Tạo ra những âm thanh hoặc cử chỉ (ví dụ: vẫy tay) để được cha mẹ, hoặc người chăm sóc để ý đến.",
+                    "Tạo ra những âm thanh, hoặc cử chỉ (ví dụ: lắc đầu) khi muốn một hành động nào đó ngừng lại, hoặc tiếp tục.",
+                    "Vẫy tay tạm biệt khi người khác vẫy tạm biệt, hoặc khi cha mẹ cũng như người chăm sóc yêu cầu.",
+                    "Nói “Ba-ba”, “Ma-ma”, hoặc một từ khác để gọi cha mẹ, cũng như người chăm sóc (gồm cả tên riêng, hoặc tên hiệu của cha mẹ, cũng như người chăm sóc).",
+                    "Chỉ vào thứ mà trẻ muốn nhưng lại không với tới.",
+                    "Chỉ vào hoặc có những cử chỉ thể hiện sự lựa chọn đối với một thứ gì đó (ví dụ: chỉ vào thứ mà trẻ lựa chọn khí được hỏi: “con muốn cái này, hay cái kia?”).",
+                    "Nhắc lại, hoặc cố gắng nhắc lại những từ thông dụng ngay sau khi được nghe (ví dụ: quả bóng, ô tô, đi…).",
+                    "Gọi được ít nhất tên của ba thứ (ví dụ: chai, chó, ghế…).",
+                    "Nói yêu cầu của mình bằng một từ (ví dụ: nữa, đi…).",
+                    "Biết sử dụng tên riêng, hoặc tên hiệu của anh, chị, em hoặc bạn bè trong tiếp xúc hàng ngày hoặc nói được tên của những người này khi được yêu cầu.",
+                    "Trả lời, hoặc cố gắng trả lời bằng từ ngữ khi được hỏi.",
+                    "Gọi được ít nhất tên của 10 thứ.",
+                    "Nói được tên, hoặc tên hiệu của mình khi được hỏi (ví dụ: Tuấn, “tít”…).",
+                    "Sử dụng những lời nói được kết cấu bởi một danh từ và một động từ (ví dụ: Nga ăn, đi nhà…).",
+                    "Đặt câu hỏi bằng cách biến tố từ ngữ, hoặc sử dụng những cụm từ đơn giản (ví dụ: “của con?”, “con đi?”…) không cần chú trọng ngữ pháp.",
+                    "Nói rõ ít nhất 50 từ.",
+                    "Sử dụng những từ đơn giản để mô tả các thứ (ví dụ: bẩn, đẹp, to…).",
+                    "Sử dụng câu hỏi với các đại từ nghi vấn: “cái gì?”, “ở đâu?” (ví dụ: “cái gì đấy?”, “bố đi đâu?”…).",
+                    "Sử dụng các từ phủ định trong câu hỏi (ví dụ: “con không đi”, “con sẽ không uống”…); không cần chú trọng ngữ pháp.",
+                    "Kể lại những gì mình đã trải qua bằng những câu đơn giản (ví dụ: “con và An chơi”; “An đọc sách cho con”…).",
+                    "Nói đúng tuổi khi được hỏi.",
+                    "Nói rõ ít nhất 100 từ.",
+                    "Sử dụng các giới từ chỉ vị trí: “trong”; “trên”; “dưới” trong câu nói (ví dụ: “quả bóng lăn dưới ghế”; “để nó trên bàn”…).",
+                    "Sử dụng liên từ: “và” trong câu nói (ví dụ: “bố và mẹ”; “con muốn kem và bánh”…).",
+                    "Nói đúng tên và họ khi được hỏi",
+                    "Nhận biết đúng và gọi được tên những màu sắc thông thường (bao gồm các màu: xanh, đỏ, tím, vàng, cam, nâu, lục, và đen).",
+                    "Sử dụng câu hỏi với các đại từ nghi vấn: “ai”, “tại sao” (ví dụ: “ai đó”; “tại sao con phải đi”…)",
+                    "Sử dụng thì hiện tại của các động từ quy tắc (ví dụ: “đang hát”; “đang chơi”…).",
+                    "Sử dụng các đại từ sở hữu trong câu nói (ví dụ: “cuốn sách của bạn ấy”; “quả bóng này của Nam”…).",
+                    "Sử dụng các đại từ trong câu nói: các đại từ đc sử dụng phải đúng về giống và hình thái, nhưng toàn bộ câu nói không nhất thiết phải đúng về ngữ pháp (ví dụ: “bạn ấy làm nó”; “họ đi rồi”…).",
+                    "Sử dụng các câu hỏi với đại từ nghi vấn: “khi nào” (ví dụ: “khi nào được ăn tối?”; “khi nào được về?”…).",
+                    "Sử dụng thì quá khứ của những động từ quy tắc (ví dụ: đã đi, đã nấu cơm…); có khi áp dụng quy tắc cả với những động từ bất quy tắc (ví dụ: “đã chạy đi mất”…).",
+                    "Sử dụng các giới từ chỉ vị trí: “phía sau”, “phía trước” trong câu nói (ví dụ: “con đi trước bạn ấy”; “nó phía sau bạn”…).",
+                    "Phát âm rõ và không bị ngọng (ví dụ: không nói “con thọ” thay vì “con thỏ”; “on á” thay vì “con cá”…).",
+                    "Kể lại được nội dung chính của 1 câu chuyện, hoặc 1 chương trình truyền hình; không nhất thiết phải chi tiết và đúng trật tự.",
+                    "Nói đúng ngày tháng sinh khi được hỏi.",
+                    "Điều tiết hợp lý ngữ điệu, nhịp điệu và cường độ giọng nói (ví dụ: không phải lúc nào cũng nói quá to, quá nhỏ, hoặc đều đều).",
+                    "Kể lại chi tiết những gì đã trải qua (ví dụ: kể được nơi diễn ra, thời điểm và những người tham gia…).",
+                    "Có thể hướng dẫn người khác những việc giản đơn (ví dụ: cách chơi một trò chơi, cách làm một thứ gì đó…).",
+                    "Sử dụng giới từ “giữa” trong câu nói (ví dụ: “quả bóng ở giữa những chiếc xe”…).",
+                    "Nói đúng số điện thoại của nhà mình khi được hỏi.",
+                    "Dễ dàng chuyển chủ đề khi trò chuyện.",
+                    "Luôn bám vào hoặc không đi lệch khỏi một chủ đề khi trò chuyện.",
+                    "Diễn đạt ý theo nhiều cách khác nhau (ví dụ: đây là cuốn sách hay”, “đọc cuốn sách đó thật thú vị”…).",
+                    "Có những cuộc trò chuyện kéo dài chừng 10 phút (ví dụ: liên hệ kinh nghiệm, đóng góp ý kiến, chia sẻ cảm nhận…).",
+                    "Sử dụng chính xác các danh từ số nhiều (ví dụ: những con chuột, các bạn …).",
+                    "Nói đầy đủ địa chỉ nhà mình khi được hỏi (bao gồm: số nhà, tên đường, tên phường/ xã, tỉnh hoặc thành phố).",
+                    "Mô tả một mục tiêu trước mắt và những việc mình cần làm để đạt được mục tiêu đó (ví dụ: con muốn đạt điểm 10 ở bài kiểm tra tới, vì vậy con sẽ cố học chăm”…).",
+                    "Nêu được những chỉ dẫn phức tạp (ví dụ: đường đến một nơi nào đó; thành phần và các bước để làm một thứ gì đó).",
+                    "Mô tả một mục tiêu dài hạn và có tính khả thi trong vòng 6 tháng hoặc lâu hơn ( ví dụ: “con muốn mua 1 chiếc xe đạp, vì vậy con sẽ đi trông trẻ thuê, hoặc làm thuê những việc vặt để kiếm đủ số tiền cần thiết”…)"
+                ]
+            },
+            {
+                name: "Văn bản",
+                startByAge: [
+                    { maxMonths: 72, start: 1 },
+                    { maxMonths: 120, start: 6 },
+                    { maxMonths: 9999, start: 9 }
+                ],
+                questions: [
+                    "Nhận biết được một số hoặc một vài chữ cái và phân biệt được chúng với các chữ số.",
+                    "Nhận ra tên mình dưới hình thức chữ viết.",
+                    "Nhận biết được ít nhất 10 chữ cái dưới hình thức chữ viết.",
+                    "Viết chữ in, hoặc chữ thường theo đúng chiều quy định (ví dụ: chiều quy định trong tiếng Việt là từ trái qua phải; ở một vài ngôn ngữ khác là từ phải qua trái, hoặc từ trên xuống dưới).",
+                    "Chép lại được tên riêng của mình theo mẫu.",
+                    "Nhận biết được toàn bộ các chữ cái dưới hình thức chữ viết thường và viết in.",
+                    "Viết được ít nhất 3 từ đơn giản theo mấu cho trước (ví dụ: mèo, nhìn, ong…).",
+                    "Viết đúng họ tên của mình (tự nhớ và viết ra)",
+                    "Đọc to được ít nhất 10 từ.",
+                    "Tự viết đúng ít nhất 10 từ đơn giản (ví dụ: mũ, bóng…).",
+                    "Đọc to những câu chuyện đơn giản (nghĩa là, những câu chuyện bao gồm các câu được kết cấu bởi 3 đến 5 từ).",
+                    "Viết được những câu đơn giản bao gồm 3 hoặc 4 từ, có thể còn mắc lỗi nhỏ về chính tả hoặc ngữ pháp.",
+                    "Tự viết được nhiều hơn 20 từ, có thể còn mắc lỗi nhỏ về chính tả.",
+                    "Tối thiểu, đọc và hiểu được những bài đọc lớp hai.",
+                    "Xắp xếp đúng trật tự các chữ cái theo bảng chữ cái.",
+                    "Viết thư trao đổi thông thường với độ dài ít nhất 3 câu (ví dụ: bưu thiếp, lời cảm ơn, thư điện tử…).",
+                    "Tối thiểu, đọc và hiểu được những bài đọc lớp bốn.",
+                    "Viết các bài trần thuật, hoặc tự luận ngắn khoảng ít nhất 1 trang; có thể viết trên máy tính.",
+                    "Viết đầy đủ tên và địa chỉ người gửi, người nhận trên phong thư, hoặc bưu kiện.",
+                    "Tối thiểu, đọc và hiểu được những bài đọc lớp sáu.",
+                    "Đọc lại và tự sửa lỗi các bài viết của mình trước khi nộp (ví dụ: tự kiểm tra dấu câu, chính tả, ngữ pháp…).",
+                    "Viết thư trao đổi thông thường ở trình độ cao, với độ dài ít nhất 10 câu; có thể viết trên máy tính.",
+                    "Tối thiểu, đọc và hiểu được bài đọc lớp 11.",
+                    "Đọc ít nhất hai bài báo mỗi tuần (báo viết hoặc điện tử).",
+                    "Viết thư trao đổi công việc (ví dụ: yêu cầu cung cấp thông tin; trao đổi thắc mắc; yêu cầu giao dịch…)."
+                ]
+            }
+        ]
+    },
+    // Lĩnh vực 1: Kỹ năng sống hàng ngày
+    {
+        name: "Kỹ năng sống hàng ngày",
+        subdomains: [
+            {
+                name: "Cá nhân",
+                startByAge: [
+                    { maxMonths: 36, start: 1 },
+                    { maxMonths: 72, start: 13 },
+                    { maxMonths: 120, start: 18 },
+                    { maxMonths: 9999, start: 25 }
+                ],
+                questions: [
+                    "Há miệng khi thức ăn được đưa lên miệng.",
+                    "Ăn thức ăn đặc (ví dụ: bột, rau hoặc thịt xay…).",
+                    "Ngậm hoặc nhai thức ăn khô (ví dụ: bánh quy, bánh mỳ…).",
+                    "Uống nước bằng ly hoặc cốc; có thể còn làm rớt nước.",
+                    "Báo cho người lớn biết khi bị ướt, hoặc bị bẩn quần áo, hoặc tã (ví dụ: chỉ tay, kêu, hoặc giật tã…).",
+                    "Tự xúc bằng thìa; có thể còn làm rơi vãi thức ăn.",
+                    "Mút bằng ống hút.",
+                    "Tự cởi những đồ mặc mở ở phía trước (ví dụ: áo khoác hoặc áo nỉ); không phải tự cởi cúc hoặc tự kéo khóa.",
+                    "Tự kéo được quần lưng chun (ví dụ: quần lót, quần ngủ…).",
+                    "Tự ăn bằng dĩa; có thể còn làm rơi vãi thức ăn.",
+                    "Tự uống bằng ly hoặc cốc mà không làm rớt nước ra.",
+                    "Tự xúc bằng thìa mà không làm rơi vãi thức ăn.",
+                    "Đi tiểu trong nhà vệ sinh, hoặc ngồi ghế bô.",
+                    "Tự mặc những đồ mở ở phía trước (ví dụ: áo khoác hoặc áo nỉ); không phải tự đóng cúc hoặc kéo khóa.",
+                    "Đòi đi vệ sinh.",
+                    "Đại tiện trong nhà vệ sinh, hoặc ngồi ghế bô.",
+                    "Chủ động được việc đái, ỉa vào ban ngày.",
+                    "Tự kéo được những khóa có một đầu cố định (ví dụ: khóa quần, khóa balô…).",
+                    "Lau hoặc xì mũi bằng khăn giấy hoặc khăn mùi soa.",
+                    "Chủ động việc đái ỉa vào ban đêm.",
+                    "Xỏ giầy đúng bên; chưa cần tự buộc dây.",
+                    "Đóng khuy bấm.",
+                    "Cầm thìa, dĩa và dao ăn đúng cách.",
+                    "Rửa mặt và lau khô; có dùng xà bông và nước.",
+                    "Đánh răng.",
+                    "Cài được những khuy to phía trước, đúng lỗ khuyết.",
+                    "Che miệng và mũi khi ho hoặc hắt hơi.",
+                    "Cài được những khuy nhỏ phía trước, đúng lỗ khuyết.",
+                    "Móc hai bên khóa và kéo khóa đối với những khóa để mở hai đầu (ví dụ: khóa áo vét, áo khoác…).",
+                    "Vặn vòi nước và điều chỉnh nhiệt độ thích hợp bằng cách thêm nước nóng hoặc thêm nước lạnh.",
+                    "Mặc quần áo phù hợp với thời tiết (ví dụ: mặc áo mưa khi trời mưa, áo ấm khi trời lạnh…).",
+                    "Tự tắm rửa và lau khô người",
+                    "Tìm và sử dụng nhà vệ sinh công cộng đúng với giới của mình.",
+                    "Gội đầu và làm khô tóc (bằng khăn bông hoặc máy sấy).",
+                    "Tự chăm sóc những vết thương nhẹ (ví dụ: rửa vết thương, quấn hoặc dán băng…).",
+                    "Dùng thuốc theo đúng hướng dẫn (nghĩa là, sử dụng đúng liều lượng ghi trên nhãn).",
+                    "Dùng nhiệt kế để kiểm tra nhiệt độ cơ thể của mình hoặc người khác.",
+                    "Tìm kiếm sự hỗ trợ y tế trong trường hợp khẩn cấp (ví dụ: nhận biết được các dấu hiệu của bệnh, hoặc chấn thương trầm trọng như thở gấp, tức ngực, không cầm máu được…).",
+                    "Thực hiện chế độ chăm sóc sức khỏe, ăn kiêng đặc biệt, hoặc điều trị bệnh.",
+                    "Theo dõi việc dùng thuốc (có kê đơn hoặc không) và bổ sung thêm khi cần",
+                    "Hẹn khám sức khỏe và kiểm tra răng miệng thường kỳ."
+                ]
+            },
+            {
+                name: "Gia đình",
+                startByAge: [
+                    { maxMonths: 72, start: 1 },
+                    { maxMonths: 120, start: 7 },
+                    { maxMonths: 9999, start: 11 }
+                ],
+                questions: [
+                    "Cẩn thận với những thứ nóng xung quanh (ví dụ: lửa, bếp…).",
+                    "Phụ giúp những việc vặt trong nhà (ví dụ: lau bụi, xếp gọn quần áo, đồ chơi, cho vật nuôi ăn…).",
+                    "Thu dọn những đồ không dễ vỡ trên góc bàn ăn của mình.",
+                    "Dọn dẹp chỗ học, chỗ chơi của mình sau khi học hoặc chơi xong (ví dụ: xếp gọn màu vẽ, đồ chơi…).",
+                    "Cất những đồ riêng của mình (ví dụ: đồ chơi, sách vở…).",
+                    "Cẩn thận khi dùng những đồ sắc, nhọn (ví dụ: dao, kéo…).",
+                    "Thu dọn những đồ dễ vỡ trên góc bàn ăn của mình.",
+                    "Phụ giúp chuẩn bị nấu nướng các món ăn đòi hỏi pha trộn, chế biến (ví dụ: nhào bột, nhặt và rửa rau…).",
+                    "Sử dụng các công cụ bếp núc đơn giản (ví dụ: cái mở hộp, mở nút chai, bếp nướng bánh mì…).",
+                    "Sử dụng lò vi sóng để hâm nóng, nướng hoặc nấu đồ ăn (nghĩa là chọn chức năng, đặt thời gian…).",
+                    "Cất quần áo sạch đúng chỗ (ví dụ: gấp để vào ngăn kéo, treo vào tủ quần áo…).",
+                    "Sử dụng các công cụ (ví dụ: dùng búa để đóng đinh, dùng tô vít để vặn đinh vít…).",
+                    "Rửa bát đĩa bằng tay hoặc xếp vào máy rửa rồi vận hành máy.",
+                    "Quét, lau hoặc hút bụi sàn nhà sạch sẽ.",
+                    "Dọn sạch sẽ toàn bộ bàn ăn (ví dụ: sắp gọn thức ăn thừa, làm sạch và sắp chồng đĩa bát bẩn để mang rửa…).",
+                    "Sử dụng đúng cách các sản phẩm chức năng trong gia đình (ví dụ: bột giặt, nước rửa chén bát, nước lau đồ gia dụng…).",
+                    "Nấu những đồ ăn cơ bản không đòi hỏi chế biến, pha trộn (ví dụ: nấu cơm, luộc rau…).",
+                    "Dọn dép những phòng không phải phòng ngủ của riêng mình.",
+                    "Dùng dao sắc để chuẩn bị đồ nấu nướng.",
+                    "Dùng bếp hoặc lò nướng để hâm nóng, nướng hoặc nấu (nghĩa là biết vặn lửa, đặt mức nhiệt…).",
+                    "Nấu các món ăn đòi hỏi phải định lượng và pha trộn các thành phần.",
+                    "Giặt quần áo bẩn.",
+                    "Sửa chữa và bảo trì các đồ dùng trong nhà khi cần (ví dụ: thay bóng điện bị cháy, thay túi rác của máy hút bụi…).",
+                    "Trù liệu và nấu bữa ăn chính trong ngày."
+                ]
+            },
+            {
+                name: "Cộng đồng",
+                startByAge: [
+                    { maxMonths: 36, start: 1 },
+                    { maxMonths: 72, start: 1 },
+                    { maxMonths: 120, start: 5 },
+                    { maxMonths: 9999, start: 12 }
+                ],
+                questions: [
+                    "Có những biểu hiện chứng tỏ đã hiểu chức năng của điện thoại (ví dụ: giả vờ nói chuyện điện thoại…).",
+                    "Nói chuyện với người quen qua điện thoại.",
+                    "Sử dụng Tivi hoặc đài không cần người khác giúp (ví dụ: bật mở, chọn kênh, chọn sóng, chọn chương trình…).",
+                    "Đếm được ít nhất 10 đồ vật. Đếm từng đồ vật một.",
+                    "Có những biểu hiện cho thấy ý thức về hành vi phù hợp khi ngồi trên xe (ví dụ: túm áo hoặc ôm chặt người ngồi trước; hạn chế ảnh hưởng đến người điều khiển xe…).",
+                    "Có những biểu hiện chứng tỏ đã hiểu chức năng của tiền (ví dụ: nói “tiền dùng để mua các thứ ở cửa hàng”…).",
+                    "Đi bộ hoặc sử dụng các phương tiện đi lại như ván trượt, xe đạp… bên lề đường hoặc trên vỉa hè.",
+                    "Có những biểu hiện chứng tỏ đã hiểu chức năng của đồng hồ (ví dụ: nói “đồng hồ cho biết thời gian”, “mấy giờ thì mình đi?”…).",
+                    "Tuân thủ các quy tắc trong nhà (ví dụ: không chạy thẳng vào nhà, không nhảy lên đồ đạc…).",
+                    "Có những kĩ năng cần thiết để chơi game hoặc khởi động các chương trình trên một máy tính đang hoạt động; chưa cần tự khởi động máy tính.",
+                    "Kêu người được gọi đến nghe điện hoặc thông báo cho người gọi biết người nghe không có mặt (ví dụ: nói “điện thoại gọi cho bố”, “bố cháu không có nhà”…).",
+                    "Nhận biết các đồng tiền xu 1000, 2000, 5000 khi được hỏi, chưa cần biết giá trị của những đồng xu này.",
+                    "Nhìn cả hai phía khi sang đường.",
+                    "Nói được hôm nay là thứ mấy, khi được hỏi.",
+                    "Thể hiện được việc hiểu quyền riêng tư cá nhân cho bản thân và người khác (ví dụ, khi sử dụng nhà vệ sinh hoặc thay quần áo, v.v.)",
+                    "Biết các số điện thoại cần gọi trong trường hợp khẩn cấp, khi được hỏi.",
+                    "Nói được giờ dựa trên đồng hồ điện tử hoặc đồng hồ thường.",
+                    "Nói đúng giá trị của các đồng xu.",
+                    "Phân biệt được mệnh giá của các đồng tiền giấy (ví dụ: đề cập đến 1000, 5000, hoặc 10000 đồng khi trò chuyện…)",
+                    "Tuân thủ tín hiệu đèn giao thông (Đi – dừng lại).",
+                    "Chỉ đúng ngày tháng trong lịch khi được hỏi.",
+                    "Hiểu được rằng một số thứ đắt hơn những thứ khác (ví dụ: nói “từng này tiền chỉ mua được một chiếc kẹo chứ không mua được chiếc áo”; “chiếc bút nào rẻ hơn?”…).",
+                    "Nói được thời gian chính xác đến nửa giờ theo đồng hồ chỉ giờ bằng kim (ví dụ 1:30 hay 2:00, v.v.)",
+                    "Gọi điện cho người khác bằng điện thoại bàn hoặc di động.",
+                    "Tự gọi đầy đủ những thứ cần cho bữa ăn ở nhà hàng ăn nhanh.",
+                    "Mang hoặc giữ tiền một cách an toàn (ví dụ: cất trong ví hoặc hầu bao…).",
+                    "Nói được thời gian theo các khoảng 5 phút theo một đồng hồ chỉ giờ bằng kim (ví dụ 1:05, 1:10, v.v.)",
+                    "Tuân thủ giờ giấc do cha mẹ hoặc người chăm sóc quy định.",
+                    "Xem hoặc nghe các chương trình để nắm bắt thông tin (ví dụ: dự báo thời tiết, tin tức, chương trình giáo dục…).",
+                    "Đếm tiền được trả lại khi mua thứ gì đó.",
+                    "Có những kĩ năng máy tính cần thiết để thực hiện các nhiệm vụ phức tạp (ví dụ: soạn thảo văn bản, truy cập internet, cài đặt phần mềm…).",
+                    "Đánh giá chất lượng và giá cả khi chọn mua thứ gì đó.",
+                    "Tuân thủ giới hạn thời gian của những giờ nghỉ (ví dụ: nghỉ giải lao, nghỉ ăn trưa…).",
+                    "Tự đến những nơi quen thuộc cách nhà tối thiểu 10 đến 15km (nghĩa là tự đi bằng xe đạp, xe máy, sử dụng phương tiện giao thông công cộng, hoặc tự lái ô tô…).",
+                    "Có những biểu hiện chứng tỏ đã hiểu quyền khiếu nại hoặc tố cáo những vấn đề liên quan đến thủ tục hoặc pháp lý, khi những yêu cầu chính đáng không được giải quyết thỏa đáng.",
+                    "Báo cáo nhà trường hoặc người có trách nhiệm khi đến muộn hoặc vắng mặt.",
+                    "Sử dụng tài khoản ngân hàng của mình một cách có ý thức (ví dụ: duy trì một khoản tiền nhất định trong tài khoản, cẩn thận kiểm tra số dư…).",
+                    "Kiếm tiền nhờ làm việc bán thời gian trong vòng ít nhất 1 năm (nghĩa là làm thêm ít nhất 10h/ tuần).",
+                    "Cố gắng cải thiện năng lực làm việc của mình khi nhận được những góp ý mang tính xây dựng của cấp trên.",
+                    "Tự quản lý tiền bạc của mình (ví dụ: tự mình trả tiền, tự dùng Sec hoặc tiền mặt để mua bán…).",
+                    "Đã đi làm chính thức được ít nhất 1 năm.",
+                    "Tự hạch toán chi tiêu hàng tháng (ví dụ: chi phí dịch vụ, thuê nhà…).",
+                    "Sử dụng thẻ tín dụng một cách có trách nhiệm (ví dụ: không dùng quá giới hạn tín dụng cho phép, trả đúng hạn…)."
+                ]
+            }
+        ]
+    },
+    // Lĩnh vực 2: Xã hội hóa
+    {
+        name: "Xã hội hóa",
+        subdomains: [
+            {
+                name: "Quan hệ liên cá nhân",
+                startByAge: [
+                    { maxMonths: 36, start: 1 },
+                    { maxMonths: 72, start: 15 },
+                    { maxMonths: 120, start: 22 },
+                    { maxMonths: 9999, start: 28 }
+                ],
+                questions: [
+                    "Nhìn mặt người chăm sóc.",
+                    "Dõi mắt theo những người đi ngang qua chỗ mình nằm (cũi hoặc giường) trong vòng 5 giây hoặc lâu hơn.",
+                    "Biểu đạt được ít nhất 2 sắc thái cảm xúc (ví dụ: cười, khóc, gào thét…).",
+                    "Cười, hoặc tạo ra những âm thanh thể hiện sự vui sướng khi người thân lại gần.",
+                    "Thiết lập hoặc cố gắng thiết lập các mối tương tác xã hội (ví dụ: cười, gây tiếng ồn…).",
+                    "Vươn người về phía người thân khi người này đưa tay ra đón trẻ.",
+                    "Thể hiện thái độ lựa chọn đối với một số đồ vật hoặc người nào đó (ví dụ: cười, với tay hoặc di chuyển về phía người hoặc đồ vật đó.)",
+                    "Thể hiện sự quý mến đối với những người thân quen (ví dụ: lại gần, ôm, hôn, nép mình vào…).",
+                    "Bắt chước hoặc cố gắng bắt chước những biểu cảm trên khuôn mặt của cha mẹ hoặc người chăm sóc (ví dụ: tươi cười, cau mày…).",
+                    "Loanh quanh kiếm tìm cha, mẹ, người chăm sóc hoặc những người thân khác ở gần mình.",
+                    "Thể hiện sự quan tâm đối với những trẻ khác cùng độ tuổi thay vì chỉ quan tâm đến anh chị em trong gia đình (ví dụ: dõi theo hoặc mỉm cười với những trẻ khác.)",
+                    "Bắt chước những cử chỉ đơn giản (ví dụ: vỗ tay, vẫy tay tạm biệt…)",
+                    "Dùng hành động để bày tỏ niềm vui hoặc sự quan tâm lo lắng cho người khác (ví dụ: ôm, tét tay, nắm tay người khác…).",
+                    "Thể hiện mong muốn làm vui lòng người khác (ví dụ: chia sẻ bánh kẹo, đồ chơi, cố giúp người khác ngay cả khi không đủ khả năng giúp…).",
+                    "Có những hành vi thể hiện sự chủ động tìm kiếm bạn cùng độ tuổi (ví dụ: hỏi “bạn có muốn chơi không?” hoặc cầm tay bạn…).",
+                    "Bắt chước những hành động tương đối phức tạp sau khi quan sát người khác thực hiện (ví dụ: cạo râu, trang điểm, sơn móng tay…).",
+                    "Biết cách trả lời khi người quen hỏi chuyện (ví dụ: nếu được hỏi “cháu dạo này thế nào?”, trả lời “cháu khỏe ạ!”; nếu được khen “cháu ngoan quá!” biết trả lời “cháu cảm ơn!”…).",
+                    "Lặp lại những câu nghe được từ người lớn (ví dụ: “bố mẹ đã về”, “không ăn món tráng miệng trước khi ăn hết thức ăn”…).",
+                    "Sử dụng từ ngữ để bày tỏ cảm xúc của mình (ví dụ: “cháu vui lắm”, “cháu sợ lắm”…).",
+                    "Có bạn thân hoặc thể hiện sự quý mến hơn đối với một vài bạn nào đó so với những bạn khác.",
+                    "Bắt chước những hành động phức tạp sau thời điểm được quan sát người khác thực hiện chừng vài giờ (ví dụ: cạo râu, trang điểm, sơn móng tay…).",
+                    "Sử dụng từ ngữ để bày tỏ sự vui mừng, hoặc sự quan tâm lo lắng cho người khác (ví dụ, nói: “oh, bạn đã chiến thắng”, “bạn không sao đấy chứ?”…).",
+                    "Giúp đỡ khi người khác cần (ví dụ: giữ cửa mở cho người khác, nhặt giúp đồ người khác làm rơi…)",
+                    "Nhận biết được những thứ người khác thích, hoặc không thích (ví dụ, nói: “Chiến thích đá bóng”, “Sâm thích ăn pizza”…).",
+                    "Thể hiện mức độ cảm xúc tương đồng với những người xung quanh (ví dụ: không quá coi nhẹ, hoặc trầm trọng hóa tình huống…)",
+                    "Duy trì khoảng cách phù hợp đối với người khác trong các tình huống tiếp xúc xã hội (ví dụ: không sán quá gần khi trò chuyện với người khác…)",
+                    "Chuyện trò chia sẻ những sở thích chung của mình với mọi người (ví dụ: thể thao, chương trình truyền hình, kế hoạch hè…).",
+                    "Chủ động bắt chuyện khi gặp những người quen biết (ví dụ, chủ động hỏi: “bạn thế nào?”, “có gì mới không?”…).",
+                    "Đều đặn gặp gỡ bạn bè.",
+                    "Không nói những điều xấu xa, tục tĩu, hoặc hỏi những điều ngớ ngẩn nơi công cộng.",
+                    "Đặt ra những yêu cầu hợp lý trong quan hệ bè bạn (ví dụ: không đòi hỏi ai đó chỉ được chơi với mình hoặc luôn phải có mặt khi cần…).",
+                    "Hiểu được rằng, người khác không biết được suy nghĩ của mình nếu mình không nói với họ.",
+                    "Thận trọng khi nói đến những điều mang tính cá nhân.",
+                    "Hợp tác với người khác để xây dựng kế hoạch cho một hoạt động nào đó (ví dụ: tổ chức tiệc sinh nhật, sự kiện thể thao…).",
+                    "Có những biểu hiện cho thấy đã hiểu được hàm nghĩa của những dấu hiệu phi ngôn ngữ hoặc lời nói ẩn ý khi trò chuyện (ví dụ: biết rằng “ngáp” có nghĩa là “đã mệt mỏi”, nhanh chóng chuyển chủ đề nghĩa là “không muốn nói đến điều này”…).",
+                    "Bắt đầu cuộc trò chuyện bằng việc nói đến những điều mà người khác quan tâm (ví dụ: “Tiến cho mình biết bạn rất thích máy tính”…).",
+                    "Hẹn hò với nhóm bạn.",
+                    "Hẹn hò riêng tư với một người nào đó."
+                ]
+            },
+            {
+                name: "Vui chơi và giải trí",
+                startByAge: [
+                    { maxMonths: 36, start: 1 },
+                    { maxMonths: 72, start: 9 },
+                    { maxMonths: 120, start: 14 },
+                    { maxMonths: 9999, start: 21 }
+                ],
+                questions: [
+                    "Đáp lại sự vui đùa của cha mẹ hoặc người chăm sóc (ví dụ: cười, vỗ tay…).",
+                    "Thể hiện sự tò mò, quan tâm đối với nơi mình đang ở (ví dụ: nhìn quanh hoặc đi lại ngó nghiêng, sờ mó các thứ…)",
+                    "Hưởng ứng các trò chơi mang tính tương tác giản đơn (ví dụ: chơi ú òa, trốn tìm…).",
+                    "Chơi cạnh một trẻ khác, nhưng mỗi trẻ chơi một thứ riêng.",
+                    "Chơi cùng với những trẻ khác (ví dụ: không đứng ngoài nhóm bạn, không né tránh bạn…).",
+                    "Chơi hòa thuận với những trẻ khác trong khoảng 5 phút.",
+                    "Chơi hòa thuận với những trẻ khác trong khoảng thời gian lâu hơn 5 phút.",
+                    "Tiếp tục chơi với bạn và ít quấy nhiễu, khóc đòi khi cha mẹ hoặc người chăm sóc rời đi.",
+                    "Chia sẻ đồ chơi hoặc những thứ của mình với bạn khi được yêu cầu.",
+                    "Chơi với người khác mà không cần nhiều sự trông nom, giám sát.",
+                    "Sử dụng những đồ vật thông thường trong nhà làm vật thay thế trong các trò chơi nhập vai (ví dụ: lấy chiếc hộp nhỏ giả làm ô tô, hoặc lấy chiếc hộp to giả làm ngôi nhà…).",
+                    "Tự bảo vệ mình bằng cách tránh xa những trẻ hay phá hoại đồ, hoặc làm đau người khác (ví dụ: những trẻ hay quăng quật đồ đạc, cắn, đánh, hoặc túm tóc bạn…).",
+                    "Tham gia cùng người khác trong những trò chơi nhập vai đơn giản (ví dụ: hóa trang, giả làm người hùng…).",
+                    "Tìm kiếm người khác để cùng chơi hoặc kết thân (ví dụ: rủ bạn đến nhà chơi, đến chơi nhà bạn, chơi cùng bạn trên sân chơi…)",
+                    "Chơi đúng lượt nếu được nhắc, khi tham gia các trò chơi.",
+                    "Chơi những trò chơi thông thường ngoài trời (ví dụ: đuổi bắt, nhảy dây…)",
+                    "Chia sẻ những thứ mình có với mọi người mà không càn người khác nhắc.",
+                    "Tuân thủ đúng luật chơi khi tham gia những trò chơi đơn giản (ví dụ: chạy tiếp sức, đố chữ…)",
+                    "Chơi đúng lượt mà không cần người khác nhắc.",
+                    "Chơi các loại bài hoặc cờ dựa trên những nguyên tắc giản đơn mang tính ngẫu nhiên.",
+                    "Đi đâu đó cùng bạn bè vào ban ngày và có người lớn đi kèm (ví dụ: đi siêu thị, công viên, trung tâm giải trí…)",
+                    "Xin phép trước khi dùng những thứ không phải của mình, hoặc những thứ mà người khác đang sử dụng.",
+                    "Ngừng tham gia một nhóm nào đó khi nhận ra dấu hiệu mình không được chào đón.",
+                    "Chơi những trò đơn giản đòi hỏi phải tính điểm (ví dụ: đá bóng, bóng rổ…).",
+                    "Thể hiện tinh thần thể thao (nghĩa là tuân thủ luật chơi, không quá hung hăng, chúc mừng khi đội bạn thắng cuộc, không quá tức tối khi thua cuộc).",
+                    "Chơi nhiều thể loại bài, cờ hoặc các trò chơi điện tử đòi hỏi kĩ năng chơi và kĩ năng ra quyết định (ví dụ: MonopolyTM, Cribbage, etc.).",
+                    "Đi đâu đó với bạn bè vào buổi tối, có người lớn đi kèm (ví dụ: đi nghe nhạc, xem phim, xem thi đấu thể thao…).",
+                    "Tuân thủ đúng luật chơi trong những trò chơi, hoặc những môn thể thao phức tạp (ví dụ: bóng đá, bóng chuyền…).",
+                    "Đi đâu đó cùng bạn bè vào ban ngày, không có người lớn đi kèm (ví dụ: đi mua sắm, công viên, đến trung tâm giải trí…).",
+                    "Lập kế hoạch cho những hoạt động giải trí đòi hỏi sự sắp xếp công việc cụ thể (ví dụ: một chuyến đi biển hoặc đi chơi công viên đòi hỏi sắp xếp việc đi lại, đồ ăn, dụng cụ vui chơi…).",
+                    "Đi đâu đó cùng bạn bè vào buổi tối mà không có người lớn đi kèm (ví dụ: đi nghe nhạc, xem phim, xem thi đấu thể thao…)."
+                ]
+            },
+            {
+                name: "Kỹ năng ứng xử",
+                startByAge: [
+                    { maxMonths: 36, start: 1 },
+                    { maxMonths: 72, start: 1 },
+                    { maxMonths: 120, start: 8 },
+                    { maxMonths: 9999, start: 13 }
+                ],
+                questions: [
+                    "Chuyển từ hành động này sang hành động khác một cách dễ dàng.",
+                    "Nói “cảm ơn” khi nhận được thứ gì từ người khác.",
+                    "Thay đổi hành vi tùy theo mức độ quen biết với những người xung quanh (ví dụ: hành động khác nhau tùy theo những người xung quanh là người trong nhà hay người lạ.).",
+                    "Ngậm miệng khi nhai.",
+                    "Nói “xin vui lòng” khi yêu cầu ai thứ gì đó.",
+                    "Kết thúc các cuộc trò chuyện đúng cách (ví dụ: nói “tạm biệt”, “hẹn gặp”…).",
+                    "Rửa hoặc lau mặt và tay trong cũng như sau bữa ăn.",
+                    "Phản ứng thích hợp đối với những thay đổi mang tính hợp lý trong những công việc thường ngày (ví dụ: không ca thán…).",
+                    "Biết nói xin lỗi khi vô tình mắc lỗi (ví dụ: xô ngã người khác…).",
+                    "Không chế nhạo, chọc ghẹo, hoặc bắt nạt người khác.",
+                    "Hành động phù hợp khi được giới thiệu với người mới gặp lần đầu (ví dụ: gật đầu, mỉm cười, bắt tay, chào hỏi…)",
+                    "Thay đổi cường độ lời nói phù hợp với bối cảnh, hoặc tình huống (ví dụ: trong thư viện, khi xem phim…).",
+                    "Nói xin lỗi sau khi làm tổn thương lòng tự ái của người khác.",
+                    "Không nói khi đang có thức ăn trong miệng.",
+                    "Không ngắt lời hoặc tỏ ra khiếm nhã khi trò chuyện với người khác.",
+                    "Tiếp nhận những gợi ý, chỉ bảo hữu ích từ phía người khác.",
+                    "Kiểm soát được sự khó chịu, bực dọc khi kế hoạch bị thay đổi vì những lý do bất khả kháng (ví dụ: thời tiết xấu, xe hỏng…).",
+                    "Giữ kín bí mật, hoặc những chuyện riêng lâu hơn 1 ngày.",
+                    "Nói xin lỗi khi vô tình mắc lỗi, hoặc nhận xét không đúng (ví dụ: vô tình gạt người khác ra ngoài cuộc chơi…)",
+                    "Hiểu được rằng, những lời châm chọc nhẹ nhàng với bạn bè hoặc người thân cũng là một hình thức hài hước, tình cảm.",
+                    "Nói với cha mẹ, hoặc người chăm sóc về những kế hoạch của mình (ví dụ: sẽ đi đâu đó và trở về vào lúc mấy giờ, nơi đến…).",
+                    "Biết tránh những hành động nguy hiểm, liều lĩnh (ví dụ: nhảy từ những nơi cao xuống, chạy xe ẩu…).",
+                    "Kiểm soát được sự tức giận, hoặc cảm giác khó chịu khi các thứ không theo ý mình (ví dụ: không được phép xem Tivi, khi bị từ chối yêu cầu…).",
+                    "Thực hiện các kế hoạch và dự định đã sắp đặt (ví dụ: đã hẹn gặp ai đó, sẽ đến gặp đúng hẹn…)",
+                    "Ngừng hoặc tránh xa các mối quan hệ phức tạp, hoặc những tình huống nguy hiểm có thể gây hại cho bản thân (ví dụ: những tình huống dễ bị chọc ghẹo, bắt nạt; bị lạm dụng tình dục, hoặc lợi dụng tiền bạc…).",
+                    "Kiểm soát được sự tức giận, hoặc cảm giác khó chịu trước những phê phán mang tính xây dựng (ví dụ: góp ý sửa lỗi, trao đổi kết quả thi cử, nhận xét việc làm…).",
+                    "Giữ kín bí mật hoặc chuyện riêng lâu đến mức cần thiết.",
+                    "Suy nghĩ về những điều có thể xảy ra trước khi quyết định làm việc gì đó (ví dụ: kiềm chế hành động một cách nóng vội, nghĩ đến những thông tin quan trọng…)",
+                    "Ý thức được những nguy hiểm tiềm ẩn và quan tâm đến các cảnh báo trước những tình huống xã hội mang tính nguy cơ (ví dụ: các cuộc nhậu hết mình, phòng tán ngẫu qua mạng…).",
+                    "Tỏ ra tôn trọng đối với bạn bè đồng nghiệp (ví dụ: không phiền nhiễu hoặc gây trở ngại khi bạn đang làm việc, đúng hẹn…)."
+                ]
+            }
+        ]
+    },
+    // Lĩnh vực 3: Kỹ năng vận động
+    {
+        name: "Kỹ năng vận động",
+        subdomains: [
+            {
+                name: "Vận động thô",
+                startByAge: [
+                    { maxMonths: 36, start: 1 },
+                    { maxMonths: 72, start: 23 },
+                    { maxMonths: 120, start: 30 },
+                    { maxMonths: 9999, start: 34 }
+                ],
+                questions: [
+                    "Giữ thẳng đầu trong vòng ít nhất 15 giây, khi được bế đứng.",
+                    "Ngồi có trợ giúp (ví dụ: trong ghế, với gối…) trong vòng ít nhất 1 phút.",
+                    "Ngồi không cần trợ giúp trong vòng ít nhất 1 phút.",
+                    "Trườn hoặc di chuyển bằng bụng trên mặt sàn.",
+                    "Ngồi không cần trợ giúp ít nhất trong vòng 10 phút.",
+                    "Tự ngồi dậy và giữ tư thế ngồi không cần trợ giúp trong vòng ít nhất 1 phút.",
+                    "Bò bằng tay và đầu gối được ít nhất 1,5m (bụng không chạm sàn).",
+                    "Tự chuyển mình lên tư thế đứng.",
+                    "Bò được lên bậc cầu thang, hoặc bậc thềm.",
+                    "Đi được ít nhất 2 bước.",
+                    "Đứng không bám, vịn trong vòng 1 đến 3 phút.",
+                    "Lăn được quả bóng khi đang ở tư thế ngồi.",
+                    "Leo lên và leo xuống các đồ vật thấp (ví dụ: ghế ngồi, bậc lên xuống).",
+                    "Bò xuống cầu thang, hoặc bậc thềm.",
+                    "Đứng trong vòng ít nhất 5 phút.",
+                    "Đi lại trong phòng, có thể chưa vững và hay bị ngã.",
+                    "Ném được quả bóng.",
+                    "Đi lại không cần bám, vịn.",
+                    "Leo lên và xuống ghế ngồi của người lớn.",
+                    "Chạy không bị ngã; có thể còn chưa vững và chưa thật nhịp nhàng.",
+                    "Đi lên cầu thang, bước cả 2 chân lên mỗi bậc và có thể vẫn bám vào tay vịn.",
+                    "Đá được quả bóng.",
+                    "Chạy vững không bị ngã.",
+                    "Đi xuống cầu thang, nhìn về phía trước, bước cả 2 chân lên mỗi bậc, có thể vẫn bám tay vịn.",
+                    "Giậm nhảy cả 2 chân trên mặt sàn.",
+                    "Ném quả bóng với bất kỳ kích thước nào theo một hướng cụ thể.",
+                    "Bắt được quả bóng có kích thước lớn, được tung đến từ khoảng cách chừng 50cm đến 1m, bằng cả 2 tay.",
+                    "Đi lên cầu thang, bước mỗi chân một bậc, có thể vẫn bám tay vịn.",
+                    "Đạp xe đạp 3 bánh, hoặc đồ chơi 3 bánh khác được ít nhất 2m.",
+                    "Nhảy lên hoặc nhảy một chân về phía trước được ít nhất 3 lần.",
+                    "Nhảy lò cò được ít nhất một lần mà không bị ngã.",
+                    "Leo lên và leo xuống những đồ vật cao (ví dụ: khu leo trèo cho trẻ nhỏ trong công viên, bậc thang lên cầu trượt…).",
+                    "Đi xuống cầu thang, bước mỗi chân một bậc, có thể vẫn bám tay vịn.",
+                    "Chạy vững, có đổi hướng và thay đổi tốc độ",
+                    "Đi xe đạp có bánh phụ được ít nhất 3,5 km.",
+                    "Bắt được quả bóng cỡ lớn (được tung đến từ khoảng cách chừng 2m) bằng 2 tay.",
+                    "Nhảy lò cò về phía trước một các dễ dàng.",
+                    "Nhảy cách quãng được ít nhất 1,5 m.",
+                    "Bắt được quả bóng có kích thước bằng quả bóng tennis (được tung đến từ khoảng cách chừng 3,5 m), di chuyển để bắt nếu cần.",
+                    "Đi xe đạp không có bánh phụ mà không bị ngã."
+                ]
+            },
+            {
+                name: "Vận động tinh",
+                startByAge: [
+                    { maxMonths: 36, start: 1 },
+                    { maxMonths: 72, start: 9 },
+                    { maxMonths: 120, start: 15 },
+                    { maxMonths: 9999, start: 21 }
+                ],
+                questions: [
+                    "Với đồ chơi hoặc các đồ vật.",
+                    "Lấy được những đồ vật nhỏ (kích thước mỗi bề không quá 2cm), có thể dùng cả 2 tay.",
+                    "Chuyển đồ vật từ tay này sang tay kia.",
+                    "Bóp những đồ chơi có tính năng kêu “chít, chít”.",
+                    "Lấy được những đồ vật nhỏ bằng ngón cái và những ngón tay khác.",
+                    "Lấy được đồ vật (ví dụ: kẹp quần áo, khối hộp nhỏ…) ra khỏi hộp hoặc đồ chứa.",
+                    "Bỏ đồ vật (ví dụ: kẹp quần áo, khối hộp nhỏ…) vào hộp hoặc đồ đựng.",
+                    "Lật mở được bảng gấp, nếp gấp hoặc từng trang sách.",
+                    "Xếp chồng được ít nhất 4 khối hộp nhỏ, hoặc các đồ vật nhỏ khác mà không bị đổ.",
+                    "Biết vặn núm cửa để mở cửa.",
+                    "Biết mở gói những đồ vật nhỏ (ví dụ: kẹo cao su, kẹo…).",
+                    "Xếp đúng những hình ghép đơn giản gồm ít nhất 2 miếng ghép.",
+                    "Lật giở được từng trang sách, hoặc trang tạp chí.",
+                    "Biết dùng tay để vặn các đồ vật (ví dụ: vặn cót đồ chơi, vặn nắp để mở nắp bình…).",
+                    "Cầm bút chì đúng cách để viết hoặc vẽ.",
+                    "Tô màu được những hình đơn giản, có thể còn tô ra ngoài hình.",
+                    "Xếp được những kết cấu không gian 3 chiều (ví dụ: nhà, cầu, xe cộ…) với ít nhất 5 khối hộp nhỏ.",
+                    "Dùng được kéo để cắt bằng 1 tay.",
+                    "Dán hoặc dính (bằng keo hoặc hồ dán) 2 hoặc nhiều mảnh lại với nhau.",
+                    "Dùng băng dính để dính các thứ với nhau.",
+                    "Vẽ được nhiều hơn 1 hình có ý nghĩa (ví dụ: người, nhà, cây…).",
+                    "Viết/vẽ được gần đúng những chữ cái hoặc chữ số.",
+                    "Vừa nhìn mẫu, vừa vẽ hình tròn bằng tay.",
+                    "Dùng kéo cắt ngang tờ giấy theo đúng 1 đường thẳng.",
+                    "Tô màu những hình đơn giản; màu tô nằm trong phạm vi hình.",
+                    "Cắt được những hình đơn giản (ví dụ: hình tròn, vuông…).",
+                    "Tẩy không làm rách giấy.",
+                    "Vừa nhìn mẫu, vừa vẽ hình vuông bằng tay.",
+                    "Vừa nhìn mẫu, vừa vẽ hình tam giác bằng tay.",
+                    "Biết thắt nút.",
+                    "Kẻ đường thẳng bằng thước hoặc những vật thẳng khác.",
+                    "Vặn mở ổ khóa, hoặc những thứ tương tự - đòi hỏi vặn mở.",
+                    "Cắt được những hình phức tạp (ví dụ: ngôi sao, con vật, chữ cái…).",
+                    "Dùng bàn phím, máy chữ, hoặc phím cảm ứng để gõ tên mình hoặc những từ ngắn, có thể vẫn nhìn phím gõ.",
+                    "Biết thắt nơ.",
+                    "Đánh bằng bàn phím được khoảng 10 dòng, có thể vẫn nhìn phím bấm."
+                ]
+            }
+        ]
+    }
+];
+
+// ============================================================
+// 2. DỮ LIỆU HÀNH VI KÉM THÍCH ỨNG (Maladaptive Behavior)
+// ============================================================
+const maladaptiveData = {
+    groups: [
+        {
+            name: "Nội hóa (Internalizing)",
+            id: "internalizing",
+            questions: [
+                "Quá lệ thuộc (nghĩa là bám riết người chăm sóc hoặc anh chị…).",
+                "Né tránh mọi người và thích được một mình.",
+                "Có vấn đề về ăn uống (ví dụ: ăn quá nhanh hoặc quá chậm, ngậm thức ăn, ăn quá nhiều hoặc biếng ăn…).",
+                "Gặp vấn đề với việc ngủ (ví dụ: mộng du, thường gặp ác mộng, ngủ quá nhiều hoặc quá ít so với mức trung bình theo độ tuổi).",
+                "Không chịu đi học hoặc đi làm vì sợ, vì cảm giác bị tẩy chay hoặc cô độc",
+                "Quá lo lắng hoặc quá hoảng sợ.",
+                "Quá dễ khóc hoặc dễ cười.",
+                "Ít tiếp xúc bằng mắt với mọi người (nghĩa là không nhìn hoặc hướng vào người khác khi trò chuyện).",
+                "Buồn vô cớ.",
+                "Né tránh tiếp xúc xã hội.",
+                "Thiếu sinh khí, thiếu hào hứng với các thứ xung quanh."
+            ]
+        },
+        {
+            name: "Ngoại hóa (Externalizing)",
+            id: "externalizing",
+            questions: [
+                "Bộp chộp (nghĩa là hành động thiếu suy nghĩ).",
+                "Hờn giận quá mức.",
+                "Cố ý không nghe lời và coi thường những người có quyền uy với mình.",
+                "Chế giễu, chọc ghẹo hoặc bắt nạt người khác.",
+                "Kém nhạy bén, không để tâm đến người khác.",
+                "Nói dối, lừa dối hoặc ăn trộm.",
+                "Hung hăng (ví dụ: đấm, đá, cắn…).",
+                "Ngang bướng hoặc trơ ì.",
+                "Nói hoặc hỏi những điều đáng ngượng nơi đông người (ví dụ: “bạn béo thế” hoặc “mụn gì đỏ trên mũi bạn thế?”…).",
+                "Hành động không thích hợp khi nài nỉ ai đó điều gì đó."
+            ]
+        },
+        {
+            name: "Nhóm khác (Other)",
+            id: "other",
+            questions: [
+                "Mút ngón tay.",
+                "Đái dầm hoặc phải mặc bỉm vào buổi tối.",
+                "Tỏ ra quá thân mật với người lạ (ví dụ: quàng tay, ôm hôn, ngồi lên lòng…).",
+                "Cắn móng tay.",
+                "Có tật máy, giật (ví dụ: nháy mắt liên hồi, giật đầu…).",
+                "Nghiến răng vào ban ngày hoặc ban đêm.",
+                "Khó tập trung chú ý.",
+                "Quá hiếu động so với những trẻ khác cùng tuổi.",
+                "Sử dụng bất hợp lệ những vật dụng chung của nhà trường hoặc cơ quan (ví dụ: điện thoại, internet, các đồ văn phòng phẩm…) cho mục đích cá nhân.",
+                "Chửi thề.",
+                "Bỏ nhà đi (nghĩa là biến mất quá 24 giờ hoặc lâu hơn).",
+                "Trốn học hoặc trốn làm.",
+                "Làm ngơ hoặc không để tâm đến mọi người xung quanh.",
+                "Dùng tiền bạc hoặc quà tặng để mua chuộc tình cảm.",
+                "Uống bia, rượu hoặc dùng ma túy vào những ngày làm việc hoặc đi học."
+            ]
+        }
+    ],
+    criticalItems: [
+        "Có những hành vi kích dục không phù hợp (ví dụ: khoe cơ thể, thủ dâm nơi công cộng, sàm sỡ…).",
+        "Bị ám ảnh bởi những hành động hoặc đồ vật nào đó (ví dụ: luôn lặp đi lặp lại những từ hoặc cụm từ nào đó, đầu óc luôn vướng bận điều gì đó…).",
+        "Bày tỏ những ý nghĩ vô nghĩa (ví dụ: hoang tưởng, kể lại những điều nghe thấy từ “giọng nói vang lên trong đầu”…).",
+        "Có những thói quen hoặc kiểu cách khác người (ví dụ: liên tục tạo ra những tiếng ồn, có những cử động tay chân kì quặc…).",
+        "Thích những đồ vật hơn mọi người (ví dụ: để ý nhiều đến các đồ vật hơn mọi người xung quanh…).",
+        "Có những hành vi gây đau đớn cho chính mình (ví dụ: đập đầu, cắn hoặc véo da mình…).",
+        "Cố ý phá hỏng những thứ của mình hoặc của người khác.",
+        "Có những hành động, lời nói khác lạ (ví dụ: tự nói với mình nơi đông người, nói những câu vô nghĩa, lặp đi lặp lại những từ hoặc câu gì đó…).",
+        "Không ý thức được những thứ đang xảy ra xung quanh mình (ví dụ: tỏ ra lơ ngơ không biết gì, nhìn trống rỗng, vô định…).",
+        "Lặp đi lặp lại những cử động giật lắc cơ thể.",
+        "Sợ hãi một cách không bình thường những âm thanh, đồ vật hoặc những tình huống thông thường.",
+        "Nhớ chi tiết những thông tin vặt vãnh hàng năm trời.",
+        "Không thể hoàn tất trọn vẹn một ngày học hoặc làm việc bình thường do những đau đớn, mệt mỏi mãn tính.",
+        "Không thể hoàn tất trọn vẹn một ngày học hoặc làm việc bình thường do những triệu chứng tâm lý."
+    ]
+};
+
+// ============================================================
+// 3. HÀM TÍNH TUỔI
+// ============================================================
+function calculateAge() {
+    const dobStr = document.getElementById('dob').value;
+    const testStr = document.getElementById('testDate').value;
+
+    if (!dobStr || !testStr) {
+        document.getElementById('ageDisplay').textContent = '⚠️ Vui lòng nhập đủ ngày tháng';
+        document.getElementById('ageCalculation').style.display = 'none';
+        return null;
+    }
+
+    const dobParts = dobStr.split('-');
+    const testParts = testStr.split('-');
+    const dob = new Date(dobStr);
+    const test = new Date(testStr);
+
+    if (dob > test) {
+        document.getElementById('ageDisplay').textContent = '⚠️ Ngày sinh không được sau ngày test';
+        document.getElementById('ageCalculation').style.display = 'none';
+        return null;
+    }
+
+    let dobYear = parseInt(dobParts[0]);
+    let dobMonth = parseInt(dobParts[1]);
+    let dobDay = parseInt(dobParts[2]);
+    let testYear = parseInt(testParts[0]);
+    let testMonth = parseInt(testParts[1]);
+    let testDay = parseInt(testParts[2]);
+
+    let stepsHtml = '';
+    stepsHtml += `<div class="step">📅 Ngày test: <strong>${testDay}/${testMonth}/${testYear}</strong></div>`;
+    stepsHtml += `<div class="step">📅 Ngày sinh: <strong>${dobDay}/${dobMonth}/${dobYear}</strong></div>`;
+    stepsHtml += `<div class="step" style="border-bottom:2px solid #d5d8dc;">---</div>`;
+
+    if (testDay < dobDay) {
+        const prevMonth = new Date(testYear, testMonth - 1, 0);
+        const daysInPrevMonth = prevMonth.getDate();
+        testDay += daysInPrevMonth;
+        testMonth--;
+        stepsHtml += `<div class="step">🔹 <span class="highlight">Bước 1 - Trừ ngày:</span> ${testDay} - ${dobDay} = <strong>${testDay - dobDay}</strong> ngày (mượn ${daysInPrevMonth} ngày từ tháng trước)</div>`;
+    } else {
+        stepsHtml += `<div class="step">🔹 <span class="highlight">Bước 1 - Trừ ngày:</span> ${testDay} - ${dobDay} = <strong>${testDay - dobDay}</strong> ngày</div>`;
+    }
+
+    if (testMonth < dobMonth) {
+        testMonth += 12;
+        testYear--;
+        stepsHtml += `<div class="step">🔹 <span class="highlight">Bước 2 - Trừ tháng:</span> ${testMonth} - ${dobMonth} = <strong>${testMonth - dobMonth}</strong> tháng (mượn 1 năm)</div>`;
+    } else {
+        stepsHtml += `<div class="step">🔹 <span class="highlight">Bước 2 - Trừ tháng:</span> ${testMonth} - ${dobMonth} = <strong>${testMonth - dobMonth}</strong> tháng</div>`;
+    }
+
+    const years = testYear - dobYear;
+    stepsHtml += `<div class="step">🔹 <span class="highlight">Bước 3 - Trừ năm:</span> ${testYear} - ${dobYear} = <strong>${years}</strong> năm</div>`;
+
+    const months = testMonth - dobMonth;
+    const days = testDay - dobDay;
+
+    stepsHtml += `<div class="step" style="border-top:2px solid #d5d8dc; margin-top:4px; padding-top:6px;">`;
+    stepsHtml += `✅ <span class="result">KẾT QUẢ: ${years} năm ${months} tháng ${days} ngày</span>`;
+    stepsHtml += `</div>`;
+
+    const ageDisplay = document.getElementById('ageDisplay');
+    ageDisplay.textContent = `${years} năm ${months} tháng ${days} ngày`;
+
+    const ageCalcDiv = document.getElementById('ageCalculation');
+    document.getElementById('ageSteps').innerHTML = stepsHtml;
+    ageCalcDiv.style.display = 'block';
+
+    const totalMonths = years * 12 + months;
+    applyAgeFilter(totalMonths);
+
+    return { years, months, days, totalMonths };
+}
+
+// ============================================================
+// 4. HÀM ẨN/HIỆN CÂU HỎI THEO TUỔI
+// ============================================================
+function applyAgeFilter(totalMonths) {
+    questionData.forEach((domain, dIdx) => {
+        domain.subdomains.forEach((sub, sIdx) => {
+            let startItem = 1;
+            for (const rule of sub.startByAge) {
+                if (totalMonths <= rule.maxMonths) {
+                    startItem = rule.start;
+                    break;
+                }
+            }
+
+            const subDiv = document.querySelector(`#grid-${dIdx}-${sIdx}`)?.parentElement;
+            if (subDiv) {
+                const oldInfo = subDiv.querySelector('.start-info');
+                if (oldInfo) oldInfo.remove();
+
+                const info = document.createElement('div');
+                info.className = 'start-info';
+                info.textContent = `📌 Mốc bắt đầu: câu ${startItem}`;
+                subDiv.insertBefore(info, subDiv.querySelector('.question-grid'));
+
+                const items = subDiv.querySelectorAll('.question-item');
+                items.forEach((item, idx) => {
+                    if (idx + 1 < startItem) {
+                        item.classList.add('hidden');
+                        item.classList.remove('revealed');
+                    } else {
+                        item.classList.remove('hidden');
+                    }
+                });
+            }
+        });
+    });
+}
+
+// ============================================================
+// 5. RENDER GIAO DIỆN CHÍNH
+// ============================================================
+const container = document.getElementById('domainsContainer');
+
+function buildUI() {
+    container.innerHTML = '';
+    questionData.forEach((domain, dIdx) => {
+        const block = document.createElement('div');
+        block.className = 'domain-block';
+        const title = document.createElement('div');
+        title.className = 'domain-title';
+        title.textContent = `📁 ${domain.name}`;
+        block.appendChild(title);
+
+        domain.subdomains.forEach((sub, sIdx) => {
+            const subDiv = document.createElement('div');
+            subDiv.className = 'subdomain';
+            const subTitle = document.createElement('div');
+            subTitle.className = 'subdomain-title';
+            subTitle.innerHTML = `<span>📌 ${sub.name}</span> <small>${sub.questions.length} câu</small>`;
+            subDiv.appendChild(subTitle);
+
+            const grid = document.createElement('div');
+            grid.className = 'question-grid';
+            grid.id = `grid-${dIdx}-${sIdx}`;
+
+            sub.questions.forEach((qText, qIdx) => {
+                const item = document.createElement('div');
+                item.className = 'question-item';
+                const num = document.createElement('span');
+                num.className = 'qnum';
+                num.textContent = `${qIdx + 1}.`;
+                const textSpan = document.createElement('span');
+                textSpan.className = 'qtext';
+                textSpan.textContent = qText;
+                const sel = document.createElement('select');
+                sel.id = `q-${dIdx}-${sIdx}-${qIdx}`;
+                sel.dataset.domain = dIdx;
+                sel.dataset.sub = sIdx;
+                sel.dataset.q = qIdx;
+                const opt0 = document.createElement('option');
+                opt0.value = '0';
+                opt0.textContent = '0';
+                const opt1 = document.createElement('option');
+                opt1.value = '1';
+                opt1.textContent = '1';
+                const opt2 = document.createElement('option');
+                opt2.value = '2';
+                opt2.textContent = '2';
+                const optKB = document.createElement('option');
+                optKB.value = '1';
+                optKB.textContent = 'KB';
+                sel.appendChild(opt0);
+                sel.appendChild(opt1);
+                sel.appendChild(opt2);
+                sel.appendChild(optKB);
+                sel.value = '0';
+                item.appendChild(num);
+                item.appendChild(textSpan);
+                item.appendChild(sel);
+                grid.appendChild(item);
+            });
+
+            subDiv.appendChild(grid);
+
+            const resultDiv = document.createElement('div');
+            resultDiv.className = 'sub-result';
+            resultDiv.id = `result-${dIdx}-${sIdx}`;
+            resultDiv.innerHTML = `<span style="color:#5a7a9a;">👉 Nhấn "Tính điểm tiểu mục" để xem kết quả.</span>`;
+
+            const calcBtn = document.createElement('button');
+            calcBtn.className = 'btn btn-calc-sub';
+            calcBtn.textContent = '📊 Tính điểm tiểu mục';
+            calcBtn.dataset.domain = dIdx;
+            calcBtn.dataset.sub = sIdx;
+            calcBtn.addEventListener('click', function() {
+                calculateSubdomain(dIdx, sIdx);
+            });
+
+            subDiv.appendChild(calcBtn);
+            subDiv.appendChild(resultDiv);
+            block.appendChild(subDiv);
+        });
+        container.appendChild(block);
+    });
+}
+buildUI();
+
+// ============================================================
+// 6. RENDER GIAO DIỆN HÀNH VI KÉM THÍCH ỨNG
+// ============================================================
+function buildMaladaptiveUI() {
+    const container = document.getElementById('maladaptiveContainer');
+    container.innerHTML = '';
+
+    // Các nhóm
+    maladaptiveData.groups.forEach((group, gIdx) => {
+        const div = document.createElement('div');
+        div.className = 'mal-sub';
+        const title = document.createElement('div');
+        title.className = 'subdomain-title';
+        title.innerHTML = `<span>⚠️ ${group.name}</span> <small>${group.questions.length} câu</small>`;
+        div.appendChild(title);
+
+        const grid = document.createElement('div');
+        grid.className = 'mal-grid';
+        grid.id = `mal-grid-${gIdx}`;
+
+        group.questions.forEach((qText, qIdx) => {
+            const item = document.createElement('div');
+            item.className = 'mal-item';
+            const num = document.createElement('span');
+            num.className = 'qnum';
+            num.textContent = `${qIdx + 1}.`;
+            const textSpan = document.createElement('span');
+            textSpan.className = 'qtext';
+            textSpan.textContent = qText;
+            const sel = document.createElement('select');
+            sel.id = `mal-${gIdx}-${qIdx}`;
+            sel.dataset.group = gIdx;
+            sel.dataset.q = qIdx;
+            const opt0 = document.createElement('option');
+            opt0.value = '0';
+            opt0.textContent = '0';
+            const opt1 = document.createElement('option');
+            opt1.value = '1';
+            opt1.textContent = '1';
+            const opt2 = document.createElement('option');
+            opt2.value = '2';
+            opt2.textContent = '2';
+            sel.appendChild(opt0);
+            sel.appendChild(opt1);
+            sel.appendChild(opt2);
+            sel.value = '0';
+            item.appendChild(num);
+            item.appendChild(textSpan);
+            item.appendChild(sel);
+            grid.appendChild(item);
+        });
+
+        div.appendChild(grid);
+        container.appendChild(div);
+    });
+
+    // Critical Items
+    const critDiv = document.createElement('div');
+    critDiv.className = 'mal-sub';
+    const critTitle = document.createElement('div');
+    critTitle.className = 'subdomain-title';
+    critTitle.innerHTML = `<span>🚨 Các mục hành vi kém thích ứng cốt yếu (Critical Items)</span> <small>${maladaptiveData.criticalItems.length} câu</small>`;
+    critDiv.appendChild(critTitle);
+
+    const critGrid = document.createElement('div');
+    critGrid.className = 'mal-grid';
+    critGrid.id = 'mal-critical-grid';
+
+    maladaptiveData.criticalItems.forEach((qText, qIdx) => {
+        const item = document.createElement('div');
+        item.className = 'mal-item';
+        const num = document.createElement('span');
+        num.className = 'qnum';
+        num.textContent = `${qIdx + 1}.`;
+        const textSpan = document.createElement('span');
+        textSpan.className = 'qtext';
+        textSpan.textContent = qText;
+        const sel = document.createElement('select');
+        sel.id = `mal-critical-${qIdx}`;
+        sel.dataset.q = qIdx;
+        const opt0 = document.createElement('option');
+        opt0.value = '0';
+        opt0.textContent = '0';
+        const opt1 = document.createElement('option');
+        opt1.value = '1';
+        opt1.textContent = '1';
+        const opt2 = document.createElement('option');
+        opt2.value = '2';
+        opt2.textContent = '2';
+        const optT = document.createElement('option');
+        optT.value = 'T';
+        optT.textContent = 'T';
+        const optN = document.createElement('option');
+        optN.value = 'N';
+        optN.textContent = 'N';
+        sel.appendChild(opt0);
+        sel.appendChild(opt1);
+        sel.appendChild(opt2);
+        sel.appendChild(optT);
+        sel.appendChild(optN);
+        sel.value = '0';
+        item.appendChild(num);
+        item.appendChild(textSpan);
+        item.appendChild(sel);
+        critGrid.appendChild(item);
+    });
+
+    critDiv.appendChild(critGrid);
+    container.appendChild(critDiv);
+}
+buildMaladaptiveUI();
+
+// ============================================================
+// 7. TÍNH TOÁN CHO MỘT TIỂU MỤC
+// ============================================================
+function getPointsFromDropdown(dIdx, sIdx, n) {
+    const points = [];
+    for (let qIdx = 0; qIdx < n; qIdx++) {
+        const sel = document.getElementById(`q-${dIdx}-${sIdx}-${qIdx}`);
+        if (!sel) {
+            points.push(0);
+            continue;
+        }
+        const val = parseInt(sel.value);
+        points.push(isNaN(val) ? 0 : val);
+    }
+    return points;
+}
+
+function calculateSubdomain(dIdx, sIdx) {
+    const sub = questionData[dIdx].subdomains[sIdx];
+    const age = calculateAge();
+    if (!age) {
+        alert('Vui lòng nhập đầy đủ ngày sinh và ngày làm test!');
+        return;
+    }
+
+    const totalMonths = age.totalMonths;
+    let startItem = 1;
+    for (const rule of sub.startByAge) {
+        if (totalMonths <= rule.maxMonths) {
+            startItem = rule.start;
+            break;
+        }
+    }
+
+    const n = sub.questions.length;
+    const startIdx = Math.max(0, startItem - 1);
+    
+    let points = getPointsFromDropdown(dIdx, sIdx, n);
+    
+    let hasFourTwos = false;
+    for (let i = startIdx; i <= n - 4; i++) {
+        let allTwo = true;
+        for (let j = 0; j < 4; j++) {
+            if (points[i + j] !== 2) {
+                allTwo = false;
+                break;
+            }
+        }
+        if (allTwo) {
+            hasFourTwos = true;
+            break;
+        }
+    }
+
+    let revealedItems = [];
+
+    if (!hasFourTwos) {
+        let maxConsecutiveTwos = 0;
+        let tempCount = 0;
+        for (let i = startIdx; i < n; i++) {
+            if (points[i] === 2) {
+                tempCount++;
+                if (tempCount > maxConsecutiveTwos) {
+                    maxConsecutiveTwos = tempCount;
+                }
+            } else {
+                tempCount = 0;
+            }
+        }
+
+        if (maxConsecutiveTwos > 0 && maxConsecutiveTwos < 4) {
+            const needed = 4 - maxConsecutiveTwos;
+            const subDiv = document.querySelector(`#grid-${dIdx}-${sIdx}`)?.parentElement;
+            if (subDiv) {
+                const items = subDiv.querySelectorAll('.question-item');
+                let revealed = 0;
+                for (let i = startIdx - 1; i >= 0 && revealed < needed; i--) {
+                    if (items[i] && items[i].classList.contains('hidden')) {
+                        items[i].classList.remove('hidden');
+                        items[i].classList.add('revealed');
+                        revealedItems.push(i + 1);
+                        revealed++;
+                    }
+                }
+            }
+        }
+    }
+
+    points = getPointsFromDropdown(dIdx, sIdx, n);
+
+    let basal = -1;
+    let basalStart = -1;
+    
+    for (let i = startIdx; i <= n - 4; i++) {
+        let allTwo = true;
+        for (let j = 0; j < 4; j++) {
+            if (points[i + j] !== 2) {
+                allTwo = false;
+                break;
+            }
+        }
+        if (allTwo) {
+            basal = i;
+            basalStart = i;
+            break;
+        }
+    }
+
+    if (basal === -1) {
+        for (let i = startIdx - 1; i >= 0; i--) {
+            if (i + 3 >= n) continue;
+            let allTwo = true;
+            for (let j = 0; j < 4; j++) {
+                if (points[i + j] !== 2) {
+                    allTwo = false;
+                    break;
+                }
+            }
+            if (allTwo) {
+                basal = i;
+                basalStart = i;
+                break;
+            }
+        }
+    }
+
+    if (basal === -1) {
+        basal = 0;
+        basalStart = -1;
+    }
+
+    let ceiling = -1;
+    let ceilingStart = -1;
+    for (let i = startIdx; i <= n - 4; i++) {
+        let allZero = true;
+        for (let j = 0; j < 4; j++) {
+            if (points[i + j] !== 0) {
+                allZero = false;
+                break;
+            }
+        }
+        if (allZero) {
+            ceiling = i;
+            ceilingStart = i;
+            break;
+        }
+    }
+    if (ceiling === -1) {
+        ceiling = n - 1;
+        ceilingStart = -1;
+    }
+
+    const itemsBelowBasal = basal;
+    const scoreBelowBasal = itemsBelowBasal * 2;
+    let scoreInRange = 0;
+    for (let i = basal; i <= ceiling; i++) {
+        scoreInRange += points[i];
+    }
+    const rawScore = scoreBelowBasal + scoreInRange;
+
+    let kbCount = 0;
+    for (let i = 0; i < n; i++) {
+        const sel = document.getElementById(`q-${dIdx}-${sIdx}-${i}`);
+        if (sel && sel.value === '1' && sel.options[sel.selectedIndex]?.text === 'KB') kbCount++;
+    }
+
+    const resultDiv = document.getElementById(`result-${dIdx}-${sIdx}`);
+    let html = `<div style="font-weight:600;margin-bottom:4px;">📊 Kết quả: <span class="highlight">${sub.name}</span></div>`;
+    html += `<div><span class="highlight">Mốc bắt đầu:</span> câu ${startItem} (theo tuổi ${age.years}n${age.months}t)</div>`;
+
+    if (revealedItems.length > 0) {
+        html += `<div class="reveal-info">🔄 <strong>Đã tự động hiện thêm câu ${revealedItems.join(', ')}</strong> để tìm đủ 4 câu 2 điểm liên tiếp.<br>👉 Hãy chọn điểm cho câu ${revealedItems.join(', ')} rồi bấm "Tính điểm tiểu mục" lại!</div>`;
+    }
+
+    html += `<div><span class="highlight">Sàn:</span> `;
+    if (basalStart === -1) {
+        html += `⚠️ Không có 4 câu 2 điểm liên tiếp → lấy câu <strong>${basal + 1}</strong> làm Sàn`;
+    } else {
+        html += `4 câu 2 điểm từ câu <strong>${basalStart + 1}</strong> → <strong>${basalStart + 4}</strong> (Sàn = câu ${basal + 1})`;
+    }
+    html += `</div>`;
+
+    html += `<div><span class="highlight">Trần:</span> `;
+    if (ceilingStart === -1) {
+        html += `⚠️ Không có 4 câu 0 điểm liên tiếp → lấy câu <strong>${ceiling + 1}</strong> làm Trần`;
+    } else {
+        html += `4 câu 0 điểm từ câu <strong>${ceilingStart + 1}</strong> → <strong>${ceilingStart + 4}</strong> (Trần = câu ${ceiling + 1})`;
+    }
+    html += `</div>`;
+
+    html += `<div class="score-breakdown">📐 Cách tính điểm thô:</div>`;
+    html += `<div style="padding-left:10px;">`;
+    html += `<div>• Số câu dưới sàn = <strong>${itemsBelowBasal}</strong> câu → ${itemsBelowBasal} × 2 = <strong>${scoreBelowBasal}</strong> điểm</div>`;
+    html += `<div>• Tổng điểm 2 và 1 từ câu ${basal + 1} đến ${ceiling + 1} = <strong>${scoreInRange}</strong> điểm</div>`;
+    html += `<div style="font-weight:700;color:#1a5276;">• Điểm thô = ${scoreBelowBasal} + ${scoreInRange} = <strong>${rawScore}</strong></div>`;
+    html += `</div>`;
+
+    if (kbCount > 2) {
+        html += `<div class="warning">⚠️ Số câu KB = ${kbCount} (> 2) → Điểm này KHÔNG được tính theo quy tắc!</div>`;
+    } else {
+        html += `<div>Số câu KB = ${kbCount} (≤ 2, hợp lệ)</div>`;
+    }
+
+    let detail = '';
+    for (let i = Math.max(0, basal - 2); i <= Math.min(n - 1, ceiling + 2); i++) {
+        detail += `${i+1}:${points[i]} `;
+    }
+    html += `<div class="raw-detail">Điểm chi tiết: ${detail}</div>`;
+
+    resultDiv.innerHTML = html;
+    resultDiv.style.display = 'block';
+}
+
+// ============================================================
+// 8. TÍNH ĐIỂM HÀNH VI KÉM THÍCH ỨNG
+// ============================================================
+document.getElementById('btnCalcMal').addEventListener('click', function() {
+    let html = '<h4>📊 Kết quả Hành vi kém thích ứng</h4>';
+    let totalScore = 0;
+    let groupScores = {};
+    let allValid = true;
+
+    maladaptiveData.groups.forEach((group, gIdx) => {
+        let sum = 0;
+        let groupDetails = '';
+        const n = group.questions.length;
+        for (let qIdx = 0; qIdx < n; qIdx++) {
+            const sel = document.getElementById(`mal-${gIdx}-${qIdx}`);
+            if (sel) {
+                const val = parseInt(sel.value);
+                if (!isNaN(val)) {
+                    sum += val;
+                    groupDetails += `${qIdx+1}:${val} `;
+                }
+            }
+        }
+        groupScores[group.id] = sum;
+        totalScore += sum;
+        html += `<div style="margin: 8px 0;"><strong>${group.name}:</strong> ${sum} điểm (${groupDetails})</div>`;
+    });
+
+    html += `<div style="margin-top:10px; font-weight:700; background:#e8f0fe; padding:6px 10px; border-radius:4px;">📌 Tổng điểm hành vi kém thích ứng: ${totalScore}</div>`;
+
+    // Critical Items
+    html += `<div style="margin-top:12px; font-weight:600;">🚨 Các mục cốt yếu (đã chọn):</div>`;
+    let criticalSelected = false;
+    maladaptiveData.criticalItems.forEach((qText, qIdx) => {
+        const sel = document.getElementById(`mal-critical-${qIdx}`);
+        if (sel && sel.value !== '0') {
+            criticalSelected = true;
+            const val = sel.value;
+            html += `<div style="font-size:0.85rem; padding-left:10px;">• Câu ${qIdx+1}: <strong>${val}</strong> (${qText})</div>`;
+        }
+    });
+    if (!criticalSelected) {
+        html += `<div style="font-size:0.85rem; color:#5a7a9a; padding-left:10px;">Không có mục cốt yếu nào được đánh dấu.</div>`;
+    }
+    html += `<div style="font-size:0.8rem; color:#5a7a9a; margin-top:6px;">* Lưu ý: Các mục cốt yếu không tính vào tổng điểm, chỉ để tham khảo.</div>`;
+
+    const resultDiv = document.getElementById('malResult');
+    resultDiv.innerHTML = html;
+    resultDiv.style.display = 'block';
+});
+
+// ============================================================
+// 9. TỔNG HỢP KẾT QUẢ (Summary)
+// ============================================================
+document.getElementById('btnShowSummary').addEventListener('click', function() {
+    const age = calculateAge();
+    if (!age) {
+        alert('Vui lòng nhập đầy đủ thông tin và tính tuổi trước!');
+        return;
+    }
+
+    let html = `<h3>📋 Bảng tổng hợp kết quả</h3>`;
+    html += `<p><strong>Họ tên:</strong> ${document.getElementById('fullName').value || '---'} | `;
+    html += `<strong>Giới tính:</strong> ${document.getElementById('gender').value || '---'} | `;
+    html += `<strong>Tuổi:</strong> ${age.years}n${age.months}t${age.days}ngày</p>`;
+
+    // Bảng điểm thô các tiểu mục
+    html += `<table><thead><tr>
+        <th>Lĩnh vực</th><th>Tiểu mục</th><th>Số câu</th><th>Điểm thô</th>
+        <th>Trung vị (ước)</th><th>Mạnh/Yếu</th><th>Z-score (ước)</th>
+    </tr></thead><tbody>`;
+
+    let domainTotals = {};
+    let allSubdomainScores = [];
+    let allDomainScores = [];
+
+    questionData.forEach((domain, dIdx) => {
+        domain.subdomains.forEach((sub, sIdx) => {
+            const n = sub.questions.length;
+            const points = getPointsFromDropdown(dIdx, sIdx, n);
+            // Tính lại raw score cho đúng
+            const ageObj = calculateAge();
+            if (!ageObj) return;
+            const totalMonths = ageObj.totalMonths;
+            let startItem = 1;
+            for (const rule of sub.startByAge) {
+                if (totalMonths <= rule.maxMonths) {
+                    startItem = rule.start;
+                    break;
+                }
+            }
+            const startIdx = Math.max(0, startItem - 1);
+            let basal = -1;
+            for (let i = startIdx; i <= n - 4; i++) {
+                let allTwo = true;
+                for (let j = 0; j < 4; j++) {
+                    if (points[i + j] !== 2) { allTwo = false; break; }
+                }
+                if (allTwo) { basal = i; break; }
+            }
+            if (basal === -1) {
+                for (let i = startIdx - 1; i >= 0; i--) {
+                    if (i + 3 >= n) continue;
+                    let allTwo = true;
+                    for (let j = 0; j < 4; j++) {
+                        if (points[i + j] !== 2) { allTwo = false; break; }
+                    }
+                    if (allTwo) { basal = i; break; }
+                }
+            }
+            if (basal === -1) basal = 0;
+
+            let ceiling = -1;
+            for (let i = startIdx; i <= n - 4; i++) {
+                let allZero = true;
+                for (let j = 0; j < 4; j++) {
+                    if (points[i + j] !== 0) { allZero = false; break; }
+                }
+                if (allZero) { ceiling = i; break; }
+            }
+            if (ceiling === -1) ceiling = n - 1;
+
+            const itemsBelowBasal = basal;
+            const scoreBelowBasal = itemsBelowBasal * 2;
+            let scoreInRange = 0;
+            for (let i = basal; i <= ceiling; i++) {
+                scoreInRange += points[i];
+            }
+            const raw = scoreBelowBasal + scoreInRange;
+
+            if (!domainTotals[dIdx]) domainTotals[dIdx] = 0;
+            domainTotals[dIdx] += raw;
+
+            // Lưu để tính trung vị
+            allSubdomainScores.push({ domain: dIdx, sub: sIdx, name: sub.name, score: raw });
+        });
+    });
+
+    // Tính trung vị cho từng domain
+    const domainNames = ['Giao tiếp', 'Kỹ năng sống hàng ngày', 'Xã hội hóa', 'Kỹ năng vận động'];
+    domainNames.forEach((dName, dIdx) => {
+        const scores = allSubdomainScores.filter(s => s.domain === dIdx).map(s => s.score);
+        if (scores.length > 0) {
+            const sorted = [...scores].sort((a,b) => a-b);
+            const mid = Math.floor(sorted.length / 2);
+            const median = sorted.length % 2 === 0 ? (sorted[mid-1] + sorted[mid]) / 2 : sorted[mid];
+            allDomainScores.push({ domain: dIdx, name: dName, median: median, scores: scores });
+        }
+    });
+
+    // In bảng
+    let subIdx = 0;
+    questionData.forEach((domain, dIdx) => {
+        domain.subdomains.forEach((sub, sIdx) => {
+            const raw = allSubdomainScores[subIdx]?.score || 0;
+            const domainMedian = allDomainScores.find(d => d.domain === dIdx)?.median || 15;
+            const diff = raw - domainMedian;
+            let my = '---';
+            if (diff >= 2) my = '✅ Mạnh';
+            else if (diff <= -2) my = '⚠️ Yếu';
+            const z = ((raw - 15) / 3).toFixed(2);
+
+            html += `<tr>
+                <td>${dIdx === 0 ? domain.name : ''}</td>
+                <td>${sub.name}</td>
+                <td>${sub.questions.length}</td>
+                <td><strong>${raw}</strong></td>
+                <td>${domainMedian.toFixed(1)}</td>
+                <td>${my}</td>
+                <td>${z}</td>
+            </tr>`;
+            subIdx++;
+        });
+        // Tổng domain
+        const total = domainTotals[dIdx] || 0;
+        html += `<tr class="domain-total"><td colspan="3" style="text-align:right;"><strong>Tổng ${domain.name}</strong></td>
+            <td><strong>${total}</strong></td><td colspan="3"></td></tr>`;
+    });
+
+    html += `</tbody></table>`;
+
+    // Phần giải thích
+    html += `<div class="summary" style="margin-top:15px;">
+        <p><strong>📌 Giải thích:</strong></p>
+        <ul style="font-size:0.9rem; line-height:1.6;">
+            <li><strong>Mạnh/Yếu:</strong> So sánh với trung vị của các tiểu mục trong cùng lĩnh vực. Mạnh = chênh lệch ≥ 2, Yếu = chênh lệch ≤ -2.</li>
+            <li><strong>Z-score (ước tính):</strong> Z = (Điểm thô - 15) / 3. <br>Z > 2: cao hơn trung bình, Z < -2: thấp hơn trung bình.</li>
+            <li><strong>Lưu ý:</strong> Đây là điểm thô chưa quy đổi sang V-scale/Standard score. Để có kết quả chính xác, cần tra bảng quy đổi theo độ tuổi.</li>
+        </ul>
+    </div>`;
+
+    const resultDiv = document.getElementById('resultArea');
+    resultDiv.innerHTML = html;
+    resultDiv.style.display = 'block';
+});
+
+// ============================================================
+// 10. RESET
+// ============================================================
+document.getElementById('btnReset').addEventListener('click', function() {
+    const selects = document.querySelectorAll('select[id^="q-"], select[id^="mal-"]');
+    selects.forEach(sel => sel.value = '0');
+    document.querySelectorAll('.sub-result, .mal-result').forEach(el => {
+        el.style.display = 'none';
+        if (el.id.startsWith('result-')) {
+            el.innerHTML = `<span style="color:#5a7a9a;">👉 Nhấn "Tính điểm tiểu mục" để xem kết quả.</span>`;
+        }
+    });
+    document.querySelectorAll('.question-item.revealed').forEach(el => {
+        el.classList.remove('revealed');
+    });
+    document.getElementById('resultArea').style.display = 'none';
+    document.getElementById('resultArea').innerHTML = '';
+});
+
+// ============================================================
+// 11. SỰ KIỆN KHỞI TẠO
+// ============================================================
+document.getElementById('btnCalcAge').addEventListener('click', function() {
+    calculateAge();
+});
+document.getElementById('dob').addEventListener('change', calculateAge);
+document.getElementById('testDate').addEventListener('change', calculateAge);
+
+document.getElementById('btnCalcAll').addEventListener('click', function() {
+    const age = calculateAge();
+    if (!age) {
+        alert('Vui lòng nhập đầy đủ ngày sinh và ngày làm test!');
+        return;
+    }
+    questionData.forEach((domain, dIdx) => {
+        domain.subdomains.forEach((sub, sIdx) => {
+            calculateSubdomain(dIdx, sIdx);
+        });
+    });
+    document.getElementById('resultArea').style.display = 'none';
+});
+</script>
+</body>
+</html>
