@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vineland-II - Thực hành tính điểm toàn diện</title>
-<div class="credit">✏️ Thực hiện bởi: <em>Thanh niên Diễm Hằng 18+ đang vật lộn với thang đo này để lấy 5đ cuối kỳ</em></div>
     <style>
         * { box-sizing: border-box; }
         body {
@@ -21,7 +20,27 @@
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
-        h1 { color: #1a3a5c; border-bottom: 3px solid #2a7de1; padding-bottom: 8px; margin-top: 0; }
+        h1 { 
+            color: #1a3a5c; 
+            border-bottom: 3px solid #2a7de1; 
+            padding-bottom: 8px; 
+            margin-top: 0; 
+            margin-bottom: 2px;
+        }
+        .credit {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #5a7a9a;
+            padding: 4px 0 12px 0;
+            border-bottom: 1px dashed #d4dfe8;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        .credit em {
+            color: #1a5fb0;
+            font-weight: 600;
+            font-style: italic;
+        }
         .desc {
             background: #e9f2fa;
             padding: 12px 18px;
@@ -265,37 +284,18 @@
             background: #d9e9f7;
             font-weight: 700;
         }
-        .mal-table td {
-            text-align: left;
-        }
-        .credit {
-    text-align: center;
-    font-size: 0.85rem;
-    color: #5a7a9a;
-    padding: 4px 0 12px 0;
-    border-bottom: 1px dashed #d4dfe8;
-    margin-bottom: 15px;
-    font-style: italic;
-}
-.credit em {
-    color: #1a5fb0;
-    font-weight: 600;
-    font-style: italic;
-}
     </style>
 </head>
 <body>
 <div class="container">
     <h1>📋 Vineland‑II – Thực hành tính điểm toàn diện</h1>
+    <div class="credit">✏️ Thực hiện bởi: <em>Đồng chí Diễm Hằng 18 tủi đang vật lộn với thang đo này để lấy 5đ cuối kỳ</em></div>
     <div class="desc">
         <strong>Hướng dẫn:</strong> Nhập thông tin và ngày tháng để tính tuổi.
         <br>• <strong>2</strong> = Thường xuyên  • <strong>1</strong> = Đôi khi  • <strong>0</strong> = Không bao giờ  • <strong>KB</strong> = Không biết (quy về 1 điểm)
         <br>• <strong>Sàn</strong> = 4 câu <strong>2</strong> liên tiếp, tìm từ mục bắt đầu trở xuống.
         <br>• <strong>Trần</strong> = 4 câu <strong>0</strong> liên tiếp, tìm từ mục bắt đầu trở xuống.
         <br>• <strong>⚠️ Lưu ý:</strong> Sau khi nhập ngày tháng, bấm "Cập nhật" để tính tuổi và ẩn/hiện câu hỏi phù hợp.
-        <br>• <strong>Công thức tính điểm thô:</strong> (Số câu dưới sàn × 2) + (Tổng điểm 2 và 1 từ Sàn đến Trần)
-        <br>• <strong>🔄 Nếu thiếu câu 2 điểm:</strong> Hệ thống tự động hiện thêm câu phía trên và đánh dấu màu vàng.
-        <br>• <strong>👉 Sau khi hiện thêm câu, hãy chọn điểm cho câu đó rồi bấm "Tính điểm tiểu mục" lại!</strong>
     </div>
 
     <!-- ===== PHẦN THÔNG TIN & TÍNH TUỔI ===== -->
@@ -340,7 +340,7 @@
     <!-- ===== PHẦN HÀNH VI KÉM THÍCH ỨNG ===== -->
     <div class="maladaptive-block" id="maladaptiveBlock">
         <div class="domain-title">⚠️ Chỉ báo hành vi kém thích ứng</div>
-        <p style="font-size:0.9rem; color:#5a7a9a; margin: -5px 0 10px 0;">Điểm: 2 = Thường xuyên, 1 = Đôi khi, 0 = Không bao giờ. KB/KP không áp dụng cho phần này.</p>
+        <p style="font-size:0.9rem; color:#5a7a9a; margin: -5px 0 10px 0;">Điểm: 2 = Thường xuyên, 1 = Đôi khi, 0 = Không bao giờ.</p>
         <div id="maladaptiveContainer"></div>
         <button class="btn btn-calc-sub" id="btnCalcMal">📊 Tính điểm hành vi kém thích ứng</button>
         <div id="malResult" class="mal-result" style="display:none;"></div>
@@ -356,13 +356,12 @@
 
     <div class="footer">
         Dựa trên Vineland‑II (Sparrow, Cicchetti &amp; Balla). Điểm thô chưa quy đổi sang V‑scale / Standard score.
-        <br>Phần tính Mạnh/Yếu và Z-score dựa trên hướng dẫn sử dụng (Mean Tiểu mục = 15, SD = 3; Mean Lĩnh vực = 100, SD = 15).
     </div>
 </div>
 
 <script>
 // ============================================================
-// 1. DỮ LIỆU CÂU HỎI & MỐC BẮT ĐẦU THEO TUỔI
+// 1. DỮ LIỆU CÂU HỎI & MỐC BẮT ĐẦU (ĐÃ SỬA THEO FILE GỐC)
 // ============================================================
 const questionData = [
     // Lĩnh vực 0: Giao tiếp
@@ -372,10 +371,10 @@ const questionData = [
             {
                 name: "Tiếp nhận",
                 startByAge: [
-                    { maxMonths: 36, start: 1 },
-                    { maxMonths: 72, start: 11 },
-                    { maxMonths: 120, start: 14 },
-                    { maxMonths: 9999, start: 16 }
+                    { maxMonths: 12, start: 1 },
+                    { maxMonths: 24, start: 4 },
+                    { maxMonths: 36, start: 7 },
+                    { maxMonths: 9999, start: 9 }
                 ],
                 questions: [
                     "Hướng mắt và quay đầu về phía có âm thanh.",
@@ -403,10 +402,13 @@ const questionData = [
             {
                 name: "Diễn đạt",
                 startByAge: [
-                    { maxMonths: 36, start: 1 },
-                    { maxMonths: 72, start: 29 },
-                    { maxMonths: 120, start: 33 },
-                    { maxMonths: 9999, start: 42 }
+                    { maxMonths: 12, start: 1 },
+                    { maxMonths: 24, start: 8 },
+                    { maxMonths: 36, start: 20 },
+                    { maxMonths: 48, start: 29 },
+                    { maxMonths: 72, start: 33 },
+                    { maxMonths: 84, start: 40 },
+                    { maxMonths: 9999, start: 45 }
                 ],
                 questions: [
                     "Khóc hoặc quấy khi đói hoặc bị ướt.",
@@ -469,8 +471,9 @@ const questionData = [
                 name: "Văn bản",
                 startByAge: [
                     { maxMonths: 72, start: 1 },
-                    { maxMonths: 120, start: 6 },
-                    { maxMonths: 9999, start: 9 }
+                    { maxMonths: 96, start: 6 },
+                    { maxMonths: 108, start: 9 },
+                    { maxMonths: 9999, start: 12 }
                 ],
                 questions: [
                     "Nhận biết được một số hoặc một vài chữ cái và phân biệt được chúng với các chữ số.",
@@ -509,10 +512,13 @@ const questionData = [
             {
                 name: "Cá nhân",
                 startByAge: [
-                    { maxMonths: 36, start: 1 },
-                    { maxMonths: 72, start: 13 },
-                    { maxMonths: 120, start: 18 },
-                    { maxMonths: 9999, start: 25 }
+                    { maxMonths: 12, start: 1 },
+                    { maxMonths: 24, start: 4 },
+                    { maxMonths: 36, start: 8 },
+                    { maxMonths: 48, start: 13 },
+                    { maxMonths: 60, start: 18 },
+                    { maxMonths: 84, start: 25 },
+                    { maxMonths: 9999, start: 32 }
                 ],
                 questions: [
                     "Há miệng khi thức ăn được đưa lên miệng.",
@@ -561,8 +567,8 @@ const questionData = [
             {
                 name: "Gia đình",
                 startByAge: [
-                    { maxMonths: 72, start: 1 },
-                    { maxMonths: 120, start: 7 },
+                    { maxMonths: 84, start: 1 },
+                    { maxMonths: 132, start: 6 },
                     { maxMonths: 9999, start: 11 }
                 ],
                 questions: [
@@ -595,10 +601,14 @@ const questionData = [
             {
                 name: "Cộng đồng",
                 startByAge: [
-                    { maxMonths: 36, start: 1 },
-                    { maxMonths: 72, start: 1 },
-                    { maxMonths: 120, start: 5 },
-                    { maxMonths: 9999, start: 12 }
+                    { maxMonths: 48, start: 1 },
+                    { maxMonths: 60, start: 4 },
+                    { maxMonths: 84, start: 7 },
+                    { maxMonths: 96, start: 14 },
+                    { maxMonths: 108, start: 18 },
+                    { maxMonths: 144, start: 23 },
+                    { maxMonths: 192, start: 26 },
+                    { maxMonths: 9999, start: 32 }
                 ],
                 questions: [
                     "Có những biểu hiện chứng tỏ đã hiểu chức năng của điện thoại (ví dụ: giả vờ nói chuyện điện thoại…).",
@@ -655,9 +665,11 @@ const questionData = [
             {
                 name: "Quan hệ liên cá nhân",
                 startByAge: [
-                    { maxMonths: 36, start: 1 },
-                    { maxMonths: 72, start: 15 },
-                    { maxMonths: 120, start: 22 },
+                    { maxMonths: 12, start: 1 },
+                    { maxMonths: 36, start: 11 },
+                    { maxMonths: 60, start: 15 },
+                    { maxMonths: 72, start: 20 },
+                    { maxMonths: 108, start: 23 },
                     { maxMonths: 9999, start: 28 }
                 ],
                 questions: [
@@ -704,10 +716,13 @@ const questionData = [
             {
                 name: "Vui chơi và giải trí",
                 startByAge: [
-                    { maxMonths: 36, start: 1 },
-                    { maxMonths: 72, start: 9 },
-                    { maxMonths: 120, start: 14 },
-                    { maxMonths: 9999, start: 21 }
+                    { maxMonths: 12, start: 1 },
+                    { maxMonths: 36, start: 4 },
+                    { maxMonths: 48, start: 9 },
+                    { maxMonths: 60, start: 13 },
+                    { maxMonths: 84, start: 18 },
+                    { maxMonths: 156, start: 21 },
+                    { maxMonths: 9999, start: 25 }
                 ],
                 questions: [
                     "Đáp lại sự vui đùa của cha mẹ hoặc người chăm sóc (ví dụ: cười, vỗ tay…).",
@@ -746,10 +761,11 @@ const questionData = [
             {
                 name: "Kỹ năng ứng xử",
                 startByAge: [
-                    { maxMonths: 36, start: 1 },
-                    { maxMonths: 72, start: 1 },
-                    { maxMonths: 120, start: 8 },
-                    { maxMonths: 9999, start: 13 }
+                    { maxMonths: 60, start: 1 },
+                    { maxMonths: 96, start: 5 },
+                    { maxMonths: 108, start: 9 },
+                    { maxMonths: 156, start: 16 },
+                    { maxMonths: 9999, start: 21 }
                 ],
                 questions: [
                     "Chuyển từ hành động này sang hành động khác một cách dễ dàng.",
@@ -793,10 +809,11 @@ const questionData = [
             {
                 name: "Vận động thô",
                 startByAge: [
-                    { maxMonths: 36, start: 1 },
-                    { maxMonths: 72, start: 23 },
-                    { maxMonths: 120, start: 30 },
-                    { maxMonths: 9999, start: 34 }
+                    { maxMonths: 12, start: 1 },
+                    { maxMonths: 24, start: 8 },
+                    { maxMonths: 36, start: 17 },
+                    { maxMonths: 48, start: 23 },
+                    { maxMonths: 9999, start: 31 }
                 ],
                 questions: [
                     "Giữ thẳng đầu trong vòng ít nhất 15 giây, khi được bế đứng.",
@@ -844,10 +861,11 @@ const questionData = [
             {
                 name: "Vận động tinh",
                 startByAge: [
-                    { maxMonths: 36, start: 1 },
-                    { maxMonths: 72, start: 9 },
-                    { maxMonths: 120, start: 15 },
-                    { maxMonths: 9999, start: 21 }
+                    { maxMonths: 12, start: 1 },
+                    { maxMonths: 36, start: 6 },
+                    { maxMonths: 60, start: 9 },
+                    { maxMonths: 72, start: 17 },
+                    { maxMonths: 9999, start: 26 }
                 ],
                 questions: [
                     "Với đồ chơi hoặc các đồ vật.",
@@ -893,7 +911,7 @@ const questionData = [
 ];
 
 // ============================================================
-// 2. DỮ LIỆU HÀNH VI KÉM THÍCH ỨNG (Maladaptive Behavior)
+// 2. DỮ LIỆU HÀNH VI KÉM THÍCH ỨNG
 // ============================================================
 const maladaptiveData = {
     groups: [
@@ -1175,13 +1193,12 @@ function buildUI() {
 buildUI();
 
 // ============================================================
-// 6. RENDER GIAO DIỆN HÀNH VI KÉM THÍCH ỨNG
+// 6. RENDER HÀNH VI KÉM THÍCH ỨNG
 // ============================================================
 function buildMaladaptiveUI() {
     const container = document.getElementById('maladaptiveContainer');
     container.innerHTML = '';
 
-    // Các nhóm
     maladaptiveData.groups.forEach((group, gIdx) => {
         const div = document.createElement('div');
         div.className = 'mal-sub';
@@ -1235,7 +1252,7 @@ function buildMaladaptiveUI() {
     critDiv.className = 'mal-sub';
     const critTitle = document.createElement('div');
     critTitle.className = 'subdomain-title';
-    critTitle.innerHTML = `<span>🚨 Các mục hành vi kém thích ứng cốt yếu (Critical Items)</span> <small>${maladaptiveData.criticalItems.length} câu</small>`;
+    critTitle.innerHTML = `<span>🚨 Các mục hành vi kém thích ứng cốt yếu</span> <small>${maladaptiveData.criticalItems.length} câu</small>`;
     critDiv.appendChild(critTitle);
 
     const critGrid = document.createElement('div');
@@ -1500,13 +1517,12 @@ function calculateSubdomain(dIdx, sIdx) {
 }
 
 // ============================================================
-// 8. TÍNH ĐIỂM HÀNH VI KÉM THÍCH ỨNG
+// 8. CÁC SỰ KIỆN KHÁC
 // ============================================================
 document.getElementById('btnCalcMal').addEventListener('click', function() {
     let html = '<h4>📊 Kết quả Hành vi kém thích ứng</h4>';
     let totalScore = 0;
     let groupScores = {};
-    let allValid = true;
 
     maladaptiveData.groups.forEach((group, gIdx) => {
         let sum = 0;
@@ -1550,9 +1566,42 @@ document.getElementById('btnCalcMal').addEventListener('click', function() {
     resultDiv.style.display = 'block';
 });
 
-// ============================================================
-// 9. TỔNG HỢP KẾT QUẢ (Summary)
-// ============================================================
+document.getElementById('btnReset').addEventListener('click', function() {
+    const selects = document.querySelectorAll('select[id^="q-"], select[id^="mal-"]');
+    selects.forEach(sel => sel.value = '0');
+    document.querySelectorAll('.sub-result, .mal-result').forEach(el => {
+        el.style.display = 'none';
+        if (el.id.startsWith('result-')) {
+            el.innerHTML = `<span style="color:#5a7a9a;">👉 Nhấn "Tính điểm tiểu mục" để xem kết quả.</span>`;
+        }
+    });
+    document.querySelectorAll('.question-item.revealed').forEach(el => {
+        el.classList.remove('revealed');
+    });
+    document.getElementById('resultArea').style.display = 'none';
+    document.getElementById('resultArea').innerHTML = '';
+});
+
+document.getElementById('btnCalcAge').addEventListener('click', function() {
+    calculateAge();
+});
+document.getElementById('dob').addEventListener('change', calculateAge);
+document.getElementById('testDate').addEventListener('change', calculateAge);
+
+document.getElementById('btnCalcAll').addEventListener('click', function() {
+    const age = calculateAge();
+    if (!age) {
+        alert('Vui lòng nhập đầy đủ ngày sinh và ngày làm test!');
+        return;
+    }
+    questionData.forEach((domain, dIdx) => {
+        domain.subdomains.forEach((sub, sIdx) => {
+            calculateSubdomain(dIdx, sIdx);
+        });
+    });
+    document.getElementById('resultArea').style.display = 'none';
+});
+
 document.getElementById('btnShowSummary').addEventListener('click', function() {
     const age = calculateAge();
     if (!age) {
@@ -1565,7 +1614,6 @@ document.getElementById('btnShowSummary').addEventListener('click', function() {
     html += `<strong>Giới tính:</strong> ${document.getElementById('gender').value || '---'} | `;
     html += `<strong>Tuổi:</strong> ${age.years}n${age.months}t${age.days}ngày</p>`;
 
-    // Bảng điểm thô các tiểu mục
     html += `<table><thead><tr>
         <th>Lĩnh vực</th><th>Tiểu mục</th><th>Số câu</th><th>Điểm thô</th>
         <th>Trung vị (ước)</th><th>Mạnh/Yếu</th><th>Z-score (ước)</th>
@@ -1579,7 +1627,6 @@ document.getElementById('btnShowSummary').addEventListener('click', function() {
         domain.subdomains.forEach((sub, sIdx) => {
             const n = sub.questions.length;
             const points = getPointsFromDropdown(dIdx, sIdx, n);
-            // Tính lại raw score cho đúng
             const ageObj = calculateAge();
             if (!ageObj) return;
             const totalMonths = ageObj.totalMonths;
@@ -1632,12 +1679,10 @@ document.getElementById('btnShowSummary').addEventListener('click', function() {
             if (!domainTotals[dIdx]) domainTotals[dIdx] = 0;
             domainTotals[dIdx] += raw;
 
-            // Lưu để tính trung vị
             allSubdomainScores.push({ domain: dIdx, sub: sIdx, name: sub.name, score: raw });
         });
     });
 
-    // Tính trung vị cho từng domain
     const domainNames = ['Giao tiếp', 'Kỹ năng sống hàng ngày', 'Xã hội hóa', 'Kỹ năng vận động'];
     domainNames.forEach((dName, dIdx) => {
         const scores = allSubdomainScores.filter(s => s.domain === dIdx).map(s => s.score);
@@ -1649,7 +1694,6 @@ document.getElementById('btnShowSummary').addEventListener('click', function() {
         }
     });
 
-    // In bảng
     let subIdx = 0;
     questionData.forEach((domain, dIdx) => {
         domain.subdomains.forEach((sub, sIdx) => {
@@ -1672,7 +1716,6 @@ document.getElementById('btnShowSummary').addEventListener('click', function() {
             </tr>`;
             subIdx++;
         });
-        // Tổng domain
         const total = domainTotals[dIdx] || 0;
         html += `<tr class="domain-total"><td colspan="3" style="text-align:right;"><strong>Tổng ${domain.name}</strong></td>
             <td><strong>${total}</strong></td><td colspan="3"></td></tr>`;
@@ -1680,7 +1723,6 @@ document.getElementById('btnShowSummary').addEventListener('click', function() {
 
     html += `</tbody></table>`;
 
-    // Phần giải thích
     html += `<div class="summary" style="margin-top:15px;">
         <p><strong>📌 Giải thích:</strong></p>
         <ul style="font-size:0.9rem; line-height:1.6;">
@@ -1693,48 +1735,6 @@ document.getElementById('btnShowSummary').addEventListener('click', function() {
     const resultDiv = document.getElementById('resultArea');
     resultDiv.innerHTML = html;
     resultDiv.style.display = 'block';
-});
-
-// ============================================================
-// 10. RESET
-// ============================================================
-document.getElementById('btnReset').addEventListener('click', function() {
-    const selects = document.querySelectorAll('select[id^="q-"], select[id^="mal-"]');
-    selects.forEach(sel => sel.value = '0');
-    document.querySelectorAll('.sub-result, .mal-result').forEach(el => {
-        el.style.display = 'none';
-        if (el.id.startsWith('result-')) {
-            el.innerHTML = `<span style="color:#5a7a9a;">👉 Nhấn "Tính điểm tiểu mục" để xem kết quả.</span>`;
-        }
-    });
-    document.querySelectorAll('.question-item.revealed').forEach(el => {
-        el.classList.remove('revealed');
-    });
-    document.getElementById('resultArea').style.display = 'none';
-    document.getElementById('resultArea').innerHTML = '';
-});
-
-// ============================================================
-// 11. SỰ KIỆN KHỞI TẠO
-// ============================================================
-document.getElementById('btnCalcAge').addEventListener('click', function() {
-    calculateAge();
-});
-document.getElementById('dob').addEventListener('change', calculateAge);
-document.getElementById('testDate').addEventListener('change', calculateAge);
-
-document.getElementById('btnCalcAll').addEventListener('click', function() {
-    const age = calculateAge();
-    if (!age) {
-        alert('Vui lòng nhập đầy đủ ngày sinh và ngày làm test!');
-        return;
-    }
-    questionData.forEach((domain, dIdx) => {
-        domain.subdomains.forEach((sub, sIdx) => {
-            calculateSubdomain(dIdx, sIdx);
-        });
-    });
-    document.getElementById('resultArea').style.display = 'none';
 });
 </script>
 </body>
