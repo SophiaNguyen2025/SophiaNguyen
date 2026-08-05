@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Atlas Cảm Xúc – Bản Đồ Toàn Diện</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f5f1ec;
+            color: #1e1b1a;
+            min-height: 100vh;
+            padding: 40px 24px;
+            line-height: 1.6;
+            transition: background 0.4s ease;
+        }
+
+        body.bg-anger {
+            background: #fcf4f0;
+        }
+        body.bg-fear {
+            background: #f2eff5;
+        }
+        body.bg-disgust {
+            background: #f0f4ec;
+        }
+        body.bg-sadness {
+            background: #ebf0f3;
+        }
+        body.bg-joy {
+            background: #fcf7ea;
+        }
+        body.bg-surprise {
+            background: #f6f0ea;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding-bottom: 28px;
+            border-bottom: 2px solid #e4ddd7;
+            margin-bottom: 40px;
+        }
+
+        .header-left h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: #1e1b1a;
+        }
+        .header-left h1 span {
+            color: #b38b7a;
+        }
+        .header-left .sub {
+            font-size: 0.95rem;
+            color: #8a7a6e;
+            font-weight: 400;
+            margin-top: 4px;
+            letter-spacing: 0.4px;
+        }
+
+        .header-right {
+            text-align: right;
+            font-size: 0.85rem;
+            color: #8a7a6e;
+            max-width: 340px;
+            line-height: 1.5;
+            border-left: 3px solid #e4ddd7;
+            padding-left: 20px;
+        }
+        .header-right strong {
+            color: #5c4b3f;
+            font-weight: 600;
+        }
+
+        @media (max-width: 700px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            .header-right {
+                text-align: left;
+                border-left: none;
+                padding-left: 0;
+                max-width: 100%;
+            }
+        }
+
+        /* ===== GIỚI THIỆU ===== */
+        .intro {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(4px);
+            border-radius: 20px;
+            padding: 24px 32px;
+            margin-bottom: 42px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            font-size: 1.05rem;
+            color: #3d332d;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+        }
+        .intro strong {
+            color: #b38b7a;
+            font-weight: 600;
+        }
+
+        /* ================================================================
+           HÀNG NGANG 6 CẢM XÚC CHÍNH
+           ================================================================ */
+        .emotion-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 12px;
+            margin-bottom: 48px;
+        }
+
+        @media (max-width: 900px) {
+            .emotion-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        @media (max-width: 500px) {
+            .emotion-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .emotion-card {
+            border-radius: 16px;
+            padding: 16px 12px 14px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            border: 2px solid transparent;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(4px);
+        }
+
+        .emotion-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .emotion-card.active {
+            border-color: #b38b7a;
+            box-shadow: 0 8px 25px rgba(179, 139, 122, 0.2);
+        }
+
+        .emotion-card .icon {
+            font-size: 2.2rem;
+            display: block;
+            line-height: 1.2;
+            margin-bottom: 2px;
+        }
+        .emotion-card .name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #2d241f;
+        }
+        .emotion-card .sub-hint {
+            font-size: 0.6rem;
+            color: #8a7a6e;
+            margin-top: 4px;
+            opacity: 0.7;
+        }
+
+        .emotion-card[data-emotion="anger"] {
+            border-color: #dba894;
+        }
+        .emotion-card[data-emotion="fear"] {
+            border-color: #b8a8c8;
+        }
+        .emotion-card[data-emotion="disgust"] {
+            border-color: #a8be94;
+        }
+        .emotion-card[data-emotion="sadness"] {
+            border-color: #8ab0c4;
+        }
+        .emotion-card[data-emotion="joy"] {
+            border-color: #e8ce7a;
+        }
+        .emotion-card[data-emotion="surprise"] {
+            border-color: #d8b88a;
+        }
+
+        /* ================================================================
+           PANEL CHI TIẾT
+           ================================================================ */
+        .detail-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.06);
+            margin-bottom: 40px;
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+            transition: max-height 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                opacity 0.5s ease,
+                padding 0.5s ease;
+            padding: 0 36px;
+        }
+
+        .detail-panel.open {
+            max-height: 3000px;
+            opacity: 1;
+            padding: 32px 36px 38px;
+        }
+
+        @media (max-width: 600px) {
+            .detail-panel.open {
+                padding: 20px 18px 24px;
+            }
+        }
+
+        .detail-panel .emotion-title {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px 16px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1e1b1a;
+            padding-bottom: 18px;
+            border-bottom: 2px solid rgba(0, 0, 0, 0.06);
+            margin-bottom: 24px;
+        }
+        .detail-panel .emotion-title .big-icon {
+            font-size: 2.8rem;
+        }
+
+        .spectrum-section {
+            margin-bottom: 28px;
+        }
+        .spectrum-section .label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #b09a8a;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .spectrum-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 12px;
+        }
+        .spectrum-item {
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 30px;
+            padding: 4px 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #3d332d;
+            border: 1.5px solid rgba(0, 0, 0, 0.06);
+            transition: 0.15s;
+        }
+        .spectrum-item:hover {
+            border-color: #b38b7a;
+        }
+        .spectrum-item.low {
+            background: rgba(200, 200, 200, 0.15);
+        }
+        .spectrum-item.mid {
+            background: rgba(179, 139, 122, 0.12);
+        }
+        .spectrum-item.high {
+            background: rgba(179, 139, 122, 0.25);
+            font-weight: 600;
+        }
+
+        .detail-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 28px;
+            margin-top: 8px;
+        }
+        @media (max-width: 900px) {
+            .detail-row {
+                grid-template-columns: 1fr 1fr;
+                gap: 24px;
+            }
+        }
+        @media (max-width: 600px) {
+            .detail-row {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        .detail-box {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 18px;
+            padding: 18px 20px 20px;
+            transition: all 0.3s ease;
+            border-left: 4px solid rgba(0, 0, 0, 0.08);
+            min-height: 160px;
+        }
+
+        .detail-box.active-step {
+            border-left-color: #b38b7a;
+            background: rgba(255, 255, 255, 0.75);
+        }
+
+        .detail-box h3 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: #b09a8a;
+            font-weight: 600;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .detail-box h3 .step-num {
+            display: inline-block;
+            background: #b38b7a;
+            color: #fff;
+            font-size: 0.55rem;
+            padding: 0 8px;
+            border-radius: 30px;
+            letter-spacing: 0.5px;
+        }
+
+        .detail-box ul {
+            list-style: none;
+            padding: 0;
+        }
+        .detail-box ul li {
+            padding: 5px 0 5px 26px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="%23b38b7a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>') left center no-repeat;
+            background-size: 16px;
+            font-size: 0.92rem;
+            color: #3d332d;
+        }
+
+        .action-tag {
+            display: inline-block;
+            background: #fff;
+            border-radius: 30px;
+            padding: 4px 16px;
+            margin: 3px 4px 3px 0;
+            font-size: 0.82rem;
+            border: 1.5px solid rgba(0, 0, 0, 0.08);
+            color: #3d332d;
+            transition: 0.15s;
+            font-weight: 500;
+            cursor: default;
+        }
+        .action-tag.constructive {
+            border-color: #b5c9b0;
+            background: #f5faf3;
+            color: #3d6b4a;
+        }
+        .action-tag.destructive {
+            border-color: #e6c4c4;
+            background: #fcf4f4;
+            color: #a55a5a;
+        }
+
+        .strategy-pill {
+            display: inline-block;
+            background: white;
+            border-radius: 30px;
+            padding: 5px 18px;
+            margin: 3px 4px 3px 0;
+            font-size: 0.82rem;
+            border: 1.5px solid rgba(0, 0, 0, 0.06);
+            color: #4f3f36;
+            font-weight: 500;
+            transition: 0.15s;
+            cursor: default;
+        }
+        .strategy-pill:hover {
+            border-color: #b38b7a;
+        }
+        .strategy-pill .emoji {
+            margin-right: 4px;
+        }
+
+        .step-content {
+            display: none;
+        }
+        .step-content.visible {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Nút điều hướng 3 bước */
+        .step-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 24px;
+            padding-top: 18px;
+            border-top: 2px solid rgba(0, 0, 0, 0.05);
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .step-nav .step-indicator {
+            font-size: 0.8rem;
+            color: #8a7a6e;
+            font-weight: 500;
+        }
+        .step-nav .step-indicator span {
+            font-weight: 700;
+            color: #b38b7a;
+        }
+        .step-nav .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+        .step-nav button {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1.5px solid rgba(0, 0, 0, 0.08);
+            border-radius: 30px;
+            padding: 8px 24px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #4f3f36;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+        }
+        .step-nav button:hover:not(:disabled) {
+            border-color: #b38b7a;
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-1px);
+        }
+        .step-nav button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .step-nav button.primary {
+            background: #b38b7a;
+            border-color: #b38b7a;
+            color: #fff;
+        }
+        .step-nav button.primary:hover:not(:disabled) {
+            background: #a07564;
+            border-color: #a07564;
+        }
+
+        /* ================================================================
+           HÀNH TRÌNH (hiện từng bước)
+           ================================================================ */
+        .timeline-section {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(4px);
+            border-radius: 24px;
+            padding: 28px 32px 32px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .timeline-section .section-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #b09a8a;
+            font-weight: 600;
+            margin-bottom: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .timeline-section .section-label .timeline-nav {
+            display: flex;
+            gap: 8px;
+        }
+        .timeline-section .section-label .timeline-nav button {
+            background: rgba(255, 255, 255, 0.6);
+            border: 1.5px solid rgba(0, 0, 0, 0.06);
+            border-radius: 30px;
+            padding: 4px 16px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #4f3f36;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .timeline-section .section-label .timeline-nav button:hover:not(:disabled) {
+            border-color: #b38b7a;
+            background: rgba(255, 255, 255, 0.9);
+        }
+        .timeline-section .section-label .timeline-nav button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .timeline-step-display {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 16px;
+            padding: 20px 24px;
+            border-left: 5px solid #b38b7a;
+            min-height: 100px;
+            transition: all 0.3s ease;
+        }
+        .timeline-step-display .step-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1e1b1a;
+            margin-bottom: 6px;
+        }
+        .timeline-step-display .step-desc {
+            font-size: 0.95rem;
+            color: #4f3f36;
+            line-height: 1.7;
+        }
+        .timeline-step-display .step-counter {
+            font-size: 0.7rem;
+            color: #b09a8a;
+            font-weight: 500;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center;
+            color: #b09a8a;
+            font-size: 0.8rem;
+            padding: 24px 0 8px;
+            border-top: 1.5px solid rgba(0, 0, 0, 0.06);
+            margin-top: 12px;
+            letter-spacing: 0.3px;
+        }
+        .footer a {
+            color: #b38b7a;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body id="mainBody">
+    <div class="container">
+
+        <!-- HEADER -->
+        <div class="header">
+            <div class="header-left">
+                <h1>Atlas <span>Cảm Xúc</span></h1>
+                <div class="sub">Bản đồ cảm xúc toàn diện · Nhận diện &amp; Làm chủ</div>
+            </div>
+            <div class="header-right">
+                <strong>Hiểu để làm chủ</strong><br />
+                Nhận diện · Thấu hiểu · Phản hồi xây dựng
+            </div>
+        </div>
+
+        <!-- GIỚI THIỆU -->
+        <div class="intro">
+            <strong>🧭 Bản đồ cảm xúc</strong> giúp bạn nhận diện các cung bậc cảm xúc của chính mình,
+            hiểu được nguồn cơn và những phản ứng tự nhiên. Từ đó, bạn có thể <strong>lựa chọn cách đáp lại</strong>
+            một cách tỉnh thức và xây dựng hơn.
+        </div>
+
+        <!-- HÀNG NGANG 6 CẢM XÚC CHÍNH -->
+        <div class="emotion-grid" id="emotionGrid">
+            <div class="emotion-card" data-emotion="anger">
+                <span class="icon">😤</span>
+                <div class="name">Giận dữ</div>
+                <div class="sub-hint">Cáu kỉnh · Bực bội · Phẫn nộ · Thịnh nộ</div>
+            </div>
+            <div class="emotion-card" data-emotion="fear">
+                <span class="icon">😰</span>
+                <div class="name">Sợ hãi</div>
+                <div class="sub-hint">Lo âu · Bồn chồn · Khiếp đảm · Kinh hoàng</div>
+            </div>
+            <div class="emotion-card" data-emotion="disgust">
+                <span class="icon">🤢</span>
+                <div class="name">Ghê tởm</div>
+                <div class="sub-hint">Khó chịu · Chán ghét · Kinh tởm · Ác cảm</div>
+            </div>
+            <div class="emotion-card" data-emotion="sadness">
+                <span class="icon">😔</span>
+                <div class="name">Buồn bã</div>
+                <div class="sub-hint">Hụt hẫng · Thất vọng · Đau khổ · U sầu</div>
+            </div>
+            <div class="emotion-card" data-emotion="joy">
+                <span class="icon">😊</span>
+                <div class="name">Vui vẻ</div>
+                <div class="sub-hint">Mãn nguyện · Hân hoan · Phấn khởi · Hạnh phúc</div>
+            </div>
+            <div class="emotion-card" data-emotion="surprise">
+                <span class="icon">😲</span>
+                <div class="name">Ngạc nhiên</div>
+                <div class="sub-hint">Bất ngờ · Sửng sốt · Kinh ngạc · Bàng hoàng</div>
+            </div>
+        </div>
+
+        <!-- PANEL CHI TIẾT -->
+        <div class="detail-panel" id="detailPanel">
+            <div class="emotion-title">
+                <span class="big-icon" id="detailIcon">😤</span>
+                <span id="detailName">Giận dữ</span>
+            </div>
+
+            <div class="spectrum-section">
+                <div class="label">📊 Các cung bậc cảm xúc (từ thấp → cao)</div>
+                <div class="spectrum-list" id="detailSpectrum">
+                    <span class="spectrum-item low">Khó chịu</span>
+                    <span class="spectrum-item low">Bực mình</span>
+                    <span class="spectrum-item mid">Tức giận</span>
+                    <span class="spectrum-item mid">Phẫn uất</span>
+                    <span class="spectrum-item high">Căm phẫn</span>
+                    <span class="spectrum-item high">Thịnh nộ</span>
+                </div>
+            </div>
+
+            <div class="detail-row">
+                <div class="detail-box active-step" id="step1Box">
+                    <h3><span class="step-num">01</span> Cảm giác</h3>
+                    <div class="step-content visible" id="step1Content">
+                        <ul id="detailFeelings">
+                            <li>Nóng bừng, căng thẳng, tim đập nhanh</li>
+                            <li>Cảm giác bị xâm phạm hoặc bất công</li>
+                            <li>Muốn bùng nổ, la hét hoặc công kích</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="detail-box" id="step2Box">
+                    <h3><span class="step-num">02</span> Phản ứng thường thấy</h3>
+                    <div class="step-content" id="step2Content">
+                        <div id="detailActions">
+                            <span class="action-tag constructive">😤 Thở sâu</span>
+                            <span class="action-tag constructive">🚶 Tạm rời khỏi</span>
+                            <span class="action-tag constructive">🗣️ Diễn đạt bằng lời</span>
+                            <span class="action-tag destructive">👊 Công kích thể chất</span>
+                            <span class="action-tag destructive">📢 Chỉ trích, buộc tội</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-box" id="step3Box">
+                    <h3><span class="step-num">03</span> Chiến lược đối phó</h3>
+                    <div class="step-content" id="step3Content">
+                        <div id="detailStrategies">
+                            <span class="strategy-pill"><span class="emoji">🌿</span> Dừng lại, thở sâu 5 nhịp</span>
+                            <span class="strategy-pill"><span class="emoji">🧘</span> Quan sát cảm xúc từ xa</span>
+                            <span class="strategy-pill"><span class="emoji">🤝</span> Đặt mình vào vị trí đối phương</span>
+                            <span class="strategy-pill"><span class="emoji">📝</span> Viết ra nguyên nhân &amp; giải pháp</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-nav">
+                <div class="step-indicator">Bước <span id="stepIndicator">1</span>/3</div>
+                <div class="btn-group">
+                    <button id="prevStep" disabled>← Quay lại</button>
+                    <button id="nextStep" class="primary">Tiếp theo →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================================================================
+        HÀNH TRÌNH - ĐÃ SỬA LỖI
+        ================================================================ -->
+        <div class="timeline-section">
+            <div class="section-label">
+                <span>⏳ Hành trình của cảm xúc <span id="timelineEmotion">(Giận dữ)</span></span>
+                <span class="timeline-nav">
+                    <button id="tlPrevBtn" disabled>‹</button>
+                    <span style="font-size:0.7rem;color:#b09a8a;font-weight:500;" id="tlStepCounter">1/5</span>
+                    <button id="tlNextBtn">›</button>
+                </span>
+            </div>
+            <div class="timeline-step-display" id="timelineDisplay">
+                <div class="step-counter" id="tlCounter">BƯỚC 1 / 5</div>
+                <div class="step-title" id="tlTitle">Sự kiện kích hoạt</div>
+                <div class="step-desc" id="tlDesc">Bị cắt ngang, bị xúc phạm, bị đối xử bất công, hoặc bị cản trở mục tiêu.</div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            ✦ Cảm hứng từ <a href="https://atlasofemotions.org" target="_blank">Atlas of Emotions</a> của Paul &amp; Eve Ekman
+            &nbsp;·&nbsp; Thiết kế hiện đại cho mọi lứa tuổi
+        </div>
+
+    </div>
+
+    <script>
+        // ================================================================
+        // DỮ LIỆU - 6 CẢM XÚC CƠ BẢN
+        // ================================================================
+        const emotionData = {
+            anger: {
+                icon: '😤',
+                name: 'Giận dữ',
+                spectrum: ['Khó chịu', 'Bực mình', 'Tức giận', 'Phẫn uất', 'Căm phẫn', 'Thịnh nộ'],
+                feelings: [
+                    'Cơ thể căng cứng, nóng bừng, tim đập nhanh',
+                    'Cảm giác bị xâm phạm, bất công hoặc bị đe dọa',
+                    'Muốn la hét, đập phá hoặc công kích người khác',
+                    'Khó tập trung, suy nghĩ trở nên cực đoan'
+                ],
+                actions: [
+                    { label: 'Thở sâu và chậm lại', type: 'constructive' },
+                    { label: 'Tạm rời khỏi tình huống', type: 'constructive' },
+                    { label: 'Diễn đạt cảm xúc bằng "Tôi cảm thấy…"', type: 'constructive' },
+                    { label: 'Tấn công thể chất hoặc bằng lời nói', type: 'destructive' },
+                    { label: 'Đổ lỗi, chỉ trích người khác', type: 'destructive' },
+                    { label: 'Giữ im lặng và ấm ức', type: 'destructive' }
+                ],
+                strategies: [
+                    '🌿 Dừng lại, hít thở sâu 5–10 nhịp',
+                    '🧘 Quan sát cảm xúc như một đám mây trôi qua',
+                    '🤝 Cố gắng hiểu góc nhìn của đối phương',
+                    '📝 Viết ra điều khiến bạn giận và giải pháp khả thi',
+                    '🚶 Đi bộ hoặc vận động nhẹ để giải phóng năng lượng'
+                ],
+                timeline: [
+                    { title: 'Sự kiện kích hoạt', desc: 'Bị cắt ngang, bị xúc phạm, bị đối xử bất công, hoặc bị cản trở mục tiêu.' },
+                    { title: 'Đánh giá tự động', desc: 'Nhận định sự việc là "sai trái", "không thể chấp nhận" hoặc "có chủ đích" gây hại.' },
+                    { title: 'Thay đổi cơ thể', desc: 'Huyết áp tăng, cơ bắp căng cứng, mặt đỏ bừng, giọng nói lớn hơn.' },
+                    { title: 'Hành động bản năng', desc: 'Tấn công, la hét, đe dọa, hoặc cắn chặt răng kiềm chế.' },
+                    { title: 'Kết quả / Hậu quả', desc: 'Xung đột leo thang hoặc nếu kiềm chế được, cảm giác nhẹ nhõm và tự chủ hơn.' }
+                ],
+                bgClass: 'bg-anger'
+            },
+            fear: {
+                icon: '😰',
+                name: 'Sợ hãi',
+                spectrum: ['Bồn chồn', 'Lo lắng', 'Sợ sệt', 'Khiếp sợ', 'Kinh hoàng', 'Hãi hùng'],
+                feelings: [
+                    'Tim đập mạnh, thở nông, tay chân run rẩy',
+                    'Cảm giác mất kiểm soát, nguy hiểm rình rập',
+                    'Muốn bỏ chạy hoặc trốn tránh',
+                    'Suy nghĩ trở nên tiêu cực, phóng đại mối đe dọa'
+                ],
+                actions: [
+                    { label: 'Hít thở sâu và tập trung vào hiện tại', type: 'constructive' },
+                    { label: 'Tìm kiếm sự hỗ trợ từ người đáng tin', type: 'constructive' },
+                    { label: 'Đánh giá lại mức độ nguy hiểm thực tế', type: 'constructive' },
+                    { label: 'Bỏ chạy hoặc trốn tránh triệt để', type: 'destructive' },
+                    { label: 'Để nỗi sợ chi phối mọi quyết định', type: 'destructive' }
+                ],
+                strategies: [
+                    '🧘 Thực hành chánh niệm, neo mình vào hơi thở',
+                    '📋 Liệt kê ra những gì bạn có thể kiểm soát',
+                    '🤝 Chia sẻ nỗi sợ với người bạn tin cậy',
+                    '🌱 Dần dần tiếp xúc với nỗi sợ trong môi trường an toàn',
+                    '📖 Đọc hoặc nghe những câu chuyện vượt qua sợ hãi'
+                ],
+                timeline: [
+                    { title: 'Sự kiện kích hoạt', desc: 'Nhận diện mối nguy (thực tế hoặc tưởng tượng), cảm giác bị đe dọa.' },
+                    { title: 'Đánh giá tự động', desc: 'Đánh giá tình huống là "nguy hiểm", "không an toàn", có thể gây tổn thương.' },
+                    { title: 'Thay đổi cơ thể', desc: 'Adrenalin tăng, tim đập nhanh, thở gấp, đồng tử giãn, cơ bắp sẵn sàng phản ứng.' },
+                    { title: 'Hành động bản năng', desc: 'Bỏ chạy (flight), đóng băng (freeze), hoặc thu mình lại (hide).' },
+                    { title: 'Kết quả / Hậu quả', desc: 'Nếu trốn thoát: nhẹ nhõm. Nếu không: cảm giác bất lực hoặc chấn thương tâm lý.' }
+                ],
+                bgClass: 'bg-fear'
+            },
+            disgust: {
+                icon: '🤢',
+                name: 'Ghê tởm',
+                spectrum: ['Khó chịu', 'Chán ghét', 'Kinh tởm', 'Ác cảm', 'Khinh bỉ', 'Cực kỳ ghê tởm'],
+                feelings: [
+                    'Buồn nôn, muốn đẩy đối tượng ra xa',
+                    'Cảm giác ô nhiễm, không sạch sẽ',
+                    'Muốn tránh mặt hoặc không nhìn vào',
+                    'Đánh giá đối tượng là thấp kém, đáng khinh'
+                ],
+                actions: [
+                    { label: 'Rời khỏi tình huống một cách lịch sự', type: 'constructive' },
+                    { label: 'Ghi nhận cảm xúc mà không phán xét', type: 'constructive' },
+                    { label: 'Làm sạch cơ thể hoặc không gian', type: 'constructive' },
+                    { label: 'Chế nhạo hoặc hạ nhục đối tượng', type: 'destructive' },
+                    { label: 'Hành động thô lỗ hoặc miệt thị', type: 'destructive' }
+                ],
+                strategies: [
+                    '🧼 Làm sạch không gian hoặc cơ thể để cảm thấy dễ chịu',
+                    '🧘 Quan sát cảm giác ghê tởm như một phản ứng tự nhiên',
+                    '📝 Tự hỏi: "Điều này thực sự nguy hại hay chỉ là cảm nhận?"',
+                    '🤝 Cố gắng nhìn nhận đối tượng với lòng trắc ẩn'
+                ],
+                timeline: [
+                    { title: 'Sự kiện kích hoạt', desc: 'Tiếp xúc với mùi, vị, hình ảnh, hoặc hành vi bị coi là "bẩn", "hôi", "kinh tởm".' },
+                    { title: 'Đánh giá tự động', desc: 'Phản ứng bản năng trước tác nhân có khả năng gây bệnh hoặc không an toàn.' },
+                    { title: 'Thay đổi cơ thể', desc: 'Buồn nôn, co thắt dạ dày, nhăn mặt, lưỡi thè ra, hơi thở ngắn.' },
+                    { title: 'Hành động bản năng', desc: 'Quay đầu, bịt mũi, đẩy đối tượng ra xa, hoặc nôn mửa.' },
+                    { title: 'Kết quả / Hậu quả', desc: 'Tránh xa tác nhân, cảm giác sạch sẽ hơn. Hoặc nếu kéo dài: hình thành ác cảm bền vững.' }
+                ],
+                bgClass: 'bg-disgust'
+            },
+            sadness: {
+                icon: '😔',
+                name: 'Buồn bã',
+                spectrum: ['Hụt hẫng', 'Thất vọng', 'Đau buồn', 'Đau khổ', 'U sầu', 'Tuyệt vọng'],
+                feelings: [
+                    'Nặng nề trong lồng ngực, muốn khóc',
+                    'Mất năng lượng, muốn rút lui khỏi mọi người',
+                    'Cảm giác trống rỗng, mất mát hoặc cô đơn',
+                    'Suy nghĩ chậm chạp, bi quan'
+                ],
+                actions: [
+                    { label: 'Cho phép bản thân cảm nhận và khóc nếu cần', type: 'constructive' },
+                    { label: 'Tìm kiếm sự an ủi từ người thân', type: 'constructive' },
+                    { label: 'Làm điều mình yêu thích để khuây khỏa', type: 'constructive' },
+                    { label: 'Tự cô lập bản thân quá lâu', type: 'destructive' },
+                    { label: 'Dùng thức ăn hoặc chất kích thích để quên đi', type: 'destructive' }
+                ],
+                strategies: [
+                    '🤗 Cho phép bản thân khóc và thể hiện cảm xúc',
+                    '📝 Viết nhật ký về những gì đang diễn ra trong lòng',
+                    '🚶 Đi dạo và kết nối với thiên nhiên',
+                    '🎨 Thể hiện cảm xúc qua nghệ thuật (vẽ, nhạc, thơ)',
+                    '💬 Trò chuyện với người bạn đồng cảm'
+                ],
+                timeline: [
+                    { title: 'Sự kiện kích hoạt', desc: 'Mất mát (người thân, mối quan hệ, cơ hội), thất bại, hoặc cảm giác bị từ chối.' },
+                    { title: 'Đánh giá tự động', desc: 'Nhận định sự việc là "không thể thay đổi", "mất mát vĩnh viễn", "lỗi thuộc về mình".' },
+                    { title: 'Thay đổi cơ thể', desc: 'Nặng ngực, mệt mỏi, khó thở, nước mắt, mất cảm giác ngon miệng.' },
+                    { title: 'Hành động bản năng', desc: 'Rút lui, khóc, tìm kiếm sự an ủi, hoặc im lặng kéo dài.' },
+                    { title: 'Kết quả / Hậu quả', desc: 'Nếu được an ủi: cảm giác nhẹ nhõm, chấp nhận. Nếu không: có thể rơi vào trầm cảm.' }
+                ],
+                bgClass: 'bg-sadness'
+            },
+            joy: {
+                icon: '😊',
+                name: 'Vui vẻ',
+                spectrum: ['Thoải mái', 'Mãn nguyện', 'Hân hoan', 'Phấn khởi', 'Hạnh phúc', 'Ngây ngất'],
+                feelings: [
+                    'Cảm thấy nhẹ nhàng, ấm áp, tràn đầy năng lượng',
+                    'Muốn cười, nhảy múa và chia sẻ với người khác',
+                    'Suy nghĩ tích cực, dễ kết nối với mọi người',
+                    'Cảm giác biết ơn và yêu đời'
+                ],
+                actions: [
+                    { label: 'Chia sẻ niềm vui với người thân, bạn bè', type: 'constructive' },
+                    { label: 'Trân trọng và ghi nhớ khoảnh khắc này', type: 'constructive' },
+                    { label: 'Lan tỏa niềm vui bằng hành động tử tế', type: 'constructive' },
+                    { label: 'Khoe khoang hoặc làm người khác ghen tị', type: 'destructive' },
+                    { label: 'Lạm dụng niềm vui để trốn tránh thực tế', type: 'destructive' }
+                ],
+                strategies: [
+                    '💖 Thực hành lòng biết ơn, ghi nhận những điều tốt đẹp',
+                    '🤝 Chia sẻ niềm vui với người khác để nhân đôi hạnh phúc',
+                    '🧘 Giữ thái độ cân bằng, không để cảm xúc chi phối',
+                    '📝 Ghi lại những khoảnh khắc vui vẻ để nhìn lại khi cần'
+                ],
+                timeline: [
+                    { title: 'Sự kiện kích hoạt', desc: 'Đạt được mục tiêu, nhận được tin tốt, gặp gỡ người thân, hoặc trải nghiệm tích cực.' },
+                    { title: 'Đánh giá tự động', desc: 'Nhận định sự việc là "tốt đẹp", "đáng giá", "mang lại lợi ích".' },
+                    { title: 'Thay đổi cơ thể', desc: 'Cơ thể thư giãn, nhịp tim ổn định, năng lượng tăng, nụ cười xuất hiện.' },
+                    { title: 'Hành động bản năng', desc: 'Cười, chia sẻ, ôm, nhảy múa, hoặc đơn giản là tận hưởng khoảnh khắc.' },
+                    { title: 'Kết quả / Hậu quả', desc: 'Kết nối xã hội tăng, cảm giác thỏa mãn, động lực tiếp tục hướng đến điều tốt.' }
+                ],
+                bgClass: 'bg-joy'
+            },
+            surprise: {
+                icon: '😲',
+                name: 'Ngạc nhiên',
+                spectrum: ['Bất ngờ nhẹ', 'Sửng sốt', 'Kinh ngạc', 'Bàng hoàng', 'Choáng váng', 'Sững sờ'],
+                feelings: [
+                    'Giật mình, mắt mở to, cơ thể hơi giật lùi',
+                    'Cảm giác tạm thời mất phương hướng',
+                    'Tò mò, muốn tìm hiểu nguyên nhân',
+                    'Thường là cảm xúc ngắn, nhanh chóng chuyển sang cảm xúc khác'
+                ],
+                actions: [
+                    { label: 'Tạm dừng để quan sát và hiểu rõ tình huống', type: 'constructive' },
+                    { label: 'Đặt câu hỏi để làm rõ điều bất ngờ', type: 'constructive' },
+                    { label: 'Đón nhận sự bất ngờ với tâm thế cởi mở', type: 'constructive' },
+                    { label: 'Phản ứng thái quá hoặc hoảng sợ', type: 'destructive' },
+                    { label: 'Vội vàng phán xét mà không tìm hiểu', type: 'destructive' }
+                ],
+                strategies: [
+                    '🧘 Dừng lại, quan sát cảm xúc bất ngờ đang diễn ra',
+                    '❓ Đặt câu hỏi để hiểu rõ bối cảnh của sự việc',
+                    '📝 Ghi nhận phản ứng đầu tiên trước khi đưa ra đánh giá',
+                    '🌱 Coi bất ngờ là cơ hội để học hỏi điều mới'
+                ],
+                timeline: [
+                    { title: 'Sự kiện kích hoạt', desc: 'Điều bất ngờ xảy ra: tin tức không lường trước, sự xuất hiện bất thình lình, hoặc khám phá mới.' },
+                    { title: 'Đánh giá tự động', desc: 'Phản ứng nhanh trước sự thay đổi đột ngột: "Điều này là gì?", "Có nguy hiểm không?"' },
+                    { title: 'Thay đổi cơ thể', desc: 'Giật mình, mắt mở to, lông mày nhướng lên, cơ thể hơi giật lùi, tim đập nhanh tạm thời.' },
+                    { title: 'Hành động bản năng', desc: 'Dừng lại, hướng sự chú ý về tác nhân, tìm kiếm thêm thông tin.' },
+                    { title: 'Kết quả / Hậu quả', desc: 'Tùy thuộc vào đánh giá tiếp theo, sẽ chuyển sang vui, sợ, hoặc tò mò khám phá.' }
+                ],
+                bgClass: 'bg-surprise'
+            }
+        };
+
+        // ================================================================
+        // DOM
+        // ================================================================
+        const body = document.getElementById('mainBody');
+        const cards = document.querySelectorAll('.emotion-card');
+        const panel = document.getElementById('detailPanel');
+
+        const detailIcon = document.getElementById('detailIcon');
+        const detailName = document.getElementById('detailName');
+        const detailSpectrum = document.getElementById('detailSpectrum');
+        const detailFeelings = document.getElementById('detailFeelings');
+        const detailActions = document.getElementById('detailActions');
+        const detailStrategies = document.getElementById('detailStrategies');
+
+        const step1Content = document.getElementById('step1Content');
+        const step2Content = document.getElementById('step2Content');
+        const step3Content = document.getElementById('step3Content');
+        const step1Box = document.getElementById('step1Box');
+        const step2Box = document.getElementById('step2Box');
+        const step3Box = document.getElementById('step3Box');
+
+        const prevStepBtn = document.getElementById('prevStep');
+        const nextStepBtn = document.getElementById('nextStep');
+        const stepIndicator = document.getElementById('stepIndicator');
+
+        // Timeline
+        const tlPrevBtn = document.getElementById('tlPrevBtn');
+        const tlNextBtn = document.getElementById('tlNextBtn');
+        const tlCounter = document.getElementById('tlCounter');
+        const tlTitle = document.getElementById('tlTitle');
+        const tlDesc = document.getElementById('tlDesc');
+        const tlStepCounter = document.getElementById('tlStepCounter');
+        const timelineEmotion = document.getElementById('timelineEmotion');
+
+        // ================================================================
+        // STATE
+        // ================================================================
+        let currentEmotion = 'anger';
+        let currentStep = 1;
+        let tlIndex = 0;
+
+        // ================================================================
+        // HÀM HIỂN THỊ
+        // ================================================================
+        function showEmotion(key) {
+            const data = emotionData[key];
+            if (!data) return;
+            currentEmotion = key;
+
+            body.className = data.bgClass || '';
+
+            detailIcon.textContent = data.icon;
+            detailName.textContent = data.name;
+
+            const total = data.spectrum.length;
+            detailSpectrum.innerHTML = data.spectrum.map((s, idx) => {
+                let cls = 'spectrum-item';
+                if (idx < total / 3) cls += ' low';
+                else if (idx < 2 * total / 3) cls += ' mid';
+                else cls += ' high';
+                return `<span class="${cls}">${s}</span>`;
+            }).join('');
+
+            detailFeelings.innerHTML = data.feelings.map(f => `<li>${f}</li>`).join('');
+            detailActions.innerHTML = data.actions.map(a =>
+                `<span class="action-tag ${a.type}">${a.label}</span>`
+            ).join('');
+            detailStrategies.innerHTML = data.strategies.map(s =>
+                `<span class="strategy-pill">${s}</span>`
+            ).join('');
+
+            timelineEmotion.textContent = `(${data.name})`;
+            tlIndex = 0;
+            renderTimelineStep(data);
+
+            currentStep = 1;
+            updateStepVisibility();
+
+            panel.classList.add('open');
+
+            cards.forEach(c => c.classList.remove('active'));
+            const activeCard = document.querySelector(`.emotion-card[data-emotion="${key}"]`);
+            if (activeCard) activeCard.classList.add('active');
+        }
+
+        // ================================================================
+        // TIMELINE
+        // ================================================================
+        function renderTimelineStep(data) {
+            const t = data.timeline[tlIndex];
+            tlCounter.textContent = `BƯỚC ${tlIndex + 1} / ${data.timeline.length}`;
+            tlStepCounter.textContent = `${tlIndex + 1}/${data.timeline.length}`;
+            tlTitle.textContent = t.title;
+            tlDesc.textContent = t.desc;
+
+            tlPrevBtn.disabled = (tlIndex === 0);
+            tlNextBtn.disabled = (tlIndex === data.timeline.length - 1);
+        }
+
+        function goTimeline(delta) {
+            const data = emotionData[currentEmotion];
+            const newIndex = tlIndex + delta;
+            if (newIndex >= 0 && newIndex < data.timeline.length) {
+                tlIndex = newIndex;
+                renderTimelineStep(data);
+            }
+        }
+
+        // ================================================================
+        // 3 BƯỚC: Cảm giác - Phản ứng - Chiến lược
+        // ================================================================
+        function updateStepVisibility() {
+            step1Content.classList.remove('visible');
+            step2Content.classList.remove('visible');
+            step3Content.classList.remove('visible');
+            step1Box.classList.remove('active-step');
+            step2Box.classList.remove('active-step');
+            step3Box.classList.remove('active-step');
+
+            if (currentStep === 1) {
+                step1Content.classList.add('visible');
+                step1Box.classList.add('active-step');
+            } else if (currentStep === 2) {
+                step2Content.classList.add('visible');
+                step2Box.classList.add('active-step');
+            } else if (currentStep === 3) {
+                step3Content.classList.add('visible');
+                step3Box.classList.add('active-step');
+            }
+
+            stepIndicator.textContent = currentStep;
+            prevStepBtn.disabled = (currentStep === 1);
+            nextStepBtn.textContent = (currentStep === 3) ? '✅ Hoàn thành' : 'Tiếp theo →';
+        }
+
+        function goToStep(step) {
+            if (step < 1) step = 1;
+            if (step > 3) step = 3;
+            currentStep = step;
+            updateStepVisibility();
+        }
+
+        // ================================================================
+        // SỰ KIỆN
+        // ================================================================
+        // Click thẻ cảm xúc
+        cards.forEach(card => {
+            card.addEventListener('click', function() {
+                showEmotion(this.dataset.emotion);
+            });
+        });
+
+        // 3 bước
+        prevStepBtn.addEventListener('click', () => { if (currentStep > 1) goToStep(currentStep - 1); });
+        nextStepBtn.addEventListener('click', () => {
+            if (currentStep < 3) goToStep(currentStep + 1);
+            else goToStep(1);
+        });
+
+        // Timeline
+        tlPrevBtn.addEventListener('click', () => goTimeline(-1));
+        tlNextBtn.addEventListener('click', () => goTimeline(1));
+
+        // ================================================================
+        // KHỞI TẠO
+        // ================================================================
+        window.addEventListener('load', function() {
+            showEmotion('anger');
+        });
+    </script>
+
+</body>
+</html>
