@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta property="og:title" content="Sophia Nguyễn — Portfolio">
-<meta property="og:description" content="Đào tạo · Coaching · Tham vấn Tâm lý · Phân tích sinh trắc Vân tay Dermatoglyphics">
+<meta property="og:title" content="Sophia Nguyễn — Ứng tuyển Quản lý Giáo dục Sớm">
+<meta property="og:description" content="Tâm lý học · Đào tạo · Phát triển con người · Ứng tuyển vị trí Quản lý Chuyên môn Giáo dục Sớm tại Adora">
 <meta property="og:image" content="https://sophianguyen.com.vn/sophia.png">
 <meta property="og:url" content="https://sophianguyen.com.vn/portfolio.html">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sophia Nguyễn — Portfolio</title>
+<title>Sophia Nguyễn — Ứng tuyển Quản lý Giáo dục Sớm</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -87,7 +87,7 @@
   .hero-name em { font-style: italic; color: var(--gold-light); display: block; }
   .hero-desc {
     font-size: 1.05rem; color: rgba(255,255,255,0.6);
-    max-width: 480px; line-height: 1.75;
+    max-width: 520px; line-height: 1.75;
     position: relative; z-index: 1; margin-top: 1.8rem;
     opacity: 0; transform: translateY(20px);
     animation: fadeUp 0.8s 1s forwards;
@@ -229,6 +229,12 @@
     color: var(--gold); border: 1px solid rgba(201,151,58,0.3);
     padding: 0.3rem 0.7rem; border-radius: 1rem; text-transform: uppercase;
   }
+  .extra-skills {
+    margin-top: 2rem; padding-top: 1.5rem;
+    border-top: 1px solid rgba(201,151,58,0.2);
+    text-align: center; color: var(--text-mid); font-size: 0.9rem;
+  }
+  .extra-skills strong { color: var(--navy); }
 
   /* EXPERIENCE */
   #experience { background: var(--navy); }
@@ -268,9 +274,6 @@
   .project-thumb {
     height: 180px; display: flex; align-items: center; justify-content: center; font-size: 3rem;
   }
-  .thumb-1 { background: linear-gradient(135deg, #0D1B3E, #1E3370); }
-  .thumb-2 { background: linear-gradient(135deg, #1E3370, #2A4A90); }
-  .thumb-3 { background: linear-gradient(135deg, #C9973A, #E8B95A); }
   .project-body { padding: 1.5rem; }
   .project-name { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 600; color: var(--navy); margin-bottom: 0.5rem; }
   .project-desc { font-size: 0.88rem; color: var(--text-mid); line-height: 1.65; }
@@ -283,6 +286,44 @@
   }
   .project-link:hover { gap: 0.7rem; }
 
+  /* CREDENTIALS */
+  #credentials { background: #F9F5EC; padding: 5rem 2rem; }
+  .creds-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.2rem; margin-top: 3rem;
+  }
+  .creds-card {
+    border-left: 2px solid var(--gold);
+    padding: 1.2rem 1.5rem;
+    background: #fff;
+    border-radius: 12px;
+  }
+  .creds-card .label {
+    font-size: 0.72rem; letter-spacing: 0.12em;
+    color: var(--gold); text-transform: uppercase; margin-bottom: 0.4rem;
+  }
+  .creds-card .title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; color: var(--navy); font-weight: 600;
+  }
+  .creds-card .sub {
+    font-size: 0.85rem; color: var(--text-light); margin-top: 0.3rem;
+  }
+  .creds-summary {
+    margin-top: 3rem;
+    padding: 1.5rem 2rem;
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid rgba(201,151,58,0.15);
+    text-align: center;
+    max-width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .creds-summary p {
+    font-size: 0.95rem; color: var(--text-mid); line-height: 1.9;
+  }
+
   /* CONTACT */
   #contact { background: var(--navy); text-align: center; }
   #contact .section-title { color: #fff; }
@@ -292,6 +333,7 @@
     color: rgba(255,255,255,0.5); font-size: 1rem; margin-top: 0.8rem;
     line-height: 1.7; max-width: 460px; margin-left: auto; margin-right: auto;
   }
+  .contact-sub.gold { font-weight: 500; color: var(--gold); }
   .contact-links { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 2.5rem; }
   .contact-link {
     display: flex; align-items: center; gap: 0.5rem;
@@ -337,7 +379,7 @@
   <a href="#hero" class="nav-logo">Sophia Nguyễn</a>
   <ul class="nav-links">
     <li><a href="#about">Về tôi</a></li>
-    <li><a href="#services">Dịch vụ</a></li>
+    <li><a href="#services">Năng lực</a></li>
     <li><a href="#experience">Kinh nghiệm</a></li>
     <li><a href="#projects">Dự án</a></li>
     <li><a href="#contact">Liên hệ</a></li>
@@ -349,11 +391,11 @@
   <div class="hero-bg-ring ring1"></div>
   <div class="hero-bg-ring ring2"></div>
   <div class="hero-bg-ring ring3"></div>
-  <div class="hero-tag">Đào tạo · Coaching · Tham vấn Tâm lý</div>
+  <div class="hero-tag">Tâm lý học · Đào tạo · Phát triển con người</div>
   <h1 class="hero-name">Sophia<br><em>Nguyễn</em></h1>
-  <p class="hero-desc">Chuyên gia đào tạo kỹ năng mềm, tư vấn hướng nghiệp và phân tích sinh trắc vân tay Dermatoglyphics. Đồng hành cùng bạn tìm ra con đường phù hợp nhất với bản thân.</p>
+  <p class="hero-desc">Nhà đào tạo và quản lý phát triển con người với nền tảng Tâm lý học, hơn 20 năm kinh nghiệm quản lý đội ngũ và đào tạo, đặc biệt quan tâm đến giáo dục, sự phát triển và an toàn của trẻ.</p>
   <div class="hero-cta-row">
-    <a href="#contact" class="btn-gold">Kết nối với tôi</a>
+    <a href="#contact" class="btn-gold">Ứng tuyển ngay</a>
     <a href="https://sophianguyen.com.vn" target="_blank" class="btn-outline">Xem website →</a>
   </div>
   <div class="hero-scroll">
@@ -370,57 +412,60 @@
         <div class="avatar-frame">
          <img src="images/sophianguyen.jpg" style="width:100%; height:100%; object-fit:cover;">
         </div>
-        <div class="avatar-badge">Từ<br>2011</div>
+        <div class="avatar-badge">Từ<br>2004</div>
       </div>
       <div class="about-text">
         <div class="section-label reveal">Về tôi</div>
         <h2 class="section-title reveal d1">Người đồng hành<br><em>trong hành trình phát triển</em></h2>
         <div style="margin-top:1.8rem;">
-          <p class="reveal d2">Tôi là <strong>Sophia Nguyễn</strong> — yêu thích ngành giáo dục và đào tạo tại Việt Nam với hơn một thập kỷ kinh nghiệm trong lĩnh vực phát triển con người.</p>
-          <p class="reveal d3"> Tôi đào tạo từ cá nhân đến doanh nghiệp tùy theo nhu cầu, tôi tư vấn hướng nghiệp và phân tích sinh trắc vân tay Dermatoglyphics — tôi giúp mỗi người hiểu rõ điểm mạnh bẩm sinh và tìm được hướng đi phù hợp nhất.</p>
-          <p class="reveal d3">Song song đó, tôi chuyên sâu về đào tạo kỹ năng, đặc biệt là về giáo dục giới tính toàn diện - tôi là đã hoàn thành các khóa học chứng chỉ nghiệp vụ cần thiết, theo học ngành Tâm lý học để ngày càng phục vụ tốt hơn cho con đường đam mê của mình.</p>
+          <p class="reveal d2">Tôi là <strong>Sophia Nguyễn (Diễm Hằng)</strong> — nhà đào tạo và quản lý phát triển con người, với hơn 20 năm kinh nghiệm quản lý đội ngũ, đào tạo và xây dựng năng lực cho cá nhân và tổ chức.</p>
+          <p class="reveal d3">Tôi tốt nghiệp Cử nhân Kinh tế và Cử nhân Tâm lý học, đồng thời có chứng chỉ Nghiệp vụ Sư phạm, Train The Trainer, Mentor, Tổ chức hoạt động trải nghiệm và Phương pháp đào tạo Kỹ năng sống. Trong nhiều năm làm việc, tôi trực tiếp xây dựng chương trình, giáo án, học liệu, đào tạo đội ngũ và tổ chức các hoạt động đào tạo tại môi trường doanh nghiệp và nhà trường.</p>
+          <p class="reveal d3">Từ nền tảng Tâm lý học và kinh nghiệm đào tạo thực tế, tôi đặc biệt quan tâm đến sự phát triển của trẻ, kỹ năng sống, an toàn cá nhân, giáo dục giới tính toàn diện và việc đồng hành cùng phụ huynh trong quá trình nuôi dạy trẻ.</p>
         </div>
         <div class="about-stats">
-          <div class="stat-card reveal d2"><div class="stat-number">Gần 20</div><div class="stat-label">Năm kinh nghiệm</div></div>
-          <div class="stat-card reveal d3"><div class="stat-number">2005</div><div class="stat-label">Bắt đầu con đường tư vấn và đào tạo</div></div>
-          <div class="stat-card reveal d3"><div class="stat-number">500+</div><div class="stat-label">Học viên đã đồng hành</div></div>
-          <div class="stat-card reveal d4"><div class="stat-number">4</div><div class="stat-label">Lĩnh vực chuyên sâu</div></div>
+          <div class="stat-card reveal d2"><div class="stat-number">20+</div><div class="stat-label">Năm quản lý &amp; đào tạo</div></div>
+          <div class="stat-card reveal d3"><div class="stat-number">60+</div><div class="stat-label">Nhân sự từng quản lý trực tiếp</div></div>
+          <div class="stat-card reveal d3"><div class="stat-number">5+</div><div class="stat-label">Năm đào tạo trong môi trường nhà trường</div></div>
+          <div class="stat-card reveal d4"><div class="stat-number">2</div><div class="stat-label">Bằng Cử nhân: Kinh tế &amp; Tâm lý học</div></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SERVICES -->
+<!-- SERVICES / NĂNG LỰC -->
 <section id="services">
   <div class="container">
-    <div class="section-label reveal">Dịch vụ</div>
-    <h2 class="section-title reveal d1">Tôi có thể<br><em>giúp bạn điều gì?</em></h2>
+    <div class="section-label reveal">Năng lực</div>
+    <h2 class="section-title reveal d1">Tôi có thể<br><em>đóng góp gì?</em></h2>
     <div class="services-grid">
       <div class="service-card reveal d1">
-        <div class="service-icon">🧠</div>
-        <div class="service-title">Đào tạo Kỹ năng mềm</div>
-        <div class="service-desc">Thiết kế chương trình đào tạo tư duy, giao tiếp, lãnh đạo và giải quyết vấn đề. Phương pháp học qua trải nghiệm thực tiễn dành cho cá nhân và doanh nghiệp.</div>
-        <div class="service-tags"><span class="service-tag">Kỹ năng mềm</span><span class="service-tag">Đào tạo</span><span class="service-tag">Doanh nghiệp</span></div>
+        <div class="service-icon">📐</div>
+        <div class="service-title">Thiết kế chương trình giáo dục</div>
+        <div class="service-desc">Nghiên cứu nhu cầu người học, xây dựng chương trình, giáo án, học liệu và hoạt động trải nghiệm theo mục tiêu và đặc điểm của từng nhóm đối tượng.</div>
+        <div class="service-tags"><span class="service-tag">Chương trình</span><span class="service-tag">Giáo án</span><span class="service-tag">Học liệu</span></div>
       </div>
       <div class="service-card reveal d2">
-        <div class="service-icon">🧬</div>
-        <div class="service-title">Phân tích Dermatoglyphics</div>
-        <div class="service-desc">Ứng dụng khoa học phân tích sinh trắc vân tay để khám phá năng lực bẩm sinh, thiên hướng học tập và định hướng nghề nghiệp phù hợp từ gen — thực hành từ năm 2011.</div>
-        <div class="service-tags"><span class="service-tag">Dermatoglyphics</span><span class="service-tag">Vân tay</span><span class="service-tag">Hướng nghiệp</span></div>
+        <div class="service-icon">👥</div>
+        <div class="service-title">Đào tạo &amp; Phát triển đội ngũ</div>
+        <div class="service-desc">Hơn 20 năm kinh nghiệm quản lý và đào tạo đội ngũ; trực tiếp hướng dẫn, coaching, đánh giá và hỗ trợ nhân sự nâng cao năng lực chuyên môn và hiệu quả công việc.</div>
+        <div class="service-tags"><span class="service-tag">Training</span><span class="service-tag">Coaching</span><span class="service-tag">Team Development</span></div>
       </div>
       <div class="service-card reveal d3">
-        <div class="service-icon">🎯</div>
-        <div class="service-title">Tư vấn Hướng nghiệp</div>
-        <div class="service-desc">Hỗ trợ học sinh, sinh viên và người đi làm xác định thế mạnh cá nhân, lựa chọn ngành học và xây dựng lộ trình phát triển nghề nghiệp dài hạn.</div>
-        <div class="service-tags"><span class="service-tag">Hướng nghiệp</span><span class="service-tag">Coaching</span><span class="service-tag">RIASEC</span></div>
+        <div class="service-icon">🧠</div>
+        <div class="service-title">Tâm lý học &amp; Phát triển trẻ</div>
+        <div class="service-desc">Ứng dụng kiến thức Tâm lý học trong việc tìm hiểu sự phát triển của trẻ, đặc biệt ở giai đoạn tuổi thơ và vị thành niên; đồng hành cùng trẻ, phụ huynh và người làm giáo dục.</div>
+        <div class="service-tags"><span class="service-tag">Tâm lý học</span><span class="service-tag">Phát triển trẻ</span><span class="service-tag">Phụ huynh</span></div>
       </div>
       <div class="service-card reveal d4">
-        <div class="service-icon">💛</div>
-        <div class="service-title">Lắng nghe Tâm giao</div>
-        <div class="service-desc">Không gian an toàn để bạn được nói, được lắng nghe — không phán xét, không áp lực. Đồng hành để bạn tìm lại cân bằng nội tâm.</div>
-        <div class="service-tags"><span class="service-tag">Tâm lý</span><span class="service-tag">Lắng nghe</span><span class="service-tag">Đồng hành</span></div>
+        <div class="service-icon">🛡️</div>
+        <div class="service-title">Kỹ năng sống &amp; An toàn cho trẻ</div>
+        <div class="service-desc">Xây dựng và triển khai các nội dung giáo dục kỹ năng sống, an toàn cá nhân và giáo dục giới tính toàn diện theo hướng trực quan, tương tác và phù hợp với lứa tuổi.</div>
+        <div class="service-tags"><span class="service-tag">Kỹ năng sống</span><span class="service-tag">An toàn cá nhân</span><span class="service-tag">Giáo dục giới tính</span></div>
       </div>
+    </div>
+    <div class="extra-skills reveal">
+      <strong>Lĩnh vực bổ trợ:</strong> Tư vấn hướng nghiệp · Coaching · Phân tích sinh trắc vân tay
     </div>
   </div>
 </section>
@@ -429,136 +474,126 @@
 <section id="experience">
   <div class="container">
     <div class="section-label reveal">Hành trình</div>
-    <h2 class="section-title reveal d1">Kinh nghiệm<br><em>& Chuyên môn</em></h2>
-
-   <div class="timeline">
+    <h2 class="section-title reveal d1">Kinh nghiệm<br><em>&amp; Quản lý</em></h2>
+    <div class="timeline">
       <div class="timeline-item">
         <div class="timeline-dot"></div>
-        <div class="timeline-year">2005 — 2016</div>
-        <div class="timeline-role">Chuyên viên đào tạo tư vấn dịch vụ bán hàng</div>
-        <div class="timeline-org">Tư vấn và đào tạo đội ngũ ngành tài chính</div>
+        <div class="timeline-year">2004 — 2017</div>
+        <div class="timeline-role">Trưởng nhóm Kinh doanh · AIA Việt Nam</div>
+        <div class="timeline-org">Quản lý đội nhóm khoảng 60 nhân sự; đào tạo chuyên môn, coaching, theo dõi hiệu suất và xây dựng kế hoạch phát triển đội ngũ.</div>
       </div>
-       <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-year">2011 — Hiện tại</div>
-        <div class="timeline-role">Chuyên gia Tư vấn Sinh trắc Vân tay Dermatoglyphics</div>
-        <div class="timeline-org">Tư vấn hướng nghiệp & khám phá năng lực bẩm sinh</div>
-      </div>
-    <div class="timeline-item">
+      <div class="timeline-item">
         <div class="timeline-dot"></div>
         <div class="timeline-year">2017 — 2020</div>
-        <div class="timeline-role">Chuyên viên tư vấn Đầu Tư Định Cư</div>
-        <div class="timeline-org">Tư vấn và Đào tạo chương trình Định Cư Di Trú</div>
+        <div class="timeline-role">Trưởng phòng Tư vấn · NVS Việt Nam</div>
+        <div class="timeline-org">Quản lý đội ngũ tư vấn viên; trực tiếp đào tạo nâng cao năng lực, tổ chức hội thảo và giám sát hiệu quả hoạt động của đội ngũ.</div>
       </div>
       <div class="timeline-item">
         <div class="timeline-dot"></div>
-        <div class="timeline-year">2020 - Hiện tại</div>
-        <div class="timeline-role">Chuyên viên đào tạo Kỹ năng mềm</div>
-        <div class="timeline-org">Thực hiện các buổi đào tạo cho các cá nhân và doanh nghiệp SME tại Việt Nam</div>
+        <div class="timeline-year">2020 — 2022</div>
+        <div class="timeline-role">Giám đốc Phát triển Kinh doanh · JWT Việt Nam</div>
+        <div class="timeline-org">Quản lý nhân sự và cộng tác viên; xây dựng kế hoạch phát triển, tổ chức đào tạo kỹ năng giao tiếp, xây dựng đội nhóm và phát triển năng lực.</div>
       </div>
       <div class="timeline-item">
         <div class="timeline-dot"></div>
-        <div class="timeline-year">2020 - Hiện tại</div>
-        <div class="timeline-role">Tham vấn Tâm lý</div>
-        <div class="timeline-org">Những cá nhân cần hỗ trợ Tâm lý học ứng dụng</div>
+        <div class="timeline-year">2022 — 2025</div>
+        <div class="timeline-role">Giám đốc Đào tạo · Viện Khoa học An toàn Việt Nam</div>
+        <div class="timeline-org">Đào tạo và giám sát đội ngũ báo cáo viên, kết nối viên; trực tiếp đào tạo cán bộ quản lý nhà trường về kỹ năng sống và an toàn; xây dựng, điều phối và giám sát hoạt động đào tạo.</div>
       </div>
       <div class="timeline-item">
         <div class="timeline-dot"></div>
-        <div class="timeline-year">2020 - Hiện tại đang thực hiện việc xây dựng giáo trình kỹ năng sống và kỹ năng sinh tồn</div>
-        <div class="timeline-role">Quan tâm những vấn đề phát triển của trẻ em</div>
-        <div class="timeline-org">Đặc biệt Tư vấn và đào tạo giáo dục tập trung về an toàn cá nhân & giáo dục giới tính cho trẻ</div>
+        <div class="timeline-year">2024 — Hiện tại</div>
+        <div class="timeline-role">Nhà đào tạo tự do · Sophia Nguyễn</div>
+        <div class="timeline-org">Thiết kế chương trình, giáo án và học liệu; thỉnh giảng và đào tạo cho cá nhân, tổ chức, nhà trường; phát triển các nội dung về kỹ năng sống, an toàn cá nhân, giáo dục giới tính và tâm lý học ứng dụng.</div>
       </div>
     </div>
   </div>
 </section>
- 
+
 <!-- CREDENTIALS -->
-<section id="credentials" style="background:#F9F5EC;padding:5rem 2rem;">
+<section id="credentials">
   <div class="container">
-    <div class="section-label reveal">Bằng cấp & Chứng chỉ</div>
+    <div class="section-label reveal">Bằng cấp &amp; Chứng chỉ</div>
     <h2 class="section-title reveal d1">Nền tảng<br><em>chuyên môn</em></h2>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem;margin-top:3rem;">
-
-      <div class="stat-card reveal d1" style="border-left:2px solid var(--gold);padding:1.2rem 1.5rem;background:#fff;border-radius:12px;">
-        <div style="font-size:0.72rem;letter-spacing:0.12em;color:var(--gold);text-transform:uppercase;margin-bottom:0.4rem;">Bằng cấp</div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--navy);font-weight:600;">Cử nhân Quản trị KD</div>
-        <div style="font-size:0.85rem;color:var(--text-light);margin-top:0.3rem;">Đại Học Kinh Tế</div>
+    <div class="creds-grid">
+      <div class="creds-card reveal d1">
+        <div class="label">Bằng cấp</div>
+        <div class="title">Cử nhân Quản trị Kinh doanh</div>
+        <div class="sub">Đại học Kinh tế</div>
       </div>
-     
-<div class="stat-card reveal d1" style="border-left:2px solid var(--gold);padding:1.2rem 1.5rem;background:#fff;border-radius:12px;">
-        <div style="font-size:0.72rem;letter-spacing:0.12em;color:var(--gold);text-transform:uppercase;margin-bottom:0.4rem;">Bằng cấp</div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--navy);font-weight:600;">Cử nhân Tâm lý Học</div>
-        <div style="font-size:0.85rem;color:var(--text-light);margin-top:0.3rem;">Học văn bằng 2 tại ĐHKHXH&NV</div>
+      <div class="creds-card reveal d2">
+        <div class="label">Bằng cấp</div>
+        <div class="title">Cử nhân Tâm lý học</div>
+        <div class="sub">Học văn bằng 2 tại ĐHKHXH&amp;NV</div>
       </div>
-     
-      <div class="stat-card reveal d2" style="border-left:2px solid var(--gold);padding:1.2rem 1.5rem;background:#fff;border-radius:12px;">
-        <div style="font-size:0.72rem;letter-spacing:0.12em;color:var(--gold);text-transform:uppercase;margin-bottom:0.4rem;">Chứng chỉ</div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--navy);font-weight:600;">Sinh trắc Vân tay</div>
-        <div style="font-size:0.85rem;color:var(--text-light);margin-top:0.3rem;">Khám phá bản thân - Định hướng nghề nghiệp</div>
+      <div class="creds-card reveal d2">
+        <div class="label">Chứng chỉ</div>
+        <div class="title">Sinh trắc Vân tay</div>
+        <div class="sub">Khám phá bản thân - Định hướng nghề nghiệp</div>
       </div>
-
-      <div class="stat-card reveal d3" style="border-left:2px solid var(--gold);padding:1.2rem 1.5rem;background:#fff;border-radius:12px;">
-        <div style="font-size:0.72rem;letter-spacing:0.12em;color:var(--gold);text-transform:uppercase;margin-bottom:0.4rem;">Chứng chỉ</div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--navy);font-weight:600;">Phương pháp đào tạo kỹ năng</div>
-        <div style="font-size:0.85rem;color:var(--text-light);margin-top:0.3rem;">Kỹ năng mềm - Hướng nghiệp</div>
+      <div class="creds-card reveal d3">
+        <div class="label">Chứng chỉ</div>
+        <div class="title">Phương pháp đào tạo kỹ năng</div>
+        <div class="sub">Kỹ năng mềm - Hướng nghiệp</div>
       </div>
-     
-<div class="stat-card reveal d3" style="border-left:2px solid var(--gold);padding:1.2rem 1.5rem;background:#fff;border-radius:12px;">
-        <div style="font-size:0.72rem;letter-spacing:0.12em;color:var(--gold);text-transform:uppercase;margin-bottom:0.4rem;">Chứng chỉ</div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--navy);font-weight:600;">Tổ chức và hoạt động kỹ năng sống</div>
-        <div style="font-size:0.85rem;color:var(--text-light);margin-top:0.3rem;">Kỹ năng mềm - Hướng nghiệp</div>
+      <div class="creds-card reveal d3">
+        <div class="label">Chứng chỉ</div>
+        <div class="title">Tổ chức và hoạt động kỹ năng sống</div>
+        <div class="sub">Kỹ năng mềm - Hướng nghiệp</div>
       </div>
-     
-<div class="stat-card reveal d3" style="border-left:2px solid var(--gold);padding:1.2rem 1.5rem;background:#fff;border-radius:12px;">
-        <div style="font-size:0.72rem;letter-spacing:0.12em;color:var(--gold);text-transform:uppercase;margin-bottom:0.4rem;">Chứng chỉ</div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--navy);font-weight:600;">Train The Trainer</div>
-        <div style="font-size:0.85rem;color:var(--text-light);margin-top:0.3rem;">Đào tạo kỹ năng mềm </div>
+      <div class="creds-card reveal d3">
+        <div class="label">Chứng chỉ</div>
+        <div class="title">Train The Trainer</div>
+        <div class="sub">Đào tạo kỹ năng mềm</div>
       </div>
-
-     <div class="stat-card reveal d3" style="border-left:2px solid var(--gold);padding:1.2rem 1.5rem;background:#fff;border-radius:12px;">
-        <div style="font-size:0.72rem;letter-spacing:0.12em;color:var(--gold);text-transform:uppercase;margin-bottom:0.4rem;">Chứng chỉ</div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--navy);font-weight:600;">Course Mentor</div>
-        <div style="font-size:0.85rem;color:var(--text-light);margin-top:0.3rem;">Coaching</div>
+      <div class="creds-card reveal d3">
+        <div class="label">Chứng chỉ</div>
+        <div class="title">Course Mentor</div>
+        <div class="sub">Coaching</div>
       </div>
-
-      <div class="stat-card reveal d3" style="border-left:2px solid var(--gold);padding:1.2rem 1.5rem;background:#fff;border-radius:12px;">
-        <div style="font-size:0.72rem;letter-spacing:0.12em;color:var(--gold);text-transform:uppercase;margin-bottom:0.4rem;">Chứng chỉ</div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--navy);font-weight:600;">Nghiệp vụ Sư Phạm</div>
-        <div style="font-size:0.85rem;color:var(--text-light);margin-top:0.3rem;">Kỹ năng đứng lớp tiêu chuẩn</div>
+      <div class="creds-card reveal d3">
+        <div class="label">Chứng chỉ</div>
+        <div class="title">Nghiệp vụ Sư phạm</div>
+        <div class="sub">Kỹ năng đứng lớp tiêu chuẩn</div>
       </div>
-     
+    </div>
+    <div class="creds-summary reveal">
+      <p>
+        Nền tảng chuyên môn kết hợp giữa <strong>Tâm lý học</strong>, <strong>Sư phạm</strong>, đào tạo người lớn,
+        quản lý đội ngũ và kinh nghiệm triển khai các chương trình kỹ năng sống trong môi trường nhà trường.
+      </p>
     </div>
   </div>
 </section>
- 
+
 <!-- PROJECTS -->
 <section id="projects">
   <div class="container">
     <div class="section-label reveal">Dự án</div>
-    <h2 class="section-title reveal d1">Một số<br><em>hình ảnh tiêu biểu</em></h2>
+    <h2 class="section-title reveal d1">Một số<br><em>dự án tiêu biểu</em></h2>
     <div class="projects-grid">
       <div class="project-card reveal d1">
-        <div class="project-thumb thumb-1">🌱</div>
+        <div class="project-thumb" style="background:linear-gradient(135deg,#0D1B3E,#1E3370);">🛡️</div>
         <div class="project-body">
-          <div class="project-name">Website cá nhân</div>
-          <div class="project-desc">Tổng hợp những dịch vụ hình ảnh bản thân trong quá trình đồng hành lắng nghe, thấu hiểu tâm lý, tìm hiểu sự phát triển của con, tư vấn hướng nghiệp và các dịch vụ coaching.</div>
-          <a href="https://sophianguyen.com.vn" target="_blank" class="project-link">Xem website →</a>
+          <div class="project-name">Giáo dục giới tính &amp; An toàn cá nhân</div>
+          <div class="project-desc">Chuỗi bài học tương tác về an toàn và giới tính cho trẻ em nhiều độ tuổi, thiết kế hấp dẫn và phù hợp lứa tuổi.</div>
+          <a href="https://sophianguyen.com.vn/khoa-hoc/gioi-tinh/gioi-thieu/" target="_blank" class="project-link">Tìm hiểu thêm →</a>
         </div>
       </div>
       <div class="project-card reveal d2">
-        <div class="project-thumb thumb-2">🧭</div>
+        <div class="project-thumb" style="background:linear-gradient(135deg,#1E3370,#2A4A90);">🧭</div>
         <div class="project-body">
-          <div class="project-name">Dự án Tâm lý học Giới Tính</div>
-          <div class="project-desc">Website dự án tâm lý học giới tính - thực hiện mong muốn lan tỏa kiến thức giới tính toàn diện đến cộng đồng.</div>
+          <div class="project-name">Dự án Tâm lý học Giới tính</div>
+          <div class="project-desc">Website dự án tâm lý học giới tính - lan tỏa kiến thức giới tính toàn diện đến cộng đồng.</div>
           <a href="https://tamlyhoc.info.vn" target="_blank" class="project-link">Khám phá →</a>
         </div>
       </div>
       <div class="project-card reveal d3">
-        <div class="project-thumb thumb-3">🛡️</div>
+        <div class="project-thumb" style="background:linear-gradient(135deg,#C9973A,#E8B95A);">🌱</div>
         <div class="project-body">
-          <div class="project-name"> Các Khóa học giáo dục Giới tính + An toàn cá nhân</div>
-          <div class="project-desc">Chuỗi các bài học online tương tác về an toàn cá nhân và giáo dục giới tính cho trẻ em nhiều độ tuổi, thiết kế hấp dẫn và phù hợp lứa tuổi.</div>
-          <a href="https://sophianguyen.com.vn/khoa-hoc/gioi-tinh/gioi-thieu/" target="_blank" class="project-link">Tìm hiểu thêm trong website →</a>
+          <div class="project-name">Chương trình Kỹ năng sống &amp; An toàn</div>
+          <div class="project-desc">Xây dựng và triển khai các nội dung giáo dục kỹ năng sống, an toàn cá nhân cho trẻ em và học sinh.</div>
+          <a href="https://sophianguyen.com.vn" target="_blank" class="project-link">Xem chi tiết →</a>
         </div>
       </div>
     </div>
@@ -571,9 +606,9 @@
     <div class="section-label reveal">Liên hệ</div>
     <h2 class="section-title reveal d1">Hãy cùng<br><em>bắt đầu hành trình</em></h2>
     <p class="contact-sub reveal d2">Dù bạn là cá nhân, trường học hay tổ chức — tôi rất mong được lắng nghe và đồng hành cùng bạn.</p>
-    <div class="contact-links reveal d3">
+       <div class="contact-links reveal d3">
       <a href="https://sophianguyen.com.vn" target="_blank" class="contact-link c-gold">🌐 sophianguyen.com.vn</a>
-  <a href="tel:0977092182" class="contact-link c-ghost">📞 0977.092.182</a>
+      <a href="tel:0977092182" class="contact-link c-ghost">📞 0977.092.182</a>
       <a href="https://facebook.com" target="_blank" class="contact-link c-ghost">📘 Facebook</a>
       <a href="mailto:sophianguyen2891@gmail.com" class="contact-link c-ghost">✉️ Email</a>
       <a href="https://tiktok.com" target="_blank" class="contact-link c-ghost">🎵 TikTok</a>
@@ -582,7 +617,7 @@
 </section>
 
 <footer>
-  <p>© 2026 <span>Sophia Nguyễn</span> · sophianguyen.com.vn · Made with ♥ in Việt Nam</p>
+  <p>© 2026 <span>Sophia Nguyễn</span> · sophianguyen.com.vn ·</p>
 </footer>
 
 <script>
