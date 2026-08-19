@@ -32,7 +32,6 @@
     overflow-x: hidden;
   }
 
-  /* NAV */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
@@ -58,7 +57,6 @@
   }
   .nav-links a:hover { color: var(--teal); }
 
-  /* HERO */
   #hero {
     min-height: 100vh;
     background: linear-gradient(135deg, #0F766E 0%, #14B8A6 50%, #2DD4BF 100%);
@@ -151,7 +149,6 @@
   @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
   @keyframes fadeIn { to { opacity: 1; } }
 
-  /* SECTIONS */
   section { padding: 5rem 2rem; }
   .container { max-width: 1100px; margin: 0 auto; }
   .section-label {
@@ -171,7 +168,6 @@
   }
   .section-title em { font-style: italic; color: var(--coral); }
 
-  /* ABOUT */
   #about { background: var(--white); }
   .about-grid {
     display: grid; grid-template-columns: 1fr 1fr;
@@ -188,23 +184,7 @@
   .avatar-frame img { width: 100%; height: 100%; object-fit: cover; }
   .about-text p { color: var(--text-mid); line-height: 1.85; font-size: 1rem; margin-bottom: 1rem; }
   .about-text strong { color: var(--teal); }
-  .about-stats {
-    display: grid; grid-template-columns: 1fr 1fr 1fr;
-    gap: 1.2rem; margin-top: 2rem;
-  }
-  .stat-card {
-    background: var(--teal-pale);
-    border-radius: 16px;
-    padding: 1rem 1.2rem;
-    text-align: center;
-  }
-  .stat-number {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2rem; font-weight: 600; color: var(--teal); line-height: 1;
-  }
-  .stat-label { font-size: 0.72rem; color: var(--text-mid); margin-top: 0.2rem; }
 
-  /* SERVICES */
   #services { background: var(--cream); }
   .services-grid {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -223,9 +203,7 @@
     box-shadow: 0 20px 48px rgba(15,118,110,0.10);
     border-color: var(--teal-light);
   }
-  .service-icon {
-    font-size: 2.6rem; display: block; margin-bottom: 0.8rem;
-  }
+  .service-icon { font-size: 2.6rem; display: block; margin-bottom: 0.8rem; }
   .service-title {
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.4rem; font-weight: 600; color: var(--text-dark); margin-bottom: 0.5rem;
@@ -237,6 +215,52 @@
     background: var(--teal-pale); color: var(--teal);
     padding: 0.2rem 0.7rem; border-radius: 20px;
     font-weight: 500;
+  }
+
+  /* TARGET AUDIENCE */
+  .target-block {
+    margin-top: 2.5rem;
+    padding: 2rem;
+    background: var(--white);
+    border-radius: 20px;
+    border: 1px solid rgba(15,118,110,0.08);
+  }
+  .target-block h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem; color: var(--text-dark); margin-bottom: 0.8rem;
+  }
+  .target-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  .target-item {
+    background: var(--teal-pale);
+    border-radius: 16px;
+    padding: 1rem 1.2rem;
+  }
+  .target-item .level {
+    font-weight: 600; color: var(--teal); font-size: 0.9rem;
+  }
+  .target-item .topics {
+    font-size: 0.8rem; color: var(--text-mid); margin-top: 0.3rem;
+  }
+
+  /* WORKSHOP */
+  .workshop-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1rem; margin-top: 2rem;
+  }
+  .workshop-item {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 1.2rem 1.5rem;
+    border-left: 4px solid var(--coral);
+  }
+  .workshop-item .title {
+    font-weight: 600; color: var(--text-dark);
+  }
+  .workshop-item .desc {
+    font-size: 0.85rem; color: var(--text-mid); margin-top: 0.2rem;
   }
 
   /* GALLERY */
@@ -259,13 +283,6 @@
     background-size: cover;
     background-position: center;
   }
-  .gallery-caption {
-    padding: 0.8rem 1.2rem;
-    font-size: 0.8rem;
-    color: var(--text-mid);
-    background: var(--white);
-  }
-  .gallery-caption strong { color: var(--text-dark); }
 
   /* EXPERIENCE */
   #experience { background: var(--cream); }
@@ -315,6 +332,31 @@
     font-weight: 500;
   }
 
+  /* COOPERATION */
+  .coop-block {
+    margin-top: 2.5rem;
+    padding: 2rem;
+    background: var(--white);
+    border-radius: 20px;
+    border: 1px solid rgba(15,118,110,0.08);
+    text-align: center;
+  }
+  .coop-block .coop-tags {
+    display: flex; flex-wrap: wrap; gap: 0.8rem;
+    justify-content: center; margin: 1rem 0;
+  }
+  .coop-block .coop-tag {
+    background: var(--teal-pale);
+    padding: 0.5rem 1.2rem;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--teal);
+  }
+  .coop-block .coop-desc {
+    font-size: 0.9rem; color: var(--text-mid); max-width: 600px; margin: 0 auto;
+  }
+
   /* CONTACT */
   #contact {
     background: linear-gradient(135deg, #0F766E 0%, #14B8A6 100%);
@@ -361,7 +403,7 @@
     nav { padding: 0.8rem 1.5rem; }
     .nav-links { display: none; }
     .about-grid { grid-template-columns: 1fr; gap: 2rem; }
-    .about-stats { grid-template-columns: 1fr; }
+    .workshop-grid { grid-template-columns: 1fr; }
     .exp-grid { grid-template-columns: 1fr; }
     section { padding: 3rem 1.2rem; }
   }
@@ -375,6 +417,7 @@
   <ul class="nav-links">
     <li><a href="#about">Về tôi</a></li>
     <li><a href="#services">Chuyên đề</a></li>
+    <li><a href="#workshop">Workshop</a></li>
     <li><a href="#gallery">Hình ảnh</a></li>
     <li><a href="#experience">Kinh nghiệm</a></li>
     <li><a href="#contact">Liên hệ</a></li>
@@ -411,17 +454,16 @@
         <div class="section-label reveal">Về tôi</div>
         <h2 class="section-title reveal d1">Giảng viên <br><em>tâm huyết với trẻ</em></h2>
         <div style="margin-top:1.5rem;">
-          <p class="reveal d2">Tôi là <strong>Sophia Nguyễn (Diễm Hằng)</strong> — giảng viên kỹ năng sống với hơn <strong>10 năm kinh nghiệm đứng lớp</strong> và đào tạo cho học sinh từ cấp 1 đến cấp 3.</p>
+          <p class="reveal d2">Tôi là <strong>Sophia Nguyễn (Diễm Hằng)</strong> — giảng viên kỹ năng sống với <strong>nhiều năm kinh nghiệm đào tạo và trực tiếp đứng lớp</strong>, trong đó có nhiều năm triển khai các chương trình kỹ năng sống, an toàn cá nhân và giáo dục giới tính cho học sinh từ cấp 1 đến cấp 3.</p>
           <p class="reveal d3">Tôi tốt nghiệp <strong>Cử nhân Kinh tế</strong> và <strong>Cử nhân Tâm lý học</strong>, có chứng chỉ Nghiệp vụ Sư phạm, Train The Trainer và Huấn luyện Kỹ năng sống. Phương pháp giảng dạy của tôi tập trung vào <strong>trải nghiệm thực tế</strong>, giúp học sinh tiếp thu tự nhiên và ghi nhớ lâu.</p>
           <p class="reveal d3">Tôi đặc biệt yêu thích và có nhiều kinh nghiệm trong các chủ đề: <strong>kỹ năng sống, an toàn cá nhân, giáo dục giới tính toàn diện, phòng chống xâm hại và kỹ năng thoát hiểm</strong> cho trẻ em.</p>
-          <p class="reveal d3">Bên cạnh đó, tôi là <strong>chuyên gia phân tích sinh trắc vân tay</strong> từ 2011 — giúp tôi hiểu tính cách và tiềm năng của từng học sinh để điều chỉnh phương pháp giảng dạy phù hợp.</p>
         </div>
-              </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- SERVICES -->
+<!-- SERVICES + TARGET + WORKSHOP -->
 <section id="services">
   <div class="container">
     <div class="section-label reveal">Chuyên đề giảng dạy</div>
@@ -452,6 +494,63 @@
         <div class="service-tags"><span class="service-tag">Hướng nghiệp</span><span class="service-tag">Sở thích</span><span class="service-tag">Định hướng</span></div>
       </div>
     </div>
+
+    <!-- 🆕 ĐỐI TƯỢNG GIẢNG DẠY -->
+    <div class="target-block reveal">
+      <h4>🎯 Đối tượng giảng dạy</h4>
+      <div class="target-grid">
+        <div class="target-item">
+          <div class="level">🏫 Tiểu học</div>
+          <div class="topics">Kỹ năng sống · An toàn cá nhân · Phòng chống xâm hại</div>
+        </div>
+        <div class="target-item">
+          <div class="level">📚 THCS</div>
+          <div class="topics">Kỹ năng sống · Tuổi dậy thì · Giáo dục giới tính · An toàn cá nhân</div>
+        </div>
+        <div class="target-item">
+          <div class="level">🎓 THPT</div>
+          <div class="topics">Kỹ năng sống · Quan hệ lành mạnh · Giáo dục giới tính · Hướng nghiệp</div>
+        </div>
+        <div class="target-item">
+          <div class="level">👪 Phụ huynh &amp; Giáo viên</div>
+          <div class="topics">Đồng hành cùng trẻ · Giáo dục giới tính · Kỹ năng bảo vệ trẻ</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 🆕 WORKSHOP & CHUYÊN ĐỀ -->
+<section id="workshop" style="background: var(--white);">
+  <div class="container">
+    <div class="section-label reveal">Workshop &amp; Chuyên đề</div>
+    <h2 class="section-title reveal d1">Tôi trực tiếp thiết kế và triển khai <br><em>các chương trình tương tác</em></h2>
+    <div class="workshop-grid">
+      <div class="workshop-item reveal d1">
+        <div class="title">🧬 Cơ thể thay đổi – tâm trí cũng vậy</div>
+        <div class="desc">Giáo dục giới tính &amp; tuổi dậy thì cho học sinh THCS-THPT</div>
+      </div>
+      <div class="workshop-item reveal d2">
+        <div class="title">🛡️ Cơ thể là của tớ</div>
+        <div class="desc">Ranh giới cá nhân &amp; phòng chống xâm hại cho học sinh</div>
+      </div>
+      <div class="workshop-item reveal d3">
+        <div class="title">🌱 Lớn rồi, con cần biết</div>
+        <div class="desc">Kỹ năng an toàn cho trẻ em trong cuộc sống hàng ngày</div>
+      </div>
+      <div class="workshop-item reveal d4">
+        <div class="title">👪 Khi con bước vào tuổi dậy thì</div>
+        <div class="desc">Chuyên đề dành riêng cho phụ huynh và giáo viên</div>
+      </div>
+      <div class="workshop-item reveal d1">
+        <div class="title">💪 Kỹ năng sống &amp; tự bảo vệ bản thân</div>
+        <div class="desc">Chương trình kỹ năng sống toàn diện cho học sinh các cấp</div>
+      </div>
+      <div class="workshop-item reveal d2">
+        <div class="title">📱 An toàn trên môi trường mạng</div>
+        <div class="desc">Nhận biết rủi ro và sử dụng internet an toàn cho trẻ em</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -459,43 +558,29 @@
 <section id="gallery">
   <div class="container">
     <div class="section-label reveal">Hình ảnh giảng dạy</div>
-    <h2 class="section-title reveal d1">Một số hình ảnh khoảnh khắc <br><em> giảng dạy trên lớp và chuyên đề sân trường</em></h2>
+    <h2 class="section-title reveal d1">Một số khoảnh khắc <br><em>trên lớp và chuyên đề sân trường</em></h2>
     <div class="gallery-grid">
-      
-      <!-- Ảnh 1 -->
       <div class="gallery-item reveal d1">
         <div class="gallery-img" style="background-image: url('images/230610.png');"></div>
       </div>
-
-      <!-- Ảnh 2 -->
       <div class="gallery-item reveal d2">
         <div class="gallery-img" style="background-image: url('images/44444.jpg');"></div>
       </div>
-
-      <!-- Ảnh 3 -->
       <div class="gallery-item reveal d3">
         <div class="gallery-img" style="background-image: url('images/777.jpg');"></div>
       </div>
-
-      <!-- Ảnh 4 -->
       <div class="gallery-item reveal d4">
         <div class="gallery-img" style="background-image: url('images/9999.jpg');"></div>
       </div>
-
-      <!-- Ảnh 5 -->
       <div class="gallery-item reveal d1">
         <div class="gallery-img" style="background-image: url('images/IMG_1338.JPG');"></div>
       </div>
-
-      <!-- Ảnh 6 -->
       <div class="gallery-item reveal d2">
         <div class="gallery-img" style="background-image: url('images/111.jpg');"></div>
       </div>
-<!-- Ảnh 7 -->
       <div class="gallery-item reveal d2">
         <div class="gallery-img" style="background-image: url('images/1150.jpg');"></div>
       </div>
-     <!-- Ảnh 8-->
       <div class="gallery-item reveal d2">
         <div class="gallery-img" style="background-image: url('images/fb19.jpg');"></div>
       </div>
@@ -525,7 +610,7 @@
         <div class="year">2017 — 2022</div>
         <div class="role">Đào tạo viên nội bộ</div>
         <div class="org">NVS Việt Nam · JWT Việt Nam</div>
-        <div class="detail">Đào tạo các kỹ năng mềm, giao tiếp, làm việc nhóm cho đội ngũ nhân viên và cộng tác viên.</div>
+        <div class="detail">Đào tạo kỹ năng mềm, giao tiếp, làm việc nhóm cho đội ngũ nhân viên và cộng tác viên.</div>
       </div>
       <div class="exp-card reveal d4">
         <div class="year">2011 — Hiện tại</div>
@@ -536,7 +621,7 @@
     </div>
 
     <div class="school-list reveal">
-      <h4>📚 Một số trường đã tham gia giảng dạy Kỹ Năng và Báo cáo chuyên đề</h4>
+      <h4>📚 Một số trường đã tham gia giảng dạy Kỹ năng và Báo cáo chuyên đề</h4>
       <div class="tags">
         <span class="tag">PTTH Nguyễn Trung Trực</span>
         <span class="tag">PTTH Hoàng Văn Thụ</span>
@@ -547,6 +632,19 @@
         <span class="tag">PTTH Bình Phú</span>
         <span class="tag">Và nhiều trường PTTH, THCS khác tại TP.HCM</span>
       </div>
+    </div>
+
+    <!-- 🆕 HÌNH THỨC HỢP TÁC -->
+    <div class="coop-block reveal">
+      <h4>🤝 Hình thức hợp tác</h4>
+      <div class="coop-tags">
+        <span class="coop-tag">Thỉnh giảng theo tiết</span>
+        <span class="coop-tag">Workshop / Chuyên đề</span>
+        <span class="coop-tag">Dạy theo khóa</span>
+        <span class="coop-tag">Chương trình ngoại khóa</span>
+        <span class="coop-tag">Xây dựng giáo án &amp; học liệu theo yêu cầu</span>
+      </div>
+      <p class="coop-desc">Nhận giảng trực tiếp tại trường học, trung tâm, doanh nghiệp và các chương trình ngoại khóa; linh hoạt theo nội dung, độ tuổi và thời lượng chương trình.</p>
     </div>
   </div>
 </section>
