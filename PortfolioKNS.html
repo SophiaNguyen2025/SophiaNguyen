@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta property="og:title" content="Sophia Nguyễn — Giảng viên Kỹ năng sống">
+<meta property="og:description" content="Giảng viên Kỹ năng sống, An toàn cá nhân & Giáo dục giới tính — Kinh nghiệm đứng lớp với học sinh từ cấp 1 đến cấp 3">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sophia Nguyễn — Giảng viên Kỹ năng sống</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --teal: #0F766E;
+    --teal-light: #14B8A6;
+    --teal-pale: #CCFBF1;
+    --coral: #F97373;
+    --coral-light: #FDA4AF;
+    --orange: #FB923C;
+    --orange-light: #FED7AA;
+    --sunny: #FDE047;
+    --cream: #FDF8F3;
+    --white: #FFFFFF;
+    --text-dark: #1E293B;
+    --text-mid: #475569;
+    --text-light: #94A3B8;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 3rem;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.04);
+    transform: translateY(-100%);
+    animation: slideDown 0.6s 0.4s cubic-bezier(0.23,1,0.32,1) forwards;
+  }
+  @keyframes slideDown { to { transform: translateY(0); } }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 600;
+    color: var(--teal); text-decoration: none;
+  }
+  .nav-logo span { color: var(--coral); font-weight: 300; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--text-mid); font-size: 0.85rem; letter-spacing: 0.04em;
+    text-decoration: none; font-weight: 400;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--teal); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0F766E 0%, #14B8A6 50%, #2DD4BF 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    padding: 6rem 2rem 4rem; text-align: center;
+  }
+  .hero-pattern {
+    position: absolute; inset: 0;
+    opacity: 0.06;
+    background-image:
+      radial-gradient(circle at 20% 50%, #fff 1px, transparent 1px),
+      radial-gradient(circle at 80% 50%, #fff 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-shape {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    animation: floatShape 12s ease-in-out infinite;
+  }
+  .shape1 { width: 400px; height: 400px; top: -100px; right: -100px; }
+  .shape2 { width: 300px; height: 300px; bottom: -50px; left: -80px; animation-delay: 3s; }
+  .shape3 { width: 200px; height: 200px; top: 30%; left: 60%; animation-delay: 6s; }
+  @keyframes floatShape {
+    0%,100% { transform: translate(0,0) scale(1); }
+    50% { transform: translate(20px,-30px) scale(1.05); }
+  }
+
+  .hero-tag {
+    font-size: 0.78rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
+    background: rgba(255,255,255,0.15);
+    padding: 0.45rem 1.2rem; border-radius: 2rem;
+    backdrop-filter: blur(4px);
+    position: relative; z-index: 1;
+    opacity: 0; transform: translateY(20px);
+    animation: fadeUp 0.7s 0.5s forwards;
+  }
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.2rem, 8vw, 6.5rem);
+    font-weight: 300; line-height: 1.05; color: #fff;
+    position: relative; z-index: 1; margin-top: 1.2rem;
+    opacity: 0; transform: translateY(30px);
+    animation: fadeUp 0.8s 0.75s forwards;
+  }
+  .hero-name em { font-style: italic; color: var(--sunny); display: block; }
+  .hero-desc {
+    font-size: 1.05rem; color: rgba(255,255,255,0.85);
+    max-width: 520px; line-height: 1.8;
+    position: relative; z-index: 1; margin-top: 1.5rem;
+    opacity: 0; transform: translateY(20px);
+    animation: fadeUp 0.8s 1s forwards;
+  }
+  .hero-cta-row {
+    display: flex; gap: 1rem; margin-top: 2.8rem;
+    position: relative; z-index: 1;
+    opacity: 0; transform: translateY(20px);
+    animation: fadeUp 0.8s 1.25s forwards;
+    flex-wrap: wrap; justify-content: center;
+  }
+  .btn-primary {
+    background: var(--sunny); color: var(--text-dark);
+    padding: 0.85rem 2.2rem; border-radius: 50px;
+    font-size: 0.9rem; font-weight: 600;
+    text-decoration: none; transition: all 0.3s;
+  }
+  .btn-primary:hover { background: #FEF08A; transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.15); }
+  .btn-outline-light {
+    background: transparent; color: #fff;
+    padding: 0.85rem 2.2rem; border-radius: 50px;
+    font-size: 0.9rem; font-weight: 500;
+    text-decoration: none; border: 2px solid rgba(255,255,255,0.3);
+    transition: all 0.3s;
+  }
+  .btn-outline-light:hover { border-color: #fff; background: rgba(255,255,255,0.1); transform: translateY(-3px); }
+  .hero-scroll {
+    position: absolute; bottom: 2.5rem; left: 50%;
+    display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+    color: rgba(255,255,255,0.5); font-size: 0.7rem; letter-spacing: 0.15em;
+    text-transform: uppercase; z-index: 1;
+    opacity: 0; animation: fadeIn 1s 2.2s forwards, bounce 2.5s 3.2s ease-in-out infinite;
+  }
+  .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, rgba(255,255,255,0.6), transparent); }
+  @keyframes bounce {
+    0%,100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { to { opacity: 1; } }
+
+  /* SECTIONS */
+  section { padding: 5rem 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.75rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--teal); font-weight: 600;
+    margin-bottom: 0.6rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .section-label::after {
+    content: ''; flex: 1; max-width: 60px;
+    height: 2px; background: var(--teal); display: inline-block;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 400; line-height: 1.2; color: var(--text-dark);
+  }
+  .section-title em { font-style: italic; color: var(--coral); }
+
+  /* ABOUT */
+  #about { background: var(--white); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: center; margin-top: 3rem;
+  }
+  .avatar-frame {
+    width: 100%; aspect-ratio: 1/1; max-width: 320px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto;
+    border: 6px solid var(--teal-pale);
+    box-shadow: 0 20px 60px rgba(15,118,110,0.12);
+  }
+  .avatar-frame img { width: 100%; height: 100%; object-fit: cover; }
+  .about-text p { color: var(--text-mid); line-height: 1.85; font-size: 1rem; margin-bottom: 1rem; }
+  .about-text strong { color: var(--teal); }
+  .about-stats {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.2rem; margin-top: 2rem;
+  }
+  .stat-card {
+    background: var(--teal-pale);
+    border-radius: 16px;
+    padding: 1rem 1.2rem;
+    text-align: center;
+  }
+  .stat-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem; font-weight: 600; color: var(--teal); line-height: 1;
+  }
+  .stat-label { font-size: 0.72rem; color: var(--text-mid); margin-top: 0.2rem; }
+
+  /* SERVICES */
+  #services { background: var(--cream); }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem; margin-top: 3rem;
+  }
+  .service-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 2rem 1.8rem;
+    border: 1px solid rgba(15,118,110,0.08);
+    transition: all 0.3s;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+  }
+  .service-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 48px rgba(15,118,110,0.10);
+    border-color: var(--teal-light);
+  }
+  .service-icon {
+    font-size: 2.6rem; display: block; margin-bottom: 0.8rem;
+  }
+  .service-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 600; color: var(--text-dark); margin-bottom: 0.5rem;
+  }
+  .service-desc { font-size: 0.88rem; color: var(--text-mid); line-height: 1.7; }
+  .service-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.8rem; }
+  .service-tag {
+    font-size: 0.65rem; letter-spacing: 0.04em;
+    background: var(--teal-pale); color: var(--teal);
+    padding: 0.2rem 0.7rem; border-radius: 20px;
+    font-weight: 500;
+  }
+
+  /* GALLERY */
+  #gallery { background: var(--white); }
+  .gallery-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem; margin-top: 3rem;
+  }
+  .gallery-item {
+    border-radius: 20px; overflow: hidden;
+    border: 1px solid rgba(15,118,110,0.06);
+    transition: all 0.3s;
+    background: var(--white);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+  }
+  .gallery-item:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(15,118,110,0.08); }
+  .gallery-img {
+    aspect-ratio: 4/3;
+    background: #E8E3DB;
+    background-size: cover;
+    background-position: center;
+  }
+  .gallery-caption {
+    padding: 0.8rem 1.2rem;
+    font-size: 0.8rem;
+    color: var(--text-mid);
+    background: var(--white);
+  }
+  .gallery-caption strong { color: var(--text-dark); }
+
+  /* EXPERIENCE */
+  #experience { background: var(--cream); }
+  .exp-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.5rem; margin-top: 3rem;
+  }
+  .exp-card {
+    background: var(--white); border-radius: 16px;
+    padding: 1.5rem 2rem;
+    border-left: 4px solid var(--teal-light);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+  }
+  .exp-card .year {
+    font-size: 0.7rem; letter-spacing: 0.08em;
+    color: var(--teal); font-weight: 600; text-transform: uppercase;
+  }
+  .exp-card .role {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; font-weight: 600; color: var(--text-dark);
+    margin: 0.2rem 0;
+  }
+  .exp-card .org { font-size: 0.9rem; color: var(--text-mid); }
+  .exp-card .detail { font-size: 0.85rem; color: var(--text-light); margin-top: 0.4rem; }
+
+  .school-list {
+    margin-top: 2.5rem;
+    padding: 1.5rem 2rem;
+    background: var(--white);
+    border-radius: 20px;
+    border: 1px solid rgba(15,118,110,0.08);
+  }
+  .school-list h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem; color: var(--text-dark);
+    margin-bottom: 0.8rem;
+  }
+  .school-list .tags {
+    display: flex; flex-wrap: wrap; gap: 0.6rem;
+  }
+  .school-list .tag {
+    background: var(--teal-pale);
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: var(--teal);
+    font-weight: 500;
+  }
+
+  /* CONTACT */
+  #contact {
+    background: linear-gradient(135deg, #0F766E 0%, #14B8A6 100%);
+    text-align: center;
+  }
+  #contact .section-title { color: #fff; }
+  #contact .section-label { color: rgba(255,255,255,0.7); justify-content: center; }
+  #contact .section-label::after { background: rgba(255,255,255,0.3); }
+  .contact-sub {
+    color: rgba(255,255,255,0.7); font-size: 1rem; margin-top: 0.8rem;
+    line-height: 1.7; max-width: 480px; margin-left: auto; margin-right: auto;
+  }
+  .contact-links { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 2rem; }
+  .contact-link {
+    display: flex; align-items: center; gap: 0.5rem;
+    padding: 0.75rem 1.6rem; border-radius: 50px;
+    text-decoration: none; font-size: 0.88rem; font-weight: 500;
+    transition: all 0.3s;
+  }
+  .contact-link:hover { transform: translateY(-3px); }
+  .c-white { background: #fff; color: var(--teal); }
+  .c-white:hover { background: var(--sunny); color: var(--text-dark); box-shadow: 0 12px 32px rgba(0,0,0,0.15); }
+  .c-ghost-light { color: rgba(255,255,255,0.8); border: 2px solid rgba(255,255,255,0.2); }
+  .c-ghost-light:hover { border-color: #fff; color: #fff; background: rgba(255,255,255,0.05); }
+
+  footer {
+    background: #0D5E58; color: rgba(255,255,255,0.4);
+    text-align: center; padding: 1.5rem;
+    font-size: 0.8rem;
+  }
+  footer span { color: var(--sunny); }
+
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s cubic-bezier(0.23,1,0.32,1), transform 0.7s cubic-bezier(0.23,1,0.32,1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .d1 { transition-delay: 0.1s; }
+  .d2 { transition-delay: 0.2s; }
+  .d3 { transition-delay: 0.3s; }
+  .d4 { transition-delay: 0.4s; }
+
+  @media (max-width: 700px) {
+    nav { padding: 0.8rem 1.5rem; }
+    .nav-links { display: none; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .about-stats { grid-template-columns: 1fr; }
+    .exp-grid { grid-template-columns: 1fr; }
+    section { padding: 3rem 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">Sophia <span>Nguyễn</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">Về tôi</a></li>
+    <li><a href="#services">Chuyên đề</a></li>
+    <li><a href="#gallery">Hình ảnh</a></li>
+    <li><a href="#experience">Kinh nghiệm</a></li>
+    <li><a href="#contact">Liên hệ</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-pattern"></div>
+  <div class="hero-shape shape1"></div>
+  <div class="hero-shape shape2"></div>
+  <div class="hero-shape shape3"></div>
+  <div class="hero-tag">🌸 Giảng viên Kỹ năng sống · An toàn · Giáo dục giới tính</div>
+  <h1 class="hero-name">Sophia<br><em>Nguyễn</em></h1>
+  <p class="hero-desc">Đồng hành cùng trẻ em và thanh thiếu niên qua các chương trình kỹ năng sống, an toàn cá nhân và giáo dục giới tính — với phương pháp trực quan, tương tác và phù hợp từng lứa tuổi.</p>
+  <div class="hero-cta-row">
+    <a href="#contact" class="btn-primary">💛 Mời tôi giảng dạy</a>
+    <a href="#gallery" class="btn-outline-light">📸 Xem hình ảnh</a>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Cuộn xuống</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="avatar-frame reveal">
+        <img src="images/sophianguyen.jpg" alt="Sophia Nguyễn">
+      </div>
+      <div class="about-text">
+        <div class="section-label reveal">Về tôi</div>
+        <h2 class="section-title reveal d1">Giảng viên <br><em>tâm huyết với trẻ</em></h2>
+        <div style="margin-top:1.5rem;">
+          <p class="reveal d2">Tôi là <strong>Sophia Nguyễn (Diễm Hằng)</strong> — giảng viên kỹ năng sống với hơn <strong>10 năm kinh nghiệm đứng lớp</strong> và đào tạo cho học sinh từ cấp 1 đến cấp 3.</p>
+          <p class="reveal d3">Tôi tốt nghiệp <strong>Cử nhân Kinh tế</strong> và <strong>Cử nhân Tâm lý học</strong>, có chứng chỉ Nghiệp vụ Sư phạm, Train The Trainer và Huấn luyện Kỹ năng sống. Phương pháp giảng dạy của tôi tập trung vào <strong>trải nghiệm thực tế</strong>, giúp học sinh tiếp thu tự nhiên và ghi nhớ lâu.</p>
+          <p class="reveal d3">Tôi đặc biệt yêu thích và có nhiều kinh nghiệm trong các chủ đề: <strong>kỹ năng sống, an toàn cá nhân, giáo dục giới tính toàn diện, phòng chống xâm hại và kỹ năng thoát hiểm</strong> cho trẻ em.</p>
+          <p class="reveal d3">Bên cạnh đó, tôi là <strong>chuyên gia phân tích sinh trắc vân tay</strong> từ 2011 — giúp tôi hiểu tính cách và tiềm năng của từng học sinh để điều chỉnh phương pháp giảng dạy phù hợp.</p>
+        </div>
+        <div class="about-stats">
+          <div class="stat-card reveal d2"><div class="stat-number">10+</div><div class="stat-label">Năm đứng lớp</div></div>
+          <div class="stat-card reveal d3"><div class="stat-number">100+</div><div class="stat-label">Lớp học đã dẫn dắt</div></div>
+          <div class="stat-card reveal d4"><div class="stat-number">3.000+</div><div class="stat-label">Học sinh đã đồng hành</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="section-label reveal">Chuyên đề giảng dạy</div>
+    <h2 class="section-title reveal d1">Tôi có thể <br><em>mang đến cho học sinh</em></h2>
+    <div class="services-grid">
+      <div class="service-card reveal d1">
+        <span class="service-icon">🛡️</span>
+        <div class="service-title">An toàn cá nhân</div>
+        <div class="service-desc">Nhận biết nguy cơ, kỹ năng tự bảo vệ, phòng chống xâm hại, ứng phó với tình huống nguy hiểm.</div>
+        <div class="service-tags"><span class="service-tag">Tự bảo vệ</span><span class="service-tag">Xâm hại</span><span class="service-tag">Ứng phó</span></div>
+      </div>
+      <div class="service-card reveal d2">
+        <span class="service-icon">💬</span>
+        <div class="service-title">Kỹ năng sống</div>
+        <div class="service-desc">Giao tiếp, làm việc nhóm, quản lý cảm xúc, ra quyết định, giải quyết vấn đề — kỹ năng mềm nền tảng.</div>
+        <div class="service-tags"><span class="service-tag">Giao tiếp</span><span class="service-tag">Cảm xúc</span><span class="service-tag">Nhóm</span></div>
+      </div>
+      <div class="service-card reveal d3">
+        <span class="service-icon">🧠</span>
+        <div class="service-title">Giáo dục giới tính</div>
+        <div class="service-desc">Nhận biết cơ thể, thay đổi tuổi dậy thì, tình bạn, tình yêu, giới tính an toàn và lành mạnh.</div>
+        <div class="service-tags"><span class="service-tag">Dậy thì</span><span class="service-tag">Giới tính</span><span class="service-tag">Sức khỏe</span></div>
+      </div>
+      <div class="service-card reveal d4">
+        <span class="service-icon">🧭</span>
+        <div class="service-title">Hướng nghiệp &amp; Khám phá bản thân</div>
+        <div class="service-desc">Hỗ trợ học sinh nhận diện điểm mạnh, sở thích và định hướng nghề nghiệp phù hợp.</div>
+        <div class="service-tags"><span class="service-tag">Hướng nghiệp</span><span class="service-tag">Sở thích</span><span class="service-tag">Định hướng</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="container">
+    <div class="section-label reveal">Hình ảnh giảng dạy</div>
+    <h2 class="section-title reveal d1">Những khoảnh khắc <br><em>trên lớp</em></h2>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal d1">
+        <div class="gallery-img" style="background-image: url('https://placehold.co/600x450/14B8A6/FFFFFF?text=Ch%E1%BB%A5p+v%E1%BB%9Bi+h%E1%BB%8Dc+sinh');"></div>
+        <div class="gallery-caption"><strong>Lớp kỹ năng sống</strong> — THCS Bình Minh, Q.Tân Bình</div>
+      </div>
+      <div class="gallery-item reveal d2">
+        <div class="gallery-img" style="background-image: url('https://placehold.co/600x450/F97373/FFFFFF?text=H%C6%B0%E1%BB%9Bng+d%E1%BA%ABn+t%C6%B0%C6%A1ng+t%C3%A1c');"></div>
+        <div class="gallery-caption"><strong>Bài học tương tác</strong> — Trường Tiểu học Nguyễn Du, Q.3</div>
+      </div>
+      <div class="gallery-item reveal d3">
+        <div class="gallery-img" style="background-image: url('https://placehold.co/600x450/FDE047/1E293B?text=Ho%E1%BA%A1t+%C4%91%E1%BB%99ng+nh%C3%B3m');"></div>
+        <div class="gallery-caption"><strong>Hoạt động nhóm</strong> — Trường THPT Bùi Thị Xuân, Q.1</div>
+      </div>
+      <div class="gallery-item reveal d4">
+        <div class="gallery-img" style="background-image: url('https://placehold.co/600x450/FB923C/FFFFFF?text=T%C6%B0+v%E1%BA%A5n+h%E1%BB%8Dc+sinh');"></div>
+        <div class="gallery-caption"><strong>Giáo dục giới tính</strong> — Trường THCS Lê Quý Đôn, Q.10</div>
+      </div>
+      <div class="gallery-item reveal d1">
+        <div class="gallery-img" style="background-image: url('https://placehold.co/600x450/CCFBF1/1E293B?text=Ch%E1%BB%A5p+c%C3%B9ng+l%E1%BB%9Bp');"></div>
+        <div class="gallery-caption"><strong>Tư vấn học sinh</strong> — Chương trình ngoại khóa tại Quận 7</div>
+      </div>
+      <div class="gallery-item reveal d2">
+        <div class="gallery-img" style="background-image: url('https://placehold.co/600x450/FDA4AF/1E293B?text=Trao+%C4%91%E1%BB%95i+v%E1%BB%9Bi+ph%E1%BB%A5+huynh');"></div>
+        <div class="gallery-caption"><strong>Trao đổi cùng phụ huynh</strong> — Trường Mầm non Hoa Sen, Q.Gò Vấp</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="section-label reveal">Kinh nghiệm</div>
+    <h2 class="section-title reveal d1">Nơi tôi đã <br><em>đứng lớp</em></h2>
+    <div class="exp-grid">
+      <div class="exp-card reveal d1">
+        <div class="year">2022 — 2025</div>
+        <div class="role">Giảng viên Kỹ năng sống</div>
+        <div class="org">Viện Khoa học An toàn Việt Nam</div>
+        <div class="detail">Đào tạo kỹ năng sống, an toàn cá nhân cho học sinh cấp 1–3 tại nhiều trường học trên địa bàn TP.HCM.</div>
+      </div>
+      <div class="exp-card reveal d2">
+        <div class="year">2020 — 2024</div>
+        <div class="role">Giảng viên thỉnh giảng</div>
+        <div class="org">Nhiều trường THCS, THPT tại TP.HCM</div>
+        <div class="detail">Chuyên đề giáo dục giới tính, kỹ năng sống, hướng nghiệp cho học sinh khối 6–12.</div>
+      </div>
+      <div class="exp-card reveal d3">
+        <div class="year">2017 — 2022</div>
+        <div class="role">Đào tạo viên nội bộ</div>
+        <div class="org">NVS Việt Nam · JWT Việt Nam</div>
+        <div class="detail">Đào tạo kỹ năng mềm, giao tiếp, làm việc nhóm cho đội ngũ nhân viên và cộng tác viên.</div>
+      </div>
+      <div class="exp-card reveal d4">
+        <div class="year">2011 — Hiện tại</div>
+        <div class="role">Chuyên gia Sinh trắc Vân tay</div>
+        <div class="org">Đồng hành cùng phụ huynh &amp; nhà trường</div>
+        <div class="detail">Phân tích tính cách, tiềm năng bẩm sinh cho trẻ em, tư vấn định hướng phát triển.</div>
+      </div>
+    </div>
+
+    <div class="school-list reveal">
+      <h4>📚 Một số trường &amp; đã tham gia giảng dạy</h4>
+      <div class="tags">
+        <span class="tag">PTTH Nguyễn Trung Trực</span>
+        <span class="tag">PTTH Hoàng Văn Thụ</span>
+        <span class="tag">PTTH Linh Trung</span>
+        <span class="tag">PTTH Võ Trường Toản</span>
+        <span class="tag">PTTH Nguyễn Trãi</span>
+        <span class="tag">PTTH An Lạc</span>
+        <span class="tag">PTTH Bình Phú</span>
+        <span class="tag">Và nhiều trường PTTH, THCS khác tại TP.HCM</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-label reveal">Kết nối</div>
+    <h2 class="section-title reveal d1">Sẵn sàng <br><em>đồng hành cùng học sinh</em></h2>
+    <p class="contact-sub reveal d2">Nhận lịch giảng tại các trường học, trung tâm hoặc chương trình ngoại khóa trên toàn quốc.</p>
+    <div class="contact-links reveal d3">
+      <a href="https://sophianguyen.com.vn" target="_blank" class="contact-link c-white">🌐 sophianguyen.com.vn</a>
+      <a href="tel:0977092182" class="contact-link c-ghost-light">📞 0977.092.182</a>
+      <a href="mailto:sophianguyen2891@gmail.com" class="contact-link c-ghost-light">✉️ Email</a>
+      <a href="https://facebook.com" target="_blank" class="contact-link c-ghost-light">📘 Facebook</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 <span>Sophia Nguyễn</span> — Giảng viên Kỹ năng sống · An toàn · Giáo dục giới tính</p>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
