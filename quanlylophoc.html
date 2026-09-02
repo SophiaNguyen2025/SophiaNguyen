@@ -1196,28 +1196,41 @@ function handleFile(file){
 function clearFile(){ fileContent=''; document.getElementById('fileChipWrap').innerHTML=''; document.getElementById('fileInput').value=''; }
 
 async function analyzeContent(){
-  // Lấy API key từ ô input
   const apiKey = document.getElementById('apiKey').value.trim();
   if(!apiKey){ 
     showError('Chị nhập và lưu API key trước nhé.'); 
     return; 
   }
   const activeTab = document.getElementById('panelUpload').classList.contains('active') ? 'upload' : 'paste';
-  const content = activeTab==='upload' ? fileContent : document.getElementById('pasteBox').value.trim();
+  let content = activeTab==='upload' ? fileContent : document.getElementById('pasteBox').value.trim();
   if(!content){ showError('Chị chọn file hoặc dán nội dung giáo án trước nhé.'); return; }
   const courseName = document.getElementById('courseName').value.trim() || 'Khóa học';
+
+  // === CẮT NHỎ NỘI DUNG NẾU QUÁ DÀI ===
+  // Groq giới hạn khoảng 6.000 token ~ 24.000 ký tự tiếng Việt
+  const MAX_CHARS = 20000; // giới hạn an toàn
+  if(content.length > MAX_CHARS){
+    // Nếu dài quá, tự động tóm tắt bằng cách lấy phần đầu và phần cuối
+    const head = content.slice(0, MAX_CHARS - 1000);
+    const tail = content.slice(-1000);
+    content = head + '\n\n[...PHẦN GIỮA BỊ CẮT NGẮN DO GIỚI HẠN API...]\n\n' + tail;
+    showError(`⚠️ Nội dung giáo án dài (${content.length} ký tự), em đã cắt bớt phần giữa để gửi lên API. Chị nên dán phần quan trọng nhất hoặc chia nhỏ file.`);
+  }
 
   hideError();
   document.getElementById('loadingBox').classList.add('show');
   document.getElementById('analyzeBtn').disabled = true;
   document.getElementById('resultCard').style.display = 'none';
 
+  // === PROMPT TỐI ƯU HƠN ===
   const systemPrompt = `Bạn là trợ lý giúp giáo viên tách giáo án thành từng buổi học có thời lượng cụ thể.
 Đọc nội dung giáo án được cung cấp và tách thành danh sách các buổi học.
 Trả lời CHỈ bằng JSON, không thêm chữ nào khác, không dùng markdown code fence.
 Định dạng JSON:
 {"lessons":[{"order":1,"title":"Tên buổi học","duration_minutes":90,"summary":"Tóm tắt ngắn nội dung buổi học bằng tiếng Việt, 1-2 câu"}]}
-Nếu giáo án không ghi rõ thời lượng, ước lượng hợp lý (thường 60-120 phút mỗi buổi). Tách theo chủ đề/buổi một cách tự nhiên, hợp lý cho việc dạy học thực tế.`;
+Nếu giáo án không ghi rõ thời lượng, ước lượng hợp lý (thường 60-120 phút mỗi buổi).
+Hãy tách theo chủ đề/buổi một cách tự nhiên, hợp lý cho việc dạy học thực tế.
+QUAN TRỌNG: Nếu nội dung bị cắt ngắn, hãy vẫn tách thành các buổi dựa trên phần có sẵn.`;
   
   const userPrompt = `Tên khóa học: ${courseName}\n\nNội dung giáo án:\n${content}`;
 
@@ -1241,6 +1254,10 @@ Nếu giáo án không ghi rõ thời lượng, ước lượng hợp lý (thư�
 
     if(!response.ok){
       const errData = await response.json().catch(()=>({}));
+      // Xử lý riêng lỗi 413
+      if(response.status === 413){
+        throw new Error('❌ Nội dung giáo án quá lớn. Chị hãy chia nhỏ file thành nhiều phần hoặc chỉ dán phần quan trọng nhất để gửi lên AI.');
+      }
       throw new Error(errData?.error?.message || `Lỗi API (${response.status}). Chị kiểm tra lại API key nhé.`);
     }
     const data = await response.json();
