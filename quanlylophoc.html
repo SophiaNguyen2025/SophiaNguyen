@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
 <style>
+  /* ... toàn bộ CSS giữ nguyên như cũ ... */
   :root{
     --blue-900:#173a5e;
     --blue-700:#2f6fa5;
@@ -467,10 +468,10 @@
       </div>
 
       <div class="card" style="margin-bottom:16px;">
-        <h2>1. Kết nối Claude API</h2>
-        <div class="sub">Key chỉ lưu trong trình duyệt của chị, không gửi lên nơi nào khác ngoài Anthropic. Lấy key tại <a href="https://console.anthropic.com/settings/keys" target="_blank" style="color:var(--blue-500);">console.anthropic.com</a>.</div>
+        <h2>1. Kết nối Groq API</h2>
+        <div class="sub">Key chỉ lưu trong trình duyệt của chị. Lấy key tại <a href="https://console.groq.com/keys" target="_blank" style="color:var(--blue-500);">console.groq.com/keys</a>.</div>
         <div class="key-row">
-          <div><label>Claude API Key</label><input type="password" id="apiKey" placeholder="sk-ant-..."></div>
+          <div><label>Groq API Key</label><input type="password" id="apiKey" placeholder="gsk_..."></div>
           <button class="btn btn-ghost" onclick="saveKey()">Lưu key</button>
         </div>
         <div class="key-status" id="keyStatus">✓ Đã lưu key trong trình duyệt này</div>
@@ -500,7 +501,7 @@
           <input type="text" id="courseName" placeholder="VD: Giáo dục giới tính, Tư vấn phụ huynh..." style="width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:9px;font-size:14px;background:var(--sky-50);">
         </div>
         <div class="result-actions"><button class="btn btn-primary" id="analyzeBtn" onclick="analyzeContent()">Đọc & Tách buổi</button></div>
-        <div class="loading" id="loadingBox"><div class="spinner"></div><span>Mana AI đang đọc giáo án và tách buổi...</span></div>
+        <div class="loading" id="loadingBox"><div class="spinner"></div><span>AI đang đọc giáo án và tách buổi...</span></div>
         <div class="error-box" id="errorBox"></div>
       </div>
 
@@ -598,7 +599,7 @@ const SESS_KEY = 'sophia_tkb_sessions';
 const STU_KEY = 'sophia_students';
 const ITEMS_KEY = 'sophia_service_items';
 const QUOTES_KEY = 'sophia_quotes';
-const APIKEY_KEY = 'sophia_claude_api_key';
+const APIKEY_KEY = 'sophia_api_key';
 
 const PALETTE = ['#5b9bd5','#e0a45c','#4fb3a2','#d97a7a','#7c8fd9','#8fc9c9','#6f80a0'];
 
@@ -1195,8 +1196,12 @@ function handleFile(file){
 function clearFile(){ fileContent=''; document.getElementById('fileChipWrap').innerHTML=''; document.getElementById('fileInput').value=''; }
 
 async function analyzeContent(){
+  // Lấy API key từ ô input
   const apiKey = document.getElementById('apiKey').value.trim();
-  if(!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){ showError('Chị nhập và lưu API key trước nhé.'); return; }
+  if(!apiKey){ 
+    showError('Chị nhập và lưu API key trước nhé.'); 
+    return; 
+  }
   const activeTab = document.getElementById('panelUpload').classList.contains('active') ? 'upload' : 'paste';
   const content = activeTab==='upload' ? fileContent : document.getElementById('pasteBox').value.trim();
   if(!content){ showError('Chị chọn file hoặc dán nội dung giáo án trước nhé.'); return; }
@@ -1207,8 +1212,6 @@ async function analyzeContent(){
   document.getElementById('analyzeBtn').disabled = true;
   document.getElementById('resultCard').style.display = 'none';
 
-  // ——— SỬA TẠI ĐÂY ———
-  // Prompt giữ nguyên
   const systemPrompt = `Bạn là trợ lý giúp giáo viên tách giáo án thành từng buổi học có thời lượng cụ thể.
 Đọc nội dung giáo án được cung cấp và tách thành danh sách các buổi học.
 Trả lời CHỈ bằng JSON, không thêm chữ nào khác, không dùng markdown code fence.
@@ -1219,15 +1222,14 @@ Nếu giáo án không ghi rõ thời lượng, ước lượng hợp lý (thư�
   const userPrompt = `Tên khóa học: ${courseName}\n\nNội dung giáo án:\n${content}`;
 
   try{
-    // — GROQ API CALL —
     const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${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}`
+        'Authorization': `Bearer ${apiKey}`
       },
       body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',   // hoặc 'mixtral-8x7b-32768', 'gemma2-9b-it'
+        model: 'llama-3.3-70b-versatile',
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: userPrompt }
