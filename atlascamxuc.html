@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
 
     <style>
+        /* ===== RESET & BASE ===== */
         * {
             margin: 0;
             padding: 0;
@@ -18,31 +19,32 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #f5f1ec;
-            color: #1e1b1a;
+            background: #0a1628;
+            color: #f0ece3;
             min-height: 100vh;
             padding: 40px 24px;
             line-height: 1.6;
             transition: background 0.4s ease;
         }
 
+        /* Màu nền cho từng cảm xúc (tông tối, sang trọng) */
         body.bg-anger {
-            background: #fcf4f0;
+            background: #0f1a2a;
         }
         body.bg-fear {
-            background: #f2eff5;
+            background: #0e1428;
         }
         body.bg-disgust {
-            background: #f0f4ec;
+            background: #0c1a14;
         }
         body.bg-sadness {
-            background: #ebf0f3;
+            background: #0e1828;
         }
         body.bg-joy {
-            background: #fcf7ea;
+            background: #1a1a0e;
         }
         body.bg-surprise {
-            background: #f6f0ea;
+            background: #1a120e;
         }
 
         .container {
@@ -55,40 +57,53 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
-            align-items: flex-end;
+            align-items: center;
             padding-bottom: 28px;
-            border-bottom: 2px solid #e4ddd7;
+            border-bottom: 2px solid rgba(201, 169, 89, 0.25);
             margin-bottom: 40px;
         }
 
-        .header-left h1 {
-            font-size: 2.4rem;
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .header-left .logo {
+            height: 55px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .header-left .brand h1 {
+            font-size: 2.2rem;
             font-weight: 700;
             letter-spacing: -0.03em;
-            color: #1e1b1a;
+            color: #f0ece3;
         }
-        .header-left h1 span {
-            color: #b38b7a;
+        .header-left .brand h1 span {
+            color: #c9a959;
         }
-        .header-left .sub {
-            font-size: 0.95rem;
-            color: #8a7a6e;
+        .header-left .brand .sub {
+            font-size: 0.85rem;
+            color: #8a7e6e;
             font-weight: 400;
-            margin-top: 4px;
+            margin-top: 2px;
             letter-spacing: 0.4px;
         }
 
         .header-right {
             text-align: right;
             font-size: 0.85rem;
-            color: #8a7a6e;
+            color: #8a7e6e;
             max-width: 340px;
             line-height: 1.5;
-            border-left: 3px solid #e4ddd7;
+            border-left: 2px solid rgba(201, 169, 89, 0.2);
             padding-left: 20px;
         }
         .header-right strong {
-            color: #5c4b3f;
+            color: #c9a959;
             font-weight: 600;
         }
 
@@ -104,22 +119,25 @@
                 padding-left: 0;
                 max-width: 100%;
             }
+            .header-left .brand h1 {
+                font-size: 1.8rem;
+            }
         }
 
         /* ===== GIỚI THIỆU ===== */
         .intro {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(4px);
+            background: rgba(26, 42, 68, 0.6);
+            backdrop-filter: blur(8px);
             border-radius: 20px;
             padding: 24px 32px;
             margin-bottom: 42px;
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(201, 169, 89, 0.15);
             font-size: 1.05rem;
-            color: #3d332d;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+            color: #d4ccc2;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
         }
         .intro strong {
-            color: #b38b7a;
+            color: #c9a959;
             font-weight: 600;
         }
 
@@ -146,72 +164,104 @@
 
         .emotion-card {
             border-radius: 16px;
-            padding: 16px 12px 14px;
+            padding: 18px 12px 16px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.25s ease;
-            border: 2px solid transparent;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-            background: rgba(255, 255, 255, 0.75);
+            transition: all 0.3s ease;
+            border: 2px solid rgba(201, 169, 89, 0.15);
+            background: rgba(26, 42, 68, 0.5);
             backdrop-filter: blur(4px);
         }
 
         .emotion-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border-color: rgba(201, 169, 89, 0.4);
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.4);
+            background: rgba(26, 42, 68, 0.8);
         }
 
         .emotion-card.active {
-            border-color: #b38b7a;
-            box-shadow: 0 8px 25px rgba(179, 139, 122, 0.2);
+            border-color: #c9a959;
+            box-shadow: 0 8px 30px rgba(201, 169, 89, 0.15);
+            background: rgba(201, 169, 89, 0.08);
         }
 
         .emotion-card .icon {
-            font-size: 2.2rem;
+            font-size: 2.4rem;
             display: block;
             line-height: 1.2;
-            margin-bottom: 2px;
+            margin-bottom: 4px;
         }
         .emotion-card .name {
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 600;
-            color: #2d241f;
+            color: #f0ece3;
         }
         .emotion-card .sub-hint {
             font-size: 0.6rem;
-            color: #8a7a6e;
+            color: #8a7e6e;
             margin-top: 4px;
             opacity: 0.7;
         }
 
+        /* Màu border riêng cho từng cảm xúc */
         .emotion-card[data-emotion="anger"] {
-            border-color: #dba894;
+            border-color: rgba(192, 57, 43, 0.3);
         }
+        .emotion-card[data-emotion="anger"]:hover,
+        .emotion-card[data-emotion="anger"].active {
+            border-color: #c0392b;
+        }
+
         .emotion-card[data-emotion="fear"] {
-            border-color: #b8a8c8;
+            border-color: rgba(108, 91, 123, 0.3);
         }
+        .emotion-card[data-emotion="fear"]:hover,
+        .emotion-card[data-emotion="fear"].active {
+            border-color: #6c5b7b;
+        }
+
         .emotion-card[data-emotion="disgust"] {
-            border-color: #a8be94;
+            border-color: rgba(90, 122, 74, 0.3);
         }
+        .emotion-card[data-emotion="disgust"]:hover,
+        .emotion-card[data-emotion="disgust"].active {
+            border-color: #5a7a4a;
+        }
+
         .emotion-card[data-emotion="sadness"] {
-            border-color: #8ab0c4;
+            border-color: rgba(74, 122, 138, 0.3);
         }
+        .emotion-card[data-emotion="sadness"]:hover,
+        .emotion-card[data-emotion="sadness"].active {
+            border-color: #4a7a8a;
+        }
+
         .emotion-card[data-emotion="joy"] {
-            border-color: #e8ce7a;
+            border-color: rgba(201, 169, 89, 0.3);
         }
+        .emotion-card[data-emotion="joy"]:hover,
+        .emotion-card[data-emotion="joy"].active {
+            border-color: #c9a959;
+        }
+
         .emotion-card[data-emotion="surprise"] {
-            border-color: #d8b88a;
+            border-color: rgba(201, 122, 58, 0.3);
+        }
+        .emotion-card[data-emotion="surprise"]:hover,
+        .emotion-card[data-emotion="surprise"].active {
+            border-color: #c97a3a;
         }
 
         /* ================================================================
            PANEL CHI TIẾT
            ================================================================ */
         .detail-panel {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(8px);
+            background: rgba(26, 42, 68, 0.7);
+            backdrop-filter: blur(12px);
             border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(201, 169, 89, 0.12);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
             margin-bottom: 40px;
             overflow: hidden;
             max-height: 0;
@@ -241,9 +291,9 @@
             gap: 8px 16px;
             font-size: 1.8rem;
             font-weight: 700;
-            color: #1e1b1a;
+            color: #f0ece3;
             padding-bottom: 18px;
-            border-bottom: 2px solid rgba(0, 0, 0, 0.06);
+            border-bottom: 2px solid rgba(201, 169, 89, 0.15);
             margin-bottom: 24px;
         }
         .detail-panel .emotion-title .big-icon {
@@ -257,7 +307,7 @@
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            color: #b09a8a;
+            color: #8a7e6e;
             font-weight: 600;
             margin-bottom: 12px;
         }
@@ -267,27 +317,31 @@
             gap: 8px 12px;
         }
         .spectrum-item {
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.04);
             border-radius: 30px;
             padding: 4px 20px;
             font-size: 0.9rem;
             font-weight: 500;
-            color: #3d332d;
-            border: 1.5px solid rgba(0, 0, 0, 0.06);
+            color: #d4ccc2;
+            border: 1.5px solid rgba(255, 255, 255, 0.06);
             transition: 0.15s;
         }
         .spectrum-item:hover {
-            border-color: #b38b7a;
+            border-color: #c9a959;
         }
         .spectrum-item.low {
-            background: rgba(200, 200, 200, 0.15);
+            background: rgba(255, 255, 255, 0.03);
+            color: #a89e92;
         }
         .spectrum-item.mid {
-            background: rgba(179, 139, 122, 0.12);
+            background: rgba(201, 169, 89, 0.06);
+            color: #d4ccc2;
         }
         .spectrum-item.high {
-            background: rgba(179, 139, 122, 0.25);
+            background: rgba(201, 169, 89, 0.12);
+            color: #f0ece3;
             font-weight: 600;
+            border-color: rgba(201, 169, 89, 0.2);
         }
 
         .detail-row {
@@ -310,24 +364,24 @@
         }
 
         .detail-box {
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.03);
             border-radius: 18px;
             padding: 18px 20px 20px;
             transition: all 0.3s ease;
-            border-left: 4px solid rgba(0, 0, 0, 0.08);
+            border-left: 4px solid rgba(255, 255, 255, 0.06);
             min-height: 160px;
         }
 
         .detail-box.active-step {
-            border-left-color: #b38b7a;
-            background: rgba(255, 255, 255, 0.75);
+            border-left-color: #c9a959;
+            background: rgba(201, 169, 89, 0.05);
         }
 
         .detail-box h3 {
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 1.2px;
-            color: #b09a8a;
+            color: #8a7e6e;
             font-weight: 600;
             margin-bottom: 14px;
             display: flex;
@@ -336,12 +390,13 @@
         }
         .detail-box h3 .step-num {
             display: inline-block;
-            background: #b38b7a;
-            color: #fff;
+            background: #c9a959;
+            color: #0a1628;
             font-size: 0.55rem;
             padding: 0 8px;
             border-radius: 30px;
             letter-spacing: 0.5px;
+            font-weight: 700;
         }
 
         .detail-box ul {
@@ -350,51 +405,52 @@
         }
         .detail-box ul li {
             padding: 5px 0 5px 26px;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="%23b38b7a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>') left center no-repeat;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="%23c9a959" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>') left center no-repeat;
             background-size: 16px;
             font-size: 0.92rem;
-            color: #3d332d;
+            color: #d4ccc2;
         }
 
         .action-tag {
             display: inline-block;
-            background: #fff;
+            background: rgba(255, 255, 255, 0.04);
             border-radius: 30px;
             padding: 4px 16px;
             margin: 3px 4px 3px 0;
             font-size: 0.82rem;
-            border: 1.5px solid rgba(0, 0, 0, 0.08);
-            color: #3d332d;
+            border: 1.5px solid rgba(255, 255, 255, 0.06);
+            color: #d4ccc2;
             transition: 0.15s;
             font-weight: 500;
             cursor: default;
         }
         .action-tag.constructive {
-            border-color: #b5c9b0;
-            background: #f5faf3;
-            color: #3d6b4a;
+            border-color: rgba(90, 122, 74, 0.4);
+            background: rgba(90, 122, 74, 0.1);
+            color: #8bba7a;
         }
         .action-tag.destructive {
-            border-color: #e6c4c4;
-            background: #fcf4f4;
-            color: #a55a5a;
+            border-color: rgba(192, 57, 43, 0.4);
+            background: rgba(192, 57, 43, 0.1);
+            color: #d97a6a;
         }
 
         .strategy-pill {
             display: inline-block;
-            background: white;
+            background: rgba(255, 255, 255, 0.04);
             border-radius: 30px;
             padding: 5px 18px;
             margin: 3px 4px 3px 0;
             font-size: 0.82rem;
-            border: 1.5px solid rgba(0, 0, 0, 0.06);
-            color: #4f3f36;
+            border: 1.5px solid rgba(255, 255, 255, 0.06);
+            color: #d4ccc2;
             font-weight: 500;
             transition: 0.15s;
             cursor: default;
         }
         .strategy-pill:hover {
-            border-color: #b38b7a;
+            border-color: #c9a959;
+            background: rgba(201, 169, 89, 0.06);
         }
         .strategy-pill .emoji {
             margin-right: 4px;
@@ -425,72 +481,74 @@
             align-items: center;
             margin-top: 24px;
             padding-top: 18px;
-            border-top: 2px solid rgba(0, 0, 0, 0.05);
+            border-top: 2px solid rgba(201, 169, 89, 0.1);
             flex-wrap: wrap;
             gap: 12px;
         }
         .step-nav .step-indicator {
             font-size: 0.8rem;
-            color: #8a7a6e;
+            color: #8a7e6e;
             font-weight: 500;
         }
         .step-nav .step-indicator span {
             font-weight: 700;
-            color: #b38b7a;
+            color: #c9a959;
         }
         .step-nav .btn-group {
             display: flex;
             gap: 10px;
         }
         .step-nav button {
-            background: rgba(255, 255, 255, 0.7);
-            border: 1.5px solid rgba(0, 0, 0, 0.08);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1.5px solid rgba(255, 255, 255, 0.06);
             border-radius: 30px;
             padding: 8px 24px;
             font-size: 0.85rem;
             font-weight: 500;
-            color: #4f3f36;
+            color: #d4ccc2;
             cursor: pointer;
             transition: all 0.2s ease;
             font-family: 'Inter', sans-serif;
         }
         .step-nav button:hover:not(:disabled) {
-            border-color: #b38b7a;
-            background: rgba(255, 255, 255, 0.9);
+            border-color: #c9a959;
+            background: rgba(201, 169, 89, 0.08);
             transform: translateY(-1px);
         }
         .step-nav button:disabled {
-            opacity: 0.3;
+            opacity: 0.25;
             cursor: not-allowed;
             transform: none;
         }
         .step-nav button.primary {
-            background: #b38b7a;
-            border-color: #b38b7a;
-            color: #fff;
+            background: #c9a959;
+            border-color: #c9a959;
+            color: #0a1628;
+            font-weight: 600;
         }
         .step-nav button.primary:hover:not(:disabled) {
-            background: #a07564;
-            border-color: #a07564;
+            background: #b8974a;
+            border-color: #b8974a;
+            color: #0a1628;
         }
 
         /* ================================================================
-           HÀNH TRÌNH (hiện từng bước)
+           HÀNH TRÌNH
            ================================================================ */
         .timeline-section {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(4px);
+            background: rgba(26, 42, 68, 0.5);
+            backdrop-filter: blur(8px);
             border-radius: 24px;
             padding: 28px 32px 32px;
             margin-bottom: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(201, 169, 89, 0.1);
         }
 
         .timeline-section .section-label {
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            color: #b09a8a;
+            color: #8a7e6e;
             font-weight: 600;
             margin-bottom: 18px;
             display: flex;
@@ -502,51 +560,52 @@
 
         .timeline-section .section-label .timeline-nav {
             display: flex;
+            align-items: center;
             gap: 8px;
         }
         .timeline-section .section-label .timeline-nav button {
-            background: rgba(255, 255, 255, 0.6);
-            border: 1.5px solid rgba(0, 0, 0, 0.06);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1.5px solid rgba(255, 255, 255, 0.06);
             border-radius: 30px;
             padding: 4px 16px;
             font-size: 0.75rem;
             font-weight: 500;
-            color: #4f3f36;
+            color: #d4ccc2;
             cursor: pointer;
             transition: 0.2s;
             font-family: 'Inter', sans-serif;
         }
         .timeline-section .section-label .timeline-nav button:hover:not(:disabled) {
-            border-color: #b38b7a;
-            background: rgba(255, 255, 255, 0.9);
+            border-color: #c9a959;
+            background: rgba(201, 169, 89, 0.08);
         }
         .timeline-section .section-label .timeline-nav button:disabled {
-            opacity: 0.3;
+            opacity: 0.25;
             cursor: not-allowed;
         }
 
         .timeline-step-display {
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.03);
             border-radius: 16px;
             padding: 20px 24px;
-            border-left: 5px solid #b38b7a;
+            border-left: 5px solid #c9a959;
             min-height: 100px;
             transition: all 0.3s ease;
         }
         .timeline-step-display .step-title {
             font-size: 1.2rem;
             font-weight: 600;
-            color: #1e1b1a;
+            color: #f0ece3;
             margin-bottom: 6px;
         }
         .timeline-step-display .step-desc {
             font-size: 0.95rem;
-            color: #4f3f36;
+            color: #b8aea2;
             line-height: 1.7;
         }
         .timeline-step-display .step-counter {
             font-size: 0.7rem;
-            color: #b09a8a;
+            color: #8a7e6e;
             font-weight: 500;
             letter-spacing: 1px;
             margin-bottom: 4px;
@@ -555,35 +614,52 @@
         /* ===== FOOTER ===== */
         .footer {
             text-align: center;
-            color: #b09a8a;
+            color: #8a7e6e;
             font-size: 0.8rem;
             padding: 24px 0 8px;
-            border-top: 1.5px solid rgba(0, 0, 0, 0.06);
+            border-top: 1.5px solid rgba(201, 169, 89, 0.08);
             margin-top: 12px;
             letter-spacing: 0.3px;
         }
         .footer a {
-            color: #b38b7a;
+            color: #c9a959;
             text-decoration: none;
             font-weight: 500;
         }
         .footer a:hover {
             text-decoration: underline;
         }
-         .logo { height: 60px; margin-bottom: 10px; }
 
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c9a959;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #b8974a;
+        }
     </style>
 </head>
 
 <body id="mainBody">
     <div class="container">
 
-        <!-- HEADER -->
+        <!-- ===== HEADER ===== -->
         <div class="header">
             <div class="header-left">
-                <h1>Atlas <span>Cảm Xúc</span></h1>
-                  <img src="https://sophianguyen.com.vn/images/hinhremovenen.png" alt="Sophia Nguyễn" class="logo">
-                <div class="sub">Bản đồ cảm xúc toàn diện · Nhận diện &amp; Làm chủ</div>
+                <img src="https://sophianguyen.com.vn/images/hinhremovenen.png" alt="Sophia Nguyễn" class="logo" />
+                <div class="brand">
+                    <h1>Atlas <span>Cảm Xúc</span></h1>
+                    <div class="sub">Bản đồ cảm xúc toàn diện · Nhận diện &amp; Làm chủ</div>
+                </div>
             </div>
             <div class="header-right">
                 <strong>Hiểu để làm chủ</strong><br />
@@ -591,14 +667,14 @@
             </div>
         </div>
 
-        <!-- GIỚI THIỆU -->
+        <!-- ===== GIỚI THIỆU ===== -->
         <div class="intro">
             <strong>🧭 Bản đồ cảm xúc</strong> giúp bạn nhận diện các cung bậc cảm xúc của chính mình,
             hiểu được nguồn cơn và những phản ứng tự nhiên. Từ đó, bạn có thể <strong>lựa chọn cách đáp lại</strong>
             một cách tỉnh thức và xây dựng hơn.
         </div>
 
-        <!-- HÀNG NGANG 6 CẢM XÚC CHÍNH -->
+        <!-- ===== HÀNG NGANG 6 CẢM XÚC CHÍNH ===== -->
         <div class="emotion-grid" id="emotionGrid">
             <div class="emotion-card" data-emotion="anger">
                 <span class="icon">😤</span>
@@ -632,7 +708,7 @@
             </div>
         </div>
 
-        <!-- PANEL CHI TIẾT -->
+        <!-- ===== PANEL CHI TIẾT ===== -->
         <div class="detail-panel" id="detailPanel">
             <div class="emotion-title">
                 <span class="big-icon" id="detailIcon">😤</span>
@@ -698,15 +774,13 @@
             </div>
         </div>
 
-        <!-- ================================================================
-        HÀNH TRÌNH - ĐÃ SỬA LỖI
-        ================================================================ -->
+        <!-- ===== HÀNH TRÌNH ===== -->
         <div class="timeline-section">
             <div class="section-label">
                 <span>⏳ Hành trình của cảm xúc <span id="timelineEmotion">(Giận dữ)</span></span>
                 <span class="timeline-nav">
                     <button id="tlPrevBtn" disabled>‹</button>
-                    <span style="font-size:0.7rem;color:#b09a8a;font-weight:500;" id="tlStepCounter">1/5</span>
+                    <span style="font-size:0.7rem;color:#8a7e6e;font-weight:500;" id="tlStepCounter">1/5</span>
                     <button id="tlNextBtn">›</button>
                 </span>
             </div>
@@ -717,7 +791,7 @@
             </div>
         </div>
 
-        <!-- FOOTER -->
+        <!-- ===== FOOTER ===== -->
         <div class="footer">
             ✦ Cảm hứng từ <a href="https://atlasofemotions.org" target="_blank">Atlas of Emotions</a> của Paul &amp; Eve Ekman
             &nbsp;·&nbsp; Thiết kế hiện đại cho mọi lứa tuổi
@@ -953,7 +1027,6 @@
         const nextStepBtn = document.getElementById('nextStep');
         const stepIndicator = document.getElementById('stepIndicator');
 
-        // Timeline
         const tlPrevBtn = document.getElementById('tlPrevBtn');
         const tlNextBtn = document.getElementById('tlNextBtn');
         const tlCounter = document.getElementById('tlCounter');
@@ -1037,7 +1110,7 @@
         }
 
         // ================================================================
-        // 3 BƯỚC: Cảm giác - Phản ứng - Chiến lược
+        // 3 BƯỚC
         // ================================================================
         function updateStepVisibility() {
             step1Content.classList.remove('visible');
@@ -1073,21 +1146,18 @@
         // ================================================================
         // SỰ KIỆN
         // ================================================================
-        // Click thẻ cảm xúc
         cards.forEach(card => {
             card.addEventListener('click', function() {
                 showEmotion(this.dataset.emotion);
             });
         });
 
-        // 3 bước
         prevStepBtn.addEventListener('click', () => { if (currentStep > 1) goToStep(currentStep - 1); });
         nextStepBtn.addEventListener('click', () => {
             if (currentStep < 3) goToStep(currentStep + 1);
             else goToStep(1);
         });
 
-        // Timeline
         tlPrevBtn.addEventListener('click', () => goTimeline(-1));
         tlNextBtn.addEventListener('click', () => goTimeline(1));
 
