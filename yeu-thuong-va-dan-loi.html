@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yêu thương và dẫn lối- Điều chỉnh hành vi trẻ | Sophia Nguyễn</title>
+  <meta name="description" content="Chương trình đồng hành dành cho trẻ có vấn đề về hành vi: ăn cắp, cãi cha mẹ, mạng xã hội, giao tiếp kém. Yêu thương và dẫn lốiđể kết nối lại.">
+  <link rel="stylesheet" href="main.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    .page-header {
+      background: linear-gradient(135deg, #0A1628 0%, #1E3A5F 100%);
+      padding: 80px 0 60px;
+      text-align: center;
+      border-bottom: 4px solid #C9A84C;
+    }
+    .page-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      color: #FFFFFF;
+      margin-bottom: 12px;
+    }
+    .page-header .sub-title {
+      color: #C9A84C;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+    }
+    .page-header p {
+      color: rgba(255,255,255,0.8);
+      font-size: 1.1rem;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .section {
+      padding: 60px 0;
+    }
+    .section:nth-child(even) {
+      background: #F8F6F1;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+    @media (max-width: 768px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      .page-header h1 { font-size: 2rem; }
+    }
+    .issue-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .issue-item {
+      background: #FFFFFF;
+      border-radius: 12px;
+      padding: 20px 24px;
+      border-left: 4px solid #C9A84C;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      transition: 0.3s;
+    }
+    .issue-item:hover {
+      transform: translateX(6px);
+      box-shadow: 0 6px 25px rgba(0,0,0,0.08);
+    }
+    .issue-item h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: #0A1628;
+      margin-bottom: 4px;
+    }
+    .issue-item p {
+      color: #555;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+    .btn-gold {
+      background: #C9A84C;
+      color: #0A1628;
+      padding: 14px 40px;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      transition: 0.3s;
+      border: none;
+      font-size: 1rem;
+    }
+    .btn-gold:hover {
+      background: #B89A3A;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(201, 168, 76, 0.3);
+    }
+    .btn-outline-gold {
+      background: transparent;
+      color: #C9A84C;
+      padding: 14px 40px;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      border: 2px solid #C9A84C;
+      transition: 0.3s;
+    }
+    .btn-outline-gold:hover {
+      background: #C9A84C;
+      color: #0A1628;
+    }
+    .cta-box {
+      background: linear-gradient(135deg, #0A1628 0%, #1E3A5F 100%);
+      border-radius: 20px;
+      padding: 50px 40px;
+      text-align: center;
+      border: 1px solid #C9A84C;
+    }
+    .cta-box h2 {
+      color: #FFFFFF;
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+    }
+    .cta-box p {
+      color: rgba(255,255,255,0.8);
+      margin: 12px 0 28px;
+    }
+    .cta-box .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+      margin: 30px 0;
+    }
+    .feature-item {
+      text-align: center;
+      padding: 20px;
+      background: #FFFFFF;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+    .feature-item .icon {
+      font-size: 2.4rem;
+      margin-bottom: 8px;
+    }
+    .feature-item h4 {
+      font-size: 1rem;
+      color: #0A1628;
+    }
+    .feature-item p {
+      font-size: 0.85rem;
+      color: #666;
+    }
+    .method-section {
+      background: #FFFFFF;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+      border: 1px solid #eee;
+    }
+    .method-section h3 {
+      font-family: 'Playfair Display', serif;
+      color: #0A1628;
+      margin-bottom: 12px;
+    }
+    .method-section ul {
+      list-style: none;
+      padding: 0;
+    }
+    .method-section ul li {
+      padding: 8px 0;
+      border-bottom: 1px solid #f0f0f0;
+      color: #444;
+    }
+    .method-section ul li:last-child {
+      border-bottom: none;
+    }
+    .method-section ul li::before {
+      content: "✨ ";
+      color: #C9A84C;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<header class="header">
+  <div class="header-container">
+    <a href="index.html" class="logo">
+      <img src="images/hinhremovenen.png" alt="Sophia Logo" />
+    </a>
+    <div class="menu-toggle" onclick="document.querySelector('.navbar').classList.toggle('show-menu')">☰</div>
+    <nav class="navbar">
+      <ul>
+        <li><a href="index.html">Trang chủ</a></li>
+        <li><a href="about.html">Giới thiệu</a></li>
+        <li><a href="services.html">Dịch vụ</a></li>
+        <li><a href="khoa-hoc.html">Khóa học</a></li>
+        <li><a href="giao-duc-va-dong-hanh.html" class="active">Giáo dục và Đồng hành</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="test.html">Trắc nghiệm</a></li>
+        <li><a href="contact.html">Liên hệ</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- ========== PAGE HEADER ========== -->
+<section class="page-header">
+  <div class="container">
+    <p class="sub-title" data-aos="fade-up">— Yêu thương và dẫn lối—</p>
+    <h1 data-aos="fade-up" data-aos-delay="100">Điều chỉnh hành vi trẻ</h1>
+    <p data-aos="fade-up" data-aos-delay="150">Đồng hành cùng trẻ vượt qua những khó khăn về hành vi và cảm xúc, xây dựng lại kết nối với gia đình.</p>
+  </div>
+</section>
+
+<!-- ========== GIỚI THIỆU ========== -->
+<section class="section">
+  <div class="container">
+    <div class="grid-2" data-aos="fade-up">
+      <div>
+        <h2 style="font-family: 'Playfair Display', serif; color:#0A1628;">Về chương trình</h2>
+        <p style="color:#444; line-height:1.8;">
+          <strong>"Yêu thương và Dẫn lỗi"</strong> là chương trình đồng hành dành cho trẻ em và thanh thiếu niên đang gặp khó khăn trong việc điều chỉnh hành vi và cảm xúc. 
+        </p>
+        <p style="color:#444; line-height:1.8;">
+          Thay vì phán xét hay trừng phạt, chúng tôi tiếp cận với <strong>sự thấu hiểu và yêu thương</strong> – giúp trẻ nhận ra giá trị bản thân, hiểu được hậu quả của hành vi, và từng bước thay đổi theo hướng tích cực.
+        </p>
+        <p style="color:#444; line-height:1.8;">
+          Chương trình cũng <strong>đồng hành cùng cha mẹ</strong>, giúp xây dựng lại mối quan hệ và tạo môi trường an toàn để trẻ phát triển.
+        </p>
+      </div>
+      <div>
+        <div class="feature-grid">
+          <div class="feature-item">
+            <div class="icon">💛</div>
+            <h4>Yêu thương làm nền tảng</h4>
+            <p>Không phán xét, không trừng phạt</p>
+          </div>
+          <div class="feature-item">
+            <div class="icon">🔄</div>
+            <h4>Thay đổi từ bên trong</h4>
+            <p>Giúp trẻ nhận thức và tự điều chỉnh</p>
+          </div>
+          <div class="feature-item">
+            <div class="icon">👨‍👩‍👦</div>
+            <h4>Đồng hành cùng gia đình</h4>
+            <p>Xây dựng lại kết nối với cha mẹ</p>
+          </div>
+          <div class="feature-item">
+            <div class="icon">🎯</div>
+            <h4>Cá nhân hóa</h4>
+            <p>Lộ trình riêng theo vấn đề của trẻ</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CÁC VẤN ĐỀ THƯỜNG GẶP ========== -->
+<section class="section" style="background:#F8F6F1;">
+  <div class="container">
+    <h2 style="font-family: 'Playfair Display', serif; text-align:center; color:#0A1628;" data-aos="fade-up">🌱 Những vấn đề chúng tôi đồng hành cùng trẻ</h2>
+    <p style="text-align:center; color:#666; margin-bottom: 40px;" data-aos="fade-up">Mỗi trẻ có một câu chuyện riêng – chúng tôi lắng nghe và đồng hành theo cách phù hợp nhất.</p>
+
+    <div class="issue-list" data-aos="fade-up">
+      <div class="issue-item">
+        <h3>💰 Hành vi ăn cắp tiền, đồ đạc</h3>
+        <p>Giúp trẻ hiểu về giá trị vật chất và tinh thần, hậu quả của hành vi, và xây dựng lòng trung thực thay vì trừng phạt.</p>
+      </div>
+      <div class="issue-item">
+        <h3>🗣️ Cãi cha mẹ, giao tiếp thiếu lễ phép</h3>
+        <p>Hướng dẫn trẻ kỹ năng giao tiếp tôn trọng, quản lý cảm xúc và thay thế hành vi tiêu cực bằng cách ứng xử tích cực.</p>
+      </div>
+      <div class="issue-item">
+        <h3>📱 Sử dụng mạng xã hội tùy tiện</h3>
+        <p>Trang bị kỹ năng an toàn trên không gian mạng, quản lý thời gian, xây dựng hình ảnh cá nhân và nhận diện rủi ro.</p>
+      </div>
+      <div class="issue-item">
+        <h3>💔 Mất kết nối với cha mẹ</h3>
+        <p>Xây dựng lại niềm tin qua các bài tập kết nối, kỹ năng lắng nghe và chia sẻ, tạo cầu nối hàn gắn mối quan hệ.</p>
+      </div>
+      <div class="issue-item">
+        <h3>😔 Rối loạn cảm xúc, khép kín, chống đối</h3>
+        <p>Hỗ trợ trẻ nhận diện và quản lý cảm xúc tiêu cực, xây dựng sự tự tin và kết nối xã hội lành mạnh.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PHƯƠNG PHÁP ========== -->
+<section class="section">
+  <div class="container">
+    <div class="grid-2" data-aos="fade-up">
+      <div class="method-section">
+        <h3>✨ Cách chúng tôi đồng hành</h3>
+        <ul>
+          <li><strong>Lắng nghe không phán xét</strong> – Tạo không gian an toàn cho trẻ chia sẻ</li>
+          <li><strong>Thấu hiểu nguyên nhân gốc rễ</strong> – Không chỉ dừng lại ở hành vi bề nổi</li>
+          <li><strong>Cá nhân hóa lộ trình</strong> – Tùy theo vấn đề và độ tuổi của trẻ</li>
+          <li><strong>Kết hợp cùng cha mẹ</strong> – Đồng hành để xây dựng môi trường gia đình hỗ trợ</li>
+          <li><strong>Thực hành qua tình huống</strong> – Giúp trẻ áp dụng kỹ năng vào cuộc sống</li>
+        </ul>
+      </div>
+      <div>
+        <h2 style="font-family: 'Playfair Display', serif; color:#0A1628;">👥 Đối tượng tham gia</h2>
+        <ul style="color:#444; line-height:2.2; font-size:1rem; list-style:none; padding:0;">
+          <li>✅ Trẻ em và thanh thiếu niên <strong>đa dạng độ tuổi</strong></li>
+          <li>✅ Trẻ đang gặp khó khăn trong <strong>điều chỉnh hành vi</strong></li>
+          <li>✅ Trẻ có dấu hiệu <strong>mất kết nối</strong> với cha mẹ và gia đình</li>
+          <li>✅ Gia đình mong muốn <strong>đồng hành và thay đổi</strong> cùng con</li>
+        </ul>
+        <div style="margin-top:20px;">
+          <a href="https://zalo.me/0977092182" class="btn-gold">💬 Tư vấn ngay</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CTA ========== -->
+<section class="section">
+  <div class="container">
+    <div class="cta-box" data-aos="fade-up">
+      <h2>💛 Hãy để chúng tôi đồng hành cùng con bạn</h2>
+      <p>Mỗi đứa trẻ đều xứng đáng được yêu thương và có cơ hội thay đổi. Liên hệ ngay để được tư vấn lộ trình phù hợp nhất.</p>
+      <div class="btn-group">
+        <a href="https://zalo.me/0977092182" class="btn-gold">📅 Nhận tư vấn</a>
+        <a href="https://zalo.me/0977092182" class="btn-outline-gold" style="border-color:#C9A84C; color:#C9A84C;">💬 Chat qua Zalo</a>
+      </div>
+      <p style="color: rgba(255,255,255,0.6); font-size: 0.85rem; margin-top: 20px;">
+        Hotline: 0977.092.182 | Email: sophianguyen2891@gmail.com
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-logo">
+      <img src="images/hinhremovenen.png" alt="Sophia Logo" />
+      <p>Đồng hành & Sẻ chia cùng bạn trên hành trình tâm lý – phát triển – yêu thương.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Dịch vụ</h4>
+      <ul>
+        <li><a href="tuvan-tamly1.html">Tham vấn tâm lý</a></li>
+        <li><a href="huong-nghiep.html">Định hướng nghề nghiệp</a></li>
+        <li><a href="ky-nang.html">Đào tạo kỹ năng</a></li>
+        <li><a href="van-tay.html">Sinh trắc vân tay</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Khám phá</h4>
+      <ul>
+        <li><a href="khoa-hoc.html">Khóa học</a></li>
+        <li><a href="giao-duc-va-dong-hanh.html">Giáo dục và Đồng hành</a></li>
+        <li><a href="test.html">Trắc nghiệm</a></li>
+        <li><a href="blog.html">Blog</a></li>
+      </ul>
+    </div>
+    <div class="footer-contact">
+      <h4>Liên hệ</h4>
+      <p>📧 sophianguyen2891@gmail.com</p>
+      <p>📞 0977092182</p>
+      <p>🏠 Tân Bình - TPHCM</p>
+      <div class="social-icons">
+        <a href="https://www.facebook.com/Sophiadiemhang1982"><img src="images/fb.png" alt="FB" /></a>
+        <a href="https://www.tiktok.com/@sophia.nguyen2014"><img src="images/tiktok.png" alt="TikTok" /></a>
+        <a href="https://www.youtube.com/@sophianguyen1982-dh"><img src="images/youtube.png" alt="YouTube" /></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>Copyright ©2024 Sophia Nguyễn. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script> AOS.init({ once: true, duration: 800, easing: 'ease-out-cubic' }); </script>
+</body>
+</html>
