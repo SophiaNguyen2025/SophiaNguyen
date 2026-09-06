@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giáo dục giới tính toàn diện | Sophia Nguyễn</title>
+  <meta name="description" content="Khóa học giáo dục giới tính toàn diện - 3 buổi trang bị kiến thức khoa học, kỹ năng bảo vệ bản thân và xây dựng mối quan hệ lành mạnh cho trẻ.">
+  <link rel="stylesheet" href="main.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Dùng chung style với trang parenting-skills.html */
+    .course-header {
+      background: linear-gradient(135deg, #0A1628 0%, #1E3A5F 100%);
+      padding: 80px 0 60px;
+      text-align: center;
+      border-bottom: 4px solid #C9A84C;
+    }
+    .course-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      color: #FFFFFF;
+      margin-bottom: 12px;
+    }
+    .course-header .sub-title {
+      color: #C9A84C;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+    }
+    .course-header .price {
+      color: #FFFFFF;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin: 20px 0 10px;
+    }
+    .course-header .price span {
+      color: #C9A84C;
+    }
+    .course-header .meta {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.95rem;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+    .section-course {
+      padding: 60px 0;
+    }
+    .section-course:nth-child(even) {
+      background: #F8F6F1;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+    @media (max-width: 768px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      .course-header h1 { font-size: 2rem; }
+    }
+    .session-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .session-item {
+      background: #FFFFFF;
+      border-radius: 12px;
+      padding: 24px 28px;
+      border-left: 4px solid #C9A84C;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      transition: 0.3s;
+    }
+    .session-item:hover {
+      transform: translateX(6px);
+      box-shadow: 0 6px 25px rgba(0,0,0,0.08);
+    }
+    .session-item .badge {
+      display: inline-block;
+      background: #C9A84C;
+      color: #0A1628;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 14px;
+      border-radius: 20px;
+      margin-bottom: 8px;
+    }
+    .session-item h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: #0A1628;
+      margin-bottom: 6px;
+    }
+    .session-item p {
+      color: #444;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .age-tag {
+      display: inline-block;
+      background: #0A1628;
+      color: #C9A84C;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 2px 12px;
+      border-radius: 20px;
+      margin: 4px 4px 0 0;
+    }
+    .btn-gold {
+      background: #C9A84C;
+      color: #0A1628;
+      padding: 14px 40px;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      transition: 0.3s;
+      border: none;
+      font-size: 1rem;
+    }
+    .btn-gold:hover {
+      background: #B89A3A;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(201, 168, 76, 0.3);
+    }
+    .btn-outline-gold {
+      background: transparent;
+      color: #C9A84C;
+      padding: 14px 40px;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      border: 2px solid #C9A84C;
+      transition: 0.3s;
+    }
+    .btn-outline-gold:hover {
+      background: #C9A84C;
+      color: #0A1628;
+    }
+    .cta-box {
+      background: linear-gradient(135deg, #0A1628 0%, #1E3A5F 100%);
+      border-radius: 20px;
+      padding: 50px 40px;
+      text-align: center;
+      border: 1px solid #C9A84C;
+    }
+    .cta-box h2 {
+      color: #FFFFFF;
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+    }
+    .cta-box p {
+      color: rgba(255,255,255,0.8);
+      margin: 12px 0 28px;
+    }
+    .cta-box .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+      margin: 30px 0;
+    }
+    .feature-item {
+      text-align: center;
+      padding: 20px;
+      background: #FFFFFF;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+    .feature-item .icon {
+      font-size: 2.4rem;
+      margin-bottom: 8px;
+    }
+    .feature-item h4 {
+      font-size: 1rem;
+      color: #0A1628;
+    }
+    .feature-item p {
+      font-size: 0.85rem;
+      color: #666;
+    }
+    .age-guide {
+      background: #FFFFFF;
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin: 12px 0;
+      border-left: 4px solid #C9A84C;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    }
+    .age-guide strong {
+      color: #0A1628;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<header class="header">
+  <div class="header-container">
+    <a href="index.html" class="logo">
+      <img src="images/hinhremovenen.png" alt="Sophia Logo" />
+    </a>
+    <div class="menu-toggle" onclick="document.querySelector('.navbar').classList.toggle('show-menu')">☰</div>
+    <nav class="navbar">
+      <ul>
+        <li><a href="index.html">Trang chủ</a></li>
+        <li><a href="about.html">Giới thiệu</a></li>
+        <li><a href="services.html">Dịch vụ</a></li>
+        <li><a href="khoa-hoc.html">Khóa học</a></li>
+        <li><a href="giao-duc-va-dong-hanh.html" class="active">Giáo dục và Đồng hành</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="test.html">Trắc nghiệm</a></li>
+        <li><a href="contact.html">Liên hệ</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- ========== HEADER KHÓA HỌC ========== -->
+<section class="course-header">
+  <div class="container">
+    <p class="sub-title" data-aos="fade-up">— Giáo dục giới tính toàn diện —</p>
+    <h1 data-aos="fade-up" data-aos-delay="100">Hiểu để yêu thương và bảo vệ chính mình</h1>
+    <p style="color: rgba(255,255,255,0.8); font-size: 1.1rem; max-width: 650px; margin: 0 auto;" data-aos="fade-up" data-aos-delay="150">
+      Trang bị kiến thức khoa học, kỹ năng bảo vệ bản thân và xây dựng mối quan hệ lành mạnh cho trẻ ở mọi lứa tuổi.
+    </p>
+    <div class="price" data-aos="fade-up" data-aos-delay="200">
+      <span>4.500.000 VNĐ</span> / 3 buổi
+    </div>
+    <div class="meta" data-aos="fade-up" data-aos-delay="250">
+      <span>⏱ 2 giờ / buổi</span>
+      <span>🧑‍🎓 Dành cho trẻ 5–18 tuổi</span>
+      <span>📅 Lịch linh hoạt theo độ tuổi</span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TỔNG QUAN ========== -->
+<section class="section-course">
+  <div class="container">
+    <div class="grid-2" data-aos="fade-up">
+      <div>
+        <h2 style="font-family: 'Playfair Display', serif; color: #0A1628;">Về khóa học</h2>
+        <p style="color: #444; line-height: 1.8;">
+          Khóa học <strong>Giáo dục giới tính toàn diện</strong> được thiết kế để trang bị cho trẻ em và thanh thiếu niên những <strong>kiến thức khoa học</strong> về cơ thể, sức khỏe sinh sản, và các mối quan hệ. 
+        </p>
+        <p style="color: #444; line-height: 1.8;">
+          Thông qua 3 buổi học tương tác, các con sẽ hiểu rõ về sự thay đổi của cơ thể tuổi dậy thì, học cách <strong>thiết lập ranh giới an toàn</strong>, nhận diện các dấu hiệu xâm hại, và phát triển <strong>các mối quan hệ lành mạnh</strong> dựa trên sự tôn trọng và đồng thuận.
+        </p>
+        <div style="margin-top: 20px;">
+          <a href="#register" class="btn-gold">📋 Đăng ký ngay</a>
+          <a href="https://zalo.me/0977092182" class="btn-outline-gold" style="margin-left: 12px;">💬 Tư vấn qua Zalo</a>
+        </div>
+      </div>
+      <div>
+        <div class="feature-grid">
+          <div class="feature-item">
+            <div class="icon">🌸</div>
+            <h4>Hiểu về cơ thể</h4>
+            <p>Những thay đổi kỳ diệu tuổi dậy thì</p>
+          </div>
+          <div class="feature-item">
+            <div class="icon">🛡️</div>
+            <h4>Kỹ năng bảo vệ</h4>
+            <p>Ranh giới cơ thể, nói KHÔNG</p>
+          </div>
+          <div class="feature-item">
+            <div class="icon">💕</div>
+            <h4>Mối quan hệ lành mạnh</h4>
+            <p>Đồng thuận, tôn trọng, bình đẳng</p>
+          </div>
+          <div class="feature-item">
+            <div class="icon">🌍</div>
+            <h4>Đa dạng nhân loại</h4>
+            <p>Tôn trọng sự khác biệt và bản sắc</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PHÂN CHIA THEO ĐỘ TUỔI ========== -->
+<section class="section-course" style="background:#F8F6F1;">
+  <div class="container">
+    <h2 style="font-family: 'Playfair Display', serif; text-align:center; color:#0A1628;" data-aos="fade-up">📌 Phân chia theo độ tuổi</h2>
+    <p style="text-align:center; color:#666; margin-bottom: 30px;" data-aos="fade-up">Nội dung được điều chỉnh phù hợp với từng giai đoạn phát triển của trẻ</p>
+    
+    <div class="grid-2" data-aos="fade-up">
+      <div class="age-guide">
+        <strong>🌱 5–10 tuổi</strong>
+        <p style="margin: 6px 0 0; color:#444;">Nhấn mạnh ranh giới cơ thể (Quy tắc "Đồ lót"), kỹ năng an toàn, quyền được nói "KHÔNG". Nhận biết ai là người đáng tin cậy để tìm kiếm sự giúp đỡ.</p>
+      </div>
+      <div class="age-guide">
+        <strong>🌿 11–14 tuổi</strong>
+        <p style="margin: 6px 0 0; color:#444;">Hiểu về những thay đổi của cơ thể tuổi dậy thì (nam & nữ riêng biệt), vệ sinh cá nhân, quản lý cảm xúc tuổi teen, và xây dựng tình bạn lành mạnh.</p>
+      </div>
+      <div class="age-guide">
+        <strong>🌳 15–18 tuổi</strong>
+        <p style="margin: 6px 0 0; color:#444;">Tình yêu lành mạnh – phân biệt "Thích – Rung động – Yêu". Kiến thức sức khỏe sinh sản, các biện pháp tránh thai, sự đồng thuận (Consent), nhận diện mối quan hệ độc hại, và an toàn trên mạng xã hội.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== NỘI DUNG 3 BUỔI ========== -->
+<section class="section-course">
+  <div class="container">
+    <h2 style="font-family: 'Playfair Display', serif; text-align:center; color:#0A1628;" data-aos="fade-up">Nội dung chi tiết</h2>
+    <p style="text-align:center; color:#666; margin-bottom: 40px;" data-aos="fade-up">3 buổi học – Mỗi buổi 2 giờ, được điều chỉnh theo độ tuổi</p>
+
+    <div class="session-list">
+      <div class="session-item" data-aos="fade-up">
+        <span class="badge">Buổi 1</span>
+        <h3>Hiểu để yêu thương chính mình</h3>
+        <p><strong>Nhận diện bản thân – Cơ thể, cảm xúc, bản sắc</strong></p>
+        <p>
+          🌸 Những thay đổi kỳ diệu của cơ thể tuổi dậy thì (nam & nữ riêng biệt).<br>
+          💖 Hành trình "khởi sắc" – hiểu về hormone, kinh nguyệt, xuất tinh, mụn, vỡ giọng.<br>
+          🧠 Giải mã cảm xúc: Vì sao đang vui bỗng buồn, đang yêu thương bỗng cáu gắt?<br>
+          🌈 Bản sắc giới và sự đa dạng nhân loại (SOGIESC) – mở lòng với sự khác biệt.<br>
+          🛁 Vệ sinh cá nhân đúng cách trong giai đoạn dậy thì.
+        </p>
+        <div>
+          <span class="age-tag">5–10 tuổi</span>
+          <span class="age-tag">11–14 tuổi</span>
+          <span class="age-tag">15–18 tuổi</span>
+        </div>
+      </div>
+      <div class="session-item" data-aos="fade-up" data-aos-delay="100">
+        <span class="badge">Buổi 2</span>
+        <h3>Yêu lành mạnh – Bảo vệ bản thân</h3>
+        <p><strong>Tình yêu, ranh giới, sức khỏe sinh sản và an toàn</strong></p>
+        <p>
+          💕 Phân biệt "Thích – Rung động – Yêu". Kỹ năng bày tỏ và từ chối khéo léo.<br>
+          🛡️ Quy tắc "Đồ lót" – vùng riêng tư tuyệt đối. Nhận diện hành vi đụng chạm không an toàn.<br>
+          🗣️ Quyền được nói "KHÔNG" – thực hành kỹ năng từ chối.<br>
+          🤝 Sự đồng thuận (Consent) – tự nguyện, minh mẫn, có thể thay đổi bất cứ lúc nào.<br>
+          💊 Kiến thức sức khỏe sinh sản: Biện pháp tránh thai an toàn, HPV & vắc-xin HPV.<br>
+          🧠 Phân biệt "buồn" và "trầm cảm" – nhận diện sớm để tìm kiếm sự giúp đỡ.
+        </p>
+        <div>
+          <span class="age-tag">11–14 tuổi</span>
+          <span class="age-tag">15–18 tuổi</span>
+        </div>
+      </div>
+      <div class="session-item" data-aos="fade-up" data-aos-delay="200">
+        <span class="badge">Buổi 3</span>
+        <h3>Tự tin bước vào đời</h3>
+        <p><strong>Ứng phó rủi ro, xây dựng tương lai, giá trị sống</strong></p>
+        <p>
+          🚩 Nhận diện xâm hại & mối quan hệ độc hại: Dấu hiệu "cờ đỏ", cách thoát ra an toàn.<br>
+          💪 Phá bỏ định kiến "Nạn nhân có lỗi" – lỗi luôn thuộc về người gây hại.<br>
+          📱 An toàn trên mạng xã hội: Hậu quả pháp lý của Sexting. 4 bước xử lý khi bị quấy rối trực tuyến.<br>
+          ⚖️ Xóa bỏ định kiến giới – bình đẳng giới trong học tập và nghề nghiệp.<br>
+          ✨ Xây dựng lòng tự trọng, tự tin vào chính mình.<br>
+          💌 Hoạt động "Bức thư gửi bản thân 5 năm sau" – cam kết với tương lai.
+        </p>
+        <div>
+          <span class="age-tag">15–18 tuổi</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CTA ========== -->
+<section class="section-course" id="register">
+  <div class="container">
+    <div class="cta-box" data-aos="fade-up">
+      <h2>🚀 Trang bị cho con hành trang vững vàng</h2>
+      <p>Khóa học <strong>Giáo dục giới tính toàn diện</strong> – 3 buổi học khoa học, tương tác, an toàn, giúp con tự tin bước vào đời.</p>
+      <div class="btn-group">
+        <a href="https://zalo.me/0977092182" class="btn-gold">📅 Đăng ký ngay</a>
+        <a href="https://zalo.me/0977092182" class="btn-outline-gold" style="border-color:#C9A84C; color:#C9A84C;">💬 Tư vấn qua Zalo</a>
+      </div>
+      <p style="color: rgba(255,255,255,0.6); font-size: 0.85rem; margin-top: 20px;">
+        Hotline: 0977.092.182 | Email: sophianguyen2891@gmail.com
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-logo">
+      <img src="images/hinhremovenen.png" alt="Sophia Logo" />
+      <p>Đồng hành & Sẻ chia cùng bạn trên hành trình tâm lý – phát triển – yêu thương.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Dịch vụ</h4>
+      <ul>
+        <li><a href="tuvan-tamly1.html">Tham vấn tâm lý</a></li>
+        <li><a href="huong-nghiep.html">Định hướng nghề nghiệp</a></li>
+        <li><a href="ky-nang.html">Đào tạo kỹ năng</a></li>
+        <li><a href="van-tay.html">Sinh trắc vân tay</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Khám phá</h4>
+      <ul>
+        <li><a href="khoa-hoc.html">Khóa học</a></li>
+        <li><a href="giao-duc-va-dong-hanh.html">Giáo dục và Đồng hành</a></li>
+        <li><a href="test.html">Trắc nghiệm</a></li>
+        <li><a href="blog.html">Blog</a></li>
+      </ul>
+    </div>
+    <div class="footer-contact">
+      <h4>Liên hệ</h4>
+      <p>📧 sophianguyen2891@gmail.com</p>
+      <p>📞 0977092182</p>
+      <p>🏠 Tân Bình - TPHCM</p>
+      <div class="social-icons">
+        <a href="https://www.facebook.com/Sophiadiemhang1982"><img src="images/fb.png" alt="FB" /></a>
+        <a href="https://www.tiktok.com/@sophia.nguyen2014"><img src="images/tiktok.png" alt="TikTok" /></a>
+        <a href="https://www.youtube.com/@sophianguyen1982-dh"><img src="images/youtube.png" alt="YouTube" /></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>Copyright ©2024 Sophia Nguyễn. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- ========== SCRIPTS ========== -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script> AOS.init({ once: true, duration: 800, easing: 'ease-out-cubic' }); </script>
+</body>
+</html>
