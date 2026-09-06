@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giáo dục và Đồng hành | Sophia Nguyễn</title>
+  <meta name="description" content="Chương trình giáo dục chuyên sâu: Kỹ năng làm cha mẹ, Giáo dục giới tính, và Yêu thương - Dẫn lỗi điều chỉnh hành vi trẻ.">
+  <link rel="stylesheet" href="main.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    .page-header {
+      background: linear-gradient(135deg, #0A1628 0%, #1E3A5F 100%);
+      padding: 80px 0 60px;
+      text-align: center;
+      border-bottom: 4px solid #C9A84C;
+    }
+    .page-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      color: #FFFFFF;
+      margin-bottom: 12px;
+    }
+    .page-header p {
+      color: rgba(255,255,255,0.8);
+      font-size: 1.1rem;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .section {
+      padding: 60px 0;
+    }
+    .section:nth-child(even) {
+      background: #F8F6F1;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: #0A1628;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .section-sub {
+      text-align: center;
+      color: #C9A84C;
+      font-weight: 600;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+    .section-desc {
+      text-align: center;
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+    .program-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+    .program-grid.three {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+    @media (max-width: 992px) {
+      .program-grid { grid-template-columns: 1fr 1fr; }
+      .program-grid.three { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .program-grid { grid-template-columns: 1fr; }
+      .program-grid.three { grid-template-columns: 1fr; }
+      .page-header h1 { font-size: 2rem; }
+    }
+    .program-card {
+      background: #FFFFFF;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+      transition: 0.4s;
+      border: 1px solid #eee;
+      display: flex;
+      flex-direction: column;
+    }
+    .program-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 50px rgba(0,0,0,0.12);
+    }
+    .program-card .card-header {
+      padding: 35px 30px 20px;
+      text-align: center;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .program-card .card-header .icon {
+      font-size: 3.6rem;
+      margin-bottom: 10px;
+    }
+    .program-card .card-header .tag {
+      display: inline-block;
+      background: #C9A84C20;
+      color: #C9A84C;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 14px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+    .program-card .card-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: #0A1628;
+      margin-bottom: 4px;
+    }
+    .program-card .card-header .sub {
+      color: #C9A84C;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+    }
+    .program-card .card-body {
+      padding: 24px 30px 30px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .program-card .card-body p {
+      color: #444;
+      line-height: 1.7;
+      font-size: 0.95rem;
+      flex: 1;
+    }
+    .program-card .card-body .meta-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 14px 0;
+    }
+    .program-card .card-body .meta-list span {
+      background: #F8F6F1;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      color: #0A1628;
+    }
+    .program-card .card-body .price-tag {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #0A1628;
+      margin: 6px 0 16px;
+    }
+    .program-card .card-body .price-tag span {
+      color: #C9A84C;
+    }
+    .program-card .card-body .price-tag .small {
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: #888;
+    }
+    .btn-gold {
+      background: #C9A84C;
+      color: #0A1628;
+      padding: 12px 32px;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      transition: 0.3s;
+      border: none;
+      font-size: 0.95rem;
+      text-align: center;
+    }
+    .btn-gold:hover {
+      background: #B89A3A;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(201, 168, 76, 0.3);
+    }
+    .btn-outline-navy {
+      background: transparent;
+      color: #0A1628;
+      padding: 12px 32px;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      border: 2px solid #0A1628;
+      transition: 0.3s;
+      font-size: 0.95rem;
+      text-align: center;
+    }
+    .btn-outline-navy:hover {
+      background: #0A1628;
+      color: #FFFFFF;
+    }
+    .btn-group-card {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+    .badge-new {
+      background: #C9A84C;
+      color: #0A1628;
+      font-size: 0.6rem;
+      font-weight: 700;
+      padding: 2px 12px;
+      border-radius: 20px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<header class="header">
+  <div class="header-container">
+    <a href="index.html" class="logo">
+      <img src="images/hinhremovenen.png" alt="Sophia Logo" />
+    </a>
+    <div class="menu-toggle" onclick="document.querySelector('.navbar').classList.toggle('show-menu')">☰</div>
+    <nav class="navbar">
+      <ul>
+        <li><a href="index.html">Trang chủ</a></li>
+        <li><a href="about.html">Giới thiệu</a></li>
+        <li><a href="services.html">Dịch vụ</a></li>
+        <li><a href="khoa-hoc.html">Khóa học</a></li>
+        <li><a href="giao-duc-va-dong-hanh.html" class="active">Giáo dục và Đồng hành</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="test.html">Trắc nghiệm</a></li>
+        <li><a href="contact.html">Liên hệ</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- ========== PAGE HEADER ========== -->
+<section class="page-header">
+  <div class="container">
+    <p style="color: #C9A84C; letter-spacing: 2px; font-weight: 600;" data-aos="fade-up">— Đồng hành cùng bạn trên hành trình —</p>
+    <h1 data-aos="fade-up" data-aos-delay="100">Giáo dục và Đồng hành</h1>
+    <p data-aos="fade-up" data-aos-delay="150">Những chương trình chuyên sâu giúp cha mẹ thấu hiểu, và đồng hành cùng con trên hành trình trưởng thành.</p>
+  </div>
+</section>
+
+<!-- ========== PHẦN 1: CHA MẸ ========== -->
+<section class="section">
+  <div class="container">
+    <p class="section-sub" data-aos="fade-up">— Dành cho Cha mẹ —</p>
+    <h2 class="section-title" data-aos="fade-up">Đồng hành cùng con tuổi teen</h2>
+    <p class="section-desc" data-aos="fade-up">Trang bị kỹ năng để cha mẹ thấu hiểu, kết nối và xây dựng sự tôn trọng trong gia đình.</p>
+
+    <div class="program-grid" data-aos="fade-up">
+      <div class="program-card">
+        <div class="card-header">
+          <div class="icon">👨‍👩‍👧‍👦</div>
+          <div class="tag">Khóa học</div>
+          <h2>Parenting Skills</h2>
+          <div class="sub">Kỹ năng làm cha mẹ</div>
+        </div>
+        <div class="card-body">
+          <p>Hành trình 5 buổi đồng hành giúp cha mẹ thấu hiểu não bộ tuổi teen, xây dựng sự tôn trọng và nghệ thuật lắng nghe chủ động.</p>
+          <div class="meta-list">
+            <span>⏱ 5 buổi × 90 phút</span>
+            <span>🧠 Tuổi teen (11–18)</span>
+          </div>
+          <div class="price-tag"><span>7.500.000</span> VNĐ</div>
+          <div class="btn-group-card">
+            <a href="parenting-skills.html" class="btn-gold">📖 Xem chi tiết</a>
+            <a href="https://zalo.me/0977092182" class="btn-outline-navy">💬 Tư vấn</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PHẦN 2: TRẺ EM - GIÁO DỤC GIỚI TÍNH ========== -->
+<section class="section" style="background:#F8F6F1;">
+  <div class="container">
+    <p class="section-sub" data-aos="fade-up">— Dành cho Trẻ em —</p>
+    <h2 class="section-title" data-aos="fade-up">Giáo dục giới tính toàn diện</h2>
+    <p class="section-desc" data-aos="fade-up">Trang bị kiến thức khoa học, kỹ năng bảo vệ bản thân và xây dựng mối quan hệ lành mạnh.</p>
+
+    <div class="program-grid" data-aos="fade-up">
+      <div class="program-card">
+        <div class="card-header">
+          <div class="icon">🌸</div>
+          <div class="tag">Khóa học</div>
+          <h2>Hiểu để yêu thương</h2>
+          <div class="sub">Giáo dục giới tính toàn diện</div>
+        </div>
+        <div class="card-body">
+          <p>3 buổi học khoa học, tương tác và an toàn, giúp trẻ hiểu về cơ thể, kỹ năng bảo vệ bản thân và xây dựng các mối quan hệ lành mạnh.</p>
+          <div class="meta-list">
+            <span>⏱ 3 buổi × 2 giờ</span>
+            <span>🧑‍🎓 5–18 tuổi</span>
+            <span>📚 Chuẩn WHO/UNFPA</span>
+          </div>
+          <div class="price-tag"><span>4.500.000</span> VNĐ</div>
+          <div class="btn-group-card">
+            <a href="giao-duc-gioi-tinh.html" class="btn-gold">📖 Xem chi tiết</a>
+            <a href="https://zalo.me/0977092182" class="btn-outline-navy">💬 Tư vấn</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PHẦN 3: YÊU THƯƠNG VÀ DẪN LỖI ========== -->
+<section class="section">
+  <div class="container">
+    <p class="section-sub" data-aos="fade-up">— Dành cho Trẻ em —</p>
+    <h2 class="section-title" data-aos="fade-up">Yêu thương và Dẫn lỗi</h2>
+    <p class="section-desc" data-aos="fade-up">Điều chỉnh hành vi, xây dựng tư duy tích cực và kết nối lại với gia đình.</p>
+
+    <div class="program-grid" data-aos="fade-up">
+      <div class="program-card">
+        <div class="card-header">
+          <div class="icon">💛</div>
+          <div class="tag">Dịch vụ đồng hành</div>
+          <h2>Điều chỉnh hành vi trẻ</h2>
+          <div class="sub">Yêu thương và Dẫn lỗi</div>
+        </div>
+        <div class="card-body">
+          <p>Chương trình đồng hành dành cho trẻ đang gặp khó khăn trong hành vi và cảm xúc: ăn cắp vặt, cãi cha mẹ, sử dụng mạng xã hội tùy tiện, giao tiếp thiếu lễ phép, hoặc đang trong giai đoạn mất kết nối với ba mẹ.</p>
+          
+          <div style="background:#F8F6F1; border-radius:10px; padding:14px 18px; margin:12px 0;">
+            <p style="font-size:0.9rem; color:#0A1628; margin-bottom:4px;"><strong>🌱 Những vấn đề thường gặp:</strong></p>
+            <div style="display:flex; flex-wrap:wrap; gap:6px;">
+              <span style="background:#FFFFFF; padding:2px 12px; border-radius:20px; font-size:0.75rem; border:1px solid #eee;">Ăn cắp tiền</span>
+              <span style="background:#FFFFFF; padding:2px 12px; border-radius:20px; font-size:0.75rem; border:1px solid #eee;">Cãi cha mẹ</span>
+              <span style="background:#FFFFFF; padding:2px 12px; border-radius:20px; font-size:0.75rem; border:1px solid #eee;">Mạng xã hội tùy tiện</span>
+              <span style="background:#FFFFFF; padding:2px 12px; border-radius:20px; font-size:0.75rem; border:1px solid #eee;">Giao tiếp thiếu lễ phép</span>
+              <span style="background:#FFFFFF; padding:2px 12px; border-radius:20px; font-size:0.75rem; border:1px solid #eee;">Mất kết nối gia đình</span>
+            </div>
+          </div>
+
+          <div class="meta-list">
+            <span>📅 Linh hoạt theo vấn đề</span>
+            <span>👥 1-1 hoặc nhóm nhỏ</span>
+            <span>🧒 Đa dạng độ tuổi</span>
+          </div>
+          <div class="price-tag"><span>Liên hệ</span> <span class="small">để được tư vấn</span></div>
+          <div class="btn-group-card">
+            <a href="yeu-thuong-va-dan-loi.html" class="btn-gold">📖 Xem chi tiết</a>
+            <a href="https://zalo.me/0977092182" class="btn-outline-navy">💬 Tư vấn ngay</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CTA ========== -->
+<section class="section" style="background:#0A1628; padding:60px 0;">
+  <div class="container" style="text-align:center;">
+    <h2 style="font-family: 'Playfair Display', serif; color:#FFFFFF; font-size:2rem;" data-aos="fade-up">💬 Chưa biết chương trình nào phù hợp?</h2>
+    <p style="color:rgba(255,255,255,0.8); max-width:500px; margin:12px auto 28px;" data-aos="fade-up">Hãy để Sophia tư vấn cho bạn lộ trình phù hợp nhất với nhu cầu của gia đình.</p>
+    <div data-aos="fade-up">
+      <a href="https://zalo.me/0977092182" class="btn-gold" style="font-size:1.1rem; padding:16px 50px;">📲 Nhận tư vấn miễn phí</a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-logo">
+      <img src="images/hinhremovenen.png" alt="Sophia Logo" />
+      <p>Đồng hành & Sẻ chia cùng bạn trên hành trình tâm lý – phát triển – yêu thương.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Dịch vụ</h4>
+      <ul>
+        <li><a href="tuvan-tamly1.html">Tham vấn tâm lý</a></li>
+        <li><a href="huong-nghiep.html">Định hướng nghề nghiệp</a></li>
+        <li><a href="ky-nang.html">Đào tạo kỹ năng</a></li>
+        <li><a href="van-tay.html">Sinh trắc vân tay</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Khám phá</h4>
+      <ul>
+        <li><a href="khoa-hoc.html">Khóa học</a></li>
+        <li><a href="giao-duc-va-dong-hanh.html">Giáo dục và Đồng hành</a></li>
+        <li><a href="test.html">Trắc nghiệm</a></li>
+        <li><a href="blog.html">Blog</a></li>
+      </ul>
+    </div>
+    <div class="footer-contact">
+      <h4>Liên hệ</h4>
+      <p>📧 sophianguyen2891@gmail.com</p>
+      <p>📞 0977092182</p>
+      <p>🏠 Tân Bình - TPHCM</p>
+      <div class="social-icons">
+        <a href="https://www.facebook.com/Sophiadiemhang1982"><img src="images/fb.png" alt="FB" /></a>
+        <a href="https://www.tiktok.com/@sophia.nguyen2014"><img src="images/tiktok.png" alt="TikTok" /></a>
+        <a href="https://www.youtube.com/@sophianguyen1982-dh"><img src="images/youtube.png" alt="YouTube" /></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>Copyright ©2024 Sophia Nguyễn. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script> AOS.init({ once: true, duration: 800, easing: 'ease-out-cubic' }); </script>
+</body>
+</html>
