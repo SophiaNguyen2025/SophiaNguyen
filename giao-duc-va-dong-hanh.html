@@ -4,11 +4,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Giáo dục và Đồng hành | Sophia Nguyễn</title>
-  <meta name="description" content="Chương trình giáo dục chuyên sâu: Kỹ năng làm cha mẹ, Giáo dục giới tính, và Yêu thương - dẫn lối điều chỉnh hành vi trẻ.">
+  <meta name="description" content="Chương trình giáo dục chuyên sâu: Kỹ năng làm cha mẹ, Giáo dục giới tính, và Yêu thương - Dẫn lối điều chỉnh hành vi trẻ.">
   <link rel="stylesheet" href="main.css" />
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    /* --- Reset & Base --- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #0A1628;
+      background: #FFFFFF;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* --- Header --- */
     .page-header {
       background: linear-gradient(135deg, #0A1628 0%, #1E3A5F 100%);
       padding: 80px 0 60px;
@@ -21,17 +39,20 @@
       color: #FFFFFF;
       margin-bottom: 12px;
     }
+    .page-header .sub-title {
+      color: #C9A84C;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      font-weight: 600;
+    }
     .page-header p {
       color: rgba(255,255,255,0.8);
       font-size: 1.1rem;
       max-width: 650px;
       margin: 0 auto;
     }
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
+
+    /* --- Section --- */
     .section {
       padding: 60px 0;
     }
@@ -57,23 +78,14 @@
       color: #666;
       max-width: 600px;
       margin: 0 auto 40px;
+      font-size: 1rem;
+      line-height: 1.6;
     }
-    .program-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-    }
-    .program-grid.three {
-      grid-template-columns: 1fr 1fr 1fr;
-    }
-    @media (max-width: 992px) {
-      .program-grid { grid-template-columns: 1fr 1fr; }
-      .program-grid.three { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 768px) {
-      .program-grid { grid-template-columns: 1fr; }
-      .program-grid.three { grid-template-columns: 1fr; }
-      .page-header h1 { font-size: 2rem; }
+
+    /* --- Card (dùng chung cho 3 phần) --- */
+    .card-wrapper {
+      display: flex;
+      justify-content: center;
     }
     .program-card {
       background: #FFFFFF;
@@ -82,6 +94,8 @@
       box-shadow: 0 8px 30px rgba(0,0,0,0.08);
       transition: 0.4s;
       border: 1px solid #eee;
+      max-width: 700px;
+      width: 100%;
       display: flex;
       flex-direction: column;
     }
@@ -172,6 +186,7 @@
       border: none;
       font-size: 0.95rem;
       text-align: center;
+      cursor: pointer;
     }
     .btn-gold:hover {
       background: #B89A3A;
@@ -190,6 +205,7 @@
       transition: 0.3s;
       font-size: 0.95rem;
       text-align: center;
+      cursor: pointer;
     }
     .btn-outline-navy:hover {
       background: #0A1628;
@@ -201,15 +217,77 @@
       flex-wrap: wrap;
       margin-top: 16px;
     }
-    .badge-new {
-      background: #C9A84C;
-      color: #0A1628;
-      font-size: 0.6rem;
-      font-weight: 700;
-      padding: 2px 12px;
-      border-radius: 20px;
-      margin-left: 8px;
-      vertical-align: middle;
+
+    /* --- Responsive --- */
+    @media (max-width: 768px) {
+      .page-header h1 {
+        font-size: 2rem;
+      }
+      .page-header {
+        padding: 60px 0 40px;
+      }
+      .section {
+        padding: 40px 0;
+      }
+      .section-title {
+        font-size: 1.6rem;
+      }
+      .program-card .card-header h2 {
+        font-size: 1.3rem;
+      }
+      .program-card .card-body {
+        padding: 20px;
+      }
+      .program-card .card-header {
+        padding: 28px 20px 16px;
+      }
+      .btn-gold,
+      .btn-outline-navy {
+        padding: 10px 24px;
+        font-size: 0.85rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .program-card .card-body .meta-list span {
+        font-size: 0.65rem;
+        padding: 2px 10px;
+      }
+      .program-card .card-body .price-tag {
+        font-size: 1.2rem;
+      }
+      .btn-group-card {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .btn-gold,
+      .btn-outline-navy {
+        text-align: center;
+        width: 100%;
+      }
+    }
+
+    /* --- CTA Section --- */
+    .cta-section {
+      background: #0A1628;
+      padding: 60px 0;
+    }
+    .cta-section .container {
+      text-align: center;
+    }
+    .cta-section h2 {
+      font-family: 'Playfair Display', serif;
+      color: #FFFFFF;
+      font-size: 2rem;
+    }
+    .cta-section p {
+      color: rgba(255,255,255,0.8);
+      max-width: 500px;
+      margin: 12px auto 28px;
+    }
+    .cta-section .btn-gold {
+      font-size: 1.1rem;
+      padding: 16px 50px;
     }
   </style>
 </head>
@@ -240,7 +318,7 @@
 <!-- ========== PAGE HEADER ========== -->
 <section class="page-header">
   <div class="container">
-    <p style="color: #C9A84C; letter-spacing: 2px; font-weight: 600;" data-aos="fade-up">— Đồng hành cùng bạn trên hành trình —</p>
+    <p class="sub-title" data-aos="fade-up">— Đồng hành cùng bạn trên hành trình —</p>
     <h1 data-aos="fade-up" data-aos-delay="100">Giáo dục và Đồng hành</h1>
     <p data-aos="fade-up" data-aos-delay="150">Những chương trình chuyên sâu giúp cha mẹ thấu hiểu, và đồng hành cùng con trên hành trình trưởng thành.</p>
   </div>
@@ -253,7 +331,7 @@
     <h2 class="section-title" data-aos="fade-up">Đồng hành cùng con tuổi teen</h2>
     <p class="section-desc" data-aos="fade-up">Trang bị kỹ năng để cha mẹ thấu hiểu, kết nối và xây dựng sự tôn trọng trong gia đình.</p>
 
-    <div class="program-grid" data-aos="fade-up">
+    <div class="card-wrapper" data-aos="fade-up">
       <div class="program-card">
         <div class="card-header">
           <div class="icon">👨‍👩‍👧‍👦</div>
@@ -285,7 +363,7 @@
     <h2 class="section-title" data-aos="fade-up">Giáo dục giới tính toàn diện</h2>
     <p class="section-desc" data-aos="fade-up">Trang bị kiến thức khoa học, kỹ năng bảo vệ bản thân và xây dựng mối quan hệ lành mạnh.</p>
 
-    <div class="program-grid" data-aos="fade-up">
+    <div class="card-wrapper" data-aos="fade-up">
       <div class="program-card">
         <div class="card-header">
           <div class="icon">🌸</div>
@@ -311,24 +389,24 @@
   </div>
 </section>
 
-<!-- ========== PHẦN 3: YÊU THƯƠNG VÀ DẪN LỐI========== -->
+<!-- ========== PHẦN 3: YÊU THƯƠNG VÀ DẪN LỐI ========== -->
 <section class="section">
   <div class="container">
     <p class="section-sub" data-aos="fade-up">— Dành cho Trẻ em —</p>
     <h2 class="section-title" data-aos="fade-up">Yêu thương và Dẫn lối</h2>
     <p class="section-desc" data-aos="fade-up">Điều chỉnh hành vi, xây dựng tư duy tích cực và kết nối lại với gia đình.</p>
 
-    <div class="program-grid" data-aos="fade-up">
+    <div class="card-wrapper" data-aos="fade-up">
       <div class="program-card">
         <div class="card-header">
           <div class="icon">💛</div>
           <div class="tag">Dịch vụ đồng hành</div>
           <h2>Điều chỉnh hành vi trẻ</h2>
-          <div class="sub">Yêu thương và Dẫn lỗi</div>
+          <div class="sub">Yêu thương và Dẫn lối</div>
         </div>
         <div class="card-body">
           <p>Chương trình đồng hành dành cho trẻ đang gặp khó khăn trong hành vi và cảm xúc: ăn cắp vặt, cãi cha mẹ, sử dụng mạng xã hội tùy tiện, giao tiếp thiếu lễ phép, hoặc đang trong giai đoạn mất kết nối với ba mẹ.</p>
-          
+
           <div style="background:#F8F6F1; border-radius:10px; padding:14px 18px; margin:12px 0;">
             <p style="font-size:0.9rem; color:#0A1628; margin-bottom:4px;"><strong>🌱 Những vấn đề thường gặp:</strong></p>
             <div style="display:flex; flex-wrap:wrap; gap:6px;">
@@ -356,13 +434,13 @@
   </div>
 </section>
 
-<!-- ========== CTA ========== -->
-<section class="section" style="background:#0A1628; padding:60px 0;">
-  <div class="container" style="text-align:center;">
-    <h2 style="font-family: 'Playfair Display', serif; color:#FFFFFF; font-size:2rem;" data-aos="fade-up">💬 Chưa biết chương trình nào phù hợp?</h2>
-    <p style="color:rgba(255,255,255,0.8); max-width:500px; margin:12px auto 28px;" data-aos="fade-up">Hãy để Sophia tư vấn cho bạn lộ trình phù hợp nhất với nhu cầu của gia đình.</p>
+<!-- ========== CTA SECTION ========== -->
+<section class="cta-section">
+  <div class="container">
+    <h2 data-aos="fade-up">💬 Chưa biết chương trình nào phù hợp?</h2>
+    <p data-aos="fade-up">Hãy để Sophia tư vấn cho bạn lộ trình phù hợp nhất với nhu cầu của gia đình.</p>
     <div data-aos="fade-up">
-      <a href="https://zalo.me/0977092182" class="btn-gold" style="font-size:1.1rem; padding:16px 50px;">📲 Nhận tư vấn miễn phí</a>
+      <a href="https://zalo.me/0977092182" class="btn-gold">📲 Nhận tư vấn miễn phí</a>
     </div>
   </div>
 </section>
