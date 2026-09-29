@@ -89,6 +89,61 @@
       .problem-banner { flex-direction: column; text-align: center; padding: 28px 20px; }
       .problem-banner .left p { margin-left: auto; margin-right: auto; }
     }
+
+        /* 5 trụ cột: 3 trên - 2 dưới */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .pillars-grid .service-card:nth-child(4),
+    .pillars-grid .service-card:nth-child(5) {
+      grid-column: span 1;
+    }
+    /* Căn giữa 2 ô dưới */
+    .pillars-grid .service-card:nth-child(4) {
+      grid-column-start: 1;
+    }
+    /* Responsive */
+    @media (max-width: 768px) {
+      .pillars-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 480px) {
+      .pillars-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+        .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);   /* chia 6 cột ảo */
+      gap: 24px;
+    }
+    .pillars-grid .service-card {
+      grid-column: span 2;                      /* mỗi ô chiếm 2 cột */
+    }
+    .pillars-grid .service-card:nth-child(4) {
+      grid-column: 2 / span 2;                  /* ô 4 bắt đầu từ cột 2 */
+    }
+    .pillars-grid .service-card:nth-child(5) {
+      grid-column: 4 / span 2;                  /* ô 5 bắt đầu từ cột 4 */
+    }
+    @media (max-width: 768px) {
+      .pillars-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .pillars-grid .service-card,
+      .pillars-grid .service-card:nth-child(4),
+      .pillars-grid .service-card:nth-child(5) {
+        grid-column: span 1;
+      }
+    }
+    @media (max-width: 480px) {
+      .pillars-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
@@ -153,7 +208,7 @@
     <h2 class="section-title" data-aos="fade-right">5 Trụ Cột Của Chương Trình</h2>
     <p class="section-subtitle" data-aos="fade-right" data-aos-delay="100">Một lộ trình chuẩn bị toàn diện trước khi lên đường</p>
 
-    <div class="services-grid" data-aos="fade-up">
+    <div class="services-grid" data-aos="fade-up" style="grid-template-columns: repeat(3, 1fr);">
       <div class="service-card">
         <div class="pillar-number">1</div>
         <h3>Quản lý cảm xúc &amp; nỗi nhớ nhà</h3>
