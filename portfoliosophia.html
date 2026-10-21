@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta property="og:title" content="Sophia Nguyễn — Điều phối viên Cộng đồng | Trường học Hạnh phúc">
+<meta property="og:description" content="Ứng tuyển Điều phối viên Cộng đồng – Dự án Trường học Hạnh phúc TP.HCM (ELI). Nền tảng Tâm lý học, Sư phạm, Kinh nghiệm đào tạo & điều phối chương trình giáo dục.">
+<meta property="og:image" content="https://sophianguyen.com.vn/sophia.png">
+<meta property="og:url" content="https://sophianguyen.com.vn/portfolio-eli.html">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sophia Nguyễn — Điều phối viên Cộng đồng | Trường học Hạnh phúc</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0D1B3E;
+    --navy-mid: #162552;
+    --navy-light: #1E3370;
+    --gold: #C9973A;
+    --gold-light: #E8B95A;
+    --gold-pale: #F5DFA0;
+    --cream: #FBF7EF;
+    --cream-dark: #F5EFE3;
+    --text-mid: #3A4A6B;
+    --text-light: #8899BB;
+    --white: #FFFFFF;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--navy);
+    overflow-x: hidden;
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 3rem;
+    background: rgba(13,27,62,0.97);
+    backdrop-filter: blur(8px);
+    transform: translateY(-100%);
+    animation: slideDown 0.6s 0.4s cubic-bezier(0.23,1,0.32,1) forwards;
+  }
+  @keyframes slideDown { to { transform: translateY(0); } }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem; font-weight: 600; letter-spacing: 0.05em;
+    color: var(--gold-light); text-decoration: none;
+  }
+  .nav-logo span { color: rgba(255,255,255,0.6); font-weight: 300; font-size: 0.9rem; }
+  .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+  .nav-links a {
+    color: rgba(255,255,255,0.7); font-size: 0.8rem; letter-spacing: 0.08em;
+    text-decoration: none; text-transform: uppercase; transition: color 0.3s;
+    font-weight: 400;
+  }
+  .nav-links a:hover { color: var(--gold-light); }
+  .nav-links a.special { color: var(--gold-light); border: 1px solid rgba(201,151,58,0.4); padding: 0.35rem 0.9rem; border-radius: 20px; }
+  .nav-links a.special:hover { background: var(--gold); color: var(--navy); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    padding: 7rem 2rem 5rem; text-align: center;
+  }
+  .hero-bg-ring {
+    position: absolute; border-radius: 50%;
+    border: 1px solid rgba(201,151,58,0.12);
+    animation: ringPulse 8s ease-in-out infinite;
+  }
+  .ring1 { width: 500px; height: 500px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+  .ring2 { width: 750px; height: 750px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation-delay: 1.5s; }
+  .ring3 { width: 1000px; height: 1000px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation-delay: 3s; }
+  @keyframes ringPulse {
+    0%,100% { opacity: 0.3; transform: translate(-50%,-50%) scale(1); }
+    50% { opacity: 0.6; transform: translate(-50%,-50%) scale(1.04); }
+  }
+  .hero-tag {
+    font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); border: 1px solid rgba(201,151,58,0.4);
+    padding: 0.45rem 1.2rem; border-radius: 2rem;
+    position: relative; z-index: 1;
+    opacity: 0; transform: translateY(20px);
+    animation: fadeUp 0.7s 0.5s forwards;
+  }
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.2rem, 8vw, 6.5rem);
+    font-weight: 300; line-height: 1.05; color: #fff;
+    position: relative; z-index: 1; margin-top: 1.4rem;
+    opacity: 0; transform: translateY(30px);
+    animation: fadeUp 0.8s 0.75s forwards;
+  }
+  .hero-name em { font-style: italic; color: var(--gold-light); display: block; }
+  .hero-position {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; font-style: italic; color: var(--gold-light);
+    margin-top: 1rem; position: relative; z-index: 1;
+    opacity: 0; transform: translateY(20px);
+    animation: fadeUp 0.8s 0.9s forwards;
+  }
+  .hero-desc {
+    font-size: 1rem; color: rgba(255,255,255,0.65);
+    max-width: 540px; line-height: 1.8;
+    position: relative; z-index: 1; margin-top: 1.5rem;
+    opacity: 0; transform: translateY(20px);
+    animation: fadeUp 0.8s 1.05s forwards;
+  }
+  .hero-cta-row {
+    display: flex; gap: 1rem; margin-top: 2.5rem;
+    position: relative; z-index: 1;
+    opacity: 0; transform: translateY(20px);
+    animation: fadeUp 0.8s 1.25s forwards;
+    flex-wrap: wrap; justify-content: center;
+  }
+  .btn-gold {
+    background: var(--gold); color: var(--navy);
+    padding: 0.85rem 2.2rem; border-radius: 2rem;
+    font-size: 0.88rem; font-weight: 500; letter-spacing: 0.04em;
+    text-decoration: none; transition: all 0.3s;
+  }
+  .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent; color: rgba(255,255,255,0.8);
+    padding: 0.85rem 2.2rem; border-radius: 2rem;
+    font-size: 0.88rem; letter-spacing: 0.04em;
+    text-decoration: none; border: 1px solid rgba(255,255,255,0.25);
+    transition: all 0.3s;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+  .hero-scroll {
+    position: absolute; bottom: 2rem; left: 50%;
+    display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+    color: rgba(255,255,255,0.3); font-size: 0.65rem; letter-spacing: 0.15em;
+    text-transform: uppercase; z-index: 1;
+    opacity: 0; animation: fadeIn 1s 2.2s forwards, bounce 2.5s 3.2s ease-in-out infinite;
+  }
+  .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, rgba(201,151,58,0.6), transparent); }
+  @keyframes bounce {
+    0%,100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { to { opacity: 1; } }
+
+  /* SECTION */
+  section { padding: 5rem 2rem; }
+  .container { max-width: 1050px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.6rem; font-weight: 500;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .section-label::after {
+    content: ''; flex: 1; max-width: 60px;
+    height: 1px; background: var(--gold); display: inline-block;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 2.9rem);
+    font-weight: 400; line-height: 1.2; color: var(--navy);
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+
+  /* THƯ NGUYỆN VỌNG — section đặc biệt */
+  #thu-nguyen-vong {
+    background:
+      radial-gradient(circle at 15% 20%, rgba(201,151,58,0.06), transparent 45%),
+      radial-gradient(circle at 85% 80%, rgba(13,27,62,0.05), transparent 45%),
+      var(--cream);
+    position: relative;
+    padding: 6rem 2rem 5rem;
+  }
+  #thu-nguyen-vong::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0.4;
+  }
+  .letter-intro {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .letter-intro .section-label { justify-content: center; }
+  .letter-intro .section-label::after { display: none; }
+  .letter-intro .section-title { margin-top: 0.3rem; }
+  .letter-intro .intro-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--text-mid);
+    max-width: 620px;
+    margin: 1rem auto 0;
+    line-height: 1.7;
+  }
+
+  /* Letter card */
+  .letter-card {
+    position: relative;
+    background: var(--white);
+    border-radius: 4px;
+    padding: 4rem 4.5rem 3.5rem;
+    max-width: 800px;
+    margin: 0 auto;
+    box-shadow:
+      0 1px 3px rgba(13,27,62,0.04),
+      0 12px 40px rgba(13,27,62,0.08),
+      0 40px 80px -20px rgba(13,27,62,0.10);
+    border: 1px solid rgba(201,151,58,0.15);
+  }
+  .letter-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+    border-radius: 4px 4px 0 0;
+  }
+  /* Decorative seal */
+  .letter-seal {
+    position: absolute;
+    top: -30px; right: 40px;
+    width: 76px; height: 76px;
+    background: radial-gradient(circle at 35% 35%, var(--gold-light), var(--gold) 70%);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow:
+      0 6px 20px rgba(201,151,58,0.35),
+      inset 0 0 0 4px rgba(255,255,255,0.2);
+    color: var(--navy);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 600;
+    font-style: italic;
+  }
+  .letter-seal::after {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border: 1px solid rgba(13,27,62,0.2);
+    border-radius: 50%;
+  }
+
+  .letter-ref {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(201,151,58,0.2);
+  }
+  .letter-ref .doc-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; font-weight: 600;
+    letter-spacing: 0.2em;
+    color: var(--navy);
+    text-transform: uppercase;
+  }
+  .letter-ref .doc-sub {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--text-mid);
+    margin-top: 0.6rem;
+  }
+
+  .letter-body {
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    line-height: 2;
+    color: #2A2A2A;
+  }
+  .letter-body .letter-to {
+    font-weight: 500;
+    margin-bottom: 1.8rem;
+    padding: 1rem 1.4rem;
+    background: var(--cream);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 4px 4px 0;
+    font-size: 0.95rem;
+    line-height: 1.75;
+  }
+  .letter-body .letter-to strong { color: var(--navy); }
+  .letter-body p {
+    margin-bottom: 1.3rem;
+    text-align: justify;
+    hyphens: auto;
+  }
+  .letter-body p:first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.2rem;
+    font-weight: 500;
+    float: left;
+    line-height: 1;
+    padding: 0.15rem 0.6rem 0 0;
+    color: var(--gold);
+  }
+
+  .letter-signature {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px dashed rgba(201,151,58,0.35);
+    text-align: right;
+  }
+  .letter-signature .sig-intro {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    color: var(--text-mid);
+    margin-bottom: 0.4rem;
+    font-size: 0.95rem;
+  }
+  .letter-signature .sig-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.7rem;
+    font-style: italic;
+    font-weight: 500;
+    color: var(--navy);
+    letter-spacing: 0.02em;
+  }
+  .letter-signature .sig-full {
+    font-size: 0.78rem;
+    color: var(--text-light);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 0.3rem;
+  }
+
+  /* ABOUT */
+  #about { background: var(--white); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: center; margin-top: 3rem;
+  }
+  .avatar-frame {
+    width: 100%; aspect-ratio: 1/1; max-width: 320px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto;
+    border: 5px solid var(--gold-pale);
+    box-shadow: 0 20px 60px rgba(13,27,62,0.12);
+  }
+  .avatar-frame img { width: 100%; height: 100%; object-fit: cover; }
+  .about-text p { color: var(--text-mid); line-height: 1.9; font-size: 0.98rem; margin-bottom: 1.1rem; }
+  .about-text strong { color: var(--navy); font-weight: 600; }
+
+  /* NĂNG LỰC */
+  #skills { background: var(--cream); }
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem; margin-top: 3rem;
+  }
+  .skill-card {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 2rem 1.8rem;
+    border: 1px solid rgba(201,151,58,0.12);
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .skill-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; bottom: 0;
+    width: 3px;
+    background: var(--gold);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.4s cubic-bezier(0.23,1,0.32,1);
+  }
+  .skill-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(13,27,62,0.08); }
+  .skill-card:hover::before { transform: scaleY(1); }
+  .skill-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--navy), var(--navy-light));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; margin-bottom: 1.2rem;
+  }
+  .skill-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; font-weight: 600; color: var(--navy);
+    margin-bottom: 0.6rem;
+    line-height: 1.3;
+  }
+  .skill-desc { font-size: 0.88rem; color: var(--text-mid); line-height: 1.75; }
+
+  /* EXPERIENCE */
+  #experience { background: var(--navy); }
+  #experience .section-title { color: #fff; }
+  .timeline { margin-top: 3rem; position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 1px; background: rgba(201,151,58,0.3);
+  }
+  .timeline-item {
+    position: relative; margin-bottom: 2.8rem;
+    opacity: 0; transform: translateX(-20px);
+    transition: opacity 0.6s, transform 0.6s;
+  }
+  .timeline-item.visible { opacity: 1; transform: translateX(0); }
+  .timeline-dot {
+    position: absolute; left: -2.4rem; top: 0.3rem;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--gold); border: 2px solid var(--navy);
+    box-shadow: 0 0 0 3px rgba(201,151,58,0.3);
+  }
+  .timeline-year {
+    font-size: 0.72rem; letter-spacing: 0.14em;
+    color: var(--gold); text-transform: uppercase;
+    margin-bottom: 0.4rem; font-weight: 500;
+  }
+  .timeline-role {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem; color: #fff; font-weight: 500;
+    margin-bottom: 0.2rem;
+  }
+  .timeline-org {
+    font-size: 0.85rem; color: var(--gold-light);
+    font-style: italic; margin-bottom: 0.7rem;
+  }
+  .timeline-list {
+    list-style: none;
+    padding: 0;
+  }
+  .timeline-list li {
+    position: relative;
+    padding-left: 1.1rem;
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.8;
+    margin-bottom: 0.3rem;
+  }
+  .timeline-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: rgba(201,151,58,0.6);
+  }
+
+  /* HỌC VẤN & CHỨNG CHỈ */
+  #credentials { background: var(--white); }
+  .cred-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 3rem; margin-top: 3rem;
+  }
+  .cred-column h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid rgba(201,151,58,0.25);
+  }
+  .cred-list { list-style: none; }
+  .cred-list li {
+    padding: 0.85rem 0;
+    border-bottom: 1px solid rgba(201,151,58,0.1);
+    font-size: 0.92rem;
+    color: var(--text-mid);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+  }
+  .cred-list li:last-child { border-bottom: none; }
+  .cred-list li::before {
+    content: '✦';
+    color: var(--gold);
+    font-size: 0.7rem;
+    margin-top: 0.3rem;
+    flex-shrink: 0;
+  }
+
+  /* CÔNG CỤ */
+  #tools {
+    background: var(--cream);
+    padding: 4rem 2rem;
+  }
+  .tools-box {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 2.5rem 3rem;
+    border: 1px solid rgba(201,151,58,0.12);
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .tools-box p {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    color: var(--text-mid);
+    font-size: 0.95rem;
+    line-height: 1.9;
+  }
+  .tools-box strong { color: var(--navy); font-style: normal; font-family: 'DM Sans', sans-serif; font-weight: 500; }
+
+  /* CONTACT */
+  #contact {
+    background: var(--navy);
+    text-align: center;
+  }
+  #contact .section-title { color: #fff; }
+  #contact .section-label { color: rgba(255,255,255,0.55); justify-content: center; }
+  #contact .section-label::after { display: none; }
+  .contact-sub {
+    color: rgba(255,255,255,0.55); font-size: 0.95rem;
+    margin-top: 0.8rem; line-height: 1.7;
+    max-width: 500px; margin-left: auto; margin-right: auto;
+    font-family: 'Lora', serif;
+    font-style: italic;
+  }
+  .contact-links {
+    display: flex; flex-wrap: wrap; gap: 1rem;
+    justify-content: center; margin-top: 2.2rem;
+  }
+  .contact-link {
+    display: flex; align-items: center; gap: 0.5rem;
+    padding: 0.8rem 1.6rem; border-radius: 2rem;
+    text-decoration: none; font-size: 0.85rem;
+    transition: all 0.3s;
+  }
+  .contact-link:hover { transform: translateY(-3px); }
+  .c-gold { background: var(--gold); color: var(--navy); font-weight: 500; }
+  .c-gold:hover { background: var(--gold-light); }
+  .c-ghost { color: rgba(255,255,255,0.75); border: 1px solid rgba(255,255,255,0.2); }
+  .c-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+  footer {
+    background: #070F22;
+    color: rgba(255,255,255,0.3);
+    text-align: center;
+    padding: 1.8rem 2rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+  }
+  footer span { color: var(--gold); }
+
+  /* REVEAL */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s cubic-bezier(0.23,1,0.32,1), transform 0.7s cubic-bezier(0.23,1,0.32,1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .d1 { transition-delay: 0.1s; }
+  .d2 { transition-delay: 0.2s; }
+  .d3 { transition-delay: 0.3s; }
+  .d4 { transition-delay: 0.4s; }
+
+  @media (max-width: 800px) {
+    nav { padding: 0.9rem 1.2rem; }
+    .nav-links { display: none; }
+    .letter-card { padding: 3rem 1.8rem 2.5rem; }
+    .letter-seal { width: 60px; height: 60px; right: 20px; top: -25px; font-size: 1.1rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .cred-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .letter-body p { text-align: left; }
+    .letter-body p:first-letter { font-size: 2.6rem; }
+    section { padding: 3.5rem 1.2rem; }
+    #thu-nguyen-vong { padding: 4rem 1.2rem; }
+    .tools-box { padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">Sophia Nguyễn <span>· ELI</span></a>
+  <ul class="nav-links">
+    <li><a href="#thu-nguyen-vong" class="special">Thư nguyện vọng</a></li>
+    <li><a href="#about">Giới thiệu</a></li>
+    <li><a href="#skills">Năng lực</a></li>
+    <li><a href="#experience">Kinh nghiệm</a></li>
+    <li><a href="#credentials">Học vấn</a></li>
+    <li><a href="#contact">Liên hệ</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-ring ring1"></div>
+  <div class="hero-bg-ring ring2"></div>
+  <div class="hero-bg-ring ring3"></div>
+  <div class="hero-tag">Ứng tuyển · Trường học Hạnh phúc TP.HCM</div>
+  <h1 class="hero-name">Sophia<br><em>Nguyễn</em></h1>
+  <div class="hero-position">Điều phối viên Cộng đồng</div>
+  <p class="hero-desc">Nền tảng Tâm lý học · Chứng chỉ Sư phạm · Đào tạo &amp; điều phối chương trình giáo dục — đồng hành cùng đội ngũ nhà giáo trong hành trình kiến tạo những ngôi trường hạnh phúc.</p>
+  <div class="hero-cta-row">
+    <a href="#thu-nguyen-vong" class="btn-gold">Đọc thư nguyện vọng</a>
+    <a href="#contact" class="btn-outline">Kết nối với tôi →</a>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Cuộn xuống</span>
+  </div>
+</section>
+
+<!-- ✦ THƯ NGUYỆN VỌNG — NỔI BẬT ✦ -->
+<section id="thu-nguyen-vong">
+  <div class="container">
+    <div class="letter-intro reveal">
+      <div class="section-label">Gửi Ban Quản lý Dự án</div>
+      <h2 class="section-title">Thư <em>Nguyện Vọng</em></h2>
+      <p class="intro-sub">"Một lời ngỏ chân thành gửi đến những người đang cùng nhau gieo hạt giống hạnh phúc vào học đường."</p>
+    </div>
+
+    <div class="letter-card reveal d1">
+      <div class="letter-seal">S.</div>
+
+      <div class="letter-ref">
+        <div class="doc-title">Thư Nguyện Vọng</div>
+        <div class="doc-sub">Ứng tuyển vị trí Điều phối viên Cộng đồng<br>Dự án Trường học Hạnh phúc TP.HCM</div>
+      </div>
+
+      <div class="letter-body">
+        <div class="letter-to">
+          Kính gửi Ban Quản lý Dự án Trường học Hạnh phúc TP.HCM<br>
+          <strong>Eurasia Learning Institute for Happiness and Well-being (ELI)</strong>
+        </div>
+
+        <p>Tôi viết thư này với mong muốn được ứng tuyển vị trí <strong>Điều phối viên Cộng đồng</strong> của Dự án Trường học Hạnh phúc TP.HCM.</p>
+
+        <p>Với nền tảng <strong>Tâm lý học, Kinh tế </strong>, cùng kinh nghiệm trong lĩnh vực đào tạo, phát triển con người và triển khai các chương trình kỹ năng sống tại trường học, tôi quan tâm đến những phương pháp giáo dục không chỉ trang bị kiến thức, kỹ năng mà còn góp phần nuôi dưỡng sự thấu hiểu, khả năng kết nối và sự phát triển tích cực của mỗi người.</p>
+
+        <p>Trong thời gian đảm nhiệm vai trò <strong>Giám đốc Đào tạo tại Viện Khoa học An toàn Việt Nam</strong>, tôi có cơ hội tham gia xây dựng chương trình, thiết kế học liệu, tổ chức tập huấn và phối hợp triển khai hoạt động giáo dục cùng các nhà trường, giáo viên và đội ngũ giảng dạy. Những trải nghiệm đó giúp tôi hiểu rằng hiệu quả của một chương trình không chỉ nằm ở nội dung được truyền đạt, mà còn phụ thuộc vào cách chương trình được vận dụng trong thực tế, sự phối hợp giữa những người tham gia và quá trình đồng hành sau đào tạo.</p>
+
+        <p>Điều khiến tôi quan tâm đến dự án Trường học Hạnh phúc là định hướng đưa những giá trị giáo dục vào đời sống học đường thông qua việc thực hành, chia sẻ và học hỏi liên tục. Tôi mong muốn được góp sức trong việc <strong>kết nối đội ngũ nhà giáo</strong>, hỗ trợ tổ chức các hoạt động học tập và chia sẻ kinh nghiệm, đồng thời cùng các thành viên tìm kiếm những cách thức phù hợp để các thực hành tích cực được duy trì trong môi trường trường học.</p>
+
+        <p>Tôi hiểu rằng vai trò Điều phối viên Cộng đồng đòi hỏi sự kiên nhẫn, tinh thần trách nhiệm, khả năng lắng nghe và sự linh hoạt khi làm việc với những con người, hoàn cảnh và nhu cầu khác nhau. Bên cạnh những kinh nghiệm đã tích lũy, tôi sẵn sàng học hỏi thêm về khung chuyên môn và phương pháp thực hành của dự án để có thể phối hợp hiệu quả với đội ngũ chuyên môn, các chuyên gia và trường thành viên.</p>
+
+        <p>Tôi hy vọng có cơ hội được trao đổi trực tiếp với Ban Quản lý Dự án về định hướng công việc và khả năng đóng góp của mình. Xin cảm ơn Quý Dự án đã dành thời gian xem xét hồ sơ.</p>
+
+        <div class="letter-signature">
+          <div class="sig-intro">Trân trọng,</div>
+          <div class="sig-name">Sophia Nguyễn</div>
+          <div class="sig-full">Nguyễn Thị Diễm Hằng</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="avatar-frame reveal">
+        <img src="images/sophianguyen.jpg" alt="Sophia Nguyễn">
+      </div>
+      <div class="about-text">
+        <div class="section-label reveal">Giới thiệu bản thân</div>
+        <h2 class="section-title reveal d1">Người kết nối <br><em>&amp; đồng hành</em></h2>
+        <div style="margin-top:1.5rem;">
+          <p class="reveal d2">Tôi có nền tảng đào tạo liên ngành về <strong>Tâm lý học, Kinh tế và các chứng chỉ Sư phạm</strong>, cùng kinh nghiệm trong quản lý, đào tạo và phát triển con người.</p>
+          <p class="reveal d3">Trong quá trình làm việc tại <strong>Viện Khoa học An toàn Việt Nam</strong> và các hoạt động đào tạo độc lập, tôi tham gia xây dựng chương trình, thiết kế học liệu, tổ chức tập huấn và phối hợp triển khai các chương trình kỹ năng sống, kỹ năng an toàn trong môi trường học đường.</p>
+          <p class="reveal d3">Tôi quan tâm đến <strong>giáo dục nhân văn</strong>, sự phát triển của người học và việc đưa kiến thức vào thực hành đời sống. Tôi mong muốn được đóng góp kinh nghiệm tổ chức, điều phối và đồng hành với đội ngũ giáo dục, đồng thời tiếp tục học hỏi trong một môi trường đề cao sự thấu hiểu, hợp tác và phát triển bền vững.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NĂNG LỰC -->
+<section id="skills">
+  <div class="container">
+    <div class="section-label reveal">Năng lực liên quan</div>
+    <h2 class="section-title reveal d1">Những gì tôi có thể <br><em>đóng góp cho dự án</em></h2>
+    <div class="skills-grid">
+      <div class="skill-card reveal d1">
+        <div class="skill-icon">🧭</div>
+        <div class="skill-title">Điều phối chương trình giáo dục</div>
+        <div class="skill-desc">Lập kế hoạch, tổ chức hoạt động đào tạo và phối hợp với các bên liên quan trong quá trình triển khai.</div>
+      </div>
+      <div class="skill-card reveal d2">
+        <div class="skill-icon">📝</div>
+        <div class="skill-title">Thiết kế nội dung và học liệu</div>
+        <div class="skill-desc">Xây dựng chương trình, giáo án, tài liệu và hoạt động trải nghiệm phù hợp với đối tượng học tập.</div>
+      </div>
+      <div class="skill-card reveal d3">
+        <div class="skill-icon">🤝</div>
+        <div class="skill-title">Đào tạo và đồng hành</div>
+        <div class="skill-desc">Trực tiếp giảng dạy, hướng dẫn, coaching/mentoring và hỗ trợ phát triển năng lực người học, đội ngũ.</div>
+      </div>
+      <div class="skill-card reveal d4">
+        <div class="skill-icon">🌐</div>
+        <div class="skill-title">Phối hợp và phát triển đội ngũ</div>
+        <div class="skill-desc">Kết nối các thành viên, điều phối công việc và hỗ trợ quá trình phối hợp trong hoạt động giáo dục.</div>
+      </div>
+      <div class="skill-card reveal d1">
+        <div class="skill-icon">🔄</div>
+        <div class="skill-title">Tiếp nhận phản hồi và cải tiến</div>
+        <div class="skill-desc">Ghi nhận ý kiến từ quá trình triển khai, nhận diện khó khăn và điều chỉnh hoạt động phù hợp.</div>
+      </div>
+      <div class="skill-card reveal d2">
+        <div class="skill-icon">✍️</div>
+        <div class="skill-title">Soạn thảo và trình bày nội dung</div>
+        <div class="skill-desc">Biên soạn tài liệu chuyên môn, xây dựng nội dung đào tạo và sử dụng các công cụ số phục vụ công việc.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="section-label reveal">Kinh nghiệm làm việc</div>
+    <h2 class="section-title reveal d1">Hành trình <br><em>chuyên môn</em></h2>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2022 — 2025</div>
+        <div class="timeline-role">Giám đốc Đào tạo</div>
+        <div class="timeline-org">Viện Khoa học An toàn Việt Nam</div>
+        <ul class="timeline-list">
+          <li>Tham gia xây dựng và triển khai các chương trình kỹ năng sống, kỹ năng an toàn trong môi trường học đường.</li>
+          <li>Phân tích nhu cầu, thiết kế chương trình, giáo án, học liệu và các hoạt động trải nghiệm phù hợp với đối tượng học tập.</li>
+          <li>Tổ chức và trực tiếp tham gia đào tạo, tập huấn cho cán bộ quản lý, giáo viên, học sinh và đội ngũ giảng dạy.</li>
+          <li>Hướng dẫn, hỗ trợ phát triển năng lực đội ngũ giảng dạy/báo cáo viên.</li>
+          <li>Phối hợp với nhà trường và các bên liên quan trong quá trình tổ chức, triển khai chương trình tại các địa phương.</li>
+          <li>Tiếp nhận phản hồi và phối hợp điều chỉnh hoạt động nhằm nâng cao tính phù hợp và hiệu quả triển khai.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2020 — nay</div>
+        <div class="timeline-role">Nhà đào tạo tự do — Trainer · Coach · Mentor</div>
+        <div class="timeline-org">Hoạt động độc lập</div>
+        <ul class="timeline-list">
+          <li>Thiết kế nội dung, tài liệu và hoạt động phục vụ các chương trình đào tạo kỹ năng sống, giao tiếp, làm việc nhóm và phát triển cá nhân.</li>
+          <li>Tổ chức, trực tiếp giảng dạy và hướng dẫn các hoạt động học tập, trải nghiệm.</li>
+          <li>Vận dụng kiến thức Tâm lý học trong quá trình giảng dạy, trao đổi và đồng hành với người học.</li>
+          <li>Thực hiện các hoạt động coaching, mentoring và hỗ trợ phát triển năng lực theo nhu cầu thực tế.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2020 — 2022</div>
+        <div class="timeline-role">Giám đốc Phát triển Kinh doanh</div>
+        <div class="timeline-org">Công ty Tư vấn JWT</div>
+        <ul class="timeline-list">
+          <li>Lập kế hoạch và điều phối hoạt động phát triển kinh doanh.</li>
+          <li>Quản lý, phối hợp và hỗ trợ phát triển năng lực đội ngũ.</li>
+          <li>Thực hiện các hoạt động hướng dẫn, đào tạo và hỗ trợ nhân sự trong công việc.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2017 — 2020</div>
+        <div class="timeline-role">Trưởng phòng Tư vấn</div>
+        <div class="timeline-org">NVS Việt Nam</div>
+        <ul class="timeline-list">
+          <li>Quản lý hoạt động của đội ngũ tư vấn.</li>
+          <li>Hướng dẫn, huấn luyện và hỗ trợ nhân sự nâng cao kỹ năng tư vấn, giao tiếp và chăm sóc khách hàng.</li>
+          <li>Thực hiện các buổi workshop, minishow giới thiệu các chương trình đến khách hàng.</li>
+          <li>Phối hợp tổ chức công việc, theo dõi hoạt động và hỗ trợ giải quyết các tình huống phát sinh.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2004 — 2017</div>
+        <div class="timeline-role">Trưởng nhóm Kinh doanh</div>
+        <div class="timeline-org">AIA Việt Nam</div>
+        <ul class="timeline-list">
+          <li>Quản lý, hướng dẫn và phát triển đội ngũ kinh doanh.</li>
+          <li>Trực tiếp đào tạo, huấn luyện kỹ năng tư vấn, giao tiếp và chăm sóc khách hàng.</li>
+          <li>Lập kế hoạch, điều phối hoạt động nhóm và hỗ trợ nhân sự nâng cao hiệu quả công việc.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HỌC VẤN & CHỨNG CHỈ -->
+<section id="credentials">
+  <div class="container">
+    <div class="section-label reveal">Nền tảng chuyên môn</div>
+    <h2 class="section-title reveal d1">Học vấn <br><em>&amp; Chứng chỉ</em></h2>
+    <div class="cred-grid">
+      <div class="cred-column reveal d1">
+        <h3>Học vấn</h3>
+        <ul class="cred-list">
+          <li><span><strong>Cử nhân Tâm lý học</strong></span></li>
+          <li><span><strong>Cử nhân Kinh tế</strong></span></li>
+        </ul>
+      </div>
+      <div class="cred-column reveal d2">
+        <h3>Chứng chỉ liên quan</h3>
+        <ul class="cred-list">
+          <li><span>Chứng chỉ Sư phạm</span></li>
+          <li><span>Chứng chỉ Trainer</span></li>
+          <li><span>Chứng chỉ Mentor</span></li>
+          <li><span>Chứng chỉ Tổ chức hoạt động trải nghiệm</span></li>
+          <li><span>Chứng chỉ Phương pháp giảng dạy Kỹ năng sống</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CÔNG CỤ HỖ TRỢ -->
+<section id="tools">
+  <div class="container">
+    <div class="tools-box reveal">
+      <div class="section-label" style="justify-content:center;">Công cụ hỗ trợ công việc</div>
+      <p style="margin-top:1rem;">
+        <strong>Microsoft Word · PowerPoint · Canva</strong><br>
+        Ứng dụng công cụ số và AI trong nghiên cứu, xây dựng nội dung, thiết kế học liệu và hỗ trợ hoạt động đào tạo.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-label reveal">Kết nối</div>
+    <h2 class="section-title reveal d1">Sẵn sàng <br><em>đồng hành cùng dự án</em></h2>
+    <p class="contact-sub reveal d2">Rất mong có cơ hội được trao đổi trực tiếp cùng Ban Quản lý Dự án về định hướng công việc và khả năng đóng góp của mình.</p>
+    <div class="contact-links reveal d3">
+      <a href="https://sophianguyen.com.vn" target="_blank" class="contact-link c-gold">🌐 sophianguyen.com.vn</a>
+      <a href="tel:0977092182" class="contact-link c-ghost">📞 0977.092.182</a>
+      <a href="mailto:sophianguyen2891@gmail.com" class="contact-link c-ghost">✉️ sophianguyen2891@gmail.com</a>
+      <a href="https://facebook.com" target="_blank" class="contact-link c-ghost">📘 Facebook</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 <span>Sophia Nguyễn</span> — Portfolio ứng tuyển Điều phối viên Cộng đồng · Trường học Hạnh phúc TP.HCM</p>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal, .timeline-item').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
