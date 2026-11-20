@@ -71,6 +71,8 @@
     '.sf-box .sf-msg{margin-top:12px;font-size:.88rem;color:#b3261e;display:none}' +
     '.sf-box .sf-note{margin-top:12px;font-size:.78rem;color:#6b7785;font-style:italic}' +
     '.sf-box .sf-ok{text-align:center;padding:10px 0}' +
+    '.sf-primary{display:block;text-align:center;background:#0A1628;color:#fff !important;border-radius:50px;padding:13px;font-weight:700;text-decoration:none;margin:4px 0 18px}' +
+    '.sf-sub{font-size:.92rem;font-weight:600;color:#0A1628;margin:6px 0 4px;border-top:1px solid #E8E4DC;padding-top:16px}' +
     '.sf-hp{position:absolute;left:-9999px;opacity:0;height:0;width:0}';
 
   function injectCss() {
@@ -82,14 +84,41 @@
       (required ? ' required' : '') + (placeholder ? ' placeholder="' + placeholder + '"' : '') + '>';
   }
 
+  /* Bài test nào dẫn tới đâu:
+     - Test nghề nghiệp (Holland RIASEC) là 1 trong 5 nguồn của Bản đồ Năng lực -> dẫn thẳng sang báo cáo.
+     - MBTI / DISC / phong cách học tập là bài riêng, không nằm trong báo cáo -> dẫn sang test nghề nghiệp trước. */
+  var VARIANT = (path === 'testnghenghiep') ? 'career' :
+                (['testmbti', 'testDISC', 'testhoctap'].indexOf(path) > -1 ? 'trait' : 'default');
+
+  function topHtml() {
+    if (VARIANT === 'career') {
+      return '<h3>Kết quả này là một trong 5 nguồn của Bản đồ Năng lực</h3>' +
+        '<p>Bản đồ Năng lực đối chiếu Holland RIASEC với vân tay, chức năng não bộ, SWOT và đa trí tuệ, chỉ ra chỗ các nguồn khớp và chỗ lệch, rồi lập lộ trình 90 ngày cho riêng bạn.</p>' +
+        '<a class="sf-primary" href="' + CFG.REPORT_URL + '" data-sf="primary-report">Xem Bản đồ Năng lực và bảng giá</a>' +
+        '<div class="sf-sub">Chưa biết chọn gói nào? Để lại Zalo hoặc email, Sophia nhắn gợi ý gói phù hợp.</div>';
+    }
+    if (VARIANT === 'trait') {
+      return '<h3>Tính cách cho biết bạn là người thế nào, chưa cho biết bạn hợp nghề gì</h3>' +
+        '<p>Bước tiếp theo: làm bài test nghề nghiệp Holland RIASEC (khoảng 5-10 phút, miễn phí) để xem thiên hướng nghề của bạn.</p>' +
+        '<a class="sf-primary" href="/testnghenghiep" data-sf="primary-next">Làm bài test nghề nghiệp</a>' +
+        '<div class="sf-sub">Hoặc để lại Zalo/email, Sophia nhắn gợi ý bước tiếp theo cho bạn.</div>';
+    }
+    return '<h3>Muốn hiểu kết quả này sâu hơn?</h3>' +
+      '<p>Để lại Zalo hoặc email. Sophia sẽ nhắn bạn gợi ý bước tiếp theo, miễn phí.</p>';
+  }
+  function altHtml() {
+    return VARIANT === 'default'
+      ? '<div class="sf-alt">Muốn một báo cáo đầy đủ hơn? <a href="' + CFG.REPORT_URL + '" data-sf="report">Xem Bản đồ Năng lực &amp; Lộ trình Sự nghiệp</a></div>'
+      : '';
+  }
+
   function buildBox() {
     var box = document.createElement('div');
     box.className = 'sf-box';
     box.style.display = 'none';
     box.innerHTML =
       '<div class="sf-form-wrap">' +
-        '<h3>Muốn hiểu kết quả này sâu hơn?</h3>' +
-        '<p>Để lại Zalo hoặc email. Sophia sẽ nhắn bạn giải thích kết quả và gợi ý bước tiếp theo, miễn phí.</p>' +
+        topHtml() +
         '<form novalidate>' +
           '<input type="hidden" name="_subject" value="">' +
           '<input type="hidden" name="nguon" value="">' +
@@ -99,11 +128,11 @@
           field('Số Zalo hoặc điện thoại', 'phone', 'tel', true) +
           field('Email (không bắt buộc)', 'email', 'email', false) +
           '<label class="sf-consent"><input type="checkbox" name="dong_y_du_lieu" value="yes" required>' +
-            '<span>Tôi đồng ý để Sophia dùng thông tin này để liên hệ và gửi giải thích kết quả cho tôi.</span></label>' +
-          '<button type="submit">Nhận giải thích từ Sophia</button>' +
+            '<span>Tôi đồng ý để Sophia dùng thông tin này để liên hệ với tôi về kết quả và các bước tiếp theo.</span></label>' +
+          '<button type="submit">Gửi cho Sophia</button>' +
           '<div class="sf-msg" role="alert"></div>' +
         '</form>' +
-        '<div class="sf-alt">Muốn một báo cáo đầy đủ hơn? <a href="' + CFG.REPORT_URL + '" data-sf="report">Xem Bản đồ Năng lực &amp; Lộ trình Sự nghiệp</a></div>' +
+        altHtml() +
         '<div class="sf-note">Kết quả test chỉ mang tính tham khảo để bạn hiểu mình hơn, không phải chẩn đoán hay lời khẳng định về năng lực.</div>' +
       '</div>';
 
@@ -117,7 +146,10 @@
       }
     });
 
-    box.querySelector('[data-sf=report]').addEventListener('click', function () { track('cta_report_click', { place: 'test_result' }); });
+    ['report', 'primary-report', 'primary-next'].forEach(function (k) {
+      var el = box.querySelector('[data-sf="' + k + '"]');
+      if (el) { el.addEventListener('click', function () { track(k === 'primary-next' ? 'cta_next_test_click' : 'cta_report_click', { place: 'test_result' }); }); }
+    });
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -140,7 +172,7 @@
             '<a class="sf-alt" href="' + CFG.REPORT_URL + '" style="display:inline-block;font-weight:700;color:#8a6d1f;text-decoration:underline">Xem Bản đồ Năng lực &amp; Lộ trình Sự nghiệp</a></div>';
         })
         .catch(function () {
-          btn.disabled = false; btn.textContent = 'Nhận giải thích từ Sophia';
+          btn.disabled = false; btn.textContent = 'Gửi cho Sophia';
           msg.innerHTML = 'Chưa gửi được. Bạn nhắn Sophia qua <a href="' + CFG.ZALO + '" target="_blank" rel="noopener" style="color:#8a6d1f;font-weight:700">Zalo</a> giúp mình nhé.';
           msg.style.display = 'block';
         });
