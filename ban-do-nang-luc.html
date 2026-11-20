@@ -480,20 +480,20 @@
         }
     
         /* ========== TRANG BẢN ĐỒ NĂNG LỰC (bổ sung) ========== */
-        .tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin: 40px 0 10px; align-items: stretch; }
-        .tier { background: var(--white); border-radius: 24px; padding: 32px 26px; border: 1px solid var(--light-gray);
+        .tiers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin: 40px 0 10px; align-items: stretch; }
+        .tier { background: var(--white); border-radius: 24px; padding: 30px 20px; border: 1px solid var(--light-gray);
                 box-shadow: 0 10px 30px rgba(10,22,40,0.06); display: flex; flex-direction: column; position: relative; }
         .tier.featured { border: 2px solid var(--gold); box-shadow: 0 20px 45px rgba(201,168,76,0.2); }
         .tier .tag { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--gold);
                      color: var(--navy-dark); font-weight: 700; font-size: 0.75rem; padding: 5px 16px; border-radius: 40px; white-space: nowrap; }
         .tier h3 { font-family: 'Playfair Display', serif; font-size: 1.35rem; color: var(--navy-dark); margin-bottom: 6px; text-align: center; }
-        .tier .tier-for { text-align: center; color: var(--gray); font-size: 0.85rem; margin-bottom: 16px; min-height: 42px; }
-        .tier .tier-price { text-align: center; font-size: 2rem; font-weight: 700; color: var(--gold); margin-bottom: 4px; }
+        .tier .tier-for { text-align: center; color: var(--gray); font-size: 0.85rem; margin-bottom: 16px; min-height: 66px; }
+        .tier .tier-price { text-align: center; font-size: 1.7rem; font-weight: 700; color: var(--gold); margin-bottom: 4px; }
         .tier .tier-price small { font-size: 0.9rem; font-weight: 500; color: var(--gray); }
         .tier ul { list-style: none; padding: 0; margin: 18px 0 24px; flex: 1; }
         .tier ul li { display: flex; gap: 10px; align-items: flex-start; color: var(--gray); font-size: 0.92rem; margin-bottom: 10px; }
         .tier ul li i { color: var(--gold); margin-top: 4px; }
-        .tier .btn-cta { margin: 0 auto; text-align: center; width: 100%; }
+        .tier .btn-cta { margin: 0 auto; text-align: center; width: 100%; padding-left: 10px; padding-right: 10px; box-sizing: border-box; }
         .tier-note { text-align: center; color: var(--gray); font-size: 0.85rem; font-style: italic; max-width: 720px; margin: 10px auto 0; }
 
         .report-parts { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 20px; margin-top: 30px; }
@@ -530,7 +530,8 @@
         .order-box button:hover { background: var(--gold-light); transform: translateY(-2px); }
         .order-box .order-note { font-size: 0.8rem; color: var(--gray); text-align: center; margin-top: 14px; font-style: italic; }
 
-        @media (max-width: 992px) { .tiers { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; } .tier .tier-for { min-height: 0; } }
+        @media (max-width: 1100px) { .tiers { grid-template-columns: repeat(2, 1fr); } .tier .tier-for { min-height: 0; } }
+        @media (max-width: 640px) { .tiers { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; } }
         @media (max-width: 768px) { .order-box { padding: 26px 18px; } }
     </style>
 </head>
@@ -626,28 +627,38 @@
     <!-- BẢNG GIÁ -->
     <section class="section" id="bang-gia" data-aos="fade-up">
         <h2 class="section-title">Chọn mức <span>đồng hành</span></h2>
-        <p class="section-sub">Cùng một báo cáo. Bạn chọn mức hỗ trợ phù hợp với mình.</p>
+        <p class="section-sub">Bắt đầu với bản demo, hoặc chọn bản đầy đủ với mức đồng hành bạn cần.</p>
         <div class="tiers">
-            <!-- TODO: chỉnh giá và nội dung từng gói theo quyết định của Sophia -->
+            <!-- Giá do Sophia chốt ngày 20/11/2026 -->
+            <div class="tier">
+                <h3>Bản demo</h3>
+                <div class="tier-for">Dùng thử để xem cách báo cáo làm việc, trước khi chọn bản đầy đủ.</div>
+                <div class="tier-price">499.000đ</div>
+                <ul>
+                    <li><i class="fas fa-check"></i> Báo cáo rút gọn, chỉ phần tính cách (PDF)</li>
+                    <li><i class="fas fa-check"></i> Không gồm tư vấn</li>
+                </ul>
+                <a href="#dang-ky" class="btn-cta" onclick="document.getElementById('goi').value='Bản demo'">Chọn gói này</a>
+            </div>
             <div class="tier">
                 <h3>Tự đọc</h3>
-                <div class="tier-for">Dành cho bạn thích tự tìm hiểu và tự đặt kế hoạch.</div>
-                <div class="tier-price">790.000đ</div>
+                <div class="tier-for">Báo cáo đầy đủ cho bạn thích tự tìm hiểu và tự đặt kế hoạch.</div>
+                <div class="tier-price">1.499.000đ</div>
                 <ul>
-                    <li><i class="fas fa-check"></i> Báo cáo cá nhân hóa 40+ trang (PDF)</li>
+                    <li><i class="fas fa-check"></i> Báo cáo cá nhân hóa đầy đủ 40+ trang (PDF)</li>
                     <li><i class="fas fa-check"></i> 1 trang hướng dẫn cách đọc và cách kiểm chứng kết quả</li>
                     <li><i class="fas fa-check"></i> Kế hoạch hành động 90 ngày</li>
                 </ul>
                 <a href="#dang-ky" class="btn-cta" onclick="document.getElementById('goi').value='Tự đọc'">Chọn gói này</a>
             </div>
             <div class="tier featured">
-                <span class="tag">Được chọn nhiều nhất</span>
+                <span class="tag">Gợi ý của Sophia</span>
                 <h3>Có tư vấn</h3>
                 <div class="tier-for">Dành cho bạn muốn có người cùng đọc và giải thích kết quả.</div>
-                <div class="tier-price">1.590.000đ</div>
+                <div class="tier-price">2.999.000đ</div>
                 <ul>
                     <li><i class="fas fa-check"></i> Toàn bộ nội dung gói Tự đọc</li>
-                    <li><i class="fas fa-check"></i> 1 buổi tư vấn 1-1 với Sophia (90 phút, online hoặc trực tiếp tại TP.HCM)</li>
+                    <li><i class="fas fa-check"></i> 1 buổi tư vấn 1-1 với Sophia, 90 phút (online hoặc trực tiếp tại TP.HCM)</li>
                     <li><i class="fas fa-check"></i> Cùng chọn hướng đi và chốt việc cần làm đầu tiên</li>
                 </ul>
                 <a href="#dang-ky" class="btn-cta" onclick="document.getElementById('goi').value='Có tư vấn'">Chọn gói này</a>
@@ -655,12 +666,11 @@
             <div class="tier">
                 <h3>Đồng hành 3 tháng</h3>
                 <div class="tier-for">Dành cho bạn cần người đi cùng đến khi thực hiện được kế hoạch.</div>
-                <div class="tier-price">3.490.000đ</div>
+                <div class="tier-price">4.999.000đ</div>
                 <ul>
                     <li><i class="fas fa-check"></i> Toàn bộ nội dung gói Có tư vấn</li>
-                    <li><i class="fas fa-check"></i> 3 buổi theo dõi (45 phút) vào tháng 1, 2 và 3</li>
-                    <li><i class="fas fa-check"></i> Nhắn Zalo hỗ trợ giữa các buổi (trong giờ hành chính, phản hồi trong 1-2 ngày)</li>
-                    <li><i class="fas fa-check"></i> Điều chỉnh lộ trình theo kết quả thực tế</li>
+                    <li><i class="fas fa-check"></i> Tư vấn 1-1 mỗi tháng 1 buổi 90 phút, trong 3 tháng (3 buổi)</li>
+                    <li><i class="fas fa-check"></i> Điều chỉnh lộ trình theo kết quả thực tế sau mỗi buổi</li>
                 </ul>
                 <a href="#dang-ky" class="btn-cta" onclick="document.getElementById('goi').value='Đồng hành 3 tháng'">Chọn gói này</a>
             </div>
@@ -690,7 +700,7 @@
             </details>
             <details>
                 <summary>Tôi nên chọn gói nào?</summary>
-                <p>Nếu bạn quen tự đọc và tự lập kế hoạch, gói Tự đọc là đủ. Nếu bạn muốn có người giải thích kết quả và cùng chọn hướng đi, gói Có tư vấn phù hợp nhất. Nếu bạn cần được theo sát để thực hiện lộ trình, hãy chọn gói Đồng hành 3 tháng. Bạn cũng có thể nhắn Zalo để Sophia gợi ý.</p>
+                <p>Nếu bạn muốn xem thử cách báo cáo làm việc, bắt đầu với Bản demo. Nếu bạn quen tự đọc và tự lập kế hoạch, gói Tự đọc là đủ. Nếu bạn muốn có người giải thích kết quả và cùng chọn hướng đi, gói Có tư vấn phù hợp. Nếu bạn cần được theo sát để thực hiện lộ trình, hãy chọn gói Đồng hành 3 tháng. Bạn cũng có thể nhắn Zalo để Sophia gợi ý.</p>
             </details>
         </div>
     </section>
@@ -724,6 +734,7 @@
                 <input type="email" id="mail" name="email" required>
                 <label for="goi">Gói bạn quan tâm</label>
                 <select id="goi" name="goi">
+                    <option>Bản demo</option>
                     <option>Tự đọc</option>
                     <option selected>Có tư vấn</option>
                     <option>Đồng hành 3 tháng</option>
