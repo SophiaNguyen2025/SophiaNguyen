@@ -502,6 +502,13 @@
         .part h4 { font-family: 'Playfair Display', serif; color: var(--navy-dark); margin: 4px 0 8px; font-size: 1.05rem; }
         .part p { color: var(--gray); font-size: 0.88rem; line-height: 1.55; }
 
+        /* XEM TRƯỚC BẢN DEMO */
+        .demo-preview { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-top: 8px; }
+        .demo-preview a { text-decoration: none; display: block; background: var(--white); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 14px rgba(10,22,40,.10); transition: transform .2s, box-shadow .2s; }
+        .demo-preview a:hover { transform: translateY(-4px); box-shadow: 0 10px 22px rgba(10,22,40,.16); }
+        .demo-preview img { width: 100%; height: auto; display: block; }
+        .demo-preview span { display: block; padding: 8px 10px 10px; font-size: .82rem; color: var(--gray); text-align: center; }
+        @media (max-width: 900px) { .demo-preview { grid-template-columns: repeat(2, 1fr); } }
         .honest-box { background: var(--white); border-left: 5px solid var(--gold); border-radius: 16px; padding: 24px 28px;
                       max-width: 860px; margin: 0 auto; box-shadow: 0 10px 30px rgba(10,22,40,0.05); }
         .honest-box h3 { font-family: 'Playfair Display', serif; color: var(--navy-dark); margin-bottom: 10px; font-size: 1.2rem; }
@@ -672,6 +679,20 @@
     </section>
 
     <!-- BẢNG GIÁ -->
+    <!-- XEM TRƯỚC BẢN DEMO -->
+    <section class="section" id="xem-truoc" data-aos="fade-up">
+        <h2 class="section-title">Xem trước <span>bản demo</span></h2>
+        <p class="section-sub">Năm trang trích từ bản demo (vân tay + bản đồ sở trường) của một khách minh họa. Bấm vào ảnh để xem rõ hơn.</p>
+        <div class="demo-preview">
+            <a href="/images/demo/demo-trang-3.jpg" target="_blank" rel="noopener"><img src="/images/demo/demo-trang-3.jpg" alt="Trang tóm tắt tổng quan: biểu đồ phân bố nhóm người từ vân tay" loading="lazy" width="827" height="1170"><span>Tóm tắt tổng quan</span></a>
+            <a href="/images/demo/demo-trang-6.jpg" target="_blank" rel="noopener"><img src="/images/demo/demo-trang-6.jpg" alt="Trang mô tả một nhóm người: đặc điểm, ưu điểm và vùng cần lưu ý" loading="lazy" width="827" height="1170"><span>Nhóm người của bạn</span></a>
+            <a href="/images/demo/demo-trang-11.jpg" target="_blank" rel="noopener"><img src="/images/demo/demo-trang-11.jpg" alt="Trang bản đồ sở trường: top 3 mạnh và top 3 cần cải thiện" loading="lazy" width="827" height="1170"><span>Bản đồ sở trường</span></a>
+            <a href="/images/demo/demo-trang-13.jpg" target="_blank" rel="noopener"><img src="/images/demo/demo-trang-13.jpg" alt="Trang bảng xếp hạng đầy đủ với biểu đồ thanh các năng lực" loading="lazy" width="827" height="1170"><span>Bảng xếp hạng năng lực</span></a>
+            <a href="/images/demo/demo-trang-15.jpg" target="_blank" rel="noopener"><img src="/images/demo/demo-trang-15.jpg" alt="Trang điểm giao thoa giữa vân tay và hành vi" loading="lazy" width="827" height="1170"><span>Điểm giao thoa</span></a>
+        </div>
+        <p class="tier-note" style="margin-top:22px;">Bản demo có 16 trang, gồm hai nguồn: vân tay và bản đồ sở trường. Bản đầy đủ có hơn 40 trang với đủ 5 nguồn.</p>
+    </section>
+
     <section class="section" id="bang-gia" data-aos="fade-up">
         <h2 class="section-title">Chọn mức <span>đồng hành</span></h2>
         <p class="section-sub">Bắt đầu với bản demo, hoặc chọn bản đầy đủ với mức đồng hành bạn cần.</p>
