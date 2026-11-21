@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="vi">
+<base href="/">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7P29YKRZG4"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7P29YKRZG4');</script>
+<meta property="og:title" content="Sophia Nguyễn — Tham vấn tâm lý & Đào tạo kỹ năng">
+<meta property="og:description" content="Tâm lý học · Đào tạo · Phát triển con người · ">
+<meta property="og:image" content="https://sophianguyen.com.vn/sophia.png">
+<meta property="og:url" content="https://sophianguyen.com.vn/portfolio.html">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sophia Nguyễn</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0D1B3E;
+    --navy-mid: #162552;
+    --navy-light: #1E3370;
+    --gold: #C9973A;
+    --gold-light: #E8B95A;
+    --gold-pale: #F5DFA0;
+    --cream: #FBF7EF;
+    --text-mid: #3A4A6B;
+    --text-light: #8899BB;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--navy); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 3rem;
+    background: rgba(13,27,62,0.96);
+    backdrop-filter: blur(8px);
+    transform: translateY(-100%);
+    animation: slideDown 0.6s 0.4s cubic-bezier(0.23,1,0.32,1) forwards;
+  }
+  @keyframes slideDown { to { transform: translateY(0); } }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 600; letter-spacing: 0.05em;
+    color: var(--gold-light); text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: rgba(255,255,255,0.7); font-size: 0.85rem; letter-spacing: 0.08em;
+    text-decoration: none; text-transform: uppercase; transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold-light); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    padding: 6rem 2rem 4rem; text-align: center;
+  }
+  .hero-bg-ring {
+    position: absolute; border-radius: 50%;
+    border: 1px solid rgba(201,151,58,0.12);
+    animation: ringPulse 8s ease-in-out infinite;
+  }
+  .ring1 { width: 500px; height: 500px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation-delay: 0s; }
+  .ring2 { width: 750px; height: 750px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation-delay: 1.5s; }
+  .ring3 { width: 1000px; height: 1000px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation-delay: 3s; }
+  @keyframes ringPulse {
+    0%,100% { opacity: 0.3; transform: translate(-50%,-50%) scale(1); }
+    50% { opacity: 0.6; transform: translate(-50%,-50%) scale(1.04); }
+  }
+  .hero-tag {
+    font-size: 0.78rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); border: 1px solid rgba(201,151,58,0.4);
+    padding: 0.45rem 1.2rem; border-radius: 2rem;
+    position: relative; z-index: 1;
+    opacity: 0; transform: translateY(20px);
+    animation: fadeUp 0.7s 0.5s forwards;
+  }
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.2rem, 8vw, 6.5rem);
+    font-weight: 300; line-height: 1.05; color: #fff;
+    position: relative; z-index: 1; margin-top: 1.4rem;
+    opacity: 0; transform: translateY(30px);
+    animation: fadeUp 0.8s 0.75s forwards;
+  }
+  .hero-name em { font-style: italic; color: var(--gold-light); display: block; }
+  .hero-desc {
+    font-size: 1.05rem; color: rgba(255,255,255,0.6);
+    max-width: 520px; line-height: 1.75;
+    position: relative; z-index: 1; margin-top: 1.8rem;
+    opacity: 0; transform: translateY(20px);
+    animation: fadeUp 0.8s 1s forwards;
+  }
+  .hero-cta-row {
+    display: flex; gap: 1rem; margin-top: 2.8rem;
+    position: relative; z-index: 1;
+    opacity: 0; transform: translateY(20px);
+    animation: fadeUp 0.8s 1.25s forwards;
+    flex-wrap: wrap; justify-content: center;
+  }
+  .btn-gold {
+    background: var(--gold); color: var(--navy);
+    padding: 0.85rem 2.2rem; border-radius: 2rem;
+    font-size: 0.9rem; font-weight: 500; letter-spacing: 0.04em;
+    text-decoration: none; transition: background 0.3s, transform 0.2s;
+  }
+  .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent; color: rgba(255,255,255,0.8);
+    padding: 0.85rem 2.2rem; border-radius: 2rem;
+    font-size: 0.9rem; letter-spacing: 0.04em;
+    text-decoration: none; border: 1px solid rgba(255,255,255,0.25);
+    transition: border-color 0.3s, color 0.3s, transform 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+  .hero-scroll {
+    position: absolute; bottom: 2.5rem; left: 50%;
+    display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+    color: rgba(255,255,255,0.3); font-size: 0.7rem; letter-spacing: 0.15em;
+    text-transform: uppercase; z-index: 1;
+    opacity: 0; animation: fadeIn 1s 2.2s forwards, bounce 2.5s 3.2s ease-in-out infinite;
+  }
+  .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, rgba(201,151,58,0.6), transparent); }
+  @keyframes bounce {
+    0%,100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { to { opacity: 1; } }
+
+  /* SECTIONS */
+  section { padding: 6rem 2rem; }
+  .container { max-width: 1000px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.75rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.6rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .section-label::after {
+    content: ''; flex: 1; max-width: 60px;
+    height: 1px; background: var(--gold); display: inline-block;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 400; line-height: 1.2; color: var(--navy);
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+
+  /* ABOUT */
+  #about { background: #fff; }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: center; margin-top: 3.5rem;
+  }
+  .avatar-frame {
+    width: 100%; aspect-ratio: 3/4; max-width: 320px;
+    background: linear-gradient(135deg, var(--navy-light), var(--navy));
+    border-radius: 60% 40% 60% 40% / 50% 60% 40% 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto;
+    animation: morphShape 10s ease-in-out infinite;
+    overflow: hidden; 
+  }
+  @keyframes morphShape {
+    0%,100% { border-radius: 60% 40% 60% 40% / 50% 60% 40% 50%; }
+    25% { border-radius: 40% 60% 40% 60% / 60% 40% 60% 40%; }
+    50% { border-radius: 50% 50% 55% 45% / 45% 55% 50% 50%; }
+    75% { border-radius: 65% 35% 45% 55% / 55% 45% 65% 35%; }
+  }
+  .avatar-initial {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 5rem; font-weight: 300; color: var(--gold-light); opacity: 0.9;
+  }
+  .about-avatar { position: relative; }
+  .avatar-badge {
+    position: absolute; bottom: 1rem; right: 2rem;
+    width: 80px; height: 80px; border-radius: 50%;
+    background: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.65rem; font-weight: 500; color: var(--navy);
+    letter-spacing: 0.06em; text-align: center; line-height: 1.4;
+    text-transform: uppercase;
+  }
+  .about-text p { color: var(--text-mid); line-height: 1.85; font-size: 1rem; margin-bottom: 1.2rem; }
+  .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
+  .stat-card { border-left: 2px solid var(--gold); padding: 0.8rem 1.2rem; }
+  .stat-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem; font-weight: 600; color: var(--navy); line-height: 1;
+  }
+  .stat-label { font-size: 0.8rem; color: var(--text-light); margin-top: 0.3rem; }
+
+  /* SERVICES */
+  #services { background: var(--cream); }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem; margin-top: 3.5rem;
+  }
+  .service-card {
+    background: #fff; border: 1px solid rgba(201,151,58,0.15);
+    border-radius: 16px; padding: 2.5rem 2rem;
+    position: relative; overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .service-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-pale));
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s cubic-bezier(0.23,1,0.32,1);
+  }
+  .service-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(13,27,62,0.1); }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-icon {
+    width: 52px; height: 52px; border-radius: 12px;
+    background: linear-gradient(135deg, var(--navy), var(--navy-light));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; margin-bottom: 1.5rem;
+  }
+  .service-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 600; color: var(--navy); margin-bottom: 0.8rem;
+  }
+  .service-desc { font-size: 0.9rem; color: var(--text-mid); line-height: 1.75; }
+  .service-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.2rem; }
+  .service-tag {
+    font-size: 0.72rem; letter-spacing: 0.06em;
+    color: var(--gold); border: 1px solid rgba(201,151,58,0.3);
+    padding: 0.3rem 0.7rem; border-radius: 1rem; text-transform: uppercase;
+  }
+  .extra-skills {
+    margin-top: 2rem; padding-top: 1.5rem;
+    border-top: 1px solid rgba(201,151,58,0.2);
+    text-align: center; color: var(--text-mid); font-size: 0.9rem;
+  }
+  .extra-skills strong { color: var(--navy); }
+
+  /* EXPERIENCE */
+  #experience { background: var(--navy); }
+  #experience .section-title { color: #fff; }
+  .timeline { margin-top: 3.5rem; position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 1px; background: rgba(201,151,58,0.25);
+  }
+  .timeline-item {
+    position: relative; margin-bottom: 3rem;
+    opacity: 0; transform: translateX(-20px);
+    transition: opacity 0.6s, transform 0.6s;
+  }
+  .timeline-item.visible { opacity: 1; transform: translateX(0); }
+  .timeline-dot {
+    position: absolute; left: -2.4rem; top: 0.25rem;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--gold); border: 2px solid var(--navy);
+    box-shadow: 0 0 0 3px rgba(201,151,58,0.3);
+  }
+  .timeline-year { font-size: 0.75rem; letter-spacing: 0.12em; color: var(--gold); text-transform: uppercase; margin-bottom: 0.4rem; }
+  .timeline-role { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: #fff; font-weight: 400; margin-bottom: 0.4rem; }
+  .timeline-org { font-size: 0.88rem; color: rgba(255,255,255,0.5); }
+
+  /* PROJECTS */
+  #projects { background: #fff; }
+  .projects-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem; margin-top: 3.5rem;
+  }
+  .project-card {
+    border: 1px solid rgba(13,27,62,0.08); border-radius: 16px; overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .project-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(13,27,62,0.1); }
+  .project-thumb {
+    height: 180px; display: flex; align-items: center; justify-content: center; font-size: 3rem;
+  }
+  .project-body { padding: 1.5rem; }
+  .project-name { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 600; color: var(--navy); margin-bottom: 0.5rem; }
+  .project-desc { font-size: 0.88rem; color: var(--text-mid); line-height: 1.65; }
+  .project-link {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    margin-top: 1rem; font-size: 0.82rem;
+    color: var(--gold); text-decoration: none;
+    letter-spacing: 0.06em; text-transform: uppercase; font-weight: 500;
+    transition: gap 0.3s;
+  }
+  .project-link:hover { gap: 0.7rem; }
+
+  /* CREDENTIALS */
+  #credentials { background: #F9F5EC; padding: 5rem 2rem; }
+  .creds-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.2rem; margin-top: 3rem;
+  }
+  .creds-card {
+    border-left: 2px solid var(--gold);
+    padding: 1.2rem 1.5rem;
+    background: #fff;
+    border-radius: 12px;
+  }
+  .creds-card .label {
+    font-size: 0.72rem; letter-spacing: 0.12em;
+    color: var(--gold); text-transform: uppercase; margin-bottom: 0.4rem;
+  }
+  .creds-card .title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; color: var(--navy); font-weight: 600;
+  }
+  .creds-card .sub {
+    font-size: 0.85rem; color: var(--text-light); margin-top: 0.3rem;
+  }
+  .creds-summary {
+    margin-top: 3rem;
+    padding: 1.5rem 2rem;
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid rgba(201,151,58,0.15);
+    text-align: center;
+    max-width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .creds-summary p {
+    font-size: 0.95rem; color: var(--text-mid); line-height: 1.9;
+  }
+
+  /* CONTACT */
+  #contact { background: var(--navy); text-align: center; }
+  #contact .section-title { color: #fff; }
+  #contact .section-label { justify-content: center; }
+  #contact .section-label::after { display: none; }
+  .contact-sub {
+    color: rgba(255,255,255,0.5); font-size: 1rem; margin-top: 0.8rem;
+    line-height: 1.7; max-width: 460px; margin-left: auto; margin-right: auto;
+  }
+  .contact-sub.gold { font-weight: 500; color: var(--gold); }
+  .contact-links { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 2.5rem; }
+  .contact-link {
+    display: flex; align-items: center; gap: 0.5rem;
+    padding: 0.85rem 1.8rem; border-radius: 2rem;
+    text-decoration: none; font-size: 0.88rem; letter-spacing: 0.04em;
+    transition: transform 0.2s, background 0.3s;
+  }
+  .contact-link:hover { transform: translateY(-3px); }
+  .c-gold { background: var(--gold); color: var(--navy); font-weight: 500; }
+  .c-gold:hover { background: var(--gold-light); }
+  .c-ghost { color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.2); }
+  .c-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+  footer {
+    background: #070F22; color: rgba(255,255,255,0.3);
+    text-align: center; padding: 1.5rem;
+    font-size: 0.8rem; letter-spacing: 0.06em;
+  }
+  footer span { color: var(--gold); }
+
+  /* SCROLL ANIMATIONS */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s cubic-bezier(0.23,1,0.32,1), transform 0.7s cubic-bezier(0.23,1,0.32,1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .d1 { transition-delay: 0.1s; }
+  .d2 { transition-delay: 0.2s; }
+  .d3 { transition-delay: 0.3s; }
+  .d4 { transition-delay: 0.4s; }
+
+  @media (max-width: 700px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    section { padding: 4rem 1.5rem; }
+  }
+</style>
+    <meta name="robots" content="noindex, nofollow">
+</head>
+<body>
+
+<nav>
+  <a href="/noi-bo/portfolio.html#hero" class="nav-logo">Sophia Nguyễn</a>
+  <ul class="nav-links">
+    <li><a href="/noi-bo/portfolio.html#about">Về tôi</a></li>
+    <li><a href="/noi-bo/portfolio.html#services">Năng lực</a></li>
+    <li><a href="/noi-bo/portfolio.html#experience">Kinh nghiệm</a></li>
+    <li><a href="/noi-bo/portfolio.html#projects">Dự án</a></li>
+    <li><a href="/noi-bo/portfolio.html#contact">Liên hệ</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-ring ring1"></div>
+  <div class="hero-bg-ring ring2"></div>
+  <div class="hero-bg-ring ring3"></div>
+  <div class="hero-tag">Tâm lý học · Đào tạo · Phát triển con người</div>
+  <h1 class="hero-name">Sophia<br><em>Nguyễn</em></h1>
+  <p class="hero-desc">Nhà đào tạo và quản lý phát triển con người với nền tảng Tâm lý học, hơn 20 năm kinh nghiệm quản lý đội ngũ và đào tạo, đặc biệt quan tâm đến giáo dục, sự phát triển và an toàn của trẻ.</p>
+  <div class="hero-cta-row">
+    <a href="/noi-bo/portfolio.html#contact" class="btn-gold">Ứng tuyển ngay</a>
+    <a href="https://sophianguyen.com.vn" target="_blank" class="btn-outline">Xem website →</a>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Cuộn xuống</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-avatar reveal">
+        <div class="avatar-frame">
+         <img loading="lazy" decoding="async" src="images/sophianguyen.jpg" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+        <div class="avatar-badge">Từ<br>2004</div>
+      </div>
+      <div class="about-text">
+        <div class="section-label reveal">Về tôi</div>
+        <h2 class="section-title reveal d1">Người đồng hành<br><em>trong hành trình phát triển</em></h2>
+        <div style="margin-top:1.8rem;">
+          <p class="reveal d2">Tôi là <strong>Sophia Nguyễn (Diễm Hằng)</strong> — nhà đào tạo và quản lý phát triển con người, với hơn 20 năm kinh nghiệm quản lý đội ngũ, đào tạo và xây dựng năng lực cho cá nhân và tổ chức.</p>
+          <p class="reveal d3">Tôi tốt nghiệp Cử nhân Kinh tế và Cử nhân Tâm lý học, đồng thời có chứng chỉ Nghiệp vụ Sư phạm, Train The Trainer, Mentor, Tổ chức hoạt động trải nghiệm và Phương pháp đào tạo Kỹ năng sống. Trong nhiều năm làm việc, tôi trực tiếp xây dựng chương trình, giáo án, học liệu, đào tạo đội ngũ và tổ chức các hoạt động đào tạo tại môi trường doanh nghiệp và nhà trường.</p>
+          <p class="reveal d3">Từ nền tảng Tâm lý học và kinh nghiệm đào tạo thực tế, tôi đặc biệt quan tâm đến sự phát triển của trẻ, kỹ năng sống, an toàn cá nhân, giáo dục giới tính toàn diện và việc đồng hành cùng phụ huynh trong quá trình nuôi dạy trẻ.</p>
+        <p class="reveal d3" style="margin-top:0.5rem;">Bên cạnh đó, tôi là <strong>chuyên gia phân tích sinh trắc vân tay Dermatoglyphics</strong> từ năm 2011 – một công cụ giúp tôi hiểu sâu về tính cách, tiềm năng bẩm sinh và thiên hướng học tập của mỗi người. Điều này đặc biệt hữu ích trong việc thiết kế chương trình giáo dục phù hợp với từng nhóm trẻ và đồng hành cùng phụ huynh trong quá trình phát triển của con.</p>
+        </div>
+        </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES / NĂNG LỰC -->
+<section id="services">
+  <div class="container">
+    <div class="section-label reveal">Năng lực</div>
+    <h2 class="section-title reveal d1">Tôi có thể<br><em>đóng góp gì?</em></h2>
+    <div class="services-grid">
+      <div class="service-card reveal d1">
+        <div class="service-icon">📐</div>
+        <div class="service-title">Thiết kế chương trình giáo dục</div>
+        <div class="service-desc">ghiên cứu nhu cầu người học, xây dựng chương trình, giáo án, học liệu và hoạt động trải nghiệm theo mục tiêu và đặc điểm của từng nhóm đối tượng. Có kinh nghiệm tổ chức các workshop, chuyên đề và hoạt động tương tác dành cho trẻ em, phụ huynh, giáo viên và người làm giáo dục</div>
+        <div class="service-tags"><span class="service-tag">Chương trình</span><span class="service-tag">Giáo án</span><span class="service-tag">Học liệu</span></div>
+      </div>
+      <div class="service-card reveal d2">
+        <div class="service-icon">👥</div>
+        <div class="service-title">Đào tạo &amp; Phát triển đội ngũ</div>
+        <div class="service-desc">Hơn 20 năm kinh nghiệm quản lý và đào tạo đội ngũ; trực tiếp hướng dẫn, coaching, đánh giá và hỗ trợ nhân sự nâng cao năng lực chuyên môn và hiệu quả công việc.</div>
+        <div class="service-tags"><span class="service-tag">Training</span><span class="service-tag">Coaching</span><span class="service-tag">Team Development</span></div>
+      </div>
+      <div class="service-card reveal d3">
+        <div class="service-icon">🧠</div>
+        <div class="service-title">Tâm lý học &amp; Phát triển trẻ</div>
+        <div class="service-desc">Ứng dụng kiến thức Tâm lý học trong việc tìm hiểu sự phát triển của trẻ, đặc biệt ở giai đoạn tuổi thơ và vị thành niên; đồng hành cùng trẻ, phụ huynh và người làm giáo dục.</div>
+        <div class="service-tags"><span class="service-tag">Tâm lý học</span><span class="service-tag">Phát triển trẻ</span><span class="service-tag">Phụ huynh</span></div>
+      </div>
+      <div class="service-card reveal d4">
+        <div class="service-icon">🛡️</div>
+        <div class="service-title">Kỹ năng sống &amp; An toàn cho trẻ</div>
+        <div class="service-desc">Xây dựng và triển khai các nội dung giáo dục kỹ năng sống, an toàn cá nhân và giáo dục giới tính toàn diện theo hướng trực quan, tương tác và phù hợp với lứa tuổi.</div>
+        <div class="service-tags"><span class="service-tag">Kỹ năng sống</span><span class="service-tag">An toàn cá nhân</span><span class="service-tag">Giáo dục giới tính</span></div>
+      </div>
+     <div class="service-card reveal d4">
+  <div class="service-icon">🧬</div>
+  <div class="service-title">Phân tích Sinh trắc Vân tay</div>
+  <div class="service-desc">Ứng dụng khoa học phân tích dấu vân tay để khám phá năng lực bẩm sinh, thiên hướng học tập, tính cách và định hướng phát triển phù hợp – được tôi thực hành từ năm 2011 và áp dụng trong tư vấn giáo dục cho trẻ.</div>
+  <div class="service-tags"><span class="service-tag">Dermatoglyphics</span><span class="service-tag">Tính cách</span><span class="service-tag">Tiềm năng bẩm sinh</span></div>
+</div>
+    </div>
+    <div class="extra-skills reveal">
+      <strong>Lĩnh vực bổ trợ:</strong> Tư vấn hướng nghiệp · Coaching · Phân tích sinh trắc vân tay
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="section-label reveal">Hành trình</div>
+    <h2 class="section-title reveal d1">Kinh nghiệm<br><em>&amp; Quản lý</em></h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2004 — 2017</div>
+        <div class="timeline-role">Trưởng nhóm Kinh doanh · AIA Việt Nam</div>
+        <div class="timeline-org">Quản lý đội nhóm khoảng 60 nhân sự; đào tạo chuyên môn, coaching, theo dõi hiệu suất và xây dựng kế hoạch phát triển đội ngũ.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2017 — 2020</div>
+        <div class="timeline-role">Trưởng phòng Tư vấn · NVS Việt Nam</div>
+        <div class="timeline-org">Quản lý đội ngũ tư vấn viên; trực tiếp đào tạo nâng cao năng lực, tổ chức hội thảo và giám sát hiệu quả hoạt động của đội ngũ.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2020 — 2022</div>
+        <div class="timeline-role">Giám đốc Phát triển Kinh doanh · JWT Việt Nam</div>
+        <div class="timeline-org">Quản lý nhân sự và cộng tác viên; xây dựng kế hoạch phát triển, tổ chức đào tạo kỹ năng giao tiếp, xây dựng đội nhóm và phát triển năng lực.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2022 — 2025</div>
+        <div class="timeline-role">Giám đốc Đào tạo · Viện Khoa học An toàn Việt Nam</div>
+        <div class="timeline-org">Đào tạo và giám sát đội ngũ báo cáo viên, kết nối viên; trực tiếp đào tạo cán bộ quản lý nhà trường về kỹ năng sống và an toàn; xây dựng, điều phối và giám sát hoạt động đào tạo.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2024 — Hiện tại</div>
+        <div class="timeline-role">Nhà đào tạo tự do · Sophia Nguyễn</div>
+        <div class="timeline-org">Thiết kế chương trình, giáo án và học liệu; trực tiếp tổ chức workshop, chuyên đề và các hoạt động đào tạo tương tác cho trẻ em, phụ huynh, giáo viên và tổ chức; thỉnh giảng và đào tạo tại nhà trường, doanh nghiệp và các đơn vị có nhu cầu. Phát triển các nội dung về kỹ năng sống, an toàn cá nhân, giáo dục giới tính và tâm lý học ứng dụng.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CREDENTIALS -->
+<section id="credentials">
+  <div class="container">
+    <div class="section-label reveal">Bằng cấp &amp; Chứng chỉ</div>
+    <h2 class="section-title reveal d1">Nền tảng<br><em>chuyên môn</em></h2>
+    <div class="creds-grid">
+      <div class="creds-card reveal d1">
+        <div class="label">Bằng cấp</div>
+        <div class="title">Cử nhân Quản trị Kinh doanh</div>
+        <div class="sub">Đại học Kinh tế</div>
+      </div>
+      <div class="creds-card reveal d2">
+        <div class="label">Bằng cấp</div>
+        <div class="title">Cử nhân Tâm lý học</div>
+        <div class="sub">Học văn bằng 2 tại ĐHKHXH&amp;NV</div>
+      </div>
+      <div class="creds-card reveal d2">
+        <div class="label">Chứng chỉ</div>
+        <div class="title">Sinh trắc Vân tay</div>
+        <div class="sub">Khám phá bản thân - Định hướng nghề nghiệp</div>
+      </div>
+      <div class="creds-card reveal d3">
+        <div class="label">Chứng chỉ</div>
+        <div class="title">Phương pháp đào tạo kỹ năng sống</div>
+        <div class="sub">Kỹ năng mềm - Hướng nghiệp</div>
+      </div>
+      <div class="creds-card reveal d3">
+        <div class="label">Chứng chỉ</div>
+        <div class="title">Tổ chức các chương trình hoạt động trải nghiệm</div>
+        <div class="sub">Kỹ năng mềm - Hướng nghiệp</div>
+      </div>
+      <div class="creds-card reveal d3">
+        <div class="label">Chứng chỉ</div>
+        <div class="title">Train The Trainer</div>
+        <div class="sub">Đào tạo kỹ năng mềm</div>
+      </div>
+      <div class="creds-card reveal d3">
+        <div class="label">Chứng chỉ</div>
+        <div class="title">Course Mentor</div>
+        <div class="sub">Coaching</div>
+      </div>
+      <div class="creds-card reveal d3">
+        <div class="label">Chứng chỉ</div>
+        <div class="title">Nghiệp vụ Sư phạm</div>
+        <div class="sub">Kỹ năng đứng lớp tiêu chuẩn</div>
+      </div>
+     <div class="creds-card reveal d3">
+        <div class="label">Chứng chỉ</div>
+        <div class="title">Nghiệp vụ Tư vấn tâm lý học đường</div>
+        <div class="sub">Kỹ năng tham vấn học đường</div>
+      </div>
+    </div>
+    <div class="creds-summary reveal">
+      <p>
+        Nền tảng chuyên môn kết hợp giữa <strong>Tâm lý học</strong>, <strong>Sư phạm</strong>, đào tạo người lớn,
+        quản lý đội ngũ và kinh nghiệm triển khai các chương trình kỹ năng sống trong môi trường nhà trường.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-label reveal">Dự án</div>
+    <h2 class="section-title reveal d1">Một số<br><em>dự án tiêu biểu</em></h2>
+    <div class="projects-grid">
+      <div class="project-card reveal d1">
+        <div class="project-thumb" style="background:linear-gradient(135deg,#0D1B3E,#1E3370);">🛡️</div>
+        <div class="project-body">
+          <div class="project-name">Giáo dục giới tính &amp; An toàn cá nhân</div>
+          <div class="project-desc">Chuỗi bài học tương tác về an toàn và giới tính cho trẻ em nhiều độ tuổi, thiết kế hấp dẫn và phù hợp lứa tuổi.</div>
+          <a href="https://sophianguyen.com.vn/khoa-hoc/gioi-tinh/gioi-thieu/" target="_blank" class="project-link">Tìm hiểu thêm →</a>
+        </div>
+      </div>
+      <div class="project-card reveal d2">
+        <div class="project-thumb" style="background:linear-gradient(135deg,#1E3370,#2A4A90);">🧭</div>
+        <div class="project-body">
+          <div class="project-name">Dự án Tâm lý học Giới tính</div>
+          <div class="project-desc">Website dự án tâm lý học giới tính - lan tỏa kiến thức giới tính toàn diện đến cộng đồng.</div>
+          <a href="https://tamlyhoc.info.vn" target="_blank" class="project-link">Khám phá →</a>
+        </div>
+      </div>
+      <div class="project-card reveal d3">
+        <div class="project-thumb" style="background:linear-gradient(135deg,#C9973A,#E8B95A);">🌱</div>
+        <div class="project-body">
+          <div class="project-name">Chương trình Kỹ năng sống &amp; An toàn</div>
+          <div class="project-desc">Xây dựng và triển khai các nội dung giáo dục kỹ năng sống, an toàn cá nhân cho trẻ em và học sinh.</div>
+          <a href="https://sophianguyen.com.vn/khoa-hoc/ky-nang-an-toan/" target="_blank" class="project-link">Xem chi tiết →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-label reveal">Liên hệ</div>
+    <h2 class="section-title reveal d1">Hãy cùng<br><em>bắt đầu hành trình</em></h2>
+    <p class="contact-sub reveal d2">Dù bạn là cá nhân, trường học hay tổ chức — tôi rất mong được lắng nghe và đồng hành cùng bạn.</p>
+       <div class="contact-links reveal d3">
+      <a href="https://sophianguyen.com.vn" target="_blank" class="contact-link c-gold">🌐 sophianguyen.com.vn</a>
+      <a href="tel:0977092182" class="contact-link c-ghost">📞 0977.092.182</a>
+      <a href="https://facebook.com" target="_blank" class="contact-link c-ghost">📘 Facebook</a>
+      <a href="mailto:sophianguyen2891@gmail.com" class="contact-link c-ghost">✉️ Email</a>
+      <a href="https://tiktok.com" target="_blank" class="contact-link c-ghost">🎵 TikTok</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 <span>Sophia Nguyễn</span> · sophianguyen.com.vn ·</p>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal, .timeline-item').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
