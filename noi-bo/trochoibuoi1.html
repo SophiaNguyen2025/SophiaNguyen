@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="vi">
+<base href="/">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7P29YKRZG4"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7P29YKRZG4');</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Kéo thả siêu tốc - Buổi 1 | Lớp học An Toàn</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            background: linear-gradient(145deg, #0a1a2a 0%, #061020 100%);
+            font-family: 'BeVietNam', 'Poppins', 'Quicksand', system-ui, sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .game-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            background: #0f1a2e;
+            border-radius: 48px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            border: 1px solid rgba(100, 200, 255, 0.2);
+        }
+
+        .logo-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px;
+            background: #0a1628;
+            border-bottom: 1px solid #1a2a4a;
+        }
+        .logo-area img { height: 50px; }
+        .badge { background: #4a9eff; padding: 5px 14px; border-radius: 40px; font-weight: 600; color: white; font-size: 11px; }
+
+        .header { text-align: center; padding: 15px 20px; background: #0f1a2e; }
+        .header h1 { font-size: 28px; color: #4a9eff; }
+        .header p { color: #8aadcc; font-size: 14px; }
+
+        .team-select { display: flex; gap: 20px; padding: 15px 25px; background: #0a1628; }
+        .team-btn { flex: 1; padding: 18px; border: none; border-radius: 60px; font-size: 24px; font-weight: 800; cursor: pointer; transition: 0.2s; }
+        .team-blue { background: #4a9eff; color: white; }
+        .team-red { background: #ff6b6b; color: white; }
+
+        .scoreboard { display: flex; gap: 20px; padding: 15px 25px; background: #0a1628; }
+        .team-card { flex: 1; background: #0f1a2e; border-radius: 28px; padding: 15px; text-align: center; border: 2px solid #2a4a7a; }
+        .team-name { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+        .team-blue .team-name { color: #4a9eff; }
+        .team-red .team-name { color: #ff6b6b; }
+        .team-score { font-size: 48px; font-weight: 800; color: white; }
+
+        .turn-indicator {
+            background: #0a1628;
+            margin: 0 25px 15px;
+            padding: 12px;
+            border-radius: 60px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .game-area { padding: 20px 25px; }
+        .question-box { background: #0a1628; border-radius: 32px; padding: 20px; margin-bottom: 20px; border: 2px solid #2a4a7a; text-align: center; }
+        .question-text { font-size: 20px; font-weight: 700; color: white; line-height: 1.4; margin-bottom: 15px; }
+
+        .timer-bar { height: 8px; background: #2a4a7a; border-radius: 10px; overflow: hidden; margin-bottom: 20px; }
+        .timer-fill { height: 100%; width: 100%; background: #2ecc71; transition: width 0.05s linear; }
+
+        .drag-area { display: flex; gap: 20px; flex-wrap: wrap; }
+        .drag-card {
+            flex: 1;
+            background: #0f1a2e;
+            border: 3px solid #4a9eff;
+            border-radius: 60px;
+            padding: 18px;
+            font-size: 28px;
+            font-weight: 800;
+            cursor: grab;
+            transition: 0.1s;
+            color: white;
+            text-align: center;
+        }
+        .drag-card:active { cursor: grabbing; }
+        .drag-card.dragging { opacity: 0.4; }
+
+        .drop-zone {
+            background: #0a1628;
+            border: 3px dashed #4a9eff;
+            border-radius: 32px;
+            padding: 20px;
+            text-align: center;
+            transition: 0.1s;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .drop-zone.drag-over { background: #1a3a5a; border-color: #2ecc71; }
+        .drop-title { font-size: 16px; font-weight: 700; color: #8aadcc; margin-bottom: 8px; }
+        .drop-value { font-size: 28px; font-weight: 800; color: white; }
+
+        .feedback { background: #0a1628; border-radius: 24px; padding: 12px; margin-top: 15px; border-left: 5px solid #4a9eff; color: #c4deff; font-size: 13px; }
+        .feedback.correct { background: #1a3a2a; border-left-color: #2ecc71; color: #2ecc71; }
+        .feedback.wrong { background: #3a1a2a; border-left-color: #e74c3c; color: #e74c3c; }
+
+        .pause-screen {
+            text-align: center;
+            padding: 40px;
+            background: #0a1628;
+            border-radius: 32px;
+            margin: 20px;
+        }
+        .result-area { text-align: center; padding: 30px; background: #0a1628; border-radius: 32px; margin-top: 20px; }
+        .footer { text-align: center; padding: 15px; background: #0a1628; font-size: 11px; color: #6a8aaa; border-top: 1px solid #1a2a4a; }
+
+        @media (max-width: 800px) { .drag-area { flex-direction: column; } }
+    </style>
+    <meta name="robots" content="noindex, nofollow">
+</head>
+<body>
+<div class="game-container">
+    <div class="logo-area">
+        <img src="https://i.ibb.co/wFwDR7cY/hinhremovenen.png" alt="Sophia Nguyen">
+        <div class="badge">🎮 KÉO THẢ SIÊU TỐC - BUỔI 1 🎮</div>
+    </div>
+    <div class="header">
+        <h1>⚡ LÀM CHỦ CƠ THỂ, CẢM XÚC & KHÔNG GIAN SỐNG ⚡</h1>
+        <p>🔹 Mỗi đội chơi riêng, kéo thẻ ĐÚNG/SAI vào ô bên dưới trong 4 giây 🔹</p>
+    </div>
+
+    <div class="team-select" id="teamSelect">
+        <button class="team-btn team-blue" id="startBlue">🟢 ĐỘI XANH CHƠI TRƯỚC</button>
+        <button class="team-btn team-red" id="startRed">🔴 ĐỘI ĐỎ CHƠI TRƯỚC</button>
+    </div>
+
+    <div class="scoreboard">
+        <div class="team-card team-blue"><div class="team-name">🟢 ĐỘI XANH</div><div class="team-score" id="blueScoreDisplay">0</div></div>
+        <div class="team-card team-red"><div class="team-name">🔴 ĐỘI ĐỎ</div><div class="team-score" id="redScoreDisplay">0</div></div>
+    </div>
+
+    <div id="gameArea"></div>
+    <div class="footer">💚 Khóa học An Toàn - Sophia Nguyen</div>
+</div>
+
+<script>
+    // ==================== CÂU HỎI THEO NỘI DUNG BUỔI 1 MỚI ====================
+    const questions = [
+        "Mỗi người có tốc độ dậy thì khác nhau – có bạn bắt đầu sớm, có bạn bắt đầu muộn – đều bình thường.",
+        "Ở tuổi dậy thì, dễ nổi cáu với bố mẹ nhưng lại nhịn bạn bè vì sợ mất lòng – điều này rất bình thường.",
+        "Khi cảm xúc đến rất nhanh, không rõ lý do và qua đi cũng nhanh – đó là dấu hiệu của cảm xúc thật.",
+        "Nếu cảm xúc buồn kéo dài nhiều ngày, ảnh hưởng đến sinh hoạt – đó có thể là dấu hiệu cần được giúp đỡ.",
+        "Cách xử lý khi nghi bị hormone chi phối: hít thở sâu 5 lần trước khi phản ứng.",
+        "Ảnh trên mạng xã hội đều là thật, không qua chỉnh sửa, nên mình cần cố gắng đẹp giống họ.",
+        "Khi bị bạn bè chê ngoại hình, có thể nói: 'Cơ thể mình, mình thấy ổn. Bạn đừng nhận xét về cơ thể mình nữa nhé.'",
+        "Nếu không thích ai đó tỏ tình với mình, bạn bắt buộc phải đồng ý để khỏi mất lòng.",
+        "Nếu bạn bè ép làm điều mình không muốn và nói 'không làm thì không phải bạn' – đó không phải là bạn thật sự.",
+        "Khi ở nhà một mình và có người lạ gõ cửa tự xưng là công an có lệnh khám nhà – bạn nên mở cửa và hợp tác.",
+        "Khi ngửi thấy mùi gas (trứng thối) ở nhà, bạn nên bật quạt điện ngay để làm thoáng phòng.",
+        "Khi ở nhà một mình, tuyệt đối không được đưa bạn bè (kể cả bạn thân) về nhà chơi.",
+        "Khi có người gõ cửa tự xưng là 'bạn của bố' và bảo bố đang cấp cứu ở viện cần lấy thuốc – bạn nên mở cửa ngay.",
+        "Nếu không liên lạc được với bố mẹ khi có người lạ gõ cửa, bạn có thể gọi 113 để được giúp đỡ.",
+        "Tay đang ướt vẫn có thể cắm phích điện bình thường nếu cẩn thận.",
+        "Khi có cháy, bạn nên trốn dưới gầm giường hoặc trong tủ quần áo để an toàn.",
+        "Hít thở sâu, viết nhật ký cảm xúc, vận động nhẹ – là những cách giúp điều chỉnh cảm xúc ở tuổi dậy thì."
+    ];
+
+    const correctAnswers = ["Đúng","Đúng","Sai","Đúng","Đúng","Sai","Đúng","Sai","Đúng","Sai","Sai","Đúng","Sai","Đúng","Sai","Sai","Đúng"];
+    
+    const explanations = [
+        "✅ Đúng! Mỗi người có tốc độ dậy thì riêng – sớm hay muộn đều bình thường.",
+        "✅ Đúng! Đây là hiện tượng bình thường do não bộ đang tái cấu trúc và nhu cầu được chấp nhận bởi bạn bè.",
+        "❌ Sai! Đó là dấu hiệu của hormone, không phải cảm xúc thật. Cảm xúc thật thường có nguyên nhân cụ thể.",
+        "✅ Đúng! Nếu cảm xúc tiêu cực kéo dài nhiều ngày, hãy tìm sự giúp đỡ từ người lớn tin cậy.",
+        "✅ Đúng! Hít thở sâu 5 lần giúp bạn bình tĩnh trước khi phản ứng.",
+        "❌ Sai! Hầu hết ảnh trên mạng xã hội đã qua chỉnh sửa. Không ai có cơ thể 'hoàn hảo' ngoài đời.",
+        "✅ Đúng! Đây là cách đặt ranh giới lành mạnh khi bị nhận xét về cơ thể.",
+        "❌ Sai! Bạn có quyền từ chối lịch sự: 'Cảm ơn bạn, mình chỉ muốn làm bạn thôi nhé.'",
+        "✅ Đúng! Nếu bạn bè ép bạn làm điều sai, họ không phải là bạn thật sự.",
+        "❌ Sai! Tuyệt đối không mở cửa. Nói: 'Bố mẹ cháu sắp về, chú chờ bố mẹ cháu ạ.' Sau đó gọi 113.",
+        "❌ Sai! Không bật bất kỳ công tắc điện nào! Mở cửa sổ, ra ngoài, gọi 114.",
+        "✅ Đúng! Nguyên tắc vàng: không đưa ai về nhà khi không có người lớn.",
+        "❌ Sai! Không mở cửa. Gọi ngay cho bố mẹ để xác nhận. Nếu không liên lạc được, gọi 113.",
+        "✅ Đúng! 113 là số công an khẩn cấp, có thể gọi khi nghi ngờ nguy hiểm.",
+        "❌ Sai! Tay ướt không được chạm vào công tắc điện hoặc phích cắm – có thể bị điện giật.",
+        "❌ Sai! Khi có cháy, cúi thấp, bò ra ngoài. Tuyệt đối không trốn trong tủ hoặc gầm giường.",
+        "✅ Đúng! Đây là những chiến thuật điều chỉnh cảm xúc rất hiệu quả ở tuổi dậy thì."
+    ];
+
+    let gameState = 'idle'; // idle, playing, pause
+    let currentTeam = null;
+    let currentIndex = 0;
+    let blueScore = 0, redScore = 0;
+    let timerInterval = null;
+    let timeLeft = 4;
+    let canAnswer = true;
+
+    const gameArea = document.getElementById('gameArea');
+    const blueScoreDisplay = document.getElementById('blueScoreDisplay');
+    const redScoreDisplay = document.getElementById('redScoreDisplay');
+    const startBlueBtn = document.getElementById('startBlue');
+    const startRedBtn = document.getElementById('startRed');
+
+    function updateScores() {
+        blueScoreDisplay.innerText = blueScore;
+        redScoreDisplay.innerText = redScore;
+    }
+
+    function playSound(correct) {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            oscillator.type = 'sine';
+            oscillator.frequency.value = correct ? 880 : 440;
+            gainNode.gain.value = 0.1;
+            oscillator.start();
+            oscillator.stop(audioCtx.currentTime + 0.2);
+        } catch(e) {}
+    }
+
+    function stopTimer() { if (timerInterval) { clearInterval(timerInterval); timerInterval = null; } }
+
+    function startTimer() {
+        timeLeft = 3;
+        const timerFill = document.getElementById('timerFill');
+        const updateTimer = () => {
+            if (gameState !== 'playing') return;
+            const percent = (timeLeft / 4) * 100;
+            timerFill.style.width = percent + '%';
+            if (timeLeft <= 0) {
+                stopTimer();
+                if (canAnswer) {
+                    canAnswer = false;
+                    const fb = document.getElementById('feedbackMsg');
+                    fb.innerHTML = `⏰ HẾT GIỜ! Đáp án đúng: ${correctAnswers[currentIndex]}. ${explanations[currentIndex]}`;
+                    fb.className = 'feedback wrong';
+                    playSound(false);
+                    setTimeout(() => nextQuestion(), 300);
+                }
+            }
+            timeLeft--;
+        };
+        updateTimer();
+        timerInterval = setInterval(updateTimer, 1000);
+    }
+
+    function nextQuestion() {
+        currentIndex++;
+        if (currentIndex >= questions.length) {
+            endTeamTurn();
+            return;
+        }
+        renderCurrentQuestion();
+    }
+
+    function endTeamTurn() {
+        gameState = 'pause';
+        stopTimer();
+        const teamName = currentTeam === 'blue' ? 'ĐỘI XANH' : 'ĐỘI ĐỎ';
+        const teamColor = currentTeam === 'blue' ? '#4a9eff' : '#ff6b6b';
+        gameArea.innerHTML = `
+            <div class="pause-screen">
+                <div style="font-size: 48px;">🏆</div>
+                <div style="font-size: 28px; font-weight: 800; margin: 15px 0; color: ${teamColor}">${teamName} ĐÃ HOÀN THÀNH!</div>
+                <div style="font-size: 24px; margin: 10px 0;">Điểm số: <strong>${currentTeam === 'blue' ? blueScore : redScore}</strong></div>
+                <button class="team-btn ${currentTeam === 'blue' ? 'team-red' : 'team-blue'}" id="nextTeamBtn" style="margin-top: 20px;">➡️ CHUYỂN LƯỢT CHO ${currentTeam === 'blue' ? 'ĐỘI ĐỎ' : 'ĐỘI XANH'}</button>
+            </div>
+        `;
+        document.getElementById('nextTeamBtn').addEventListener('click', () => {
+            currentTeam = currentTeam === 'blue' ? 'red' : 'blue';
+            currentIndex = 0;
+            gameState = 'playing';
+            renderCurrentQuestion();
+        });
+    }
+
+    function renderCurrentQuestion() {
+        if (gameState !== 'playing') return;
+        const q = questions[currentIndex];
+        const teamName = currentTeam === 'blue' ? 'ĐỘI XANH' : 'ĐỘI ĐỎ';
+        const teamColor = currentTeam === 'blue' ? '#4a9eff' : '#ff6b6b';
+        gameArea.innerHTML = `
+            <div class="turn-indicator" style="background: ${teamColor}20; border: 1px solid ${teamColor}; color: ${teamColor}">
+                🔥 LƯỢT ${teamName} 🔥
+            </div>
+            <div class="question-box">
+                <div class="question-text">❓ ${q}</div>
+                <div class="timer-bar"><div class="timer-fill" id="timerFill"></div></div>
+                <div class="drag-area">
+                    <div class="drag-card" draggable="true" data-value="Đúng" id="dragDung">✅ ĐÚNG</div>
+                    <div class="drag-card" draggable="true" data-value="Sai" id="dragSai">❌ SAI</div>
+                </div>
+                <div class="drop-zone" id="dropZone">
+                    <div class="drop-title">📥 KÉO ĐÁP ÁN VÀO ĐÂY</div>
+                    <div class="drop-value" id="dropValue">⬅️ Kéo thẻ vào</div>
+                </div>
+                <div class="feedback" id="feedbackMsg">⚡ 4 GIÂY! Kéo thẻ vào ô bên dưới THẬT NHANH! ⚡</div>
+            </div>
+        `;
+
+        const dragDung = document.getElementById('dragDung');
+        const dragSai = document.getElementById('dragSai');
+        const dropZone = document.getElementById('dropZone');
+
+        const handleDragStart = (e) => {
+            e.dataTransfer.setData('text/plain', e.target.getAttribute('data-value'));
+            e.target.classList.add('dragging');
+        };
+        const handleDragEnd = (e) => { e.target.classList.remove('dragging'); };
+        const handleDragOver = (e) => { e.preventDefault(); dropZone.classList.add('drag-over'); };
+        const handleDragLeave = () => { dropZone.classList.remove('drag-over'); };
+        const handleDrop = (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('drag-over');
+            if (gameState !== 'playing' || !canAnswer) return;
+            const answer = e.dataTransfer.getData('text/plain');
+            const isCorrect = (answer === correctAnswers[currentIndex]);
+            stopTimer();
+            canAnswer = false;
+            const fb = document.getElementById('feedbackMsg');
+            const dropValue = document.getElementById('dropValue');
+            if (isCorrect) {
+                if (currentTeam === 'blue') blueScore++;
+                else redScore++;
+                updateScores();
+                fb.innerHTML = `✅ ĐÚNG! +1 điểm. ${explanations[currentIndex]}`;
+                fb.className = 'feedback correct';
+                playSound(true);
+                dropValue.innerHTML = `✅ ${answer}`;
+            } else {
+                fb.innerHTML = `❌ SAI. Đáp án đúng: ${correctAnswers[currentIndex]}. ${explanations[currentIndex]}`;
+                fb.className = 'feedback wrong';
+                playSound(false);
+                dropValue.innerHTML = `❌ ${answer}`;
+            }
+            setTimeout(() => nextQuestion(), 500);
+        };
+
+        dragDung.addEventListener('dragstart', handleDragStart);
+        dragSai.addEventListener('dragstart', handleDragStart);
+        dragDung.addEventListener('dragend', handleDragEnd);
+        dragSai.addEventListener('dragend', handleDragEnd);
+        dropZone.addEventListener('dragover', handleDragOver);
+        dropZone.addEventListener('dragleave', handleDragLeave);
+        dropZone.addEventListener('drop', handleDrop);
+
+        canAnswer = true;
+        startTimer();
+    }
+
+    function startGame(team) {
+        currentTeam = team;
+        blueScore = 0;
+        redScore = 0;
+        currentIndex = 0;
+        updateScores();
+        gameState = 'playing';
+        document.getElementById('teamSelect').style.display = 'none';
+        renderCurrentQuestion();
+    }
+
+    function resetGame() {
+        gameState = 'idle';
+        currentTeam = null;
+        blueScore = 0;
+        redScore = 0;
+        currentIndex = 0;
+        updateScores();
+        stopTimer();
+        document.getElementById('teamSelect').style.display = 'flex';
+        gameArea.innerHTML = '';
+    }
+
+    startBlueBtn.addEventListener('click', () => startGame('blue'));
+    startRedBtn.addEventListener('click', () => startGame('red'));
+</script>
+</body>
+</html>
