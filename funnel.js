@@ -86,9 +86,19 @@
 
   /* Bài test nào dẫn tới đâu:
      - Test nghề nghiệp (Holland RIASEC) là 1 trong 5 nguồn của Bản đồ Năng lực -> dẫn thẳng sang báo cáo.
-     - MBTI / DISC / phong cách học tập là bài riêng, không nằm trong báo cáo -> dẫn sang test nghề nghiệp trước. */
+     - Nhóm tính cách (MBTI, DISC, phong cách học tập...) là bài riêng, không nằm trong báo cáo -> dẫn sang test nghề nghiệp trước.
+     - Test sinh trắc vân tay -> dẫn sang bản demo (vân tay + bản đồ sở trường).
+     - Nhóm sức khỏe tinh thần -> dẫn sang tham vấn, KHÔNG quảng cáo báo cáo nghề nghiệp.
+     - Nhóm cha mẹ & con (sàng lọc tuổi dậy thì) -> dẫn sang khóa học cho phụ huynh. */
+  var TRAIT = ['testmbti', 'testDISC', 'testhoctap', 'testnguyenmau', 'testgiaotiep', 'testgiatricanhan',
+               'testdonglucnoitai', 'testtuduysuynghi', 'testtrituecamxuc', 'testhinhanh', 'testnhanvatbian'];
+  var WELLBEING = ['testdass21', 'testganbo', 'testkhanangphuchoi', 'testranhgioibanthan', 'testtuchapnhan', 'testtuquantam'];
+  var FAMILY = ['testsangloc', 'testtredaythi'];
   var VARIANT = (path === 'testnghenghiep') ? 'career' :
-                (['testmbti', 'testDISC', 'testhoctap'].indexOf(path) > -1 ? 'trait' : 'default');
+                (path === 'testsinhtracvantay') ? 'fingerprint' :
+                (TRAIT.indexOf(path) > -1) ? 'trait' :
+                (WELLBEING.indexOf(path) > -1) ? 'wellbeing' :
+                (FAMILY.indexOf(path) > -1) ? 'family' : 'default';
 
   function topHtml() {
     if (VARIANT === 'career') {
@@ -103,6 +113,25 @@
         '<a class="sf-primary" href="/testnghenghiep" data-sf="primary-next">Làm bài test nghề nghiệp</a>' +
         '<div class="sf-sub">Hoặc để lại Zalo/email, Sophia nhắn gợi ý bước tiếp theo cho bạn.</div>';
     }
+    if (VARIANT === 'fingerprint') {
+      return '<h3>Vân tay là một nguồn, chưa phải toàn bộ bức tranh</h3>' +
+        '<p>Bản demo (399.000đ) đặt nhóm tính cách từ vân tay cạnh bản đồ sở trường, bài tự đánh giá năng lực của chính bạn, để bạn thấy chỗ khớp và chỗ lệch.</p>' +
+        '<a class="sf-primary" href="' + CFG.REPORT_URL + '#xem-truoc" data-sf="primary-report">Xem bản demo và bảng giá</a>' +
+        '<div class="sf-sub">Chưa biết chọn gói nào? Để lại Zalo hoặc email, Sophia nhắn gợi ý.</div>';
+    }
+    if (VARIANT === 'wellbeing') {
+      return '<h3>Kết quả này là bức tranh của hôm nay, không phải chẩn đoán</h3>' +
+        '<p>Nếu bạn muốn có người cùng nhìn lại những điều này, Sophia nhận tham vấn tâm lý 1-1, online hoặc trực tiếp tại TP.HCM (600.000đ/giờ, 15 phút đầu trò chuyện miễn phí).</p>' +
+        '<a class="sf-primary" href="/tuvan-tamly1" data-sf="primary-counsel">Tìm hiểu tham vấn tâm lý</a>' +
+        '<div class="sf-sub">Hoặc để lại Zalo/email, Sophia nhắn bạn nhẹ nhàng, không bán gì cả.</div>' +
+        '<p class="sf-note" style="margin:0 0 14px;font-style:normal">Nếu bạn đang rất tệ hoặc có ý nghĩ làm hại bản thân, hãy gọi cấp cứu 115 hoặc đến cơ sở y tế gần nhất, và nói với một người thân tin cậy ngay hôm nay.</p>';
+    }
+    if (VARIANT === 'family') {
+      return '<h3>Hiểu con là bước đầu, đồng hành cùng con là bước tiếp theo</h3>' +
+        '<p>Sophia có các khóa học và tài liệu dành cho cha mẹ về giao tiếp, giáo dục giới tính và kỹ năng an toàn cho con, học online lúc nào cũng được.</p>' +
+        '<a class="sf-primary" href="/khoa-hoc" data-sf="primary-course">Xem khóa học cho phụ huynh</a>' +
+        '<div class="sf-sub">Hoặc để lại Zalo/email, Sophia nhắn gợi ý phù hợp với độ tuổi của con.</div>';
+    }
     return '<h3>Muốn hiểu kết quả này sâu hơn?</h3>' +
       '<p>Để lại Zalo hoặc email. Sophia sẽ nhắn bạn gợi ý bước tiếp theo, miễn phí.</p>';
   }
@@ -110,6 +139,14 @@
     return VARIANT === 'default'
       ? '<div class="sf-alt">Muốn một báo cáo đầy đủ hơn? <a href="' + CFG.REPORT_URL + '" data-sf="report">Xem Bản đồ Năng lực &amp; Lộ trình Sự nghiệp</a></div>'
       : '';
+  }
+
+  function okHtml() {
+    var link = VARIANT === 'wellbeing' ? ['/tuvan-tamly1', 'Tìm hiểu tham vấn tâm lý', 'Sophia sẽ nhắn bạn sớm.'] :
+               VARIANT === 'family' ? ['/khoa-hoc', 'Xem khóa học cho phụ huynh', 'Sophia sẽ nhắn bạn sớm.'] :
+               [CFG.REPORT_URL, 'Xem Bản đồ Năng lực &amp; Lộ trình Sự nghiệp', 'Sophia sẽ nhắn bạn sớm. Trong lúc chờ, bạn có thể xem Bản đồ Năng lực để biết thêm cách Sophia làm việc.'];
+    return '<div class="sf-ok"><h3>Cảm ơn bạn!</h3><p>' + link[2] + '</p>' +
+      '<a class="sf-alt" href="' + link[0] + '" style="display:inline-block;font-weight:700;color:#8a6d1f;text-decoration:underline">' + link[1] + '</a></div>';
   }
 
   function buildBox() {
@@ -146,9 +183,9 @@
       }
     });
 
-    ['report', 'primary-report', 'primary-next'].forEach(function (k) {
+    ['report', 'primary-report', 'primary-next', 'primary-counsel', 'primary-course'].forEach(function (k) {
       var el = box.querySelector('[data-sf="' + k + '"]');
-      if (el) { el.addEventListener('click', function () { track(k === 'primary-next' ? 'cta_next_test_click' : 'cta_report_click', { place: 'test_result' }); }); }
+      if (el) { el.addEventListener('click', function () { track(k === 'primary-next' ? 'cta_next_test_click' : k === 'primary-counsel' ? 'cta_counsel_click' : k === 'primary-course' ? 'cta_course_click' : 'cta_report_click', { place: 'test_result', test_name: path }); }); }
     });
 
     form.addEventListener('submit', function (e) {
@@ -168,8 +205,7 @@
           track('generate_lead', { method: 'test_result' });
           fbTrack('track', 'Lead', { content_name: path });
           box.querySelector('.sf-form-wrap').innerHTML =
-            '<div class="sf-ok"><h3>Cảm ơn bạn!</h3><p>Sophia sẽ nhắn bạn sớm. Trong lúc chờ, bạn có thể xem Bản đồ Năng lực để biết thêm cách Sophia làm việc.</p>' +
-            '<a class="sf-alt" href="' + CFG.REPORT_URL + '" style="display:inline-block;font-weight:700;color:#8a6d1f;text-decoration:underline">Xem Bản đồ Năng lực &amp; Lộ trình Sự nghiệp</a></div>';
+            okHtml();
         })
         .catch(function () {
           btn.disabled = false; btn.textContent = 'Gửi cho Sophia';
@@ -192,7 +228,8 @@
       return host.textContent.replace(/\s+/g, ' ').trim().slice(0, 140);
     }
     function sync() {
-      var hasResult = host.textContent.trim().length > 20;
+      var rt = document.getElementById('res-title');
+      var hasResult = host.textContent.trim().length > 20 && (!rt || rt.textContent.trim().length > 0);
       if (hasResult) {
         if (!box) { box = buildBox(); anchor.parentNode.insertBefore(box, anchor.nextSibling); }
         box.style.display = '';
