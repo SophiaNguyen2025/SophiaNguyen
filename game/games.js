@@ -58,8 +58,8 @@
       Q: { name: 'Hoa Oải Hương', who: 'Người Quan Sát', shape: { kind: 'petals', n: 9, rx: 5.5, ry: 17, d: 18, c: '#B79CE8', c2: '#9877D6', core: '#F3E7FF', r: 7 },
         s: 'Cẩn thận, nhìn ra chi tiết người khác bỏ sót, quyết định có cơ sở.', p: 'Dễ nghĩ quá lâu và đòi mình phải thật hoàn hảo.', f: 'Những việc cần phân tích, lên kế hoạch, kiểm tra chất lượng.' }
     },
-    note: 'Trò chơi vui, không phải công cụ đánh giá. Muốn hiểu mình bằng bài test chuẩn hơn thì làm bài miễn phí dưới đây.',
-    cta: { label: 'Làm bài test DISC miễn phí', href: '/testDISC' }
+    note: 'Trò chơi mang tính giải trí.',
+    cta: { hook: 'Mầm chỉ đoán vui thôi. Còn bạn thật sự thuộc nhóm tính cách nào? Mất 3 phút, miễn phí.', label: 'Khám phá tính cách thật của bạn', href: '/testDISC' }
   };
 
   /* ---------------------------------------------------------------- CÁO → HOLLAND / TEST NGHỀ NGHIỆP */
@@ -119,8 +119,8 @@
       C: { name: 'Văn Phòng Ngăn Nắp', who: 'Cáo thích trật tự', shape: { kind: 'hex', c: '#6FA7A0', c2: '#4F8780', core: '#E5F5F2' },
         s: 'Cẩn thận, đáng tin, giữ mọi thứ chính xác và đúng hạn.', p: 'Căng thẳng khi kế hoạch bị đổi liên tục.', f: 'Kế toán, hành chính, ngân hàng, kiểm toán, quản lý dữ liệu, vận hành.' }
     },
-    note: 'Trò chơi vui, chỉ gợi ý hướng. Bài test Holland RIASEC đầy đủ cho bạn nhóm ba chữ cái, kèm gợi ý nhóm nghề cụ thể và miễn phí.',
-    cta: { label: 'Làm bài test nghề nghiệp miễn phí', href: '/testnghenghiep' }
+    note: 'Trò chơi chỉ gợi ý hướng, mang tính giải trí.',
+    cta: { hook: 'Cáo chọn theo cảm hứng. Còn nghề nào hợp với bạn thật sự? Xem bản đồ nghề trong 5 phút, miễn phí.', label: 'Tìm nghề hợp với mình', href: '/testnghenghiep' }
   };
 
   /* ---------------------------------------------------------------- CÚ MÈO → PHONG CÁCH HỌC TẬP */
@@ -168,8 +168,8 @@
       M: { name: 'Cú Vận Động', who: 'Học tốt nhất bằng tay chân', shape: { kind: 'gear', n: 8, r: 17, c: '#6FCF97', core: '#E6FBEF' },
         s: 'Làm là nhớ, học nhanh qua thực hành, thí nghiệm, trải nghiệm.', p: 'Dễ sốt ruột khi phải ngồi yên lâu chỉ để đọc.', f: 'Làm bài tập thật, vừa đi vừa nhẩm, tự tay viết, dạy lại bằng ví dụ.' }
     },
-    note: 'Trò chơi vui, mang tính gợi ý. Ai cũng học bằng nhiều cách, bài test phong cách học tập cho bạn thấy cách nào đang trội hơn.',
-    cta: { label: 'Làm bài test phong cách học tập', href: '/testhoctap' }
+    note: 'Ai cũng học bằng nhiều cách, đây chỉ là gợi ý vui.',
+    cta: { hook: 'Biết cách mình học nhanh nhất, ôn thi sẽ nhẹ đi nhiều. Có ngay mẹo học riêng cho bạn, miễn phí.', label: 'Tìm cách học hợp với tôi', href: '/testhoctap' }
   };
 
   /* ---------------------------------------------------------------- CHIM ÉN → PHONG CÁCH GẮN BÓ */
@@ -225,9 +225,9 @@
       D: { name: 'Én Giữa Hai Bờ', who: 'Gắn bó bất an, lẫn lộn', shape: { kind: 'ring', c: '#E8707A', c2: '#F6B0B6', core: '#FFFFFF' },
         s: 'Cảm xúc phong phú, khao khát được gần gũi một cách thật lòng.', p: 'Vừa muốn gần vừa sợ bị tổn thương, nên dễ đẩy và kéo người khác.', f: 'Có một người đáng tin để nói chuyện, và nhờ chuyên gia đồng hành nếu thấy rối nhiều.' }
     },
-    note: 'Trò chơi vui, không phải chẩn đoán. Cách gắn bó có thể thay đổi theo thời gian và trải nghiệm. Bài test đầy đủ cho bạn nhiều gợi ý hơn.',
-    cta: { label: 'Làm bài test phong cách gắn bó', href: '/testganbo' },
-    cta2: { label: 'Muốn nói chuyện với Sophia', href: '/tuvan-tamly1' }
+    note: 'Trò chơi vui, không phải chẩn đoán. Cách gắn bó có thể thay đổi theo thời gian.',
+    cta: { hook: 'Cách mình gắn bó ảnh hưởng đến mọi mối quan hệ. Bạn muốn hiểu rõ hơn về mình không?', label: 'Hiểu cách mình yêu thương', href: '/testganbo' },
+    cta2: { label: 'Nói chuyện với Sophia', href: '/tuvan-tamly1' }
   };
 
   /* ---------------------------------------------------------------- GẤU MẸ → QUIZ TUỔI DẬY THÌ + KHÓA HỌC */
@@ -283,9 +283,9 @@
       K: { name: 'Cánh Diều Thả Gió', who: 'Thả lỏng, tin con', shape: { kind: 'petals', n: 6, rx: 10, ry: 14, d: 15, c: '#F2A0C0', c2: '#E87AA4', core: '#FFF0B8', r: 7 },
         s: 'Tôn trọng con, không áp lực, con thấy thoải mái khi ở nhà.', p: 'Đôi khi con hiểu thành “mẹ không quan tâm” và thiếu người dẫn đường.', f: 'Vẫn tin con, nhưng hỏi thăm đều đặn và giữ vài quy tắc nền tảng về an toàn.' }
     },
-    note: 'Trò chơi vui, không có kiểu cha mẹ hoàn hảo. Tuổi dậy thì thay đổi nhanh, cách đáp lại cũng cần linh hoạt theo từng ngày.',
-    cta: { label: 'Làm quiz: Con bạn đang ở đâu?', href: '/testsangloc' },
-    cta2: { label: 'Khóa học dành cho phụ huynh', href: '/khoa-hoc' }
+    note: 'Không có kiểu cha mẹ hoàn hảo. Đây chỉ là gợi ý vui.',
+    cta: { hook: 'Mỗi đứa trẻ tuổi dậy thì cần một kiểu đồng hành khác nhau. Con bạn đang cần gì ở bạn lúc này?', label: 'Hiểu con mình hơn', href: '/testsangloc' },
+    cta2: { label: 'Khóa học cho cha mẹ', href: '/khoa-hoc' }
   };
 
   root.GAMES = G;
