@@ -229,7 +229,7 @@ window.runGame = function (cfg, H) {
       if (S.goalX <= PX + 6) { win(); }
     } else if (m === 'win') {
       S.winT += dt; S.reward = Math.min(1, S.reward + dt * 1.6);
-      var pnl = Math.min(.66 * HH, 134 * (W / 100)), top = HH - BRAND - pnl;
+      var pnl = Math.min(.72 * HH, 146 * (W / 100)), top = HH - BRAND - pnl;
       var target = Math.max(0, groundY - (top - 20)); S.camOff += (target - S.camOff) * Math.min(1, dt * 3.2);
       if (S.z === 0 && S.winT < 1.2 && S.jumps === 0) { S.vz = 340; S.jumps = 1; S.z = 1; }
     }
