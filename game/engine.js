@@ -118,22 +118,23 @@
   function lerp(a, b, t) { var x = hx(a), y = hx(b), o = [], i; for (i = 0; i < 3; i++) { o.push(Math.round(x[i] + (y[i] - x[i]) * t)); } return 'rgb(' + o.join(',') + ')'; }
 
   /* ---------------------------------------------------------------- Dựng trang chủ chọn trò */
+  var CARD = { mam: ['#BDF3D2', '#8FD8B0'], cao: ['#FFD3A6', '#F4A261'], cu: ['#C9C2F0', '#9D93D8'], en: ['#BCD8FF', '#86B1EE'], gau: ['#FFD6C2', '#E9A98E'] };
   function hub() {
     var g0 = GAMES.mam;
     stage.className = 'stage pick'; stage.style.setProperty('--ph', '86%');
     stage.setAttribute('aria-label', 'Các trò chơi tính cách của Sophia Nguyễn');
     stage.innerHTML = '<div class="sun" style="--sunUp:-6cqw"></div>' + scenery() +
       '<div class="hud"><span class="name">Trò chơi tính cách</span></div>' +
-      '<section class="panel" id="panel"><div class="stack"><h1 class="title" style="font-size:7.4cqw">Chọn một nhân vật để chơi cùng</h1>' +
-      '<p class="sub" style="font-size:3.6cqw">Mỗi trò chơi chỉ một phút. Cuối trò, bạn nhận một kết quả vui và một bài test miễn phí để hiểu mình rõ hơn.</p></div>' +
+      '<section class="panel" id="panel"><div class="stack"><h1 class="title" style="font-size:7.4cqw">Hôm nay bạn muốn chạy cùng ai?</h1>' +
+      '<p class="sub" style="font-size:3.6cqw">Chạm để nhảy, nhặt quà, đụng khối đáp án. Mỗi trò chỉ một phút, cuối trò nhân vật sẽ cho bạn biết bạn là ai.</p></div>' +
       '<div class="pick-list" id="list"></div></section>' +
       '<div class="brand"><span>Sophia Nguyễn</span><b>sophianguyen.com.vn</b></div>';
     applySky(g0, 4);
     var list = $('list');
     ORDER.forEach(function (k) {
       var g = GAMES[k], a = document.createElement('a');
-      a.className = 'pick-card'; a.href = g.url;
-      a.innerHTML = charSVG(g.char.kind, null, false) + '<span><b>' + g.hud + '</b><small>' + g.leadsTo + '</small></span>';
+      a.className = 'pick-card'; a.href = g.url; var cc = CARD[k]; a.style.setProperty('--c1', cc[0]); a.style.setProperty('--c2', cc[1]);
+      a.innerHTML = charSVG(g.char.kind, null, false) + '<span><b>' + g.hud + '</b><small>' + g.title + '</small></span>';
       a.onclick = function () { track('hub_pick', { pick: k }); };
       list.appendChild(a);
     });
@@ -151,166 +152,9 @@
     st.setProperty('--sunUp', g.sunUp[Math.min(n, 6)] + 'cqw'); st.setProperty('--stars', g.stars[Math.min(n, 6)]);
   }
 
-  /* ---------------------------------------------------------------- Trò chơi */
+  /* ---------------------------------------------------------------- Trò chơi: giao cho play.js */
   function game(cfg) {
-    var KEYS = Object.keys(cfg.types), N = cfg.stations.length;
-    var UTM = '?utm_source=game&utm_medium=social&utm_campaign=game-' + cfg.id;
-    var kind = cfg.char.kind;
-    var S, audio = null, soundOn = false, panel, hero, mouth, pl, pr;
-
-    stage.setAttribute('aria-label', 'Trò chơi ' + cfg.hud);
-    stage.innerHTML = '<div class="sun' + (cfg.celestial === 'moon' ? ' moon' : '') + '" id="sun" aria-hidden="true"></div>' + scenery() +
-      '<div class="hud"><span class="name">' + cfg.hud + '</span><div class="pips" id="pips" aria-hidden="true"></div>' +
-      '<button class="snd" id="snd" type="button" aria-pressed="false" aria-label="Bật âm thanh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path id="sndOn" d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" hidden/></svg></button></div>' +
-      '<div class="hero" id="hero" aria-hidden="true">' + charSVG(kind, null, true) + '</div>' +
-      '<section class="panel" id="panel" aria-live="polite"></section>' +
-      '<div class="brand"><span>Sophia Nguyễn</span><b>sophianguyen.com.vn</b></div>';
-    panel = $('panel'); hero = $('hero');
-    mouth = hero.querySelector('.mouth'); pl = hero.querySelector('.pl'); pr = hero.querySelector('.pr');
-
-    function later(fn, ms) { var t = setTimeout(fn, ms); S.timers.push(t); return t; }
-    function clearTimers() { S.timers.forEach(clearTimeout); S.timers = []; }
-    function fresh() { var sc = {}; KEYS.forEach(function (k) { sc[k] = 0; }); return { i: 0, score: sc, last: null, clip: false, busy: false, timers: [], aim: null, done: false }; }
-    S = fresh();
-
-    /* âm thanh (mặc định tắt) */
-    function beep(f, d, type, vol) {
-      if (!soundOn) { return; }
-      try {
-        audio = audio || new (window.AudioContext || window.webkitAudioContext)();
-        var o = audio.createOscillator(), g = audio.createGain();
-        o.type = type || 'sine'; o.frequency.value = f; g.gain.value = vol || .06; o.connect(g); g.connect(audio.destination);
-        var t = audio.currentTime; g.gain.setValueAtTime(vol || .06, t); g.gain.exponentialRampToValueAtTime(.0001, t + d); o.start(t); o.stop(t + d);
-      } catch (e) {}
-    }
-    function jingle() { [523, 659, 784, 1047].forEach(function (f, i) { later(function () { beep(f, .28, 'triangle', .07); }, i * 130); }); }
-    $('snd').addEventListener('click', function () {
-      soundOn = !soundOn; this.setAttribute('aria-pressed', soundOn); this.setAttribute('aria-label', soundOn ? 'Tắt âm thanh' : 'Bật âm thanh');
-      $('sndOn').hidden = !soundOn; beep(660, .12);
-    });
-
-    /* cảnh */
-    var LEAVES = [[60, 54, -22, 1], [60, 48, 202, 1], [60, 40, -34, 1.12], [60, 33, 214, 1.12], [60, 25, -48, 1.22], [60, 18, 228, 1.22]];
-    function drawLeaves(n) {
-      if (kind !== 'sprout') { return; }
-      var g = $('leaves'); g.innerHTML = '';
-      LEAVES.forEach(function (l, idx) {
-        var p = document.createElementNS(NS, 'path');
-        p.setAttribute('d', 'M0 0 C 8 -11 24 -10 30 0 C 24 10 8 11 0 0Z'); p.setAttribute('fill', idx % 2 ? '#6FD39A' : '#8FE3B0'); p.setAttribute('class', 'leaf');
-        p.setAttribute('transform', 'translate(' + l[0] + ' ' + l[1] + ') rotate(' + l[2] + ') scale(' + (idx < n ? l[3] : 0) + ')'); g.appendChild(p);
-      });
-      $('stem').setAttribute('d', 'M60 60 L60 ' + (62 - (6 + n * 7.5)));
-    }
-    function mood(m) {
-      mouth.setAttribute('d', m === 'o' ? 'M55 108 Q60 114 65 108 Q60 104 55 108Z' : m === 'big' ? 'M49 104 Q60 120 71 104Z' : 'M52 106 Q60 113 68 106');
-      mouth.setAttribute('fill', m === 'o' || m === 'big' ? '#14213D' : 'none');
-    }
-    function look(dx) { pl.setAttribute('cx', 48 + dx); pr.setAttribute('cx', 74 + dx); }
-    function pips() {
-      var box = $('pips'); box.innerHTML = '';
-      for (var i = 0; i < N; i++) { var e = document.createElement('i'); if (i <= S.i || S.done) { e.className = 'on'; } box.appendChild(e); }
-    }
-    function walk(ms, cb) {
-      hero.classList.add('walk'); mood('big');
-      var far = $('gFar'), near = $('gNear'), sh = (S.i % 2 ? 1 : -1);
-      far.style.transform = 'translateX(' + (sh * 14) + 'px)'; near.style.transform = 'translateX(' + (sh * 26) + 'px)';
-      for (var s = 0; s < 4; s++) { later(function () { beep(300 + Math.random() * 90, .07, 'square', .02); }, s * 260); }
-      later(function () { hero.classList.remove('walk'); mood('smile'); cb(); }, reduce ? 50 : ms);
-    }
-    function typeInto(el, text, done) {
-      var i = 0, speed = S.clip ? 26 : 20; el.textContent = '';
-      if (reduce) { el.textContent = text; done(); return; }
-      (function step() {
-        el.textContent = text.slice(0, ++i); if (i % 3 === 0) { beep(700, .03, 'square', .012); }
-        if (i < text.length) { later(step, speed); } else { done(); }
-      })();
-    }
-
-    /* màn hình */
-    function intro() {
-      clearTimers(); S = fresh();
-      stage.classList.remove('done'); applySky(cfg, 0); drawLeaves(0); mood('smile'); look(0); pips();
-      $('reward').innerHTML = '';
-      panel.innerHTML =
-        '<div class="stack" style="margin-top:2cqw"><h1 class="title">' + cfg.title + '</h1><p class="sub">' + cfg.sub + '</p></div>' +
-        '<div class="stack" style="margin-top:auto"><button class="btn main" id="go" type="button">Bắt đầu</button>' +
-        '<button class="btn ghost" id="auto" type="button">Tự chạy để quay clip</button>' +
-        '<a class="linkbtn" href="/tro-choi">Chọn nhân vật khác</a></div>';
-      $('go').onclick = function () { start(false); };
-      $('auto').onclick = function () { start(true); };
-    }
-    function start(clip) {
-      S.clip = clip; S.aim = clip ? KEYS[Math.floor(Math.random() * KEYS.length)] : null;
-      beep(523, .12); track('game_start', { mode: clip ? 'auto' : 'play' }); station(0);
-    }
-    function station(n) {
-      S.i = n; S.busy = false; pips(); applySky(cfg, n); drawLeaves(n); mood('smile'); look(0);
-      var st = cfg.stations[n], order = st.o.slice().sort(function () { return Math.random() - .5; });
-      panel.innerHTML = '<div class="chip">Trạm ' + (n + 1) + '/' + N + '  ·  ' + st.name + '</div><p class="say" id="say"></p><div class="opts" id="opts"></div>';
-      var opts = $('opts');
-      order.forEach(function (o) {
-        var b = document.createElement('button'); b.type = 'button'; b.className = 'opt'; b.textContent = o.t; b.dataset.k = o.k;
-        b.onclick = function () { choose(b, o); }; opts.appendChild(b);
-      });
-      mood('o'); look(-2);
-      typeInto($('say'), st.say, function () {
-        mood('smile'); look(0); requestAnimationFrame(function () { opts.classList.add('show'); });
-        if (S.clip) {
-          later(function () {
-            var pick = order.filter(function (o) { return o.k === S.aim; })[0];
-            if (!pick || Math.random() < .25) { pick = order[Math.floor(Math.random() * order.length)]; }
-            var btn = Array.prototype.filter.call(opts.children, function (b) { return b.textContent === pick.t; })[0];
-            choose(btn, pick);
-          }, 2300);
-        }
-      });
-    }
-    function choose(btn, o) {
-      if (S.busy) { return; } S.busy = true;
-      S.score[o.k]++; S.last = o.k; btn.classList.add('picked'); $('opts').classList.add('lock');
-      hero.classList.remove('hop'); void hero.offsetWidth; hero.classList.add('hop'); mood('big'); look(3); beep(660, .1, 'triangle', .06);
-      later(function () { hero.classList.remove('hop'); }, 650);
-      later(function () {
-        if (S.i + 1 < N) { S.i++; applySky(cfg, S.i); drawLeaves(S.i); pips(); walk(1300, function () { station(S.i); }); }
-        else { finish(); }
-      }, 900);
-    }
-    function winner() {
-      var best = null, max = -1;
-      KEYS.forEach(function (k) { if (S.score[k] > max || (S.score[k] === max && k === S.last)) { max = S.score[k]; best = k; } });
-      return best;
-    }
-    function buildReward(t) {
-      var y = cfg.char.rewardY, sc = cfg.char.rewardScale || 1, h = '';
-      if (kind === 'sprout') { h += '<path d="M60 62 L60 8" stroke="#4FAE7C" stroke-width="4.5" stroke-linecap="round"/>'; }
-      h += '<g transform="translate(60 ' + y + ') scale(' + sc + ')">' + shapeSVG(t.shape) + '</g>';
-      var r = $('reward'); r.innerHTML = h; r.style.transformOrigin = '60px ' + (y + 52) + 'px';
-    }
-    function finish() {
-      var k = winner(), t = cfg.types[k], L = cfg.labels;
-      S.done = true; buildReward(t); drawLeaves(6); applySky(cfg, 6); pips(); mood('big'); look(0); stage.classList.add('done'); jingle();
-      track('game_complete', { result: k, mode: S.clip ? 'auto' : 'play' });
-      later(function () {
-        panel.innerHTML = '<div class="res stack">' +
-          '<div class="tag">' + cfg.lead + '</div><h2>' + t.name + '<br><span style="font-size:.62em;font-weight:700;color:var(--leaf)">' + t.who + '</span></h2>' +
-          '<dl><div><dt>' + L.s + '</dt><dd>' + t.s + '</dd></div><div><dt>' + L.p + '</dt><dd>' + t.p + '</dd></div><div><dt>' + L.f + '</dt><dd>' + t.f + '</dd></div></dl>' +
-          '<p class="note">' + cfg.note + '</p></div>' +
-          '<div class="stack" style="margin-top:auto"><a class="btn main" id="cta" href="' + SITE + cfg.cta.href + UTM + '" target="_blank" rel="noopener">' + cfg.cta.label + '</a>' +
-          (cfg.cta2 ? '<a class="btn ghost" id="cta2" href="' + SITE + cfg.cta2.href + UTM + '" target="_blank" rel="noopener">' + cfg.cta2.label + '</a>' : '') +
-          '<div class="row2"><button class="btn ghost" id="again" type="button">Chơi lại</button><a class="btn ghost" href="/tro-choi">Trò khác</a></div></div>';
-        $('cta').onclick = function () { track('game_cta_click', { result: k }); };
-        if (cfg.cta2) { $('cta2').onclick = function () { track('game_cta2_click', { result: k }); }; }
-        $('again').onclick = intro;
-      }, reduce ? 50 : 1100);
-    }
-    panel.addEventListener('click', function (e) {
-      var say = $('say'); if (!say || e.target !== say || S.clip) { return; }
-      clearTimers(); say.textContent = cfg.stations[S.i].say; var o = $('opts'); if (o) { o.classList.add('show'); } mood('smile'); look(0);
-    });
-
-    /* cho trang kiểm thử */
-    window.__game = { cfg: cfg, state: function () { return S; } };
-    intro();
+    window.runGame(cfg, { charSVG: charSVG, shapeSVG: shapeSVG, hx: hx, track: track });
   }
 
   if (ID === 'hub') { hub(); } else { game(GAMES[ID]); }
