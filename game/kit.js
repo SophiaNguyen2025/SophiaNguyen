@@ -14,7 +14,7 @@ window.GameKit = function (cfg, H, def) {
     '<button class="snd" id="snd" type="button" aria-pressed="false" aria-label="Bật âm thanh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path id="sndOn" d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" hidden/></svg></button></div>' +
     '<div class="tbar" id="tbar" hidden><i id="tbi"></i></div>' +
     '<div class="hint" id="hint" hidden></div>' +
-    '<div class="tally" id="tally" hidden></div>' +
+    '<div class="tally" id="tally" hidden></div><div class="legend" id="legend" hidden></div>' +
     '<section class="panel" id="panel" aria-live="polite"></section>' +
     '<div class="brand"><span>Sophia Nguyễn</span><b>sophianguyen.com.vn</b></div>';
   var cv = $('cv'), ctx = cv.getContext('2d'), panel = $('panel');
@@ -22,7 +22,7 @@ window.GameKit = function (cfg, H, def) {
   var scale = 1, audio = null, soundOn = false, raf = 0, last = 0, timers = [], rewardIm = null, winT = 0;
 
   function resize() {
-    var r = stage.getBoundingClientRect(), dpr = Math.min(2, window.devicePixelRatio || 1);
+    var r = stage.getBoundingClientRect(), dpr = Math.min(1.5, window.devicePixelRatio || 1);
     scale = r.width / k.W; k.HH = r.height / scale;
     cv.width = Math.round(r.width * dpr); cv.height = Math.round(r.height * dpr); ctx.setTransform(dpr * scale, 0, 0, dpr * scale, 0, 0);
     k.groundY = Math.min(k.HH - BRAND - 70, k.HH * .78); k.panelTop = k.HH - BRAND - Math.min(.72 * k.HH, 146 * k.W / 100);
@@ -52,6 +52,7 @@ window.GameKit = function (cfg, H, def) {
   k.burst = function (x, y, c, n, sp) { for (var i = 0; i < (n || 10); i++) { k.parts.push({ x: x, y: y, vx: (Math.random() - .5) * (sp || 160), vy: -Math.random() * (sp || 160) * .8, life: .7, c: c, r: 2.4 }); } };
   k.pop = function (x, y, text, col) { k.pops.push({ x: x, y: y, t: 0, text: text, c: col || '#fff' }); };
   k.progress = function (p) { $('tbar').hidden = false; $('tbi').style.width = Math.max(0, Math.min(1, p)) * 100 + '%'; };
+  k.legend = function (t) { var l = $('legend'); l.innerHTML = t || ''; l.hidden = !t; };
   k.hint = function (t, ms) { var h = $('hint'); h.textContent = t; h.hidden = !t; if (t && ms) { k.later(function () { h.hidden = true; }, ms); } };
   k.stars = []; (function () { var s = 11; for (var i = 0; i < 46; i++) { s = (s * 9301 + 49297) % 233280; var a = s / 233280; s = (s * 9301 + 49297) % 233280; k.stars.push([a * k.W, s / 233280, i]); } })();
 
@@ -75,7 +76,7 @@ window.GameKit = function (cfg, H, def) {
   /* ---- màn hình ---- */
   k.intro = function () {
     timers.forEach(clearTimeout); timers = []; k.mode = 'intro'; k.parts = []; k.pops = []; k.T = 0; winT = 0;
-    stage.classList.remove('run', 'done'); $('tbar').hidden = true; $('tally').hidden = true; $('hint').hidden = true;
+    stage.classList.remove('run', 'done'); k.legend(''); $('tbar').hidden = true; $('tally').hidden = true; $('hint').hidden = true;
     def.init(k);
     panel.innerHTML =
       '<div class="stack" style="margin-top:2cqw"><h1 class="title">' + cfg.title + '</h1><p class="sub">' + def.sub + '</p>' +
@@ -97,7 +98,7 @@ window.GameKit = function (cfg, H, def) {
     [523, 659, 784, 1047].forEach(function (f, i) { k.later(function () { k.beep(f, .28, 'triangle', .07); }, i * 130); });
     for (var i = 0; i < 30; i++) { k.parts.push({ x: k.W / 2 + (Math.random() - .5) * 80, y: k.panelTop * .5, vx: (Math.random() - .5) * 240, vy: -60 - Math.random() * 200, life: 1.4, c: ['#F5B82E', '#F08AB0', '#6FB8F2', '#8FD3A0'][i % 4], r: 2.8 }); }
     k.later(function () {
-      stage.classList.add('done'); stage.classList.remove('run'); $('tbar').hidden = true; $('tally').hidden = true; $('hint').hidden = true;
+      stage.classList.add('done'); stage.classList.remove('run'); k.legend(''); $('tbar').hidden = true; $('tally').hidden = true; $('hint').hidden = true;
       panel.innerHTML = '<div class="res stack">' +
         '<div class="tag">' + cfg.lead + '</div><h2>' + t.name + '<br><span style="font-size:.62em;font-weight:700;color:var(--leaf)">' + t.who + '</span></h2>' +
         '<dl><div><dt>' + L.s + '</dt><dd>' + t.s + '</dd></div><div><dt>' + L.p + '</dt><dd>' + t.p + '</dd></div><div><dt>' + L.f + '</dt><dd>' + t.f + '</dd></div></dl>' +
@@ -123,7 +124,7 @@ window.GameKit = function (cfg, H, def) {
     raf = requestAnimationFrame(frame);
     var dt = Math.min(.05, ((ts - last) / 1000) || 0); last = ts; k.T += dt; k.dt = dt;
     if (k.mode === 'win') { winT += dt; }
-    def.update(k, dt);
+    var _t0 = performance.now(); def.update(k, dt);
     k.parts.forEach(function (p) { p.life -= dt; p.x += p.vx * dt; p.y += p.vy * dt; p.vy += 420 * dt; }); k.parts = k.parts.filter(function (p) { return p.life > 0; });
     k.pops.forEach(function (p) { p.t += dt; }); k.pops = k.pops.filter(function (p) { return p.t < .9; });
     ctx.save(); def.draw(k);
@@ -131,7 +132,7 @@ window.GameKit = function (cfg, H, def) {
     ctx.globalAlpha = 1; ctx.font = '800 15px "Baloo 2", system-ui'; ctx.textAlign = 'center';
     k.pops.forEach(function (p) { ctx.globalAlpha = 1 - p.t / .9; ctx.fillStyle = p.c; ctx.fillText(p.text, p.x, p.y - p.t * 40); }); ctx.globalAlpha = 1;
     if (k.mode === 'win') { overlayWin(); }
-    ctx.restore();
+    ctx.restore(); k.perf = (k.perf || 0) * .9 + (performance.now() - _t0) * .1;
   }
   window.__game = { cfg: cfg, k: k, state: function () { return k.S; } };
   k.intro(); raf = requestAnimationFrame(frame);

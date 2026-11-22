@@ -6,10 +6,10 @@ window.runGame = function (cfg, H) {
   function drawChar(c, img, x, feetY, dh, sc) { if (!img.complete) { return; } var dw = dh * 120 / 126; c.save(); c.translate(x, feetY); c.scale(sc, sc); c.drawImage(img, -dw / 2, -dh * .93, dw, dh); c.restore(); }
   function windAt(t, S) { return Math.max(0, Math.min(1, .5 + Math.sin(t * .8) * .22 + Math.sin(t * 2.1 + 1) * .12 + S.gust)); }
   var def = {
-    sub: 'Gấu Con là chiếc diều. Gấu Mẹ giữ dây, và gió hôm nay khó đoán lắm.',
-    how: 'Giữ ngón tay để kéo dây về, thả ra để dây dài thêm. Diều bay đến đâu thì nhặt các ngôi sao ở đó. Dây căng quá sẽ đứt, chùng quá diều sẽ rơi.',
-    init: function (k) { bear = bear || k.charImg('bear'); k.S = { t: 0, s: 150, gust: 0, gustT: 5, stars: [], spawn: 1, joy: 0, sumDelta: 0, toggles: 0, lastHold: false, lastToggle: -1, tens: 0, sag: 0, snapT: 0, fallT: 0, kx: 200, ky: 300, hold: 0, tail: 0 }; },
-    begin: function (k) { k.hint('Giữ để kéo dây về', 2600); },
+    sub: 'Gấu Con là chiếc diều. Bạn là Gấu Mẹ giữ dây, và gió hôm nay đổi liên tục.',
+    how: '<b>Giữ</b> ngón tay để kéo dây về, <b>thả</b> để dây dài ra. Gió mạnh thì dây cần dài hơn. Giữ vạch dây trong <b>vùng xanh</b> để diều bay cao và nhặt được sao. Dây căng quá sẽ đứt, chùng quá diều sẽ rơi.',
+    init: function (k) { bear = bear || k.charImg('bear'); k.S = { t: 0, s: 150, gust: 0, gustT: 5, stars: [], spawn: 1, joy: 0, sumDelta: 0, tightT: 0, looseT: 0, inT: 0, toggles: 0, lastHold: false, lastToggle: -1, tens: 0, sag: 0, snapT: 0, fallT: 0, kx: 200, ky: 300, hold: 0, tail: 0 }; },
+    begin: function (k) { k.legend('<b>Giữ</b> = kéo dây về · <b>Thả</b> = dây dài ra. Giữ vạch trong <b>vùng xanh</b>.'); },
     update: function (k, dt) {
       var S = k.S, hx = 70, hy = k.groundY - 66;
       var w = windAt(S.t, S), D = SMAX * (.34 + .56 * w);
@@ -22,7 +22,7 @@ window.runGame = function (cfg, H) {
         S.s = Math.max(60, Math.min(SMAX, S.s));
         S.gustT -= dt; if (S.gustT <= 0) { S.gust = .28 * (Math.random() < .5 ? -1 : 1); S.gustT = 5 + Math.random() * 3; k.beep(180, .3, 'sine', .03); }
         S.gust *= Math.max(0, 1 - dt * .45);
-        S.sumDelta += (S.s - D) / SMAX * dt;
+        S.sumDelta += (S.s - D) / SMAX * dt; var dl = (S.s - D) / SMAX; if (dl < -.1) { S.tightT += dt; } else if (dl > .1) { S.looseT += dt; } else { S.inT += dt; }
         /* dây căng / chùng */
         var tens = Math.max(0, (D - S.s) / (SMAX * .3)), sag = Math.max(0, (S.s - D) / (SMAX * .26));
         if (S.snapT <= 0 && S.fallT <= 0) {
@@ -42,9 +42,9 @@ window.runGame = function (cfg, H) {
         S.stars.forEach(function (st) { st.x -= 34 * dt; if (!st.got && S.snapT <= 0 && S.fallT <= 0 && Math.hypot(st.x - S.kx, st.y - S.ky) < 28) { st.got = true; S.joy++; k.burst(st.x, st.y, '#FFE27A', 10, 150); k.pop(st.x, st.y - 10, '+1', '#FFE27A'); k.beep(800 + (S.joy % 5) * 90, .08, 'triangle', .05); } });
         S.stars = S.stars.filter(function (st) { return !st.got && st.x > -20; });
         if (S.t >= DUR) {
-          var avg = S.sumDelta / DUR, sw = S.toggles / DUR, key;
-          if (avg > .1) { key = 'K'; } else if (avg < -.1) { key = sw > .7 ? 'D' : 'B'; } else { key = 'H'; }
-          k.end(key, 'Gấu Con vui nhờ ' + S.joy + ' ngôi sao.');
+          var sw = S.toggles / DUR, tf = S.tightT / DUR, lf = S.looseT / DUR, inf = S.inT / DUR, key;
+          if (lf > tf && lf > .32) { key = 'K'; } else if (tf > lf && tf > .32) { key = sw > .7 ? 'D' : 'B'; } else { key = 'H'; }
+          k.end(key, 'Bạn giữ dây đúng mức ' + Math.round(inf * 100) + '% thời gian, quá chặt ' + Math.round(tf * 100) + '%, quá lỏng ' + Math.round(lf * 100) + '%, và đổi tay (giữ/thả) ' + S.toggles + ' lần. Kết quả được tính từ đúng những điều này.');
         }
       }
     },
@@ -74,6 +74,7 @@ window.runGame = function (cfg, H) {
       c.restore();
       c.fillStyle = 'rgba(0,0,0,.2)'; c.beginPath(); c.ellipse(hx, gy + 3, 30, 5, 0, 0, 7); c.fill();
       drawChar(c, bear, hx, gy, 112, 1);
+      var gx = 14, gw = 150, gyy = 62, wd = S.w || 0, dd = (S.D || 0) / SMAX, ss = (S.s || 0) / SMAX; c.fillStyle = 'rgba(0,0,0,.28)'; k.rr(gx - 6, gyy - 18, gw + 12, 70, 8); c.fill(); c.fillStyle = '#fff'; c.font = '700 10.5px "Be Vietnam Pro", system-ui'; c.textAlign = 'left'; c.fillText('Gió', gx, gyy - 6); c.fillStyle = 'rgba(255,255,255,.3)'; c.fillRect(gx, gyy, gw, 7); c.fillStyle = '#fff'; c.fillRect(gx, gyy, gw * wd, 7); c.fillStyle = '#fff'; c.fillText('Dây (giữ trong vùng xanh)', gx, gyy + 24); c.fillStyle = 'rgba(255,255,255,.3)'; c.fillRect(gx, gyy + 30, gw, 8); c.fillStyle = 'rgba(111,207,151,.9)'; c.fillRect(gx + gw * Math.max(0, dd - .1), gyy + 30, gw * .2, 8); var off = Math.abs(ss - dd) > .1; c.fillStyle = off ? '#FF6B7A' : '#fff'; c.fillRect(gx + gw * ss - 2, gyy + 26, 4, 16);
       var joy = S.joy || 0; c.fillStyle = 'rgba(255,255,255,.9)'; c.font = '800 15px "Baloo 2", system-ui'; c.textAlign = 'left'; c.fillText('★ ' + joy, 14, k.HH - 40);
     },
     winChar: function (k, cx, cy, sc) { drawChar(k.ctx, bear, cx, cy + 44, 112, Math.max(.01, sc)); }
