@@ -1,0 +1,103 @@
+/* Bố cục: một sân khấu dọc 9:16 (để quay Reels/TikTok). Cảnh nền ở nửa trên, bảng tình huống ở nửa dưới,
+   thanh tên web luôn nằm dưới cùng để clip nào cũng có địa chỉ. Bình minh lên dần theo từng trạm. */
+@property --skyTop { syntax: '<color>'; inherits: true; initial-value: #14213D; }
+@property --skyBot { syntax: '<color>'; inherits: true; initial-value: #24456E; }
+@property --hillFar { syntax: '<color>'; inherits: true; initial-value: #2B4A6F; }
+@property --hillNear { syntax: '<color>'; inherits: true; initial-value: #1D3557; }
+@property --ground { syntax: '<color>'; inherits: true; initial-value: #10293B; }
+:root {
+  --ink: #14213D;
+  --paper: #F6F2EA;
+  --leaf: #8FE3B0;
+  --leaf-deep: #4FAE7C;
+  --line: rgba(255,255,255,.18);
+  --panel: #101B32;
+  --f-display: 'Baloo 2', 'Be Vietnam Pro', system-ui, sans-serif;
+  --f-body: 'Be Vietnam Pro', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+html, body { height: 100%; }
+.stage .sprout, .stage .reward { transform-box: view-box; }
+body { margin: 0; background: #0B1424; color: var(--paper); font-family: var(--f-body); display: grid; place-items: center; overflow: hidden; }
+button { font: inherit; color: inherit; cursor: pointer; }
+.stage {
+  --ph: min(55%, 112cqw);
+  position: relative; height: 100dvh; width: min(100vw, 56.25dvh);
+  container-type: inline-size; overflow: hidden; isolation: isolate;
+  background: linear-gradient(var(--skyTop), var(--skyBot));
+  transition: --skyTop 1.3s ease, --skyBot 1.3s ease, --hillFar 1.3s ease, --hillNear 1.3s ease, --ground 1.3s ease;
+}
+.stars, .sun, .hills, .hero, .hud, .panel, .brand { position: absolute; }
+.stars { inset: 0 0 45% 0; opacity: var(--stars, 1); transition: opacity 1.3s ease; }
+.sun { left: 62%; bottom: calc(6.4cqw + var(--ph) + var(--sunUp, -30cqw)); width: 22cqw; aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(circle, #FFF3D2 0 38%, #FFD79A 39% 62%, rgba(255,215,154,0) 70%);
+  transition: bottom 1.6s cubic-bezier(.3,.7,.3,1); }
+.hills { left: 0; width: 100%; height: 80cqw; bottom: calc(6.4cqw + var(--ph) - 56cqw); }
+.hills .far { fill: var(--hillFar); } .hills .near { fill: var(--hillNear); } .hills .gnd { fill: var(--ground); }
+.hills g { transition: transform 1.2s cubic-bezier(.45,.05,.3,1); }
+.hud { top: 0; left: 0; right: 0; padding: 3.4cqw 4cqw; display: flex; align-items: center; justify-content: space-between; gap: 3cqw; z-index: 4; }
+.hud .name { font: 700 3.6cqw/1 var(--f-display); letter-spacing: .01em; opacity: .92; }
+.pips { display: flex; gap: 1.4cqw; }
+.pips i { width: 4.6cqw; height: 1.3cqw; border-radius: 1cqw; background: rgba(255,255,255,.28); transition: background .4s; }
+.pips i.on { background: var(--leaf); }
+.snd { border: 0; background: rgba(255,255,255,.12); width: 8cqw; height: 8cqw; border-radius: 50%; display: grid; place-items: center; padding: 0; }
+.snd svg { width: 4.6cqw; height: 4.6cqw; }
+.hero { left: 50%; bottom: calc(6.4cqw + var(--ph) + .5cqw); width: 30cqw; margin-left: -15cqw; z-index: 2; transition: bottom .8s ease, transform .8s ease; transform-origin: 50% 100%; }
+.hero svg { display: block; width: 100%; height: auto; overflow: visible; }
+.hero .bob { animation: bob 2.6s ease-in-out infinite; transform-origin: 50% 100%; transform-box: fill-box; }
+.hero.walk .bob { animation: walk .42s ease-in-out infinite; }
+.hero.hop .bob { animation: hop .6s cubic-bezier(.3,.9,.4,1) 1; }
+.stage.done .hero { transform: scale(.9); }
+@keyframes bob { 50% { transform: translateY(-1.4cqw) scaleY(1.02); } }
+@keyframes walk { 0%,100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-2.4cqw) rotate(3deg); } }
+@keyframes hop { 0% { transform: scale(1,1); } 25% { transform: scale(1.06,.9); } 55% { transform: translateY(-7cqw) scale(.96,1.06); } 100% { transform: translateY(0) scale(1,1); } }
+.leaf { transform-box: fill-box; transform-origin: 0 50%; transition: transform .7s cubic-bezier(.3,1.6,.5,1); }
+.stage.done .sprout { opacity: 0; transition: opacity .3s; }
+.panel { left: 0; right: 0; bottom: 6.4cqw; height: var(--ph); z-index: 3; background: var(--panel); border-radius: 6cqw 6cqw 0 0; padding: 4.6cqw 5cqw 3.6cqw; box-sizing: border-box;
+  display: flex; flex-direction: column; gap: 2.8cqw; transition: height .8s ease; border-top: 1px solid var(--line); }
+.stage.done { --ph: min(66%, 134cqw); }
+.stage.pick { --ph: min(74%, 150cqw); }
+.stage.pick .hero { display: none; }
+.chip { font: 600 3.1cqw/1 var(--f-body); color: var(--leaf); letter-spacing: .02em; }
+.say { margin: 0; font: 500 4.5cqw/1.42 var(--f-body); min-height: 12.8cqw; text-wrap: pretty; }
+.opts { display: flex; flex-direction: column; gap: 2.2cqw; }
+.opt { text-align: left; padding: 2.7cqw 3.6cqw; border-radius: 3.2cqw; border: 1px solid var(--line); background: rgba(255,255,255,.07);
+  font: 500 3.75cqw/1.34 var(--f-body); opacity: 0; transform: translateY(2.4cqw); transition: opacity .35s, transform .35s, background .2s, border-color .2s; }
+.opts.show .opt { opacity: 1; transform: none; }
+.opts.show .opt:nth-child(2) { transition-delay: .08s; } .opts.show .opt:nth-child(3) { transition-delay: .16s; } .opts.show .opt:nth-child(4) { transition-delay: .24s; }
+.opt:hover { border-color: var(--leaf); }
+.opt.picked { background: var(--leaf); color: var(--ink); border-color: var(--leaf); }
+.opts.lock .opt:not(.picked) { opacity: .35; }
+.opt:focus-visible, .btn:focus-visible, .snd:focus-visible { outline: 3px solid var(--leaf); outline-offset: 2px; }
+.brand { left: 0; right: 0; bottom: 0; height: 6.4cqw; z-index: 5; background: #0B1424; display: flex; align-items: center; justify-content: center; gap: 2cqw;
+  font: 600 3.3cqw/1 var(--f-body); letter-spacing: .02em; }
+.brand b { color: var(--leaf); font-weight: 600; }
+.btn { border: 0; border-radius: 99cqw; padding: 3.2cqw 5cqw; font: 700 4cqw/1.1 var(--f-display); text-align: center; text-decoration: none; display: block; }
+.btn.main { background: var(--leaf); color: var(--ink); }
+.btn.ghost { background: transparent; color: var(--paper); border: 1.5px solid var(--line); font-size: 3.6cqw; padding: 2.7cqw 5cqw; }
+.title { margin: 0; font: 800 8.6cqw/1.02 var(--f-display); text-wrap: balance; }
+.sub { margin: 0; font-size: 4cqw; line-height: 1.5; color: rgba(246,242,234,.82); }
+.stack { display: flex; flex-direction: column; gap: 2.6cqw; }
+.res h2 { margin: 0; font: 800 7.6cqw/1.05 var(--f-display); }
+.res .tag { font: 600 3.4cqw/1 var(--f-body); color: var(--leaf); }
+.res dl { margin: 0; display: grid; gap: 2cqw; }
+.res dt { font: 700 3.2cqw/1.2 var(--f-body); color: var(--leaf); }
+.res dd { margin: .4cqw 0 0; font-size: 3.5cqw; line-height: 1.38; }
+.res .note { margin: 0; font-size: 2.8cqw; line-height: 1.4; color: rgba(246,242,234,.62); }
+[hidden] { display: none !important; }
+@media (prefers-reduced-motion: reduce) { .hero .bob, .hero.walk .bob { animation: none; } * { transition-duration: .01s !important; } }
+
+/* Chọn nhân vật */
+.pick-list { display: flex; flex-direction: column; gap: 2.2cqw; }
+.pick-card { display: flex; align-items: center; gap: 3.4cqw; text-align: left; text-decoration: none; color: inherit; padding: 1.8cqw 3.4cqw 1.8cqw 2.4cqw; border-radius: 3.4cqw; border: 1px solid var(--line); background: rgba(255,255,255,.07); }
+.pick-card:hover { border-color: var(--leaf); }
+.pick-card svg { width: 12cqw; height: auto; flex: none; }
+.pick-card b { display: block; font: 700 4.1cqw/1.15 var(--f-display); }
+.pick-card small { display: block; margin-top: .8cqw; font-size: 3cqw; line-height: 1.3; color: rgba(246,242,234,.7); }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2.4cqw; }
+.linkbtn { background: none; border: 0; color: rgba(246,242,234,.75); font: 500 3.3cqw/1 var(--f-body); text-decoration: underline; padding: 1.2cqw; text-align: center; }
+.reward { transition: transform .9s cubic-bezier(.3,1.5,.5,1); transform: scale(0); }
+.stage.done .reward { transform: scale(1); }
+.sun.moon { background: radial-gradient(circle at 38% 38%, #FFFFFF 0 30%, #E8EEFF 31% 60%, rgba(214,225,255,0) 70%); }
+
+.stage.pick .panel { overflow-y: auto; }
+.pick-card svg { width: 11cqw; }
