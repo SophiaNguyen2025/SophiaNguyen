@@ -82,7 +82,7 @@ window.GameKit = function (cfg, H, def) {
       '<div class="stack" style="margin-top:2cqw"><h1 class="title">' + cfg.title + '</h1><p class="sub">' + def.sub + '</p>' +
       '<p class="how"><b>Cách chơi</b> ' + def.how + '</p></div>' +
       '<div class="stack" style="margin-top:auto"><button class="btn main" id="go" type="button">Chơi ngay</button>' +
-      '<a class="linkbtn" href="/tro-choi">Chọn nhân vật khác</a></div>';
+      (cfg.noHub ? '' : '<a class="linkbtn" href="/tro-choi">Chọn nhân vật khác</a>') + '</div>';
     $('go').onclick = k.start;
   };
   k.start = function () {
@@ -102,14 +102,21 @@ window.GameKit = function (cfg, H, def) {
       panel.innerHTML = '<div class="res stack">' +
         '<div class="tag">' + cfg.lead + '</div><h2>' + t.name + (t.who ? '<br><span style="font-size:.62em;font-weight:700;color:var(--leaf)">' + t.who + '</span>' : '') + '</h2>' +
         '<dl><div><dt>' + L.s + '</dt><dd>' + t.s + '</dd></div><div><dt>' + L.p + '</dt><dd>' + t.p + '</dd></div>' + (t.f ? '<div><dt>' + L.f + '</dt><dd>' + t.f + '</dd></div>' : '') + '</dl>' +
-        '<p class="note">' + (stat ? stat + ' ' : '') + cfg.note + ' <a id="peek" href="' + SITE + '/ban-do-nang-luc#xem-truoc' + UTM + '" target="_blank" rel="noopener">Xem mẫu báo cáo thật của Sophia</a></p></div>' +
+        '<p class="note">' + (stat ? stat + ' ' : '') + cfg.note + (cfg.noPeek ? '' : ' <a id="peek" href="' + SITE + '/ban-do-nang-luc#xem-truoc' + UTM + '" target="_blank" rel="noopener">Xem mẫu báo cáo thật của Sophia</a>') + '</p></div>' +
         '<div class="stack" style="margin-top:auto">' + (cfg.cta.hook ? '<p class="hook">' + cfg.cta.hook + '</p>' : '') +
         '<a class="btn main" id="cta" href="' + SITE + cfg.cta.href + UTM + '" target="_blank" rel="noopener">' + cfg.cta.label + '</a>' +
         (c2 ? '<a class="btn ghost" id="cta2" href="' + (c2.href.indexOf('/mbti/') === 0 ? '' : SITE) + c2.href + UTM + '" target="_blank" rel="noopener">' + c2.label + '</a>' : '') +
-        '<div class="row2"><button class="btn ghost" id="again" type="button">Chơi lại</button><a class="btn ghost" href="/tro-choi">Trò khác</a></div></div>';
+        '<div class="row2"><button class="btn ghost" id="again" type="button">Chơi lại</button>' + (cfg.noHub ? '<button class="btn ghost" id="share" type="button">Chia sẻ cho bố mẹ</button>' : '<a class="btn ghost" href="/tro-choi">Trò khác</a>') + '</div></div>';
       $('cta').onclick = function () { H.track('game_cta_click', { result: key }); };
       if (c2) { $('cta2').onclick = function () { H.track('game_cta2_click', { result: key }); }; }
-      $('peek').onclick = function () { H.track('game_report_peek_click', { result: key }); };
+      if ($('peek')) { $('peek').onclick = function () { H.track('game_report_peek_click', { result: key }); }; }
+      if ($('share')) {
+        $('share').onclick = function () {
+          H.track('game_share'); var u = SITE + cfg.url + '?utm_source=share&utm_medium=social&utm_campaign=game-' + cfg.id, b = this;
+          if (navigator.share) { navigator.share({ title: cfg.hud, text: cfg.shareText || cfg.hud, url: u }).catch(function () {}); return; }
+          try { navigator.clipboard.writeText((cfg.shareText ? cfg.shareText + ' ' : '') + u).then(function () { b.textContent = 'Đã chép liên kết'; }, function () { b.textContent = u; }); } catch (e) { b.textContent = u; }
+        };
+      }
       $('again').onclick = k.intro;
     }, 1500);
   };
