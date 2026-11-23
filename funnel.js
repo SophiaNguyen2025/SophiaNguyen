@@ -202,7 +202,7 @@
       fetch(CFG.FORMSPREE, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
         .then(function (r) {
           if (!r.ok) { throw new Error('send failed'); }
-          track('generate_lead', { method: 'test_result' });
+          track('generate_lead', { method: 'test_result', test_name: path, campaign: utm.utm_campaign || '', source: utm.utm_source || '' });
           fbTrack('track', 'Lead', { content_name: path });
           box.querySelector('.sf-form-wrap').innerHTML =
             okHtml();

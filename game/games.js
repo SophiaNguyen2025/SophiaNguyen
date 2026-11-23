@@ -288,6 +288,54 @@
     cta2: { label: 'Khóa học cho cha mẹ', href: '/khoa-hoc' }
   };
 
+
+  /* ---------------------------------------------------------------- THÁP MẢNH GHÉP → MBTI */
+  var NAMES16 = { ENFJ: 'Nhà Giáo Dục', ENFP: 'Người Truyền Cảm Hứng', ENTJ: 'Người Lãnh Đạo', ENTP: 'Người Khởi Xướng', ESFJ: 'Người Quan Tâm', ESFP: 'Người Trình Diễn', ESTJ: 'Người Quản Lý', ESTP: 'Người Hành Động',
+    INFJ: 'Người Cố Vấn', INFP: 'Người Lý Tưởng', INTJ: 'Nhà Chiến Lược', INTP: 'Nhà Tư Duy', ISFJ: 'Người Bảo Vệ', ISFP: 'Người Nghệ Sĩ', ISTJ: 'Người Trách Nhiệm', ISTP: 'Người Thợ Máy' };
+  var LCOL = { E: '#FF9A8B', I: '#9FB0FF', S: '#72D3C2', N: '#C9A6FF', T: '#FFD36E', F: '#FFADCB', J: '#8DBBFF', P: '#9BE59F' };
+  var STR = { E: 'Giàu năng lượng khi ở bên người khác', I: 'Sâu sắc và tập trung khi ở một mình', S: 'Chú ý chi tiết và làm việc thực tế', N: 'Thấy bức tranh lớn và nhiều khả năng mới', T: 'Phân tích khách quan, quyết định rõ ràng', F: 'Thấu cảm, quan tâm đến cảm xúc người khác', J: 'Có kế hoạch, đáng tin cậy', P: 'Linh hoạt, thích nghi nhanh' };
+  var PRS = { E: 'dễ mệt khi ở một mình quá lâu', I: 'dễ ngại bắt đầu những cuộc trò chuyện mới', S: 'dễ ngại những thay đổi chưa quen', N: 'dễ bỏ sót chi tiết nhỏ', T: 'dễ nói thẳng làm người khác tổn thương', F: 'dễ ôm cảm xúc của người khác vào mình', J: 'dễ căng thẳng khi kế hoạch bị đổi', P: 'dễ để việc dồn đến phút cuối' };
+  var types16 = {};
+  Object.keys(NAMES16).forEach(function (code) {
+    var a = code.split('');
+    types16[code] = { name: code + ' · ' + NAMES16[code], who: '',
+      shape: { kind: 'petals', n: 8, rx: 6, ry: 15, d: 19, c: LCOL[a[0]], c2: LCOL[a[2]], core: LCOL[a[3]], r: 9 },
+      s: STR[a[0]] + '. ' + STR[a[2]] + '. ' + STR[a[3]] + '.',
+      p: 'Khi áp lực: ' + PRS[a[0]] + ', ' + PRS[a[3]] + '.',
+      f: '' };
+  });
+  G.thap = {
+    id: 'thap', url: '/thap-manh-ghep', hud: 'Tháp Mảnh Ghép', thumb: 'Xếp tháp 4 mảnh ghép tính cách',
+    leadsTo: '', seoTitle: 'Tháp Mảnh Ghép | Trò chơi xếp tháp tính cách',
+    seoDesc: 'Trò chơi xếp tháp 1 phút: mỗi lượt chọn một viên gạch, tháp của bạn lộ ra 4 mảnh ghép tính cách. Sophia Nguyễn.',
+    title: 'Tháp mảnh ghép của bạn trông thế nào?', sub: 'Xếp 12 viên gạch bạn thấy giống mình nhất, tháp sẽ cho thấy 4 mảnh ghép tính cách.',
+    char: { kind: 'block' }, lead: 'Tháp của bạn là', labels: { s: 'Điểm mạnh', p: 'Dễ gặp', f: 'Gợi ý nhỏ' }, types: types16,
+    note: 'Trò chơi mang tính giải trí, chưa phải bài đánh giá đầy đủ.',
+    cta: { hook: 'Đây mới là bản chơi vui. Bài test MBTI đầy đủ cho biết bạn thiên về bên nào. Miễn phí.', label: 'Xem tính cách đầy đủ của tôi', href: '/testmbti' },
+    cta2fn: function (code) { return { label: 'Đọc về nhóm ' + code, href: '/mbti/' + code + '.html' }; }
+  };
+
+  /* ---------------------------------------------------------------- CHAI CẢM XÚC → TRÍ TUỆ CẢM XÚC */
+  G.chai = {
+    id: 'chai', url: '/chai-cam-xuc', hud: 'Chai Cảm Xúc', thumb: 'Gỡ rối những chai cảm xúc',
+    leadsTo: '', seoTitle: 'Chai Cảm Xúc | Trò chơi xếp nước theo màu',
+    seoDesc: 'Trò chơi xếp nước 2 phút: gỡ rối các chai cảm xúc lẫn lộn, cách bạn giải cho thấy bạn gỡ rối thế nào. Sophia Nguyễn.',
+    title: 'Bạn gỡ rối cảm xúc kiểu nào?', sub: 'Năm chai cảm xúc đang lẫn lộn. Rót sao cho mỗi chai chỉ còn một màu.',
+    char: { kind: 'bottle' }, lead: 'Bạn là', labels: { s: 'Điểm mạnh', p: 'Dễ gặp', f: 'Gợi ý nhỏ' },
+    types: {
+      P: { name: 'Người Sắp Xếp', who: 'Bình tĩnh tính trước, ít phải làm lại', shape: { kind: 'hex', c: '#5FD3A0', c2: '#3FB583', core: '#E6FBEF' },
+        s: 'Nhìn ra thứ tự trước khi làm, giải quyết gọn và ít đi đường vòng.', p: 'Dễ căng thẳng khi mọi thứ chệch khỏi kế hoạch.', f: 'Thỉnh thoảng cho phép mình thử một cách chưa chắc chắn, cảm xúc không phải lúc nào cũng xếp được theo thứ tự.' },
+      T: { name: 'Người Thử Rồi Sửa', who: 'Học bằng cách làm và điều chỉnh', shape: { kind: 'sparkle', c: '#5C9BFF', core: '#E8F1FF' },
+        s: 'Dám thử, chấp nhận sai và sửa nhanh, không sợ làm lại từ đầu.', p: 'Dễ mệt khi phải lặp lại nhiều lần mà chưa thấy tiến triển.', f: 'Dừng lại vài giây để nhìn toàn bộ trước khi rót, có thể tiết kiệm được nhiều lượt làm lại.' },
+      N: { name: 'Người Hành Động Ngay', who: 'Nhanh tay, muốn xử lý liền', shape: { kind: 'star', n: 5, r1: 27, r2: 12, c: '#FFD84D', core: '#FFF3C4' },
+        s: 'Quyết nhanh, không để mọi thứ ứ lại, rất năng động.', p: 'Dễ nóng vội, thử những bước chưa hợp lý rồi mới nhận ra.', f: 'Thở một nhịp trước khi hành động. Khi cảm xúc lẫn lộn, chậm lại một chút thường nhanh hơn.' },
+      C: { name: 'Người Gỡ Từng Chút', who: 'Kiên nhẫn, không vội cũng không bỏ', shape: { kind: 'heart', c: '#B084FF', core: '#F1E8FF' },
+        s: 'Giữ nhịp đều, từng bước một, ít khi bỏ cuộc giữa chừng.', p: 'Đôi lúc kéo dài hơn cần thiết vì ngại chọn sai.', f: 'Tin vào phán đoán của mình hơn một chút, không phải bước nào cũng cần chắc chắn trăm phần trăm.' }
+    },
+    note: 'Trò chơi mang tính giải trí, không phải đánh giá tâm lý.',
+    cta: { hook: 'Cách bạn rót cho thấy một phần thói quen. Còn cảm xúc thật của bạn thì sao? Bài test trí tuệ cảm xúc, miễn phí.', label: 'Đo trí tuệ cảm xúc của tôi', href: '/testtrituecamxuc' }
+  };
+
   root.GAMES = G;
-  root.GAME_ORDER = ['mam', 'cao', 'cu', 'en', 'gau'];
+  root.GAME_ORDER = ['mam', 'cao', 'cu', 'en', 'gau', 'thap', 'chai'];
 })(typeof window !== 'undefined' ? window : globalThis);
