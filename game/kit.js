@@ -91,7 +91,7 @@ window.GameKit = function (cfg, H, def) {
   };
   k.end = function (key, stat) {
     if (k.mode !== 'play') { return; }
-    var t = cfg.types[key], L = cfg.labels;
+    var t = cfg.types[key], L = cfg.labels, c2 = cfg.cta2fn ? cfg.cta2fn(key) : cfg.cta2;
     k.mode = 'win'; winT = 0; k.winKey = key;
     H.track('game_complete', { result: key, mode: 'play' });
     rewardIm = k.svgImg('<svg xmlns="http://www.w3.org/2000/svg" width="280" height="280" viewBox="-34 -34 68 68">' + H.shapeSVG(t.shape) + '</svg>');
@@ -100,15 +100,16 @@ window.GameKit = function (cfg, H, def) {
     k.later(function () {
       stage.classList.add('done'); stage.classList.remove('run'); k.legend(''); $('tbar').hidden = true; $('tally').hidden = true; $('hint').hidden = true;
       panel.innerHTML = '<div class="res stack">' +
-        '<div class="tag">' + cfg.lead + '</div><h2>' + t.name + '<br><span style="font-size:.62em;font-weight:700;color:var(--leaf)">' + t.who + '</span></h2>' +
-        '<dl><div><dt>' + L.s + '</dt><dd>' + t.s + '</dd></div><div><dt>' + L.p + '</dt><dd>' + t.p + '</dd></div><div><dt>' + L.f + '</dt><dd>' + t.f + '</dd></div></dl>' +
-        '<p class="note">' + (stat ? stat + ' ' : '') + cfg.note + '</p></div>' +
+        '<div class="tag">' + cfg.lead + '</div><h2>' + t.name + (t.who ? '<br><span style="font-size:.62em;font-weight:700;color:var(--leaf)">' + t.who + '</span>' : '') + '</h2>' +
+        '<dl><div><dt>' + L.s + '</dt><dd>' + t.s + '</dd></div><div><dt>' + L.p + '</dt><dd>' + t.p + '</dd></div>' + (t.f ? '<div><dt>' + L.f + '</dt><dd>' + t.f + '</dd></div>' : '') + '</dl>' +
+        '<p class="note">' + (stat ? stat + ' ' : '') + cfg.note + ' <a id="peek" href="' + SITE + '/ban-do-nang-luc#xem-truoc' + UTM + '" target="_blank" rel="noopener">Xem mẫu báo cáo thật của Sophia</a></p></div>' +
         '<div class="stack" style="margin-top:auto">' + (cfg.cta.hook ? '<p class="hook">' + cfg.cta.hook + '</p>' : '') +
         '<a class="btn main" id="cta" href="' + SITE + cfg.cta.href + UTM + '" target="_blank" rel="noopener">' + cfg.cta.label + '</a>' +
-        (cfg.cta2 ? '<a class="btn ghost" id="cta2" href="' + SITE + cfg.cta2.href + UTM + '" target="_blank" rel="noopener">' + cfg.cta2.label + '</a>' : '') +
+        (c2 ? '<a class="btn ghost" id="cta2" href="' + (c2.href.indexOf('/mbti/') === 0 ? '' : SITE) + c2.href + UTM + '" target="_blank" rel="noopener">' + c2.label + '</a>' : '') +
         '<div class="row2"><button class="btn ghost" id="again" type="button">Chơi lại</button><a class="btn ghost" href="/tro-choi">Trò khác</a></div></div>';
       $('cta').onclick = function () { H.track('game_cta_click', { result: key }); };
-      if (cfg.cta2) { $('cta2').onclick = function () { H.track('game_cta2_click', { result: key }); }; }
+      if (c2) { $('cta2').onclick = function () { H.track('game_cta2_click', { result: key }); }; }
+      $('peek').onclick = function () { H.track('game_report_peek_click', { result: key }); };
       $('again').onclick = k.intro;
     }, 1500);
   };

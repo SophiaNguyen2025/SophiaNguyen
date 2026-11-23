@@ -58,7 +58,15 @@
     return '';
   }
   /* id: gắn thêm vào để nhiều nhân vật trên cùng trang (trang chủ) không trùng id */
+  function extraThumb(kind) {
+    var face = '<circle cx="48" cy="92" r="4.2" fill="#14213D"/><circle cx="72" cy="92" r="4.2" fill="#14213D"/><circle cx="49.4" cy="90.6" r="1.3" fill="#fff"/><circle cx="73.4" cy="90.6" r="1.3" fill="#fff"/><path d="M52 102 Q60 110 68 102" stroke="#14213D" stroke-width="2.6" fill="none" stroke-linecap="round"/><ellipse cx="38" cy="100" rx="5" ry="3" fill="#FF9FA8" opacity=".7"/><ellipse cx="82" cy="100" rx="5" ry="3" fill="#FF9FA8" opacity=".7"/>';
+    var body = kind === 'block'
+      ? '<rect x="28" y="124" width="64" height="20" rx="5" fill="#9FB0FF"/><rect x="34" y="104" width="64" height="20" rx="5" fill="#FFD36E"/><rect x="26" y="52" width="68" height="52" rx="10" fill="#FF9A8B"/>'
+      : '<rect x="50" y="34" width="20" height="18" rx="4" fill="#E8F1FF"/><rect x="46" y="30" width="28" height="8" rx="3" fill="#B084FF"/><path d="M50 50 Q26 62 26 92 L26 134 Q26 146 38 146 L82 146 Q94 146 94 134 L94 92 Q94 62 70 50Z" fill="#E8F1FF" opacity=".9"/><path d="M28 112 L92 112 L92 134 Q92 144 82 144 L38 144 Q28 144 28 134Z" fill="#5C9BFF"/><path d="M28 112 L60 104 L92 112 L92 120 L28 120Z" fill="#FFD84D"/>';
+    return '<svg viewBox="0 24 120 126" aria-hidden="true"><ellipse cx="60" cy="148" rx="30" ry="4" fill="rgba(0,0,0,.2)"/><g class="bob">' + body + face + '</g></svg>';
+  }
   function charSVG(kind, uid, withParts) {
+    if (kind === 'block' || kind === 'bottle') { return extraThumb(kind); }
     var c = BODY[kind], eyeFront = kind === 'owl';
     var hasMouth = kind !== 'owl' && kind !== 'bird';
     var s = '<svg viewBox="' + (withParts ? '0 -52 120 202' : '0 24 120 126') + '" aria-hidden="true"' + (uid ? ' id="' + uid + 'Svg"' : '') + '>' +
@@ -118,7 +126,7 @@
   function lerp(a, b, t) { var x = hx(a), y = hx(b), o = [], i; for (i = 0; i < 3; i++) { o.push(Math.round(x[i] + (y[i] - x[i]) * t)); } return 'rgb(' + o.join(',') + ')'; }
 
   /* ---------------------------------------------------------------- Dựng trang chủ chọn trò */
-  var CARD = { mam: ['#BDF3D2', '#8FD8B0'], cao: ['#FFD3A6', '#F4A261'], cu: ['#C9C2F0', '#9D93D8'], en: ['#BCD8FF', '#86B1EE'], gau: ['#FFD6C2', '#E9A98E'] };
+  var CARD = { mam: ['#BDF3D2', '#8FD8B0'], cao: ['#FFD3A6', '#F4A261'], cu: ['#C9C2F0', '#9D93D8'], en: ['#BCD8FF', '#86B1EE'], gau: ['#FFD6C2', '#E9A98E'], thap: ['#FFD9B8', '#FF9A8B'], chai: ['#DCCBFF', '#9D8DEB'] };
   function hub() {
     var g0 = GAMES.mam;
     stage.className = 'stage pick'; stage.style.setProperty('--ph', '86%');
@@ -126,7 +134,7 @@
     stage.innerHTML = '<div class="sun" style="--sunUp:-6cqw"></div>' + scenery() +
       '<div class="hud"><span class="name">Trò chơi tính cách</span></div>' +
       '<section class="panel" id="panel"><div class="stack"><h1 class="title" style="font-size:7.4cqw">Hôm nay bạn muốn chạy cùng ai?</h1>' +
-      '<p class="sub" style="font-size:3.6cqw">Chạm để nhảy, nhặt quà, đụng khối đáp án. Mỗi trò chỉ một phút, cuối trò nhân vật sẽ cho bạn biết bạn là ai.</p></div>' +
+      '<p class="sub" style="font-size:3.6cqw">Mỗi trò chơi khác nhau, chỉ vài phút, cuối trò nhân vật sẽ cho bạn biết bạn là ai.</p></div>' +
       '<div class="pick-list" id="list"></div></section>' +
       '<div class="brand"><span>Sophia Nguyễn</span><b>sophianguyen.com.vn</b></div>';
     applySky(g0, 4);
