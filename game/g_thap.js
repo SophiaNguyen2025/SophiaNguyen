@@ -10,78 +10,85 @@ window.runGame = function (cfg, H) {
     [['T', 'Lý lẽ rõ ràng', 'F', 'Cảm xúc mọi người'], ['T', 'Công bằng', 'F', 'Thấu hiểu'], ['T', 'Nói thẳng', 'F', 'Nói nhẹ nhàng']],
     [['J', 'Lên kế hoạch', 'P', 'Tuỳ cơ ứng biến'], ['J', 'Xong việc sớm', 'P', 'Nước đến chân'], ['J', 'Lịch rõ ràng', 'P', 'Cứ thoải mái']]
   ];
-  var COLS = 6, CELL = 40, X0 = 60, TOPY = 128, TURNS = 12, blk;
+  var COLS = 6, CELL = 40, X0 = 60, TOPY = 128, TURNS = 12, TOPAIM = 100, blk;
+  /* Hình dạng gạch: [cột, hàng] với hàng 0 ở dưới cùng */
+  var SHAPES = [[[0, 0], [1, 0]], [[0, 0], [1, 0], [2, 0]], [[0, 0], [1, 0], [0, 1]], [[0, 0], [1, 0], [0, 1], [1, 1]], [[0, 0], [1, 0], [2, 0], [1, 1]], [[0, 0], [1, 0], [2, 0], [0, 1]], [[1, 0], [2, 0], [0, 1], [1, 1]], [[0, 0], [1, 0], [1, 1], [2, 1]], [[0, 0], [1, 0], [2, 0], [3, 0]]];
+  function norm(cs) { var mx = 99, my = 99; cs.forEach(function (c) { mx = Math.min(mx, c[0]); my = Math.min(my, c[1]); }); return cs.map(function (c) { return [c[0] - mx, c[1] - my]; }); }
+  function rot(cs) { return norm(cs.map(function (c) { return [c[1], -c[0]]; })); }
+  function dims(cs) { var w = 0, h = 0; cs.forEach(function (c) { w = Math.max(w, c[0] + 1); h = Math.max(h, c[1] + 1); }); return [w, h]; }
   function fit(c, txt, w, base) { var s = base; c.font = '700 ' + s + 'px "Be Vietnam Pro", system-ui'; while (s > 8 && c.measureText(txt).width > w) { s -= .5; c.font = '700 ' + s + 'px "Be Vietnam Pro", system-ui'; } return s; }
-  function piece(k, x, y, w, h, L, txt, base, glow) {
-    var c = k.ctx;
-    if (glow) { c.fillStyle = 'rgba(255,255,255,.28)'; k.rr(x - 4, y - 4, w + 8, h + 8, 12); c.fill(); }
-    c.fillStyle = 'rgba(0,0,0,.22)'; k.rr(x, y + 3, w, h, 9); c.fill();
-    c.fillStyle = LC[L]; k.rr(x, y, w, h, 9); c.fill();
-    c.fillStyle = 'rgba(255,255,255,.38)'; k.rr(x + 3, y + 3, w - 6, h * .32, 6); c.fill();
-    if (txt) { fit(c, txt, w - 10, base); c.fillStyle = '#2A2358'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(txt, x + w / 2, y + h / 2 + 1); c.textBaseline = 'alphabetic'; }
+  function two(c, txt, w, base) {
+    c.font = '700 ' + base + 'px "Be Vietnam Pro", system-ui'; if (c.measureText(txt).width <= w) { return [txt]; }
+    var wd = txt.split(' '), best = null, bd = 1e9;
+    for (var i = 1; i < wd.length; i++) { var a = wd.slice(0, i).join(' '), b = wd.slice(i).join(' '), d = Math.abs(c.measureText(a).width - c.measureText(b).width); if (d < bd) { bd = d; best = [a, b]; } }
+    return best || [txt];
   }
+  function cellBox(k, x, y, L, a) { var c = k.ctx; c.globalAlpha = a || 1; c.fillStyle = LC[L]; k.rr(x + 1.5, y + 1.5, CELL - 3, CELL - 3, 7); c.fill(); c.fillStyle = 'rgba(255,255,255,.34)'; k.rr(x + 4, y + 4, CELL - 8, 9, 4); c.fill(); c.globalAlpha = 1; }
   function colH(S, col) { for (var r = S.R - 1; r >= 0; r--) { if (S.grid[r][col]) { return r + 1; } } return 0; }
+  function baseRow(S, cs, col) { var r = 0; cs.forEach(function (c) { r = Math.max(r, colH(S, col + c[0]) - c[1]); }); return r; }
+  function pickShape() { return norm(SHAPES[Math.floor(Math.random() * SHAPES.length)]); }
   function nextChoices(S) {
     var d = S.order[S.turn % 4], q = DICH[d][Math.floor(S.turn / 4)], flip = Math.random() < .5;
-    var a = { L: q[0], t: q[1] }, b = { L: q[2], t: q[3] };
+    var a = { L: q[0], t: q[1], cs: pickShape() }, b = { L: q[2], t: q[3], cs: pickShape() };
     S.ch = flip ? [b, a] : [a, b]; S.phase = 'choose';
   }
+  var RB = { x: 306, y: 82, r: 25 };
   var def = {
-    sub: 'Mỗi người là một tháp gồm 4 mảnh ghép. Hãy xếp 12 viên gạch, mỗi viên là một lựa chọn của bạn.',
-    how: 'Mỗi lượt có <b>2 viên gạch</b>, chạm vào viên <b>giống bạn hơn</b>. Sau đó <b>chạm hoặc kéo</b> tới cột muốn đặt rồi thả tay để gạch rơi. Hàng nào đầy sẽ biến mất.',
+    sub: 'Mỗi người là một tháp gồm 4 mảnh ghép. Hãy xếp 12 mảnh gạch, mỗi mảnh là một lựa chọn của bạn.',
+    how: 'Mỗi lượt có <b>2 mảnh gạch</b> hình khác nhau, chạm vào mảnh <b>giống bạn hơn</b>. Bấm <b>Xoay</b> để đổi hướng, <b>kéo</b> tới chỗ muốn đặt rồi thả tay. Đủ một hàng là hàng biến mất.',
     init: function (k) {
       blk = blk || k.charImg('block');
       var R = Math.max(8, Math.floor((k.groundY - TOPY) / CELL)), grid = [];
       for (var r = 0; r < R; r++) { grid.push([null, null, null, null, null, null]); }
       var o = [0, 1, 2, 3]; o.sort(function () { return Math.random() - .5; });
-      k.S = { R: R, grid: grid, turn: 0, order: o, phase: 'idle', ch: [], cur: null, cnt: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }, pid: 1, aimDown: false, endT: 0, lastPx: -1, flash: 0 };
+      k.S = { R: R, grid: grid, turn: 0, order: o, phase: 'idle', ch: [], cur: null, cnt: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }, pid: 1, aimDown: false, endT: 0, lastPx: -1 };
     },
-    begin: function (k) { nextChoices(k.S); k.legend('Chọn <b>1 trong 2 viên</b> giống bạn hơn.'); k.progress(0); },
+    begin: function (k) { nextChoices(k.S); k.legend('Chọn <b>1 trong 2 mảnh</b> giống bạn hơn.'); k.progress(0); },
     down: function (k) {
       var S = k.S, p = k.ptr;
       if (S.phase === 'choose') {
         if (p.y > TOPY - 6) { return; }
         var i = p.x < k.W / 2 ? 0 : 1, c = S.ch[i];
-        S.cur = { L: c.L, t: c.t, col: 2, y: 0 }; S.phase = 'aim'; S.aimDown = false; S.lastPx = p.x;
-        k.beep(600, .07, 'triangle', .05); k.legend('Chạm hoặc kéo tới <b>cột muốn đặt</b>, thả tay để rơi.');
-      } else if (S.phase === 'aim') { S.aimDown = true; }
+        S.cur = { L: c.L, t: c.t, cs: c.cs, col: Math.floor((COLS - dims(c.cs)[0]) / 2), y: 0 }; S.phase = 'aim'; S.aimDown = false; S.lastPx = p.x;
+        k.beep(600, .07, 'triangle', .05); k.legend('Bấm <b>Xoay</b> nếu cần, <b>kéo</b> tới chỗ đặt rồi thả tay.');
+      } else if (S.phase === 'aim') {
+        if ((p.x - RB.x) * (p.x - RB.x) + (p.y - RB.y) * (p.y - RB.y) < (RB.r + 8) * (RB.r + 8)) {
+          S.cur.cs = rot(S.cur.cs); S.cur.col = Math.max(0, Math.min(COLS - dims(S.cur.cs)[0], S.cur.col)); S.aimDown = false; k.beep(520, .05, 'square', .03); return;
+        }
+        S.aimDown = true;
+      }
     },
     up: function (k) {
       var S = k.S;
-      if (S.phase === 'aim' && S.aimDown) {
-        S.aimDown = false; S.phase = 'fall';
-        var c0 = S.cur.col, h = Math.max(colH(S, c0), colH(S, c0 + 1)); S.cur.tr = h;
-        k.legend('');
-      }
+      if (S.phase === 'aim' && S.aimDown) { S.aimDown = false; S.phase = 'fall'; S.cur.tr = baseRow(S, S.cur.cs, S.cur.col); k.legend(''); }
     },
     update: function (k, dt) {
       var S = k.S; if (k.mode !== 'play') { return; }
-      var by = k.groundY - S.R * CELL;
       if (S.phase === 'aim') {
-        if (k.ptr.x !== S.lastPx || S.aimDown) { S.cur.col = Math.max(0, Math.min(COLS - 2, Math.round((k.ptr.x - X0) / CELL - 1))); S.lastPx = k.ptr.x; }
-        S.cur.y = by - CELL - 8;
+        var d = dims(S.cur.cs);
+        if (k.ptr.x !== S.lastPx || S.aimDown) { S.cur.col = Math.max(0, Math.min(COLS - d[0], Math.round((k.ptr.x - X0) / CELL - d[0] / 2))); S.lastPx = k.ptr.x; }
+        S.cur.y = TOPAIM + (d[1] - 1) * CELL;
       } else if (S.phase === 'fall') {
-        var ty = k.groundY - (S.cur.tr + 1) * CELL;
-        S.cur.y += 560 * dt;
-        if (S.cur.y >= ty) {
-          S.cur.y = ty; var c = S.cur, r = c.tr, id = S.pid++;
-          if (r >= S.R) { r = S.R - 1; }
-          S.grid[r][c.col] = { L: c.L, id: id, h: 0, t: c.t }; S.grid[r][c.col + 1] = { L: c.L, id: id, h: 1 };
-          S.cnt[c.L]++; S.turn++; k.progress(S.turn / TURNS);
-          k.burst(X0 + (c.col + 1) * CELL, ty + CELL, LC[c.L], 8, 120); k.beep(300 + S.turn * 25, .09, 'square', .035);
+        var cu = S.cur, ty = k.groundY - (cu.tr + 1) * CELL;
+        cu.y += 560 * dt;
+        if (cu.y >= ty) {
+          var id = S.pid++, ys = k.groundY - cu.tr * CELL;
+          cu.cs.forEach(function (c) { var r = Math.min(S.R - 1, cu.tr + c[1]); S.grid[r][cu.col + c[0]] = { L: cu.L, id: id }; });
+          S.cnt[cu.L]++; S.turn++; k.progress(S.turn / TURNS);
+          var dd = dims(cu.cs); k.burst(X0 + (cu.col + dd[0] / 2) * CELL, ys - CELL, LC[cu.L], 10, 130); k.beep(300 + S.turn * 25, .09, 'square', .035);
           for (var rr = S.R - 1; rr >= 0; rr--) {
             var full = true; for (var cc = 0; cc < COLS; cc++) { if (!S.grid[rr][cc]) { full = false; } }
-            if (full) { S.grid.splice(rr, 1); S.grid.push([null, null, null, null, null, null]); k.pop(X0 + COLS * CELL / 2, ty - 6, 'Gọn!', '#fff'); k.burst(X0 + COLS * CELL / 2, ty + CELL / 2, '#fff', 16, 200); k.beep(880, .15, 'triangle', .06); }
+            if (full) { S.grid.splice(rr, 1); S.grid.push([null, null, null, null, null, null]); k.pop(X0 + COLS * CELL / 2, k.groundY - (rr + 1) * CELL, 'Gọn!', '#fff'); k.burst(X0 + COLS * CELL / 2, k.groundY - (rr + .5) * CELL, '#fff', 16, 200); k.beep(880, .15, 'triangle', .06); }
           }
-          while (colH(S, 0) + colH(S, 1) + colH(S, 2) + colH(S, 3) + colH(S, 4) + colH(S, 5) > 0 && Math.max(colH(S, 0), colH(S, 1), colH(S, 2), colH(S, 3), colH(S, 4), colH(S, 5)) > S.R - 2) { S.grid.shift(); S.grid.push([null, null, null, null, null, null]); }
+          while (Math.max(colH(S, 0), colH(S, 1), colH(S, 2), colH(S, 3), colH(S, 4), colH(S, 5)) > S.R - 3) { S.grid.shift(); S.grid.push([null, null, null, null, null, null]); }
           S.cur = null;
-          if (S.turn >= TURNS) { S.phase = 'done'; S.endT = .8; } else { nextChoices(S); k.legend('Chọn <b>1 trong 2 viên</b> giống bạn hơn.'); }
+          if (S.turn >= TURNS) { S.phase = 'done'; S.endT = .8; } else { nextChoices(S); k.legend('Chọn <b>1 trong 2 mảnh</b> giống bạn hơn.'); }
         }
       } else if (S.phase === 'done') {
         S.endT -= dt;
         if (S.endT <= 0) {
           var code = '', parts = [];
-          DICH.forEach(function (d) { var a = d[0][0], b = d[0][2], w = S.cnt[a] > S.cnt[b] ? a : b; code += w; parts.push('<b>' + NM[w] + '</b> ' + S.cnt[w] + '/3'); });
+          DICH.forEach(function (dc) { var a = dc[0][0], b = dc[0][2], w = S.cnt[a] > S.cnt[b] ? a : b; code += w; parts.push('<b>' + NM[w] + '</b> ' + S.cnt[w] + '/3'); });
           S.phase = 'over';
           k.end(code, 'Bạn đã chọn ' + parts.join(', ') + ', nên tháp của bạn là <b>' + code + '</b>.');
         }
@@ -97,32 +104,33 @@ window.runGame = function (cfg, H) {
       for (var j = 1; j < S.R; j++) { c.moveTo(X0, by + j * CELL); c.lineTo(X0 + bw, by + j * CELL); }
       c.stroke();
       c.fillStyle = '#2A2060'; c.fillRect(0, gy, W, HH); c.fillStyle = '#5A43A6'; c.fillRect(0, gy, W, 5);
-      for (var r = 0; r < S.R; r++) {
-        for (var cc = 0; cc < COLS; cc++) {
-          var cell = S.grid[r][cc]; if (!cell) { continue; }
-          var x = X0 + cc * CELL, y = gy - (r + 1) * CELL;
-          c.fillStyle = LC[cell.L]; k.rr(x + 1.5, y + 1.5, CELL - 3, CELL - 3, 7); c.fill();
-          c.fillStyle = 'rgba(255,255,255,.34)'; k.rr(x + 4, y + 4, CELL - 8, 9, 4); c.fill();
-        }
-      }
-      for (var r2 = 0; r2 < S.R; r2++) {
-        for (var c2 = 0; c2 < COLS; c2++) {
-          var ce = S.grid[r2][c2]; if (!ce || ce.h !== 0 || !ce.t) { continue; }
-          fit(c, ce.t, CELL * 2 - 12, 10); c.fillStyle = '#2A2358'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(ce.t, X0 + c2 * CELL + CELL, gy - (r2 + 1) * CELL + CELL / 2 + 3); c.textBaseline = 'alphabetic';
-        }
-      }
+      for (var r = 0; r < S.R; r++) { for (var cc = 0; cc < COLS; cc++) { var cell = S.grid[r][cc]; if (cell) { cellBox(k, X0 + cc * CELL, gy - (r + 1) * CELL, cell.L); } } }
       if (k.mode === 'intro') { var bob = Math.sin(k.T * 2) * 4; if (blk.complete) { c.drawImage(blk, W / 2 - 56, 150 + bob, 112, 118); } return; }
       if (S.phase === 'choose') {
-        piece(k, 28, 58, 134, 52, S.ch[0].L, S.ch[0].t, 13, true); piece(k, 198, 58, 134, 52, S.ch[1].L, S.ch[1].t, 13, true);
-        c.fillStyle = '#fff'; c.font = '800 12px "Baloo 2", system-ui'; c.textAlign = 'center'; c.fillText('hay', W / 2, 88);
+        [0, 1].forEach(function (n) {
+          var ch = S.ch[n], x = 16 + n * 174, y = 52, w = 154, h = 70, d = dims(ch.cs), cs = 14, mw = 4 * cs, ox = x + 8 + (mw - d[0] * cs) / 2, oy = y + h / 2 + d[1] * cs / 2;
+          c.fillStyle = 'rgba(255,255,255,.2)'; k.rr(x, y, w, h, 14); c.fill(); c.strokeStyle = 'rgba(255,255,255,.55)'; c.lineWidth = 2; c.stroke();
+          ch.cs.forEach(function (q) { c.fillStyle = LC[ch.L]; k.rr(ox + q[0] * cs + 1, oy - (q[1] + 1) * cs + 1, cs - 2, cs - 2, 3); c.fill(); });
+          var lines = two(c, ch.t, 76, 12.5); c.font = '700 12.5px "Be Vietnam Pro", system-ui'; c.fillStyle = '#fff'; c.textAlign = 'left';
+          lines.forEach(function (ln, li) { c.fillText(ln, x + 74, y + h / 2 + 4 - (lines.length - 1) * 8 + li * 16); });
+        });
+        c.fillStyle = '#fff'; c.font = '800 12px "Baloo 2", system-ui'; c.textAlign = 'center'; c.fillText('hay', W / 2 - 4, 92);
       } else if (S.cur) {
-        var cu = S.cur, px = X0 + cu.col * CELL;
+        var cu = S.cur, d2 = dims(cu.cs), px = X0 + cu.col * CELL;
         if (S.phase === 'aim') {
-          var tr = Math.max(colH(S, cu.col), colH(S, cu.col + 1)), gyy = gy - (tr + 1) * CELL;
-          c.strokeStyle = 'rgba(255,255,255,.75)'; c.setLineDash([5, 4]); c.lineWidth = 2; k.rr(px + 2, gyy + 2, CELL * 2 - 4, CELL - 4, 8); c.stroke(); c.setLineDash([]);
-          c.fillStyle = 'rgba(255,255,255,.12)'; c.fillRect(px, by, CELL * 2, gy - by);
+          var tr = baseRow(S, cu.cs, cu.col);
+          c.strokeStyle = 'rgba(255,255,255,.8)'; c.setLineDash([5, 4]); c.lineWidth = 2;
+          cu.cs.forEach(function (q) { k.rr(px + q[0] * CELL + 3, gy - (tr + q[1] + 1) * CELL + 3, CELL - 6, CELL - 6, 8); c.stroke(); }); c.setLineDash([]);
         }
-        piece(k, px + 1, cu.y, CELL * 2 - 2, CELL - 2, cu.L, cu.t, 11, false);
+        cu.cs.forEach(function (q) { cellBox(k, px + q[0] * CELL, cu.y - q[1] * CELL, cu.L); });
+        var topY = cu.y - (d2[1] - 1) * CELL, lw = 0; c.font = '700 12px "Be Vietnam Pro", system-ui'; lw = c.measureText(cu.t).width + 18;
+        var lx = Math.max(6, Math.min(W - 66 - lw, px + d2[0] * CELL / 2 - lw / 2)), ly = Math.max(56, topY - 30);
+        c.fillStyle = 'rgba(255,255,255,.95)'; k.rr(lx, ly, lw, 24, 12); c.fill(); c.fillStyle = '#2A2358'; c.textAlign = 'center'; c.fillText(cu.t, lx + lw / 2, ly + 16);
+        if (S.phase === 'aim') {
+          c.fillStyle = 'rgba(255,255,255,.22)'; c.beginPath(); c.arc(RB.x, RB.y, RB.r, 0, 7); c.fill(); c.strokeStyle = '#fff'; c.lineWidth = 3; c.beginPath(); c.arc(RB.x, RB.y - 3, 9, .3, Math.PI * 1.6); c.stroke();
+          c.fillStyle = '#fff'; c.beginPath(); c.moveTo(RB.x + 9, RB.y - 12); c.lineTo(RB.x + 16, RB.y - 4); c.lineTo(RB.x + 4, RB.y - 4); c.fill();
+          c.font = '800 11px "Baloo 2", system-ui'; c.textAlign = 'center'; c.fillText('Xoay', RB.x, RB.y + 17);
+        }
       }
     },
     winChar: function (k, cx, cy, sc) { var c = k.ctx; if (!blk.complete) { return; } c.save(); c.translate(cx, cy + 40); c.scale(Math.max(.01, sc), Math.max(.01, sc)); c.drawImage(blk, -52, -108, 104, 109); c.restore(); }
