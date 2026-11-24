@@ -32,16 +32,34 @@ window.runGame = function (cfg, H) {
     var a = { L: q[0], t: q[1], cs: pickShape() }, b = { L: q[2], t: q[3], cs: pickShape() };
     S.ch = flip ? [b, a] : [a, b]; S.phase = 'choose';
   }
+  function land(k) {
+    var S = k.S, cu = S.cur, d = dims(cu.cs); cu.tr = baseRow(S, cu.cs, cu.col);
+    if (cu.tr + d[1] > S.R) { S.cur = null; S.phase = 'lost'; S.endT = 2; S.lost++; k.pop(180, 300, 'Tháp chạm đỉnh!', '#FFB3B3'); k.beep(140, .4, 'sawtooth', .07); k.legend(''); return; }
+    var id = S.pid++, ys = k.groundY - cu.tr * CELL;
+    cu.cs.forEach(function (c) { S.grid[cu.tr + c[1]][cu.col + c[0]] = { L: cu.L, id: id }; });
+    S.cnt[cu.L]++; S.turn++; k.progress(S.turn / TURNS);
+    k.burst(X0 + (cu.col + d[0] / 2) * CELL, ys - CELL, LC[cu.L], 10, 130); k.beep(300 + S.turn * 25, .09, 'square', .035);
+    for (var rr = S.R - 1; rr >= 0; rr--) {
+      var full = true; for (var cc = 0; cc < COLS; cc++) { if (!S.grid[rr][cc]) { full = false; } }
+      if (full) { S.grid.splice(rr, 1); S.grid.push([null, null, null, null, null, null]); k.pop(X0 + COLS * CELL / 2, k.groundY - (rr + 1) * CELL, 'Gọn!', '#fff'); k.burst(X0 + COLS * CELL / 2, k.groundY - (rr + .5) * CELL, '#fff', 16, 200); k.beep(880, .15, 'triangle', .06); }
+    }
+    S.cur = null;
+    if (S.turn >= TURNS) { S.phase = 'done'; S.endT = .8; } else { nextChoices(S); k.legend('Chọn <b>1 trong 2 mảnh</b> giống bạn hơn.'); }
+  }
+  function restart(k) {
+    var S = k.S; S.grid = []; for (var r = 0; r < S.R; r++) { S.grid.push([null, null, null, null, null, null]); }
+    S.turn = 0; S.cnt = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }; S.cur = null; k.progress(0); nextChoices(S); k.legend('Xếp lại từ đầu. Chọn <b>1 trong 2 mảnh</b>.');
+  }
   var RB = { x: 306, y: 82, r: 25 };
   var def = {
     sub: 'Mỗi người là một tháp gồm 4 mảnh ghép. Hãy xếp 12 mảnh gạch, mỗi mảnh là một lựa chọn của bạn.',
-    how: 'Mỗi lượt có <b>2 mảnh gạch</b> hình khác nhau, chạm vào mảnh <b>giống bạn hơn</b>. Bấm <b>Xoay</b> để đổi hướng, <b>kéo</b> tới chỗ muốn đặt rồi thả tay. Đủ một hàng là hàng biến mất.',
+    how: 'Mỗi lượt có <b>2 mảnh gạch</b> hình khác nhau, chạm vào mảnh <b>giống bạn hơn</b>. Bấm <b>Xoay</b> để đổi hướng, <b>kéo</b> tới chỗ muốn đặt rồi thả tay. Mảnh sẽ <b>tự rơi dần</b>. Đủ một hàng là hàng biến mất. Tháp chạm đỉnh là phải xếp lại từ đầu!',
     init: function (k) {
       blk = blk || k.charImg('block');
       var R = Math.max(8, Math.floor((k.groundY - TOPY) / CELL)), grid = [];
       for (var r = 0; r < R; r++) { grid.push([null, null, null, null, null, null]); }
       var o = [0, 1, 2, 3]; o.sort(function () { return Math.random() - .5; });
-      k.S = { R: R, grid: grid, turn: 0, order: o, phase: 'idle', ch: [], cur: null, cnt: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }, pid: 1, aimDown: false, endT: 0, lastPx: -1 };
+      k.S = { R: R, grid: grid, turn: 0, order: o, phase: 'idle', ch: [], cur: null, cnt: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }, pid: 1, aimDown: false, endT: 0, lastPx: -1, lost: 0 };
     },
     begin: function (k) { nextChoices(k.S); k.legend('Chọn <b>1 trong 2 mảnh</b> giống bạn hơn.'); k.progress(0); },
     down: function (k) {
@@ -67,23 +85,16 @@ window.runGame = function (cfg, H) {
       if (S.phase === 'aim') {
         var d = dims(S.cur.cs);
         if (k.ptr.x !== S.lastPx || S.aimDown) { S.cur.col = Math.max(0, Math.min(COLS - d[0], Math.round((k.ptr.x - X0) / CELL - d[0] / 2))); S.lastPx = k.ptr.x; }
-        S.cur.y = TOPAIM + (d[1] - 1) * CELL;
+        S.cur.yo = (S.cur.yo || 0) + (26 + S.turn * 4) * dt; S.cur.y = TOPAIM + (d[1] - 1) * CELL + S.cur.yo;
+        S.cur.tr = baseRow(S, S.cur.cs, S.cur.col);
+        if (S.cur.y >= k.groundY - (S.cur.tr + 1) * CELL) { S.aimDown = false; land(k); }
+      } else if (S.phase === 'lost') {
+        S.endT -= dt;
+        if (S.endT <= 0) { restart(k); }
       } else if (S.phase === 'fall') {
         var cu = S.cur, ty = k.groundY - (cu.tr + 1) * CELL;
         cu.y += 560 * dt;
-        if (cu.y >= ty) {
-          var id = S.pid++, ys = k.groundY - cu.tr * CELL;
-          cu.cs.forEach(function (c) { var r = Math.min(S.R - 1, cu.tr + c[1]); S.grid[r][cu.col + c[0]] = { L: cu.L, id: id }; });
-          S.cnt[cu.L]++; S.turn++; k.progress(S.turn / TURNS);
-          var dd = dims(cu.cs); k.burst(X0 + (cu.col + dd[0] / 2) * CELL, ys - CELL, LC[cu.L], 10, 130); k.beep(300 + S.turn * 25, .09, 'square', .035);
-          for (var rr = S.R - 1; rr >= 0; rr--) {
-            var full = true; for (var cc = 0; cc < COLS; cc++) { if (!S.grid[rr][cc]) { full = false; } }
-            if (full) { S.grid.splice(rr, 1); S.grid.push([null, null, null, null, null, null]); k.pop(X0 + COLS * CELL / 2, k.groundY - (rr + 1) * CELL, 'Gọn!', '#fff'); k.burst(X0 + COLS * CELL / 2, k.groundY - (rr + .5) * CELL, '#fff', 16, 200); k.beep(880, .15, 'triangle', .06); }
-          }
-          while (Math.max(colH(S, 0), colH(S, 1), colH(S, 2), colH(S, 3), colH(S, 4), colH(S, 5)) > S.R - 3) { S.grid.shift(); S.grid.push([null, null, null, null, null, null]); }
-          S.cur = null;
-          if (S.turn >= TURNS) { S.phase = 'done'; S.endT = .8; } else { nextChoices(S); k.legend('Chọn <b>1 trong 2 mảnh</b> giống bạn hơn.'); }
-        }
+        if (cu.y >= ty) { land(k); }
       } else if (S.phase === 'done') {
         S.endT -= dt;
         if (S.endT <= 0) {
@@ -105,7 +116,13 @@ window.runGame = function (cfg, H) {
       c.stroke();
       c.fillStyle = '#2A2060'; c.fillRect(0, gy, W, HH); c.fillStyle = '#5A43A6'; c.fillRect(0, gy, W, 5);
       for (var r = 0; r < S.R; r++) { for (var cc = 0; cc < COLS; cc++) { var cell = S.grid[r][cc]; if (cell) { cellBox(k, X0 + cc * CELL, gy - (r + 1) * CELL, cell.L); } } }
+      var mh = Math.max(colH(S, 0), colH(S, 1), colH(S, 2), colH(S, 3), colH(S, 4), colH(S, 5));
+      c.strokeStyle = mh >= S.R - 3 ? 'rgba(255,107,138,' + (.6 + .4 * Math.sin(k.T * 8)) + ')' : 'rgba(255,255,255,.22)'; c.setLineDash([8, 6]); c.lineWidth = 2; c.beginPath(); c.moveTo(X0 - 6, by); c.lineTo(X0 + bw + 6, by); c.stroke(); c.setLineDash([]);
       if (k.mode === 'intro') { var bob = Math.sin(k.T * 2) * 4; if (blk.complete) { c.drawImage(blk, W / 2 - 56, 150 + bob, 112, 118); } return; }
+      if (S.phase === 'lost') {
+        c.fillStyle = 'rgba(30,10,50,.72)'; c.fillRect(0, 0, W, HH); c.fillStyle = '#FFB3B3'; c.font = '800 28px "Baloo 2", system-ui'; c.textAlign = 'center'; c.fillText('Tháp chạm đỉnh!', W / 2, 290);
+        c.fillStyle = '#fff'; c.font = '600 14px "Be Vietnam Pro", system-ui'; c.fillText('Xếp lại từ đầu, lần này đặt gọn hơn nhé', W / 2, 322); return;
+      }
       if (S.phase === 'choose') {
         [0, 1].forEach(function (n) {
           var ch = S.ch[n], x = 16 + n * 174, y = 52, w = 154, h = 70, d = dims(ch.cs), cs = 14, mw = 4 * cs, ox = x + 8 + (mw - d[0] * cs) / 2, oy = y + h / 2 + d[1] * cs / 2;

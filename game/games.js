@@ -234,8 +234,8 @@
   G.gau = {
     id: 'gau', url: '/gau-me-va-gau-con', hud: 'Gấu Mẹ và Gấu Con', thumb: 'Gấu Mẹ và Gấu Con tuổi dậy thì',
     leadsTo: 'Dành cho cha mẹ, dẫn tới quiz tuổi dậy thì', seoTitle: 'Gấu Mẹ và Gấu Con | Trò chơi cho cha mẹ của tuổi dậy thì',
-    seoDesc: 'Trò chơi 1 phút cho cha mẹ: chọn thay Gấu Mẹ trước sáu tình huống với Gấu Con tuổi dậy thì. Sophia Nguyễn.',
-    title: 'Gấu Mẹ sẽ là ngọn đèn kiểu nào?', sub: 'Sáu tình huống với Gấu Con tuổi dậy thì. Bạn chọn cách Gấu Mẹ đáp lại.',
+    seoDesc: 'Trò chơi cho cha mẹ: Gấu Mẹ đỡ xe cho Gấu Con tập đi xe đạp, cách bạn đỡ hay thả cho thấy kiểu đồng hành của bạn. Sophia Nguyễn.',
+    title: 'Gấu Mẹ sẽ là ngọn đèn kiểu nào?', sub: 'Gấu Con tập đi xe đạp. Bạn là Gấu Mẹ, chỉ bạn quyết định đỡ hay thả.',
     char: { kind: 'bear', rewardY: 16, rewardScale: 1 },
     sky: [['#F7D6B0', '#FFEEDA'], ['#F4C59B', '#FFE2C2'], ['#EDB08E', '#FFD3B0'], ['#D99A8C', '#F6BFA0'], ['#A5788F', '#E5A090'], ['#6B5683', '#C98597'], ['#3E3A6E', '#8F6B93']],
     hills: { far: ['#C9B38A', '#4A4A7A'], near: ['#B09A6E', '#38386A'], ground: ['#8A7650', '#26274F'] },
