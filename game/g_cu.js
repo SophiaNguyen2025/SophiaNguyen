@@ -50,15 +50,15 @@ window.runGame = function (cfg, H) {
       if (k.mode !== 'play') { return; }
       S.t += dt; k.progress(1 - S.got / GOAL);
       if (S.inv > 0) { S.inv -= dt; } if (S.slow > 0) { S.slow -= dt; }
-      var sp = 96 * (S.slow > 0 ? .5 : 1), dx = sp * dt; S.dist += dx;
+      var sp = 84 * (S.slow > 0 ? .5 : 1), dx = sp * dt; S.dist += dx;
       S.vy += 640 * dt; S.y += S.vy * dt;
       if (S.y < 30) { S.y = 30; S.vy = 0; } if (S.y > gy - 14) { S.y = gy - 14; S.vy = -190; }
       S.nextX -= dx;
       if (S.nextX <= 0 && S.spawned < GOAL) {
         var lo = 140 + SP + OH / 2, hi = gy - 24 - SP - OH / 2; S.gapY = Math.max(lo, Math.min(hi, S.gapY + (Math.random() - .5) * 90));
         var q = S.qs[S.spawned % S.qs.length], ord = shuffle([q[1], q[2], q[3]]);
-        S.obs.push({ x: W + 40, gapY: S.gapY, w: 58, seed: S.seed++, q: q[0], n: S.spawned + 1, done: false, opts: ord.map(function (p, i) { return { t: p[0], s: p[1], dy: (i - 1) * SP }; }) });
-        S.spawned++; S.nextX = 300;
+        S.obs.push({ x: W + (S.spawned === 0 ? 140 : 40), gapY: S.gapY, w: 58, seed: S.seed++, q: q[0], n: S.spawned + 1, done: false, opts: ord.map(function (p, i) { return { t: p[0], s: p[1], dy: (i - 1) * SP }; }) });
+        S.spawned++; S.nextX = S.spawned === 1 ? 460 : 360;
       }
       S.obs.forEach(function (o) {
         o.x -= dx; var cx = o.x + o.w / 2;
@@ -66,12 +66,14 @@ window.runGame = function (cfg, H) {
           var safe = o.opts.some(function (p) { var c0 = o.gapY + p.dy; return S.y - 14 >= c0 - OH / 2 && S.y + 12 <= c0 + OH / 2; });
           if (!safe) { S.inv = 1.2; S.slow = .7; S.vy = 80; k.pop(90, S.y - 30, 'Ối!', '#FFB3B3'); k.beep(150, .18, 'sawtooth', .05); }
         }
-        if (!o.done && cx <= 90) {
-          o.done = true; var ch = null; o.opts.forEach(function (p) { if (Math.abs(o.gapY + p.dy - S.y) < OH / 2) { ch = p; } });
-          S.got++;
-          if (ch) { S.counts[ch.t]++; S.last = ch.t; var el = document.getElementById('tc' + ch.t); if (el) { el.textContent = S.counts[ch.t]; } k.burst(90, S.y, COL[ch.t], 10, 150); k.pop(90, S.y - 26, ch.s, COL[ch.t]); k.beep(650 + KEYS.indexOf(ch.t) * 110, .09, 'triangle', .05); }
-          else { k.pop(90, S.y - 26, 'Cổng này bỏ lỡ', '#FFD0A0'); }
+        if (!o.done && Math.abs(cx - 90) < 46) {
+          var ch = null; o.opts.forEach(function (p) { if (Math.abs(o.gapY + p.dy - S.y) < 30) { ch = p; } });
+          if (ch) {
+            o.done = true; o.pick = ch; S.got++; S.counts[ch.t]++; S.last = ch.t; var el = document.getElementById('tc' + ch.t); if (el) { el.textContent = S.counts[ch.t]; }
+            k.burst(o.x + o.w / 2, o.gapY + ch.dy, COL[ch.t], 14, 170); k.pop(90, S.y - 28, ch.s, COL[ch.t]); k.beep(650 + KEYS.indexOf(ch.t) * 110, .09, 'triangle', .05);
+          }
         }
+        if (!o.done && cx < 90 - 46) { o.done = true; S.got++; k.pop(90, S.y - 26, 'Cổng này bỏ lỡ', '#FFD0A0'); }
       });
       S.obs = S.obs.filter(function (o) { return o.x > -90; });
       if ((S.got >= GOAL && S.obs.every(function (o) { return o.done; })) || S.t >= 120) {
@@ -93,11 +95,11 @@ window.runGame = function (cfg, H) {
         if (ys[0][0] > 0) { c.save(); c.translate(o.x, ys[0][0]); c.scale(1, -1); c.drawImage(ti, 0, 0, 116, ys[0][0] * 2, 0, 0, o.w, ys[0][0]); c.restore(); }
         for (var m = 0; m < 2; m++) { var y0 = ys[m][1], hh = ys[m + 1][0] - y0; if (hh > 0) { c.drawImage(ti, 0, 0, 116, hh * 2, o.x, y0, o.w, hh); } }
         var yb = ys[2][1]; if (gy - yb > 0) { c.drawImage(ti, 0, 0, 116, (gy - yb) * 2, o.x, yb, o.w, gy - yb); }
-        o.opts.forEach(function (p) {
+        if (!o.done) { o.opts.forEach(function (p) {
           var cy = o.gapY + p.dy; c.font = '700 11px "Be Vietnam Pro", system-ui'; var ln = wrap2(c, p.s, 86), w = 0; ln.forEach(function (t) { w = Math.max(w, c.measureText(t).width); }); w += 16;
           var hh2 = ln.length * 14 + 8, cx = o.x + o.w / 2; c.fillStyle = COL[p.t]; k.rr(cx - w / 2, cy - hh2 / 2, w, hh2, 10); c.fill(); c.strokeStyle = 'rgba(255,255,255,.8)'; c.lineWidth = 2; c.stroke();
           c.fillStyle = '#1B2347'; c.textAlign = 'center'; ln.forEach(function (t, li) { c.fillText(t, cx, cy - (ln.length - 1) * 7 + li * 14 + 4); });
-        });
+        }); }
       });
       c.fillStyle = '#0E1B36'; c.fillRect(0, gy, W, HH); c.fillStyle = '#26406A'; c.fillRect(0, gy, W, 5);
       if (!(S.inv > 0 && Math.floor(S.inv * 14) % 2)) { drawChar(c, owl, 90, (S.y || 200) + 36, 78, 1, Math.max(-.4, Math.min(.5, (S.vy || 0) / 900))); }
