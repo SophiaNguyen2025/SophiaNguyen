@@ -280,8 +280,38 @@
     });
   }
 
+
+  /* ---------- Ô "Chơi thử bản trò chơi 1 phút" trên trang test có game tương ứng ---------- */
+  var GAME_OF = {
+    testDISC: ['hanh-trinh-cua-mam', 'Hành trình của Mầm'],
+    testnghenghiep: ['cao-con-o-cho-phien', 'Cáo con ở chợ phiên'],
+    testhoctap: ['cu-meo-dem-on-thi', 'Cú Mèo đêm ôn thi'],
+    testganbo: ['chim-en-tim-to', 'Chim én tìm tổ'],
+    testsangloc: ['gau-me-va-gau-con', 'Gấu mẹ và Gấu con'],
+    testmbti: ['thap-manh-ghep', 'Tháp Mảnh Ghép'],
+    testtrituecamxuc: ['chai-cam-xuc', 'Chai Cảm Xúc']
+  };
+  function playCard() {
+    var g = GAME_OF[path]; if (!g) { return; }
+    var anchor = null;
+    ['quizForm', 'quiz', 'questionContainer', 'hollandQuestions'].some(function (id) { anchor = document.getElementById(id); return anchor; });
+    if (!anchor) { return; }
+    var box = document.createElement('a');
+    box.className = 'sf-play';
+    box.href = '/' + g[0] + '?utm_source=site&utm_medium=test-page&utm_campaign=play-' + path;
+    box.innerHTML = '<span class="sf-play-tx"><b>Chưa muốn đọc nhiều?</b><small>Chơi thử 1 phút: ' + g[1] + '</small></span><span class="sf-play-go">Chơi ngay</span>';
+    box.addEventListener('click', function () { track('test_game_click', { game: g[0] }); });
+    anchor.parentNode.insertBefore(box, anchor);
+    var st = document.createElement('style');
+    st.textContent = '.sf-play{display:flex;align-items:center;gap:12px;margin:0 0 18px;padding:12px 14px;border-radius:16px;background:#14213d;color:#fff;text-decoration:none;border:2px solid #ffd166;box-sizing:border-box}' +
+      '.sf-play-ic{font-size:30px;flex:none}.sf-play-tx{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.35}.sf-play-tx b{font-size:15px}.sf-play-tx small{font-size:13px;color:#cfd8f0}' +
+      '.sf-play-go{flex:none;background:#8ae2b0;color:#0b2b4a;font-weight:700;font-size:14px;padding:8px 12px;border-radius:20px;white-space:nowrap}';
+    document.head.appendChild(st);
+  }
+
   function init() {
     injectCss();
+    safe(playCard);
     watchResult();
     watchStart();
     watchOtherForms();
